@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitf47aa08 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitc73a526 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -774,6 +774,25 @@
     <span class="n">autograd_inlining</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ONNXProgram</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Exports a model into ONNX format.</span>
+
+<span class="sd">    Setting ``dynamo=True`` enables the new ONNX export logic</span>
+<span class="sd">    which is based on :class:`torch.export.ExportedProgram` and a more modern</span>
+<span class="sd">    set of translation logic. This is the recommended way to export models</span>
+<span class="sd">    to ONNX.</span>
+
+<span class="sd">    When ``dynamo=True``:</span>
+
+<span class="sd">    The exporter tries the following strategies to get an ExportedProgram for conversion to ONNX.</span>
+
+<span class="sd">    #. If the model is already an ExportedProgram, it will be used as-is.</span>
+<span class="sd">    #. Use :func:`torch.export.export` and set ``strict=False``.</span>
+<span class="sd">    #. Use :func:`torch.export.export` and set ``strict=True``.</span>
+<span class="sd">    #. Use ``draft_export`` which removes some soundness guarantees in data-dependent</span>
+<span class="sd">       operations to allow export to proceed. You will get a warning if the exporter</span>
+<span class="sd">       encounters any unsound data-dependent operation.</span>
+<span class="sd">    #. Use :func:`torch.jit.trace` to trace the model then convert to ExportedProgram.</span>
+<span class="sd">       This is the most unsound strategy but may be useful for converting TorchScript</span>
+<span class="sd">       models to ONNX.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        model: The model to be exported.</span>

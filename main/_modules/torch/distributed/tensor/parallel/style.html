@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitf47aa08 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitc73a526 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -773,7 +773,15 @@
             <span class="n">partial</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_output_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_layouts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span>
             <span class="p">),</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">tmpstr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;(&quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;input_layouts=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">input_layouts</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;output_layouts=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">output_layouts</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;use_local_output=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="s2">&quot;)&quot;</span>
+        <span class="k">return</span> <span class="n">tmpstr</span></div>
 
 
 <div class="viewcode-block" id="RowwiseParallel"><a class="viewcode-back" href="../../../../../distributed.tensor.parallel.html#torch.distributed.tensor.parallel.RowwiseParallel">[docs]</a><span class="k">class</span> <span class="nc">RowwiseParallel</span><span class="p">(</span><span class="n">ParallelStyle</span><span class="p">):</span>
@@ -910,7 +918,15 @@
             <span class="n">partial</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_output_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_layouts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span>
             <span class="p">),</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">tmpstr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;(&quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;input_layouts=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">input_layouts</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;output_layouts=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">output_layouts</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;use_local_output=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="s2">&quot;)&quot;</span>
+        <span class="k">return</span> <span class="n">tmpstr</span></div>
 
 
 <div class="viewcode-block" id="SequenceParallel"><a class="viewcode-back" href="../../../../../distributed.tensor.parallel.html#torch.distributed.tensor.parallel.SequenceParallel">[docs]</a><span class="k">class</span> <span class="nc">SequenceParallel</span><span class="p">(</span><span class="n">ParallelStyle</span><span class="p">):</span>
@@ -1005,7 +1021,15 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_replicate_module_fn</span><span class="p">,</span>
             <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prepare_input_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence_sharding</span><span class="p">),</span>
             <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prepare_output_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span><span class="p">),</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">tmpstr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;(&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sequence_sharding</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;sequence_dim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sequence_sharding</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;use_local_output=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="s2">&quot;)&quot;</span>
+        <span class="k">return</span> <span class="n">tmpstr</span></div>
 
 
 <div class="viewcode-block" id="PrepareModuleInput"><a class="viewcode-back" href="../../../../../distributed.tensor.parallel.html#torch.distributed.tensor.parallel.PrepareModuleInput">[docs]</a><span class="k">class</span> <span class="nc">PrepareModuleInput</span><span class="p">(</span><span class="n">ParallelStyle</span><span class="p">):</span>
@@ -1164,7 +1188,17 @@
             <span class="n">module</span><span class="o">.</span><span class="n">register_forward_pre_hook</span><span class="p">(</span>
                 <span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_input_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">)</span>
             <span class="p">)</span>  <span class="c1"># type: ignore[misc, call-arg]</span>
-        <span class="k">return</span> <span class="n">module</span></div>
+        <span class="k">return</span> <span class="n">module</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">tmpstr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;(&quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;input_layouts=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">input_layouts</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;desired_input_layouts=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;input_kwarg_layouts=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">input_kwarg_layouts</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;desired_input_kwarg_layouts=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">desired_input_kwarg_layouts</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;use_local_output=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="s2">&quot;)&quot;</span>
+        <span class="k">return</span> <span class="n">tmpstr</span></div>
 
 
 <div class="viewcode-block" id="PrepareModuleOutput"><a class="viewcode-back" href="../../../../../distributed.tensor.parallel.html#torch.distributed.tensor.parallel.PrepareModuleOutput">[docs]</a><span class="k">class</span> <span class="nc">PrepareModuleOutput</span><span class="p">(</span><span class="n">ParallelStyle</span><span class="p">):</span>
@@ -1264,7 +1298,15 @@
         <span class="n">module</span><span class="o">.</span><span class="n">register_forward_hook</span><span class="p">(</span>
             <span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_out_fn</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">)</span>
         <span class="p">)</span>  <span class="c1"># type: ignore[misc, call-arg]</span>
-        <span class="k">return</span> <span class="n">module</span></div>
+        <span class="k">return</span> <span class="n">module</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">tmpstr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;(&quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;output_layouts=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">output_layouts</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;desired_output_layouts=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">desired_output_layouts</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;use_local_output=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">tmpstr</span> <span class="o">+=</span> <span class="s2">&quot;)&quot;</span>
+        <span class="k">return</span> <span class="n">tmpstr</span></div>
 </pre></div>
 
              </article>
