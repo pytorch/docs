@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitc73a526 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git539db4a ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -2472,7 +2472,8 @@
                 <span class="n">is_python_module</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">with_pytorch_error_handling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">keep_intermediates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">use_pch</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                <span class="n">use_pch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">no_implicit_headers</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Load a PyTorch C++ extension just-in-time (JIT) from string sources.</span>
 
@@ -2489,7 +2490,7 @@
 <span class="sd">    the necessary header includes, as well as the (pybind11) binding code. More</span>
 <span class="sd">    precisely, strings passed to ``cpp_sources`` are first concatenated into a</span>
 <span class="sd">    single ``.cpp`` file. This file is then prepended with ``#include</span>
-<span class="sd">    &lt;torch/extension.h&gt;``.</span>
+<span class="sd">    &lt;torch/extension.h&gt;``</span>
 
 <span class="sd">    Furthermore, if the ``functions`` argument is supplied, bindings will be</span>
 <span class="sd">    automatically generated for each function specified. ``functions`` can</span>
@@ -2514,6 +2515,8 @@
 <span class="sd">    create a C++ function that calls it, and either declare or define this</span>
 <span class="sd">    C++ function in one of the ``cpp_sources`` (and include its name</span>
 <span class="sd">    in ``functions``).</span>
+
+
 
 <span class="sd">    See :func:`load` for a description of arguments omitted below.</span>
 
@@ -2540,6 +2543,10 @@
 <span class="sd">            function. This redirection might cause issues in obscure cases</span>
 <span class="sd">            of cpp. This flag should be set to ``False`` when this redirect</span>
 <span class="sd">            causes issues.</span>
+<span class="sd">        no_implicit_headers: If ``True``, skips automatically adding headers, most notably</span>
+<span class="sd">            ``#include &lt;torch/extension.h&gt;`` and ``#include &lt;torch/types.h&gt;`` lines.</span>
+<span class="sd">            Use this option to improve cold start times when you</span>
+<span class="sd">            already include the necessary headers in your source code. Default: ``False``.</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +REQUIRES(env:TORCH_DOCTEST_CPP_EXT)</span>
@@ -2577,7 +2584,8 @@
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sycl_sources</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">sycl_sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">sycl_sources</span><span class="p">]</span>
 
-    <span class="n">cpp_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;#include &lt;torch/extension.h&gt;&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">no_implicit_headers</span><span class="p">:</span>
+        <span class="n">cpp_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;#include &lt;torch/extension.h&gt;&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">use_pch</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="c1"># Using PreCompile Header(&#39;torch/extension.h&#39;) to reduce compile time.</span>
@@ -2612,9 +2620,10 @@
     <span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">cpp_source_path</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">cuda_sources</span><span class="p">:</span>
-        <span class="n">cuda_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;#include &lt;torch/types.h&gt;&#39;</span><span class="p">)</span>
-        <span class="n">cuda_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;#include &lt;cuda.h&gt;&#39;</span><span class="p">)</span>
-        <span class="n">cuda_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;#include &lt;cuda_runtime.h&gt;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">no_implicit_headers</span><span class="p">:</span>
+            <span class="n">cuda_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;#include &lt;torch/types.h&gt;&#39;</span><span class="p">)</span>
+            <span class="n">cuda_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;#include &lt;cuda.h&gt;&#39;</span><span class="p">)</span>
+            <span class="n">cuda_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;#include &lt;cuda_runtime.h&gt;&#39;</span><span class="p">)</span>
 
         <span class="n">cuda_source_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_directory</span><span class="p">,</span> <span class="s1">&#39;cuda.cu&#39;</span><span class="p">)</span>
         <span class="n">_maybe_write</span><span class="p">(</span><span class="n">cuda_source_path</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cuda_sources</span><span class="p">))</span>
@@ -2622,8 +2631,9 @@
         <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cuda_source_path</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">sycl_sources</span><span class="p">:</span>
-        <span class="n">sycl_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;#include &lt;torch/types.h&gt;&#39;</span><span class="p">)</span>
-        <span class="n">sycl_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;#include &lt;sycl/sycl.hpp&gt;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">no_implicit_headers</span><span class="p">:</span>
+            <span class="n">sycl_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;#include &lt;torch/types.h&gt;&#39;</span><span class="p">)</span>
+            <span class="n">sycl_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;#include &lt;sycl/sycl.hpp&gt;&#39;</span><span class="p">)</span>
 
         <span class="n">sycl_source_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_directory</span><span class="p">,</span> <span class="s1">&#39;sycl.sycl&#39;</span><span class="p">)</span>
         <span class="n">_maybe_write</span><span class="p">(</span><span class="n">sycl_source_path</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sycl_sources</span><span class="p">))</span>
