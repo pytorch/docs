@@ -50,7 +50,7 @@ Result:
                 
                      true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
-                cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, [x]);  pred = true_graph_0 = false_graph_0 = x = None
+                cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, (x,));  pred = true_graph_0 = false_graph_0 = x = None
                 getitem: "f32[3, 2]" = cond[0];  cond = None
                 return (getitem,)
                 

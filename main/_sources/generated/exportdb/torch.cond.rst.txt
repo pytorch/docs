@@ -5,7 +5,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -87,7 +87,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -166,7 +166,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -315,7 +315,7 @@ Result:
                 
                      true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
-                cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, [x]);  pred = true_graph_0 = false_graph_0 = x = None
+                cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, (x,));  pred = true_graph_0 = false_graph_0 = x = None
                 getitem: "f32[3, 2]" = cond[0];  cond = None
                 return (getitem,)
                 
@@ -346,7 +346,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -407,7 +407,7 @@ Result:
                 
                      true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
-                cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [x, y]);  gt = true_graph_0 = false_graph_0 = x = y = None
+                cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x, y));  gt = true_graph_0 = false_graph_0 = x = y = None
                 getitem: "f32[s0, 2]" = cond[0];  cond = None
                 return (getitem,)
                 
@@ -438,7 +438,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
