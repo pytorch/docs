@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git1cee6c3 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gita8d0c5c ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -882,6 +882,16 @@
     <span class="k">del</span> <span class="n">_load_dll_libraries</span>
 
 
+<span class="k">def</span> <span class="nf">_get_cuda_dep_paths</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lib_folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="c1"># Libraries can either be in path/nvidia/lib_folder/lib or path/lib_folder/lib</span>
+    <span class="n">nvidia_lib_paths</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;nvidia&quot;</span><span class="p">,</span> <span class="n">lib_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">lib_paths</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">lib_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">nvidia_lib_paths</span> <span class="o">+</span> <span class="n">lib_paths</span>
+
+
 <span class="k">def</span> <span class="nf">_preload_cuda_deps</span><span class="p">(</span><span class="n">lib_folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Preloads cuda deps if they could not be found otherwise.&quot;&quot;&quot;</span>
     <span class="c1"># Should only be called on Linux if default path resolution have failed</span>
@@ -889,21 +899,9 @@
 
     <span class="n">lib_path</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
-        <span class="n">nvidia_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;nvidia&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">nvidia_path</span><span class="p">):</span>
-            <span class="k">continue</span>
-        <span class="n">candidate_lib_paths</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nvidia_path</span><span class="p">,</span> <span class="n">lib_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="c1"># if path/nvidia/lib_folder/ is not found look in path/lib_folder/</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">candidate_lib_paths</span><span class="p">:</span>
-            <span class="n">candidate_lib_paths</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">lib_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">)</span>
-            <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">candidate_lib_paths</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">lib_path</span><span class="p">:</span>
+        <span class="n">candidate_lib_paths</span> <span class="o">=</span> <span class="n">_get_cuda_dep_paths</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">lib_folder</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">candidate_lib_paths</span><span class="p">:</span>
             <span class="n">lib_path</span> <span class="o">=</span> <span class="n">candidate_lib_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">lib_path</span><span class="p">:</span>
             <span class="k">break</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">lib_path</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lib_name</span><span class="si">}</span><span class="s2"> not found in the system path </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1933,7 +1931,9 @@
 <span class="sd">        * :class:`torch.nn.ConvTranspose1d` when called on CUDA tensor</span>
 <span class="sd">        * :class:`torch.nn.ConvTranspose2d` when called on CUDA tensor</span>
 <span class="sd">        * :class:`torch.nn.ConvTranspose3d` when called on CUDA tensor</span>
+<span class="sd">        * :class:`torch.nn.ReplicationPad1d` when attempting to differentiate a CUDA tensor</span>
 <span class="sd">        * :class:`torch.nn.ReplicationPad2d` when attempting to differentiate a CUDA tensor</span>
+<span class="sd">        * :class:`torch.nn.ReplicationPad3d` when attempting to differentiate a CUDA tensor</span>
 <span class="sd">        * :func:`torch.bmm` when called on sparse-dense CUDA tensors</span>
 <span class="sd">        * :func:`torch.Tensor.__getitem__` when attempting to differentiate a CPU tensor</span>
 <span class="sd">          and the index is a list of tensors</span>
@@ -1975,8 +1975,6 @@
 <span class="sd">        * :class:`torch.nn.ReflectionPad1d` when attempting to differentiate a CUDA tensor</span>
 <span class="sd">        * :class:`torch.nn.ReflectionPad2d` when attempting to differentiate a CUDA tensor</span>
 <span class="sd">        * :class:`torch.nn.ReflectionPad3d` when attempting to differentiate a CUDA tensor</span>
-<span class="sd">        * :class:`torch.nn.ReplicationPad1d` when attempting to differentiate a CUDA tensor</span>
-<span class="sd">        * :class:`torch.nn.ReplicationPad3d` when attempting to differentiate a CUDA tensor</span>
 <span class="sd">        * :class:`torch.nn.NLLLoss` when called on a CUDA tensor</span>
 <span class="sd">        * :class:`torch.nn.CTCLoss` when attempting to differentiate a CUDA tensor</span>
 <span class="sd">        * :class:`torch.nn.EmbeddingBag` when attempting to differentiate a CUDA tensor when</span>
@@ -2835,7 +2833,7 @@
 
 <div class="viewcode-block" id="compiled_with_cxx11_abi"><a class="viewcode-back" href="../generated/torch.compiled_with_cxx11_abi.html#torch.compiled_with_cxx11_abi">[docs]</a><span class="k">def</span> <span class="nf">compiled_with_cxx11_abi</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns whether PyTorch was built with _GLIBCXX_USE_CXX11_ABI=1&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_C</span><span class="o">.</span><span class="n">_GLIBCXX_USE_CXX11_ABI</span></div>
+    <span class="k">return</span> <span class="kc">True</span></div>
 
 
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_library</span> <span class="k">as</span> <span class="n">_library</span><span class="p">,</span> <span class="n">_ops</span> <span class="k">as</span> <span class="n">_ops</span>
