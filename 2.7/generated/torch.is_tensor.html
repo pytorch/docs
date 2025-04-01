@@ -400,6 +400,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/libtorch_stable_abi.html">LibTorch Stable ABI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/mps.html">MPS backend</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/multiprocessing.html">Multiprocessing best practices</a></li>
@@ -595,7 +596,7 @@
 <h1>torch.is_tensor<a class="headerlink" href="#torch-is-tensor" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.is_tensor">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">is_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch.html#is_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.7.0/torch/__init__.py#L1102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.is_tensor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">is_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch.html#is_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.7.0/torch/__init__.py#L1100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.is_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns True if <cite>obj</cite> is a PyTorch tensor.</p>
 <p>Note that this function is simply doing <code class="docutils literal notranslate"><span class="pre">isinstance(obj,</span> <span class="pre">Tensor)</span></code>.
 Using that <code class="docutils literal notranslate"><span class="pre">isinstance</span></code> check is better for typechecking with mypy,

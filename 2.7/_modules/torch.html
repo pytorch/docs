@@ -399,6 +399,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/libtorch_stable_abi.html">LibTorch Stable ABI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/mps.html">MPS backend</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/multiprocessing.html">Multiprocessing best practices</a></li>
@@ -860,6 +861,16 @@
     <span class="k">del</span> <span class="n">_load_dll_libraries</span>
 
 
+<span class="k">def</span> <span class="nf">_get_cuda_dep_paths</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lib_folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="c1"># Libraries can either be in path/nvidia/lib_folder/lib or path/lib_folder/lib</span>
+    <span class="n">nvidia_lib_paths</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;nvidia&quot;</span><span class="p">,</span> <span class="n">lib_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">lib_paths</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">lib_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">nvidia_lib_paths</span> <span class="o">+</span> <span class="n">lib_paths</span>
+
+
 <span class="k">def</span> <span class="nf">_preload_cuda_deps</span><span class="p">(</span><span class="n">lib_folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Preloads cuda deps if they could not be found otherwise.&quot;&quot;&quot;</span>
     <span class="c1"># Should only be called on Linux if default path resolution have failed</span>
@@ -867,21 +878,9 @@
 
     <span class="n">lib_path</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
-        <span class="n">nvidia_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;nvidia&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">nvidia_path</span><span class="p">):</span>
-            <span class="k">continue</span>
-        <span class="n">candidate_lib_paths</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nvidia_path</span><span class="p">,</span> <span class="n">lib_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="c1"># if path/nvidia/lib_folder/ is not found look in path/lib_folder/</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">candidate_lib_paths</span><span class="p">:</span>
-            <span class="n">candidate_lib_paths</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">lib_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">)</span>
-            <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">candidate_lib_paths</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">lib_path</span><span class="p">:</span>
+        <span class="n">candidate_lib_paths</span> <span class="o">=</span> <span class="n">_get_cuda_dep_paths</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">lib_folder</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">candidate_lib_paths</span><span class="p">:</span>
             <span class="n">lib_path</span> <span class="o">=</span> <span class="n">candidate_lib_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">lib_path</span><span class="p">:</span>
             <span class="k">break</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">lib_path</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lib_name</span><span class="si">}</span><span class="s2"> not found in the system path </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>

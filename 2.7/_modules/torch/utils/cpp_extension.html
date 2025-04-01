@@ -399,6 +399,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notes/libtorch_stable_abi.html">LibTorch Stable ABI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/mps.html">MPS backend</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/multiprocessing.html">Multiprocessing best practices</a></li>
@@ -1218,6 +1219,9 @@
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_add_compile_flag</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="s1">&#39;-DTORCH_API_INCLUDE_EXTENSION_H&#39;</span><span class="p">)</span>
 
+            <span class="k">if</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_hipify_compile_flags</span><span class="p">(</span><span class="n">extension</span><span class="p">)</span>
+
             <span class="k">if</span> <span class="n">extension</span><span class="o">.</span><span class="n">py_limited_api</span><span class="p">:</span>
                 <span class="c1"># compile any extension that has passed in py_limited_api to the</span>
                 <span class="c1"># Extension constructor with the Py_LIMITED_API flag set to our</span>
@@ -1637,6 +1641,29 @@
                 <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+
+    <span class="c1"># Simple hipify, replace the first occurrence of CUDA with HIP</span>
+    <span class="c1"># in flags starting with &quot;-&quot; and containing &quot;CUDA&quot;, but exclude -I flags</span>
+    <span class="k">def</span> <span class="nf">_hipify_compile_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extension</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;nvcc&#39;</span> <span class="ow">in</span> <span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="p">:</span>
+            <span class="n">modified_flags</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="p">[</span><span class="s1">&#39;nvcc&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">flag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;CUDA&quot;</span> <span class="ow">in</span> <span class="n">flag</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">flag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;-I&quot;</span><span class="p">):</span>
+                    <span class="c1"># check/split flag into flag and value</span>
+                    <span class="n">parts</span> <span class="o">=</span> <span class="n">flag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">flag_part</span><span class="p">,</span> <span class="n">value_part</span> <span class="o">=</span> <span class="n">parts</span>
+                        <span class="c1"># replace fist instance of &quot;CUDA&quot; with &quot;HIP&quot; only in the flag and not flag value</span>
+                        <span class="n">modified_flag_part</span> <span class="o">=</span> <span class="n">flag_part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;CUDA&quot;</span><span class="p">,</span> <span class="s2">&quot;HIP&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                        <span class="n">modified_flag</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">modified_flag_part</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">value_part</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># replace fist instance of &quot;CUDA&quot; with &quot;HIP&quot; in flag</span>
+                        <span class="n">modified_flag</span> <span class="o">=</span> <span class="n">flag</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;CUDA&quot;</span><span class="p">,</span> <span class="s2">&quot;HIP&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">modified_flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">modified_flag</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Modified flag: </span><span class="si">{</span><span class="n">flag</span><span class="si">}</span><span class="s1"> -&gt; </span><span class="si">{</span><span class="n">modified_flag</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">modified_flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+            <span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="p">[</span><span class="s1">&#39;nvcc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">modified_flags</span>
 
     <span class="k">def</span> <span class="nf">_define_torch_extension_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extension</span><span class="p">):</span>
         <span class="c1"># pybind11 doesn&#39;t support dots in the names</span>

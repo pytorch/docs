@@ -400,6 +400,7 @@
 <li class="toctree-l1"><a class="reference internal" href="notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/libtorch_stable_abi.html">LibTorch Stable ABI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/mps.html">MPS backend</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/multiprocessing.html">Multiprocessing best practices</a></li>
@@ -622,7 +623,8 @@ package.</p>
 the following code will compile the model into a shared library for CUDA execution.
 Otherwise, the compiled artifact will run on CPU. For better performance during CPU inference,
 it is suggested to enable freezing by setting <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">TORCHINDUCTOR_FREEZING=1</span></code>
-before running the Python script below.</p>
+before running the Python script below. The same behavior works in an environment with Intel®
+GPU as well.</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">torch</span>
