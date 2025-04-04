@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitf363fe6 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git1bc2b2b ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -794,7 +794,7 @@
 
 
 <span class="nd">@contextmanager</span>
-<span class="k">def</span> <span class="nf">_override_composite_implicit_decomp</span><span class="p">(</span><span class="n">cia_ops_to_callable</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_override_composite_implicit_decomp</span><span class="p">(</span><span class="n">cia_ops_to_callable</span><span class="p">):</span>
     <span class="c1"># This function overrides CompositeImplicitAutograd decomp for</span>
     <span class="c1"># functional composite ops that user specified. Ideally we want to not-decompose</span>
     <span class="c1"># ALL composite ops but today&#39;s C++ functinalization relies on</span>
@@ -802,13 +802,6 @@
     <span class="c1"># Hence we can only do it for functional ops. One caveat is that</span>
     <span class="c1"># there are some composite ops that lie about their schema (claimed to be</span>
     <span class="c1"># functional but not really aka dropout), for these cases, we just decompose.</span>
-
-    <span class="c1"># When safe=False, we will assume that ops_to_preserve can be mutating/aliasing</span>
-    <span class="c1"># and their usual decompositions need to be shadowed rather than overridden.</span>
-    <span class="c1"># Thus we will avoid asserting that they are valid to preserve, and will not</span>
-    <span class="c1"># replace their CompositeImplicitAutograd kernels with NotImplemented.</span>
-    <span class="c1"># The only current users of this mode are variants of aten::to that we will</span>
-    <span class="c1"># replace with aten::_to_copy in FunctionalTensorMode.__torch_dispatch__.</span>
     <span class="n">saved_tables</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">patched_ops</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">op_overload</span><span class="p">,</span> <span class="n">decomp_callable</span> <span class="ow">in</span> <span class="n">cia_ops_to_callable</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -826,10 +819,9 @@
         <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DispatchKey</span><span class="o">.</span><span class="n">CompositeImplicitAutograd</span> <span class="ow">in</span> <span class="n">op_overload</span><span class="o">.</span><span class="n">py_kernels</span><span class="p">:</span>
             <span class="k">del</span> <span class="n">op_overload</span><span class="o">.</span><span class="n">py_kernels</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DispatchKey</span><span class="o">.</span><span class="n">CompositeImplicitAutograd</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="n">safe</span><span class="p">:</span>
-            <span class="n">op_overload</span><span class="o">.</span><span class="n">py_impl</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DispatchKey</span><span class="o">.</span><span class="n">CompositeImplicitAutograd</span><span class="p">)(</span>
-                <span class="n">decomp_callable</span>
-            <span class="p">)</span>
+        <span class="n">op_overload</span><span class="o">.</span><span class="n">py_impl</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DispatchKey</span><span class="o">.</span><span class="n">CompositeImplicitAutograd</span><span class="p">)(</span>
+            <span class="n">decomp_callable</span>
+        <span class="p">)</span>
 
         <span class="c1"># [NOTE] Directly registering fake tensor rule to CIA ops</span>
         <span class="c1"># The problem we are facing here is if your CIA custom rule</span>
@@ -883,21 +875,6 @@
             <span class="n">op</span><span class="o">.</span><span class="n">py_kernels</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">saved_tables</span><span class="p">[</span><span class="n">op</span><span class="p">])</span>
             <span class="n">op</span><span class="o">.</span><span class="n">_dispatch_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
             <span class="n">_deregister_op_impl</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
-
-
-<span class="nd">@contextmanager</span>
-<span class="k">def</span> <span class="nf">_override_decomp_aten_to_variants</span><span class="p">():</span>
-    <span class="c1"># Preserve variants of aten::to understanding that they are mutating/aliasing</span>
-    <span class="c1"># and their CompositeImplicitAutograd kernels will not become NotImplemented.</span>
-    <span class="c1"># We will later replace them with aten._to_copy when functionalizing.</span>
-    <span class="k">with</span> <span class="n">_override_composite_implicit_decomp</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">to</span><span class="o">.</span><span class="n">dtype_layout</span><span class="p">:</span> <span class="n">_special_op_to_preserve_cia</span><span class="p">,</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">to</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span> <span class="n">_special_op_to_preserve_cia</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="n">safe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="p">):</span>
-        <span class="k">yield</span>
 
 
 <span class="k">def</span> <span class="nf">_split_decomp_table_to_cia_and_python_decomp</span><span class="p">(</span>
@@ -1072,15 +1049,9 @@
 
         <span class="n">tx</span> <span class="o">=</span> <span class="n">TracingContext</span><span class="p">(</span><span class="n">fake_mode</span><span class="p">)</span>
 
-        <span class="k">with</span> <span class="p">(</span>
-            <span class="n">fake_mode</span>
-        <span class="p">),</span> <span class="n">_override_decomp_aten_to_variants</span><span class="p">(),</span> <span class="n">_override_composite_implicit_decomp</span><span class="p">(</span>
+        <span class="k">with</span> <span class="n">fake_mode</span><span class="p">,</span> <span class="n">_override_composite_implicit_decomp</span><span class="p">(</span>
             <span class="n">cia_to_decomp</span><span class="p">,</span>
-        <span class="p">),</span> <span class="n">_enable_graph_inputs_of_type_nn_module</span><span class="p">(</span>
-            <span class="n">ep</span><span class="o">.</span><span class="n">example_inputs</span>
-        <span class="p">),</span> <span class="n">tracing</span><span class="p">(</span>
-            <span class="n">tx</span>
-        <span class="p">):</span>
+        <span class="p">),</span> <span class="n">_enable_graph_inputs_of_type_nn_module</span><span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">example_inputs</span><span class="p">),</span> <span class="n">tracing</span><span class="p">(</span><span class="n">tx</span><span class="p">):</span>
             <span class="n">retracing_args_unwrapped</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_unflatten</span><span class="p">(</span>
                 <span class="n">retracing_args</span><span class="p">,</span> <span class="n">mod</span><span class="o">.</span><span class="n">_in_spec</span>
             <span class="p">)</span>
