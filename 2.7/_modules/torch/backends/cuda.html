@@ -810,9 +810,7 @@
 
 
 <span class="n">_BlasBackends</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_BlasBackend</span><span class="o">.</span><span class="n">Default</span><span class="p">,</span>
     <span class="s2">&quot;cublas&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_BlasBackend</span><span class="o">.</span><span class="n">Cublas</span><span class="p">,</span>
-    <span class="s2">&quot;hipblas&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_BlasBackend</span><span class="o">.</span><span class="n">Cublas</span><span class="p">,</span>  <span class="c1"># alias</span>
     <span class="s2">&quot;cublaslt&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_BlasBackend</span><span class="o">.</span><span class="n">Cublaslt</span><span class="p">,</span>
     <span class="s2">&quot;hipblaslt&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_BlasBackend</span><span class="o">.</span><span class="n">Cublaslt</span><span class="p">,</span>  <span class="c1"># alias</span>
     <span class="s2">&quot;ck&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_BlasBackend</span><span class="o">.</span><span class="n">Ck</span><span class="p">,</span>
@@ -835,7 +833,6 @@
 <span class="sd">    * If `&quot;cublas&quot;` is set then cuBLAS will be used wherever possible.</span>
 <span class="sd">    * If `&quot;cublaslt&quot;` is set then cuBLASLt will be used wherever possible.</span>
 <span class="sd">    * If `&quot;ck&quot;` is set then CK will be used wherever possible.</span>
-<span class="sd">    * If `&quot;default&quot;` (the default) is set then heuristics will be used to pick between the other options.</span>
 <span class="sd">    * When no input is given, this function returns the currently preferred library.</span>
 <span class="sd">    * User may use the environment variable TORCH_BLAS_PREFER_CUBLASLT=1 to set the preferred library to cuBLASLt</span>
 <span class="sd">      globally.</span>
