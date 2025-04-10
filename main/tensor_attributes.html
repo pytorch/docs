@@ -300,7 +300,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gite9e5682 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitf3cf3ec ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -614,7 +614,7 @@
 <dd></dd></dl>
 
 <p>A <a class="reference internal" href="#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a> is an object that represents the data type of a
-<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>. PyTorch has twelve different data types:</p>
+<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>. PyTorch has several different data types:</p>
 <table class="docutils colwidths-auto align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Data type</p></th>
@@ -631,43 +631,47 @@
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.float64</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.double</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.*.DoubleTensor</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>64-bit complex</p></td>
+<tr class="row-even"><td><p>32-bit complex</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">torch.complex32</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.chalf</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>64-bit complex</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.complex64</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.cfloat</span></code></p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>128-bit complex</p></td>
+<tr class="row-even"><td><p>128-bit complex</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.complex128</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.cdouble</span></code></p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>16-bit floating point <a class="footnote-reference brackets" href="#id3" id="id1">1</a></p></td>
+<tr class="row-odd"><td><p>16-bit floating point <a class="footnote-reference brackets" href="#id3" id="id1">1</a></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.float16</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.half</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.*.HalfTensor</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>16-bit floating point <a class="footnote-reference brackets" href="#id4" id="id2">2</a></p></td>
+<tr class="row-even"><td><p>16-bit floating point <a class="footnote-reference brackets" href="#id4" id="id2">2</a></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.bfloat16</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.*.BFloat16Tensor</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>8-bit integer (unsigned)</p></td>
+<tr class="row-odd"><td><p>8-bit integer (unsigned)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.uint8</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.*.ByteTensor</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>8-bit integer (signed)</p></td>
+<tr class="row-even"><td><p>8-bit integer (signed)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.int8</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.*.CharTensor</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>16-bit integer (signed)</p></td>
+<tr class="row-odd"><td><p>16-bit integer (signed)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.int16</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.short</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.*.ShortTensor</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>32-bit integer (signed)</p></td>
+<tr class="row-even"><td><p>32-bit integer (signed)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.int32</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.int</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.*.IntTensor</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>64-bit integer (signed)</p></td>
+<tr class="row-odd"><td><p>64-bit integer (signed)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.int64</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.long</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.*.LongTensor</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>Boolean</p></td>
+<tr class="row-even"><td><p>Boolean</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.bool</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">torch.*.BoolTensor</span></code></p></td>
 </tr>

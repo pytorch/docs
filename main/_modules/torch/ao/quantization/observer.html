@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gite9e5682 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitf3cf3ec ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1100,6 +1100,7 @@
 <span class="sd">    .. note:: If the running minimum equals to the running maximum, the scale</span>
 <span class="sd">              and zero_point are set to 1.0 and 0.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">min_val</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
     <span class="n">max_val</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 
@@ -1309,6 +1310,7 @@
 <span class="sd">    .. note:: If the running minimum equals to the running maximum, the scales</span>
 <span class="sd">              and zero_points are set to 1.0 and 0.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">min_val</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
     <span class="n">max_val</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 
@@ -1604,6 +1606,7 @@
 <span class="sd">    3. Compute the scale and zero point the same way as in the</span>
 <span class="sd">        :class:`~torch.ao.quantization.MinMaxObserver`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">histogram</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
     <span class="n">min_val</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
     <span class="n">max_val</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
@@ -2131,6 +2134,7 @@
 <span class="sd">        qscheme: Quantization scheme to be used</span>
 <span class="sd">        reduce_range: Reduces the range of the quantized data type by 1 bit</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="vm">__annotations__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;tensor_val&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]}</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">quint8</span><span class="p">):</span>
@@ -2397,7 +2401,7 @@
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Expecting input shape dim to be 2 for per group quantization, gotinput shape: </span><span class="si">{</span><span class="n">input_shape</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">granularity</span><span class="o">.</span><span class="n">group_size</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">granularity</span><span class="p">,</span> <span class="n">PerToken</span><span class="p">):</span>
-        <span class="n">block_size</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span>
+        <span class="n">block_size</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span>
         <span class="n">block_size</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">block_size</span><span class="p">)</span>
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported Granularity: </span><span class="si">{</span><span class="n">granularity</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>

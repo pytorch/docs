@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gite9e5682 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitf3cf3ec ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -698,69 +698,59 @@
 
         <span class="c1"># chunk tensor over dimension `dim` into n slices</span>
         <span class="n">tensor_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">num_chunks</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">))</span>
-        <span class="n">num_empty_tensors</span> <span class="o">=</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensor_list</span><span class="p">)</span>
-
-        <span class="c1"># if no need to have padding or tensor dim size is evenly sharded already</span>
-        <span class="c1"># we can return early.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">with_padding</span> <span class="ow">or</span> <span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span> <span class="o">%</span> <span class="n">num_chunks</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">contiguous</span><span class="p">:</span>
-                <span class="n">tensor_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tensor_list</span><span class="p">]</span>
-            <span class="k">return</span> <span class="p">(</span>
-                <span class="n">fill_empty_tensor_to_shards</span><span class="p">(</span><span class="n">tensor_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">num_empty_tensors</span><span class="p">),</span>
-                <span class="p">[],</span>
-            <span class="p">)</span>
+        <span class="n">tensor_list</span> <span class="o">=</span> <span class="n">fill_empty_tensor_to_shards</span><span class="p">(</span>
+            <span class="n">tensor_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensor_list</span><span class="p">)</span>
+        <span class="p">)</span>
 
         <span class="c1"># compute the chunk size inline with ``torch.chunk`` to calculate padding</span>
         <span class="n">full_chunk_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span> <span class="o">+</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">num_chunks</span>
 
-        <span class="c1"># Compute chunk size for each chunk for ``self.dim``</span>
-        <span class="n">chunk_sizes</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">tensor_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensor_list</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
-            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_chunks</span><span class="p">)</span>
-        <span class="p">]</span>
-        <span class="c1"># Compute pad size on each chunk</span>
-        <span class="n">pad_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="n">full_chunk_size</span> <span class="o">-</span> <span class="n">chunk_size</span> <span class="k">for</span> <span class="n">chunk_size</span> <span class="ow">in</span> <span class="n">chunk_sizes</span><span class="p">]</span>
-
-        <span class="c1"># Reuse tensor to fill empty chunk with empty tensor</span>
-        <span class="n">tensor_list</span> <span class="o">=</span> <span class="n">fill_empty_tensor_to_shards</span><span class="p">(</span>
-            <span class="n">tensor_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">num_empty_tensors</span>
-        <span class="p">)</span>
-        <span class="n">shard_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">shard</span><span class="p">,</span> <span class="n">pad_size</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">tensor_list</span><span class="p">,</span> <span class="n">pad_sizes</span><span class="p">):</span>
-            <span class="c1"># Fill the empty tensor with zeroes with padding.</span>
-            <span class="k">if</span> <span class="n">with_padding</span> <span class="ow">and</span> <span class="n">pad_size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">shard_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">pad_sizes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">shard</span> <span class="ow">in</span> <span class="n">tensor_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">with_padding</span><span class="p">:</span>
+                <span class="n">pad_size</span> <span class="o">=</span> <span class="n">full_chunk_size</span> <span class="o">-</span> <span class="n">shard</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
                 <span class="n">shard</span> <span class="o">=</span> <span class="n">pad_tensor</span><span class="p">(</span><span class="n">shard</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">pad_size</span><span class="p">)</span>
-            <span class="n">shard</span> <span class="o">=</span> <span class="n">shard</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span> <span class="k">if</span> <span class="n">contiguous</span> <span class="k">else</span> <span class="n">shard</span>
+                <span class="n">pad_sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pad_size</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">contiguous</span><span class="p">:</span>
+                <span class="n">shard</span> <span class="o">=</span> <span class="n">shard</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
             <span class="n">shard_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shard</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">shard_list</span><span class="p">,</span> <span class="n">pad_sizes</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_local_shard_size_on_dim</span><span class="p">(</span>
-        <span class="n">size_on_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">_local_shard_size_and_offset</span><span class="p">(</span>
+        <span class="n">curr_local_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">num_chunks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">return_offset</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        returns the local shard size and offset on a given tensor dim</span>
+<span class="sd">        Given the size of the current local tensor (which may already be sharded on some dimensions),</span>
+<span class="sd">        computes the new local shard size and offset given the desired number of chunks</span>
+<span class="sd">        (num_chunks is generally equal to the size of the current sharding dim).</span>
+
+<span class="sd">        Note: new local shard offset is relative to the current sharded tensor, not the global tensor.</span>
+<span class="sd">        See `_utils.compute_local_shape_and_global_offset` for computing global offset.</span>
+
+<span class="sd">        Returns (new local shard size, offset)</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Compute the chunk size inline with ``torch.chunk``</span>
-        <span class="k">if</span> <span class="n">size_on_dim</span> <span class="o">%</span> <span class="n">num_chunks</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">full_chunk_size</span> <span class="o">=</span> <span class="n">size_on_dim</span> <span class="o">//</span> <span class="n">num_chunks</span>
-            <span class="k">return</span> <span class="n">full_chunk_size</span><span class="p">,</span> <span class="n">full_chunk_size</span> <span class="o">*</span> <span class="n">rank</span> <span class="k">if</span> <span class="n">return_offset</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">curr_local_size</span> <span class="o">%</span> <span class="n">num_chunks</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">full_chunk_size</span> <span class="o">=</span> <span class="n">curr_local_size</span> <span class="o">//</span> <span class="n">num_chunks</span>
+            <span class="k">return</span> <span class="n">full_chunk_size</span><span class="p">,</span> <span class="n">full_chunk_size</span> <span class="o">*</span> <span class="n">rank</span>
 
         <span class="c1"># uneven sharding case</span>
-        <span class="n">full_chunk_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">size_on_dim</span> <span class="o">+</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">num_chunks</span>
+        <span class="n">full_chunk_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">curr_local_size</span> <span class="o">+</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">num_chunks</span>
         <span class="n">shard_starting_idx</span> <span class="o">=</span> <span class="n">full_chunk_size</span> <span class="o">*</span> <span class="n">rank</span>
 
-        <span class="k">if</span> <span class="n">size_on_dim</span> <span class="o">&lt;</span> <span class="n">shard_starting_idx</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size_on_dim</span> <span class="k">if</span> <span class="n">return_offset</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">curr_local_size</span> <span class="o">&lt;</span> <span class="n">shard_starting_idx</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="n">curr_local_size</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">local_shard_size</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="nb">min</span><span class="p">(</span><span class="n">size_on_dim</span><span class="p">,</span> <span class="n">shard_starting_idx</span> <span class="o">+</span> <span class="n">full_chunk_size</span><span class="p">)</span>
+                <span class="nb">min</span><span class="p">(</span><span class="n">curr_local_size</span><span class="p">,</span> <span class="n">shard_starting_idx</span> <span class="o">+</span> <span class="n">full_chunk_size</span><span class="p">)</span>
                 <span class="o">-</span> <span class="n">shard_starting_idx</span>
             <span class="p">)</span>
-            <span class="k">return</span> <span class="n">local_shard_size</span><span class="p">,</span> <span class="n">shard_starting_idx</span> <span class="k">if</span> <span class="n">return_offset</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">return</span> <span class="n">local_shard_size</span><span class="p">,</span> <span class="n">shard_starting_idx</span>
 
     <span class="k">def</span> <span class="nf">_shard_tensor</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -795,14 +785,17 @@
             <span class="n">tensor</span><span class="p">,</span> <span class="n">num_chunks</span><span class="p">,</span> <span class="n">with_padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">contiguous</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">scatter_list</span><span class="p">[</span><span class="n">mesh_dim_local_rank</span><span class="p">])</span>
+
         <span class="c1"># perform scatter from the src_data_rank as data source when it is not None</span>
         <span class="n">mesh_scatter</span><span class="p">(</span>
             <span class="n">output</span><span class="p">,</span> <span class="n">scatter_list</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="o">=</span><span class="n">mesh_dim</span><span class="p">,</span> <span class="n">group_src</span><span class="o">=</span><span class="n">src_data_rank</span>
         <span class="p">)</span>
 
         <span class="c1"># Only unpad if the local_tensor was padded on the dimension.</span>
-        <span class="k">if</span> <span class="n">pad_sizes</span> <span class="ow">and</span> <span class="n">pad_sizes</span><span class="p">[</span><span class="n">mesh_dim_local_rank</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pad_sizes</span><span class="p">[</span><span class="n">mesh_dim_local_rank</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">output</span> <span class="o">=</span> <span class="n">unpad_tensor</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">pad_sizes</span><span class="p">[</span><span class="n">mesh_dim_local_rank</span><span class="p">])</span>
+            <span class="c1"># Unpad might return a view, hence we need to remake it contiguous</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="k">def</span> <span class="nf">_reduce_shard_tensor</span><span class="p">(</span>
@@ -852,15 +845,13 @@
 <span class="sd">        is replicated on the previously sharded mesh dimension</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">num_chunks</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">mesh_dim</span><span class="o">=</span><span class="n">mesh_dim</span><span class="p">)</span>
-        <span class="c1"># check if it&#39;s uneven, so we need to pad input tensor before all_gather</span>
-        <span class="n">local_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">local_tensor</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
 
         <span class="n">logical_dim_size</span> <span class="o">=</span> <span class="n">current_logical_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span>
         <span class="n">is_padded</span> <span class="o">=</span> <span class="n">logical_dim_size</span> <span class="o">%</span> <span class="n">num_chunks</span> <span class="o">!=</span> <span class="mi">0</span>
 
         <span class="k">if</span> <span class="n">is_padded</span><span class="p">:</span>
             <span class="n">full_chunk_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">logical_dim_size</span> <span class="o">+</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">num_chunks</span>
-            <span class="n">pad_size</span> <span class="o">=</span> <span class="n">full_chunk_size</span> <span class="o">-</span> <span class="n">local_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span>
+            <span class="n">pad_size</span> <span class="o">=</span> <span class="n">full_chunk_size</span> <span class="o">-</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
             <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">pad_tensor</span><span class="p">(</span><span class="n">local_tensor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">pad_size</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">is_contiguous</span><span class="p">():</span>
@@ -949,7 +940,7 @@
             <span class="n">new_tensor</span> <span class="o">=</span> <span class="n">unpad_tensor</span><span class="p">(</span><span class="n">new_tensor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">old_dim_unpad_size</span><span class="p">)</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
 
         <span class="k">if</span> <span class="n">new_dim_padding</span><span class="p">:</span>
-            <span class="n">local_shard_size_on_new_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_shard_size_on_dim</span><span class="p">(</span>
+            <span class="n">local_shard_size_on_new_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_shard_size_and_offset</span><span class="p">(</span>
                 <span class="n">new_dim_logical_size</span><span class="p">,</span> <span class="n">num_chunks</span><span class="p">,</span> <span class="n">my_coordinate</span><span class="p">[</span><span class="n">mesh_dim</span><span class="p">]</span>
             <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">new_dim_unpad_size</span> <span class="o">=</span> <span class="n">new_dim_full_chunk_size</span> <span class="o">-</span> <span class="n">local_shard_size_on_new_dim</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
@@ -1036,8 +1027,6 @@
 <span class="sd">    dimension into 2 shards before being sharded on the &quot;dp&quot; dimension. Therefore, the</span>
 <span class="sd">    `split_factor` of the _StridedShard placement on &quot;dp&quot; dim is 2.</span>
 
-<span class="sd">    TODO: strided sharding needs to work fine with uneven sharding. Now it forbids</span>
-<span class="sd">    resharding if the tensor is unevenly sharded.</span>
 <span class="sd">    TODO: we should remove _StridedShard placement once we can unify it with Shard</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -1074,37 +1063,38 @@
         <span class="n">with_padding</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">contiguous</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TODO: currently _StridedShard does not support padding</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">&lt;=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Sharding dim </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2"> greater than tensor ndim </span><span class="si">{</span><span class="n">tensor</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
 
+        <span class="c1"># num_chunks represents the size of this StridedShard mesh dim, while self.split_factor</span>
+        <span class="c1"># represents the aggregate num chunks for other shardings applied logically earlier than this strided shard.</span>
+        <span class="c1"># (e.g. in FSDP+TP case, num_chunks is size(dp dim), split_factor is size(tp dim))</span>
         <span class="n">total_split</span> <span class="o">=</span> <span class="n">num_chunks</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span>
-        <span class="k">assert</span> <span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span> <span class="o">%</span> <span class="n">total_split</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span>
-            <span class="s2">&quot;_StridedShard currently only allows even sharding but got tensor size&quot;</span>
-            <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span><span class="si">}</span><span class="s2"> on dim </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2"> and total split&quot;</span>
-            <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">total_split</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">num_chunks</span><span class="si">}</span><span class="s2"> * </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="n">tensor_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">total_split</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">))</span>
+        <span class="n">tensor_list</span> <span class="o">=</span> <span class="n">fill_empty_tensor_to_shards</span><span class="p">(</span>
+            <span class="n">tensor_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">total_split</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensor_list</span><span class="p">)</span>
         <span class="p">)</span>
 
-        <span class="n">group_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span>
-        <span class="n">total_split_tensor_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">total_split</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">))</span>
-        <span class="n">tensor_list</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
-                <span class="p">[</span>
-                    <span class="n">total_split_tensor_list</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">*</span> <span class="n">num_chunks</span><span class="p">]</span>  <span class="c1"># stride is num_chunks</span>
-                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">group_size</span><span class="p">)</span>
-                <span class="p">],</span>
+        <span class="c1"># compute the chunk size inline with ``torch.chunk`` to calculate padding</span>
+        <span class="n">full_chunk_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span> <span class="o">+</span> <span class="n">total_split</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">total_split</span>
+
+        <span class="n">shard_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">pad_sizes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_chunks</span><span class="p">):</span>
+            <span class="n">shard</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">tensor_list</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">*</span> <span class="n">num_chunks</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span><span class="p">)],</span>
                 <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_chunks</span><span class="p">)</span>
-        <span class="p">]</span>
-
-        <span class="k">if</span> <span class="n">contiguous</span><span class="p">:</span>
-            <span class="n">tensor_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tensor_list</span><span class="p">]</span>
-
-        <span class="k">return</span> <span class="n">tensor_list</span><span class="p">,</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">with_padding</span><span class="p">:</span>
+                <span class="n">pad_size</span> <span class="o">=</span> <span class="n">full_chunk_size</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span> <span class="o">-</span> <span class="n">shard</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
+                <span class="n">shard</span> <span class="o">=</span> <span class="n">pad_tensor</span><span class="p">(</span><span class="n">shard</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">pad_size</span><span class="p">)</span>
+                <span class="n">pad_sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pad_size</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">contiguous</span><span class="p">:</span>
+                <span class="n">shard</span> <span class="o">=</span> <span class="n">shard</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+            <span class="n">shard_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shard</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">shard_list</span><span class="p">,</span> <span class="n">pad_sizes</span>
 
     <span class="k">def</span> <span class="nf">_to_replicate_tensor</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1114,17 +1104,81 @@
         <span class="n">current_logical_shape</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Note: currently _StridedShard does not support padding</span>
+<span class="sd">        Given a tensor with strided sharding (e.g. [StridedShard(d), Shard(d)]),</span>
+<span class="sd">        this function is called during the process of converting to [Replicate(), Replicate()],</span>
+<span class="sd">        and `local_tensor` represents the portion of the tensor on this rank after the intermediate step of</span>
+<span class="sd">        converting to [StridedShard(d), Replicate()] in right-to-left unsharding order.</span>
+
+<span class="sd">        note: this conversion logic is pretty specialized on this 2D case.  It could be generalized further. This</span>
+<span class="sd">        is a common enough case to be worth fixing (since it occurs when applying TP and then FSDP to a model).</span>
+
+<span class="sd">        note: this does not support &#39;reduce_scatter&#39; for StridedShard.</span>
+
+<span class="sd">        Example</span>
+<span class="sd">        -------</span>
+<span class="sd">        mesh = (DP=2, TP=2)</span>
+<span class="sd">        # single-gpu &quot;weight&quot; of size 5, will be &#39;uneven&#39; for sharding</span>
+<span class="sd">        original = torch.arange(5)</span>
+
+<span class="sd">        tp sharded tensor</span>
+<span class="sd">        -----------------</span>
+<span class="sd">        `tp = distribute_tensor(x, world_mesh[&#39;tp&#39;], [Shard(0)])`</span>
+
+<span class="sd">        local_tensors:</span>
+<span class="sd">        rank0: [0,1,2]    rank1: [3,4]</span>
+<span class="sd">        rank1: [0,1,2]    rank3: [3,4]</span>
+
+<span class="sd">        fsdp+tp sharded tensor</span>
+<span class="sd">        ----------------------</span>
+<span class="sd">        `dp_tp = ...` (the process of creating a strided-shard tensor is skipped over as it is complicated</span>
+<span class="sd">        dp_tp has placement (_StridedShard(0, split_factor=2), Shard(0))</span>
+<span class="sd">        local_tensors:</span>
+<span class="sd">        rank0: [0,1]  rank1: [3]</span>
+<span class="sd">        rank1: [2]    rank3: [4]</span>
+
+<span class="sd">        Now, say someone wants to reconstruct dp_tp&#39;s full tensor. This will invoke &#39;redistribute&#39; to replicate.</span>
+<span class="sd">        redistribute will first replicate the &quot;Shard(0)&quot; placement on the rightmost mesh dim, then replicate the</span>
+<span class="sd">        StridedShard placement second, which is implemented by this function.</span>
+<span class="sd">        So our starting point (`local_tensor` arg) is the result of replicating the Shard(0) placement across the</span>
+<span class="sd">        TP dim, which looks like this.</span>
+
+<span class="sd">        Note the discrepancy with the &#39;tp sharded tensor&#39; line above!  We&#39;ll fix it by locally shuffling data.</span>
+
+<span class="sd">        local_tensors:</span>
+<span class="sd">        rank0: [0,1,3]  rank1: [0,1,3]</span>
+<span class="sd">        rank2: [2,4]    rank3: [2,4]</span>
+
+<span class="sd">        Step 1: replicate over the DP dimension.  Afterwards, each rank can locally sort the values.</span>
+<span class="sd">          note: we need padding to do this allgather, and we&#39;ll need to keep track of the padding amount for later</span>
+<span class="sd">                local_tensors:</span>
+<span class="sd">        rank0: [0,1,3,2,4]    rank1: [0,1,3,2,4]</span>
+<span class="sd">        rank2: [0,1,3,2,4]    rank3: [0,1,3,2,4]</span>
+
+<span class="sd">        Step 2: chunk and shuffle values around to account for the wrong order of operations above</span>
+<span class="sd">        and get the original tensor content back</span>
+
+<span class="sd">        01324#       &lt;- our allgather includes padding, if padding was applied in step 1</span>
+<span class="sd">        01324        &lt;- Remove the padding</span>
+<span class="sd">        013, 24      &lt;- chunk once, &#39;undoing&#39; the DP allgather</span>
+<span class="sd">        01, 3, 2, 4  &lt;- chunk each chunk, &#39;undoing&#39; the initial (wrong) TP allgather performed by Shard(0)-&gt;Replicate()</span>
+<span class="sd">        012, 34      &lt;- interleave with stride=TP mesh dim size</span>
+<span class="sd">        01234        &lt;- concatenate</span>
+
+<span class="sd">        Note: the current implementation of this function is incomplete, and supports only the common pattern of one</span>
+<span class="sd">        strided shard placement, which is used in the FSDP + TP case.  We could extend this implementation to handle</span>
+<span class="sd">        multiple strided shardings (e.g. [StridedShard, StridedShard, Shard]), by repeating the chunking step more times</span>
+<span class="sd">        and handling more complex shuffling in the last step.  On the other hand, we plan to replace &#39;StridedShard&#39;</span>
+<span class="sd">        with using just Shard and specifying a sharding order, so it may be ok to leave this as-is for the time being.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">num_chunks</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">mesh_dim</span><span class="o">=</span><span class="n">mesh_dim</span><span class="p">)</span>
-        <span class="n">total_split</span> <span class="o">=</span> <span class="n">num_chunks</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span>
-        <span class="c1"># NOTE: we require Strided Sharding to be even for now</span>
-        <span class="k">assert</span> <span class="n">current_logical_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span> <span class="o">%</span> <span class="n">total_split</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span>
-            <span class="s2">&quot;_StridedShard requires even sharding but got tensor size &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">current_logical_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span><span class="si">}</span><span class="s2"> on dim </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2"> and &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;total split </span><span class="si">{</span><span class="n">total_split</span><span class="si">}</span><span class="s2">=num_chunks </span><span class="si">{</span><span class="n">num_chunks</span><span class="si">}</span><span class="s2"> &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;* split_factor </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
+        <span class="n">logical_dim_size</span> <span class="o">=</span> <span class="n">current_logical_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span>
+        <span class="n">full_chunk_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">logical_dim_size</span> <span class="o">+</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">num_chunks</span>
+        <span class="n">local_pad_size</span> <span class="o">=</span> <span class="n">full_chunk_size</span> <span class="o">-</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
+
+        <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">pad_tensor</span><span class="p">(</span><span class="n">local_tensor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">local_pad_size</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">is_contiguous</span><span class="p">():</span>
+            <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="n">funcol</span><span class="o">.</span><span class="n">all_gather_tensor</span><span class="p">(</span>
             <span class="n">local_tensor</span><span class="p">,</span>
@@ -1134,19 +1188,22 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">funcol</span><span class="o">.</span><span class="n">AsyncCollectiveTensor</span><span class="p">):</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 
-        <span class="n">tensor_shard_list</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">total_split</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
-        <span class="c1"># rearrange the order</span>
-        <span class="n">new_tensor_shard_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tensor_shard_list</span><span class="p">)):</span>
-            <span class="c1"># the shard split of index `idx` is assigned a new index within</span>
-            <span class="c1"># _StridedShard._split_tensor:</span>
-            <span class="c1"># the original tensor was split into `total_split` chunks,</span>
-            <span class="c1"># all chunks with the same `idx % num_chunks` are merged into one</span>
-            <span class="c1"># new shard and placed on mesh&#39;s local rank `idx % num_chunks`</span>
-            <span class="n">idx_after_split</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">%</span> <span class="n">num_chunks</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">//</span> <span class="n">num_chunks</span>
-            <span class="n">new_tensor_shard_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tensor_shard_list</span><span class="p">[</span><span class="n">idx_after_split</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">logical_dim_size</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">unpad_tensor</span><span class="p">(</span>
+                <span class="n">result</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span> <span class="o">-</span> <span class="n">logical_dim_size</span>
+            <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">new_tensor_shard_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+        <span class="c1"># this reverses our &#39;all_gather&#39; but gives every rank a copy</span>
+        <span class="n">outer_shards</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">num_chunks</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
+        <span class="c1"># this undoes the &#39;Shard(0)&#39; -&gt; Replicate() that happened over the wrong mesh dim in the first place</span>
+        <span class="n">inner_shards</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">outer_shards</span><span class="p">:</span>
+            <span class="n">inner_shards</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">))</span>
+        <span class="c1"># now we just have to correctly stride the shards</span>
+        <span class="n">reordered_shards</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span><span class="p">):</span>
+            <span class="n">reordered_shards</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">inner_shards</span><span class="p">[</span><span class="n">i</span> <span class="p">::</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">reordered_shards</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="Replicate"><a class="viewcode-back" href="../../../../distributed.tensor.html#torch.distributed.tensor.placement_types.Replicate">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
