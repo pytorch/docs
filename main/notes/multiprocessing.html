@@ -300,7 +300,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitf3cf3ec ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gite945247 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -622,10 +622,23 @@ is not automatically shared across all processes, unlike how the
 </div>
 <p>This allows to implement various training methods, like Hogwild, A3C, or any
 others that require asynchronous operation.</p>
+<div class="section" id="poison-fork-in-multiprocessing">
+<span id="multiprocessing-poison-fork-note"></span><h2>Poison fork in multiprocessing<a class="headerlink" href="#poison-fork-in-multiprocessing" title="Permalink to this heading">¶</a></h2>
+<p>When using multiprocessing with <a class="reference internal" href="../torch.html#accelerators"><span class="std std-ref">accelerators</span></a>, a known issue called “poison fork” may occur.
+This happens when the accelerator’s runtime is not fork safe and is initialized before a process forks, leading to
+runtime errors in child processes.</p>
+<dl class="simple">
+<dt>To prevent such errors:</dt><dd><ul class="simple">
+<li><p>Avoid initializing the accelerator in the main process beofre forking child processes.</p></li>
+<li><p>Use an alternative process start methods, such as <code class="docutils literal notranslate"><span class="pre">spawn</span></code> or <code class="docutils literal notranslate"><span class="pre">forkserver</span></code>, which ensures a clean initialization of each process.</p></li>
+</ul>
+</dd>
+</dl>
+</div>
 <div class="section" id="cuda-in-multiprocessing">
 <span id="multiprocessing-cuda-note"></span><h2>CUDA in multiprocessing<a class="headerlink" href="#cuda-in-multiprocessing" title="Permalink to this heading">¶</a></h2>
-<p>The CUDA runtime does not support the <code class="docutils literal notranslate"><span class="pre">fork</span></code> start method; either the <code class="docutils literal notranslate"><span class="pre">spawn</span></code> or <code class="docutils literal notranslate"><span class="pre">forkserver</span></code> start method are
-required to use CUDA in subprocesses.</p>
+<p>The CUDA runtime has the limitation described in <a class="reference internal" href="#multiprocessing-poison-fork-note"><span class="std std-ref">Poison fork in multiprocessing</span></a> when using the <code class="docutils literal notranslate"><span class="pre">fork</span></code> start method;
+either the <code class="docutils literal notranslate"><span class="pre">spawn</span></code> or <code class="docutils literal notranslate"><span class="pre">forkserver</span></code> start method are required to use CUDA in subprocesses.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The start method can be set via either creating a context with
@@ -860,6 +873,7 @@ if (url)
             <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
               <ul>
 <li><a class="reference internal" href="#">Multiprocessing best practices</a><ul>
+<li><a class="reference internal" href="#poison-fork-in-multiprocessing">Poison fork in multiprocessing</a></li>
 <li><a class="reference internal" href="#cuda-in-multiprocessing">CUDA in multiprocessing</a></li>
 <li><a class="reference internal" href="#best-practices-and-tips">Best practices and tips</a><ul>
 <li><a class="reference internal" href="#avoiding-and-fighting-deadlocks">Avoiding and fighting deadlocks</a></li>
