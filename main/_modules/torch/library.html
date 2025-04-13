@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git83f14c0 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git67188cd ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -789,7 +789,7 @@
         <span class="n">_defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">qualname</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-    <span class="k">def</span> <span class="nf">_register_fake</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op_name</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">_stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_register_fake</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op_name</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">_stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">allow_override</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Registers the fake impl for an operator defined in the library.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_running_with_deploy</span><span class="p">():</span>
             <span class="n">_library</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">warn_deploy</span><span class="p">()</span>
@@ -816,7 +816,9 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">func_to_register</span> <span class="o">=</span> <span class="n">fn</span>
 
-        <span class="n">handle</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">fake_impl</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">func_to_register</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
+        <span class="n">handle</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">fake_impl</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+            <span class="n">func_to_register</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">lib</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">allow_override</span><span class="o">=</span><span class="n">allow_override</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_registration_handles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_register_torch_dispatch_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op_name</span><span class="p">,</span> <span class="n">torch_dispatch_class</span><span class="p">,</span> <span class="n">fn</span><span class="p">):</span>
@@ -895,7 +897,9 @@
         <span class="n">_impls</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_op_impls</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Library.impl"><a class="viewcode-back" href="../../library.html#torch.library.Library.impl">[docs]</a>    <span class="k">def</span> <span class="nf">impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op_name</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">dispatch_key</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_keyset</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Library.impl"><a class="viewcode-back" href="../../library.html#torch.library.Library.impl">[docs]</a>    <span class="k">def</span> <span class="nf">impl</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">op_name</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">dispatch_key</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_keyset</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_override</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Registers the function implementation for an operator defined in the library.</span>
 
 <span class="sd">        Args:</span>
@@ -906,6 +910,11 @@
 <span class="sd">                          the dispatch key that the library was created with.</span>
 <span class="sd">            with_keyset: flag controlling if the current dispatcher call keyset should be passed as the first argument</span>
 <span class="sd">                         to :attr:`fn` when calling. This should be used to create the appropriate keyset for redispatch calls.</span>
+<span class="sd">            allow_override: Flag controlling if we want to override an</span>
+<span class="sd">                         existing registered kernel implementation. This is by</span>
+<span class="sd">                         default off, and will error you&#39;re trying to register a</span>
+<span class="sd">                         kernel to a dispatch key with a kernel already</span>
+<span class="sd">                         registered.</span>
 
 <span class="sd">        Example::</span>
 <span class="sd">            &gt;&gt;&gt; my_lib = Library(&quot;aten&quot;, &quot;IMPL&quot;)</span>
@@ -937,7 +946,7 @@
             <span class="p">)</span>
 
         <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ns</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;::&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">dispatch_key</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">_impls</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">allow_override</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">_impls</span><span class="p">:</span>
             <span class="c1"># TODO: in future, add more info about where the existing function is registered (this info is</span>
             <span class="c1"># today already returned by the C++ warning when impl is called but we error out before that)</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
@@ -1536,6 +1545,7 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="n">lib</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Library</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">_stacklevel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">allow_override</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Register a FakeTensor implementation (&quot;fake impl&quot;) for this operator.</span>
 
@@ -1559,6 +1569,18 @@
 
 <span class="sd">    For a detailed guide on custom ops, please see</span>
 <span class="sd">    https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        op_name: Operator name (along with the overload) or OpOverload object.</span>
+<span class="sd">        func: Fake tensor implementation.</span>
+<span class="sd">        lib (Optional[Library]): Library to register the fake tensor to.</span>
+<span class="sd">        allow_override: Flag controlling if we want to override an</span>
+<span class="sd">                        existing registered fake impl. This is by default off,</span>
+<span class="sd">                        and will error you&#39;re trying to register a fake impl to</span>
+<span class="sd">                        an operator that already has a fake impl. This also only</span>
+<span class="sd">                        applies if the custom operator was not created via</span>
+<span class="sd">                        torch.library.custom_op, as overriding and existing fake</span>
+<span class="sd">                        impl is already allowed.</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; import torch</span>
@@ -1640,7 +1662,9 @@
             <span class="n">_keep_alive</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">use_lib</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">use_lib</span> <span class="o">=</span> <span class="n">lib</span>
-        <span class="n">use_lib</span><span class="o">.</span><span class="n">_register_fake</span><span class="p">(</span><span class="n">op_name</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">_stacklevel</span><span class="o">=</span><span class="n">stacklevel</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">use_lib</span><span class="o">.</span><span class="n">_register_fake</span><span class="p">(</span>
+            <span class="n">op_name</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">_stacklevel</span><span class="o">=</span><span class="n">stacklevel</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">allow_override</span><span class="o">=</span><span class="n">allow_override</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">func</span>
 
     <span class="k">if</span> <span class="n">func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
