@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git67188cd ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitddfc14b ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -620,7 +620,8 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">ParamSpec</span>
 
 <span class="kn">from</span> <span class="nn">torch.distributed.elastic.timer.api</span> <span class="kn">import</span> <span class="n">TimerClient</span><span class="p">,</span> <span class="n">TimerRequest</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.elastic.timer.debug_info_logging</span> <span class="kn">import</span> <span class="p">(</span>
@@ -628,6 +629,9 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.elastic.utils.logging</span> <span class="kn">import</span> <span class="n">get_logger</span>
 
+
+<span class="n">_P</span> <span class="o">=</span> <span class="n">ParamSpec</span><span class="p">(</span><span class="s2">&quot;_P&quot;</span><span class="p">)</span>
+<span class="n">_R</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_R&quot;</span><span class="p">)</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;FileTimerClient&quot;</span><span class="p">,</span> <span class="s2">&quot;FileTimerRequest&quot;</span><span class="p">,</span> <span class="s2">&quot;FileTimerServer&quot;</span><span class="p">]</span>
 
@@ -643,8 +647,8 @@
 <span class="sd">        sleep_time: float, the time to sleep between retries.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
-        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">_R</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">_R</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">_P</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">_P</span><span class="o">.</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_retries</span><span class="p">):</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
