@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitddfc14b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git070357b ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -864,13 +864,23 @@
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
 <span class="sd">        &gt;&gt;&gt; # Assuming optimizer has two groups.</span>
+<span class="sd">        &gt;&gt;&gt; num_epochs = 100</span>
 <span class="sd">        &gt;&gt;&gt; lambda1 = lambda epoch: epoch // 30</span>
 <span class="sd">        &gt;&gt;&gt; lambda2 = lambda epoch: 0.95 ** epoch</span>
 <span class="sd">        &gt;&gt;&gt; scheduler = LambdaLR(optimizer, lr_lambda=[lambda1, lambda2])</span>
-<span class="sd">        &gt;&gt;&gt; for epoch in range(100):</span>
+<span class="sd">        &gt;&gt;&gt; for epoch in range(num_epochs):</span>
 <span class="sd">        &gt;&gt;&gt;     train(...)</span>
 <span class="sd">        &gt;&gt;&gt;     validate(...)</span>
 <span class="sd">        &gt;&gt;&gt;     scheduler.step()</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Alternatively, you can use a single lambda function for all groups.</span>
+<span class="sd">        &gt;&gt;&gt; scheduler = LambdaLR(opt, lr_lambda=lambda epoch: epoch // 30)</span>
+<span class="sd">        &gt;&gt;&gt; for epoch in range(num_epochs):</span>
+<span class="sd">        &gt;&gt;&gt;     train(...)</span>
+<span class="sd">        &gt;&gt;&gt;     validate(...)</span>
+<span class="sd">        &gt;&gt;&gt;     scheduler.step()</span>
+
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/LambdaLR.png</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -964,6 +974,8 @@
 <span class="sd">        &gt;&gt;&gt;     train(...)</span>
 <span class="sd">        &gt;&gt;&gt;     validate(...)</span>
 <span class="sd">        &gt;&gt;&gt;     scheduler.step()</span>
+
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/MultiplicativeLR.png</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1061,6 +1073,8 @@
 <span class="sd">        &gt;&gt;&gt;     train(...)</span>
 <span class="sd">        &gt;&gt;&gt;     validate(...)</span>
 <span class="sd">        &gt;&gt;&gt;     scheduler.step()</span>
+
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/StepLR.png</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1113,6 +1127,8 @@
 <span class="sd">        &gt;&gt;&gt;     train(...)</span>
 <span class="sd">        &gt;&gt;&gt;     validate(...)</span>
 <span class="sd">        &gt;&gt;&gt;     scheduler.step()</span>
+
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/MultiStepLR.png</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1167,12 +1183,15 @@
 <span class="sd">        &gt;&gt;&gt; # lr = 0.025   if epoch == 1</span>
 <span class="sd">        &gt;&gt;&gt; # lr = 0.025   if epoch == 2</span>
 <span class="sd">        &gt;&gt;&gt; # lr = 0.025   if epoch == 3</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.05    if epoch &gt;= 4</span>
-<span class="sd">        &gt;&gt;&gt; scheduler = ConstantLR(optimizer, factor=0.5, total_iters=4)</span>
+<span class="sd">        &gt;&gt;&gt; # ...</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.05    if epoch &gt;= 40</span>
+<span class="sd">        &gt;&gt;&gt; scheduler = ConstantLR(optimizer, factor=0.5, total_iters=40)</span>
 <span class="sd">        &gt;&gt;&gt; for epoch in range(100):</span>
 <span class="sd">        &gt;&gt;&gt;     train(...)</span>
 <span class="sd">        &gt;&gt;&gt;     validate(...)</span>
 <span class="sd">        &gt;&gt;&gt;     scheduler.step()</span>
+
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/ConstantLR.png</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1234,16 +1253,19 @@
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
 <span class="sd">        &gt;&gt;&gt; # Assuming optimizer uses lr = 0.05 for all groups</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.025    if epoch == 0</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.03125  if epoch == 1</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.0375   if epoch == 2</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.04375  if epoch == 3</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.05    if epoch &gt;= 4</span>
-<span class="sd">        &gt;&gt;&gt; scheduler = LinearLR(optimizer, start_factor=0.5, total_iters=4)</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.003687  if epoch == 0</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.004875  if epoch == 1</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.006062  if epoch == 2</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.00725   if epoch == 3</span>
+<span class="sd">        &gt;&gt;&gt; # ...</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.05      if epoch &gt;= 40</span>
+<span class="sd">        &gt;&gt;&gt; scheduler = LinearLR(optimizer, start_factor=0.05, total_iters=40)</span>
 <span class="sd">        &gt;&gt;&gt; for epoch in range(100):</span>
 <span class="sd">        &gt;&gt;&gt;     train(...)</span>
 <span class="sd">        &gt;&gt;&gt;     validate(...)</span>
 <span class="sd">        &gt;&gt;&gt;     scheduler.step()</span>
+
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/LinearLR.png</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1316,6 +1338,16 @@
 <span class="sd">        optimizer (Optimizer): Wrapped optimizer.</span>
 <span class="sd">        gamma (float): Multiplicative factor of learning rate decay.</span>
 <span class="sd">        last_epoch (int): The index of last epoch. Default: -1.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; scheduler = ExponentialLR(optimizer, gamma=0.95)</span>
+<span class="sd">        &gt;&gt;&gt; for epoch in range(100):</span>
+<span class="sd">        &gt;&gt;&gt;     train(...)</span>
+<span class="sd">        &gt;&gt;&gt;     validate(...)</span>
+<span class="sd">        &gt;&gt;&gt;     scheduler.step()</span>
+
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/ExponentialLR.png</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1353,19 +1385,23 @@
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
-<span class="sd">        &gt;&gt;&gt; # Assuming optimizer uses lr = 1. for all groups</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.1     if epoch == 0</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.1     if epoch == 1</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.9     if epoch == 2</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.81    if epoch == 3</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.729   if epoch == 4</span>
-<span class="sd">        &gt;&gt;&gt; scheduler1 = ConstantLR(optimizer, factor=0.1, total_iters=2)</span>
+<span class="sd">        &gt;&gt;&gt; # Assuming optimizer uses lr = 0.05 for all groups</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.005     if epoch == 0</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.005     if epoch == 1</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.005     if epoch == 2</span>
+<span class="sd">        &gt;&gt;&gt; # ...</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.05      if epoch == 20</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.045     if epoch == 21</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.0405    if epoch == 22</span>
+<span class="sd">        &gt;&gt;&gt; scheduler1 = ConstantLR(optimizer, factor=0.1, total_iters=20)</span>
 <span class="sd">        &gt;&gt;&gt; scheduler2 = ExponentialLR(optimizer, gamma=0.9)</span>
-<span class="sd">        &gt;&gt;&gt; scheduler = SequentialLR(optimizer, schedulers=[scheduler1, scheduler2], milestones=[2])</span>
+<span class="sd">        &gt;&gt;&gt; scheduler = SequentialLR(optimizer, schedulers=[scheduler1, scheduler2], milestones=[20])</span>
 <span class="sd">        &gt;&gt;&gt; for epoch in range(100):</span>
 <span class="sd">        &gt;&gt;&gt;     train(...)</span>
 <span class="sd">        &gt;&gt;&gt;     validate(...)</span>
 <span class="sd">        &gt;&gt;&gt;     scheduler.step()</span>
+
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/SequentialLR.png</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1494,17 +1530,19 @@
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP(&quot;undefined vars&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; # Assuming optimizer uses lr = 0.001 for all groups</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.001     if epoch == 0</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.00075   if epoch == 1</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.00050   if epoch == 2</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.00025   if epoch == 3</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.0       if epoch &gt;= 4</span>
-<span class="sd">        &gt;&gt;&gt; scheduler = PolynomialLR(optimizer, total_iters=4, power=1.0)</span>
+<span class="sd">        &gt;&gt;&gt; # Assuming optimizer uses lr = 0.05 for all groups</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.0490   if epoch == 0</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.0481   if epoch == 1</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.0472   if epoch == 2</span>
+<span class="sd">        &gt;&gt;&gt; # ...</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.0      if epoch &gt;= 50</span>
+<span class="sd">        &gt;&gt;&gt; scheduler = PolynomialLR(optimizer, total_iters=50, power=0.9)</span>
 <span class="sd">        &gt;&gt;&gt; for epoch in range(100):</span>
 <span class="sd">        &gt;&gt;&gt;     train(...)</span>
 <span class="sd">        &gt;&gt;&gt;     validate(...)</span>
 <span class="sd">        &gt;&gt;&gt;     scheduler.step()</span>
+
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/PolynomialLR.png</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1579,6 +1617,17 @@
 
 <span class="sd">    .. _SGDR\: Stochastic Gradient Descent with Warm Restarts:</span>
 <span class="sd">        https://arxiv.org/abs/1608.03983</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; num_epochs = 100</span>
+<span class="sd">        &gt;&gt;&gt; scheduler = CosineAnnealingLR(optimizer, T_max=num_epochs)</span>
+<span class="sd">        &gt;&gt;&gt; for epoch in range(num_epochs):</span>
+<span class="sd">        &gt;&gt;&gt;     train(...)</span>
+<span class="sd">        &gt;&gt;&gt;     validate(...)</span>
+<span class="sd">        &gt;&gt;&gt;     scheduler.step()</span>
+
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/CosineAnnealingLR.png</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1642,19 +1691,23 @@
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
-<span class="sd">        &gt;&gt;&gt; # Assuming optimizer uses lr = 1. for all groups</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.09     if epoch == 0</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.081    if epoch == 1</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.729    if epoch == 2</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.6561   if epoch == 3</span>
-<span class="sd">        &gt;&gt;&gt; # lr = 0.59049  if epoch &gt;= 4</span>
-<span class="sd">        &gt;&gt;&gt; scheduler1 = ConstantLR(optimizer, factor=0.1, total_iters=2)</span>
+<span class="sd">        &gt;&gt;&gt; # Assuming optimizer uses lr = 0.05 for all groups</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.05      if epoch == 0</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.0450    if epoch == 1</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.0405    if epoch == 2</span>
+<span class="sd">        &gt;&gt;&gt; # ...</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.00675   if epoch == 19</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.06078   if epoch == 20</span>
+<span class="sd">        &gt;&gt;&gt; # lr = 0.05470   if epoch == 21</span>
+<span class="sd">        &gt;&gt;&gt; scheduler1 = ConstantLR(optimizer, factor=0.1, total_iters=20)</span>
 <span class="sd">        &gt;&gt;&gt; scheduler2 = ExponentialLR(optimizer, gamma=0.9)</span>
 <span class="sd">        &gt;&gt;&gt; scheduler = ChainedScheduler([scheduler1, scheduler2], optimizer=optimizer)</span>
 <span class="sd">        &gt;&gt;&gt; for epoch in range(100):</span>
 <span class="sd">        &gt;&gt;&gt;     train(...)</span>
 <span class="sd">        &gt;&gt;&gt;     validate(...)</span>
 <span class="sd">        &gt;&gt;&gt;     scheduler.step()</span>
+
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/ChainedScheduler.png</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1786,6 +1839,8 @@
 <span class="sd">        &gt;&gt;&gt;     val_loss = validate(...)</span>
 <span class="sd">        &gt;&gt;&gt;     # Note that step should be called after validate()</span>
 <span class="sd">        &gt;&gt;&gt;     scheduler.step(val_loss)</span>
+
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/ReduceLROnPlateau.png</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -2008,13 +2063,14 @@
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
 <span class="sd">        &gt;&gt;&gt; optimizer = torch.optim.SGD(model.parameters(), lr=0.1, momentum=0.9)</span>
-<span class="sd">        &gt;&gt;&gt; scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=0.01, max_lr=0.1)</span>
+<span class="sd">        &gt;&gt;&gt; scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=0.01, max_lr=0.1, step_size_up=10)</span>
 <span class="sd">        &gt;&gt;&gt; data_loader = torch.utils.data.DataLoader(...)</span>
 <span class="sd">        &gt;&gt;&gt; for epoch in range(10):</span>
 <span class="sd">        &gt;&gt;&gt;     for batch in data_loader:</span>
 <span class="sd">        &gt;&gt;&gt;         train_batch(...)</span>
 <span class="sd">        &gt;&gt;&gt;         scheduler.step()</span>
 
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/CyclicLR.png</span>
 
 <span class="sd">    .. _Cyclical Learning Rates for Training Neural Networks: https://arxiv.org/abs/1506.01186</span>
 <span class="sd">    .. _bckenstler/CLR: https://github.com/bckenstler/CLR</span>
@@ -2227,6 +2283,17 @@
 
 <span class="sd">    .. _SGDR\: Stochastic Gradient Descent with Warm Restarts:</span>
 <span class="sd">        https://arxiv.org/abs/1608.03983</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; optimizer = torch.optim.SGD(model.parameters(), lr=0.05)</span>
+<span class="sd">        &gt;&gt;&gt; scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=20)</span>
+<span class="sd">        &gt;&gt;&gt; for epoch in range(100):</span>
+<span class="sd">        &gt;&gt;&gt;     train(...)</span>
+<span class="sd">        &gt;&gt;&gt;     validate(...)</span>
+<span class="sd">        &gt;&gt;&gt;     scheduler.step()</span>
+
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/CosineAnnealingWarmRestarts.png</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -2432,6 +2499,7 @@
 <span class="sd">        &gt;&gt;&gt;         optimizer.step()</span>
 <span class="sd">        &gt;&gt;&gt;         scheduler.step()</span>
 
+<span class="sd">    .. image:: ../scripts/lr_scheduler_images/OneCycleLR.png</span>
 
 <span class="sd">    .. _Super-Convergence\: Very Fast Training of Neural Networks Using Large Learning Rates:</span>
 <span class="sd">        https://arxiv.org/abs/1708.07120</span>

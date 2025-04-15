@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="torch.fx.experimental.symbolic_shapes.constrain_unify" href="torch.fx.experimental.symbolic_shapes.constrain_unify.html" />
-    <link rel="prev" title="torch.fx.experimental.symbolic_shapes.sym_eq" href="torch.fx.experimental.symbolic_shapes.sym_eq.html" />
+    <link rel="prev" title="torch.fx.experimental.symbolic_shapes.sym_or" href="torch.fx.experimental.symbolic_shapes.sym_or.html" />
 
 <!--
   Search engines should not index the main version of documentation.
@@ -300,7 +300,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitddfc14b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git070357b ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -609,7 +609,7 @@
 <h1>torch.fx.experimental.symbolic_shapes.constrain_range<a class="headerlink" href="#torch-fx-experimental-symbolic-shapes-constrain-range" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.constrain_range">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">constrain_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#constrain_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ddfc14b3ae71dadfe0f831f6f2eff70b54d0f83f/torch/fx/experimental/symbolic_shapes.py#L1421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.constrain_range" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">constrain_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#constrain_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference external" href="https://github.com/pytorch/pytorch/blob/070357b61a99fb07fb02331cf85e2ad58afd6454/torch/fx/experimental/symbolic_shapes.py#L1440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.constrain_range" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies a constraint that the passed in SymInt must lie between min-max
 inclusive-inclusive, WITHOUT introducing a guard on the SymInt (meaning
 that it can be used on unbacked SymInts).  If min/max are None, we assume
@@ -648,7 +648,7 @@ for N=1.</p>
         <a href="torch.fx.experimental.symbolic_shapes.constrain_unify.html" class="btn btn-neutral float-right" title="torch.fx.experimental.symbolic_shapes.constrain_unify" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
       
       
-        <a href="torch.fx.experimental.symbolic_shapes.sym_eq.html" class="btn btn-neutral" title="torch.fx.experimental.symbolic_shapes.sym_eq" accesskey="p" rel="prev"><img src="../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+        <a href="torch.fx.experimental.symbolic_shapes.sym_or.html" class="btn btn-neutral" title="torch.fx.experimental.symbolic_shapes.sym_or" accesskey="p" rel="prev"><img src="../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
       
     </div>
   
