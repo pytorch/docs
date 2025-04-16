@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git070357b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git8e6415f ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -605,6 +605,9 @@
   <h1>Source code for torch.fx.experimental.symbolic_shapes</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">import</span> <span class="nn">sympy</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Add</span><span class="p">,</span> <span class="n">S</span>
+
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">``torch.fx.experimental.symbolic_shapes`` provides interfaces for interacting with</span>
@@ -707,9 +710,6 @@
 <span class="n">DimList</span> <span class="o">=</span> <span class="nb">list</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-
-<span class="kn">import</span> <span class="nn">sympy</span>
-<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Add</span><span class="p">,</span> <span class="n">S</span>
 
 
 <span class="k">class</span> <span class="nc">GuardOnDataDependentSymNode</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
@@ -7996,6 +7996,17 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_map</span><span class="p">[</span><span class="n">sym</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
 
+<span class="k">def</span> <span class="nf">_is_non_negative_check</span><span class="p">(</span><span class="n">cond</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Basic</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if a condition (SymPy expression) is checking for non-negative values (&gt;= 0).</span>
+<span class="sd">    Returns the variable name if it&#39;s a non-negative check (&gt;= 0), None otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cond</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Rel</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cond</span><span class="o">.</span><span class="n">rel_op</span> <span class="o">==</span> <span class="s2">&quot;&gt;=&quot;</span> <span class="ow">and</span> <span class="n">cond</span><span class="o">.</span><span class="n">rhs</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">cond</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+
 <span class="k">def</span> <span class="nf">_suggest_torch_checks</span><span class="p">(</span>
     <span class="n">e</span><span class="p">:</span> <span class="n">GuardOnDataDependentSymNode</span><span class="p">,</span> <span class="n">src_map</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -8008,12 +8019,29 @@
     <span class="n">printer</span> <span class="o">=</span> <span class="n">_PythonMsgPrinter</span><span class="p">(</span><span class="n">src_map</span><span class="p">)</span>
     <span class="n">msg</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">To fix the error, insert one of the following checks before this call:&quot;</span>
-    <span class="c1"># suggested fixes to resolve `cond`` are to tell the compiler to assume</span>
+
+    <span class="n">not_cond_str</span> <span class="o">=</span> <span class="n">printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Not</span><span class="p">(</span><span class="n">cond</span><span class="p">))</span>
+    <span class="n">var_name</span> <span class="o">=</span> <span class="n">_is_non_negative_check</span><span class="p">(</span><span class="n">cond</span><span class="p">)</span>
+
+    <span class="c1"># suggested fixes to resolve `cond` are to tell the compiler to assume</span>
     <span class="c1"># either `cond` or its negation (the user will need to select which)</span>
-    <span class="n">suggested_fixes</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="sa">f</span><span class="s2">&quot;torch._check(</span><span class="si">{</span><span class="n">printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;torch._check(</span><span class="si">{</span><span class="n">printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Not</span><span class="p">(</span><span class="n">cond</span><span class="p">))</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
+    <span class="n">suggested_fixes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">var_name</span><span class="p">:</span>
+        <span class="n">suggested_fixes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">&quot;You can add either: torch._check_is_size(</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">) or torch._check(</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">&gt;=0)&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot; Note: torch._check_is_size(</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">) could prevent data dependent errors that&quot;</span>
+            <span class="o">+</span> <span class="s2">&quot; happen in a guard_size_oblivious(..) context by opting into guard_size_oblivious reasoning.&quot;</span>
+            <span class="o">+</span> <span class="s2">&quot; See documentation on guard_size_oblivious for more details:&quot;</span>
+            <span class="o">+</span> <span class="s2">&quot; https://pytorch.org/docs/stable/generated/torch.fx.experimental.symbolic_shapes.guard_size_oblivious.html&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;torch._check(</span><span class="si">{</span><span class="n">not_cond_str</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">suggested_fixes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">&quot;torch._check(</span><span class="si">{</span><span class="n">printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;torch._check(</span><span class="si">{</span><span class="n">not_cond_str</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fix</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">suggested_fixes</span><span class="p">):</span>
         <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">fix</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="n">src_mapped</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
