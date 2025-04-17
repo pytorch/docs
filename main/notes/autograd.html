@@ -1,93 +1,143 @@
 
 
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta property="og:title" content="Autograd mechanics" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://pytorch.org/notes/autograd.html" />
+<meta property="og:site_name" content="PyTorch" />
+<meta property="og:description" content="This note will present an overview of how autograd works and records the operations. It’s not strictly necessary to understand all this, but we recommend getting familiar with it, as it will help y..." />
+<meta property="og:image" content="https://pytorch.org/assets/images/social-share.jpg" />
+<meta property="og:image:alt" content="PyTorch" />
+<meta name="description" content="This note will present an overview of how autograd works and records the operations. It’s not strictly necessary to understand all this, but we recommend getting familiar with it, as it will help y..." />
+
+    <title>Autograd mechanics &#8212; PyTorch main documentation</title>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Autograd mechanics &mdash; PyTorch main documentation</title>
   
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  
-  
-  
-    <link rel="canonical" href="https://pytorch.org/docs/stable/notes/autograd.html"/>
-  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  
-  
-    
-
-  
-
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <!-- <link rel="stylesheet" href="../_static/pygments.css" type="text/css" /> -->
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/katex-math.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sphinx-dropdown.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/panels-bootstrap.min.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/jit.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/autograd';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pytorch.org/docs/pytorch-versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Broadcasting semantics" href="broadcasting.html" />
     <link rel="prev" title="Automatic Mixed Precision examples" href="amp_examples.html" />
 
-<!--
-  Search engines should not index the main version of documentation.
-  Stable documentation are built without release == 'main'.
--->
-<meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../_static/css/theme.css">
+<script type="text/javascript" src="../_static/js/theme.js"></script>
+<link rel="stylesheet" href="../_static/webfonts/all.min.css">
+<meta name="pytorch_project" content="docs">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
+   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+   <!-- End Google Tag Manager (noscript) -->
+   <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+   j.onload = function() {
+     window.dispatchEvent(new Event('gtm_loaded'));
+     console.log('GTM loaded successfully');
+   };
+   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+</script>
+ <!-- End Google Tag Manager -->
+ <!-- Facebook Pixel Code -->
+<script>
+   !function(f,b,e,v,n,t,s)
+   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+   n.queue=[];t=b.createElement(e);t.async=!0;
+   t.src=v;s=b.getElementsByTagName(e)[0];
+   s.parentNode.insertBefore(t,s)}(window,document,'script',
+   'https://connect.facebook.net/en_US/fbevents.js');
+   fbq('init', '243028289693773');
+   fbq('track', 'PageView');
+</script>
+<script>
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2fd2692 )');
+ </script>
+<noscript>
+   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+</noscript>
+<script>
+   function gtag() {
+    window.dataLayer.push(arguments);
+   }
+</script>
+<!-- End Facebook Pixel Code -->
+
+<script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+
+   <!--
+   Search engines should not index the main version of documentation.
+   Stable documentation are built without release == 'main'.
+   -->
+   <meta name="robots" content="noindex">
 
 
-  <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-T8XT4PS');</script>
-    <!-- End Google Tag Manager -->
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
-  <!-- Preload the theme fonts -->
-
-<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-
-<!-- Preload the katex fonts -->
-
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
-</head>
-
-<div class="container-fluid header-holder tutorials-header" id="header-holder">
-  <div class="container">
+  </head>
+<body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
+     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+   <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
 
@@ -172,7 +222,7 @@
                   <span class="dropdown-title">ExecuTorch Docs</span>
                 </a>
               </div>
-            </div>  
+            </div>
           </li>
 
           <li class="main-menu-item">
@@ -196,7 +246,7 @@
           <li>
             <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
               <a class="with-down-arrow">
-                Blogs & News 
+                Blogs & News
               </a>
               <div class="resources-dropdown-menu">
                 <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
@@ -267,7 +317,7 @@
              </a>
            </div>
           </li>
-          <!--- TODO: This block adds the search icon to the nav bar. We will enable it later. 
+          <!--- TODO: This block adds the search icon to the nav bar. We will enable it later.
           <li>
             <div class="main-menu-item">
              <a href="https://github.com/pytorch/pytorch" class="search-icon">
@@ -278,128 +328,1086 @@
         </ul>
       </div>
 
-      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu">
+        <i class="fa-solid fa-ellipsis"></i>
+      </a>
     </div>
   </div>
-</div>
+ </div>
 
-<body class="pytorch-body">
+ <!-- Begin Mobile Menu -->
 
-   
-
-    
-
-    <div class="table-of-contents-link-wrapper">
-      <span>Table of Contents</span>
-      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
-    </div>
-
-    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
-      <div class="pytorch-side-scroll">
-        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          <div class="pytorch-left-menu-search">
-            
-    <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git8e6415f ) &#x25BC</a>
-    </div>
-    <div id="searchBox">
-    <div class="searchbox" id="googleSearchBox">
-      <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-      <div class="gcse-search"></div>
-    </div>
-    <div id="sphinxSearchBox" style="display: none;">
-      <div role="search">
-        <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-          <input type="text" name="q" placeholder="Search Docs" />
-          <input type="hidden" name="check_keywords" value="yes" />
-          <input type="hidden" name="area" value="default" />
-        </form>
+<div class="mobile-main-menu">
+  <div class="container-fluid">
+    <div class="header-container-wrapper">
+      <div class="mobile-main-menu-header-container">
+        <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+        <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu">
+          <i class="fa-solid fa-xmark"></i>
+        </a>
       </div>
     </div>
   </div>
-  <form id="searchForm">
-    <label style="margin-bottom: 1rem">
-      <input type="radio" name="searchType" value="google" checked>
-      Google Search
-    </label>
-    <label style="margin-bottom: 1rem">
-      <input type="radio" name="searchType" value="sphinx">
-      Classic Search
-    </label>
-  </form>
 
-  <script>
-     document.addEventListener('DOMContentLoaded', function() {
-      const searchForm = document.getElementById('searchForm');
-      const googleSearchBox = document.getElementById('googleSearchBox');
-      const sphinxSearchBox = document.getElementById('sphinxSearchBox');
-      // Function to toggle search box visibility
-      function toggleSearchBox(searchType) {
-        googleSearchBox.style.display = searchType === 'google' ? 'block' : 'none';
-        sphinxSearchBox.style.display = searchType === 'sphinx' ? 'block' : 'none';
-      }
-      // Determine the default search type
-      let defaultSearchType;
-      const currentUrl = window.location.href;
-      if (currentUrl.startsWith('https://pytorch.org/docs/stable')) {
-        // For the stable documentation, default to Google
-        defaultSearchType = localStorage.getItem('searchType') || 'google';
-      } else {
-        // For any other version, including docs-preview, default to Sphinx
-        defaultSearchType = 'sphinx';
-      }
-      // Set the default search type
-      document.querySelector(`input[name="searchType"][value="${defaultSearchType}"]`).checked = true;
-      toggleSearchBox(defaultSearchType);
-      // Event listener for changes in search type
-      searchForm.addEventListener('change', function(event) {
-        const selectedSearchType = event.target.value;
-        localStorage.setItem('searchType', selectedSearchType);
-        toggleSearchBox(selectedSearchType);
-      });
-      // Set placeholder text for Google search box
-      window.onload = function() {
-        var placeholderText = "Search Docs";
-        var googleSearchboxText = document.querySelector("#gsc-i-id1");
-        if (googleSearchboxText) {
-          googleSearchboxText.placeholder = placeholderText;
-          googleSearchboxText.style.fontFamily = 'FreightSans';
-          googleSearchboxText.style.fontSize = "1.2rem";
-          googleSearchboxText.style.color = '#262626';
-        }
-      };
-    });
-  </script>
+  <div class="mobile-main-menu-links-container">
+    <div class="main-menu">
+      <ul>
+         <li class="resources-mobile-menu-title">
+           <a>Learn</a>
+         </li>
+         <ul class="resources-mobile-menu-items">
+           <li>
+             <a href="https://pytorch.org/get-started">Get Started</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/tutorials">Tutorials</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
+           </li>
+         </ul>
+         <li class="resources-mobile-menu-title">
+           <a>Ecosystem</a>
+         </li>
+         <ul class="resources-mobile-menu-items">
+           <li>
+             <a href="https://pytorch.org/ecosystem">Tools</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/#community-module">Community</a>
+           </li>
+           <li>
+             <a href="https://discuss.pytorch.org/">Forums</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/resources">Developer Resources</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2024</a>
+           </li>
+         </ul>
 
-          </div>
+         <li class="resources-mobile-menu-title">
+           <a>Edge</a>
+         </li>
 
-          
+         <ul class="resources-mobile-menu-items">
+           <li>
+             <a href="https://pytorch.org/edge">About PyTorch Edge</a>
+           </li>
 
-<div>
-  <a style="color:#F05732" href="https://pytorch.org/docs/stable/notes/autograd.html">
-    You are viewing unstable developer preview docs.
-    Click here to view docs for latest stable release.
-  </a>
+           <li>
+             <a href="https://pytorch.org/executorch-overview">ExecuTorch</a>
+           </li>
+           <li>
+             <a href="https://pytorch.org/executorch/stable/index.html">ExecuTorch Documentation</a>
+           </li>
+         </ul>
+
+         <li class="resources-mobile-menu-title">
+           <a>Docs</a>
+         </li>
+
+         <ul class="resources-mobile-menu-items">
+          <li>
+            <a href="https://pytorch.org/docs/stable/index.html">PyTorch</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/pytorch-domains">PyTorch Domains</a>
+          </li>
+        </ul>
+
+        <li class="resources-mobile-menu-title">
+          <a>Blog & News</a>
+        </li>
+
+         <ul class="resources-mobile-menu-items">
+          <li>
+            <a href="https://pytorch.org/blog/">PyTorch Blog</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/community-blog">Community Blog</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/videos">Videos</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/community-stories">Community Stories</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/events">Events</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/newsletter">Newsletter</a>
+           </li>
+        </ul>
+
+        <li class="resources-mobile-menu-title">
+          <a>About</a>
+        </li>
+
+        <ul class="resources-mobile-menu-items">
+          <li>
+            <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/governing-board">Governing Board</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/credits">Cloud Credit Program</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/tac">Technical Advisory Council</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/staff">Staff</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/contact-us">Contact Us</a>
+          </li>
+        </ul>
+      </ul>
+    </div>
+  </div>
 </div>
 
+<!-- End Mobile Menu -->
+   
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-            
-            
-              
-            
-            
-              <p class="caption" role="heading"><span class="caption-text">Community</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../community/build_ci_governance.html">PyTorch Governance | Build + CI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../community/contribution_guide.html">PyTorch Contribution Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../community/design.html">PyTorch Design Philosophy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../community/governance.html">PyTorch Governance | Mechanics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../community/persons_of_interest.html">PyTorch Governance | Maintainers</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
-<ul class="current">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Home</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../pytorch-api.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../notes.html">
+    Developer Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://pytorch.org/tutorials/">
+    Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-container-wrapper">
+  <div id="sphinx-search" class="search-container">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </div>
+
+  <div id="google-search" class="search-container" style="display:none;">
+    <div class="gcse-search-wrapper">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <div class="gcse-search"></div>
+    </div>
+  </div>
+
+  <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <div class="search-toggle-inner">
+      <label class="switch">
+        <input type="checkbox" id="search-toggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Define the search callback
+    const myWebSearchStartingCallback = (gname, query) => {
+      if (typeof dataLayer !== 'undefined' && query) {
+        window.dataLayer = [];
+        dataLayer.push({
+          'event': 'google_search',
+          'search_term': query,
+          'event_category': 'Search',
+          'event_label': 'Google Search'
+        });
+        console.log('GA event sent via callback: google_search - ' + query);
+      }
+      return '';
+    };
+
+    // Set up the GCSE search callbacks
+    window.__gcse || (window.__gcse = {});
+    window.__gcse.searchCallbacks = {
+      web: {
+        starting: myWebSearchStartingCallback,
+      },
+    };
+    if (window.location.pathname.includes('/search.html')) {
+      document.body.classList.add('search-page');
+    }
+
+    // Function to reinitialize Google CSE
+    function reinitializeGoogleSearch() {
+      if (window.__gcse) {
+        // Force Google CSE to reinitialize
+        if (window.__gcse.initializationCallback) {
+          window.__gcse.initializationCallback();
+        }
+      }
+    }
+
+    // Function to handle search toggle
+    function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+      if (!toggle || !sphinxSearch || !googleSearch) return;
+
+      // Check if the URL contains /stable/ or /tutorials/
+      const currentUrl = window.location.href;
+      const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+
+      // Check if there's a saved preference, otherwise use the URL-based default
+      const savedPreference = localStorage.getItem('searchPreference');
+      if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+        toggle.checked = true;
+        sphinxSearch.style.display = 'none';
+        googleSearch.style.display = 'block';
+        // Save the preference if it wasn't already saved
+        if (savedPreference === null) {
+          localStorage.setItem('searchPreference', 'google');
+        }
+        // Ensure Google search is properly initialized
+        reinitializeGoogleSearch();
+      } else {
+        toggle.checked = false;
+        sphinxSearch.style.display = 'block';
+        googleSearch.style.display = 'none';
+      }
+
+      // Update tooltip based on initial state
+      const tooltipElement = document.querySelector('.search-toggle-container');
+      if (tooltipElement) {
+        tooltipElement.setAttribute('data-bs-title', toggle.checked ? 'Google Search On' : 'Google Search Off');
+        // Reinitialize tooltip if Bootstrap's tooltip is already initialized
+        if (bootstrap && bootstrap.Tooltip) {
+          const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+          if (tooltipInstance) tooltipInstance.dispose();
+          new bootstrap.Tooltip(tooltipElement);
+        }
+      }
+
+      // Add a data attribute to track if this toggle has been initialized
+      if (toggle.hasAttribute('data-initialized')) {
+        return; // Skip adding another event listener if already initialized
+      }
+      toggle.setAttribute('data-initialized', 'true');
+
+      toggle.addEventListener('change', function() {
+        if (this.checked) {
+          sphinxSearch.style.display = 'none';
+          googleSearch.style.display = 'block';
+          localStorage.setItem('searchPreference', 'google');
+          // Reinitialize Google search when switching to it
+          reinitializeGoogleSearch();
+          const tooltipElement = document.querySelector('.search-toggle-container');
+          if (tooltipElement) {
+            tooltipElement.setAttribute('data-bs-title', 'Google Search On');
+            // Refresh tooltip
+            if (bootstrap && bootstrap.Tooltip) {
+              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+              if (tooltipInstance) tooltipInstance.dispose();
+              new bootstrap.Tooltip(tooltipElement);
+            }
+          }
+          if (typeof dataLayer !== 'undefined') {
+            window.dataLayer = [];
+            dataLayer.push({
+              'event': 'search_engine_switch',
+              'event_category': 'Search',
+              'event_label': 'Google'
+            });
+            console.log('GA event sent via dataLayer: search_engine_switch - Google');
+          } else {
+            console.log('GA not available: Cannot track Google search switch');
+          }
+        } else {
+          sphinxSearch.style.display = 'block';
+          googleSearch.style.display = 'none';
+          localStorage.setItem('searchPreference', 'sphinx');
+          const tooltipElement = document.querySelector('.search-toggle-container');
+          if (tooltipElement) {
+            tooltipElement.setAttribute('data-bs-title', 'Google Search Off');
+            // Refresh tooltip
+            if (bootstrap && bootstrap.Tooltip) {
+              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+              if (tooltipInstance) tooltipInstance.dispose();
+              new bootstrap.Tooltip(tooltipElement);
+            }
+          }
+          if (typeof dataLayer !== 'undefined') {
+            window.dataLayer = [];
+            dataLayer.push({
+              'event': 'search_engine_switch',
+              'event_category': 'Search',
+              'event_label': 'Sphinx'
+            });
+            console.log('GA event sent via dataLayer: search_engine_switch - Sphinx');
+          } else {
+            console.log('GA not available: Cannot track Sphinx search switch');
+          }
+        }
+
+        // Also update mobile search if it exists
+        updateMobileSearch(false); // Pass false to prevent triggering another event
+      });
+    }
+
+
+    // Function to update mobile search based on current toggle state
+    function updateMobileSearch() {
+      const toggle = document.getElementById('search-toggle');
+      if (!toggle) return;
+
+      // Find mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (mobileSearchContainer) {
+        const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+        const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+        if (mobileSphinxSearch && mobileGoogleSearch) {
+          if (toggle.checked) {
+            mobileSphinxSearch.style.display = 'none';
+            mobileGoogleSearch.style.display = 'block';
+            // Reinitialize Google search in mobile view
+            reinitializeGoogleSearch();
+          } else {
+            mobileSphinxSearch.style.display = 'block';
+            mobileGoogleSearch.style.display = 'none';
+          }
+        }
+      }
+    }
+
+    // Initialize desktop search toggle
+    const toggle = document.getElementById('search-toggle');
+    const sphinxSearch = document.getElementById('sphinx-search');
+    const googleSearch = document.getElementById('google-search');
+    handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+    // Set placeholder text for Google search input
+    const observer = new MutationObserver(function(mutations, obs) {
+      const searchInputs = document.querySelectorAll('.gsc-input input');
+      searchInputs.forEach(input => {
+      if (input) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+
+        if (!input.hasAttribute('data-tracking-added')) {
+          input.setAttribute('data-tracking-added', 'true');
+        }
+      }
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Watch for mobile menu creation
+    const mobileMenuObserver = new MutationObserver(function(mutations) {
+      for (const mutation of mutations) {
+        const mobileSearchInputs = document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input');
+      mobileSearchInputs.forEach(input => {
+        if (input) {
+          input.setAttribute('placeholder', 'Search the docs ...');
+          input.style.paddingLeft = '36px';
+          }
+        });
+        if (mutation.addedNodes.length) {
+          // Check if the mobile search container was added
+          const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+          if (mobileSearchContainer) {
+            // Clone the toggle for mobile if needed
+            const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+            if (mobileToggle) {
+              // Sync mobile toggle with desktop toggle
+              mobileToggle.checked = toggle.checked;
+
+              // Update mobile search display
+              updateMobileSearch();
+
+              // Add event listener to mobile toggle
+              mobileToggle.addEventListener('change', function() {
+                // Sync desktop toggle with mobile toggle
+                toggle.checked = this.checked;
+                // Trigger change event on desktop toggle to update both
+                toggle.dispatchEvent(new Event('change'));
+              });
+            }
+          }
+        }
+      }
+    });
+
+    mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+    // Ensure Google CSE is properly loaded
+    if (window.__gcse) {
+      window.__gcse.callback = function() {
+        // This will run after Google CSE is fully loaded
+        if (toggle && toggle.checked) {
+          // If Google search is active, make sure it's properly initialized
+          reinitializeGoogleSearch();
+        }
+      };
+    } else {
+      // If Google CSE hasn't loaded yet, set up a callback
+      window.__gcse = {
+        callback: function() {
+          if (toggle && toggle.checked) {
+            reinitializeGoogleSearch();
+          }
+        }
+      };
+    }
+  });
+</script>
+</div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://x.com/PyTorch" title="X" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-x-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">X</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/pytorch/pytorch" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discuss.pytorch.org/" title="PyTorch Forum" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discourse fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyTorch Forum</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/torch/" title="PyPi" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPi</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../pytorch-api.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../notes.html">
+    Developer Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://pytorch.org/tutorials/">
+    Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-container-wrapper">
+  <div id="sphinx-search" class="search-container">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </div>
+
+  <div id="google-search" class="search-container" style="display:none;">
+    <div class="gcse-search-wrapper">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <div class="gcse-search"></div>
+    </div>
+  </div>
+
+  <div class="search-toggle-container" data-bs-title="Google Search Off" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <div class="search-toggle-inner">
+      <label class="switch">
+        <input type="checkbox" id="search-toggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Define the search callback
+    const myWebSearchStartingCallback = (gname, query) => {
+      if (typeof dataLayer !== 'undefined' && query) {
+        window.dataLayer = [];
+        dataLayer.push({
+          'event': 'google_search',
+          'search_term': query,
+          'event_category': 'Search',
+          'event_label': 'Google Search'
+        });
+        console.log('GA event sent via callback: google_search - ' + query);
+      }
+      return '';
+    };
+
+    // Set up the GCSE search callbacks
+    window.__gcse || (window.__gcse = {});
+    window.__gcse.searchCallbacks = {
+      web: {
+        starting: myWebSearchStartingCallback,
+      },
+    };
+    if (window.location.pathname.includes('/search.html')) {
+      document.body.classList.add('search-page');
+    }
+
+    // Function to reinitialize Google CSE
+    function reinitializeGoogleSearch() {
+      if (window.__gcse) {
+        // Force Google CSE to reinitialize
+        if (window.__gcse.initializationCallback) {
+          window.__gcse.initializationCallback();
+        }
+      }
+    }
+
+    // Function to handle search toggle
+    function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+      if (!toggle || !sphinxSearch || !googleSearch) return;
+
+      // Check if the URL contains /stable/ or /tutorials/
+      const currentUrl = window.location.href;
+      const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+
+      // Check if there's a saved preference, otherwise use the URL-based default
+      const savedPreference = localStorage.getItem('searchPreference');
+      if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+        toggle.checked = true;
+        sphinxSearch.style.display = 'none';
+        googleSearch.style.display = 'block';
+        // Save the preference if it wasn't already saved
+        if (savedPreference === null) {
+          localStorage.setItem('searchPreference', 'google');
+        }
+        // Ensure Google search is properly initialized
+        reinitializeGoogleSearch();
+      } else {
+        toggle.checked = false;
+        sphinxSearch.style.display = 'block';
+        googleSearch.style.display = 'none';
+      }
+
+      // Update tooltip based on initial state
+      const tooltipElement = document.querySelector('.search-toggle-container');
+      if (tooltipElement) {
+        tooltipElement.setAttribute('data-bs-title', toggle.checked ? 'Google Search On' : 'Google Search Off');
+        // Reinitialize tooltip if Bootstrap's tooltip is already initialized
+        if (bootstrap && bootstrap.Tooltip) {
+          const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+          if (tooltipInstance) tooltipInstance.dispose();
+          new bootstrap.Tooltip(tooltipElement);
+        }
+      }
+
+      // Add a data attribute to track if this toggle has been initialized
+      if (toggle.hasAttribute('data-initialized')) {
+        return; // Skip adding another event listener if already initialized
+      }
+      toggle.setAttribute('data-initialized', 'true');
+
+      toggle.addEventListener('change', function() {
+        if (this.checked) {
+          sphinxSearch.style.display = 'none';
+          googleSearch.style.display = 'block';
+          localStorage.setItem('searchPreference', 'google');
+          // Reinitialize Google search when switching to it
+          reinitializeGoogleSearch();
+          const tooltipElement = document.querySelector('.search-toggle-container');
+          if (tooltipElement) {
+            tooltipElement.setAttribute('data-bs-title', 'Google Search On');
+            // Refresh tooltip
+            if (bootstrap && bootstrap.Tooltip) {
+              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+              if (tooltipInstance) tooltipInstance.dispose();
+              new bootstrap.Tooltip(tooltipElement);
+            }
+          }
+          if (typeof dataLayer !== 'undefined') {
+            window.dataLayer = [];
+            dataLayer.push({
+              'event': 'search_engine_switch',
+              'event_category': 'Search',
+              'event_label': 'Google'
+            });
+            console.log('GA event sent via dataLayer: search_engine_switch - Google');
+          } else {
+            console.log('GA not available: Cannot track Google search switch');
+          }
+        } else {
+          sphinxSearch.style.display = 'block';
+          googleSearch.style.display = 'none';
+          localStorage.setItem('searchPreference', 'sphinx');
+          const tooltipElement = document.querySelector('.search-toggle-container');
+          if (tooltipElement) {
+            tooltipElement.setAttribute('data-bs-title', 'Google Search Off');
+            // Refresh tooltip
+            if (bootstrap && bootstrap.Tooltip) {
+              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+              if (tooltipInstance) tooltipInstance.dispose();
+              new bootstrap.Tooltip(tooltipElement);
+            }
+          }
+          if (typeof dataLayer !== 'undefined') {
+            window.dataLayer = [];
+            dataLayer.push({
+              'event': 'search_engine_switch',
+              'event_category': 'Search',
+              'event_label': 'Sphinx'
+            });
+            console.log('GA event sent via dataLayer: search_engine_switch - Sphinx');
+          } else {
+            console.log('GA not available: Cannot track Sphinx search switch');
+          }
+        }
+
+        // Also update mobile search if it exists
+        updateMobileSearch(false); // Pass false to prevent triggering another event
+      });
+    }
+
+
+    // Function to update mobile search based on current toggle state
+    function updateMobileSearch() {
+      const toggle = document.getElementById('search-toggle');
+      if (!toggle) return;
+
+      // Find mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (mobileSearchContainer) {
+        const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+        const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+        if (mobileSphinxSearch && mobileGoogleSearch) {
+          if (toggle.checked) {
+            mobileSphinxSearch.style.display = 'none';
+            mobileGoogleSearch.style.display = 'block';
+            // Reinitialize Google search in mobile view
+            reinitializeGoogleSearch();
+          } else {
+            mobileSphinxSearch.style.display = 'block';
+            mobileGoogleSearch.style.display = 'none';
+          }
+        }
+      }
+    }
+
+    // Initialize desktop search toggle
+    const toggle = document.getElementById('search-toggle');
+    const sphinxSearch = document.getElementById('sphinx-search');
+    const googleSearch = document.getElementById('google-search');
+    handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+    // Set placeholder text for Google search input
+    const observer = new MutationObserver(function(mutations, obs) {
+      const searchInputs = document.querySelectorAll('.gsc-input input');
+      searchInputs.forEach(input => {
+      if (input) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+
+        if (!input.hasAttribute('data-tracking-added')) {
+          input.setAttribute('data-tracking-added', 'true');
+        }
+      }
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Watch for mobile menu creation
+    const mobileMenuObserver = new MutationObserver(function(mutations) {
+      for (const mutation of mutations) {
+        const mobileSearchInputs = document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input');
+      mobileSearchInputs.forEach(input => {
+        if (input) {
+          input.setAttribute('placeholder', 'Search the docs ...');
+          input.style.paddingLeft = '36px';
+          }
+        });
+        if (mutation.addedNodes.length) {
+          // Check if the mobile search container was added
+          const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+          if (mobileSearchContainer) {
+            // Clone the toggle for mobile if needed
+            const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+            if (mobileToggle) {
+              // Sync mobile toggle with desktop toggle
+              mobileToggle.checked = toggle.checked;
+
+              // Update mobile search display
+              updateMobileSearch();
+
+              // Add event listener to mobile toggle
+              mobileToggle.addEventListener('change', function() {
+                // Sync desktop toggle with mobile toggle
+                toggle.checked = this.checked;
+                // Trigger change event on desktop toggle to update both
+                toggle.dispatchEvent(new Event('change'));
+              });
+            }
+          }
+        }
+      }
+    });
+
+    mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+    // Ensure Google CSE is properly loaded
+    if (window.__gcse) {
+      window.__gcse.callback = function() {
+        // This will run after Google CSE is fully loaded
+        if (toggle && toggle.checked) {
+          // If Google search is active, make sure it's properly initialized
+          reinitializeGoogleSearch();
+        }
+      };
+    } else {
+      // If Google CSE hasn't loaded yet, set up a callback
+      window.__gcse = {
+        callback: function() {
+          if (toggle && toggle.checked) {
+            reinitializeGoogleSearch();
+          }
+        }
+      };
+    }
+  });
+</script>
+</div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://x.com/PyTorch" title="X" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-x-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">X</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/pytorch/pytorch" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discuss.pytorch.org/" title="PyTorch Forum" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discourse fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyTorch Forum</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/torch/" title="PyPi" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPi</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="amp_examples.html">Automatic Mixed Precision examples</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Autograd mechanics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Autograd mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="broadcasting.html">Broadcasting semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cuda.html">CUDA semantics</a></li>
@@ -422,195 +1430,99 @@
 <li class="toctree-l1"><a class="reference internal" href="serialization.html">Serialization semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="windows.html">Windows FAQ</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Language Bindings</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../cpp_index.html">C++</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/javadoc/">Javadoc</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deploy.html">torch::deploy</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../torch.html">torch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nn.html">torch.nn</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nn.functional.html">torch.nn.functional</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tensors.html">torch.Tensor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tensor_attributes.html">Tensor Attributes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tensor_view.html">Tensor Views</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../amp.html">torch.amp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../autograd.html">torch.autograd</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../library.html">torch.library</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../accelerator.html">torch.accelerator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cpu.html">torch.cpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cuda.html">torch.cuda</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../torch_cuda_memory.html#generating-a-snapshot">Generating a Snapshot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mps.html">torch.mps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../xpu.html">torch.xpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mtia.html">torch.mtia</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mtia.memory.html">torch.mtia.memory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../meta.html">Meta device</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../backends.html">torch.backends</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../export.html">torch.export</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.html">torch.distributed.tensor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributed.elastic.html">torch.distributed.elastic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fsdp.html">torch.distributed.fsdp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributed.fsdp.fully_shard.html">torch.distributed.fsdp.fully_shard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributed.optim.html">torch.distributed.optim</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributed.pipelining.html">torch.distributed.pipelining</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../torch.compiler.html">torch.compiler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fft.html">torch.fft</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../func.html">torch.func</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fx.html">torch.fx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fx.experimental.html">torch.fx.experimental</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../jit.html">torch.jit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../linalg.html">torch.linalg</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../monitor.html">torch.monitor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../signal.html">torch.signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../special.html">torch.special</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../torch.overrides.html">torch.overrides</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../package.html">torch.package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../profiler.html">torch.profiler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nn.attention.html">torch.nn.attention</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../onnx.html">torch.onnx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../optim.html">torch.optim</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../complex_numbers.html">Complex Numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ddp_comm_hooks.html">DDP Communication Hooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../quantization.html">Quantization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../random.html">torch.random</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../masked.html">torch.masked</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nested.html">torch.nested</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../size.html">torch.Size</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../sparse.html">torch.sparse</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../storage.html">torch.Storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../testing.html">torch.testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../utils.html">torch.utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../benchmark_utils.html">torch.utils.benchmark</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../bottleneck.html">torch.utils.bottleneck</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../checkpoint.html">torch.utils.checkpoint</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cpp_extension.html">torch.utils.cpp_extension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../data.html">torch.utils.data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deterministic.html">torch.utils.deterministic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../jit_utils.html">torch.utils.jit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dlpack.html">torch.utils.dlpack</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mobile_optimizer.html">torch.utils.mobile_optimizer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../model_zoo.html">torch.utils.model_zoo</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tensorboard.html">torch.utils.tensorboard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../module_tracker.html">torch.utils.module_tracker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../type_info.html">Type Info</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../named_tensor.html">Named Tensors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../name_inference.html">Named Tensors operator coverage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../config_mod.html">torch.__config__</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../future_mod.html">torch.__future__</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../logging.html">torch._logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../torch_environment_variables.html">Torch Environment Variables</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/audio/stable">torchaudio</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/data">TorchData</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/torchrec">TorchRec</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/serve">TorchServe</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/text/stable">torchtext</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/vision/stable">torchvision</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/xla/">PyTorch on XLA Devices</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/ao">torchao</a></li>
-</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
-            
-          
 
-        </div>
       </div>
-    </nav>
-
-    <div class="pytorch-container">
-      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
-        <div class="pytorch-breadcrumbs-wrapper">
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="pytorch-breadcrumbs">
-    
-      <li>
-        <a href="../index.html">
-          
-            Docs
-          
-        </a> &gt;
-      </li>
-
+      
+      <main id="main-content" class="bd-main" role="main">
         
-      <li>Autograd mechanics</li>
-    
-    
-      <li class="pytorch-breadcrumbs-aside">
         
-            
-            <a href="../_sources/notes/autograd.rst.txt" rel="nofollow"><img src="../_static/images/view-page-source-icon.svg"></a>
-          
-        
-      </li>
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
     
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../notes.html" class="nav-link">Developer Notes</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Autograd mechanics</li>
   </ul>
-
+</nav>
+</div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+<div class="rating">
+    Rate this Page
+    <div class="stars">
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="1" data-value="1">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="2" data-value="2">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="3" data-value="3">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="4" data-value="4">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="5" data-value="5">★</span>
+        
+    </div>
+</div>
+</div>
+      
+    </div>
   
 </div>
-        </div>
-
-        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
-          Shortcuts
-        </div>
-      </div>
-
-      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
-        <div class="pytorch-content-left">
-
-        
-
-          <!-- Google Tag Manager (noscript) -->
-          <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-          <!-- End Google Tag Manager (noscript) -->
-          
-          <div class="rst-content">
-          
-            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
-             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+</div>
               
+              
+  
+<div id="searchbox"></div>
+  <article class="bd-article">
+    
+    
+    
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <div class="section" id="autograd-mechanics">
-<span id="id1"></span><h1>Autograd mechanics<a class="headerlink" href="#autograd-mechanics" title="Permalink to this heading">¶</a></h1>
+<span id="id1"></span><h1>Autograd mechanics<a class="headerlink" href="#autograd-mechanics" title="Permalink to this heading">#</a></h1>
 <p>This note will present an overview of how autograd works and records the
 operations. It’s not strictly necessary to understand all this, but we recommend
 getting familiar with it, as it will help you write more efficient, cleaner
 programs, and can aid you in debugging.</p>
 <div class="section" id="how-autograd-encodes-the-history">
-<span id="how-autograd-encodes-history"></span><h2>How autograd encodes the history<a class="headerlink" href="#how-autograd-encodes-the-history" title="Permalink to this heading">¶</a></h2>
+<span id="how-autograd-encodes-history"></span><h2>How autograd encodes the history<a class="headerlink" href="#how-autograd-encodes-the-history" title="Permalink to this heading">#</a></h2>
 <p>Autograd is a reverse automatic differentiation system.  Conceptually,
 autograd records a graph recording all of the operations that created
 the data as you execute operations, giving you a directed acyclic graph
@@ -632,7 +1544,7 @@ flow statements, that can change the overall shape and size of the graph at
 every iteration. You don’t have to encode all possible paths before you
 launch the training - what you run is what you differentiate.</p>
 <div class="section" id="saved-tensors">
-<span id="saved-tensors-doc"></span><h3>Saved tensors<a class="headerlink" href="#saved-tensors" title="Permalink to this heading">¶</a></h3>
+<span id="saved-tensors-doc"></span><h3>Saved tensors<a class="headerlink" href="#saved-tensors" title="Permalink to this heading">#</a></h3>
 <p>Some operations need intermediary results to be saved during the forward pass
 in order to execute the backward pass. For example, the function
 <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>↦</mo><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">x\mapsto x^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.522em;vertical-align:-0.011em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">↦</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span> saves the input <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> to compute the gradient.</p>
@@ -670,7 +1582,7 @@ subject to change and that users should not rely on.</p>
 </div>
 </div>
 <div class="section" id="gradients-for-non-differentiable-functions">
-<span id="non-differentiable-func-grad"></span><h2>Gradients for non-differentiable functions<a class="headerlink" href="#gradients-for-non-differentiable-functions" title="Permalink to this heading">¶</a></h2>
+<span id="non-differentiable-func-grad"></span><h2>Gradients for non-differentiable functions<a class="headerlink" href="#gradients-for-non-differentiable-functions" title="Permalink to this heading">#</a></h2>
 <p>The gradient computation using Automatic Differentiation is only valid when each elementary function being used is differentiable.
 Unfortunately many of the functions we use in practice do not have this property (<code class="docutils literal notranslate"><span class="pre">relu</span></code> or <code class="docutils literal notranslate"><span class="pre">sqrt</span></code> at <code class="docutils literal notranslate"><span class="pre">0</span></code>, for example).
 To try and reduce the impact of functions that are non-differentiable, we define the gradients of the elementary operations by applying the following rules in order:</p>
@@ -684,7 +1596,7 @@ To try and reduce the impact of functions that are non-differentiable, we define
 </ol>
 </div>
 <div class="section" id="locally-disabling-gradient-computation">
-<span id="locally-disable-grad-doc"></span><h2>Locally disabling gradient computation<a class="headerlink" href="#locally-disabling-gradient-computation" title="Permalink to this heading">¶</a></h2>
+<span id="locally-disable-grad-doc"></span><h2>Locally disabling gradient computation<a class="headerlink" href="#locally-disabling-gradient-computation" title="Permalink to this heading">#</a></h2>
 <p>There are several mechanisms available from Python to locally disable gradient
 computation:</p>
 <p>To disable gradients across entire blocks of code, there are context managers
@@ -695,7 +1607,7 @@ there is setting the <code class="docutils literal notranslate"><span class="pre
 evaluation mode (<code class="xref py py-meth docutils literal notranslate"><span class="pre">nn.Module.eval()</span></code>), a method that is not used
 to disable gradient computation but, because of its name, is often mixed up with the three.</p>
 <div class="section" id="setting-requires-grad">
-<h3>Setting <code class="docutils literal notranslate"><span class="pre">requires_grad</span></code><a class="headerlink" href="#setting-requires-grad" title="Permalink to this heading">¶</a></h3>
+<h3>Setting <code class="docutils literal notranslate"><span class="pre">requires_grad</span></code><a class="headerlink" href="#setting-requires-grad" title="Permalink to this heading">#</a></h3>
 <p><code class="xref py py-attr docutils literal notranslate"><span class="pre">requires_grad</span></code> is a flag, defaulting to false <em>unless wrapped
 in a</em> <code class="docutils literal notranslate"><span class="pre">nn.Parameter</span></code>, that allows for fine-grained exclusion of
 subgraphs from gradient computation. It takes effect in both the
@@ -728,13 +1640,13 @@ When applied to a module, <code class="docutils literal notranslate"><span class
 of the module’s parameters (which have <code class="docutils literal notranslate"><span class="pre">requires_grad=True</span></code> by default).</p>
 </div>
 <div class="section" id="grad-modes">
-<h3>Grad Modes<a class="headerlink" href="#grad-modes" title="Permalink to this heading">¶</a></h3>
+<h3>Grad Modes<a class="headerlink" href="#grad-modes" title="Permalink to this heading">#</a></h3>
 <p>Apart from setting <code class="docutils literal notranslate"><span class="pre">requires_grad</span></code> there are also three grad modes that can
 be selected from Python that can affect how computations in PyTorch are
 processed by autograd internally: default mode (grad mode), no-grad mode,
 and inference mode, all of which can be togglable via context managers and
 decorators.</p>
-<table class="colwidths-given docutils colwidths-auto align-default">
+<div class="pst-scrollable-table-container"><table class="colwidths-given table">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 20%" />
@@ -772,8 +1684,9 @@ decorators.</p>
 </tbody>
 </table>
 </div>
+</div>
 <div class="section" id="default-mode-grad-mode">
-<h3>Default Mode (Grad Mode)<a class="headerlink" href="#default-mode-grad-mode" title="Permalink to this heading">¶</a></h3>
+<h3>Default Mode (Grad Mode)<a class="headerlink" href="#default-mode-grad-mode" title="Permalink to this heading">#</a></h3>
 <p>The “default mode” is the mode we are implicitly in when no other modes like
 no-grad and inference mode are enabled. To be contrasted with
 “no-grad mode” the default mode is also sometimes called “grad mode”.</p>
@@ -782,7 +1695,7 @@ mode in which <code class="docutils literal notranslate"><span class="pre">requi
 to be <code class="docutils literal notranslate"><span class="pre">False</span></code> in both the two other modes.</p>
 </div>
 <div class="section" id="no-grad-mode">
-<h3>No-grad Mode<a class="headerlink" href="#no-grad-mode" title="Permalink to this heading">¶</a></h3>
+<h3>No-grad Mode<a class="headerlink" href="#no-grad-mode" title="Permalink to this heading">#</a></h3>
 <p>Computations in no-grad mode behave as if none of the inputs require grad.
 In other words, computations in no-grad mode are never recorded in the backward graph
 even if there are inputs that have <code class="docutils literal notranslate"><span class="pre">require_grad=True</span></code>.</p>
@@ -802,7 +1715,7 @@ rely on no-grad mode when initializing the parameters as to avoid
 autograd tracking when updating the initialized parameters in-place.</p>
 </div>
 <div class="section" id="inference-mode">
-<h3>Inference Mode<a class="headerlink" href="#inference-mode" title="Permalink to this heading">¶</a></h3>
+<h3>Inference Mode<a class="headerlink" href="#inference-mode" title="Permalink to this heading">#</a></h3>
 <p>Inference mode is the extreme version of no-grad mode. Just like in no-grad
 mode, computations in inference mode are not recorded in the backward graph, but
 enabling inference mode will allow PyTorch to speed up your model even more.
@@ -826,7 +1739,7 @@ to no-grad mode.</p>
 <a class="reference external" href="https://github.com/pytorch/rfcs/pull/17">RFC-0011-InferenceMode</a>.</p>
 </div>
 <div class="section" id="evaluation-mode-nn-module-eval">
-<h3>Evaluation Mode (<code class="docutils literal notranslate"><span class="pre">nn.Module.eval()</span></code>)<a class="headerlink" href="#evaluation-mode-nn-module-eval" title="Permalink to this heading">¶</a></h3>
+<h3>Evaluation Mode (<code class="docutils literal notranslate"><span class="pre">nn.Module.eval()</span></code>)<a class="headerlink" href="#evaluation-mode-nn-module-eval" title="Permalink to this heading">#</a></h3>
 <p>Evaluation mode is not a mechanism to locally disable gradient computation.
 It is included here anyway because it is sometimes confused to be such a mechanism.</p>
 <p>Functionally, <code class="docutils literal notranslate"><span class="pre">module.eval()</span></code> (or equivalently <code class="docutils literal notranslate"><span class="pre">module.train(False)</span></code>) are completely
@@ -846,7 +1759,7 @@ eval modes.</p>
 </div>
 </div>
 <div class="section" id="in-place-operations-with-autograd">
-<h2>In-place operations with autograd<a class="headerlink" href="#in-place-operations-with-autograd" title="Permalink to this heading">¶</a></h2>
+<h2>In-place operations with autograd<a class="headerlink" href="#in-place-operations-with-autograd" title="Permalink to this heading">#</a></h2>
 <p>Supporting in-place operations in autograd is a hard matter, and we discourage
 their use in most cases. Autograd’s aggressive buffer freeing and reuse makes
 it very efficient and there are very few occasions when in-place operations
@@ -866,7 +1779,7 @@ and in-place functions will raise an error if the storage of
 modified inputs is referenced by any other <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>.</p></li>
 </ol>
 <div class="section" id="in-place-correctness-checks">
-<h3>In-place correctness checks<a class="headerlink" href="#in-place-correctness-checks" title="Permalink to this heading">¶</a></h3>
+<h3>In-place correctness checks<a class="headerlink" href="#in-place-correctness-checks" title="Permalink to this heading">#</a></h3>
 <p>Every tensor keeps a version counter, that is incremented every time it is
 marked dirty in any operation. When a Function saves any tensors for backward,
 a version counter of their containing Tensor is saved as well. Once you access
@@ -877,7 +1790,7 @@ gradients are correct.</p>
 </div>
 </div>
 <div class="section" id="multithreaded-autograd">
-<h2>Multithreaded Autograd<a class="headerlink" href="#multithreaded-autograd" title="Permalink to this heading">¶</a></h2>
+<h2>Multithreaded Autograd<a class="headerlink" href="#multithreaded-autograd" title="Permalink to this heading">#</a></h2>
 <p>The autograd engine is responsible for running all the backward operations
 necessary to compute the backward pass. This section will describe all the details
 that can help you make the best use of it in a multithreaded environment. (This is
@@ -907,14 +1820,14 @@ does not block on the concurrent backward computations, example code could be:</
 </div>
 <p>Note that some behaviors that user should be aware of:</p>
 <div class="section" id="concurrency-on-cpu">
-<h3>Concurrency on CPU<a class="headerlink" href="#concurrency-on-cpu" title="Permalink to this heading">¶</a></h3>
+<h3>Concurrency on CPU<a class="headerlink" href="#concurrency-on-cpu" title="Permalink to this heading">#</a></h3>
 <p>When you run <code class="docutils literal notranslate"><span class="pre">backward()</span></code> or <code class="docutils literal notranslate"><span class="pre">grad()</span></code> via python or C++ API in multiple
 threads on CPU, you are expecting to see extra concurrency instead of
 serializing all the backward calls in a specific order during execution
 (behavior before PyTorch 1.6).</p>
 </div>
 <div class="section" id="non-determinism">
-<h3>Non-determinism<a class="headerlink" href="#non-determinism" title="Permalink to this heading">¶</a></h3>
+<h3>Non-determinism<a class="headerlink" href="#non-determinism" title="Permalink to this heading">#</a></h3>
 <p>If you are calling <code class="docutils literal notranslate"><span class="pre">backward()</span></code> from multiple threads concurrently and have
 shared inputs (i.e. Hogwild CPU training), then non-determinism should be expected.
 This can occur because parameters are automatically shared across threads,
@@ -927,7 +1840,7 @@ threading model in mind and should understand the issues described above.</p>
 gradients instead of <code class="docutils literal notranslate"><span class="pre">backward()</span></code> to avoid non-determinism.</p>
 </div>
 <div class="section" id="graph-retaining">
-<h3>Graph retaining<a class="headerlink" href="#graph-retaining" title="Permalink to this heading">¶</a></h3>
+<h3>Graph retaining<a class="headerlink" href="#graph-retaining" title="Permalink to this heading">#</a></h3>
 <p>If part of the autograd graph is shared between threads, i.e. run first
 part of forward single thread, then run second part in multiple threads,
 then the first part of graph is shared. In this case different threads
@@ -938,7 +1851,7 @@ crash in this case. Autograd will error out to the user similar to what call
 they should use <code class="docutils literal notranslate"><span class="pre">retain_graph=True</span></code>.</p>
 </div>
 <div class="section" id="thread-safety-on-autograd-node">
-<h3>Thread Safety on Autograd Node<a class="headerlink" href="#thread-safety-on-autograd-node" title="Permalink to this heading">¶</a></h3>
+<h3>Thread Safety on Autograd Node<a class="headerlink" href="#thread-safety-on-autograd-node" title="Permalink to this heading">#</a></h3>
 <p>Since Autograd allows the caller thread to drive its backward execution for
 potential parallelism, it’s important that we ensure thread safety on CPU with
 parallel <code class="docutils literal notranslate"><span class="pre">backward()</span></code> calls that share part/whole of the GraphTask.</p>
@@ -948,14 +1861,14 @@ For built-in C++ Autograd Nodes (e.g. AccumulateGrad, CopySlices) and custom
 thread safety on autograd Nodes that might have state write/read.</p>
 </div>
 <div class="section" id="no-thread-safety-on-c-hooks">
-<h3>No thread safety on C++ hooks<a class="headerlink" href="#no-thread-safety-on-c-hooks" title="Permalink to this heading">¶</a></h3>
+<h3>No thread safety on C++ hooks<a class="headerlink" href="#no-thread-safety-on-c-hooks" title="Permalink to this heading">#</a></h3>
 <p>Autograd relies on the user to write thread safe C++ hooks. If you want the hook
 to be correctly applied in multithreading environment, you will need to write
 proper thread locking code to ensure the hooks are thread safe.</p>
 </div>
 </div>
 <div class="section" id="autograd-for-complex-numbers">
-<span id="complex-autograd-doc"></span><h2>Autograd for Complex Numbers<a class="headerlink" href="#autograd-for-complex-numbers" title="Permalink to this heading">¶</a></h2>
+<span id="complex-autograd-doc"></span><h2>Autograd for Complex Numbers<a class="headerlink" href="#autograd-for-complex-numbers" title="Permalink to this heading">#</a></h2>
 <p>The short version:</p>
 <ul class="simple">
 <li><p>When you use PyTorch to differentiate any function <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(z)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span></span> with complex domain and/or codomain,
@@ -975,7 +1888,7 @@ with only real operations.</p></li>
 <p>If you are curious about the mathematical details, or want to know how
 to define complex derivatives in PyTorch, read on.</p>
 <div class="section" id="what-are-complex-derivatives">
-<h3>What are complex derivatives?<a class="headerlink" href="#what-are-complex-derivatives" title="Permalink to this heading">¶</a></h3>
+<h3>What are complex derivatives?<a class="headerlink" href="#what-are-complex-derivatives" title="Permalink to this heading">#</a></h3>
 <p>The mathematical definition of complex-differentiability takes the
 limit definition of a derivative and generalizes it to operate on
 complex numbers. Consider a function <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>:</mo><mi mathvariant="normal">C</mi><mo>→</mo><mi mathvariant="normal">C</mi></mrow><annotation encoding="application/x-tex">f: ℂ → ℂ</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6889em;"></span><span class="mord amsrm">C</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6889em;"></span><span class="mord amsrm">C</span></span></span></span></span>,</p>
@@ -1007,7 +1920,7 @@ Cauchy-Riemann equations. So the theory with holomorphic function cannot be
 used for optimization and most people therefore use the Wirtinger calculus.</p>
 </div>
 <div class="section" id="wirtinger-calculus-comes-into-the-picture">
-<h3>Wirtinger Calculus comes into the picture …<a class="headerlink" href="#wirtinger-calculus-comes-into-the-picture" title="Permalink to this heading">¶</a></h3>
+<h3>Wirtinger Calculus comes into the picture …<a class="headerlink" href="#wirtinger-calculus-comes-into-the-picture" title="Permalink to this heading">#</a></h3>
 <p>So, we have this great theory of complex differentiability and
 holomorphic functions, and we can’t use any of it at all, because many
 of the commonly used functions are not holomorphic. What’s a poor
@@ -1063,7 +1976,7 @@ take while making variable update is given by <span class="math"><span class="ka
 <p>For more reading, check out: <a class="reference external" href="https://arxiv.org/pdf/0906.4835.pdf">https://arxiv.org/pdf/0906.4835.pdf</a></p>
 </div>
 <div class="section" id="how-is-wirtinger-calculus-useful-in-optimization">
-<h3>How is Wirtinger Calculus useful in optimization?<a class="headerlink" href="#how-is-wirtinger-calculus-useful-in-optimization" title="Permalink to this heading">¶</a></h3>
+<h3>How is Wirtinger Calculus useful in optimization?<a class="headerlink" href="#how-is-wirtinger-calculus-useful-in-optimization" title="Permalink to this heading">#</a></h3>
 <p>Researchers in audio and other fields, more commonly, use gradient
 descent to optimize real valued loss functions with complex variables.
 Typically, these people treat the real and imaginary values as separate
@@ -1095,7 +2008,7 @@ refer to the conjugate Wirtinger derivative
 when you differentiate a function with a real valued loss.</p>
 </div>
 <div class="section" id="how-does-pytorch-compute-the-conjugate-wirtinger-derivative">
-<h3>How does PyTorch compute the conjugate Wirtinger derivative?<a class="headerlink" href="#how-does-pytorch-compute-the-conjugate-wirtinger-derivative" title="Permalink to this heading">¶</a></h3>
+<h3>How does PyTorch compute the conjugate Wirtinger derivative?<a class="headerlink" href="#how-does-pytorch-compute-the-conjugate-wirtinger-derivative" title="Permalink to this heading">#</a></h3>
 <p>Typically, our derivative formulas take in <cite>grad_output</cite> as an input,
 representing the incoming Vector-Jacobian product that we’ve already
 computed, aka, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>s</mi><mo>∗</mo></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial L}{\partial s^*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6183em;"><span style="top:-2.786em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi></mrow><annotation encoding="application/x-tex">L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">L</span></span></span></span></span>
@@ -1115,7 +2028,7 @@ valued loss functions, so let’s assume <span class="math"><span class="katex">
 real valued loss function <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi></mrow><annotation encoding="application/x-tex">g</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span></span></span></span></span>. Using chain rule, we can write:</p>
 <blockquote>
 <div><div class="math" id="equation-1">
-<span class="eqno">(1)<a class="headerlink" href="#equation-1" title="Permalink to this equation">¶</a></span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>u</mi></mrow></mfrac><mo>∗</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>u</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac><mo>+</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>v</mi></mrow></mfrac><mo>∗</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>v</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial L}{\partial z^*} = \frac{\partial L}{\partial u} * \frac{\partial u}{\partial z^*} + \frac{\partial L}{\partial v} * \frac{\partial v}{\partial z^*}
+<span class="eqno">(1)<a class="headerlink" href="#equation-1" title="Permalink to this equation">#</a></span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>u</mi></mrow></mfrac><mo>∗</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>u</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac><mo>+</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>v</mi></mrow></mfrac><mo>∗</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>v</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial L}{\partial z^*} = \frac{\partial L}{\partial u} * \frac{\partial u}{\partial z^*} + \frac{\partial L}{\partial v} * \frac{\partial v}{\partial z^*}
 
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.0574em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6147em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0574em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal">u</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.0574em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6147em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.0574em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.0574em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6147em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div></div></blockquote>
 <p>Now using Wirtinger derivative definition, we can write:</p>
@@ -1132,14 +2045,14 @@ functions, and <span class="math"><span class="katex"><span class="katex-mathml"
 part of a real valued function, we have:</p>
 <blockquote>
 <div><div class="math" id="equation-2">
-<span class="eqno">(2)<a class="headerlink" href="#equation-2" title="Permalink to this equation">¶</a></span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mrow><mo fence="true">(</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow></mfrac><mo fence="true">)</mo></mrow><mo>∗</mo></msup><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>s</mi><mo>∗</mo></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\left( \frac{\partial L}{\partial s} \right)^* = \frac{\partial L}{\partial s^*}
+<span class="eqno">(2)<a class="headerlink" href="#equation-2" title="Permalink to this equation">#</a></span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mrow><mo fence="true">(</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow></mfrac><mo fence="true">)</mo></mrow><mo>∗</mo></msup><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>s</mi><mo>∗</mo></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\left( \frac{\partial L}{\partial s} \right)^* = \frac{\partial L}{\partial s^*}
 
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.4786em;vertical-align:-0.95em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal">s</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.5286em;"><span style="top:-3.9029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0574em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6147em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div></div></blockquote>
 <p>i.e., <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial L}{\partial s}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">s</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span> equals to <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mi>r</mi><mi>a</mi><mi>d</mi><mi mathvariant="normal">_</mi><mi>o</mi><mi>u</mi><mi>t</mi><mi>p</mi><mi>u</mi><msup><mi>t</mi><mo>∗</mo></msup></mrow><annotation encoding="application/x-tex">grad\_output^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0044em;vertical-align:-0.31em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">o</span><span class="mord mathnormal">u</span><span class="mord mathnormal">tp</span><span class="mord mathnormal">u</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6887em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span></span>.</p>
 <p>Solving the above equations for <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>u</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial L}{\partial u}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">u</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span> and <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>v</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial L}{\partial v}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>, we get:</p>
 <blockquote>
 <div><div class="math" id="equation-3">
-<span class="eqno">(3)<a class="headerlink" href="#equation-3" title="Permalink to this equation">¶</a></span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right" columnspacing=""><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>u</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow></mfrac><mo>+</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>s</mi><mo>∗</mo></msup></mrow></mfrac></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>v</mi></mrow></mfrac><mo>=</mo><mn>1</mn><mi>j</mi><mo>∗</mo><mrow><mo fence="true">(</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow></mfrac><mo>−</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>s</mi><mo>∗</mo></msup></mrow></mfrac><mo fence="true">)</mo></mrow></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+<span class="eqno">(3)<a class="headerlink" href="#equation-3" title="Permalink to this equation">#</a></span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right" columnspacing=""><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>u</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow></mfrac><mo>+</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>s</mi><mo>∗</mo></msup></mrow></mfrac></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>v</mi></mrow></mfrac><mo>=</mo><mn>1</mn><mi>j</mi><mo>∗</mo><mrow><mo fence="true">(</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow></mfrac><mo>−</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>s</mi><mo>∗</mo></msup></mrow></mfrac><mo fence="true">)</mo></mrow></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
     \frac{\partial L}{\partial u} = \frac{\partial L}{\partial s} + \frac{\partial L}{\partial s^*} \\
     \frac{\partial L}{\partial v} = 1j * \left(\frac{\partial L}{\partial s} - \frac{\partial L}{\partial s^*}\right)
 \end{aligned}
@@ -1159,7 +2072,7 @@ part of a real valued function, we have:</p>
 <p>Using <a class="reference internal" href="#equation-2">(2)</a>, we get:</p>
 <blockquote>
 <div><div class="math" id="equation-4">
-<span class="eqno">(4)<a class="headerlink" href="#equation-4" title="Permalink to this equation">¶</a></span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><msup><mrow><mo fence="true">(</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>s</mi><mo>∗</mo></msup></mrow></mfrac><mo fence="true">)</mo></mrow><mo>∗</mo></msup><mo>∗</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac><mo>+</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>s</mi><mo>∗</mo></msup></mrow></mfrac><mo>∗</mo><msup><mrow><mo fence="true">(</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>z</mi></mrow></mfrac><mo fence="true">)</mo></mrow><mo>∗</mo></msup></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><menclose notation="box"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="true"><mrow><mo stretchy="false">(</mo><mi>g</mi><mi>r</mi><mi>a</mi><mi>d</mi><mi mathvariant="normal">_</mi><mi>o</mi><mi>u</mi><mi>t</mi><mi>p</mi><mi>u</mi><mi>t</mi><msup><mo stretchy="false">)</mo><mo>∗</mo></msup><mo>∗</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac><mo>+</mo><mi>g</mi><mi>r</mi><mi>a</mi><mi>d</mi><mi mathvariant="normal">_</mi><mi>o</mi><mi>u</mi><mi>t</mi><mi>p</mi><mi>u</mi><mi>t</mi><mo>∗</mo><msup><mrow><mo fence="true">(</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>z</mi></mrow></mfrac><mo fence="true">)</mo></mrow><mo>∗</mo></msup></mrow></mstyle></mstyle></mstyle></menclose></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+<span class="eqno">(4)<a class="headerlink" href="#equation-4" title="Permalink to this equation">#</a></span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><msup><mrow><mo fence="true">(</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>s</mi><mo>∗</mo></msup></mrow></mfrac><mo fence="true">)</mo></mrow><mo>∗</mo></msup><mo>∗</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac><mo>+</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>s</mi><mo>∗</mo></msup></mrow></mfrac><mo>∗</mo><msup><mrow><mo fence="true">(</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>z</mi></mrow></mfrac><mo fence="true">)</mo></mrow><mo>∗</mo></msup></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><menclose notation="box"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="true"><mrow><mo stretchy="false">(</mo><mi>g</mi><mi>r</mi><mi>a</mi><mi>d</mi><mi mathvariant="normal">_</mi><mi>o</mi><mi>u</mi><mi>t</mi><mi>p</mi><mi>u</mi><mi>t</mi><msup><mo stretchy="false">)</mo><mo>∗</mo></msup><mo>∗</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac><mo>+</mo><mi>g</mi><mi>r</mi><mi>a</mi><mi>d</mi><mi mathvariant="normal">_</mi><mi>o</mi><mi>u</mi><mi>t</mi><mi>p</mi><mi>u</mi><mi>t</mi><mo>∗</mo><msup><mrow><mo fence="true">(</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>z</mi></mrow></mfrac><mo fence="true">)</mo></mrow><mo>∗</mo></msup></mrow></mstyle></mstyle></mstyle></menclose></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
     \frac{\partial L}{\partial z^*} &amp;= \left(\frac{\partial L}{\partial s^*}\right)^* * \frac{\partial s}{\partial z^*} + \frac{\partial L}{\partial s^*} * \left(\frac{\partial s}{\partial z}\right)^*  \\
                                     &amp;= \boxed{ (grad\_output)^* * \frac{\partial s}{\partial z^*} + grad\_output * \left(\frac{\partial s}{\partial z}\right)^* }       \\
 \end{aligned}
@@ -1170,7 +2083,7 @@ as it decomposes our derivative formula into a simpler one that is easy
 to compute by hand.</p>
 </div>
 <div class="section" id="how-can-i-write-my-own-derivative-formula-for-a-complex-function">
-<h3>How can I write my own derivative formula for a complex function?<a class="headerlink" href="#how-can-i-write-my-own-derivative-formula-for-a-complex-function" title="Permalink to this heading">¶</a></h3>
+<h3>How can I write my own derivative formula for a complex function?<a class="headerlink" href="#how-can-i-write-my-own-derivative-formula-for-a-complex-function" title="Permalink to this heading">#</a></h3>
 <p>The above boxed equation gives us the general formula for all
 derivatives on complex functions.  However, we still need to
 compute <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>z</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial s}{\partial z}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span> and <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial s}{\partial z^*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6183em;"><span style="top:-2.786em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>.
@@ -1219,7 +2132,7 @@ the conjugate Wirtinger derivatives by treating <span class="math"><span class="
 in more handy for faster calculations.</p>
 </div>
 <div class="section" id="what-about-cross-domain-functions">
-<h3>What about cross-domain functions?<a class="headerlink" href="#what-about-cross-domain-functions" title="Permalink to this heading">¶</a></h3>
+<h3>What about cross-domain functions?<a class="headerlink" href="#what-about-cross-domain-functions" title="Permalink to this heading">#</a></h3>
 <p>Some functions map from complex inputs to real outputs, or vice versa.
 These functions form a special case of <a class="reference internal" href="#equation-4">(4)</a>, which we can derive using the
 chain rule:</p>
@@ -1244,7 +2157,7 @@ chain rule:</p>
 </div>
 </div>
 <div class="section" id="hooks-for-saved-tensors">
-<span id="saved-tensors-hooks-doc"></span><h2>Hooks for saved tensors<a class="headerlink" href="#hooks-for-saved-tensors" title="Permalink to this heading">¶</a></h2>
+<span id="saved-tensors-hooks-doc"></span><h2>Hooks for saved tensors<a class="headerlink" href="#hooks-for-saved-tensors" title="Permalink to this heading">#</a></h2>
 <p>You can control <a class="reference internal" href="#saved-tensors-doc"><span class="std std-ref">how saved tensors are packed / unpacked</span></a> by defining a pair of <code class="docutils literal notranslate"><span class="pre">pack_hook</span></code> / <code class="docutils literal notranslate"><span class="pre">unpack_hook</span></code>
 hooks.  The <code class="docutils literal notranslate"><span class="pre">pack_hook</span></code> function should take a tensor as its single argument
 but can return any python object (e.g. another tensor, a tuple, or even a
@@ -1290,7 +2203,7 @@ input to a pack hook is modified inplace but does not catch the case where the
 input to an unpack hook is modified inplace.</p>
 </div>
 <div class="section" id="registering-hooks-for-a-saved-tensor">
-<h3>Registering hooks for a saved tensor<a class="headerlink" href="#registering-hooks-for-a-saved-tensor" title="Permalink to this heading">¶</a></h3>
+<h3>Registering hooks for a saved tensor<a class="headerlink" href="#registering-hooks-for-a-saved-tensor" title="Permalink to this heading">#</a></h3>
 <p>You can register a pair of hooks on a saved tensor by calling the
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">register_hooks()</span></code> method on a
 <code class="xref py py-class docutils literal notranslate"><span class="pre">SavedTensor</span></code> object. Those objects are exposed as attributes of a
@@ -1314,7 +2227,7 @@ to do so in some cases and undefined behavior may arise.</p>
 </div>
 </div>
 <div class="section" id="registering-default-hooks-for-saved-tensors">
-<h3>Registering default hooks for saved tensors<a class="headerlink" href="#registering-default-hooks-for-saved-tensors" title="Permalink to this heading">¶</a></h3>
+<h3>Registering default hooks for saved tensors<a class="headerlink" href="#registering-default-hooks-for-saved-tensors" title="Permalink to this heading">#</a></h3>
 <p>Alternatively, you can use the context-manager
 <a class="reference internal" href="../autograd.html#torch.autograd.graph.saved_tensors_hooks" title="torch.autograd.graph.saved_tensors_hooks"><code class="xref py py-class docutils literal notranslate"><span class="pre">saved_tensors_hooks</span></code></a> to register a pair of
 hooks which will be applied to <em>all</em> saved tensors that are created in
@@ -1370,7 +2283,7 @@ that share the same storage with the original <cite>x</cite> (no copy performed)
 </div>
 </div>
 <div class="section" id="backward-hooks-execution">
-<span id="id3"></span><h2>Backward Hooks execution<a class="headerlink" href="#backward-hooks-execution" title="Permalink to this heading">¶</a></h2>
+<span id="id3"></span><h2>Backward Hooks execution<a class="headerlink" href="#backward-hooks-execution" title="Permalink to this heading">#</a></h2>
 <p>This section will discuss when different hooks fire or don’t fire.
 Then it will discuss the order in which they are fired.
 The hooks that will be covered are: backward hooks registered to Tensor via
@@ -1379,7 +2292,7 @@ Tensor via <a class="reference internal" href="../generated/torch.Tensor.registe
 registered to Node via <a class="reference internal" href="../generated/torch.autograd.graph.Node.register_hook.html#torch.autograd.graph.Node.register_hook" title="torch.autograd.graph.Node.register_hook"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.autograd.graph.Node.register_hook()</span></code></a>, and
 pre-hooks registered to Node via <a class="reference internal" href="../generated/torch.autograd.graph.Node.register_prehook.html#torch.autograd.graph.Node.register_prehook" title="torch.autograd.graph.Node.register_prehook"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.autograd.graph.Node.register_prehook()</span></code></a>.</p>
 <div class="section" id="whether-a-particular-hook-will-be-fired">
-<h3>Whether a particular hook will be fired<a class="headerlink" href="#whether-a-particular-hook-will-be-fired" title="Permalink to this heading">¶</a></h3>
+<h3>Whether a particular hook will be fired<a class="headerlink" href="#whether-a-particular-hook-will-be-fired" title="Permalink to this heading">#</a></h3>
 <p>Hooks registered to a Tensor via <a class="reference internal" href="../generated/torch.Tensor.register_hook.html#torch.Tensor.register_hook" title="torch.Tensor.register_hook"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.register_hook()</span></code></a>
 are executed when gradients are being computed for that Tensor. (Note that this does not require
 the Tensor’s grad_fn to be executed. For example, if the Tensor is passed
@@ -1414,7 +2327,7 @@ those Nodes will not be executed unless there is another input that depends on t
 result of this Node.</p>
 </div>
 <div class="section" id="the-order-in-which-the-different-hooks-are-fired">
-<h3>The order in which the different hooks are fired<a class="headerlink" href="#the-order-in-which-the-different-hooks-are-fired" title="Permalink to this heading">¶</a></h3>
+<h3>The order in which the different hooks are fired<a class="headerlink" href="#the-order-in-which-the-different-hooks-are-fired" title="Permalink to this heading">#</a></h3>
 <p>The order in which things happen are:</p>
 <ol class="arabic simple">
 <li><p>hooks registered to Tensor are executed</p></li>
@@ -1430,7 +2343,7 @@ Hooks that are executed later can observe the modifications to the gradient made
 earlier hooks.</p>
 </div>
 <div class="section" id="special-hooks">
-<h3>Special hooks<a class="headerlink" href="#special-hooks" title="Permalink to this heading">¶</a></h3>
+<h3>Special hooks<a class="headerlink" href="#special-hooks" title="Permalink to this heading">#</a></h3>
 <p><a class="reference internal" href="../autograd.html#torch.autograd.graph.register_multi_grad_hook" title="torch.autograd.graph.register_multi_grad_hook"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.graph.register_multi_grad_hook()</span></code></a> is implemented using hooks registered
 to Tensors. Each individual Tensor hook is fired following the Tensor hook ordering
 defined above and the registered multi-grad hook is called when the last Tensor gradient
@@ -1443,7 +2356,7 @@ before forward and the outputs of the module before the output of forward is ret
 that those Tensors share a single grad_fn, which we can then attach our hooks to.</p>
 </div>
 <div class="section" id="behavior-of-tensor-hooks-when-tensor-is-modified-in-place">
-<h3>Behavior of Tensor hooks when Tensor is modified in-place<a class="headerlink" href="#behavior-of-tensor-hooks-when-tensor-is-modified-in-place" title="Permalink to this heading">¶</a></h3>
+<h3>Behavior of Tensor hooks when Tensor is modified in-place<a class="headerlink" href="#behavior-of-tensor-hooks-when-tensor-is-modified-in-place" title="Permalink to this heading">#</a></h3>
 <p>Usually hooks registered to a Tensor receive the gradient of the outputs with respect to that
 Tensor, where the value of the Tensor is taken to be its value at the time backward is computed.</p>
 <p>However, if you register hooks to a Tensor, and then modify that Tensor in-place, hooks
@@ -1470,420 +2383,413 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
 </div>
 
 
-             </article>
-             
-            </div>
-            <footer>
+                </article>
+              
+  </article>
+
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="broadcasting.html" class="btn btn-neutral float-right" title="Broadcasting semantics" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
-      
-      
-        <a href="amp_examples.html" class="btn btn-neutral" title="Automatic Mixed Precision examples" accesskey="p" rel="prev"><img src="../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
-      
+    <div class="footer-article-item">
+<div class="feedback">
+  
+<div class="rating">
+    Rate this Page
+    <div class="stars">
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="1" data-value="1">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="2" data-value="2">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="3" data-value="3">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="4" data-value="4">★</span>
+        
+        <span class="star" data-behavior="tutorial-rating" data-count="5" data-value="5">★</span>
+        
     </div>
-  
+</div>
 
-  
-
-    <hr>
-
-  
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright PyTorch Contributors.
-
-    </p>
+  <div class="feedback-send">
+    <button class="feedback-btn"
+            onclick="openGitHubIssue()"
+            data-bs-title="Create a GitHub Issue"
+            data-bs-placement="bottom"
+            data-bs-toggle="tooltip"
+            data-gtm="feedback-btn-click">Send Feedback
+    </button>
   </div>
+</div>
+
+
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="amp_examples.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Automatic Mixed Precision examples</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="broadcasting.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Broadcasting semantics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+
+<div class="footer-info">
+  <p class="copyright">
     
-      <div>
-        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      
+        © Copyright PyTorch Contributors.
+      
+      <br/>
+    
+  </p>
+
+  <p class="theme-version">
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  </p>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="amp_examples.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Automatic Mixed Precision examples</p>
       </div>
-     
-
-</footer>
-
-          </div>
-<script>
-
-var match = window.location.href.match(/\/_[a-zA-Z0-9_]*.html|_dynamo/gi);
-var url = window.location.href.lastIndexOf(match[match.length-1]);
-
-if (url)
-  {
-    var div = '<div class="admonition note"><p class="admonition-title">Note</p><p><i class="fa fa-exclamation-circle" aria-hidden="true">&nbsp</i> This page describes an internal API which is not intended to be used outside of the PyTorch codebase and can be modified or removed without notice.</p></div>'
-    document.getElementById("pytorch-article").insertAdjacentHTML('afterBegin', div)
-  }
-</script>
-        </div>
-
-        <div class="pytorch-content-right" id="pytorch-content-right">
-          <div class="pytorch-right-menu" id="pytorch-right-menu">
-            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
-              <ul>
-<li><a class="reference internal" href="#">Autograd mechanics</a><ul>
-<li><a class="reference internal" href="#how-autograd-encodes-the-history">How autograd encodes the history</a><ul>
-<li><a class="reference internal" href="#saved-tensors">Saved tensors</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#gradients-for-non-differentiable-functions">Gradients for non-differentiable functions</a></li>
-<li><a class="reference internal" href="#locally-disabling-gradient-computation">Locally disabling gradient computation</a><ul>
-<li><a class="reference internal" href="#setting-requires-grad">Setting <code class="docutils literal notranslate"><span class="pre">requires_grad</span></code></a></li>
-<li><a class="reference internal" href="#grad-modes">Grad Modes</a></li>
-<li><a class="reference internal" href="#default-mode-grad-mode">Default Mode (Grad Mode)</a></li>
-<li><a class="reference internal" href="#no-grad-mode">No-grad Mode</a></li>
-<li><a class="reference internal" href="#inference-mode">Inference Mode</a></li>
-<li><a class="reference internal" href="#evaluation-mode-nn-module-eval">Evaluation Mode (<code class="docutils literal notranslate"><span class="pre">nn.Module.eval()</span></code>)</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#in-place-operations-with-autograd">In-place operations with autograd</a><ul>
-<li><a class="reference internal" href="#in-place-correctness-checks">In-place correctness checks</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#multithreaded-autograd">Multithreaded Autograd</a><ul>
-<li><a class="reference internal" href="#concurrency-on-cpu">Concurrency on CPU</a></li>
-<li><a class="reference internal" href="#non-determinism">Non-determinism</a></li>
-<li><a class="reference internal" href="#graph-retaining">Graph retaining</a></li>
-<li><a class="reference internal" href="#thread-safety-on-autograd-node">Thread Safety on Autograd Node</a></li>
-<li><a class="reference internal" href="#no-thread-safety-on-c-hooks">No thread safety on C++ hooks</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#autograd-for-complex-numbers">Autograd for Complex Numbers</a><ul>
-<li><a class="reference internal" href="#what-are-complex-derivatives">What are complex derivatives?</a></li>
-<li><a class="reference internal" href="#wirtinger-calculus-comes-into-the-picture">Wirtinger Calculus comes into the picture …</a></li>
-<li><a class="reference internal" href="#how-is-wirtinger-calculus-useful-in-optimization">How is Wirtinger Calculus useful in optimization?</a></li>
-<li><a class="reference internal" href="#how-does-pytorch-compute-the-conjugate-wirtinger-derivative">How does PyTorch compute the conjugate Wirtinger derivative?</a></li>
-<li><a class="reference internal" href="#how-can-i-write-my-own-derivative-formula-for-a-complex-function">How can I write my own derivative formula for a complex function?</a></li>
-<li><a class="reference internal" href="#what-about-cross-domain-functions">What about cross-domain functions?</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#hooks-for-saved-tensors">Hooks for saved tensors</a><ul>
-<li><a class="reference internal" href="#registering-hooks-for-a-saved-tensor">Registering hooks for a saved tensor</a></li>
-<li><a class="reference internal" href="#registering-default-hooks-for-saved-tensors">Registering default hooks for saved tensors</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#backward-hooks-execution">Backward Hooks execution</a><ul>
-<li><a class="reference internal" href="#whether-a-particular-hook-will-be-fired">Whether a particular hook will be fired</a></li>
-<li><a class="reference internal" href="#the-order-in-which-the-different-hooks-are-fired">The order in which the different hooks are fired</a></li>
-<li><a class="reference internal" href="#special-hooks">Special hooks</a></li>
-<li><a class="reference internal" href="#behavior-of-tensor-hooks-when-tensor-is-modified-in-place">Behavior of Tensor hooks when Tensor is modified in-place</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
+    </a>
+    <a class="right-next"
+       href="broadcasting.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Broadcasting semantics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
             </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc">
+<div class="sidebar-secondary-items sidebar-secondary__inner">
+    
+       <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-autograd-encodes-the-history">How autograd encodes the history</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saved-tensors">Saved tensors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradients-for-non-differentiable-functions">Gradients for non-differentiable functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#locally-disabling-gradient-computation">Locally disabling gradient computation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-requires-grad">Setting <code class="docutils literal notranslate"><span class="pre">requires_grad</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grad-modes">Grad Modes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-mode-grad-mode">Default Mode (Grad Mode)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-grad-mode">No-grad Mode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-mode">Inference Mode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-mode-nn-module-eval">Evaluation Mode (<code class="docutils literal notranslate"><span class="pre">nn.Module.eval()</span></code>)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-place-operations-with-autograd">In-place operations with autograd</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-place-correctness-checks">In-place correctness checks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multithreaded-autograd">Multithreaded Autograd</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concurrency-on-cpu">Concurrency on CPU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-determinism">Non-determinism</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-retaining">Graph retaining</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#thread-safety-on-autograd-node">Thread Safety on Autograd Node</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-thread-safety-on-c-hooks">No thread safety on C++ hooks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autograd-for-complex-numbers">Autograd for Complex Numbers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-complex-derivatives">What are complex derivatives?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wirtinger-calculus-comes-into-the-picture">Wirtinger Calculus comes into the picture …</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-is-wirtinger-calculus-useful-in-optimization">How is Wirtinger Calculus useful in optimization?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-pytorch-compute-the-conjugate-wirtinger-derivative">How does PyTorch compute the conjugate Wirtinger derivative?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-can-i-write-my-own-derivative-formula-for-a-complex-function">How can I write my own derivative formula for a complex function?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-about-cross-domain-functions">What about cross-domain functions?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hooks-for-saved-tensors">Hooks for saved tensors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registering-hooks-for-a-saved-tensor">Registering hooks for a saved tensor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registering-default-hooks-for-saved-tensors">Registering default hooks for saved tensors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-hooks-execution">Backward Hooks execution</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whether-a-particular-hook-will-be-fired">Whether a particular hook will be fired</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-order-in-which-the-different-hooks-are-fired">The order in which the different hooks are fired</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-hooks">Special hooks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#behavior-of-tensor-hooks-when-tensor-is-modified-in-place">Behavior of Tensor hooks when Tensor is modified in-place</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+    
+       <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/notes/autograd.rst">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+    
+       <div class="sidebar-secondary-item">
+    <div class="tocsection sourcelink">
+      <a href="../_sources/notes/autograd.rst.txt">
+        <i class="fa-solid fa-file-lines"></i> Show Source
+      </a>
+    </div>
+</div>
+    
+
+
+<div class="sidebar-secondary-item">
+  <div class="sidebar-heading">PyTorch Community</div>
+  <ul style="list-style-type: none; padding: 0;">
+  
+     <li><a class="nav-link nav-external" href="../community/index.html" style="color: var(--pst-color-text-muted)">PyTorch Governance</a></li>
+  
+     <li><a class="nav-link nav-external" href="../community/design.html" style="color: var(--pst-color-text-muted)">PyTorch Design Philosophy</a></li>
+  
+     <li><a class="nav-link nav-external" href="https://github.com/pytorch/pytorch/wiki/The-Ultimate-Guide-to-PyTorch-Contributions" style="color: var(--pst-color-text-muted)">The Ultimate Guide to PyTorch Contributions</a></li>
+  
+  </ul>
+</div>
+
+
+<div class="sidebar-secondary-item">
+ <div class="sidebar-heading">Language Bindings</div>
+ <ul style="list-style-type: none; padding: 0;">
+ 
+   <li><a class="nav-link nav-external" href="../cpp_index.html" style="color: var(--pst-color-text-muted)">C++</a></li>
+ 
+   <li><a class="nav-link nav-external" href="https://pytorch.org/javadoc/" style="color: var(--pst-color-text-muted)">Javadoc</a></li>
+ 
+   <li><a class="nav-link nav-external" href="https://github.com/pytorch/multipy" style="color: var(--pst-color-text-muted)">torch.multiply</a></li>
+ 
+ </ul>
+</div>
+
+
+<div class="sidebar-secondary-item">
+  <div class="sidebar-heading">PyTorch Libraries</div>
+  <ul style="list-style-type: none; padding: 0; padding-bottom: 80px;">
+  
+   <li><a class="nav-link nav-external" href="https://pytorch.org/audio/stable/" style="color: var(--pst-color-text-muted)">torchaudio</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://pytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://pytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://pytorch.org/serve/" style="color: var(--pst-color-text-muted)">torchserve</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://pytorch.org/data" style="color: var(--pst-color-text-muted)">torchdata</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://pytorch.org/data" style="color: var(--pst-color-text-muted)">torchvision</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://pytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
+  
+  </ul>
+</div>
+
+</div>
+</div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 text-center">
+            <h2>Docs</h2>
+            <p>Access comprehensive developer documentation for PyTorch</p>
+            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
+          </div>
+
+          <div class="col-md-4 text-center">
+            <h2>Tutorials</h2>
+            <p>Get in-depth tutorials for beginners and advanced developers</p>
+            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+          </div>
+
+          <div class="col-md-4 text-center">
+            <h2>Resources</h2>
+            <p>Find development resources and get your questions answered</p>
+            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
           </div>
         </div>
-      </section>
-    </div>
-
-  
-
-
-  
-
-     
-       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-         <script src="../_static/jquery.js"></script>
-         <script src="../_static/underscore.js"></script>
-         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-         <script src="../_static/doctools.js"></script>
-         <script src="../_static/sphinx_highlight.js"></script>
-         <script src="../_static/clipboard.min.js"></script>
-         <script src="../_static/copybutton.js"></script>
-     
-
-  
-
-  <script type="text/javascript" src="../_static/js/vendor/popper.min.js"></script>
-  <script type="text/javascript" src="../_static/js/vendor/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
- 
-<script script type="text/javascript">
-  var collapsedSections = ['Developer Notes', 'Language Bindings', 'Libraries', 'Community'];
-</script>
-
-<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/795629140/?label=txkmCPmdtosBENSssfsC&amp;guid=ON&amp;script=0"/>
-
-
-  <!-- Begin Footer -->
-
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 text-center">
-          <h2>Docs</h2>
-          <p>Access comprehensive developer documentation for PyTorch</p>
-          <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-        </div>
-
-        <div class="col-md-4 text-center">
-          <h2>Tutorials</h2>
-          <p>Get in-depth tutorials for beginners and advanced developers</p>
-          <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-        </div>
-
-        <div class="col-md-4 text-center">
-          <h2>Resources</h2>
-          <p>Find development resources and get your questions answered</p>
-          <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-        </div>
       </div>
-    </div>
   </div>
 
   <footer class="site-footer">
-    <div class="container footer-container">
-      <div class="footer-logo-wrapper">
-        <a href="https://pytorch.org/" class="footer-logo"></a>
-      </div>
-
-      <div class="footer-links-wrapper">
-        <div class="footer-links-col">
-          <ul>
-            <li class="list-title"><a href="https://pytorch.org/">PyTorch</a></li>
-            <li><a href="https://pytorch.org/get-started">Get Started</a></li>
-            <li><a href="https://pytorch.org/features">Features</a></li>
-            <li><a href="https://pytorch.org/ecosystem">Ecosystem</a></li>
-            <li><a href="https://pytorch.org/blog/">Blog</a></li>
-            <li><a href="https://github.com/pytorch/pytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
-          </ul>
+      <div class="container footer-container">
+        <div class="footer-logo-wrapper">
+          <a href="https://pytorch.org/" class="footer-logo"></a>
         </div>
 
-        <div class="footer-links-col">
-          <ul>
-            <li class="list-title"><a href="https://pytorch.org/resources">Resources</a></li>
-            <li><a href="https://pytorch.org/tutorials">Tutorials</a></li>
-            <li><a href="https://pytorch.org/docs/stable/index.html">Docs</a></li>
-            <li><a href="https://discuss.pytorch.org" target="_blank">Discuss</a></li>
-            <li><a href="https://github.com/pytorch/pytorch/issues" target="_blank">Github Issues</a></li>
-            <li><a href="https://pytorch.org/assets/brand-guidelines/PyTorch-Brand-Guidelines.pdf" target="_blank">Brand Guidelines</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-links-col">
-          <ul>
-            <li class="list-title">Stay up to date</li>
-            <li><a href="https://www.facebook.com/pytorch" target="_blank">Facebook</a></li>
-            <li><a href="https://twitter.com/pytorch" target="_blank">Twitter</a></li>
-            <li><a href="https://www.youtube.com/pytorch" target="_blank">YouTube</a></li>
-            <li><a href="https://www.linkedin.com/company/pytorch" target="_blank">LinkedIn</a></li>
-          </ul>  
+        <div class="footer-links-wrapper">
+          <div class="footer-links-col">
+            <ul>
+              <li class="list-title"><a href="https://pytorch.org/">PyTorch</a></li>
+              <li><a href="https://pytorch.org/get-started">Get Started</a></li>
+              <li><a href="https://pytorch.org/features">Features</a></li>
+              <li><a href="https://pytorch.org/ecosystem">Ecosystem</a></li>
+              <li><a href="https://pytorch.org/blog/">Blog</a></li>
+              <li><a href="https://github.com/pytorch/pytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+            </ul>
           </div>
 
-        <div class="footer-links-col">
-          <ul>
-            <li class="list-title">PyTorch Podcasts</li>
-            <li><a href="https://open.spotify.com/show/6UzHKeiy368jKfQMKKvJY5" target="_blank">Spotify</a></li>
-            <li><a href="https://podcasts.apple.com/us/podcast/pytorch-developer-podcast/id1566080008" target="_blank">Apple</a></li>
-            <li><a href="https://www.google.com/podcasts?feed=aHR0cHM6Ly9mZWVkcy5zaW1wbGVjYXN0LmNvbS9PQjVGa0lsOA%3D%3D" target="_blank">Google</a></li>
-            <li><a href="https://music.amazon.com/podcasts/7a4e6f0e-26c2-49e9-a478-41bd244197d0/PyTorch-Developer-Podcast?" target="_blank">Amazon</a></li>
-          </ul>
-         </div>
-        </div>
-        
-        <div class="privacy-policy">
-          <ul>
-            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/terms/" target="_blank">Terms</a></li>
-            <li class="privacy-policy-links">|</li>
-            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/privacy-policy/" target="_blank">Privacy</a></li>
-          </ul>
-        </div>
-        <div class="copyright">
-        <p>© Copyright The Linux Foundation. The PyTorch Foundation is a project of The Linux Foundation.
-          For web site terms of use, trademark policy and other policies applicable to The PyTorch Foundation please see
-          <a href="https://www.linuxfoundation.org/policies/">www.linuxfoundation.org/policies/</a>. The PyTorch Foundation supports the PyTorch open source
-          project, which has been established as PyTorch Project a Series of LF Projects, LLC. For policies applicable to the PyTorch Project a Series of LF Projects, LLC,
-          please see <a href="https://www.lfprojects.org/policies/">www.lfprojects.org/policies/</a>.</p>
-      </div>
-     </div>
+          <div class="footer-links-col">
+            <ul>
+              <li class="list-title"><a href="https://pytorch.org/resources">Resources</a></li>
+              <li><a href="https://pytorch.org/tutorials">Tutorials</a></li>
+              <li><a href="https://pytorch.org/docs/stable/index.html">Docs</a></li>
+              <li><a href="https://discuss.pytorch.org" target="_blank">Discuss</a></li>
+              <li><a href="https://github.com/pytorch/pytorch/issues" target="_blank">Github Issues</a></li>
+              <li><a href="https://pytorch.org/assets/brand-guidelines/PyTorch-Brand-Guidelines.pdf" target="_blank">Brand Guidelines</a></li>
+            </ul>
+          </div>
 
-  </footer>
+          <div class="footer-links-col">
+            <ul>
+              <li class="list-title">Stay up to date</li>
+              <li><a href="https://www.facebook.com/pytorch" target="_blank">Facebook</a></li>
+              <li><a href="https://twitter.com/pytorch" target="_blank">Twitter</a></li>
+              <li><a href="https://www.youtube.com/pytorch" target="_blank">YouTube</a></li>
+              <li><a href="https://www.linkedin.com/company/pytorch" target="_blank">LinkedIn</a></li>
+            </ul>
+            </div>
+
+          <div class="footer-links-col">
+            <ul>
+              <li class="list-title">PyTorch Podcasts</li>
+              <li><a href="https://open.spotify.com/show/6UzHKeiy368jKfQMKKvJY5" target="_blank">Spotify</a></li>
+              <li><a href="https://podcasts.apple.com/us/podcast/pytorch-developer-podcast/id1566080008" target="_blank">Apple</a></li>
+              <li><a href="https://www.google.com/podcasts?feed=aHR0cHM6Ly9mZWVkcy5zaW1wbGVjYXN0LmNvbS9PQjVGa0lsOA%3D%3D" target="_blank">Google</a></li>
+              <li><a href="https://music.amazon.com/podcasts/7a4e6f0e-26c2-49e9-a478-41bd244197d0/PyTorch-Developer-Podcast?" target="_blank">Amazon</a></li>
+            </ul>
+           </div>
+          </div>
+
+          <div class="privacy-policy">
+            <ul>
+              <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/terms/" target="_blank">Terms</a></li>
+              <li class="privacy-policy-links">|</li>
+              <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/privacy-policy/" target="_blank">Privacy</a></li>
+            </ul>
+          </div>
+          <div class="copyright">
+          <p>© Copyright The Linux Foundation. The PyTorch Foundation is a project of The Linux Foundation.
+            For web site terms of use, trademark policy and other policies applicable to The PyTorch Foundation please see
+            <a href="https://www.linuxfoundation.org/policies/">www.linuxfoundation.org/policies/</a>. The PyTorch Foundation supports the PyTorch open source
+            project, which has been established as PyTorch Project a Series of LF Projects, LLC. For policies applicable to the PyTorch Project a Series of LF Projects, LLC,
+            please see <a href="https://www.lfprojects.org/policies/">www.lfprojects.org/policies/</a>.</p>
+        </div>
+       </div>
 
   <div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/images/pytorch-x.svg">
+    <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
-
-  <!-- End Footer -->
-
-  <!-- Begin Mobile Menu -->
-
-  <div class="mobile-main-menu">
-    <div class="container-fluid">
-      <div class="container">
-        <div class="mobile-main-menu-header-container">
-          <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
-          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
-        </div>
-      </div>
-    </div>
-
-    <div class="mobile-main-menu-links-container">
-      <div class="main-menu">
-        <ul>
-           <li class="resources-mobile-menu-title">
-             <a>Learn</a>
-           </li>
-           <ul class="resources-mobile-menu-items">
-             <li>
-               <a href="https://pytorch.org/get-started">Get Started</a>
-             </li>
-             <li>
-               <a href="https://pytorch.org/tutorials">Tutorials</a>
-             </li>
-             <li>
-               <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
-             </li>
-             <li>
-               <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
-             </li>
-             <li>
-               <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
-             </li>
-           </ul>
-           <li class="resources-mobile-menu-title">
-             <a>Ecosystem</a>
-           </li>
-           <ul class="resources-mobile-menu-items">
-             <li>
-               <a href="https://pytorch.org/ecosystem">Tools</a>
-             </li>
-             <li>
-               <a href="https://pytorch.org/#community-module">Community</a>
-             </li>
-             <li>
-               <a href="https://discuss.pytorch.org/">Forums</a>
-             </li>
-             <li>
-               <a href="https://pytorch.org/resources">Developer Resources</a>
-             </li>
-             <li>
-               <a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2024</a>
-             </li>
-           </ul>
-
-           <li class="resources-mobile-menu-title">
-             <a>Edge</a>
-           </li>
-
-           <ul class="resources-mobile-menu-items">
-             <li>
-               <a href="https://pytorch.org/edge">About PyTorch Edge</a>
-             </li>
-             
-             <li>
-               <a href="https://pytorch.org/executorch-overview">ExecuTorch</a>
-             </li>
-             <li>
-               <a href="https://pytorch.org/executorch/stable/index.html">ExecuTorch Documentation</a>
-             </li>
-           </ul>
-
-           <li class="resources-mobile-menu-title">
-             <a>Docs</a>
-           </li>
-
-           <ul class="resources-mobile-menu-items">
-            <li>
-              <a href="https://pytorch.org/docs/stable/index.html">PyTorch</a>
-            </li>
-
-            <li>
-              <a href="https://pytorch.org/pytorch-domains">PyTorch Domains</a>
-            </li>
-          </ul>
-
-          <li class="resources-mobile-menu-title">
-            <a>Blog & News</a>
-          </li>
-            
-           <ul class="resources-mobile-menu-items">
-            <li>
-              <a href="https://pytorch.org/blog/">PyTorch Blog</a>
-            </li>
-            <li>
-              <a href="https://pytorch.org/community-blog">Community Blog</a>
-            </li>
-
-            <li>
-              <a href="https://pytorch.org/videos">Videos</a>
-            </li>
-
-            <li>
-              <a href="https://pytorch.org/community-stories">Community Stories</a>
-            </li>
-            <li>
-              <a href="https://pytorch.org/events">Events</a>
-            </li>
-            <li>
-               <a href="https://pytorch.org/newsletter">Newsletter</a>
-             </li>
-          </ul>
-          
-          <li class="resources-mobile-menu-title">
-            <a>About</a>
-          </li>
-
-          <ul class="resources-mobile-menu-items">
-            <li>
-              <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
-            </li>
-            <li>
-              <a href="https://pytorch.org/governing-board">Governing Board</a>
-            </li>
-            <li>
-               <a href="https://pytorch.org/credits">Cloud Credit Program</a>
-            </li>
-            <li>
-               <a href="https://pytorch.org/tac">Technical Advisory Council</a>
-            </li>
-            <li>
-               <a href="https://pytorch.org/staff">Staff</a>
-            </li>
-            <li>
-               <a href="https://pytorch.org/contact-us">Contact Us</a>
-            </li>
-          </ul>
-        </ul>
-      </div>
-    </div>
+ </footer>
+   
+  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
+</div>
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
 
-  <!-- End Mobile Menu -->
+  <p class="copyright">
+    
+      © Copyright PyTorch Contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
 
-  <script type="text/javascript" src="../_static/js/vendor/anchor.min.js"></script>
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
 
-  <script type="text/javascript">
-    $(document).ready(function() {
-      mobileMenu.bind();
-      mobileTOC.bind();
-      pytorchAnchors.bind();
-      sideMenus.bind();
-      scrollToAnchor.bind();
-      highlightNavigation.bind();
-      mainMenuDropdown.bind();
-      filterTags.bind();
+  </footer>
 
-      // Add class to links that have code blocks, since we cannot create links in code blocks
-      $("article.pytorch-article a span.pre").each(function(e) {
-        $(this).closest("a").addClass("has-code");
-      });
-    })
-  </script>
-</body>
+  </body>
 </html>
