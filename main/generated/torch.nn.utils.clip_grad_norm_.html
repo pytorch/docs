@@ -108,7 +108,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2fd2692 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git9e235c5 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3048,8 +3048,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3972,7 +3972,7 @@ document.write(`
 <h1>torch.nn.utils.clip_grad_norm_<a class="headerlink" href="#torch-nn-utils-clip-grad-norm" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.clip_grad_norm_">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.</span></span><span class="sig-name descname"><span class="pre">clip_grad_norm_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_if_nonfinite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2fd26925c4754df0ef1e1ebcc864e9010eadafca/torch/nn/utils/clip_grad.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.clip_grad_norm_" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.</span></span><span class="sig-name descname"><span class="pre">clip_grad_norm_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_if_nonfinite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9e235c549c33552688d6ede283b6e12ba005321d/torch/nn/utils/clip_grad.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.clip_grad_norm_" title="Permalink to this definition">#</a></dt>
 <dd><p>Clip the gradient norm of an iterable of parameters.</p>
 <p>The norm is computed over the norms of the individual gradients of all parameters,
 as if the norms of the individual gradients were concatenated into a single vector.
@@ -3985,12 +3985,12 @@ Gradients are modified in-place.</p>
 <li><p><strong>parameters</strong> (<em>Iterable</em><em>[</em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>] or </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – an iterable of Tensors or a
 single Tensor that will have gradients normalized</p></li>
 <li><p><strong>max_norm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – max norm of the gradients</p></li>
-<li><p><strong>norm_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – type of the used p-norm. Can be <code class="docutils literal notranslate"><span class="pre">'inf'</span></code> for
-infinity norm.</p></li>
-<li><p><strong>error_if_nonfinite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if True, an error is thrown if the total
+<li><p><strong>norm_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – type of the used p-norm. Can be <code class="docutils literal notranslate"><span class="pre">'inf'</span></code> for
+infinity norm. Default: 2.0</p></li>
+<li><p><strong>error_if_nonfinite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – if True, an error is thrown if the total
 norm of the gradients from <code class="xref py py-attr docutils literal notranslate"><span class="pre">parameters</span></code> is <code class="docutils literal notranslate"><span class="pre">nan</span></code>,
-<code class="docutils literal notranslate"><span class="pre">inf</span></code>, or <code class="docutils literal notranslate"><span class="pre">-inf</span></code>. Default: False (will switch to True in the future)</p></li>
-<li><p><strong>foreach</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – use the faster foreach-based implementation.
+<code class="docutils literal notranslate"><span class="pre">inf</span></code>, or <code class="docutils literal notranslate"><span class="pre">-inf</span></code>. Default: False</p></li>
+<li><p><strong>foreach</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – use the faster foreach-based implementation.
 If <code class="docutils literal notranslate"><span class="pre">None</span></code>, use the foreach implementation for CUDA and CPU native tensors and silently
 fall back to the slow implementation for other device types.
 Default: <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
