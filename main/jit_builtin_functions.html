@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git9e235c5 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitadf5f38 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3050,8 +3050,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4133,6 +4133,19 @@ document.write(`
              <span class="n">alpha</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
              <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
+<span class="n">Tensor</span><span class="o">.</span><span class="n">addmm</span><span class="p">(</span><span class="n">mat1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+             <span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+             <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+             <span class="n">beta</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+             <span class="n">alpha</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+             <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">Tensor</span><span class="o">.</span><span class="n">addmm</span><span class="p">(</span><span class="n">mat1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+             <span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+             <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+             <span class="n">beta</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+             <span class="n">alpha</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
 <span class="n">Tensor</span><span class="o">.</span><span class="n">addmm_</span><span class="p">(</span><span class="n">mat1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
               <span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
               <span class="n">beta</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -4399,6 +4412,19 @@ document.write(`
                <span class="n">alpha</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
+<span class="n">Tensor</span><span class="o">.</span><span class="n">baddbmm</span><span class="p">(</span><span class="n">batch1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+               <span class="n">batch2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+               <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+               <span class="n">beta</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+               <span class="n">alpha</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+               <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">Tensor</span><span class="o">.</span><span class="n">baddbmm</span><span class="p">(</span><span class="n">batch1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+               <span class="n">batch2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+               <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+               <span class="n">beta</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+               <span class="n">alpha</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
 <span class="n">Tensor</span><span class="o">.</span><span class="n">baddbmm_</span><span class="p">(</span><span class="n">batch1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                 <span class="n">batch2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                 <span class="n">beta</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -4516,6 +4542,13 @@ document.write(`
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
            <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">Tensor</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+           <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+           <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">Tensor</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+           <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">size</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
@@ -5877,6 +5910,13 @@ document.write(`
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
           <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">Tensor</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+          <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+          <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">Tensor</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+          <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">dim</span> <span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">keepdim</span> <span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]</span>
@@ -7899,6 +7939,21 @@ document.write(`
             <span class="n">alpha</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
+<span class="n">torch</span><span class="o">.</span><span class="n">addmm</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+            <span class="n">mat1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+            <span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+            <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">beta</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">alpha</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">addmm</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+            <span class="n">mat1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+            <span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+            <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">beta</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">alpha</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
 <span class="n">torch</span><span class="o">.</span><span class="n">addmv</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
             <span class="n">mat</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
             <span class="n">vec</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
@@ -8379,6 +8434,21 @@ document.write(`
               <span class="n">alpha</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
               <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
+<span class="n">torch</span><span class="o">.</span><span class="n">baddbmm</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+              <span class="n">batch1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+              <span class="n">batch2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+              <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+              <span class="n">beta</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+              <span class="n">alpha</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+              <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">baddbmm</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+              <span class="n">batch1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+              <span class="n">batch2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+              <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+              <span class="n">beta</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+              <span class="n">alpha</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
 <span class="n">torch</span><span class="o">.</span><span class="n">bartlett_window</span><span class="p">(</span><span class="n">window_length</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
                       <span class="n">dtype</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
                       <span class="n">layout</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
@@ -8727,6 +8797,15 @@ document.write(`
 <span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
           <span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
           <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+          <span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+          <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+          <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+          <span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+          <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">broadcast_tensors</span><span class="p">(</span><span class="n">tensors</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
 
@@ -11978,6 +12057,15 @@ document.write(`
 <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
          <span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
          <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+         <span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+         <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+         <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+         <span class="n">mat2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+         <span class="n">out_dtype</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
            <span class="n">dim</span> <span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>

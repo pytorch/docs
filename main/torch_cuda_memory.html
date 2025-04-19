@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git9e235c5 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitadf5f38 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3050,8 +3050,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3973,6 +3973,14 @@ document.write(`
 at any point in time, and optionally record the history of allocation events that led up to that snapshot.</p>
 <p>The generated snapshots can then be drag and dropped onto the interactiver viewer hosted at <a class="reference external" href="https://pytorch.org/memory_viz">pytorch.org/memory_viz</a> which
 can be used to explore the snapshot.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The memory profiler and visualizer described in this document only have visibility into the CUDA memory that is
+allocated and managed through the PyTorch allocator.  Any memory allocated directly from CUDA APIs will not be
+visible in the PyTorch memory profiler.</p>
+<p>NCCL (used for distributed communication on CUDA devices) is a common example of a library that allocates some
+GPU memory that is invisible to the PyTorch memory profiler.  See <a class="reference internal" href="#non-pytorch-alloc"><span class="std std-ref">Identifying Non-PyTorch allocations</span></a> for more info.</p>
+</div>
 </div>
 <div class="section" id="generating-a-snapshot">
 <h1>Generating a Snapshot<a class="headerlink" href="#generating-a-snapshot" title="Permalink to this heading">#</a></h1>
@@ -4010,12 +4018,23 @@ The address b7f064c000000_0 refers to the (b)lock at address 7f064c000000 which 
 This unique string can be looked up in the Active Memory Timeline and searched
 in the Active State History to examine the memory state when a tensor was allocated or freed.</p>
 </div>
+<div class="section" id="non-pytorch-alloc">
+<span id="identifying-non-pytorch-allocations"></span><h2>Identifying Non-PyTorch allocations<a class="headerlink" href="#non-pytorch-alloc" title="Permalink to this heading">#</a></h2>
+<p>If you suspect CUDA memory is being allocated outside of PyTorch, you can collect the raw CUDA allocation info using
+the pynvml package, and compare that to the allocation reported by pytorch.</p>
+<p>To collect raw memory usage outside pytorch, use <code class="xref py py-func docutils literal notranslate"><span class="pre">device_memory_used()</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="n">device_idx</span> <span class="o">=</span> <span class="o">...</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_memory_used</span><span class="p">(</span><span class="n">device_idx</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="snapshot-api-reference">
 <h1>Snapshot API Reference<a class="headerlink" href="#snapshot-api-reference" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory._record_memory_history">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_record_memory_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_entries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clear_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9e235c549c33552688d6ede283b6e12ba005321d/torch/cuda/memory.py#L858"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._record_memory_history" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_record_memory_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_entries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clear_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/adf5f38eae0449b48a0356aa7f0e35c762525be5/torch/cuda/memory.py#L858"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._record_memory_history" title="Permalink to this definition">#</a></dt>
 <dd><p>Enable recording of stack traces associated with memory
 allocations, so you can tell what allocated any piece of memory in
 <a class="reference internal" href="#torch.cuda.memory._snapshot" title="torch.cuda.memory._snapshot"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.cuda.memory._snapshot()</span></code></a>.</p>
@@ -4052,7 +4071,7 @@ alloc/free events in the recorded history recorded.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory._snapshot">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9e235c549c33552688d6ede283b6e12ba005321d/torch/cuda/memory.py#L917"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._snapshot" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/adf5f38eae0449b48a0356aa7f0e35c762525be5/torch/cuda/memory.py#L917"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._snapshot" title="Permalink to this definition">#</a></dt>
 <dd><p>Save a snapshot of CUDA memory state at the time it was called.</p>
 <p>The state is represented as a dictionary with the following structure.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Snapshot</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
@@ -4129,7 +4148,7 @@ alloc/free events in the recorded history recorded.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory._dump_snapshot">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_dump_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dump_snapshot.pickle'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9e235c549c33552688d6ede283b6e12ba005321d/torch/cuda/memory.py#L994"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._dump_snapshot" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_dump_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dump_snapshot.pickle'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/adf5f38eae0449b48a0356aa7f0e35c762525be5/torch/cuda/memory.py#L994"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._dump_snapshot" title="Permalink to this definition">#</a></dt>
 <dd><p>Save a pickled version of the <cite>torch.memory._snapshot()</cite> dictionary to a file.</p>
 <p>This file can be opened by the interactive snapshot viewer at pytorch.org/memory_viz</p>
 <dl class="field-list simple">
@@ -4268,6 +4287,7 @@ alloc/free events in the recorded history recorded.</p></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-visualizer">Using the visualizer</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#active-memory-timeline">Active Memory Timeline</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#allocator-state-history">Allocator State History</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-pytorch-alloc">Identifying Non-PyTorch allocations</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#snapshot-api-reference">Snapshot API Reference</a><ul class="visible nav section-nav flex-column">
