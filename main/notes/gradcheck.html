@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git470132c )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git80a3877 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1517,6 +1517,7 @@ document.write(`
                   
   <div class="section" id="gradcheck-mechanics">
 <span id="id1"></span><h1>Gradcheck mechanics<a class="headerlink" href="#gradcheck-mechanics" title="Permalink to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 27, 2021 | Last Updated: Apr 27, 2021</p>
 <p>This note presents an overview of how the <a class="reference internal" href="../autograd.html#module-torch.autograd.gradcheck" title="torch.autograd.gradcheck"><code class="xref py py-meth docutils literal notranslate"><span class="pre">gradcheck()</span></code></a> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">gradgradcheck()</span></code> functions work.</p>
 <p>It will cover both forward and backward mode AD for both real and complex-valued functions as well as higher-order derivatives.
 This note also covers both the default behavior of gradcheck as well as the case where <code class="code docutils literal notranslate"><span class="pre">fast_mode=True</span></code> argument is passed (referred to as fast gradcheck below).</p>

@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git470132c )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git80a3877 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3050,8 +3050,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3985,6 +3985,7 @@ document.write(`
 </div>
 <div class="section" id="torchscript-language-reference">
 <span id="language-reference"></span><h1><a class="toc-backref" href="#id7">TorchScript Language Reference</a><a class="headerlink" href="#torchscript-language-reference" title="Permalink to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 18, 2019 | Last Updated: Aug 05, 2024</p>
 <p>TorchScript is a statically typed subset of Python that can either be written directly (using
 the <a class="reference internal" href="generated/torch.jit.script.html#torch.jit.script" title="torch.jit.script"><code class="xref py py-func docutils literal notranslate"><span class="pre">&#64;torch.jit.script</span></code></a> decorator) or generated automatically from Python code via
 tracing. When using tracing, code is automatically converted into this subset of
@@ -4735,7 +4736,7 @@ to TorchScript, leaving calls to Python functions in place. This way you can inc
 check the correctness of the model as you go.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.is_scripting">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_scripting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/470132c6a10d1279ee66a43778edb91f1032512f/torch/_jit_internal.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_scripting" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_scripting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80a3877b3de8d05f3a9b11c648d312ae90c2075c/torch/_jit_internal.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_scripting" title="Permalink to this definition">#</a></dt>
 <dd><p>Function that returns True when in compilation and False otherwise. This
 is useful especially with the &#64;unused decorator to leave code in your
 model that is not yet TorchScript compatible.
@@ -4762,7 +4763,7 @@ model that is not yet TorchScript compatible.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.is_tracing">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_tracing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/470132c6a10d1279ee66a43778edb91f1032512f/torch/jit/_trace.py#L1324"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_tracing" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_tracing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80a3877b3de8d05f3a9b11c648d312ae90c2075c/torch/jit/_trace.py#L1324"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_tracing" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a boolean value.</p>
 <p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> in tracing (if a function is called during the
 tracing of code with <code class="docutils literal notranslate"><span class="pre">torch.jit.trace</span></code>) and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
