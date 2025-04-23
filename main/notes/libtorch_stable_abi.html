@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git80a3877 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git334aab0 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1517,7 +1517,7 @@ document.write(`
                   
   <div class="section" id="libtorch-stable-abi">
 <h1>LibTorch Stable ABI<a class="headerlink" href="#libtorch-stable-abi" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Mar 17, 2025 | Last Updated: Mar 17, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Mar 17, 2025 | Last Updated: Apr 22, 2025</p>
 <p>This note will eventually contain more details on how to use the APIs in torch/csrc/stable. For the moment, it contains a table of internal representations:</p>
 <ol class="arabic simple">
 <li><p>type in custom extension: type used within the end user custom library.</p></li>
@@ -1535,47 +1535,47 @@ document.write(`
 </thead>
 <tbody>
 <tr class="row-even"><td><p>std::optional&lt;S&gt;</p></td>
-<td><p>*reinterpret_cast&lt;(StableIValue*)*&gt;, pointer to a StableIValue recursively defined</p></td>
+<td><p>raw bitwise copy into leading bytes of uint64_t of pointer to a new StableIValue representing S</p></td>
 <td><p>std::optional&lt;T&gt;</p></td>
 <td><p>Type?</p></td>
 </tr>
 <tr class="row-odd"><td><p>std::nullopt</p></td>
-<td><p>*reinterpret_cast&lt;nullptr_t*&gt;</p></td>
+<td><p>nullptr</p></td>
 <td><p>IValue()</p></td>
 <td><p>None</p></td>
 </tr>
 <tr class="row-even"><td><p>RAIIATH</p></td>
-<td><p>*reinterpret_cast&lt;uint64_t*&gt; of AtenTensorHandle</p></td>
+<td><p>raw bitwise copy of underlying AtenTensorHandle into leading bytes of uint64_t</p></td>
 <td><p>at::Tensor</p></td>
 <td><p>Tensor</p></td>
 </tr>
 <tr class="row-odd"><td><p>int32_t</p></td>
-<td><p>*reinterpret_cast&lt;uint64_t*&gt;</p></td>
+<td><p>raw bitwise copy into leading bytes of uint64_t</p></td>
 <td><p>at::ScalarType</p></td>
 <td><p>ScalarType</p></td>
 </tr>
 <tr class="row-even"><td><p>int32_t</p></td>
-<td><p>*reinterpret_cast&lt;uint64_t*&gt;</p></td>
+<td><p>raw bitwise copy into leading bytes of uint64_t</p></td>
 <td><p>at::Layout</p></td>
 <td><p>Layout</p></td>
 </tr>
 <tr class="row-odd"><td><p>int32_t</p></td>
-<td><p>*reinterpret_cast&lt;uint64_t*&gt;</p></td>
+<td><p>raw bitwise copy into leading bytes of uint64_t</p></td>
 <td><p>at::MemoryFormat</p></td>
 <td><p>MemoryFormat</p></td>
 </tr>
 <tr class="row-even"><td><p>bool</p></td>
-<td><p>*reinterpret_cast&lt;uint64_t*&gt;</p></td>
+<td><p>raw bitwise copy into leading bytes of uint64_t</p></td>
 <td><p>bool</p></td>
 <td><p>bool</p></td>
 </tr>
 <tr class="row-odd"><td><p>int64_t</p></td>
-<td><p>*reinterpret_cast&lt;uint64_t*&gt;</p></td>
+<td><p>raw bitwise copy into leading bytes of uint64_t</p></td>
 <td><p>int64_t</p></td>
 <td><p>int</p></td>
 </tr>
 <tr class="row-even"><td><p>double</p></td>
-<td><p>*reinterpret_cast&lt;uint64_t*&gt;</p></td>
+<td><p>raw bitwise copy into leading bytes of uint64_t</p></td>
 <td><p>double</p></td>
 <td><p>float</p></td>
 </tr>
