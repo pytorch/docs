@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git75c71ab )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git47d3426 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2830,6 +2830,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.set_stream.html">torch.accelerator.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.current_stream.html">torch.accelerator.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.device_index.html">device_index</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cpu.html">torch.cpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3050,8 +3051,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3990,7 +3991,7 @@ also exposes a set of APIs to add callback functions and set results.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.futures.Future.add_done_callback">
-<span class="sig-name descname"><span class="pre">add_done_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/75c71ab3714db29ce11b567c0320ee8b5faa5106/torch/futures/__init__.py#L168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.add_done_callback" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_done_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/futures/__init__.py#L168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.add_done_callback" title="Permalink to this definition">#</a></dt>
 <dd><p>Append the given callback function to this <code class="docutils literal notranslate"><span class="pre">Future</span></code>, which will be run
 when the <code class="docutils literal notranslate"><span class="pre">Future</span></code> is completed.  Multiple callbacks can be added to
 the same <code class="docutils literal notranslate"><span class="pre">Future</span></code>, but the order in which they will be executed cannot
@@ -4038,7 +4039,7 @@ for handling completion/waiting on those futures independently.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.futures.Future.done">
-<span class="sig-name descname"><span class="pre">done</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/75c71ab3714db29ce11b567c0320ee8b5faa5106/torch/futures/__init__.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.done" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">done</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/futures/__init__.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.done" title="Permalink to this definition">#</a></dt>
 <dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if this <code class="docutils literal notranslate"><span class="pre">Future</span></code> is done. A <code class="docutils literal notranslate"><span class="pre">Future</span></code> is done if it
 has a result or an exception.</p>
 <p>If the value contains tensors that reside on GPUs, <code class="docutils literal notranslate"><span class="pre">Future.done()</span></code>
@@ -4055,7 +4056,7 @@ performs the appropriate synchronizations (see <a class="reference internal" hre
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.futures.Future.set_exception">
-<span class="sig-name descname"><span class="pre">set_exception</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/75c71ab3714db29ce11b567c0320ee8b5faa5106/torch/futures/__init__.py#L251"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.set_exception" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_exception</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/futures/__init__.py#L251"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.set_exception" title="Permalink to this definition">#</a></dt>
 <dd><p>Set an exception for this <code class="docutils literal notranslate"><span class="pre">Future</span></code>, which will mark this <code class="docutils literal notranslate"><span class="pre">Future</span></code> as
 completed with an error and trigger all attached callbacks. Note that
 when calling wait()/value() on this <code class="docutils literal notranslate"><span class="pre">Future</span></code>, the exception set here
@@ -4080,7 +4081,7 @@ will be raised inline.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.futures.Future.set_result">
-<span class="sig-name descname"><span class="pre">set_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/75c71ab3714db29ce11b567c0320ee8b5faa5106/torch/futures/__init__.py#L212"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.set_result" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/futures/__init__.py#L212"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.set_result" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the result for this <code class="docutils literal notranslate"><span class="pre">Future</span></code>, which will mark this <code class="docutils literal notranslate"><span class="pre">Future</span></code> as
 completed and trigger all attached callbacks. Note that a <code class="docutils literal notranslate"><span class="pre">Future</span></code>
 cannot be marked completed twice.</p>
@@ -4122,7 +4123,7 @@ use them to ensure proper scheduling for all the consumers of this
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.futures.Future.then">
-<span class="sig-name descname"><span class="pre">then</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/75c71ab3714db29ce11b567c0320ee8b5faa5106/torch/futures/__init__.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.then" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">then</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/futures/__init__.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.then" title="Permalink to this definition">#</a></dt>
 <dd><p>Append the given callback function to this <code class="docutils literal notranslate"><span class="pre">Future</span></code>, which will be run
 when the <code class="docutils literal notranslate"><span class="pre">Future</span></code> is completed.  Multiple callbacks can be added to
 the same <code class="docutils literal notranslate"><span class="pre">Future</span></code>, but the order in which they will be executed cannot
@@ -4193,7 +4194,7 @@ on those futures independently.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.futures.Future.value">
-<span class="sig-name descname"><span class="pre">value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/75c71ab3714db29ce11b567c0320ee8b5faa5106/torch/futures/__init__.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.value" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/futures/__init__.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.value" title="Permalink to this definition">#</a></dt>
 <dd><p>Obtain the value of an already-completed future.</p>
 <p>This method should only be called after a call to <a class="reference internal" href="#torch.futures.Future.wait" title="torch.futures.Future.wait"><code class="xref py py-meth docutils literal notranslate"><span class="pre">wait()</span></code></a> has
 completed, or inside a callback function passed to <a class="reference internal" href="#torch.futures.Future.then" title="torch.futures.Future.then"><code class="xref py py-meth docutils literal notranslate"><span class="pre">then()</span></code></a>. In
@@ -4217,7 +4218,7 @@ also throw an error.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.futures.Future.wait">
-<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/75c71ab3714db29ce11b567c0320ee8b5faa5106/torch/futures/__init__.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.wait" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/futures/__init__.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.wait" title="Permalink to this definition">#</a></dt>
 <dd><p>Block until the value of this <code class="docutils literal notranslate"><span class="pre">Future</span></code> is ready.</p>
 <p>If the value contains tensors that reside on GPUs, then an additional
 synchronization is performed with the kernels (executing on the device)
@@ -4244,7 +4245,7 @@ also throw an error.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.futures.collect_all">
-<span class="sig-prename descclassname"><span class="pre">torch.futures.</span></span><span class="sig-name descname"><span class="pre">collect_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">futures</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/75c71ab3714db29ce11b567c0320ee8b5faa5106/torch/futures/__init__.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.collect_all" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.futures.</span></span><span class="sig-name descname"><span class="pre">collect_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">futures</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/futures/__init__.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.collect_all" title="Permalink to this definition">#</a></dt>
 <dd><p>Collects the provided <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> objects into a single
 combined <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> that is completed when all of the
 sub-futures are completed.</p>
@@ -4279,7 +4280,7 @@ in Futures.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.futures.wait_all">
-<span class="sig-prename descclassname"><span class="pre">torch.futures.</span></span><span class="sig-name descname"><span class="pre">wait_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">futures</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/75c71ab3714db29ce11b567c0320ee8b5faa5106/torch/futures/__init__.py#L313"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.wait_all" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.futures.</span></span><span class="sig-name descname"><span class="pre">wait_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">futures</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/futures/__init__.py#L313"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.wait_all" title="Permalink to this definition">#</a></dt>
 <dd><p>Waits for all provided futures to be complete, and returns
 the list of completed values. If any of the futures encounters an error,
 the method will exit early and report the error not waiting for other
