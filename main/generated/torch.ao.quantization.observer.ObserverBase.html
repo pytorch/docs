@@ -108,7 +108,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git47d3426 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gita0d440a )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3979,7 +3979,7 @@ document.write(`
 <h1>ObserverBase<a class="headerlink" href="#observerbase" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.ObserverBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.observer.</span></span><span class="sig-name descname"><span class="pre">ObserverBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_dynamic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/ao/quantization/observer.py#L150"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.ObserverBase" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.observer.</span></span><span class="sig-name descname"><span class="pre">ObserverBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_dynamic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a0d440a26a555c34e87b90bef3bff960b34bb180/torch/ao/quantization/observer.py#L150"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.ObserverBase" title="Permalink to this definition">#</a></dt>
 <dd><p>Base observer Module.
 Any observer implementation should derive from this class.</p>
 <p>Concrete observers should follow the same API. In forward, they will update
@@ -3998,7 +3998,7 @@ reference model spec.</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.ObserverBase.with_args">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">with_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/ao/quantization/observer.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.ObserverBase.with_args" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">with_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a0d440a26a555c34e87b90bef3bff960b34bb180/torch/ao/quantization/observer.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.ObserverBase.with_args" title="Permalink to this definition">#</a></dt>
 <dd><p>Wrapper that allows creation of class factories.</p>
 <p>This can be useful when there is a need to create classes with the same
 constructor arguments, but different instances. Can be used in conjunction with
@@ -4016,7 +4016,7 @@ _callable_args</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.ObserverBase.with_callable_args">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">with_callable_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/ao/quantization/observer.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.ObserverBase.with_callable_args" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">with_callable_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a0d440a26a555c34e87b90bef3bff960b34bb180/torch/ao/quantization/observer.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.ObserverBase.with_callable_args" title="Permalink to this definition">#</a></dt>
 <dd><p>Wrapper that allows creation of class factories args that need to be
 called at construction time.</p>
 <p>This can be useful when there is a need to create classes with the same

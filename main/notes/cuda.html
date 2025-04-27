@@ -111,7 +111,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git47d3426 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gita0d440a )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1519,7 +1519,7 @@ document.write(`
                   
   <div class="section" id="cuda-semantics">
 <span id="id1"></span><h1>CUDA semantics<a class="headerlink" href="#cuda-semantics" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 16, 2017 | Last Updated: Mar 05, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 16, 2017 | Last Updated: Apr 25, 2025</p>
 <p><a class="reference internal" href="../cuda.html#module-torch.cuda" title="torch.cuda"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.cuda</span></code></a> is used to set up and run CUDA operations. It keeps track of
 the currently selected GPU, and all CUDA tensors you allocate will by default be
 created on that device. The selected device can be changed with a
@@ -2188,6 +2188,18 @@ de-register the buffers with a similar <code class="docutils literal notranslate
 of the tensors are holding a reference to the pool, <a class="reference internal" href="../generated/torch.cuda.empty_cache.html#torch.cuda.empty_cache" title="torch.cuda.empty_cache"><code class="xref py py-meth docutils literal notranslate"><span class="pre">empty_cache()</span></code></a> will
 be called internally on deletion of the pool, hence returning all the memory to the system.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">tensor</span><span class="p">,</span> <span class="k">del</span> <span class="n">pool</span>
+</pre></div>
+</div>
+<p>Users can optionally specify a <code class="docutils literal notranslate"><span class="pre">use_on_oom</span></code> bool (which is False by default) during MemPool
+creation. If true, then the CUDACachingAllocator will be able to use memory in this pool as
+a last resort instead of OOMing.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pool</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">MemPool</span><span class="p">(</span><span class="n">allocator</span><span class="p">,</span> <span class="n">use_on_oom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">use_mem_pool</span><span class="p">(</span><span class="n">pool</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">40</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">a</span>
+
+<span class="c1"># at the memory limit, this will succeed by using pool&#39;s memory in order to avoid the oom</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">40</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The following <a class="reference internal" href="../generated/torch.cuda.MemPool.html#torch.cuda.MemPool.use_count" title="torch.cuda.MemPool.use_count"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.cuda.MemPool.use_count()</span></code></a> and <a class="reference internal" href="../generated/torch.cuda.MemPool.html#torch.cuda.MemPool.snapshot" title="torch.cuda.MemPool.snapshot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.cuda.MemPool.snapshot()</span></code></a>

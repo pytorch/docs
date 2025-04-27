@@ -108,7 +108,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git47d3426 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gita0d440a )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3974,16 +3974,21 @@ document.write(`
 <h1>MemPool<a class="headerlink" href="#mempool" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.MemPool">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">MemPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/cuda/memory.py#L1122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.MemPool" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">MemPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a0d440a26a555c34e87b90bef3bff960b34bb180/torch/cuda/memory.py#L1122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.MemPool" title="Permalink to this definition">#</a></dt>
 <dd><p>MemPool represents a pool of memory in a caching allocator. Currently,
 it’s just the ID of the pool object maintained in the CUDACachingAllocator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>allocator</strong> (<em>torch._C._cuda_CUDAAllocator</em><em>, </em><em>optional</em>) – a
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>allocator</strong> (<em>torch._C._cuda_CUDAAllocator</em><em>, </em><em>optional</em>) – a
 torch._C._cuda_CUDAAllocator object that can be used to
 define how memory gets allocated in the pool. If <a class="reference internal" href="#torch.cuda.MemPool.allocator" title="torch.cuda.MemPool.allocator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">allocator</span></code></a>
 is <code class="docutils literal notranslate"><span class="pre">None</span></code> (default), memory allocation follows the default/
-current configuration of the CUDACachingAllocator.</p>
+current configuration of the CUDACachingAllocator.</p></li>
+<li><p><strong>use_on_oom</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – a bool that indicates if this pool can be used
+as a last resort if a memory allocation outside of the pool fails due
+to Out Of Memory. This is False by default.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py property">
@@ -4000,7 +4005,7 @@ current configuration of the CUDACachingAllocator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.MemPool.snapshot">
-<span class="sig-name descname"><span class="pre">snapshot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/cuda/memory.py#L1152"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.MemPool.snapshot" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">snapshot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a0d440a26a555c34e87b90bef3bff960b34bb180/torch/cuda/memory.py#L1159"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.MemPool.snapshot" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a snapshot of the CUDA memory allocator pool state across all
 devices.</p>
 <p>Interpreting the output of this function requires familiarity with the
@@ -4014,7 +4019,7 @@ management.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.MemPool.use_count">
-<span class="sig-name descname"><span class="pre">use_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47d34261e06e2416e7a1e7d51a3d428e4ea51f9d/torch/cuda/memory.py#L1148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.MemPool.use_count" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">use_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a0d440a26a555c34e87b90bef3bff960b34bb180/torch/cuda/memory.py#L1155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.MemPool.use_count" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the reference count of this pool.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
