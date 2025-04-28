@@ -108,7 +108,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gita0d440a )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git70d7638 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3024,6 +3024,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.empty_cache.html">torch.mtia.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.record_memory_history.html">torch.mtia.record_memory_history</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.snapshot.html">torch.mtia.snapshot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.stream.html">torch.mtia.stream</a></li>
@@ -3049,8 +3050,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3979,7 +3980,7 @@ document.write(`
 <h1>LSTMCell<a class="headerlink" href="#lstmcell" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.nn.quantized.dynamic.LSTMCell">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.quantized.dynamic.</span></span><span class="sig-name descname"><span class="pre">LSTMCell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a0d440a26a555c34e87b90bef3bff960b34bb180/torch/ao/nn/quantized/dynamic/modules/rnn.py#L1261"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.quantized.dynamic.LSTMCell" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.quantized.dynamic.</span></span><span class="sig-name descname"><span class="pre">LSTMCell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d7638b0d1e54d807e4c89f329b44c413277695/torch/ao/nn/quantized/dynamic/modules/rnn.py#L1261"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.quantized.dynamic.LSTMCell" title="Permalink to this definition">#</a></dt>
 <dd><p>A long short-term memory (LSTM) cell.</p>
 <p>A dynamic quantized LSTMCell module with floating point tensor as inputs and outputs.
 Weights are quantized to 8 bits. We adopt the same interface as <cite>torch.nn.LSTMCell</cite>,

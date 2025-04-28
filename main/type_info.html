@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gita0d440a )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git70d7638 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3026,6 +3026,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.empty_cache.html">torch.mtia.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.record_memory_history.html">torch.mtia.record_memory_history</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.snapshot.html">torch.mtia.snapshot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
@@ -3051,8 +3052,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3971,7 +3972,7 @@ document.write(`
                   
   <div class="section" id="type-info">
 <span id="type-info-doc"></span><h1>Type Info<a class="headerlink" href="#type-info" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 15, 2018 | Last Updated: May 20, 2022</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 15, 2018 | Last Updated: Apr 27, 2025</p>
 <p>The numerical properties of a <a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a> can be accessed through either the <a class="reference internal" href="#torch.torch.finfo" title="torch.torch.finfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.finfo</span></code></a> or the <a class="reference internal" href="#torch.torch.iinfo" title="torch.torch.iinfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.iinfo</span></code></a>.</p>
 <div class="section" id="torch-finfo">
 <span id="finfo-doc"></span><h2>torch.finfo<a class="headerlink" href="#torch-finfo" title="Permalink to this heading">#</a></h2>
@@ -3981,7 +3982,7 @@ document.write(`
 <dd></dd></dl>
 
 <p>A <a class="reference internal" href="#torch.torch.finfo" title="torch.torch.finfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.finfo</span></code></a> is an object that represents the numerical properties of a floating point
-<a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a>, (i.e. <code class="docutils literal notranslate"><span class="pre">torch.float32</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.float64</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.float16</span></code>, and <code class="docutils literal notranslate"><span class="pre">torch.bfloat16</span></code>). This is similar to <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.finfo.html">numpy.finfo</a>.</p>
+<a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a>, (i.e. <code class="docutils literal notranslate"><span class="pre">torch.float32</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.float64</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.float16</span></code>, and <code class="docutils literal notranslate"><span class="pre">torch.bfloat16</span></code>). This is similar to <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.finfo.html">numpy.finfo</a>.</p>
 <p>A <a class="reference internal" href="#torch.torch.finfo" title="torch.torch.finfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.finfo</span></code></a> provides the following attributes:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
@@ -4046,7 +4047,7 @@ for more information.</p>
 <dd></dd></dl>
 
 <p>A <a class="reference internal" href="#torch.torch.iinfo" title="torch.torch.iinfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.iinfo</span></code></a> is an object that represents the numerical properties of a integer
-<a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a> (i.e. <code class="docutils literal notranslate"><span class="pre">torch.uint8</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.int8</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.int16</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.int32</span></code>, and <code class="docutils literal notranslate"><span class="pre">torch.int64</span></code>). This is similar to <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.iinfo.html">numpy.iinfo</a>.</p>
+<a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a> (i.e. <code class="docutils literal notranslate"><span class="pre">torch.uint8</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.int8</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.int16</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.int32</span></code>, and <code class="docutils literal notranslate"><span class="pre">torch.int64</span></code>). This is similar to <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.iinfo.html">numpy.iinfo</a>.</p>
 <p>A <a class="reference internal" href="#torch.torch.iinfo" title="torch.torch.iinfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.iinfo</span></code></a> provides the following attributes:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>

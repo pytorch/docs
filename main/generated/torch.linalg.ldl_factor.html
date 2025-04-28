@@ -108,7 +108,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gita0d440a )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git70d7638 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3024,6 +3024,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.empty_cache.html">torch.mtia.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.record_memory_history.html">torch.mtia.record_memory_history</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.snapshot.html">torch.mtia.snapshot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.stream.html">torch.mtia.stream</a></li>
@@ -3049,8 +3050,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3981,7 +3982,7 @@ or symmetric (<code class="xref py py-attr docutils literal notranslate"><span c
 <p>The factorization is of the form the form <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mi>L</mi><mi>D</mi><msup><mi>L</mi><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">A = L D L^T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8413em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span></span></span></span></span>.
 If <code class="xref py py-attr docutils literal notranslate"><span class="pre">hermitian</span></code> is <cite>True</cite> then transpose operation is the conjugate transpose.</p>
 <p><span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi></mrow><annotation encoding="application/x-tex">L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">L</span></span></span></span></span> (or <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi></mrow><annotation encoding="application/x-tex">U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span></span></span></span></span>) and <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span></span> are stored in compact form in <code class="docutils literal notranslate"><span class="pre">LD</span></code>.
-They follow the format specified by <a class="reference external" href="https://www.netlib.org/lapack/explore-html/d3/db6/group__double_s_ycomputational_gad91bde1212277b3e909eb6af7f64858a.html">LAPACK’s sytrf</a> function.
+They follow the format specified by <a class="reference external" href="https://www.netlib.org/lapack/explore-html-3.6.1/d3/db6/group__double_s_ycomputational_gad91bde1212277b3e909eb6af7f64858a.html">LAPACK’s sytrf</a> function.
 These tensors may be used in <a class="reference internal" href="torch.linalg.ldl_solve.html#torch.linalg.ldl_solve" title="torch.linalg.ldl_solve"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.linalg.ldl_solve()</span></code></a> to solve linear systems.</p>
 <p>Supports input of float, double, cfloat and cdouble dtypes.
 Also supports batches of matrices, and if <code class="xref py py-attr docutils literal notranslate"><span class="pre">A</span></code> is a batch of matrices then

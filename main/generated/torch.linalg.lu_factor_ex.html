@@ -108,7 +108,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gita0d440a )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git70d7638 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3024,6 +3024,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.empty_cache.html">torch.mtia.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.record_memory_history.html">torch.mtia.record_memory_history</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.snapshot.html">torch.mtia.snapshot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.stream.html">torch.mtia.stream</a></li>
@@ -3049,8 +3050,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3976,7 +3977,7 @@ document.write(`
 <dt class="sig sig-object py" id="torch.linalg.lu_factor_ex">
 <span class="sig-prename descclassname"><span class="pre">torch.linalg.</span></span><span class="sig-name descname"><span class="pre">lu_factor_ex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pivot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.linalg.lu_factor_ex" title="Permalink to this definition">#</a></dt>
 <dd><p>This is a version of <a class="reference internal" href="torch.linalg.lu_factor.html#torch.linalg.lu_factor" title="torch.linalg.lu_factor"><code class="xref py py-func docutils literal notranslate"><span class="pre">lu_factor()</span></code></a> that does not perform error checks unless <code class="xref py py-attr docutils literal notranslate"><span class="pre">check_errors</span></code><cite>= True</cite>.
-It also returns the <code class="xref py py-attr docutils literal notranslate"><span class="pre">info</span></code> tensor returned by <a class="reference external" href="https://www.netlib.org/lapack/explore-html/dd/d9a/group__double_g_ecomputational_ga0019443faea08275ca60a734d0593e60.html">LAPACK’s getrf</a>.</p>
+It also returns the <code class="xref py py-attr docutils literal notranslate"><span class="pre">info</span></code> tensor returned by <a class="reference external" href="https://www.netlib.org/lapack/explore-html-3.6.1/dd/d9a/group__double_g_ecomputational_ga0019443faea08275ca60a734d0593e60.html">LAPACK’s getrf</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When the inputs are on a CUDA device, this function synchronizes only when <code class="xref py py-attr docutils literal notranslate"><span class="pre">check_errors</span></code><cite>= True</cite>.</p>
