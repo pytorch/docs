@@ -108,7 +108,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd36b09c )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git8136e0d )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3980,7 +3980,7 @@ document.write(`
 <h1>torch.func.vjp<a class="headerlink" href="#torch-func-vjp" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.func.vjp">
-<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">vjp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">primals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d36b09ca5879caac9296e8cf1f41307a91563d0b/torch/_functorch/eager_transforms.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.vjp" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">vjp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">primals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8136e0d3b78087c8d6f7d3a481f5d83ac5393bd8/torch/_functorch/eager_transforms.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.vjp" title="Permalink to this definition">#</a></dt>
 <dd><p>Standing for the vector-Jacobian product, returns a tuple containing the
 results of <code class="docutils literal notranslate"><span class="pre">func</span></code> applied to <code class="docutils literal notranslate"><span class="pre">primals</span></code> and a function that, when
 given <code class="docutils literal notranslate"><span class="pre">cotangents</span></code>, computes the reverse-mode Jacobian of <code class="docutils literal notranslate"><span class="pre">func</span></code> with
