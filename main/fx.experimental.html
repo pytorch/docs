@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitfdcfc6a )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3d777ba )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3220,8 +3220,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.is_concrete_float.html">torch.fx.experimental.symbolic_shapes.is_concrete_float</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_free_symbols.html">torch.fx.experimental.symbolic_shapes.has_free_symbols</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_free_unbacked_symbols.html">torch.fx.experimental.symbolic_shapes.has_free_unbacked_symbols</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.definitely_true.html">torch.fx.experimental.symbolic_shapes.definitely_true</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.definitely_false.html">torch.fx.experimental.symbolic_shapes.definitely_false</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_or_true.html">torch.fx.experimental.symbolic_shapes.guard_or_true</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_or_false.html">torch.fx.experimental.symbolic_shapes.guard_or_false</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_size_oblivious.html">torch.fx.experimental.symbolic_shapes.guard_size_oblivious</a></li>
@@ -3972,7 +3970,7 @@ document.write(`
                   
   <div class="section" id="torch-fx-experimental">
 <h1>torch.fx.experimental<a class="headerlink" href="#torch-fx-experimental" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 07, 2024 | Last Updated: Apr 24, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 07, 2024 | Last Updated: Apr 29, 2025</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>These APIs are experimental and subject to change without notice.</p>
@@ -4050,12 +4048,6 @@ document.write(`
 </tr>
 <tr class="row-even"><td><p><p id="torch.fx.experimental.symbolic_shapes.has_free_unbacked_symbols"/><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.has_free_unbacked_symbols.html#torch.fx.experimental.symbolic_shapes.has_free_unbacked_symbols" title="torch.fx.experimental.symbolic_shapes.has_free_unbacked_symbols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_free_unbacked_symbols</span></code></a></p></td>
 <td><p>Faster version of bool(free_unbacked_symbols(val))</p></td>
-</tr>
-<tr class="row-odd"><td><p><p id="torch.fx.experimental.symbolic_shapes.definitely_true"/><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.definitely_true.html#torch.fx.experimental.symbolic_shapes.definitely_true" title="torch.fx.experimental.symbolic_shapes.definitely_true"><code class="xref py py-obj docutils literal notranslate"><span class="pre">definitely_true</span></code></a></p></td>
-<td><p>Returns True only if we can tell that a is True, possibly introducing a guard in the process.</p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.fx.experimental.symbolic_shapes.definitely_false"/><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.definitely_false.html#torch.fx.experimental.symbolic_shapes.definitely_false" title="torch.fx.experimental.symbolic_shapes.definitely_false"><code class="xref py py-obj docutils literal notranslate"><span class="pre">definitely_false</span></code></a></p></td>
-<td><p>Returns True only if we can tell that a is False, possibly introducing a guard in the process.</p></td>
 </tr>
 <tr class="row-odd"><td><p><p id="torch.fx.experimental.symbolic_shapes.guard_or_true"/><a class="reference internal" href="generated/torch.fx.experimental.symbolic_shapes.guard_or_true.html#torch.fx.experimental.symbolic_shapes.guard_or_true" title="torch.fx.experimental.symbolic_shapes.guard_or_true"><code class="xref py py-obj docutils literal notranslate"><span class="pre">guard_or_true</span></code></a></p></td>
 <td><p>Try to guard a, if data dependent error encountered just return true.</p></td>
