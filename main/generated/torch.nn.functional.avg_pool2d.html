@@ -108,7 +108,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git8faa225 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git8dbe1ff )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3977,6 +3977,10 @@ document.write(`
 <dd><p>Applies 2D average-pooling operation in <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>H</mi><mo>×</mo><mi>k</mi><mi>W</mi></mrow><annotation encoding="application/x-tex">kH \times kW</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">kW</span></span></span></span></span> regions by step size
 <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>H</mi><mo>×</mo><mi>s</mi><mi>W</mi></mrow><annotation encoding="application/x-tex">sH \times sW</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">sH</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span></span></span></span></span> steps. The number of output features is equal to the number of
 input planes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>pad should be at most half of effective kernel size.</p>
+</div>
 <p>See <a class="reference internal" href="torch.nn.AvgPool2d.html#torch.nn.AvgPool2d" title="torch.nn.AvgPool2d"><code class="xref py py-class docutils literal notranslate"><span class="pre">AvgPool2d</span></code></a> for details and output shape.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
