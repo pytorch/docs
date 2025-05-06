@@ -2,177 +2,177 @@
   {
     "name": "main (unstable)",
     "version": "main",
-    "url": "https://pytorch.org/docs/main/"
+    "url": "https://docs.pytorch.org/docs/main/"
   },
   {
-    "name": "v2.7.0 (release candidate)",
+    "name": "v2.7.0 (stable)",
     "version": "2.7",
-    "url": "https://pytorch.org/docs/2.7/"
+    "url": "https://docs.pytorch.org/docs/2.7/",
+    "preferred": true
   },
   {
-    "name": "v2.6.0 (stable)",
+    "name": "v2.6.0",
     "version": "2.6",
-    "url": "https://pytorch.org/docs/2.6/",
-    "preferred": true
+    "url": "https://docs.pytorch.org/docs/2.6/"
   },
   {
     "name": "v2.5.0",
     "version": "2.5",
-    "url": "https://pytorch.org/docs/2.5/"
+    "url": "https://docs.pytorch.org/docs/2.5/"
   },
   {
     "name": "v2.4.0",
     "version": "2.4",
-    "url": "https://pytorch.org/docs/2.4/"
+    "url": "https://docs.pytorch.org/docs/2.4/"
   },
   {
     "name": "v2.3.0",
     "version": "2.3",
-    "url": "https://pytorch.org/docs/2.3/"
+    "url": "https://docs.pytorch.org/docs/2.3/"
   },
   {
     "name": "v2.2.0",
     "version": "2.2",
-    "url": "https://pytorch.org/docs/2.2/"
+    "url": "https://docs.pytorch.org/docs/2.2/"
   },
   {
     "name": "v2.1.0",
     "version": "2.1",
-    "url": "https://pytorch.org/docs/2.1/"
+    "url": "https://docs.pytorch.org/docs/2.1/"
   },
   {
     "name": "v2.0.0",
     "version": "2.0",
-    "url": "https://pytorch.org/docs/2.0/"
+    "url": "https://docs.pytorch.org/docs/2.0/"
   },
   {
     "name": "v1.13",
     "version": "1.13",
-    "url": "https://pytorch.org/docs/1.13/"
+    "url": "https://docs.pytorch.org/docs/1.13/"
   },
   {
     "name": "v1.12",
     "version": "1.12",
-    "url": "https://pytorch.org/docs/1.12/"
+    "url": "https://docs.pytorch.org/docs/1.12/"
   },
   {
     "name": "v1.11",
     "version": "1.11",
-    "url": "https://pytorch.org/docs/1.11/"
+    "url": "https://docs.pytorch.org/docs/1.11/"
   },
   {
     "name": "v1.10",
     "version": "1.10",
-    "url": "https://pytorch.org/docs/1.10/"
+    "url": "https://docs.pytorch.org/docs/1.10/"
   },
   {
     "name": "v1.9.1",
     "version": "1.9.1",
-    "url": "https://pytorch.org/docs/1.9.1/"
+    "url": "https://docs.pytorch.org/docs/1.9.1/"
   },
   {
     "name": "v1.9.0",
     "version": "1.9.0",
-    "url": "https://pytorch.org/docs/1.9.0/"
+    "url": "https://docs.pytorch.org/docs/1.9.0/"
   },
   {
     "name": "v1.8.1",
     "version": "1.8.1",
-    "url": "https://pytorch.org/docs/1.8.1/"
+    "url": "https://docs.pytorch.org/docs/1.8.1/"
   },
   {
     "name": "v1.8.0",
     "version": "1.8.0",
-    "url": "https://pytorch.org/docs/1.8.0/"
+    "url": "https://docs.pytorch.org/docs/1.8.0/"
   },
   {
     "name": "v1.7.1",
     "version": "1.7.1",
-    "url": "https://pytorch.org/docs/1.7.1/"
+    "url": "https://docs.pytorch.org/docs/1.7.1/"
   },
   {
     "name": "v1.7.0",
     "version": "1.7.0",
-    "url": "https://pytorch.org/docs/1.7.0/"
+    "url": "https://docs.pytorch.org/docs/1.7.0/"
   },
   {
     "name": "v1.6.0",
     "version": "1.6.0",
-    "url": "https://pytorch.org/docs/1.6.0/"
+    "url": "https://docs.pytorch.org/docs/1.6.0/"
   },
   {
     "name": "v1.5.1",
     "version": "1.5.1",
-    "url": "https://pytorch.org/docs/1.5.1/"
+    "url": "https://docs.pytorch.org/docs/1.5.1/"
   },
   {
     "name": "v1.5.0",
     "version": "1.5.0",
-    "url": "https://pytorch.org/docs/1.5.0/"
+    "url": "https://docs.pytorch.org/docs/1.5.0/"
   },
   {
     "name": "v1.4.0",
     "version": "1.4.0",
-    "url": "https://pytorch.org/docs/1.4.0/"
+    "url": "https://docs.pytorch.org/docs/1.4.0/"
   },
   {
     "name": "v1.3.1",
     "version": "1.3.1",
-    "url": "https://pytorch.org/docs/1.3.1/"
+    "url": "https://docs.pytorch.org/docs/1.3.1/"
   },
   {
     "name": "v1.3.0",
     "version": "1.3.0",
-    "url": "https://pytorch.org/docs/1.3.0/"
+    "url": "https://docs.pytorch.org/docs/1.3.0/"
   },
   {
     "name": "v1.2.0",
     "version": "1.2.0",
-    "url": "https://pytorch.org/docs/1.2.0/"
+    "url": "https://docs.pytorch.org/docs/1.2.0/"
   },
   {
     "name": "v1.1.0",
     "version": "1.1.0",
-    "url": "https://pytorch.org/docs/1.1.0/"
+    "url": "https://docs.pytorch.org/docs/1.1.0/"
   },
   {
     "name": "v1.0.1",
     "version": "1.0.1",
-    "url": "https://pytorch.org/docs/1.0.1/"
+    "url": "https://docs.pytorch.org/docs/1.0.1/"
   },
   {
     "name": "v1.0.0",
     "version": "1.0.0",
-    "url": "https://pytorch.org/docs/1.0.0/"
+    "url": "https://docs.pytorch.org/docs/1.0.0/"
   },
   {
     "name": "v0.4.1",
     "version": "0.4.1",
-    "url": "https://pytorch.org/docs/0.4.1/"
+    "url": "https://docs.pytorch.org/docs/0.4.1/"
   },
   {
     "name": "v0.4.0",
     "version": "0.4.0",
-    "url": "https://pytorch.org/docs/0.4.0/"
+    "url": "https://docs.pytorch.org/docs/0.4.0/"
   },
   {
     "name": "v0.3.1",
     "version": "0.3.1",
-    "url": "https://pytorch.org/docs/0.3.1/"
+    "url": "https://docs.pytorch.org/docs/0.3.1/"
   },
   {
     "name": "v0.3.0",
     "version": "0.3.0",
-    "url": "https://pytorch.org/docs/0.3.0/"
+    "url": "https://docs.pytorch.org/docs/0.3.0/"
   },
   {
     "name": "v0.2.0",
     "version": "0.2.0",
-    "url": "https://pytorch.org/docs/0.2.0/"
+    "url": "https://docs.pytorch.org/docs/0.2.0/"
   },
   {
     "name": "v0.1.12",
     "version": "0.1.12",
-    "url": "https://pytorch.org/docs/0.1.12/"
+    "url": "https://docs.pytorch.org/docs/0.1.12/"
   }
 ]
