@@ -108,7 +108,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd197228 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git9919d6b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3973,7 +3973,7 @@ document.write(`
 <h1>LazyModuleMixin<a class="headerlink" href="#lazymodulemixin" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.modules.lazy.LazyModuleMixin">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.lazy.</span></span><span class="sig-name descname"><span class="pre">LazyModuleMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d197228d4330ebe10d2d8e4363086bddbd97b2cf/torch/nn/modules/lazy.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.lazy.LazyModuleMixin" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.lazy.</span></span><span class="sig-name descname"><span class="pre">LazyModuleMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9919d6b8724a4edbafcacf180c42bdbb1fb3a7ed/torch/nn/modules/lazy.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.lazy.LazyModuleMixin" title="Permalink to this definition">#</a></dt>
 <dd><p>A mixin for modules that lazily initialize parameters, also known as “lazy modules”.</p>
 <p>Modules that lazily initialize parameters, or “lazy modules”,
 derive the shapes of their parameters from the first input(s)
@@ -4024,7 +4024,7 @@ the network and to each one of its lazy modules. After this the network can be u
 <span class="go">  (relu2): ReLU()</span>
 <span class="go">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># attaches an optimizer, since parameters can now be used as usual</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">optim</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">mlp</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">optim</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">lazy_mlp</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>A final caveat when using lazy modules is that the order of initialization of a network’s
@@ -4040,12 +4040,10 @@ Check <a class="reference internal" href="../notes/randomness.html"><span class=
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lazy_mlp</span> <span class="o">=</span> <span class="n">LazyMLP</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># The state dict shows the uninitialized parameters</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lazy_mlp</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span>
-<span class="go">OrderedDict([(&#39;fc1.weight&#39;, Uninitialized parameter),</span>
-<span class="go">             (&#39;fc1.bias&#39;,</span>
-<span class="go">              tensor([-1.8832e+25,  4.5636e-41, -1.8832e+25,  4.5636e-41, -6.1598e-30,</span>
-<span class="go">                       4.5637e-41, -1.8788e+22,  4.5636e-41, -2.0042e-31,  4.5637e-41])),</span>
-<span class="go">             (&#39;fc2.weight&#39;, Uninitialized parameter),</span>
-<span class="go">             (&#39;fc2.bias&#39;, tensor([0.0019]))])</span>
+<span class="go">OrderedDict({&#39;fc1.weight&#39;: &lt;UninitializedParameter&gt;,</span>
+<span class="go">             &#39;fc1.bias&#39;: &lt;UninitializedParameter&gt;,</span>
+<span class="go">             &#39;fc2.weight&#39;: &lt;UninitializedParameter&gt;,</span>
+<span class="go">             &#39;fc2.bias&#39;: &lt;UninitializedParameter&gt;})</span>
 </pre></div>
 </div>
 <p>Lazy modules can load regular <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Parameter</span></code> s (i.e. you can serialize/deserialize
@@ -4081,7 +4079,7 @@ initialized LazyModules and they will remain initialized)</p>
 when the state is loaded. This prevents using initialized modules in different contexts.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.lazy.LazyModuleMixin.has_uninitialized_params">
-<span class="sig-name descname"><span class="pre">has_uninitialized_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d197228d4330ebe10d2d8e4363086bddbd97b2cf/torch/nn/modules/lazy.py#L250"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.lazy.LazyModuleMixin.has_uninitialized_params" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">has_uninitialized_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9919d6b8724a4edbafcacf180c42bdbb1fb3a7ed/torch/nn/modules/lazy.py#L247"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.lazy.LazyModuleMixin.has_uninitialized_params" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if a module has parameters that are not initialized.</p>
 <dl class="field-list simple">
 </dl>
@@ -4089,7 +4087,7 @@ when the state is loaded. This prevents using initialized modules in different c
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.lazy.LazyModuleMixin.initialize_parameters">
-<span class="sig-name descname"><span class="pre">initialize_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d197228d4330ebe10d2d8e4363086bddbd97b2cf/torch/nn/modules/lazy.py#L240"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.lazy.LazyModuleMixin.initialize_parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">initialize_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9919d6b8724a4edbafcacf180c42bdbb1fb3a7ed/torch/nn/modules/lazy.py#L237"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.lazy.LazyModuleMixin.initialize_parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>Initialize parameters according to the input batch properties.</p>
 <p>This adds an interface to isolate parameter initialization from the
 forward pass when doing parameter shape inference.</p>

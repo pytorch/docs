@@ -108,7 +108,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd197228 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git9919d6b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3978,7 +3978,7 @@ document.write(`
 <h1>generate_numeric_debug_handle<a class="headerlink" href="#generate-numeric-debug-handle" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.generate_numeric_debug_handle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.</span></span><span class="sig-name descname"><span class="pre">generate_numeric_debug_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ep</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d197228d4330ebe10d2d8e4363086bddbd97b2cf/torch/ao/quantization/pt2e/_numeric_debugger.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.generate_numeric_debug_handle" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.</span></span><span class="sig-name descname"><span class="pre">generate_numeric_debug_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ep</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9919d6b8724a4edbafcacf180c42bdbb1fb3a7ed/torch/ao/quantization/pt2e/_numeric_debugger.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.generate_numeric_debug_handle" title="Permalink to this definition">#</a></dt>
 <dd><p>Attach numeric_debug_handle_id for all nodes in the graph module of the given
 ExportedProgram, like conv2d, squeeze, conv1d, etc, except for placeholder.
 Notice that nodes like getattr are out of scope since they are not in the graph.</p>
