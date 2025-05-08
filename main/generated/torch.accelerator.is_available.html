@@ -108,7 +108,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git9919d6b )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git20e2ca3 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3046,12 +3046,22 @@ document.write(`
 <li class="toctree-l1 has-children"><a class="reference internal" href="../export.html">torch.export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../export.programming_model.html">torch.export Programming Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../export.ir_spec.html">torch.export IR Specification</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../draft_export.html">Draft Export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_fake_tensor.html">Fake tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../logging.html">torch._logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3973,7 +3983,7 @@ document.write(`
 <h1>torch.accelerator.is_available<a class="headerlink" href="#torch-accelerator-is-available" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.accelerator.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.accelerator.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9919d6b8724a4edbafcacf180c42bdbb1fb3a7ed/torch/accelerator/__init__.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.is_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.accelerator.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/20e2ca3e29ce9eb33eef17db077696222c175764/torch/accelerator/__init__.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.accelerator.is_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if the current accelerator is available at runtime: it was build, all the
 required drivers are available and at least one device is visible.
 See <a class="reference internal" href="../torch.html#accelerators"><span class="std std-ref">accelerator</span></a> for details.</p>
