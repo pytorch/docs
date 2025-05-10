@@ -74,11 +74,13 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+<link rel="canonical" href="/notes/extending.html" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="stylesheet" href="../_static/webfonts/all.min.css">
+<meta http-equiv="Content-Security-Policy" content="style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' https://www.google.com https://fonts.googleapis.com;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
@@ -110,7 +112,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitab829ec )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitfbb6412 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1507,7 +1509,27 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article">
+  <article class="bd-article" itemscope="itemscope" itemtype="https://schema.org/Article">
+   <meta itemprop="headline" content="Extending PyTorch">
+   <meta itemprop="description" content="PyTorch documentation">
+   <meta itemprop="datePublished" content="">
+   <meta itemprop="dateModified" content="">
+   <meta itemprop="author" content="PyTorch Contributors">
+   <!-- Hidden breadcrumb schema for SEO only -->
+   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+      
+        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <link itemprop="item" href="../notes.html">
+          <meta itemprop="name" content="Developer Notes">
+          <meta itemprop="position" content="1">
+        </div>
+      
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <meta itemprop="name" content="Extending PyTorch">
+        <meta itemprop="position" content="2">
+      </div>
+   </div>
+
     
     
     
@@ -1518,7 +1540,7 @@ document.write(`
                   
   <div class="section" id="extending-pytorch">
 <h1>Extending PyTorch<a class="headerlink" href="#extending-pytorch" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 16, 2017 | Last Updated: Nov 13, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 16, 2017 | Last Updated: May 07, 2025</p>
 <p>In this note we’ll cover ways of extending <a class="reference internal" href="../nn.html#module-torch.nn" title="torch.nn"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.nn</span></code></a>,
 <a class="reference internal" href="../autograd.html#module-torch.autograd" title="torch.autograd"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.autograd</span></code></a>, <a class="reference internal" href="../torch.html#module-torch" title="torch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch</span></code></a>, and writing custom C++ extensions.</p>
 <div class="section" id="adding-new-operators">
@@ -1610,12 +1632,25 @@ were inputs, as long as they’re all <a class="reference external" href="https:
 <p><strong>Step 2:</strong> It is your responsibility to use the functions in <code class="docutils literal notranslate"><span class="pre">ctx</span></code>
 properly in order to ensure that the new <a class="reference internal" href="../autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">Function</span></code></a> works properly with
 the autograd engine.</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="../generated/torch.autograd.function.FunctionCtx.save_for_backward.html#torch.autograd.function.FunctionCtx.save_for_backward" title="torch.autograd.function.FunctionCtx.save_for_backward"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save_for_backward()</span></code></a> must be
-used to save any tensors to be used in the backward pass. Non-tensors should
-be stored directly on <cite>ctx</cite>. If tensors that are neither input nor output
-are saved for backward your <a class="reference internal" href="../autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">Function</span></code></a> may not support double backward
-(see step 3).</p></li>
+<ul>
+<li><p><a class="reference internal" href="../generated/torch.autograd.function.FunctionCtx.save_for_backward.html#torch.autograd.function.FunctionCtx.save_for_backward" title="torch.autograd.function.FunctionCtx.save_for_backward"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save_for_backward()</span></code></a> should be
+used to save any tensors needed for the backward pass (as opposed to
+directly on <code class="docutils literal notranslate"><span class="pre">ctx</span></code>). You cannot use <code class="docutils literal notranslate"><span class="pre">save_for_backward</span></code> for non-tensors;
+you should store those directly on <code class="docutils literal notranslate"><span class="pre">ctx</span></code>.</p>
+<p>Saving tensors via <code class="docutils literal notranslate"><span class="pre">save_for_backward</span></code>:
+1. Allows the autograd engine to clear
+them as soon as the backward computation of the <code class="docutils literal notranslate"><span class="pre">autograd.Function</span></code> completes.
+(If a tensor is stored directly on <code class="docutils literal notranslate"><span class="pre">ctx</span></code>
+it will unnecessarily remain alive for the lifetime of the autograd graph –
+typically until the end of the iteration.)
+2. Helps avoid certain reference cycles, (e.g., since the tensor
+output of the <code class="docutils literal notranslate"><span class="pre">autograd.Function</span></code> itself keeps a reference to the ctx).
+3. Is important for compatibility with
+features like activation checkpointing and offloading that rely on
+<a class="reference internal" href="../autograd.html#torch.autograd.graph.saved_tensors_hooks" title="torch.autograd.graph.saved_tensors_hooks"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.graph.saved_tensors_hooks</span></code></a>.</p>
+<p>If tensors that are neither inputs nor outputs are saved for backward your
+<a class="reference internal" href="../autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">Function</span></code></a> may not support double backward (see step 3).</p>
+</li>
 <li><p><a class="reference internal" href="../generated/torch.autograd.function.FunctionCtx.mark_dirty.html#torch.autograd.function.FunctionCtx.mark_dirty" title="torch.autograd.function.FunctionCtx.mark_dirty"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mark_dirty()</span></code></a> must be used to
 mark any input that is modified inplace by the forward function.</p></li>
 <li><p><a class="reference internal" href="../generated/torch.autograd.function.FunctionCtx.mark_non_differentiable.html#torch.autograd.function.FunctionCtx.mark_non_differentiable" title="torch.autograd.function.FunctionCtx.mark_non_differentiable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mark_non_differentiable()</span></code></a> must

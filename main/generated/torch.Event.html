@@ -72,11 +72,13 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+<link rel="canonical" href="/generated/torch.Event.html" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="stylesheet" href="../_static/webfonts/all.min.css">
+<meta http-equiv="Content-Security-Policy" content="style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' https://www.google.com https://fonts.googleapis.com;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
@@ -108,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitab829ec )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitfbb6412 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3142,6 +3144,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
@@ -3970,7 +3973,33 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article">
+  <article class="bd-article" itemscope="itemscope" itemtype="https://schema.org/Article">
+   <meta itemprop="headline" content="Event">
+   <meta itemprop="description" content="PyTorch documentation">
+   <meta itemprop="datePublished" content="">
+   <meta itemprop="dateModified" content="">
+   <meta itemprop="author" content="PyTorch Contributors">
+   <!-- Hidden breadcrumb schema for SEO only -->
+   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+      
+        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <link itemprop="item" href="../pytorch-api.html">
+          <meta itemprop="name" content="Python API">
+          <meta itemprop="position" content="1">
+        </div>
+      
+        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <link itemprop="item" href="../torch.html">
+          <meta itemprop="name" content="torch">
+          <meta itemprop="position" content="2">
+        </div>
+      
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <meta itemprop="name" content="Event">
+        <meta itemprop="position" content="3">
+      </div>
+   </div>
+
     
     
     
@@ -4005,7 +4034,7 @@ If not given, the current <a class="reference internal" href="../torch.html#acce
 <dd class="field-odd"><p>An torch.Event object.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="torch.mtia.Event.html#torch.mtia.Event" title="torch.Event">Event</a></p>
+<dd class="field-even"><p><a class="reference internal" href="#torch.Event" title="torch.Event">Event</a></p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -4020,7 +4049,7 @@ If not given, the current <a class="reference internal" href="../torch.html#acce
 each recorded via <a class="reference internal" href="torch.Stream.html#torch.Stream.record_event" title="torch.Stream.record_event"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Stream.record_event()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>end_event</strong> (<a class="reference internal" href="torch.mtia.Event.html#torch.mtia.Event" title="torch.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Event</span></code></a>) – The ending event has been recorded.</p>
+<dd class="field-odd"><p><strong>end_event</strong> (<a class="reference internal" href="#torch.Event" title="torch.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Event</span></code></a>) – The ending event has been recorded.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Time between starting and ending event in milliseconds.</p>
@@ -4067,7 +4096,7 @@ Always returns <code class="docutils literal notranslate"><span class="pre">True
 This function is equivalent to <code class="docutils literal notranslate"><span class="pre">stream.record_event(self)</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="torch.mtia.Stream.html#torch.mtia.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>, optional) – A stream to be recorded.
+<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="torch.Stream.html#torch.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>, optional) – A stream to be recorded.
 If not given, the current stream will be used.</p>
 </dd>
 </dl>
@@ -4096,7 +4125,7 @@ If not given, the current stream will be used.</p>
 <dd><p>Make all future work submitted to the given stream wait for this event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="torch.mtia.Stream.html#torch.mtia.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>, optional) – A stream to synchronize.
+<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="torch.Stream.html#torch.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>, optional) – A stream to synchronize.
 If not given, the current stream will be used.</p>
 </dd>
 </dl>

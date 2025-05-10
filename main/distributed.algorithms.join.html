@@ -74,11 +74,13 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+<link rel="canonical" href="/distributed.algorithms.join.html" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="stylesheet" href="_static/webfonts/all.min.css">
+<meta http-equiv="Content-Security-Policy" content="style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' https://www.google.com https://fonts.googleapis.com;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
@@ -110,7 +112,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitab829ec )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitfbb6412 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3144,6 +3146,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
@@ -3969,7 +3972,27 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article">
+  <article class="bd-article" itemscope="itemscope" itemtype="https://schema.org/Article">
+   <meta itemprop="headline" content="Generic Join Context Manager">
+   <meta itemprop="description" content="PyTorch documentation">
+   <meta itemprop="datePublished" content="">
+   <meta itemprop="dateModified" content="">
+   <meta itemprop="author" content="PyTorch Contributors">
+   <!-- Hidden breadcrumb schema for SEO only -->
+   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+      
+        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <link itemprop="item" href="pytorch-api.html">
+          <meta itemprop="name" content="Python API">
+          <meta itemprop="position" content="1">
+        </div>
+      
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <meta itemprop="name" content="Generic Join Context Manager">
+        <meta itemprop="position" content="2">
+      </div>
+   </div>
+
     
     
     
@@ -3987,7 +4010,7 @@ inputs. This page outlines the API of the relevant classes: <code class="xref py
 <a class="reference external" href="https://pytorch.org/tutorials/advanced/generic_join.html">Distributed Training with Uneven Inputs Using the Join Context Manager</a>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.algorithms.Join">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.algorithms.</span></span><span class="sig-name descname"><span class="pre">Join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">joinables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">throw_on_early_termination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ab829ec6290b92b6f2c2519a9a922c1b06d0981a/torch/distributed/algorithms/join.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.algorithms.Join" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.algorithms.</span></span><span class="sig-name descname"><span class="pre">Join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">joinables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">throw_on_early_termination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb6412fdb9311d42e6db093236cab74ac63b2bb/torch/distributed/algorithms/join.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.algorithms.Join" title="Permalink to this definition">#</a></dt>
 <dd><p>This class defines the generic join context manager, which allows custom hooks to be called after a process joins.</p>
 <p>These hooks should shadow the
 collective communications of non-joined processes to prevent hanging and
@@ -4050,7 +4073,7 @@ exception upon detecting uneven inputs (default: <code class="docutils literal n
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.algorithms.Join.notify_join_context">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">notify_join_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">joinable</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ab829ec6290b92b6f2c2519a9a922c1b06d0981a/torch/distributed/algorithms/join.py#L295"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.algorithms.Join.notify_join_context" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">notify_join_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">joinable</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb6412fdb9311d42e6db093236cab74ac63b2bb/torch/distributed/algorithms/join.py#L295"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.algorithms.Join.notify_join_context" title="Permalink to this definition">#</a></dt>
 <dd><p>Notifies the join context manager that the calling process has not yet joined.</p>
 <p>Then, if <code class="docutils literal notranslate"><span class="pre">throw_on_early_termination=True</span></code>, checks if uneven inputs have been detected
 (i.e. if one process has already joined) and throws an exception if so.</p>
@@ -4078,7 +4101,7 @@ first one passed into the context manager; <code class="docutils literal notrans
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.algorithms.Joinable">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.algorithms.</span></span><span class="sig-name descname"><span class="pre">Joinable</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ab829ec6290b92b6f2c2519a9a922c1b06d0981a/torch/distributed/algorithms/join.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.algorithms.Joinable" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.algorithms.</span></span><span class="sig-name descname"><span class="pre">Joinable</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb6412fdb9311d42e6db093236cab74ac63b2bb/torch/distributed/algorithms/join.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.algorithms.Joinable" title="Permalink to this definition">#</a></dt>
 <dd><p>This defines an abstract base class for joinable classes.</p>
 <p>A joinable class
 (inheriting from <a class="reference internal" href="#torch.distributed.algorithms.Joinable" title="torch.distributed.algorithms.Joinable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Joinable</span></code></a>) should implement <a class="reference internal" href="#torch.distributed.algorithms.Joinable.join_hook" title="torch.distributed.algorithms.Joinable.join_hook"><code class="xref py py-meth docutils literal notranslate"><span class="pre">join_hook()</span></code></a>,
@@ -4095,7 +4118,7 @@ process group information, respectively.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.algorithms.Joinable.join_hook">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">join_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ab829ec6290b92b6f2c2519a9a922c1b06d0981a/torch/distributed/algorithms/join.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.algorithms.Joinable.join_hook" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">join_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb6412fdb9311d42e6db093236cab74ac63b2bb/torch/distributed/algorithms/join.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.algorithms.Joinable.join_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a <a class="reference internal" href="#torch.distributed.algorithms.JoinHook" title="torch.distributed.algorithms.JoinHook"><code class="xref py py-class docutils literal notranslate"><span class="pre">JoinHook</span></code></a> instance for the given <a class="reference internal" href="#torch.distributed.algorithms.Joinable" title="torch.distributed.algorithms.Joinable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Joinable</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4120,7 +4143,7 @@ manager are forwarded the same value for <code class="docutils literal notransla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.algorithms.JoinHook">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.algorithms.</span></span><span class="sig-name descname"><span class="pre">JoinHook</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ab829ec6290b92b6f2c2519a9a922c1b06d0981a/torch/distributed/algorithms/join.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.algorithms.JoinHook" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.algorithms.</span></span><span class="sig-name descname"><span class="pre">JoinHook</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb6412fdb9311d42e6db093236cab74ac63b2bb/torch/distributed/algorithms/join.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.algorithms.JoinHook" title="Permalink to this definition">#</a></dt>
 <dd><p>This defines a join hook, which provides two entry points in the join context manager.</p>
 <p>Entry points : a main hook, which is called repeatedly while there exists a non-joined
 process, and a post-hook, which is called once all processes have joined.</p>
@@ -4129,7 +4152,7 @@ class that inherits from <a class="reference internal" href="#torch.distributed.
 <code class="docutils literal notranslate"><span class="pre">post_hook()</span></code> as appropriate.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.algorithms.JoinHook.main_hook">
-<span class="sig-name descname"><span class="pre">main_hook</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ab829ec6290b92b6f2c2519a9a922c1b06d0981a/torch/distributed/algorithms/join.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.algorithms.JoinHook.main_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">main_hook</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb6412fdb9311d42e6db093236cab74ac63b2bb/torch/distributed/algorithms/join.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.algorithms.JoinHook.main_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Call this hook while there exists a non-joined process to shadow collective communications in a training iteration.</p>
 <p>Training iteration i.e., in one forward pass, backward pass, and optimizer step.</p>
 <dl class="field-list simple">
@@ -4138,7 +4161,7 @@ class that inherits from <a class="reference internal" href="#torch.distributed.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.algorithms.JoinHook.post_hook">
-<span class="sig-name descname"><span class="pre">post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_last_joiner</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ab829ec6290b92b6f2c2519a9a922c1b06d0981a/torch/distributed/algorithms/join.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.algorithms.JoinHook.post_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_last_joiner</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fbb6412fdb9311d42e6db093236cab74ac63b2bb/torch/distributed/algorithms/join.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.algorithms.JoinHook.post_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Call hook after all processes have joined.</p>
 <p>It is passed an additional <code class="docutils literal notranslate"><span class="pre">bool</span></code> argument <code class="docutils literal notranslate"><span class="pre">is_last_joiner</span></code>, which indicates if the rank is one of the last to join.</p>
 <dl class="field-list simple">
