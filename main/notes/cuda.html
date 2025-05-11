@@ -113,7 +113,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitfbb6412 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite4f2282 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1425,6 +1425,8 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="large_scale_deployments.html">Features for large-scale deployments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libtorch_stable_abi.html">LibTorch Stable ABI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mkldnn.html">MKLDNN backend</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mps.html">MPS backend</a></li>
 <li class="toctree-l1"><a class="reference internal" href="multiprocessing.html">Multiprocessing best practices</a></li>
@@ -1541,7 +1543,7 @@ document.write(`
                   
   <div class="section" id="cuda-semantics">
 <span id="id1"></span><h1>CUDA semantics<a class="headerlink" href="#cuda-semantics" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 16, 2017 | Last Updated: Apr 25, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 16, 2017 | Last Updated: May 10, 2025</p>
 <p><a class="reference internal" href="../cuda.html#module-torch.cuda" title="torch.cuda"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.cuda</span></code></a> is used to set up and run CUDA operations. It keeps track of
 the currently selected GPU, and all CUDA tensors you allocate will by default be
 created on that device. The selected device can be changed with a
@@ -1650,6 +1652,35 @@ If full FP32 precision is needed, users can disable TF32 by:</p>
 <span class="n">at</span><span class="o">::</span><span class="n">globalContext</span><span class="p">().</span><span class="n">setAllowTF32CuDNN</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
 </pre></div>
 </div>
+<p>After Pytorch 2.7, we provide a new sets of APIs to control the TF32 behavior in a more fine-grained way.
+We can set float32 precision per backend and per operators. We can also override the global setting for a specific operator.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">fp32_precision</span> <span class="o">=</span> <span class="s2">&quot;ieee&quot;</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">matmul</span><span class="o">.</span><span class="n">fp32_precision</span> <span class="o">=</span> <span class="s2">&quot;ieee&quot;</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">fp32_precision</span> <span class="o">=</span> <span class="s2">&quot;ieee&quot;</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">conv</span><span class="o">.</span><span class="n">fp32_precision</span> <span class="o">=</span> <span class="s2">&quot;tf32&quot;</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">rnn</span><span class="o">.</span><span class="n">fp32_precision</span> <span class="o">=</span> <span class="s2">&quot;tf32&quot;</span>
+</pre></div>
+</div>
+<p>The fp32_precision can be set to <cite>ieee</cite> or <cite>tf32</cite> for <cite>cuda/cudnn</cite>.
+<cite>ieee</cite> fp32_precision indicate that we will use <cite>FP32</cite> as internal computation precision.
+<cite>tf32</cite> fp32_precision indicate that we will allow to use <cite>TF32</cite> as internal computation precision.</p>
+<p>We can override a generic setting for a specific operator if the fp32_precision is set to <cite>ieee</cite>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">fp32_precision</span> <span class="o">=</span> <span class="s2">&quot;tf32&quot;</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">conv</span><span class="o">.</span><span class="n">fp32_precision</span> <span class="o">=</span> <span class="s2">&quot;ieee&quot;</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">rnn</span><span class="o">.</span><span class="n">fp32_precision</span> <span class="o">=</span> <span class="s2">&quot;ieee&quot;</span>
+</pre></div>
+</div>
+<p>We can also override a generic setting for a specific backend if the fp32_precision is set to <cite>ieee</cite>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">fp32_precision</span> <span class="o">=</span> <span class="s2">&quot;tf32&quot;</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">fp32_precision</span> <span class="o">=</span> <span class="s2">&quot;ieee&quot;</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">conv</span><span class="o">.</span><span class="n">fp32_precision</span> <span class="o">=</span> <span class="s2">&quot;ieee&quot;</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">rnn</span><span class="o">.</span><span class="n">fp32_precision</span> <span class="o">=</span> <span class="s2">&quot;ieee&quot;</span>
+</pre></div>
+</div>
+<p>For above 2 cases, both <cite>torch.backends.cudnn.conv.fp32_precision</cite> and <cite>torch.backends.cudnn.rnn.fp32_precision</cite>
+is overrided to <cite>ieee</cite>.</p>
+<p>Old settings are still supported. But we suggest to use the new settings for better control. And we do not support
+to use mix of old and new settings.</p>
 <p>For more information about TF32, see:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://blogs.nvidia.com/blog/2020/05/14/tensorfloat-32-precision-format/">TensorFloat-32</a></p></li>
