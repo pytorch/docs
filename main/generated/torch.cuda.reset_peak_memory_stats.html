@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite4f2282 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git930de01 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4012,7 +4012,7 @@ document.write(`
 <h1>torch.cuda.reset_peak_memory_stats<a class="headerlink" href="#torch-cuda-reset-peak-memory-stats" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.reset_peak_memory_stats">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">reset_peak_memory_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e4f22822cbe8b16d6c435a4f34fbfd62f0e23d91/torch/cuda/memory.py#L358"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.reset_peak_memory_stats" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">reset_peak_memory_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/cuda/memory.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.reset_peak_memory_stats" title="Permalink to this definition">#</a></dt>
 <dd><p>Reset the “peak” stats tracked by the CUDA memory allocator.</p>
 <p>See <a class="reference internal" href="torch.cuda.memory_stats.html#torch.cuda.memory_stats" title="torch.cuda.memory_stats"><code class="xref py py-func docutils literal notranslate"><span class="pre">memory_stats()</span></code></a> for details. Peak stats correspond to the
 <cite>“peak”</cite> key in each individual stat dict.</p>
