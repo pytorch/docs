@@ -7,13 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta property="og:title" content="DistributedDataParallel" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://pytorch.org/generated/torch.nn.parallel.DistributedDataParallel.html" />
-<meta property="og:site_name" content="PyTorch" />
-<meta property="og:image" content="https://pytorch.org/assets/images/social-share.jpg" />
-<meta property="og:image:alt" content="PyTorch" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DistributedDataParallel &#8212; PyTorch main documentation</title>
   
   
@@ -61,7 +55,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'generated/torch.nn.parallel.DistributedDataParallel';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
-        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pytorch.org/docs/pytorch-versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://docs.pytorch.org/docs/pytorch-versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
@@ -77,6 +71,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
+<meta property="og:image" content="../_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css">
 <meta http-equiv="Content-Security-Policy" content="style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' https://www.google.com https://fonts.googleapis.com;">
 <meta name="pytorch_project" content="docs">
@@ -110,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git930de01 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git0cf61ca )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -608,6 +603,20 @@ document.write(`
 
 
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="../community/index.html">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://docs.pytorch.org/cppdocs/">
+    C++
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-external" href="https://pytorch.org/tutorials/">
     Tutorials
   </a>
@@ -666,7 +675,7 @@ document.write(`
     // Define the search callback
     const myWebSearchStartingCallback = (gname, query) => {
       if (typeof dataLayer !== 'undefined' && query) {
-        window.dataLayer = [];
+        window.dataLayer = window.dataLayer || [];
         dataLayer.push({
           'event': 'google_search',
           'search_term': query,
@@ -761,7 +770,7 @@ document.write(`
             }
           }
           if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = [];
+            window.dataLayer = window.dataLayer || [];
             dataLayer.push({
               'event': 'search_engine_switch',
               'event_category': 'Search',
@@ -786,7 +795,7 @@ document.write(`
             }
           }
           if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = [];
+            window.dataLayer = window.dataLayer || [];
             dataLayer.push({
               'event': 'search_engine_switch',
               'event_category': 'Search',
@@ -1027,6 +1036,20 @@ document.write(`
 
 
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="../community/index.html">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://docs.pytorch.org/cppdocs/">
+    C++
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-external" href="https://pytorch.org/tutorials/">
     Tutorials
   </a>
@@ -1086,7 +1109,7 @@ document.write(`
     // Define the search callback
     const myWebSearchStartingCallback = (gname, query) => {
       if (typeof dataLayer !== 'undefined' && query) {
-        window.dataLayer = [];
+        window.dataLayer = window.dataLayer || [];
         dataLayer.push({
           'event': 'google_search',
           'search_term': query,
@@ -1181,7 +1204,7 @@ document.write(`
             }
           }
           if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = [];
+            window.dataLayer = window.dataLayer || [];
             dataLayer.push({
               'event': 'search_engine_switch',
               'event_category': 'Search',
@@ -1206,7 +1229,7 @@ document.write(`
             }
           }
           if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = [];
+            window.dataLayer = window.dataLayer || [];
             dataLayer.push({
               'event': 'search_engine_switch',
               'event_category': 'Search',
@@ -4012,7 +4035,7 @@ document.write(`
 <h1>DistributedDataParallel<a class="headerlink" href="#distributeddataparallel" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.parallel.DistributedDataParallel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.parallel.</span></span><span class="sig-name descname"><span class="pre">DistributedDataParallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">broadcast_buffers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_sync</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bucket_cap_mb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">find_unused_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradient_as_bucket_view</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay_all_reduce_named_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_to_hook_all_reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixed_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_all_reduce_unused_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/nn/parallel/distributed.py#L326"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.parallel.DistributedDataParallel" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.parallel.</span></span><span class="sig-name descname"><span class="pre">DistributedDataParallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">broadcast_buffers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_sync</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bucket_cap_mb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">find_unused_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradient_as_bucket_view</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay_all_reduce_named_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_to_hook_all_reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixed_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_all_reduce_unused_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/nn/parallel/distributed.py#L326"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.parallel.DistributedDataParallel" title="Permalink to this definition">#</a></dt>
 <dd><p>Implement distributed data parallelism based on <code class="docutils literal notranslate"><span class="pre">torch.distributed</span></code> at module level.</p>
 <p>This container provides data parallelism by synchronizing gradients
 across each model replica. The devices to synchronize across are
@@ -4340,7 +4363,7 @@ desynchronization and result in training hang.</p></li>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.parallel.DistributedDataParallel.join">
-<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">divide_by_initial_world_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">throw_on_early_termination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/nn/parallel/distributed.py#L1745"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.parallel.DistributedDataParallel.join" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">divide_by_initial_world_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">throw_on_early_termination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/nn/parallel/distributed.py#L1745"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.parallel.DistributedDataParallel.join" title="Permalink to this definition">#</a></dt>
 <dd><p>Context manager for training with uneven inputs across processes in DDP.</p>
 <p>This context manager will keep track of already-joined DDP processes,
 and “shadow” the forward and backward passes by inserting collective
@@ -4436,7 +4459,7 @@ is <code class="docutils literal notranslate"><span class="pre">False</span></co
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.parallel.DistributedDataParallel.join_hook">
-<span class="sig-name descname"><span class="pre">join_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/nn/parallel/distributed.py#L1851"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.parallel.DistributedDataParallel.join_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">join_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/nn/parallel/distributed.py#L1851"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.parallel.DistributedDataParallel.join_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>DDP join hook enables training on uneven inputs by mirroring communications in forward and backward passes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4465,7 +4488,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">True</sp
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.parallel.DistributedDataParallel.no_sync">
-<span class="sig-name descname"><span class="pre">no_sync</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/nn/parallel/distributed.py#L1421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.parallel.DistributedDataParallel.no_sync" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">no_sync</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/nn/parallel/distributed.py#L1421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.parallel.DistributedDataParallel.no_sync" title="Permalink to this definition">#</a></dt>
 <dd><p>Context manager to disable gradient synchronizations across DDP processes.</p>
 <p>Within this context, gradients will be accumulated on module
 variables, which will later be synchronized in the first
@@ -4487,7 +4510,7 @@ else gradients will still be synchronized.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.parallel.DistributedDataParallel.register_comm_hook">
-<span class="sig-name descname"><span class="pre">register_comm_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/nn/parallel/distributed.py#L1933"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.parallel.DistributedDataParallel.register_comm_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_comm_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/nn/parallel/distributed.py#L1933"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.parallel.DistributedDataParallel.register_comm_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register communication hook for user-defined DDP aggregation of gradients across multiple workers.</p>
 <p>This hook would be very useful for researchers to try out new ideas. For
 example, this hook can be used to implement several algorithms like GossipGrad
@@ -4714,32 +4737,6 @@ allreduce, and then decoded after allreduce.</p>
     
 
 
-<div class="sidebar-secondary-item">
-  <div class="sidebar-heading">PyTorch Community</div>
-  <ul style="list-style-type: none; padding: 0;">
-  
-     <li><a class="nav-link nav-external" href="../community/index.html" style="color: var(--pst-color-text-muted)">PyTorch Governance</a></li>
-  
-     <li><a class="nav-link nav-external" href="../community/design.html" style="color: var(--pst-color-text-muted)">PyTorch Design Philosophy</a></li>
-  
-     <li><a class="nav-link nav-external" href="https://github.com/pytorch/pytorch/wiki/The-Ultimate-Guide-to-PyTorch-Contributions" style="color: var(--pst-color-text-muted)">The Ultimate Guide to PyTorch Contributions</a></li>
-  
-  </ul>
-</div>
-
-
-<div class="sidebar-secondary-item">
- <div class="sidebar-heading">Language Bindings</div>
- <ul style="list-style-type: none; padding: 0;">
- 
-   <li><a class="nav-link nav-external" href="../cpp_index.html" style="color: var(--pst-color-text-muted)">C++</a></li>
- 
-   <li><a class="nav-link nav-external" href="https://pytorch.org/javadoc/" style="color: var(--pst-color-text-muted)">Javadoc</a></li>
- 
-   <li><a class="nav-link nav-external" href="https://github.com/pytorch/multipy" style="color: var(--pst-color-text-muted)">torch.multiply</a></li>
- 
- </ul>
-</div>
 
 
 <div class="sidebar-secondary-item">

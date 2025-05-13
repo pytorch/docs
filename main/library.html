@@ -7,15 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta property="og:title" content="torch.library" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://pytorch.org/library.html" />
-<meta property="og:site_name" content="PyTorch" />
-<meta property="og:description" content="torch.library is a collection of APIs for extending PyTorch’s core library of operators. It contains utilities for testing custom operators, creating new custom operators, and extending operators d..." />
-<meta property="og:image" content="https://pytorch.org/assets/images/social-share.jpg" />
-<meta property="og:image:alt" content="PyTorch" />
-<meta name="description" content="torch.library is a collection of APIs for extending PyTorch’s core library of operators. It contains utilities for testing custom operators, creating new custom operators, and extending operators d..." />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>torch.library &#8212; PyTorch main documentation</title>
   
   
@@ -63,7 +55,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'library';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
-        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pytorch.org/docs/pytorch-versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://docs.pytorch.org/docs/pytorch-versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
@@ -79,6 +71,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css">
 <script type="text/javascript" src="_static/js/theme.js"></script>
+<meta property="og:image" content="_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css">
 <meta http-equiv="Content-Security-Policy" content="style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' https://www.google.com https://fonts.googleapis.com;">
 <meta name="pytorch_project" content="docs">
@@ -112,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git930de01 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git0cf61ca )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -610,6 +603,20 @@ document.write(`
 
 
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="community/index.html">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://docs.pytorch.org/cppdocs/">
+    C++
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-external" href="https://pytorch.org/tutorials/">
     Tutorials
   </a>
@@ -668,7 +675,7 @@ document.write(`
     // Define the search callback
     const myWebSearchStartingCallback = (gname, query) => {
       if (typeof dataLayer !== 'undefined' && query) {
-        window.dataLayer = [];
+        window.dataLayer = window.dataLayer || [];
         dataLayer.push({
           'event': 'google_search',
           'search_term': query,
@@ -763,7 +770,7 @@ document.write(`
             }
           }
           if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = [];
+            window.dataLayer = window.dataLayer || [];
             dataLayer.push({
               'event': 'search_engine_switch',
               'event_category': 'Search',
@@ -788,7 +795,7 @@ document.write(`
             }
           }
           if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = [];
+            window.dataLayer = window.dataLayer || [];
             dataLayer.push({
               'event': 'search_engine_switch',
               'event_category': 'Search',
@@ -1029,6 +1036,20 @@ document.write(`
 
 
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="community/index.html">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://docs.pytorch.org/cppdocs/">
+    C++
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-external" href="https://pytorch.org/tutorials/">
     Tutorials
   </a>
@@ -1088,7 +1109,7 @@ document.write(`
     // Define the search callback
     const myWebSearchStartingCallback = (gname, query) => {
       if (typeof dataLayer !== 'undefined' && query) {
-        window.dataLayer = [];
+        window.dataLayer = window.dataLayer || [];
         dataLayer.push({
           'event': 'google_search',
           'search_term': query,
@@ -1183,7 +1204,7 @@ document.write(`
             }
           }
           if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = [];
+            window.dataLayer = window.dataLayer || [];
             dataLayer.push({
               'event': 'search_engine_switch',
               'event_category': 'Search',
@@ -1208,7 +1229,7 @@ document.write(`
             }
           }
           if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = [];
+            window.dataLayer = window.dataLayer || [];
             dataLayer.push({
               'event': 'search_engine_switch',
               'event_category': 'Search',
@@ -4019,7 +4040,7 @@ training, use <a class="reference internal" href="autograd.html#module-torch.aut
 mathematically correct.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.opcheck">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">opcheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_utils</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('test_schema',</span> <span class="pre">'test_autograd_registration',</span> <span class="pre">'test_faketensor',</span> <span class="pre">'test_aot_dispatch_dynamic')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_exception</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L1489"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.opcheck" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">opcheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_utils</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('test_schema',</span> <span class="pre">'test_autograd_registration',</span> <span class="pre">'test_faketensor',</span> <span class="pre">'test_aot_dispatch_dynamic')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_exception</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L1489"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.opcheck" title="Permalink to this definition">#</a></dt>
 <dd><p>Given an operator and some sample arguments, tests if the operator is
 registered correctly.</p>
 <p>That is, when you use the torch.library/TORCH_LIBRARY APIs to create a
@@ -4137,7 +4158,7 @@ gradient computation.</p>
 <p>Use <a class="reference internal" href="#torch.library.custom_op" title="torch.library.custom_op"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.custom_op()</span></code></a> to create new custom ops.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.custom_op">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">custom_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutates_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/_library/custom_ops.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.custom_op" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">custom_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutates_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/_library/custom_ops.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.custom_op" title="Permalink to this definition">#</a></dt>
 <dd><p>Wraps a function into custom operator.</p>
 <p>Reasons why you may want to create a custom op include:
 - Wrapping a third-party library or custom kernel to work with PyTorch
@@ -4235,7 +4256,7 @@ For more info on how to write a schema string, see
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.triton_op">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">triton_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutates_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/_library/triton.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.triton_op" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">triton_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutates_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/_library/triton.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.triton_op" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a custom operator whose implementation is backed by 1+ triton kernels.</p>
 <p>This is a more structured way of using triton kernels with PyTorch.
 Prefer using triton kernels with no <code class="docutils literal notranslate"><span class="pre">torch.library</span></code> custom operator wrappers
@@ -4329,7 +4350,7 @@ Example: “(Tensor x, int y) -&gt; (Tensor, Tensor)”.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.wrap_triton">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">wrap_triton</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">triton_kernel</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/_library/triton.py#L200"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.wrap_triton" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">wrap_triton</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">triton_kernel</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/_library/triton.py#L200"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.wrap_triton" title="Permalink to this definition">#</a></dt>
 <dd><p>Allows capture of a triton kernel into a graph via make_fx or
 non-strict <code class="docutils literal notranslate"><span class="pre">torch.export</span></code>.</p>
 <p>These technologies perform Dispatcher-based tracing (via
@@ -4402,7 +4423,7 @@ for any operators (they may have been created using <a class="reference internal
 via PyTorch’s C++ operator registration APIs).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.register_kernel">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_types</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L792"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_kernel" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_types</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L792"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_kernel" title="Permalink to this definition">#</a></dt>
 <dd><p>Register an implementation for a device type for this operator.</p>
 <p>Some valid device_types are: “cpu”, “cuda”, “xla”, “mps”, “ipu”, “xpu”.
 This API may be used as a decorator.</p>
@@ -4451,7 +4472,7 @@ the given device types.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.register_autocast">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_autocast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cast_inputs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L860"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_autocast" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_autocast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cast_inputs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L860"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_autocast" title="Permalink to this definition">#</a></dt>
 <dd><p>Register an autocast dispatch rule for this custom op.</p>
 <p>Valid <cite>device_type</cite> include: “cpu” and “cuda”.</p>
 <dl class="field-list simple">
@@ -4493,7 +4514,7 @@ are not affected), then executes custom op with autocast disabled.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.register_autograd">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_autograd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backward</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setup_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L1077"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_autograd" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_autograd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backward</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setup_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L1077"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_autograd" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a backward formula for this custom op.</p>
 <p>In order for an operator to work with autograd, you need to register
 a backward formula:
@@ -4577,7 +4598,7 @@ that needs different behavior, and switching between them at runtime.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.register_fake">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_fake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_stacklevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_override</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L941"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_fake" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_fake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_stacklevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_override</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L941"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_fake" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a FakeTensor implementation (“fake impl”) for this operator.</p>
 <p>Also sometimes known as a “meta kernel”, “abstract impl”.</p>
 <p>An “FakeTensor implementation” specifies the behavior of this operator on
@@ -4672,7 +4693,7 @@ impl is already allowed.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.register_vmap">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_vmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L1288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_vmap" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_vmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L1288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_vmap" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a vmap implementation to support <a class="reference internal" href="generated/torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a> for this custom op.</p>
 <p>This API may be used as a decorator (see examples).</p>
 <p>In order for an operator to work with <a class="reference internal" href="generated/torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a>, you may need to register a
@@ -4750,14 +4771,14 @@ keep this in mind.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.impl_abstract">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl_abstract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qualname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_stacklevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L773"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.impl_abstract" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl_abstract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qualname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_stacklevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L773"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.impl_abstract" title="Permalink to this definition">#</a></dt>
 <dd><p>This API was renamed to <a class="reference internal" href="#torch.library.register_fake" title="torch.library.register_fake"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.register_fake()</span></code></a> in PyTorch 2.4.
 Please use that instead.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.get_ctx">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">get_ctx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L1472"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.get_ctx" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">get_ctx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L1472"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.get_ctx" title="Permalink to this definition">#</a></dt>
 <dd><p>get_ctx() returns the current AbstractImplCtx object.</p>
 <p>Calling <code class="docutils literal notranslate"><span class="pre">get_ctx()</span></code> is only valid inside of an fake impl
 (see <a class="reference internal" href="#torch.library.register_fake" title="torch.library.register_fake"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.register_fake()</span></code></a> for more usage details.</p>
@@ -4770,7 +4791,7 @@ Please use that instead.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.register_torch_dispatch">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_torch_dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torch_dispatch_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L1207"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_torch_dispatch" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_torch_dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torch_dispatch_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L1207"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_torch_dispatch" title="Permalink to this definition">#</a></dt>
 <dd><p>Registers a torch_dispatch rule for the given operator and <code class="docutils literal notranslate"><span class="pre">torch_dispatch_class</span></code>.</p>
 <p>This allows for open registration to specify the behavior between the operator
 and the <code class="docutils literal notranslate"><span class="pre">torch_dispatch_class</span></code> without needing to modify the <code class="docutils literal notranslate"><span class="pre">torch_dispatch_class</span></code>
@@ -4814,7 +4835,7 @@ in <code class="docutils literal notranslate"><span class="pre">__torch_dispatch
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.infer_schema">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">infer_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prototype_function</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutates_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/_library/infer_schema.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.infer_schema" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">infer_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prototype_function</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutates_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/_library/infer_schema.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.infer_schema" title="Permalink to this definition">#</a></dt>
 <dd><p>Parses the schema of a given function with type hints. The schema is inferred from the
 function’s type hints, and can be used to define a new operator.</p>
 <p>We make the following assumptions:</p>
@@ -4865,7 +4886,7 @@ name is not included in the inferred schema. Note that the input schema to
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch._library.custom_ops.CustomOpDef">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._library.custom_ops.</span></span><span class="sig-name descname"><span class="pre">CustomOpDef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/_library/custom_ops.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._library.custom_ops.CustomOpDef" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._library.custom_ops.</span></span><span class="sig-name descname"><span class="pre">CustomOpDef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/_library/custom_ops.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._library.custom_ops.CustomOpDef" title="Permalink to this definition">#</a></dt>
 <dd><p>CustomOpDef is a wrapper around a function that turns it into a custom op.</p>
 <p>It has various methods for registering additional behavior for this
 custom op.</p>
@@ -4875,7 +4896,7 @@ custom op.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch._library.custom_ops.CustomOpDef.set_kernel_enabled">
-<span class="sig-name descname"><span class="pre">set_kernel_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/_library/custom_ops.py#L224"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._library.custom_ops.CustomOpDef.set_kernel_enabled" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_kernel_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/_library/custom_ops.py#L224"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._library.custom_ops.CustomOpDef.set_kernel_enabled" title="Permalink to this definition">#</a></dt>
 <dd><p>Disable or re-enable an already registered kernel for this custom operator.</p>
 <p>If the kernel is already disabled/enabled, this is a no-op.</p>
 <div class="admonition note">
@@ -4931,7 +4952,7 @@ is a good starting point to learn about the PyTorch Dispatcher.</p>
 <p>A tutorial that walks you through some examples on how to use this API is available on <a class="reference external" href="https://colab.research.google.com/drive/1RRhSfk7So3Cn02itzLWE9K4Fam-8U011?usp=sharing">Google Colab</a>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.library.Library">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">Library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispatch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.Library" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">Library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispatch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.Library" title="Permalink to this definition">#</a></dt>
 <dd><p>A class to create libraries that can be used to register new operators or
 override operators in existing libraries from Python.
 A user can optionally pass in a dispatch keyname if they only want to register
@@ -4952,7 +4973,7 @@ the limitation that there is only one library for a given namespace), set the ki
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.library.Library.define">
-<span class="sig-name descname"><span class="pre">define</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_analysis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.Library.define" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">define</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_analysis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.Library.define" title="Permalink to this definition">#</a></dt>
 <dd><p>Defines a new operator and its semantics in the ns namespace.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4981,7 +5002,7 @@ torch.Tag carefully before applying it.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.library.Library.fallback">
-<span class="sig-name descname"><span class="pre">fallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispatch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_keyset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L388"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.Library.fallback" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispatch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_keyset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L388"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.Library.fallback" title="Permalink to this definition">#</a></dt>
 <dd><p>Registers the function implementation as the fallback for the given key.</p>
 <p>This function only works for a library with global namespace (“_”).</p>
 <dl class="field-list simple">
@@ -5010,7 +5031,7 @@ to <code class="xref py py-attr docutils literal notranslate"><span class="pre">
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.library.Library.impl">
-<span class="sig-name descname"><span class="pre">impl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispatch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_keyset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_override</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L299"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.Library.impl" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">impl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispatch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_keyset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_override</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L299"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.Library.impl" title="Permalink to this definition">#</a></dt>
 <dd><p>Registers the function implementation for an operator defined in the library.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -5045,13 +5066,13 @@ registered.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.fallthrough_kernel">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">fallthrough_kernel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.fallthrough_kernel" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">fallthrough_kernel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.fallthrough_kernel" title="Permalink to this definition">#</a></dt>
 <dd><p>A dummy function to pass to <code class="docutils literal notranslate"><span class="pre">Library.impl</span></code> in order to register a fallthrough.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.define">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">define</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qualname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L496"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.define" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">define</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qualname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L496"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.define" title="Permalink to this definition">#</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">define</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_analysis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Defines a new operator.</p>
@@ -5108,7 +5129,7 @@ torch.Tag carefully before applying it.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.impl">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispatch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/930de0186135132610e553042bc21c09d9f1ae60/torch/library.py#L606"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.impl" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispatch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/library.py#L606"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.impl" title="Permalink to this definition">#</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#torch.library.Library" title="torch.library.Library"><span class="pre">Library</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span></dt>
 <dt class="sig sig-object py">
@@ -5367,32 +5388,6 @@ will be tied to the lifetime of the Library object.</p></li>
     
 
 
-<div class="sidebar-secondary-item">
-  <div class="sidebar-heading">PyTorch Community</div>
-  <ul style="list-style-type: none; padding: 0;">
-  
-     <li><a class="nav-link nav-external" href="community/index.html" style="color: var(--pst-color-text-muted)">PyTorch Governance</a></li>
-  
-     <li><a class="nav-link nav-external" href="community/design.html" style="color: var(--pst-color-text-muted)">PyTorch Design Philosophy</a></li>
-  
-     <li><a class="nav-link nav-external" href="https://github.com/pytorch/pytorch/wiki/The-Ultimate-Guide-to-PyTorch-Contributions" style="color: var(--pst-color-text-muted)">The Ultimate Guide to PyTorch Contributions</a></li>
-  
-  </ul>
-</div>
-
-
-<div class="sidebar-secondary-item">
- <div class="sidebar-heading">Language Bindings</div>
- <ul style="list-style-type: none; padding: 0;">
- 
-   <li><a class="nav-link nav-external" href="cpp_index.html" style="color: var(--pst-color-text-muted)">C++</a></li>
- 
-   <li><a class="nav-link nav-external" href="https://pytorch.org/javadoc/" style="color: var(--pst-color-text-muted)">Javadoc</a></li>
- 
-   <li><a class="nav-link nav-external" href="https://github.com/pytorch/multipy" style="color: var(--pst-color-text-muted)">torch.multiply</a></li>
- 
- </ul>
-</div>
 
 
 <div class="sidebar-secondary-item">
