@@ -66,14 +66,14 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/distributed.html" />
+<link rel="canonical" href="/distributed.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
-<link rel="stylesheet" type="text/css" href="_static/css/theme.css">
+<link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <meta property="og:image" content="_static/img/pytorch_seo.png" />
-<link rel="stylesheet" href="_static/webfonts/all.min.css">
-<meta http-equiv="Content-Security-Policy" content="style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' https://www.google.com https://fonts.googleapis.com;">
+<link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
+<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git8ac82c3 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitba70876 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -142,79 +142,82 @@
           <li class="main-menu-item">
           <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
               <a class="with-down-arrow">
-                Learn
+                <span>Learn</span>
               </a>
               <div class="resources-dropdown-menu">
                 <a class="nav-dropdown-item" href="https://pytorch.org/get-started">
                   <span class=dropdown-title>Get Started</span>
-                  <p>Run PyTorch locally or get started quickly with one of the supported cloud platforms</p>
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/tutorials">
                   <span class="dropdown-title">Tutorials</span>
-                  <p>Whats new in PyTorch tutorials</p>
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
                   <span class="dropdown-title">Learn the Basics</span>
-                  <p>Familiarize yourself with PyTorch concepts and modules</p>
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
                   <span class="dropdown-title">PyTorch Recipes</span>
-                  <p>Bite-size, ready-to-deploy PyTorch code examples</p>
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
                   <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
-                  <p>Master PyTorch basics with our engaging YouTube tutorial series</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/webinars/">
+                  <span class="dropdown-title">Webinars</span>
                 </a>
               </div>
             </div>
           </li>
 
-          <li>
+          <li class="main-menu-item">
           <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
               <a class="with-down-arrow">
-                Ecosystem
+              <span>Community</span>
               </a>
               <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem">
-                  <span class="dropdown-title">Tools</span>
-                  <p>Learn about the tools and frameworks in the PyTorch Ecosystem</p>
+                <a class="nav-dropdown-item" href="https://landscape.pytorch.org/" target="_blank">
+                  <span class="dropdown-title">Landscape</span>
                 </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/#community-module">
-                  <span class=dropdown-title>Community</span>
-                  <p>Join the PyTorch developer community to contribute, learn, and get your questions answered</p>
+                <a class="nav-dropdown-item" href="https://pytorch.org/join-ecosystem">
+                  <span class="dropdown-title">Join the Ecosystem</span>
                 </a>
-                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/" target="_blank">
-                  <span class=dropdown-title>Forums</span>
-                  <p>A place to discuss PyTorch code, issues, install, research</p>
+                <a class="nav-dropdown-item" href="https://pytorch.org/community-hub/">
+                  <span class="dropdown-title">Community Hub</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/">
+                  <span class="dropdown-title">Forums</span>
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/resources">
                   <span class=dropdown-title>Developer Resources</span>
-                  <p>Find resources and get questions answered</p>
                 </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem/contributor-awards-2024">
-                  <span class="dropdown-title">Contributor Awards - 2024</span>
-                  <p>Award winners announced at this year's PyTorch Conference</p>
+                <a class="nav-dropdown-item" href="https://pytorch.org/contributor-awards/">
+                  <span class="dropdown-title">Contributor Awards</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/community-events/">
+                  <span class="dropdown-title">Community Events</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/programs/ambassadors/">
+                  <span class="dropdown-title">PyTorch Ambassadors</span>
                 </a>
               </div>
             </div>
           </li>
 
-          <li>
+          <li class="main-menu-item">
           <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
               <a class="with-down-arrow">
-                Edge
+              <span>Projects</span>
               </a>
               <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/edge">
-                  <span class="dropdown-title">About PyTorch Edge</span>
-                  <p>Build innovative and privacy-aware AI experiences for edge devices</p>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/pytorch/">
+                  <span class="dropdown-title">PyTorch</span>
                 </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/executorch-overview">
-                  <span class="dropdown-title">ExecuTorch</span>
-                  <p>End-to-end solution for enabling on-device inference capabilities across mobile and edge devices</p>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/vllm/">
+                  <span class="dropdown-title">vLLM</span>
                 </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/executorch/stable/index.html">
-                  <span class="dropdown-title">ExecuTorch Docs</span>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/deepspeed/">
+                  <span class="dropdown-title">DeepSpeed</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
+                  <span class="dropdown-title">Host Your Project</span>
                 </a>
               </div>
             </div>
@@ -223,103 +226,80 @@
           <li class="main-menu-item">
             <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
               <a class="with-down-arrow">
-                Docs
+              <span> Docs</span>
               </a>
               <div class="resources-dropdown-menu">
                 <a class="nav-dropdown-item" href="https://pytorch.org/docs/stable/index.html">
                   <span class="dropdown-title">PyTorch</span>
-                  <p>Explore the documentation for comprehensive guidance on how to use PyTorch</p>
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/pytorch-domains">
-                  <span class="dropdown-title">PyTorch Domains</span>
-                  <p>Read the PyTorch Domains documentation to learn more about domain-specific libraries</p>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-                Blogs & News
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
-                  <span class="dropdown-title">PyTorch Blog</span>
-                  <p>Catch up on the latest technical news and happenings</p>
-                </a>
-                 <a class="nav-dropdown-item" href="https://pytorch.org/community-blog">
-                  <span class="dropdown-title">Community Blog</span>
-                  <p>Stories from the PyTorch ecosystem</p>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/videos">
-                  <span class="dropdown-title">Videos</span>
-                  <p>Learn about the latest PyTorch tutorials, new, and more </p>
-                <a class="nav-dropdown-item" href="https://pytorch.org/community-stories">
-                  <span class="dropdown-title">Community Stories</span>
-                  <p>Learn how our community solves real, everyday machine learning problems with PyTorch</p>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/events">
-                  <span class="dropdown-title">Events</span>
-                  <p>Find events, webinars, and podcasts</p>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/newsletter">
-                  <span class="dropdown-title">Newsletter</span>
-                  <p>Stay up-to-date with the latest updates</p>
-                </a>
-            </div>
-          </li>
-
-          <li>
-            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
-              <a class="with-down-arrow">
-                About
-              </a>
-              <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
-                  <span class="dropdown-title">PyTorch Foundation</span>
-                  <p>Learn more about the PyTorch Foundation</p>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
-                  <span class="dropdown-title">Governing Board</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/credits">
-                  <span class="dropdown-title">Cloud Credit Program</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tac">
-                  <span class="dropdown-title">Technical Advisory Council</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/staff">
-                  <span class="dropdown-title">Staff</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/contact-us">
-                  <span class="dropdown-title">Contact Us</span>
+                  <span class="dropdown-title">Domains</span>
                 </a>
               </div>
             </div>
           </li>
 
           <li class="main-menu-item">
-            <div class="no-dropdown">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+              <span>Blogs & News</span>
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
+                  <span class="dropdown-title">Blog</span>
+                </a>
+                 <a class="nav-dropdown-item" href="https://pytorch.org/announcements">
+                  <span class="dropdown-title">Announcements</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/case-studies/">
+                  <span class="dropdown-title">Case Studies</span>
+                <a class="nav-dropdown-item" href="https://pytorch.org/events">
+                  <span class="dropdown-title">Events</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/newsletter">
+                  <span class="dropdown-title">Newsletter</span>
+                </a>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+              <span>About</span>
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
+                  <span class="dropdown-title">PyTorch Foundation</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/members">
+                  <span class="dropdown-title">Members</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
+                  <span class="dropdown-title">Governing Board</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tac">
+                  <span class="dropdown-title">Technical Advisory Council</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/credits">
+                  <span class="dropdown-title">Cloud Credit Program</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/staff">
+                  <span class="dropdown-title">Staff</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/contact">
+                  <span class="dropdown-title">Contact</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div class="no-dropdown main-menu-button">
               <a href="https://pytorch.org/join" data-cta="join">
-                Become a Member
+                JOIN
               </a>
             </div>
           </li>
-          <li>
-           <div class="main-menu-item">
-             <a href="https://github.com/pytorch/pytorch" class="github-icon">
-             </a>
-           </div>
-          </li>
-          <!--- TODO: This block adds the search icon to the nav bar. We will enable it later.
-          <li>
-            <div class="main-menu-item">
-             <a href="https://github.com/pytorch/pytorch" class="search-icon">
-             </a>
-            </div>
-          </li>
-          --->
         </ul>
       </div>
 
@@ -336,9 +316,7 @@
   <div class="container-fluid">
     <div class="header-container-wrapper">
       <div class="mobile-main-menu-header-container">
-        <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
         <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu">
-          <i class="fa-solid fa-xmark"></i>
         </a>
       </div>
     </div>
@@ -366,16 +344,22 @@
            <li>
              <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
            </li>
-         </ul>
+           <li>
+            <a href="https://pytorch.org/webinars/">Webinars</a>
+          </li>
+        </ul>
          <li class="resources-mobile-menu-title">
-           <a>Ecosystem</a>
+           <a>Community</a>
          </li>
          <ul class="resources-mobile-menu-items">
-           <li>
-             <a href="https://pytorch.org/ecosystem">Tools</a>
+          <li>
+            <a href="https://landscape.pytorch.org/">Landscape</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/join-ecosystem">Join the Ecosystem</a>
            </li>
            <li>
-             <a href="https://pytorch.org/#community-module">Community</a>
+             <a href="https://pytorch.org/community-hub/">Community Hub</a>
            </li>
            <li>
              <a href="https://discuss.pytorch.org/">Forums</a>
@@ -384,24 +368,33 @@
              <a href="https://pytorch.org/resources">Developer Resources</a>
            </li>
            <li>
-             <a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2024</a>
+             <a href="https://pytorch.org/contributor-awards/">Contributor Awards</a>
            </li>
-         </ul>
+           <li>
+            <a href="https://pytorch.org/community-events/">Community Events</a>
+          </li>
+          <li>
+            <a href="https://pytorch.org/programs/ambassadors/">PyTorch Ambassadors</a>
+          </li>
+       </ul>
 
          <li class="resources-mobile-menu-title">
-           <a>Edge</a>
+           <a>Projects</a>
          </li>
 
          <ul class="resources-mobile-menu-items">
            <li>
-             <a href="https://pytorch.org/edge">About PyTorch Edge</a>
+             <a href="https://pytorch.org/projects/pytorch/">PyTorch</a>
            </li>
 
            <li>
-             <a href="https://pytorch.org/executorch-overview">ExecuTorch</a>
+             <a href="https://pytorch.org/projects/vllm/">vLLM</a>
            </li>
            <li>
-             <a href="https://pytorch.org/executorch/stable/index.html">ExecuTorch Documentation</a>
+            <a href="https://pytorch.org/projects/deepspeed/">DeepSpeed</a>
+          </li>
+          <li>
+             <a href="https://pytorch.org/projects/host-your-project/">Host Your Project</a>
            </li>
          </ul>
 
@@ -415,7 +408,7 @@
           </li>
 
           <li>
-            <a href="https://pytorch.org/pytorch-domains">PyTorch Domains</a>
+            <a href="https://pytorch.org/pytorch-domains">Domains</a>
           </li>
         </ul>
 
@@ -425,18 +418,14 @@
 
          <ul class="resources-mobile-menu-items">
           <li>
-            <a href="https://pytorch.org/blog/">PyTorch Blog</a>
+            <a href="https://pytorch.org/blog/">Blog</a>
           </li>
           <li>
-            <a href="https://pytorch.org/community-blog">Community Blog</a>
-          </li>
-
-          <li>
-            <a href="https://pytorch.org/videos">Videos</a>
+            <a href="https://pytorch.org/announcements">Announcements</a>
           </li>
 
           <li>
-            <a href="https://pytorch.org/community-stories">Community Stories</a>
+            <a href="https://pytorch.org/case-studies/">Case Studies</a>
           </li>
           <li>
             <a href="https://pytorch.org/events">Events</a>
@@ -455,19 +444,22 @@
             <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
           </li>
           <li>
+            <a href="https://pytorch.org/members">Members</a>
+          </li>
+          <li>
             <a href="https://pytorch.org/governing-board">Governing Board</a>
           </li>
           <li>
+            <a href="https://pytorch.org/tac">Technical Advisory Council</a>
+         </li>
+         <li>
              <a href="https://pytorch.org/credits">Cloud Credit Program</a>
-          </li>
-          <li>
-             <a href="https://pytorch.org/tac">Technical Advisory Council</a>
           </li>
           <li>
              <a href="https://pytorch.org/staff">Staff</a>
           </li>
           <li>
-             <a href="https://pytorch.org/contact-us">Contact Us</a>
+             <a href="https://pytorch.org/contact">Contact</a>
           </li>
         </ul>
       </ul>
@@ -3993,11 +3985,11 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article" itemscope="itemscope" itemtype="https://schema.org/Article">
+  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
    <meta itemprop="headline" content="Distributed communication package - torch.distributed">
    <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
+   <meta itemprop="datePublished" content="Jul 12, 2017">
+   <meta itemprop="dateModified" content="Apr 27, 2025">
    <meta itemprop="author" content="PyTorch Contributors">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
@@ -4016,7 +4008,6 @@ document.write(`
 
     
     
-    
               
                 
 <div id="searchbox"></div>
@@ -4024,7 +4015,7 @@ document.write(`
                   
   <div class="section" id="distributed-communication-package-torch-distributed">
 <h1>Distributed communication package - torch.distributed<a class="headerlink" href="#distributed-communication-package-torch-distributed" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 12, 2017 | Last Updated: Apr 27, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 12, 2017 | Last Updated On: Apr 27, 2025</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Please refer to <a class="reference external" href="https://pytorch.org/tutorials/beginner/dist_overview.html">PyTorch Distributed Overview</a>
@@ -4290,7 +4281,7 @@ inconsistent ‘UUID’ assignment across ranks, and to prevent races during ini
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/__init__.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.is_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/__init__.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.is_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the distributed package is available.</p>
 <p>Otherwise,
 <code class="docutils literal notranslate"><span class="pre">torch.distributed</span></code> does not expose any other APIs. Currently,
@@ -4307,7 +4298,7 @@ Currently, the default value is <code class="docutils literal notranslate"><span
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.init_process_group">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">init_process_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pg_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L1540"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.init_process_group" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">init_process_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pg_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L1540"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.init_process_group" title="Permalink to this definition">#</a></dt>
 <dd><p>Initialize the default distributed process group.</p>
 <p>This will also initialize the distributed package.</p>
 <dl class="simple">
@@ -4398,7 +4389,7 @@ a string with format “&lt;device_type&gt;:&lt;backend_name&gt;,&lt;device_type
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.device_mesh.init_device_mesh">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.device_mesh.</span></span><span class="sig-name descname"><span class="pre">init_device_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_shape</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_dim_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/device_mesh.py#L950"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.init_device_mesh" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.device_mesh.</span></span><span class="sig-name descname"><span class="pre">init_device_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_shape</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_dim_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/device_mesh.py#L977"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.init_device_mesh" title="Permalink to this definition">#</a></dt>
 <dd><p>Initializes a <cite>DeviceMesh</cite> based on <cite>device_type</cite>, <cite>mesh_shape</cite>, and <cite>mesh_dim_names</cite> parameters.</p>
 <p>This creates a DeviceMesh with an n-dimensional array layout, where <cite>n</cite> is the length of <cite>mesh_shape</cite>.
 If <cite>mesh_dim_names</cite> is provided, each dimension is labeled as <cite>mesh_dim_names[i]</cite>.</p>
@@ -4445,7 +4436,7 @@ of <cite>mesh_shape</cite>. Each string in <cite>mesh_dim_names</cite> must be u
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.is_initialized">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L1273"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.is_initialized" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L1273"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.is_initialized" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if the default process group has been initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4456,7 +4447,7 @@ of <cite>mesh_shape</cite>. Each string in <cite>mesh_dim_names</cite> must be u
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.is_mpi_available">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">is_mpi_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L1228"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.is_mpi_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">is_mpi_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L1228"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.is_mpi_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if the MPI backend is available.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4467,7 +4458,7 @@ of <cite>mesh_shape</cite>. Each string in <cite>mesh_dim_names</cite> must be u
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.is_nccl_available">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">is_nccl_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L1233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.is_nccl_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">is_nccl_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L1233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.is_nccl_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if the NCCL backend is available.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4478,7 +4469,7 @@ of <cite>mesh_shape</cite>. Each string in <cite>mesh_dim_names</cite> must be u
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.is_gloo_available">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">is_gloo_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L1238"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.is_gloo_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">is_gloo_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L1238"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.is_gloo_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if the Gloo backend is available.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4489,7 +4480,7 @@ of <cite>mesh_shape</cite>. Each string in <cite>mesh_dim_names</cite> must be u
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.distributed_c10d.is_xccl_available">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.distributed_c10d.</span></span><span class="sig-name descname"><span class="pre">is_xccl_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L1248"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.distributed_c10d.is_xccl_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.distributed_c10d.</span></span><span class="sig-name descname"><span class="pre">is_xccl_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L1248"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.distributed_c10d.is_xccl_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if the XCCL backend is available.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4500,7 +4491,7 @@ of <cite>mesh_shape</cite>. Each string in <cite>mesh_dim_names</cite> must be u
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.is_torchelastic_launched">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">is_torchelastic_launched</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L1278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.is_torchelastic_launched" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">is_torchelastic_launched</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L1278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.is_torchelastic_launched" title="Permalink to this definition">#</a></dt>
 <dd><p>Check whether this process was launched with <code class="docutils literal notranslate"><span class="pre">torch.distributed.elastic</span></code> (aka torchelastic).</p>
 <p>The existence of <code class="docutils literal notranslate"><span class="pre">TORCHELASTIC_RUN_ID</span></code> environment
 variable is used as a proxy to determine whether the current process
@@ -4603,7 +4594,7 @@ operations.</p></li>
 check whether the process group has already been initialized use <a class="reference internal" href="#torch.distributed.is_initialized" title="torch.distributed.is_initialized"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.is_initialized()</span></code></a>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.Backend">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">Backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L236"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.Backend" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">Backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L236"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.Backend" title="Permalink to this definition">#</a></dt>
 <dd><p>An enum-like class for backends.</p>
 <p>Available backends: GLOO, NCCL, UCC, MPI, XCCL, and other registered backends.</p>
 <p>The values of this class are lowercase strings, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;gloo&quot;</span></code>. They can
@@ -4622,7 +4613,7 @@ nor assume its existence.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.Backend.register_backend">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extended_api</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">devices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.Backend.register_backend" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extended_api</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">devices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.Backend.register_backend" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a new backend with the given name and instantiating function.</p>
 <p>This class method is used by 3rd party <code class="docutils literal notranslate"><span class="pre">ProcessGroup</span></code> extension to
 register new backends.</p>
@@ -4655,7 +4646,7 @@ assuming both “cpu” and “cuda”</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.get_backend">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">get_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L1350"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.get_backend" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">get_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L1350"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.get_backend" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the backend of the given process group.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4674,7 +4665,7 @@ is specified, the calling process must be part of <code class="xref py py-attr d
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.get_rank">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">get_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L2281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.get_rank" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">get_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L2281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.get_rank" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the rank of the current process in the provided <code class="docutils literal notranslate"><span class="pre">group</span></code>, default otherwise.</p>
 <p>Rank is a unique identifier assigned to each process within a distributed
 process group. They are always consecutive integers ranging from 0 to
@@ -4696,7 +4687,7 @@ the default process group will be used.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.get_world_size">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">get_world_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L2308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.get_world_size" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">get_world_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L2308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.get_world_size" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the number of processes in the current process group.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4752,7 +4743,7 @@ an opaque group handle that can be given as a <code class="docutils literal notr
 (collectives are distributed functions to exchange information in certain well-known programming patterns).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.new_group">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">new_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pg_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_local_synchronization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L5124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.new_group" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">new_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pg_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_local_synchronization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L5124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.new_group" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a new distributed group.</p>
 <p>This function requires that all processes in the main group (i.e. all
 processes that are part of the distributed job) enter this function, even
@@ -4821,7 +4812,7 @@ same global creation order.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.get_group_rank">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">get_group_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_rank</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L1011"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.get_group_rank" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">get_group_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_rank</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L1011"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.get_group_rank" title="Permalink to this definition">#</a></dt>
 <dd><p>Translate a global rank into a group rank.</p>
 <p><code class="docutils literal notranslate"><span class="pre">global_rank</span></code> must be part of <code class="docutils literal notranslate"><span class="pre">group</span></code> otherwise this raises RuntimeError.</p>
 <dl class="field-list simple">
@@ -4843,7 +4834,7 @@ same global creation order.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.get_global_rank">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">get_global_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_rank</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L1039"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.get_global_rank" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">get_global_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_rank</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L1039"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.get_global_rank" title="Permalink to this definition">#</a></dt>
 <dd><p>Translate a group rank into a global rank.</p>
 <p><code class="docutils literal notranslate"><span class="pre">group_rank</span></code> must be part of <cite>group</cite> otherwise this raises RuntimeError.</p>
 <dl class="field-list simple">
@@ -4865,7 +4856,7 @@ same global creation order.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.get_process_group_ranks">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">get_process_group_ranks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L1077"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.get_process_group_ranks" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">get_process_group_ranks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L1077"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.get_process_group_ranks" title="Permalink to this definition">#</a></dt>
 <dd><p>Get all ranks associated with <code class="docutils literal notranslate"><span class="pre">group</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4890,13 +4881,17 @@ distributed process group easily. <a class="reference internal" href="#torch.dis
 used to create new DeviceMesh, with a mesh shape describing the device topology.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.device_mesh.DeviceMesh">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.device_mesh.</span></span><span class="sig-name descname"><span class="pre">DeviceMesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_dim_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_init_backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/device_mesh.py#L382"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.DeviceMesh" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.device_mesh.</span></span><span class="sig-name descname"><span class="pre">DeviceMesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_dim_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_init_backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/device_mesh.py#L384"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.DeviceMesh" title="Permalink to this definition">#</a></dt>
 <dd><p>DeviceMesh represents a mesh of devices, where layout of devices could be
 represented as a n-d dimension array, and each value of the n-d dimensional
 array is the global id of the default process group ranks.</p>
-<p>DeviceMesh could be used to describe the layout of devices across the cluster,
-and serves as a proxy for communication among the device lists within the cluster.</p>
-<p>DeviceMesh can be used as a context manager.</p>
+<p>DeviceMesh could be used to setup the N dimensional device connections across the cluster,
+and manage the ProcessGroups for N dimensional parallelisms. Communications could happen on
+each dimension of the DeviceMesh separately. DeviceMesh respects the device that user selects
+already (i.e. if user call <cite>torch.cuda.set_device</cite> before the DeviceMesh initialization),
+and will select/set the device for the current process if user does not set the device
+beforehands. Note that manual device selection should happen BEFORE the DeviceMesh initialization.</p>
+<p>DeviceMesh can also be used as a context manager when using together with DTensor APIs.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>DeviceMesh follows SPMD programming model, which means the same PyTorch Python program
@@ -4936,7 +4931,7 @@ of mesh reduces across rows (0, 1, 2, 3) and (4, 5, 6, 7).</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.device_mesh.DeviceMesh.from_group">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_dim_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/device_mesh.py#L773"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.DeviceMesh.from_group" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_dim_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/device_mesh.py#L800"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.DeviceMesh.from_group" title="Permalink to this definition">#</a></dt>
 <dd><p>Constructs a <a class="reference internal" href="#torch.distributed.device_mesh.DeviceMesh" title="torch.distributed.device_mesh.DeviceMesh"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code></a> with <code class="docutils literal notranslate"><span class="pre">device_type</span></code> from an
 existing <code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessGroup</span></code> or a list of existing <code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessGroup</span></code>.</p>
 <p>The constructed device mesh has number of dimensions equal to the
@@ -4977,7 +4972,7 @@ must be unique. Default is None.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.device_mesh.DeviceMesh.get_all_groups">
-<span class="sig-name descname"><span class="pre">get_all_groups</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/device_mesh.py#L764"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.DeviceMesh.get_all_groups" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_all_groups</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/device_mesh.py#L791"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.DeviceMesh.get_all_groups" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a list of ProcessGroups for all mesh dimensions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -4991,7 +4986,7 @@ must be unique. Default is None.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.device_mesh.DeviceMesh.get_coordinate">
-<span class="sig-name descname"><span class="pre">get_coordinate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/device_mesh.py#L923"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.DeviceMesh.get_coordinate" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_coordinate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/device_mesh.py#L950"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.DeviceMesh.get_coordinate" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the relative indices of this rank relative to all
 dimensions of the mesh. If this rank is not part of the mesh, return None.</p>
 <dl class="field-list simple">
@@ -5003,7 +4998,7 @@ dimensions of the mesh. If this rank is not part of the mesh, return None.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.device_mesh.DeviceMesh.get_group">
-<span class="sig-name descname"><span class="pre">get_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/device_mesh.py#L719"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.DeviceMesh.get_group" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/device_mesh.py#L746"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.DeviceMesh.get_group" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the single ProcessGroup specified by mesh_dim, or, if mesh_dim is not specified and the
 DeviceMesh is 1-dimensional, returns the only ProcessGroup in the mesh.</p>
 <dl class="field-list simple">
@@ -5024,7 +5019,7 @@ DeviceMesh is 1-dimensional, returns the only ProcessGroup in the mesh.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.device_mesh.DeviceMesh.get_local_rank">
-<span class="sig-name descname"><span class="pre">get_local_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/device_mesh.py#L881"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.DeviceMesh.get_local_rank" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_local_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/device_mesh.py#L908"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.DeviceMesh.get_local_rank" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the local rank of the given mesh_dim of the DeviceMesh.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -5062,7 +5057,7 @@ Calling mesh_2d.get_local_rank(mesh_dim=1) on rank 3, 7 would return 3.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.device_mesh.DeviceMesh.get_rank">
-<span class="sig-name descname"><span class="pre">get_rank</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/device_mesh.py#L875"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.DeviceMesh.get_rank" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_rank</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/device_mesh.py#L902"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.device_mesh.DeviceMesh.get_rank" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the current global rank.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -5078,7 +5073,7 @@ Calling mesh_2d.get_local_rank(mesh_dim=1) on rank 3, 7 would return 3.</p>
 <h2>Point-to-point communication<a class="headerlink" href="#point-to-point-communication" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.send">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L2417"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.send" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L2417"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.send" title="Permalink to this definition">#</a></dt>
 <dd><p>Send a tensor synchronously.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -5101,7 +5096,7 @@ the default process group will be used.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.recv">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">recv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L2449"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.recv" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">recv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L2449"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.recv" title="Permalink to this definition">#</a></dt>
 <dd><p>Receives a tensor synchronously.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -5139,7 +5134,7 @@ as they should never be created manually, but they are guaranteed to support two
 </ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.isend">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">isend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L2327"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.isend" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">isend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L2327"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.isend" title="Permalink to this definition">#</a></dt>
 <dd><p>Send a tensor asynchronously.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -5174,7 +5169,7 @@ None, if not part of the group</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.irecv">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">irecv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L2372"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.irecv" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">irecv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L2372"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.irecv" title="Permalink to this definition">#</a></dt>
 <dd><p>Receives a tensor asynchronously.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -5205,7 +5200,7 @@ None, if not part of the group</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.send_object_list">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">send_object_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L3276"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.send_object_list" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">send_object_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L3276"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.send_object_list" title="Permalink to this definition">#</a></dt>
 <dd><p>Sends picklable objects in <code class="docutils literal notranslate"><span class="pre">object_list</span></code> synchronously.</p>
 <p>Similar to <a class="reference internal" href="#torch.distributed.send" title="torch.distributed.send"><code class="xref py py-func docutils literal notranslate"><span class="pre">send()</span></code></a>, but Python objects can be passed in.
 Note that all objects in <code class="docutils literal notranslate"><span class="pre">object_list</span></code> must be picklable in order to be
@@ -5279,7 +5274,7 @@ pickled. Please consider using <a class="reference internal" href="#torch.distri
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.recv_object_list">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">recv_object_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L3379"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.recv_object_list" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">recv_object_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L3379"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.recv_object_list" title="Permalink to this definition">#</a></dt>
 <dd><p>Receives picklable objects in <code class="docutils literal notranslate"><span class="pre">object_list</span></code> synchronously.</p>
 <p>Similar to <a class="reference internal" href="#torch.distributed.recv" title="torch.distributed.recv"><code class="xref py py-func docutils literal notranslate"><span class="pre">recv()</span></code></a>, but can receive Python objects.</p>
 <dl class="field-list simple">
@@ -5351,7 +5346,7 @@ pickled. Please consider using <a class="reference internal" href="#torch.distri
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.batch_isend_irecv">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">batch_isend_irecv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p2p_op_list</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L2664"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.batch_isend_irecv" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">batch_isend_irecv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p2p_op_list</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L2664"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.batch_isend_irecv" title="Permalink to this definition">#</a></dt>
 <dd><p>Send or Receive a batch of tensors asynchronously and return a list of requests.</p>
 <p>Process each of the operations in <code class="docutils literal notranslate"><span class="pre">p2p_op_list</span></code> and return the corresponding
 requests. NCCL, Gloo, and UCC backend are currently supported.</p>
@@ -5400,7 +5395,7 @@ involving only a subset of ranks of the <code class="docutils literal notranslat
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.P2POp">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">P2POp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_peer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.P2POp" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">P2POp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_peer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.P2POp" title="Permalink to this definition">#</a></dt>
 <dd><p>A class to build point-to-point operations for <code class="docutils literal notranslate"><span class="pre">batch_isend_irecv</span></code>.</p>
 <p>This class builds the type of P2P operation, communication buffer, peer rank,
 Process Group, and tag. Instances of this class will be passed to
@@ -5475,7 +5470,7 @@ It shows the explicit need to synchronize when using collective outputs on diffe
 <h2>Collective functions<a class="headerlink" href="#collective-functions" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.broadcast">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">broadcast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L2743"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.broadcast" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">broadcast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L2743"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.broadcast" title="Permalink to this definition">#</a></dt>
 <dd><p>Broadcasts the tensor to the whole group.</p>
 <p><code class="docutils literal notranslate"><span class="pre">tensor</span></code> must have the same number of elements in all processes
 participating in the collective.</p>
@@ -5501,7 +5496,7 @@ None, if not async_op or if not part of the group</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.broadcast_object_list">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">broadcast_object_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L3485"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.broadcast_object_list" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">broadcast_object_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L3485"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.broadcast_object_list" title="Permalink to this definition">#</a></dt>
 <dd><p>Broadcasts picklable objects in <code class="docutils literal notranslate"><span class="pre">object_list</span></code> to the whole group.</p>
 <p>Similar to <a class="reference internal" href="#torch.distributed.broadcast" title="torch.distributed.broadcast"><code class="xref py py-func docutils literal notranslate"><span class="pre">broadcast()</span></code></a>, but Python objects can be passed in.
 Note that all objects in <code class="docutils literal notranslate"><span class="pre">object_list</span></code> must be picklable in order to be
@@ -5582,7 +5577,7 @@ pickled. Please consider using <a class="reference internal" href="#torch.distri
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.all_reduce">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">all_reduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op=&lt;RedOpType.SUM:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op=False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L2793"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.all_reduce" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">all_reduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op=&lt;RedOpType.SUM:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op=False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L2793"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.all_reduce" title="Permalink to this definition">#</a></dt>
 <dd><p>Reduces the tensor data across all machines in a way that all get the final result.</p>
 <p>After the call <code class="docutils literal notranslate"><span class="pre">tensor</span></code> is going to be bitwise identical in all processes.</p>
 <p>Complex tensors are supported.</p>
@@ -5636,7 +5631,7 @@ None, if not async_op or if not part of the group</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.reduce">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">reduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op=&lt;RedOpType.SUM:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_dst=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L2963"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.reduce" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">reduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op=&lt;RedOpType.SUM:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_dst=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L2963"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.reduce" title="Permalink to this definition">#</a></dt>
 <dd><p>Reduces the tensor data across all machines.</p>
 <p>Only the process with rank <code class="docutils literal notranslate"><span class="pre">dst</span></code> is going to receive the final result.</p>
 <dl class="field-list simple">
@@ -5664,7 +5659,7 @@ None, if not async_op or if not part of the group</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.all_gather">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">all_gather</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L3749"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.all_gather" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">all_gather</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L3749"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.all_gather" title="Permalink to this definition">#</a></dt>
 <dd><p>Gathers tensors from the whole group in a list.</p>
 <p>Complex and uneven sized tensors are supported.</p>
 <dl class="field-list simple">
@@ -5728,7 +5723,7 @@ None, if not async_op or if not part of the group</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.all_gather_into_tensor">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">all_gather_into_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L3849"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.all_gather_into_tensor" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">all_gather_into_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L3849"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.all_gather_into_tensor" title="Permalink to this definition">#</a></dt>
 <dd><p>Gather tensors from all ranks and put them in a single output tensor.</p>
 <p>This function requires all tensors to be the same size on each process.</p>
 <dl class="field-list simple">
@@ -5783,7 +5778,7 @@ None, if not async_op or if not part of the group</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.all_gather_object">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">all_gather_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L3052"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.all_gather_object" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">all_gather_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L3052"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.all_gather_object" title="Permalink to this definition">#</a></dt>
 <dd><p>Gathers picklable objects from the whole group into a list.</p>
 <p>Similar to <a class="reference internal" href="#torch.distributed.all_gather" title="torch.distributed.all_gather"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_gather()</span></code></a>, but Python objects can be passed in.
 Note that the object must be picklable in order to be gathered.</p>
@@ -5854,7 +5849,7 @@ pickled. Please consider using <a class="reference internal" href="#torch.distri
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.gather">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">gather</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gather_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L4088"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.gather" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">gather</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gather_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L4088"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.gather" title="Permalink to this definition">#</a></dt>
 <dd><p>Gathers a list of tensors in a single process.</p>
 <p>This function requires all tensors to be the same size on each process.</p>
 <dl class="field-list simple">
@@ -5903,7 +5898,7 @@ None, if not async_op or if not part of the group</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.gather_object">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">gather_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_gather_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L3147"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.gather_object" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">gather_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_gather_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L3147"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.gather_object" title="Permalink to this definition">#</a></dt>
 <dd><p>Gathers picklable objects from the whole group in a single process.</p>
 <p>Similar to <a class="reference internal" href="#torch.distributed.gather" title="torch.distributed.gather"><code class="xref py py-func docutils literal notranslate"><span class="pre">gather()</span></code></a>, but Python objects can be passed in. Note that the
 object must be picklable in order to be gathered.</p>
@@ -5982,7 +5977,7 @@ pickled. Please consider using <a class="reference internal" href="#torch.distri
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.scatter">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scatter_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L4171"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.scatter" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scatter_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L4171"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.scatter" title="Permalink to this definition">#</a></dt>
 <dd><p>Scatters a list of tensors to all processes in a group.</p>
 <p>Each process will receive exactly one tensor and store its data in the
 <code class="docutils literal notranslate"><span class="pre">tensor</span></code> argument.</p>
@@ -6037,7 +6032,7 @@ None, if not async_op or if not part of the group</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.scatter_object_list">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">scatter_object_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scatter_object_output_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scatter_object_input_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L3615"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.scatter_object_list" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">scatter_object_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scatter_object_output_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scatter_object_input_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L3615"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.scatter_object_list" title="Permalink to this definition">#</a></dt>
 <dd><p>Scatters picklable objects in <code class="docutils literal notranslate"><span class="pre">scatter_object_input_list</span></code> to the whole group.</p>
 <p>Similar to <a class="reference internal" href="#torch.distributed.scatter" title="torch.distributed.scatter"><code class="xref py py-func docutils literal notranslate"><span class="pre">scatter()</span></code></a>, but Python objects can be passed in. On
 each rank, the scattered object will be stored as the first element of
@@ -6110,7 +6105,7 @@ pickled. Please consider using <a class="reference internal" href="#torch.distri
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.reduce_scatter">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">reduce_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op=&lt;RedOpType.SUM:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op=False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L4276"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.reduce_scatter" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">reduce_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op=&lt;RedOpType.SUM:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op=False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L4276"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.reduce_scatter" title="Permalink to this definition">#</a></dt>
 <dd><p>Reduces, then scatters a list of tensors to all processes in a group.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -6134,7 +6129,7 @@ None, if not async_op or if not part of the group.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.reduce_scatter_tensor">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">reduce_scatter_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op=&lt;RedOpType.SUM:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op=False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L4319"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.reduce_scatter_tensor" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">reduce_scatter_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op=&lt;RedOpType.SUM:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op=False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L4319"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.reduce_scatter_tensor" title="Permalink to this definition">#</a></dt>
 <dd><p>Reduces, then scatters a tensor to all ranks in a group.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -6190,7 +6185,7 @@ None, if not async_op or if not part of the group.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.all_to_all_single">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">all_to_all_single</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_split_sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_split_sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L4448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.all_to_all_single" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">all_to_all_single</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_split_sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_split_sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L4448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.all_to_all_single" title="Permalink to this definition">#</a></dt>
 <dd><p>Split input tensor and then scatter the split list to all processes in a group.</p>
 <p>Later the received tensors are concatenated from all the processes in the group
 and returned as a single output tensor.</p>
@@ -6290,7 +6285,7 @@ None, if not async_op or if not part of the group.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.all_to_all">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">all_to_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_tensor_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_tensor_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L4597"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.all_to_all" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">all_to_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_tensor_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_tensor_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L4597"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.all_to_all" title="Permalink to this definition">#</a></dt>
 <dd><p>Scatters list of input tensors to all processes in a group and return gathered list of tensors in output list.</p>
 <p>Complex tensors are supported.</p>
 <dl class="field-list simple">
@@ -6390,7 +6385,7 @@ None, if not async_op or if not part of the group.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.barrier">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">barrier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L4719"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.barrier" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">barrier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L4719"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.barrier" title="Permalink to this definition">#</a></dt>
 <dd><p>Synchronize all processes.</p>
 <p>This collective blocks processes until the whole group enters this function,
 if async_op is False, or if async work handle is called on wait().</p>
@@ -6416,7 +6411,7 @@ None, if not async_op or if not part of the group</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.monitored_barrier">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">monitored_barrier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait_all_ranks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/distributed_c10d.py#L4781"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.monitored_barrier" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">monitored_barrier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait_all_ranks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/distributed_c10d.py#L4781"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.monitored_barrier" title="Permalink to this definition">#</a></dt>
 <dd><p>Synchronize processes similar to <code class="docutils literal notranslate"><span class="pre">torch.distributed.barrier</span></code>, but consider a configurable timeout.</p>
 <p>It is able to report ranks that did not pass this barrier within the provided timeout.
 Specifically, for non-zero ranks, will block until a send/recv is processed from rank 0.
@@ -7759,7 +7754,7 @@ an error (ex: TCPStore timeout)</p></li>
 <p>If you are running single node training, it may be convenient to interactively breakpoint your script.  We offer a way to conveniently breakpoint a single rank:</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.breakpoint">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">breakpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/distributed/__init__.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.breakpoint" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">breakpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ba70876407eecc8e61200a2c24b61700fef1c370/torch/distributed/__init__.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.breakpoint" title="Permalink to this definition">#</a></dt>
 <dd><p>Set a breakpoint, but only on a single rank.  All other ranks will wait for you to be
 done with the breakpoint before continuing.</p>
 <dl class="field-list simple">
@@ -8145,19 +8140,19 @@ done with the breakpoint before continuing.</p>
    <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
       <div class="container">
         <div class="row">
-          <div class="col-md-4 text-center">
+          <div class="col-md-4">
             <h2>Docs</h2>
             <p>Access comprehensive developer documentation for PyTorch</p>
             <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
           </div>
 
-          <div class="col-md-4 text-center">
+          <div class="col-md-4">
             <h2>Tutorials</h2>
             <p>Get in-depth tutorials for beginners and advanced developers</p>
             <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
           </div>
 
-          <div class="col-md-4 text-center">
+          <div class="col-md-4">
             <h2>Resources</h2>
             <p>Find development resources and get your questions answered</p>
             <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
@@ -8168,68 +8163,63 @@ done with the breakpoint before continuing.</p>
 
   <footer class="site-footer">
       <div class="container footer-container">
-        <div class="footer-logo-wrapper">
-          <a href="https://pytorch.org/" class="footer-logo"></a>
+
+          
+      <div class="newsletter" id="newsletter">
+  
+        <p
+          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
+      
+      
+          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+          <script>
+            hbspt.forms.create({
+              region: "na1",
+              portalId: "8112310",
+              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+            });
+          </script>
+          
+      
+        <p
+          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+          
+      </div>
+      
+  
+  
+      <div class="lf-grid">  
+        <ul class="social-links">
+          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
+          </a></li>
+          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
+          </a></li>
+          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
+          </a></li>
+          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
+          </a></li>
+          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
+          </a></li>
+          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
+          </a></li>
+        </ul>
+      </div>
+  
+      <div class="privacy-policy">
+        <div class="copyright">
+          <p>
+            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+          </p>
         </div>
+      </div>
 
-        <div class="footer-links-wrapper">
-          <div class="footer-links-col">
-            <ul>
-              <li class="list-title"><a href="https://pytorch.org/">PyTorch</a></li>
-              <li><a href="https://pytorch.org/get-started">Get Started</a></li>
-              <li><a href="https://pytorch.org/features">Features</a></li>
-              <li><a href="https://pytorch.org/ecosystem">Ecosystem</a></li>
-              <li><a href="https://pytorch.org/blog/">Blog</a></li>
-              <li><a href="https://github.com/pytorch/pytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
-            </ul>
-          </div>
 
-          <div class="footer-links-col">
-            <ul>
-              <li class="list-title"><a href="https://pytorch.org/resources">Resources</a></li>
-              <li><a href="https://pytorch.org/tutorials">Tutorials</a></li>
-              <li><a href="https://pytorch.org/docs/stable/index.html">Docs</a></li>
-              <li><a href="https://discuss.pytorch.org" target="_blank">Discuss</a></li>
-              <li><a href="https://github.com/pytorch/pytorch/issues" target="_blank">Github Issues</a></li>
-              <li><a href="https://pytorch.org/assets/brand-guidelines/PyTorch-Brand-Guidelines.pdf" target="_blank">Brand Guidelines</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-links-col">
-            <ul>
-              <li class="list-title">Stay up to date</li>
-              <li><a href="https://www.facebook.com/pytorch" target="_blank">Facebook</a></li>
-              <li><a href="https://twitter.com/pytorch" target="_blank">Twitter</a></li>
-              <li><a href="https://www.youtube.com/pytorch" target="_blank">YouTube</a></li>
-              <li><a href="https://www.linkedin.com/company/pytorch" target="_blank">LinkedIn</a></li>
-            </ul>
-            </div>
-
-          <div class="footer-links-col">
-            <ul>
-              <li class="list-title">PyTorch Podcasts</li>
-              <li><a href="https://open.spotify.com/show/6UzHKeiy368jKfQMKKvJY5" target="_blank">Spotify</a></li>
-              <li><a href="https://podcasts.apple.com/us/podcast/pytorch-developer-podcast/id1566080008" target="_blank">Apple</a></li>
-              <li><a href="https://www.google.com/podcasts?feed=aHR0cHM6Ly9mZWVkcy5zaW1wbGVjYXN0LmNvbS9PQjVGa0lsOA%3D%3D" target="_blank">Google</a></li>
-              <li><a href="https://music.amazon.com/podcasts/7a4e6f0e-26c2-49e9-a478-41bd244197d0/PyTorch-Developer-Podcast?" target="_blank">Amazon</a></li>
-            </ul>
-           </div>
-          </div>
-
-          <div class="privacy-policy">
-            <ul>
-              <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/terms/" target="_blank">Terms</a></li>
-              <li class="privacy-policy-links">|</li>
-              <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/privacy-policy/" target="_blank">Privacy</a></li>
-            </ul>
-          </div>
-          <div class="copyright">
-          <p>© Copyright The Linux Foundation. The PyTorch Foundation is a project of The Linux Foundation.
-            For web site terms of use, trademark policy and other policies applicable to The PyTorch Foundation please see
-            <a href="https://www.linuxfoundation.org/policies/">www.linuxfoundation.org/policies/</a>. The PyTorch Foundation supports the PyTorch open source
-            project, which has been established as PyTorch Project a Series of LF Projects, LLC. For policies applicable to the PyTorch Project a Series of LF Projects, LLC,
-            please see <a href="https://www.lfprojects.org/policies/">www.lfprojects.org/policies/</a>.</p>
-        </div>
        </div>
 
   <div class="cookie-banner-wrapper">
@@ -8284,6 +8274,20 @@ done with the breakpoint before continuing.</p>
 </div>
 
   </footer>
+   <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Distributed communication package - torch.distributed",
+        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+        "author": {
+          "@type": "Organization",
+          "name": "PyTorch Contributors"
+        },
+        "datePublished": "Jul 12, 2017",
+        "dateModified": "Apr 27, 2025",
+      }
+   </script>
 
   </body>
 </html>
