@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git0cf61ca )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git8ac82c3 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4035,7 +4035,7 @@ document.write(`
 <h1>check_sparse_tensor_invariants<a class="headerlink" href="#check-sparse-tensor-invariants" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.sparse.check_sparse_tensor_invariants">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.sparse.</span></span><span class="sig-name descname"><span class="pre">check_sparse_tensor_invariants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/sparse/__init__.py#L437"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.sparse.check_sparse_tensor_invariants" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.sparse.</span></span><span class="sig-name descname"><span class="pre">check_sparse_tensor_invariants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/sparse/__init__.py#L437"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.sparse.check_sparse_tensor_invariants" title="Permalink to this definition">#</a></dt>
 <dd><p>A tool to control checking sparse tensor invariants.</p>
 <p>The following options exists to manage sparsr tensor invariants
 checking in sparse tensor construction:</p>
@@ -4078,14 +4078,14 @@ For example:</p>
 </ol>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.sparse.check_sparse_tensor_invariants.disable">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/sparse/__init__.py#L513"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.sparse.check_sparse_tensor_invariants.disable" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/sparse/__init__.py#L513"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.sparse.check_sparse_tensor_invariants.disable" title="Permalink to this definition">#</a></dt>
 <dd><p>Disable sparse tensor invariants checking in sparse tensor constructors.</p>
 <p>See <a class="reference internal" href="#torch.sparse.check_sparse_tensor_invariants.enable" title="torch.sparse.check_sparse_tensor_invariants.enable"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.sparse.check_sparse_tensor_invariants.enable()</span></code></a> for more information.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.sparse.check_sparse_tensor_invariants.enable">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/sparse/__init__.py#L493"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.sparse.check_sparse_tensor_invariants.enable" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/sparse/__init__.py#L493"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.sparse.check_sparse_tensor_invariants.enable" title="Permalink to this definition">#</a></dt>
 <dd><p>Enable sparse tensor invariants checking in sparse tensor constructors.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4104,7 +4104,7 @@ optional argument of the sparse tensor constructor functions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.sparse.check_sparse_tensor_invariants.is_enabled">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0cf61ca7e4b90b3ce961916e712bc48ff19ec044/torch/sparse/__init__.py#L481"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.sparse.check_sparse_tensor_invariants.is_enabled" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ac82c3e7274f163c68bd497e62cd9fe83e8198e/torch/sparse/__init__.py#L481"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.sparse.check_sparse_tensor_invariants.is_enabled" title="Permalink to this definition">#</a></dt>
 <dd><p>Return True if the sparse tensor invariants checking is enabled.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
