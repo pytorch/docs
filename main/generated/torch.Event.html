@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git781ba0a )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2489b64 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4048,7 +4048,7 @@ If not given, the current <a class="reference internal" href="../torch.html#acce
 <dd class="field-odd"><p>An torch.Event object.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="#torch.Event" title="torch.Event">Event</a></p>
+<dd class="field-even"><p><a class="reference internal" href="torch.mtia.Event.html#torch.mtia.Event" title="torch.Event">Event</a></p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -4063,7 +4063,7 @@ If not given, the current <a class="reference internal" href="../torch.html#acce
 each recorded via <a class="reference internal" href="torch.Stream.html#torch.Stream.record_event" title="torch.Stream.record_event"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Stream.record_event()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>end_event</strong> (<a class="reference internal" href="#torch.Event" title="torch.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Event</span></code></a>) – The ending event has been recorded.</p>
+<dd class="field-odd"><p><strong>end_event</strong> (<a class="reference internal" href="torch.mtia.Event.html#torch.mtia.Event" title="torch.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Event</span></code></a>) – The ending event has been recorded.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Time between starting and ending event in milliseconds.</p>
@@ -4110,7 +4110,7 @@ Always returns <code class="docutils literal notranslate"><span class="pre">True
 This function is equivalent to <code class="docutils literal notranslate"><span class="pre">stream.record_event(self)</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="torch.Stream.html#torch.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>, optional) – A stream to be recorded.
+<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="torch.mtia.Stream.html#torch.mtia.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>, optional) – A stream to be recorded.
 If not given, the current stream will be used.</p>
 </dd>
 </dl>
@@ -4139,7 +4139,7 @@ If not given, the current stream will be used.</p>
 <dd><p>Make all future work submitted to the given stream wait for this event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="torch.Stream.html#torch.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>, optional) – A stream to synchronize.
+<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="torch.mtia.Stream.html#torch.mtia.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>, optional) – A stream to synchronize.
 If not given, the current stream will be used.</p>
 </dd>
 </dl>

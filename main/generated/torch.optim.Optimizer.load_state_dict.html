@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git781ba0a )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2489b64 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4026,7 +4026,7 @@ document.write(`
 <h1>torch.optim.Optimizer.load_state_dict<a class="headerlink" href="#torch-optim-optimizer-load-state-dict" title="Permalink to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Optimizer.load_state_dict">
-<span class="sig-prename descclassname"><span class="pre">Optimizer.</span></span><span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/781ba0ac9dc1999755bd84074d875e1ade8f7377/torch/optim/optimizer.py#L853"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer.load_state_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">Optimizer.</span></span><span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2489b6470b365f5df5fcb4ef0d7013f03a911d13/torch/optim/optimizer.py#L853"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer.load_state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Load the optimizer state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4034,6 +4034,11 @@ document.write(`
 from a call to <a class="reference internal" href="torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict" title="torch.optim.Optimizer.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a>.</p>
 </dd>
 </dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure this method is called after initializing <a class="reference internal" href="torch.optim.lr_scheduler.LRScheduler.html#torch.optim.lr_scheduler.LRScheduler" title="torch.optim.lr_scheduler.LRScheduler"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.lr_scheduler.LRScheduler</span></code></a>,
+as calling it beforehand will overwrite the loaded learning rates.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The names of the parameters (if they exist under the “param_names” key of each param group
@@ -4045,6 +4050,17 @@ accordingly.
 If <code class="docutils literal notranslate"><span class="pre">param_names</span></code> exist in loaded state dict <code class="docutils literal notranslate"><span class="pre">param_groups</span></code> they will be saved and override
 the current names, if present, in the optimizer state. If they do not exist in loaded state dict,
 the optimizer <code class="docutils literal notranslate"><span class="pre">param_names</span></code> will remain unchanged.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">optim</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">3e-4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scheduler1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">LinearLR</span><span class="p">(</span><span class="n">optim</span><span class="p">,</span> <span class="n">start_factor</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">end_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">total_iters</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scheduler2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">CosineAnnealingLR</span><span class="p">(</span><span class="n">optim</span><span class="p">,</span> <span class="n">T_max</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">eta_min</span><span class="o">=</span><span class="mf">3e-5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lr</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">SequentialLR</span><span class="p">(</span><span class="n">optim</span><span class="p">,</span> <span class="n">schedulers</span><span class="o">=</span><span class="p">[</span><span class="n">scheduler1</span><span class="p">,</span> <span class="n">scheduler2</span><span class="p">],</span> <span class="n">milestones</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lr</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;./save_seq.pt&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># now load the optimizer checkpoint after loading the LRScheduler</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">optim</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;./save_optim.pt&#39;</span><span class="p">))</span>
+</pre></div>
 </div>
 </dd></dl>
 
