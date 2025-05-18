@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gita952f42 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git8568dbc )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4069,7 +4069,8 @@ with <code class="docutils literal notranslate"><span class="pre">True</span></c
 <span class="gp">... </span>    <span class="p">[[</span> <span class="mf">0.2035</span><span class="p">,</span>  <span class="mf">1.2959</span><span class="p">,</span>  <span class="mf">1.8101</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4644</span><span class="p">],</span>
 <span class="gp">... </span>     <span class="p">[</span> <span class="mf">1.5027</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3270</span><span class="p">,</span>  <span class="mf">0.5905</span><span class="p">,</span>  <span class="mf">0.6538</span><span class="p">],</span>
 <span class="gp">... </span>     <span class="p">[</span><span class="o">-</span><span class="mf">1.5745</span><span class="p">,</span>  <span class="mf">1.3330</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5596</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6548</span><span class="p">],</span>
-<span class="gp">... </span>     <span class="p">[</span> <span class="mf">0.1264</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5080</span><span class="p">,</span>  <span class="mf">1.6420</span><span class="p">,</span>  <span class="mf">0.1992</span><span class="p">]])</span>
+<span class="gp">... </span>     <span class="p">[</span> <span class="mf">0.1264</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5080</span><span class="p">,</span>  <span class="mf">1.6420</span><span class="p">,</span>  <span class="mf">0.1992</span><span class="p">]]</span>
+<span class="gp">... </span><span class="p">)</span>  <span class="c1"># fmt: skip</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">tensor([[1.0631],</span>
 <span class="go">        [0.5590],</span>
