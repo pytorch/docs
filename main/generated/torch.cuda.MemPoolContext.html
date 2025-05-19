@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git8568dbc )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git75eb2f3 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4026,7 +4026,7 @@ document.write(`
 <h1>MemPoolContext<a class="headerlink" href="#mempoolcontext" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.MemPoolContext">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">MemPoolContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8568dbce1d7775d37c3f2dcc4073d3f44968fc43/torch/cuda/memory.py#L1113"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.MemPoolContext" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">MemPoolContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/75eb2f3ff6c5a7d8004465935226d7449444e491/torch/cuda/memory.py#L1113"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.MemPoolContext" title="Permalink to this definition">#</a></dt>
 <dd><p>MemPoolContext holds the currently active pool and stashes the previous
 pool. On deletion it makes the previous pool active.</p>
 <dl class="field-list simple">
@@ -4039,7 +4039,7 @@ pool. On deletion it makes the previous pool active.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.MemPoolContext.active_pool">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">active_pool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8568dbce1d7775d37c3f2dcc4073d3f44968fc43/torch/cuda/memory.py#L1126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.MemPoolContext.active_pool" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">active_pool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/75eb2f3ff6c5a7d8004465935226d7449444e491/torch/cuda/memory.py#L1126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.MemPoolContext.active_pool" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the active MemPool</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
