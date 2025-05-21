@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitf9aa3ba )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1526,7 +1526,7 @@ document.write(`
    <meta itemprop="headline" content="Windows FAQ">
    <meta itemprop="description" content="PyTorch documentation">
    <meta itemprop="datePublished" content="Apr 23, 2018">
-   <meta itemprop="dateModified" content="Apr 27, 2025">
+   <meta itemprop="dateModified" content="May 20, 2025">
    <meta itemprop="author" content="PyTorch Contributors">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
@@ -1552,7 +1552,7 @@ document.write(`
                   
   <div class="section" id="windows-faq">
 <h1>Windows FAQ<a class="headerlink" href="#windows-faq" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 23, 2018 | Last Updated On: Apr 27, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 23, 2018 | Last Updated On: May 20, 2025</p>
 <div class="section" id="building-from-source">
 <h2>Building from source<a class="headerlink" href="#building-from-source" title="Permalink to this heading">#</a></h2>
 <div class="section" id="include-optional-components">
@@ -1643,8 +1643,6 @@ PackagesNotFoundError: The following packages are not available from current cha
 - pytorch
 
 Current channels:
-- https://conda.anaconda.org/pytorch/win-32
-- https://conda.anaconda.org/pytorch/noarch
 - https://repo.continuum.io/pkgs/main/win-32
 - https://repo.continuum.io/pkgs/main/noarch
 - https://repo.continuum.io/pkgs/free/win-32
@@ -1667,33 +1665,13 @@ Python 64-bit version.</p>
 <span class="ne">ImportError</span><span class="p">:</span> <span class="n">DLL</span> <span class="n">load</span> <span class="n">failed</span><span class="p">:</span> <span class="n">The</span> <span class="n">specified</span> <span class="n">module</span> <span class="n">could</span> <span class="ow">not</span> <span class="n">be</span> <span class="n">found</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>The problem is caused by the missing of the essential files. Actually,
-we include almost all the essential files that PyTorch need for the conda
-package except VC2017 redistributable and some mkl libraries.
-You can resolve this by typing the following command.</p>
-<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>conda install -c peterjc123 vc vs2017_runtime
-conda install mkl_fft intel_openmp numpy mkl
-</pre></div>
-</div>
-<p>As for the wheels package, since we didn’t pack some libraries and VS2017
+<p>The problem is caused by the missing of the essential files.
+For the wheels package, since we didn’t pack some libraries and VS2017
 redistributable files in, please make sure you install them manually.
 The <a class="reference external" href="https://aka.ms/vs/15/release/VC_redist.x64.exe">VS 2017 redistributable installer</a> can be downloaded.
 And you should also pay attention to your installation of Numpy. Make sure it
 uses MKL instead of OpenBLAS. You may type in the following command.</p>
 <div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>pip install numpy mkl intel-openmp mkl_fft
-</pre></div>
-</div>
-<p>Another possible cause may be you are using GPU version without NVIDIA
-graphics cards. Please replace your GPU package with the CPU one.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="ne">ImportError</span><span class="p">:</span> <span class="n">DLL</span> <span class="n">load</span> <span class="n">failed</span><span class="p">:</span> <span class="n">The</span> <span class="n">operating</span> <span class="n">system</span> <span class="n">cannot</span> <span class="n">run</span> <span class="o">%</span><span class="mf">1.</span>
-</pre></div>
-</div>
-<p>This is actually an upstream issue of Anaconda. When you initialize your
-environment with conda-forge channel, this issue will emerge. You may fix
-the intel-openmp libraries through this command.</p>
-<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>conda install -c defaults intel-openmp -f
 </pre></div>
 </div>
 </div>
@@ -2135,7 +2113,7 @@ tensors cannot succeed, there are two alternatives for this.</p>
           "name": "PyTorch Contributors"
         },
         "datePublished": "Apr 23, 2018",
-        "dateModified": "Apr 27, 2025",
+        "dateModified": "May 20, 2025",
       }
    </script>
 

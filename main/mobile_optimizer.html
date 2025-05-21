@@ -7,7 +7,8 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta content="noindex" name="robots" />
+
     <title>torch.utils.mobile_optimizer &#8212; PyTorch main documentation</title>
   
   
@@ -105,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitf9aa3ba )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3078,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3989,7 +3990,7 @@ document.write(`
    <meta itemprop="headline" content="torch.utils.mobile_optimizer">
    <meta itemprop="description" content="PyTorch documentation">
    <meta itemprop="datePublished" content="Jul 15, 2020">
-   <meta itemprop="dateModified" content="Sep 04, 2024">
+   <meta itemprop="dateModified" content="May 20, 2025">
    <meta itemprop="author" content="PyTorch Contributors">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
@@ -4015,8 +4016,9 @@ document.write(`
                   
   <div class="section" id="torch-utils-mobile-optimizer">
 <h1>torch.utils.mobile_optimizer<a class="headerlink" href="#torch-utils-mobile-optimizer" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 15, 2020 | Last Updated On: Sep 04, 2024</p>
-<div class="admonition warning">
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 15, 2020 | Last Updated On: May 20, 2025</p>
+<p>PyTorch Mobile is no longer actively supported. Redirecting to <a class="reference external" href="https://docs.pytorch.org/executorch">ExecuTorch documentation</a>.</p>
+<meta http-equiv="Refresh" content="0; url='https://docs.pytorch.org/executorch'" /><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>PyTorch Mobile is no longer actively supported. Please check out
 <a class="reference external" href="https://pytorch.org/executorch-overview">ExecuTorch</a>, PyTorch’s
@@ -4024,27 +4026,9 @@ all-new on-device inference library. You can also review
 documentation on <a class="reference external" href="https://pytorch.org/executorch/stable/native-delegates-executorch-xnnpack-delegate.html">XNNPACK</a>
 and <a class="reference external" href="https://pytorch.org/executorch/stable/native-delegates-executorch-vulkan-delegate.html">Vulkan</a> delegates.</p>
 </div>
-<p>Torch mobile supports <code class="docutils literal notranslate"><span class="pre">torch.utils.mobile_optimizer.optimize_for_mobile</span></code> utility to run a list of optimization pass with modules in eval mode.
-The method takes the following parameters: a torch.jit.ScriptModule object, a blocklisting optimization set, a preserved method list, and a backend.</p>
-<dl class="simple">
-<dt>For CPU Backend, by default, if optimization blocklist is None or empty, <code class="docutils literal notranslate"><span class="pre">optimize_for_mobile</span></code> will run the following optimizations:</dt><dd><ul class="simple">
-<li><p><strong>Conv2D + BatchNorm fusion</strong> (blocklisting option <cite>mobile_optimizer.MobileOptimizerType.CONV_BN_FUSION</cite>):  This optimization pass folds <code class="docutils literal notranslate"><span class="pre">Conv2d-BatchNorm2d</span></code> into <code class="docutils literal notranslate"><span class="pre">Conv2d</span></code> in <code class="docutils literal notranslate"><span class="pre">forward</span></code> method of this module and all its submodules. The weight and bias of the <code class="docutils literal notranslate"><span class="pre">Conv2d</span></code> are correspondingly updated.</p></li>
-<li><p><strong>Insert and Fold prepacked ops</strong> (blocklisting option <cite>mobile_optimizer.MobileOptimizerType.INSERT_FOLD_PREPACK_OPS</cite>): This optimization pass rewrites the graph to replace 2D convolutions and linear ops with their prepacked counterparts. Prepacked ops are stateful ops in that, they require some state to be created, such as weight prepacking and use this state, i.e. prepacked weights, during op execution. XNNPACK is one such backend that provides prepacked ops, with kernels optimized for mobile platforms (such as ARM CPUs). Prepacking of weight enables efficient memory access and thus faster kernel execution. At the moment <code class="docutils literal notranslate"><span class="pre">optimize_for_mobile</span></code> pass rewrites the graph to replace <code class="docutils literal notranslate"><span class="pre">Conv2D/Linear</span></code> with 1) op that pre-packs weight for XNNPACK conv2d/linear ops and 2) op that takes pre-packed weight and activation as input and generates output activations. Since 1 needs to be done only once, we fold the weight pre-packing such that it is done only once at model load time. This pass of the <code class="docutils literal notranslate"><span class="pre">optimize_for_mobile</span></code> does 1 and 2 and then folds, i.e. removes, weight pre-packing ops.</p></li>
-<li><p><strong>ReLU/Hardtanh fusion</strong>: XNNPACK ops support fusion of clamping. That is clamping of output activation is done as part of the kernel, including for 2D convolution and linear op kernels. Thus clamping effectively comes for free. Thus any op that can be expressed as clamping op, such as <code class="docutils literal notranslate"><span class="pre">ReLU</span></code> or <code class="docutils literal notranslate"><span class="pre">hardtanh</span></code>, can be fused with previous <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> or <code class="docutils literal notranslate"><span class="pre">linear</span></code> op in XNNPACK. This pass rewrites graph by finding <code class="docutils literal notranslate"><span class="pre">ReLU/hardtanh</span></code> ops that follow XNNPACK <code class="docutils literal notranslate"><span class="pre">Conv2D/linear</span></code> ops, written by the previous pass, and fuses them together.</p></li>
-<li><p><strong>Dropout removal</strong> (blocklisting option <cite>mobile_optimizer.MobileOptimizerType.REMOVE_DROPOUT</cite>): This optimization pass removes <code class="docutils literal notranslate"><span class="pre">dropout</span></code> and <code class="docutils literal notranslate"><span class="pre">dropout_</span></code> nodes from this module when training is false.</p></li>
-<li><p><strong>Conv packed params hoisting</strong> (blocklisting option <cite>mobile_optimizer.MobileOptimizerType.HOIST_CONV_PACKED_PARAMS</cite>): This optimization pass moves convolution packed params to the root module, so that the convolution structs can be deleted. This decreases model size without impacting numerics.</p></li>
-<li><p><strong>Add/ReLU fusion</strong> (blocklisting option <cite>mobile_optimizer.MobileOptimizerType.FUSE_ADD_RELU</cite>): This pass finds instances of <code class="docutils literal notranslate"><span class="pre">relu</span></code> ops that follow <code class="docutils literal notranslate"><span class="pre">add</span></code> ops and fuses them into a single <code class="docutils literal notranslate"><span class="pre">add_relu</span></code>.</p></li>
-</ul>
-</dd>
-<dt>for Vulkan Backend, by default, if optimization blocklist is None or empty, <code class="docutils literal notranslate"><span class="pre">optimize_for_mobile</span></code> will run the following optimization:</dt><dd><ul class="simple">
-<li><p><strong>Automatic GPU Transfer</strong> (blocklisting option <cite>mobile_optimizer.MobileOptimizerType.VULKAN_AUTOMATIC_GPU_TRANSFER</cite>): This optimization pass rewrites the graph so that moving input and output data to and from the GPU becomes part of the model.</p></li>
-</ul>
-</dd>
-</dl>
-<p><code class="docutils literal notranslate"><span class="pre">optimize_for_mobile</span></code> will also invoke freeze_module pass which only preserves <code class="docutils literal notranslate"><span class="pre">forward</span></code> method. If you have other method to that needed to be preserved, add them into the preserved method list and pass into the method.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.mobile_optimizer.optimize_for_mobile">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.mobile_optimizer.</span></span><span class="sig-name descname"><span class="pre">optimize_for_mobile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_blocklist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preserved_methods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CPU'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f9aa3bae8cec28528de819863b04eae75089c4c5/torch/utils/mobile_optimizer.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.mobile_optimizer.optimize_for_mobile" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.mobile_optimizer.</span></span><span class="sig-name descname"><span class="pre">optimize_for_mobile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_blocklist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preserved_methods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CPU'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/utils/mobile_optimizer.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.mobile_optimizer.optimize_for_mobile" title="Permalink to this definition">#</a></dt>
 <dd><p>Optimize a torch script module for mobile deployment.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4410,7 +4394,7 @@ method will run the optimization pass that is not included inside optimization_b
           "name": "PyTorch Contributors"
         },
         "datePublished": "Jul 15, 2020",
-        "dateModified": "Sep 04, 2024",
+        "dateModified": "May 20, 2025",
       }
    </script>
 
