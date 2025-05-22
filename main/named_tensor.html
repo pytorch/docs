@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3985,12 +3985,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Named Tensors">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Oct 08, 2019">
-   <meta itemprop="dateModified" content="Aug 22, 2023">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4283,7 +4278,7 @@ name must be a valid Python variable name (i.e., does not start with underscore)
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.rename">
-<span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/_tensor.py#L1451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/_tensor.py#L1451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename" title="Permalink to this definition">#</a></dt>
 <dd><p>Renames dimension names of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code>.</p>
 <p>There are two main usages:</p>
 <p><code class="docutils literal notranslate"><span class="pre">self.rename(**rename_map)</span></code> returns a view on tensor that has dims
@@ -4316,13 +4311,13 @@ Use <code class="docutils literal notranslate"><span class="pre">self.rename(Non
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.rename_">
-<span class="sig-name descname"><span class="pre">rename_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/_tensor.py#L1436"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename_" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rename_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/_tensor.py#L1436"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename_" title="Permalink to this definition">#</a></dt>
 <dd><p>In-place version of <a class="reference internal" href="#torch.Tensor.rename" title="torch.Tensor.rename"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rename()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.refine_names">
-<span class="sig-name descname"><span class="pre">refine_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/_tensor.py#L1325"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.refine_names" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">refine_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/_tensor.py#L1325"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.refine_names" title="Permalink to this definition">#</a></dt>
 <dd><p>Refines the dimension names of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> according to <a class="reference internal" href="#torch.Tensor.names" title="torch.Tensor.names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">names</span></code></a>.</p>
 <p>Refining is a special case of renaming that “lifts” unnamed dimensions.
 A <code class="docutils literal notranslate"><span class="pre">None</span></code> dim can be refined to have any name; a named dim can only be
@@ -4404,7 +4399,7 @@ the output tensor has a size-one dimension for each of those new names.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.align_to">
-<span class="sig-name descname"><span class="pre">align_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/_tensor.py#L1369"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.align_to" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">align_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/_tensor.py#L1369"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.align_to" title="Permalink to this definition">#</a></dt>
 <dd><p>Permutes the dimensions of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> tensor to match the order
 specified in <a class="reference internal" href="#torch.Tensor.names" title="torch.Tensor.names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">names</span></code></a>, adding size-one dims for any new names.</p>
 <p>All of the dims of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> must be named in order to use this method.
@@ -4819,17 +4814,23 @@ but not necessary contiguous in memory.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Named Tensors",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Oct 08, 2019",
-        "dateModified": "Aug 22, 2023",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Named Tensors",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/named_tensor.html"
+         },
+         "datePublished": "Oct 08, 2019",
+         "dateModified": "Aug 22, 2023",
+         "articleBody": "Named Tensors# Created On: Oct 08, 2019 | Last Updated On: Aug 22, 2023 Named Tensors allow users to give explicit names to tensor dimensions. In most cases, operations that take dimension parameters will accept dimension names, avoiding the need to track dimensions by position. In addition, named tensors use names to automatically check that APIs are being used correctly at runtime, providing extra safety. Names can also be used to rearrange dimensions, for example, to support “broadcasting by name” rather than “broadcasting by position”. Warning The named tensor API is a prototype feature and subject to change. Creating named tensors# Factory functions now take a new names argument that associates a name with each dimension. &gt;&gt;&gt; torch.zeros(2, 3, names=(&#39;N&#39;, &#39;C&#39;)) tensor([[0., 0., 0.], [0., 0., 0.]], names=(&#39;N&#39;, &#39;C&#39;)) Named dimensions, like regular Tensor dimensions, are ordered. tensor.names[i] is the name of dimension i of tensor. The following factory functions support named tensors: torch.empty() torch.rand() torch.randn() torch.ones() torch.tensor() torch.zeros() Named dimensions# See names for restrictions on tensor names. Use names to access the dimension names of a tensor and rename() to rename named dimensions. &gt;&gt;&gt; imgs = torch.randn(1, 2, 2, 3 , names=(&#39;N&#39;, &#39;C&#39;, &#39;H&#39;, &#39;W&#39;)) &gt;&gt;&gt; imgs.names (&#39;N&#39;, &#39;C&#39;, &#39;H&#39;, &#39;W&#39;) &gt;&gt;&gt; renamed_imgs = imgs.rename(H=&#39;height&#39;, W=&#39;width&#39;) &gt;&gt;&gt; renamed_imgs.names (&#39;N&#39;, &#39;C&#39;, &#39;height&#39;, &#39;width) Named tensors can coexist with unnamed tensors; named tensors are instances of torch.Tensor. Unnamed tensors have None-named dimensions. Named tensors do not require all dimensions to be named. &gt;&gt;&gt; imgs = torch.randn(1, 2, 2, 3 , names=(None, &#39;C&#39;, &#39;H&#39;, &#39;W&#39;)) &gt;&gt;&gt; imgs.names (None, &#39;C&#39;, &#39;H&#39;, &#39;W&#39;) Name propagation semantics# Named tensors use names to automatically check that APIs are being called correctly at runtime. This occurs in a process called name inference. More formally, name inference consists of the following two steps: Check names: an operator may perform automatic checks at runtime that check that certain dimension names must match. Propagate names: name inference propagates names to output tensors. All operations that support named tensors propagate names. &gt;&gt;&gt; x = torch.randn(3, 3, names=(&#39;N&#39;, &#39;C&#39;)) &gt;&gt;&gt; x.abs().names (&#39;N&#39;, &#39;C&#39;) match semantics# Two names match if they are equal (string equality) or if at least one is None. Nones are essentially a special “wildcard” name. unify(A, B) determines which of the names A and B to propagate to the outputs. It returns the more specific of the two names, if they match. If the names do not match, then it errors. Note In practice, when working with named tensors, one should avoid having unnamed dimensions because their handling can be complicated. It is recommended to lift all unnamed dimensions to be named dimensions by using refine_names(). Basic name inference rules# Let’s see how match and unify are used in name inference in the case of adding two one-dim tensors with n..."
+       }
    </script>
 
   </body>

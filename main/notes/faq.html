@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1522,12 +1522,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Frequently Asked Questions">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Feb 15, 2018">
-   <meta itemprop="dateModified" content="Aug 05, 2021">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -2048,17 +2043,23 @@ argument of pack_padded_sequence <code class="docutils literal notranslate"><spa
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Frequently Asked Questions",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Feb 15, 2018",
-        "dateModified": "Aug 05, 2021",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Frequently Asked Questions",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/notes/faq.html"
+         },
+         "datePublished": "Feb 15, 2018",
+         "dateModified": "Aug 05, 2021",
+         "articleBody": "Frequently Asked Questions# Created On: Feb 15, 2018 | Last Updated On: Aug 05, 2021 My model reports “cuda runtime error(2): out of memory”# As the error message suggests, you have run out of memory on your GPU. Since we often deal with large amounts of data in PyTorch, small mistakes can rapidly cause your program to use up all of your GPU; fortunately, the fixes in these cases are often simple. Here are a few common things to check: Don’t accumulate history across your training loop. By default, computations involving variables that require gradients will keep history. This means that you should avoid using such variables in computations which will live beyond your training loops, e.g., when tracking statistics. Instead, you should detach the variable or access its underlying data. Sometimes, it can be non-obvious when differentiable variables can occur. Consider the following training loop (abridged from source): total_loss = 0 for i in range(10000): optimizer.zero_grad() output = model(input) loss = criterion(output) loss.backward() optimizer.step() total_loss += loss Here, total_loss is accumulating history across your training loop, since loss is a differentiable variable with autograd history. You can fix this by writing total_loss += float(loss) instead. Other instances of this problem: 1. Don’t hold onto tensors and variables you don’t need. If you assign a Tensor or Variable to a local, Python will not deallocate until the local goes out of scope. You can free this reference by using del x. Similarly, if you assign a Tensor or Variable to a member variable of an object, it will not deallocate until the object goes out of scope. You will get the best memory usage if you don’t hold onto temporaries you don’t need. The scopes of locals can be larger than you expect. For example: for i in range(5): intermediate = f(input[i]) result += g(intermediate) output = h(result) return output Here, intermediate remains live even while h is executing, because its scope extrudes past the end of the loop. To free it earlier, you should del intermediate when you are done with it. Avoid running RNNs on sequences that are too large. The amount of memory required to backpropagate through an RNN scales linearly with the length of the RNN input; thus, you will run out of memory if you try to feed an RNN a sequence that is too long. The technical term for this phenomenon is backpropagation through time, and there are plenty of references for how to implement truncated BPTT, including in the word language model example; truncation is handled by the repackage function as described in this forum post. Don’t use linear layers that are too large. A linear layer nn.Linear(m, n) uses O(nm)O(nm)O(nm) memory: that is to say, the memory requirements of the weights scales quadratically with the number of features. It is very easy to blow through your memory this way (and remember that you will need at least twice the size of the weights, since you also need to store ..."
+       }
    </script>
 
   </body>

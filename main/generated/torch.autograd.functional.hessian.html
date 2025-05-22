@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.autograd.functional.hessian">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4026,7 +4021,7 @@ document.write(`
 <h1>torch.autograd.functional.hessian<a class="headerlink" href="#torch-autograd-functional-hessian" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.autograd.functional.hessian">
-<span class="sig-prename descclassname"><span class="pre">torch.autograd.functional.</span></span><span class="sig-name descname"><span class="pre">hessian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vectorize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outer_jacobian_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'reverse-mode'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/autograd/functional.py#L831"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.functional.hessian" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.autograd.functional.</span></span><span class="sig-name descname"><span class="pre">hessian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vectorize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outer_jacobian_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'reverse-mode'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/autograd/functional.py#L831"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.functional.hessian" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute the Hessian of a given scalar function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4438,17 +4433,23 @@ dtype and device as the corresponding <code class="docutils literal notranslate"
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.autograd.functional.hessian",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.autograd.functional.hessian",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.autograd.functional.hessian.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "torch.autograd.functional.hessian# torch.autograd.functional.hessian(func, inputs, create_graph=False, strict=False, vectorize=False, outer_jacobian_strategy=&#39;reverse-mode&#39;)[source]# Compute the Hessian of a given scalar function. Parameters func (function) – a Python function that takes Tensor inputs and returns a Tensor with a single element. inputs (tuple of Tensors or Tensor) – inputs to the function func. create_graph (bool, optional) – If True, the Hessian will be computed in a differentiable manner. Note that when strict is False, the result can not require gradients or be disconnected from the inputs. Defaults to False. strict (bool, optional) – If True, an error will be raised when we detect that there exists an input such that all the outputs are independent of it. If False, we return a Tensor of zeros as the hessian for said inputs, which is the expected mathematical value. Defaults to False. vectorize (bool, optional) – This feature is experimental. Please consider using torch.func.hessian() instead if you are looking for something less experimental and more performant. When computing the hessian, usually we invoke autograd.grad once per row of the hessian. If this flag is True, we use the vmap prototype feature as the backend to vectorize calls to autograd.grad so we only invoke it once instead of once per row. This should lead to performance improvements in many use cases, however, due to this feature being incomplete, there may be performance cliffs. Please use torch._C._debug_only_display_vmap_fallback_warnings(True) to show any performance warnings and file us issues if warnings exist for your use case. Defaults to False. outer_jacobian_strategy (str, optional) – The Hessian is computed by computing the Jacobian of a Jacobian. The inner Jacobian is always computed in reverse-mode AD. Setting strategy to &#34;forward-mode&#34; or &#34;reverse-mode&#34; determines whether the outer Jacobian will be computed with forward or reverse mode AD. Currently, computing the outer Jacobian in &#34;forward-mode&#34; requires vectorized=True. Defaults to &#34;reverse-mode&#34;. Returns if there is a single input, this will be a single Tensor containing the Hessian for the input. If it is a tuple, then the Hessian will be a tuple of tuples where Hessian[i][j] will contain the Hessian of the ith input and jth input with size the sum of the size of the ith input plus the size of the jth input. Hessian[i][j] will have the same dtype and device as the corresponding ith input. Return type Hessian (Tensor or a tuple of tuple of Tensors) Example &gt;&gt;&gt; def pow_reducer(x): ... return x.pow(3).sum() &gt;&gt;&gt; inputs = torch.rand(2, 2) &gt;&gt;&gt; hessian(pow_reducer, inputs) tensor([[[[5.2265, 0.0000], [0.0000, 0.0000]], [[0.0000, 4.8221], [0.0000, 0.0000]]], [[[0.0000, 0.0000], [1.9456, 0.0000]], [[0.0000, 0.0000], [0.0000, 3.2550]]]]) &gt;&gt;&gt; hessian(pow_reducer, inputs, create_graph=True) tensor([[[[5.2265, 0.0000], [0.0000, 0.0000]], [[0.0000, 4.8221], [0.0000, 0.0000]]], [[[0.0000, 0.0000], [1.9456..."
+       }
    </script>
 
   </body>

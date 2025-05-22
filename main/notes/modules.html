@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1522,12 +1522,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Modules">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Feb 04, 2021">
-   <meta itemprop="dateModified" content="Nov 08, 2024">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -2599,17 +2594,23 @@ manipulate modules for a broad array of use cases. To explore FX, check out thes
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Modules",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Feb 04, 2021",
-        "dateModified": "Nov 08, 2024",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Modules",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/notes/modules.html"
+         },
+         "datePublished": "Feb 04, 2021",
+         "dateModified": "Nov 08, 2024",
+         "articleBody": "Modules# Created On: Feb 04, 2021 | Last Updated On: Nov 08, 2024 PyTorch uses modules to represent neural networks. Modules are: Building blocks of stateful computation. PyTorch provides a robust library of modules and makes it simple to define new custom modules, allowing for easy construction of elaborate, multi-layer neural networks. Tightly integrated with PyTorch’s autograd system. Modules make it simple to specify learnable parameters for PyTorch’s Optimizers to update. Easy to work with and transform. Modules are straightforward to save and restore, transfer between CPU / GPU / TPU devices, prune, quantize, and more. This note describes modules, and is intended for all PyTorch users. Since modules are so fundamental to PyTorch, many topics in this note are elaborated on in other notes or tutorials, and links to many of those documents are provided here as well. A Simple Custom Module Modules as Building Blocks Neural Network Training with Modules Module State Module Initialization Module Hooks Advanced Features Distributed Training Profiling Performance Improving Performance with Quantization Improving Memory Usage with Pruning Parametrizations Transforming Modules with FX A Simple Custom Module# To get started, let’s look at a simpler, custom version of PyTorch’s Linear module. This module applies an affine transformation to its input. import torch from torch import nn class MyLinear(nn.Module): def __init__(self, in_features, out_features): super().__init__() self.weight = nn.Parameter(torch.randn(in_features, out_features)) self.bias = nn.Parameter(torch.randn(out_features)) def forward(self, input): return (input @ self.weight) + self.bias This simple module has the following fundamental characteristics of modules: It inherits from the base Module class. All modules should subclass Module for composability with other modules. It defines some “state” that is used in computation. Here, the state consists of randomly-initialized weight and bias tensors that define the affine transformation. Because each of these is defined as a Parameter, they are registered for the module and will automatically be tracked and returned from calls to parameters(). Parameters can be considered the “learnable” aspects of the module’s computation (more on this later). Note that modules are not required to have state, and can also be stateless. It defines a forward() function that performs the computation. For this affine transformation module, the input is matrix-multiplied with the weight parameter (using the @ short-hand notation) and added to the bias parameter to produce the output. More generally, the forward() implementation for a module can perform arbitrary computation involving any number of inputs and outputs. This simple module demonstrates how modules package state and computation together. Instances of this module can be constructed and called: m = MyLinear(4, 3) sample_input = torch.randn(4) m(sample_input) : tensor([-0.3037, -1.0413, -4.205..."
+       }
    </script>
 
   </body>

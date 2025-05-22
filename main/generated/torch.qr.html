@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.qr">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4429,17 +4424,23 @@ The dimensions of <cite>Q</cite> and <cite>R</cite> are detailed in the descript
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.qr",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.qr",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.qr.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "torch.qr# torch.qr(input: Tensor, some: bool = True, *, out: Union[Tensor, Tuple[Tensor, ...], List[Tensor], None])# Computes the QR decomposition of a matrix or a batch of matrices input, and returns a namedtuple (Q, R) of tensors such that input=QR\text{input} = Q Rinput=QR with QQQ being an orthogonal matrix or batch of orthogonal matrices and RRR being an upper triangular matrix or batch of upper triangular matrices. If some is True, then this function returns the thin (reduced) QR factorization. Otherwise, if some is False, this function returns the complete QR factorization. Warning torch.qr() is deprecated in favor of torch.linalg.qr() and will be removed in a future PyTorch release. The boolean parameter some has been replaced with a string parameter mode. Q, R = torch.qr(A) should be replaced with Q, R = torch.linalg.qr(A) Q, R = torch.qr(A, some=False) should be replaced with Q, R = torch.linalg.qr(A, mode=&#34;complete&#34;) Warning If you plan to backpropagate through QR, note that the current backward implementation is only well-defined when the first min⁡(input.size(−1),input.size(−2))\min(input.size(-1), input.size(-2))min(input.size(−1),input.size(−2)) columns of input are linearly independent. This behavior will probably change once QR supports pivoting. Note This function uses LAPACK for CPU inputs and MAGMA for CUDA inputs, and may produce different (valid) decompositions on different device types or different platforms. Parameters input (Tensor) – the input tensor of size (∗,m,n)(*, m, n)(∗,m,n) where * is zero or more batch dimensions consisting of matrices of dimension m×nm \times nm×n. some (bool, optional) – Set to True for reduced QR decomposition and False for complete QR decomposition. If k = min(m, n) then: some=True : returns (Q, R) with dimensions (m, k), (k, n) (default) &#39;some=False&#39;: returns (Q, R) with dimensions (m, m), (m, n) Keyword Arguments out (tuple, optional) – tuple of Q and R tensors. The dimensions of Q and R are detailed in the description of some above. Example: &gt;&gt;&gt; a = torch.tensor([[12., -51, 4], [6, 167, -68], [-4, 24, -41]]) &gt;&gt;&gt; q, r = torch.qr(a) &gt;&gt;&gt; q tensor([[-0.8571, 0.3943, 0.3314], [-0.4286, -0.9029, -0.0343], [ 0.2857, -0.1714, 0.9429]]) &gt;&gt;&gt; r tensor([[ -14.0000, -21.0000, 14.0000], [ 0.0000, -175.0000, 70.0000], [ 0.0000, 0.0000, -35.0000]]) &gt;&gt;&gt; torch.mm(q, r).round() tensor([[ 12., -51., 4.], [ 6., 167., -68.], [ -4., 24., -41.]]) &gt;&gt;&gt; torch.mm(q.t(), q).round() tensor([[ 1., 0., 0.], [ 0., 1., -0.], [ 0., -0., 1.]]) &gt;&gt;&gt; a = torch.randn(3, 4, 5) &gt;&gt;&gt; q, r = torch.qr(a, some=False) &gt;&gt;&gt; torch.allclose(torch.matmul(q, r), a) True &gt;&gt;&gt; torch.allclose(torch.matmul(q.mT, q), torch.eye(5)) True"
+       }
    </script>
 
   </body>

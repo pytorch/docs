@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3993,12 +3993,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.func.jacrev">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4037,7 +4032,7 @@ document.write(`
 <h1>torch.func.jacrev<a class="headerlink" href="#torch-func-jacrev" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.func.jacrev">
-<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">jacrev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argnums</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_preallocate_and_copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/_functorch/eager_transforms.py#L428"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.jacrev" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">jacrev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argnums</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_preallocate_and_copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/_functorch/eager_transforms.py#L428"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.jacrev" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes the Jacobian of <code class="docutils literal notranslate"><span class="pre">func</span></code> with respect to the arg(s) at index
 <code class="docutils literal notranslate"><span class="pre">argnum</span></code> using reverse mode autodiff</p>
 <div class="admonition note">
@@ -4488,17 +4483,23 @@ should not depend on the result of a context manager outside of <code class="doc
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.func.jacrev",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.func.jacrev",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.func.jacrev.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "torch.func.jacrev# torch.func.jacrev(func, argnums=0, *, has_aux=False, chunk_size=None, _preallocate_and_copy=False)[source]# Computes the Jacobian of func with respect to the arg(s) at index argnum using reverse mode autodiff Note Using chunk_size=1 is equivalent to computing the jacobian row-by-row with a for-loop i.e. the constraints of vmap() are not applicable. Parameters func (function) – A Python function that takes one or more arguments, one of which must be a Tensor, and returns one or more Tensors argnums (int or Tuple[int]) – Optional, integer or tuple of integers, saying which arguments to get the Jacobian with respect to. Default: 0. has_aux (bool) – Flag indicating that func returns a (output, aux) tuple where the first element is the output of the function to be differentiated and the second element is auxiliary objects that will not be differentiated. Default: False. chunk_size (None or int) – If None (default), use the maximum chunk size (equivalent to doing a single vmap over vjp to compute the jacobian). If 1, then compute the jacobian row-by-row with a for-loop. If not None, then compute the jacobian chunk_size rows at a time (equivalent to doing multiple vmap over vjp). If you run into memory issues computing the jacobian, please try to specify a non-None chunk_size. Returns Returns a function that takes in the same inputs as func and returns the Jacobian of func with respect to the arg(s) at argnums. If has_aux is True, then the returned function instead returns a (jacobian, aux) tuple where jacobian is the Jacobian and aux is auxiliary objects returned by func. A basic usage with a pointwise, unary operation will give a diagonal array as the Jacobian &gt;&gt;&gt; from torch.func import jacrev &gt;&gt;&gt; x = torch.randn(5) &gt;&gt;&gt; jacobian = jacrev(torch.sin)(x) &gt;&gt;&gt; expected = torch.diag(torch.cos(x)) &gt;&gt;&gt; assert torch.allclose(jacobian, expected) If you would like to compute the output of the function as well as the jacobian of the function, use the has_aux flag to return the output as an auxiliary object: &gt;&gt;&gt; from torch.func import jacrev &gt;&gt;&gt; x = torch.randn(5) &gt;&gt;&gt; &gt;&gt;&gt; def f(x): &gt;&gt;&gt; return x.sin() &gt;&gt;&gt; &gt;&gt;&gt; def g(x): &gt;&gt;&gt; result = f(x) &gt;&gt;&gt; return result, result &gt;&gt;&gt; &gt;&gt;&gt; jacobian_f, f_x = jacrev(g, has_aux=True)(x) &gt;&gt;&gt; assert torch.allclose(f_x, f(x)) jacrev() can be composed with vmap to produce batched Jacobians: &gt;&gt;&gt; from torch.func import jacrev, vmap &gt;&gt;&gt; x = torch.randn(64, 5) &gt;&gt;&gt; jacobian = vmap(jacrev(torch.sin))(x) &gt;&gt;&gt; assert jacobian.shape == (64, 5, 5) Additionally, jacrev() can be composed with itself to produce Hessians &gt;&gt;&gt; from torch.func import jacrev &gt;&gt;&gt; def f(x): &gt;&gt;&gt; return x.sin().sum() &gt;&gt;&gt; &gt;&gt;&gt; x = torch.randn(5) &gt;&gt;&gt; hessian = jacrev(jacrev(f))(x) &gt;&gt;&gt; assert torch.allclose(hessian, torch.diag(-x.sin())) By default, jacrev() computes the Jacobian with respect to the first input. However, it can compute the Jacboian with respect to a different argument by using argnums: &gt;&gt;&gt; from torch.func import jacrev &gt;&gt;&gt; def f(x, y): &gt;&gt;&gt; return..."
+       }
    </script>
 
   </body>

@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3985,12 +3985,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.monitor">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Jan 12, 2022">
-   <meta itemprop="dateModified" content="Jan 30, 2022">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4193,7 +4188,7 @@ handler will no longer receive events.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.monitor.TensorboardEventHandler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.monitor.</span></span><span class="sig-name descname"><span class="pre">TensorboardEventHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">writer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/monitor/__init__.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.monitor.TensorboardEventHandler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.monitor.</span></span><span class="sig-name descname"><span class="pre">TensorboardEventHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">writer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/monitor/__init__.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.monitor.TensorboardEventHandler" title="Permalink to this definition">#</a></dt>
 <dd><p>TensorboardEventHandler is an event handler that will write known events to
 the provided SummaryWriter.</p>
 <p>This currently only supports <code class="docutils literal notranslate"><span class="pre">torch.monitor.Stat</span></code> events which are logged
@@ -4209,7 +4204,7 @@ as scalars.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.monitor.TensorboardEventHandler.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">writer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/monitor/__init__.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.monitor.TensorboardEventHandler.__init__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">writer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/monitor/__init__.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.monitor.TensorboardEventHandler.__init__" title="Permalink to this definition">#</a></dt>
 <dd><p>Constructs the <code class="docutils literal notranslate"><span class="pre">TensorboardEventHandler</span></code>.</p>
 <dl class="field-list simple">
 </dl>
@@ -4583,17 +4578,23 @@ as scalars.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.monitor",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Jan 12, 2022",
-        "dateModified": "Jan 30, 2022",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.monitor",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/monitor.html"
+         },
+         "datePublished": "Jan 12, 2022",
+         "dateModified": "Jan 30, 2022",
+         "articleBody": "torch.monitor# Created On: Jan 12, 2022 | Last Updated On: Jan 30, 2022 Warning This module is a prototype release, and its interfaces and functionality may change without warning in future PyTorch releases. torch.monitor provides an interface for logging events and counters from PyTorch. The stat interfaces are designed to be used for tracking high level metrics that are periodically logged out to be used for monitoring system performance. Since the stats aggregate with a specific window size you can log to them from critical loops with minimal performance impact. For more infrequent events or values such as loss, accuracy, usage tracking the event interface can be directly used. Event handlers can be registered to handle the events and pass them to an external event sink. API Reference# class torch.monitor.Aggregation# These are types of aggregations that can be used to accumulate stats. Members: VALUE :VALUE returns the last value to be added. MEAN :MEAN computes the arithmetic mean of all the added values. COUNT :COUNT returns the total number of added values. SUM :SUM returns the sum of the added values. MAX :MAX returns the max of the added values. MIN :MIN returns the min of the added values. property name# class torch.monitor.Stat# Stat is used to compute summary statistics in a performant way over fixed intervals. Stat logs the statistics as an Event once every window_size duration. When the window closes the stats are logged via the event handlers as a torch.monitor.Stat event. window_size should be set to something relatively high to avoid a huge number of events being logged. Ex: 60s. Stat uses millisecond precision. If max_samples is set, the stat will cap the number of samples per window by discarding add calls once max_samples adds have occurred. If it’s not set, all add calls during the window will be included. This is an optional field to make aggregations more directly comparable across windows when the number of samples might vary. When the Stat is destructed it will log any remaining data even if the window hasn’t elapsed. __init__(self: torch._C._monitor.Stat, name: str, aggregations: list[torch._C._monitor.Aggregation], window_size: datetime.timedelta, max_samples: int = 9223372036854775807) → None# Constructs the Stat. add(self: torch._C._monitor.Stat, v: float) → None# Adds a value to the stat to be aggregated according to the configured stat type and aggregations. property count# Number of data points that have currently been collected. Resets once the event has been logged. get(self: torch._C._monitor.Stat) → dict[torch._C._monitor.Aggregation, float]# Returns the current value of the stat, primarily for testing purposes. If the stat has logged and no additional values have been added this will be zero. property name# The name of the stat that was set during creation. class torch.monitor.data_value_t# data_value_t is one of str, float, int, bool. class torch.monitor.Event# Event represents a specific typed event to be..."
+       }
    </script>
 
   </body>

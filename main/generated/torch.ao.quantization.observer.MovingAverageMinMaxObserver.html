@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3993,12 +3993,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="MovingAverageMinMaxObserver">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4037,7 +4032,7 @@ document.write(`
 <h1>MovingAverageMinMaxObserver<a class="headerlink" href="#movingaverageminmaxobserver" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.MovingAverageMinMaxObserver">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.observer.</span></span><span class="sig-name descname"><span class="pre">MovingAverageMinMaxObserver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">averaging_constant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.quint8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qscheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.per_tensor_affine</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.1920928955078125e-07</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_dynamic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/quantization/observer.py#L580"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.MovingAverageMinMaxObserver" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.observer.</span></span><span class="sig-name descname"><span class="pre">MovingAverageMinMaxObserver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">averaging_constant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.quint8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qscheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.per_tensor_affine</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.1920928955078125e-07</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_dynamic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/quantization/observer.py#L580"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.MovingAverageMinMaxObserver" title="Permalink to this definition">#</a></dt>
 <dd><p>Observer module for computing the quantization parameters based on the
 moving average of the min and max values.</p>
 <p>This observer computes the quantization parameters based on the moving
@@ -4403,17 +4398,23 @@ and zero_point are set to 1.0 and 0.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "MovingAverageMinMaxObserver",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "MovingAverageMinMaxObserver",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.ao.quantization.observer.MovingAverageMinMaxObserver.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "MovingAverageMinMaxObserver# class torch.ao.quantization.observer.MovingAverageMinMaxObserver(averaging_constant=0.01, dtype=torch.quint8, qscheme=torch.per_tensor_affine, reduce_range=False, quant_min=None, quant_max=None, eps=1.1920928955078125e-07, is_dynamic=False, **kwargs)[source]# Observer module for computing the quantization parameters based on the moving average of the min and max values. This observer computes the quantization parameters based on the moving averages of minimums and maximums of the incoming tensors. The module records the average minimum and maximum of incoming tensors, and uses this statistic to compute the quantization parameters. Parameters averaging_constant – Averaging constant for min/max. dtype – dtype argument to the quantize node needed to implement the reference model spec. qscheme – Quantization scheme to be used reduce_range – Reduces the range of the quantized data type by 1 bit quant_min – Minimum quantization value. If unspecified, it will follow the 8-bit setup. quant_max – Maximum quantization value. If unspecified, it will follow the 8-bit setup. eps (Tensor) – Epsilon value for float32, Defaults to torch.finfo(torch.float32).eps. The moving average min/max is computed as follows xmin={min⁡(X)if xmin=None(1−c)xmin+cmin⁡(X)otherwisexmax={max⁡(X)if xmax=None(1−c)xmax+cmax⁡(X)otherwise\begin{array}{ll} x_\text{min} = \begin{cases} \min(X) &amp; \text{if~}x_\text{min} = \text{None} \\ (1 - c) x_\text{min} + c \min(X) &amp; \text{otherwise} \end{cases}\\ x_\text{max} = \begin{cases} \max(X) &amp; \text{if~}x_\text{max} = \text{None} \\ (1 - c) x_\text{max} + c \max(X) &amp; \text{otherwise} \end{cases}\\ \end{array}xmin​={min(X)(1−c)xmin​+cmin(X)​if xmin​=Noneotherwise​xmax​={max(X)(1−c)xmax​+cmax(X)​if xmax​=Noneotherwise​​where xmin/maxx_\text{min/max}xmin/max​ is the running average min/max, XXX is is the incoming tensor, and ccc is the averaging_constant. The scale and zero point are then computed as in MinMaxObserver. Note Only works with torch.per_tensor_affine quantization scheme. Note If the running minimum equals to the running maximum, the scale and zero_point are set to 1.0 and 0."
+       }
    </script>
 
   </body>

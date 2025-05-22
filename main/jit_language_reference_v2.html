@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="TorchScript Language Reference">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Mar 10, 2021">
-   <meta itemprop="dateModified" content="Aug 05, 2024">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -6325,17 +6320,23 @@ only usable within TorchScript:</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "TorchScript Language Reference",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Mar 10, 2021",
-        "dateModified": "Aug 05, 2024",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "TorchScript Language Reference",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/jit_language_reference_v2.html"
+         },
+         "datePublished": "Mar 10, 2021",
+         "dateModified": "Aug 05, 2024",
+         "articleBody": "TorchScript Language Reference# Created On: Mar 10, 2021 | Last Updated On: Aug 05, 2024 This reference manual describes the syntax and core semantics of the TorchScript language. TorchScript is a statically typed subset of the Python language. This document explains the supported features of Python in TorchScript and also how the language diverges from regular Python. Any features of Python that are not mentioned in this reference manual are not part of TorchScript. TorchScript focuses specifically on the features of Python that are needed to represent neural network models in PyTorch. Terminology Type System Type Annotation Expressions Simple Statements Compound Statements Python Values torch.* APIs Terminology# This document uses the following terminologies: Pattern Notes ::= Indicates that the given symbol is defined as. &#34; &#34; Represents real keywords and delimiters that are part of the syntax. A | B Indicates either A or B. ( ) Indicates grouping. [] Indicates optional. A+ Indicates a regular expression where term A is repeated at least once. A* Indicates a regular expression where term A is repeated zero or more times. Type System# TorchScript is a statically typed subset of Python. The largest difference between TorchScript and the full Python language is that TorchScript only supports a small set of types that are needed to express neural net models. TorchScript Types# The TorchScript type system consists of TSType and TSModuleType as defined below. TSAllType ::= TSType | TSModuleType TSType ::= TSMetaType | TSPrimitiveType | TSStructuralType | TSNominalType TSType represents the majority of TorchScript types that are composable and that can be used in TorchScript type annotations. TSType refers to any of the following: Meta Types, e.g., Any Primitive Types, e.g., int, float, and str Structural Types, e.g., Optional[int] or List[MyClass] Nominal Types (Python classes), e.g., MyClass (user-defined), torch.tensor (built-in) TSModuleType represents torch.nn.Module and its subclasses. It is treated differently from TSType because its type schema is inferred partly from the object instance and partly from the class definition. As such, instances of a TSModuleType may not follow the same static type schema. TSModuleType cannot be used as a TorchScript type annotation or be composed with TSType for type safety considerations. Meta Types# Meta types are so abstract that they are more like type constraints than concrete types. Currently TorchScript defines one meta-type, Any, that represents any TorchScript type. Any Type# The Any type represents any TorchScript type. Any specifies no type constraints, thus there is no type-checking on Any. As such it can be bound to any Python or TorchScript data types (e.g., int, TorchScript tuple, or an arbitrary Python class that is not scripted). TSMetaType ::= &#34;Any&#34; Where: Any is the Python class name from the typing module. Therefore, to use the Any type, you must import it from typing (e.g., from typing i..."
+       }
    </script>
 
   </body>

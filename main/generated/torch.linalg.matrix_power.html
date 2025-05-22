@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.linalg.matrix_power">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4404,17 +4399,23 @@ numerically stable algorithm.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.linalg.matrix_power",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.linalg.matrix_power",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.linalg.matrix_power.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "torch.linalg.matrix_power# torch.linalg.matrix_power(A, n, *, out=None) → Tensor# Computes the n-th power of a square matrix for an integer n. Supports input of float, double, cfloat and cdouble dtypes. Also supports batches of matrices, and if A is a batch of matrices then the output has the same batch dimensions. If n= 0, it returns the identity matrix (or batch) of the same shape as A. If n is negative, it returns the inverse of each matrix (if invertible) raised to the power of abs(n). Note Consider using torch.linalg.solve() if possible for multiplying a matrix on the left by a negative power as, if n&gt; 0: torch.linalg.solve(matrix_power(A, n), B) == matrix_power(A, -n) @ B It is always preferred to use solve() when possible, as it is faster and more numerically stable than computing A−nA^{-n}A−n explicitly. See also torch.linalg.solve() computes A.inverse() @ B with a numerically stable algorithm. Parameters A (Tensor) – tensor of shape (*, m, m) where * is zero or more batch dimensions. n (int) – the exponent. Keyword Arguments out (Tensor, optional) – output tensor. Ignored if None. Default: None. Raises RuntimeError – if n&lt; 0 and the matrix A or any matrix in the batch of matrices A is not invertible. Examples: &gt;&gt;&gt; A = torch.randn(3, 3) &gt;&gt;&gt; torch.linalg.matrix_power(A, 0) tensor([[1., 0., 0.], [0., 1., 0.], [0., 0., 1.]]) &gt;&gt;&gt; torch.linalg.matrix_power(A, 3) tensor([[ 1.0756, 0.4980, 0.0100], [-1.6617, 1.4994, -1.9980], [-0.4509, 0.2731, 0.8001]]) &gt;&gt;&gt; torch.linalg.matrix_power(A.expand(2, -1, -1), -2) tensor([[[ 0.2640, 0.4571, -0.5511], [-1.0163, 0.3491, -1.5292], [-0.4899, 0.0822, 0.2773]], [[ 0.2640, 0.4571, -0.5511], [-1.0163, 0.3491, -1.5292], [-0.4899, 0.0822, 0.2773]]])"
+       }
    </script>
 
   </body>

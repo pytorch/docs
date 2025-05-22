@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1522,12 +1522,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="LibTorch Stable ABI">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Mar 17, 2025">
-   <meta itemprop="dateModified" content="Apr 24, 2025">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -2001,17 +1996,23 @@ document.write(`
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "LibTorch Stable ABI",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Mar 17, 2025",
-        "dateModified": "Apr 24, 2025",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "LibTorch Stable ABI",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/notes/libtorch_stable_abi.html"
+         },
+         "datePublished": "Mar 17, 2025",
+         "dateModified": "Apr 24, 2025",
+         "articleBody": "LibTorch Stable ABI# Created On: Mar 17, 2025 | Last Updated On: Apr 24, 2025 This note will eventually contain more details on how to use the APIs in torch/csrc/stable. For the moment, it contains a table of internal representations: type in custom extension: type used within the end user custom library. StableIValue representation: a stable conversion of the type to liaison between the user model vs libtorch.so in an ABI-stable manner. type in libtorch: type used within libtorch.so (or any code binary locked with libtorch). Schema Type: type as described by the schema, which we hail as the source of truth for both ATen ops in native_functions.yaml and for user defined custom operators registered to the dispatcher via TORCH_LIBRARY or torch.library. type in custom extension StableIValue representation type in libtorch Schema Type std::optional&lt;S&gt; if there is a value, raw bitwise copy into leading bytes of uint64_t of pointer to a new StableIValue representing S. if there is no value, nullptr. std::optional&lt;T&gt; Type? RAIIATH raw bitwise copy of underlying AtenTensorHandle into leading bytes of uint64_t at::Tensor Tensor int32_t raw bitwise copy into leading bytes of uint64_t at::ScalarType ScalarType int32_t raw bitwise copy into leading bytes of uint64_t at::Layout Layout int32_t raw bitwise copy into leading bytes of uint64_t at::MemoryFormat MemoryFormat bool raw bitwise copy into leading bytes of uint64_t bool bool int64_t raw bitwise copy into leading bytes of uint64_t int64_t int double raw bitwise copy into leading bytes of uint64_t double float ? ? c10::Device Device ? ? c10::Stream Stream ? ? c10::complex complex ? ? at::Scalar Scalar ? ? std::string/const char*/ivalue::ConstantString str ? ? at::Storage Storage ? ? at::Generator Generator ? ? c10::List&lt;T&gt; Type[] ? ? ivalue::Tuple&lt;T&gt; (Type, …) ? ? c10::SymInt SymInt ? ? c10::SymFloat SymFloat ? ? c10::SymBool SymBool ? ? at::QScheme QScheme Our confidently supported types are the ones in the table that have completed rows. For a limited set of use cases, we also implicitly support any literal type that is representable within 64 bits as StableIValues, as the default reinterpret_cast will succeed. You can work with StableIValue abstractions in your custom kernel for types such as c10::Device even if there is no standard defined representation of device in custom extensions. For example, a custom operator can take as argument a StableIValue device and directly pass it through to an aten operator with aoti_torch_call_dispatcher."
+       }
    </script>
 
   </body>

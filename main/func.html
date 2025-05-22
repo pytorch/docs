@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3985,12 +3985,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.func">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Dec 19, 2022">
-   <meta itemprop="dateModified" content="Jan 23, 2023">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4422,17 +4417,23 @@ This idea of composable function transforms comes from the <a class="reference e
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.func",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Dec 19, 2022",
-        "dateModified": "Jan 23, 2023",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.func",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/func.html"
+         },
+         "datePublished": "Dec 19, 2022",
+         "dateModified": "Jan 23, 2023",
+         "articleBody": "torch.func# Created On: Dec 19, 2022 | Last Updated On: Jan 23, 2023 torch.func, previously known as “functorch”, is JAX-like composable function transforms for PyTorch. Note This library is currently in beta. What this means is that the features generally work (unless otherwise documented) and we (the PyTorch team) are committed to bringing this library forward. However, the APIs may change under user feedback and we don’t have full coverage over PyTorch operations. If you have suggestions on the API or use-cases you’d like to be covered, please open an GitHub issue or reach out. We’d love to hear about how you’re using the library. What are composable function transforms?# A “function transform” is a higher-order function that accepts a numerical function and returns a new function that computes a different quantity. torch.func has auto-differentiation transforms (grad(f) returns a function that computes the gradient of f), a vectorization/batching transform (vmap(f) returns a function that computes f over batches of inputs), and others. These function transforms can compose with each other arbitrarily. For example, composing vmap(grad(f)) computes a quantity called per-sample-gradients that stock PyTorch cannot efficiently compute today. Why composable function transforms?# There are a number of use cases that are tricky to do in PyTorch today: computing per-sample-gradients (or other per-sample quantities) running ensembles of models on a single machine efficiently batching together tasks in the inner-loop of MAML efficiently computing Jacobians and Hessians efficiently computing batched Jacobians and Hessians Composing vmap(), grad(), and vjp() transforms allows us to express the above without designing a separate subsystem for each. This idea of composable function transforms comes from the JAX framework. Read More# torch.func Whirlwind Tour What is torch.func? Why composable function transforms? What are the transforms? torch.func API Reference Function Transforms Utilities for working with torch.nn.Modules Debug utilities UX Limitations General limitations torch.autograd APIs vmap limitations Randomness Migrating from functorch to torch.func function transforms NN module utilities functorch.compile"
+       }
    </script>
 
   </body>

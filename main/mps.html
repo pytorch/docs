@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3985,12 +3985,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.mps">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Feb 10, 2023">
-   <meta itemprop="dateModified" content="Mar 11, 2025">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4446,17 +4441,23 @@ See <a class="reference external" href="https://developer.apple.com/documentatio
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.mps",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Feb 10, 2023",
-        "dateModified": "Mar 11, 2025",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.mps",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/mps.html"
+         },
+         "datePublished": "Feb 10, 2023",
+         "dateModified": "Mar 11, 2025",
+         "articleBody": "torch.mps# Created On: Feb 10, 2023 | Last Updated On: Mar 11, 2025 This package enables an interface for accessing MPS (Metal Performance Shaders) backend in Python. Metal is Apple’s API for programming metal GPU (graphics processor unit). Using MPS means that increased performance can be achieved, by running work on the metal GPU(s). See https://developer.apple.com/documentation/metalperformanceshaders for more details. device_count Returns the number of available MPS devices. synchronize Waits for all kernels in all streams on a MPS device to complete. get_rng_state Returns the random number generator state as a ByteTensor. set_rng_state Sets the random number generator state. manual_seed Sets the seed for generating random numbers. seed Sets the seed for generating random numbers to a random number. empty_cache Releases all unoccupied cached memory currently held by the caching allocator so that those can be used in other GPU applications. set_per_process_memory_fraction Set memory fraction for limiting process&#39;s memory allocation on MPS device. current_allocated_memory Returns the current GPU memory occupied by tensors in bytes. driver_allocated_memory Returns total GPU memory allocated by Metal driver for the process in bytes. recommended_max_memory Returns recommended max Working set size for GPU memory in bytes. compile_shader Compiles compute shader from source and allows one to invoke kernels defined there from the comfort of Python runtime Example. MPS Profiler# profiler.start Start OS Signpost tracing from MPS backend. profiler.stop Stops generating OS Signpost tracing from MPS backend. profiler.profile Context Manager to enabling generating OS Signpost tracing from MPS backend. profiler.is_capturing_metal Cheks if metal capture is in progress profiler.is_metal_capture_enabled Checks if metal_capture context manager is usable To enable metal capture, set MTL_CAPTURE_ENABLED envvar profiler.metal_capture Conext manager that enables capturing of Metal calls into gputrace MPS Event# event.Event Wrapper around an MPS event."
+       }
    </script>
 
   </body>

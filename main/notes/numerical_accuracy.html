@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1522,12 +1522,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Numerical accuracy">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Oct 13, 2021">
-   <meta itemprop="dateModified" content="Sep 24, 2024">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -2057,17 +2052,23 @@ reduced-precision reductions are problematic, they can be turned off with
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Numerical accuracy",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Oct 13, 2021",
-        "dateModified": "Sep 24, 2024",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Numerical accuracy",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/notes/numerical_accuracy.html"
+         },
+         "datePublished": "Oct 13, 2021",
+         "dateModified": "Sep 24, 2024",
+         "articleBody": "Numerical accuracy# Created On: Oct 13, 2021 | Last Updated On: Sep 24, 2024 In modern computers, floating point numbers are represented using IEEE 754 standard. For more details on floating point arithmetic and IEEE 754 standard, please see Floating point arithmetic In particular, note that floating point provides limited accuracy (about 7 decimal digits for single precision floating point numbers, about 16 decimal digits for double precision floating point numbers) and that floating point addition and multiplication are not associative, so the order of the operations affects the results. Because of this, PyTorch is not guaranteed to produce bitwise identical results for floating point computations that are mathematically identical. Similarly, bitwise identical results are not guaranteed across PyTorch releases, individual commits, or different platforms. In particular, CPU and GPU results can be different even for bitwise-identical inputs and even after controlling for the sources of randomness. Batched computations or slice computations# Many operations in PyTorch support batched computation, where the same operation is performed for the elements of the batches of inputs. An example of this is torch.mm() and torch.bmm(). It is possible to implement batched computation as a loop over batch elements, and apply the necessary math operations to the individual batch elements, for efficiency reasons we are not doing that, and typically perform computation for the whole batch. The mathematical libraries that we are calling, and PyTorch internal implementations of operations can produces slightly different results in this case, compared to non-batched computations. In particular, let A and B be 3D tensors with the dimensions suitable for batched matrix multiplication. Then (A@B)[0] (the first element of the batched result) is not guaranteed to be bitwise identical to A[0]@B[0] (the matrix product of the first elements of the input batches) even though mathematically it’s an identical computation. Similarly, an operation applied to a tensor slice is not guaranteed to produce results that are identical to the slice of the result of the same operation applied to the full tensor. E.g. let A be a 2-dimensional tensor. A.sum(-1)[0] is not guaranteed to be bitwise equal to A[:,0].sum(). Extremal values# When inputs contain large values such that intermediate results may overflow the range of the used datatype, the end result may overflow too, even though it is representable in the original datatype. E.g.: import torch a=torch.tensor([1e20, 1e20]) # fp32 type by default a.norm() # produces tensor(inf) a.double().norm() # produces tensor(1.4142e+20, dtype=torch.float64), representable in fp32 Linear algebra (torch.linalg)# Non-finite values# The external libraries (backends) that torch.linalg uses provide no guarantees on their behaviour when the inputs have non-finite values like inf or NaN. As such, neither does PyTorch. The operations may return a tensor..."
+       }
    </script>
 
   </body>

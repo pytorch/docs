@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.diag_embed">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4405,17 +4400,23 @@ take diagonal. Default: -1.</p></li>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.diag_embed",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.diag_embed",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.diag_embed.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "torch.diag_embed# torch.diag_embed(input, offset=0, dim1=-2, dim2=-1) → Tensor# Creates a tensor whose diagonals of certain 2D planes (specified by dim1 and dim2) are filled by input. To facilitate creating batched diagonal matrices, the 2D planes formed by the last two dimensions of the returned tensor are chosen by default. The argument offset controls which diagonal to consider: If offset = 0, it is the main diagonal. If offset &gt; 0, it is above the main diagonal. If offset &lt; 0, it is below the main diagonal. The size of the new matrix will be calculated to make the specified diagonal of the size of the last input dimension. Note that for offset other than 000, the order of dim1 and dim2 matters. Exchanging them is equivalent to changing the sign of offset. Applying torch.diagonal() to the output of this function with the same arguments yields a matrix identical to input. However, torch.diagonal() has different default dimensions, so those need to be explicitly specified. Parameters input (Tensor) – the input tensor. Must be at least 1-dimensional. offset (int, optional) – which diagonal to consider. Default: 0 (main diagonal). dim1 (int, optional) – first dimension with respect to which to take diagonal. Default: -2. dim2 (int, optional) – second dimension with respect to which to take diagonal. Default: -1. Example: &gt;&gt;&gt; a = torch.randn(2, 3) &gt;&gt;&gt; torch.diag_embed(a) tensor([[[ 1.5410, 0.0000, 0.0000], [ 0.0000, -0.2934, 0.0000], [ 0.0000, 0.0000, -2.1788]], [[ 0.5684, 0.0000, 0.0000], [ 0.0000, -1.0845, 0.0000], [ 0.0000, 0.0000, -1.3986]]]) &gt;&gt;&gt; torch.diag_embed(a, offset=1, dim1=0, dim2=2) tensor([[[ 0.0000, 1.5410, 0.0000, 0.0000], [ 0.0000, 0.5684, 0.0000, 0.0000]], [[ 0.0000, 0.0000, -0.2934, 0.0000], [ 0.0000, 0.0000, -1.0845, 0.0000]], [[ 0.0000, 0.0000, 0.0000, -2.1788], [ 0.0000, 0.0000, 0.0000, -1.3986]], [[ 0.0000, 0.0000, 0.0000, 0.0000], [ 0.0000, 0.0000, 0.0000, 0.0000]]])"
+       }
    </script>
 
   </body>

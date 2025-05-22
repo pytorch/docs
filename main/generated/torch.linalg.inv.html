@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.linalg.inv">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4410,17 +4405,23 @@ consisting of invertible matrices.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.linalg.inv",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.linalg.inv",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.linalg.inv.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "torch.linalg.inv# torch.linalg.inv(A, *, out=None) → Tensor# Computes the inverse of a square matrix if it exists. Throws a RuntimeError if the matrix is not invertible. Letting K\mathbb{K}K be R\mathbb{R}R or C\mathbb{C}C, for a matrix A∈Kn×nA \in \mathbb{K}^{n \times n}A∈Kn×n, its inverse matrix A−1∈Kn×nA^{-1} \in \mathbb{K}^{n \times n}A−1∈Kn×n (if it exists) is defined as A−1A=AA−1=InA^{-1}A = AA^{-1} = \mathrm{I}_nA−1A=AA−1=In​where In\mathrm{I}_nIn​ is the n-dimensional identity matrix. The inverse matrix exists if and only if AAA is invertible. In this case, the inverse is unique. Supports input of float, double, cfloat and cdouble dtypes. Also supports batches of matrices, and if A is a batch of matrices then the output has the same batch dimensions. Note When inputs are on a CUDA device, this function synchronizes that device with the CPU. For a version of this function that does not synchronize, see torch.linalg.inv_ex(). Note Consider using torch.linalg.solve() if possible for multiplying a matrix on the left by the inverse, as: linalg.solve(A, B) == linalg.inv(A) @ B # When B is a matrix It is always preferred to use solve() when possible, as it is faster and more numerically stable than computing the inverse explicitly. See also torch.linalg.pinv() computes the pseudoinverse (Moore-Penrose inverse) of matrices of any shape. torch.linalg.solve() computes A.inv() @ B with a numerically stable algorithm. Parameters A (Tensor) – tensor of shape (*, n, n) where * is zero or more batch dimensions consisting of invertible matrices. Keyword Arguments out (Tensor, optional) – output tensor. Ignored if None. Default: None. Raises RuntimeError – if the matrix A or any matrix in the batch of matrices A is not invertible. Examples: &gt;&gt;&gt; A = torch.randn(4, 4) &gt;&gt;&gt; Ainv = torch.linalg.inv(A) &gt;&gt;&gt; torch.dist(A @ Ainv, torch.eye(4)) tensor(1.1921e-07) &gt;&gt;&gt; A = torch.randn(2, 3, 4, 4) # Batch of matrices &gt;&gt;&gt; Ainv = torch.linalg.inv(A) &gt;&gt;&gt; torch.dist(A @ Ainv, torch.eye(4)) tensor(1.9073e-06) &gt;&gt;&gt; A = torch.randn(4, 4, dtype=torch.complex128) # Complex matrix &gt;&gt;&gt; Ainv = torch.linalg.inv(A) &gt;&gt;&gt; torch.dist(A @ Ainv, torch.eye(4)) tensor(7.5107e-16, dtype=torch.float64)"
+       }
    </script>
 
   </body>

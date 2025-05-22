@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1504,12 +1504,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="PyTorch Design Philosophy">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Jun 10, 2022">
-   <meta itemprop="dateModified" content="Apr 16, 2025">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -2021,17 +2016,23 @@ we learn new things and the AI space evolves, as we know it will.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "PyTorch Design Philosophy",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Jun 10, 2022",
-        "dateModified": "Apr 16, 2025",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "PyTorch Design Philosophy",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/community/design.html"
+         },
+         "datePublished": "Jun 10, 2022",
+         "dateModified": "Apr 16, 2025",
+         "articleBody": "PyTorch Design Philosophy# Created On: Jun 10, 2022 | Last Updated On: Apr 16, 2025 This document is designed to help contributors and module maintainers understand the high-level design principles that have developed over time in PyTorch. These are not meant to be hard-and-fast rules, but to serve as a guide to help trade off different concerns and to resolve disagreements that may come up while developing PyTorch. For more information on contributing, module maintainership, and how to escalate a disagreement to the Core Maintainers, please see PyTorch Governance. Design Principles# Principle 1: Usability over Performance# This principle may be surprising! As one Hacker News poster wrote: PyTorch is amazing! […] Although I’m confused. How can a ML framework be not obsessed with speed/performance? See Hacker News discussion on PyTorch. Soumith’s blog post on Growing the PyTorch Community goes into this in some depth, but at a high-level: PyTorch’s primary goal is usability A secondary goal is to have reasonable performance We believe the ability to maintain our flexibility to support researchers who are building on top of our abstractions remains critical. We can’t see what the future of what workloads will be, but we know we want them to be built first on PyTorch and that requires flexibility. In more concrete terms, we operate in a usability-first manner and try to avoid jumping to restriction-first regimes (for example, static shapes, graph-mode only) without a clear-eyed view of the tradeoffs. Often there is a temptation to impose strict user restrictions upfront because it can simplify implementation, but this comes with risks: The performance may not be worth the user friction, either because the performance benefit is not compelling enough or it only applies to a relatively narrow set of subproblems. Even if the performance benefit is compelling, the restrictions can fragment the ecosystem into different sets of limitations that can quickly become incomprehensible to users. We want users to be able to seamlessly move their PyTorch code to different hardware and software platforms, to interoperate with different libraries and frameworks, and to experience the full richness of the PyTorch user experience, not a least common denominator subset. Principle 2: Simple Over Easy# Here, we borrow from The Zen of Python: Explicit is better than implicit Simple is better than complex A more concise way of describing these two goals is Simple Over Easy. Let’s start with an example because simple and easy are often used interchangeably in everyday English. Consider how one may model devices in PyTorch: Simple / Explicit (to understand, debug): every tensor is associated with a device. The user explicitly specifies tensor device movement. Operations that require cross-device movement result in an error. Easy / Implicit (to use): the user does not have to worry about devices; the system figures out the globally optimal device placement. In this specif..."
+       }
    </script>
 
   </body>

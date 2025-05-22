@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Event">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4048,7 +4043,7 @@ If not given, the current <a class="reference internal" href="../torch.html#acce
 <dd class="field-odd"><p>An torch.Event object.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="torch.mtia.Event.html#torch.mtia.Event" title="torch.Event">Event</a></p>
+<dd class="field-even"><p><a class="reference internal" href="#torch.Event" title="torch.Event">Event</a></p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -4063,7 +4058,7 @@ If not given, the current <a class="reference internal" href="../torch.html#acce
 each recorded via <a class="reference internal" href="torch.Stream.html#torch.Stream.record_event" title="torch.Stream.record_event"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Stream.record_event()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>end_event</strong> (<a class="reference internal" href="torch.mtia.Event.html#torch.mtia.Event" title="torch.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Event</span></code></a>) – The ending event has been recorded.</p>
+<dd class="field-odd"><p><strong>end_event</strong> (<a class="reference internal" href="#torch.Event" title="torch.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Event</span></code></a>) – The ending event has been recorded.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Time between starting and ending event in milliseconds.</p>
@@ -4110,7 +4105,7 @@ Always returns <code class="docutils literal notranslate"><span class="pre">True
 This function is equivalent to <code class="docutils literal notranslate"><span class="pre">stream.record_event(self)</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="torch.mtia.Stream.html#torch.mtia.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>, optional) – A stream to be recorded.
+<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="torch.Stream.html#torch.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>, optional) – A stream to be recorded.
 If not given, the current stream will be used.</p>
 </dd>
 </dl>
@@ -4139,7 +4134,7 @@ If not given, the current stream will be used.</p>
 <dd><p>Make all future work submitted to the given stream wait for this event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="torch.mtia.Stream.html#torch.mtia.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>, optional) – A stream to synchronize.
+<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="torch.Stream.html#torch.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>, optional) – A stream to synchronize.
 If not given, the current stream will be used.</p>
 </dd>
 </dl>
@@ -4480,17 +4475,23 @@ If not given, the current stream will be used.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Event",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Event",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.Event.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "Event# class torch.Event(device=None, *, enable_timing=False, blocking=False, interprocess=False)# Query and record Stream status to identify or control dependencies across Stream and measure timing. Parameters device (torch.device, optional) – the desired device for the Event. If not given, the current accelerator type will be used. enable_timing (bool, optional) – indicates if the event should measure time (default: False) blocking (bool, optional) – if True, wait() will be blocking (default: False) interprocess (bool) – if True, the event can be shared between processes (default: False) Warning Both blocking and interprocess are not supported right now and are noops. Returns An torch.Event object. Return type Event Example: &gt;&gt;&gt; event = torch.Event() &gt;&gt;&gt; e_cuda = torch.Event(device=&#39;cuda&#39;) elapsed_time(end_event) → float# Returns the elapsed time in milliseconds between when this event and the end_event are each recorded via torch.Stream.record_event(). Parameters end_event (torch.Event) – The ending event has been recorded. Returns Time between starting and ending event in milliseconds. Return type float Example: &gt;&gt;&gt; s_cuda = torch.Stream(device=&#39;cuda&#39;) &gt;&gt;&gt; e1_cuda = s_cuda.record_event() &gt;&gt;&gt; e2_cuda = s_cuda.record_event() &gt;&gt;&gt; ms = e1_cuda.elapsed_time(e2_cuda) query() → bool# Check if the stream where this event was recorded already moved past the point where the event was recorded. Always returns True if the Event was not recorded. Returns A boolean indicating if all work currently captured by event has completed. Return type bool Example: &gt;&gt;&gt; s_cuda = torch.Stream(device=&#39;cuda&#39;) &gt;&gt;&gt; e_cuda = s_cuda.record_event() &gt;&gt;&gt; e_cuda.query() True record(stream=None) → None# Record the event in a given stream. The stream’s device must match the event’s device. This function is equivalent to stream.record_event(self). Parameters stream (torch.Stream, optional) – A stream to be recorded. If not given, the current stream will be used. Example: &gt;&gt;&gt; e_cuda = torch.Event(device=&#39;cuda&#39;) &gt;&gt;&gt; e_cuda.record() synchronize() → None# Wait for the event to complete. This prevents the CPU thread from proceeding until the event completes. Example: &gt;&gt;&gt; s_cuda = torch.Stream(device=&#39;cuda&#39;) &gt;&gt;&gt; e_cuda = s_cuda.record_event() &gt;&gt;&gt; e_cuda.synchronize() wait(stream=None) → None# Make all future work submitted to the given stream wait for this event. Parameters stream (torch.Stream, optional) – A stream to synchronize. If not given, the current stream will be used. Example: &gt;&gt;&gt; s1_cuda = torch.Stream(device=&#39;cuda&#39;) &gt;&gt;&gt; s2_cuda = torch.Stream(device=&#39;cuda&#39;) &gt;&gt;&gt; e_cuda = s1_cuda.record() &gt;&gt;&gt; e_cuda.wait(s2)"
+       }
    </script>
 
   </body>

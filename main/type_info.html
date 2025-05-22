@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3985,12 +3985,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Type Info">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Oct 15, 2018">
-   <meta itemprop="dateModified" content="Apr 27, 2025">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4463,17 +4458,23 @@ for more information.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Type Info",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Oct 15, 2018",
-        "dateModified": "Apr 27, 2025",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Type Info",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/type_info.html"
+         },
+         "datePublished": "Oct 15, 2018",
+         "dateModified": "Apr 27, 2025",
+         "articleBody": "Type Info# Created On: Oct 15, 2018 | Last Updated On: Apr 27, 2025 The numerical properties of a torch.dtype can be accessed through either the torch.finfo or the torch.iinfo. torch.finfo# class torch.finfo# A torch.finfo is an object that represents the numerical properties of a floating point torch.dtype, (i.e. torch.float32, torch.float64, torch.float16, and torch.bfloat16). This is similar to numpy.finfo. A torch.finfo provides the following attributes: Name Type Description bits int The number of bits occupied by the type. eps float The smallest representable number such that 1.0 + eps != 1.0. max float The largest representable number. min float The smallest representable number (typically -max). tiny float The smallest positive normal number. Equivalent to smallest_normal. smallest_normal float The smallest positive normal number. See notes. resolution float The approximate decimal resolution of this type, i.e., 10**-precision. Note The constructor of torch.finfo can be called without argument, in which case the class is created for the pytorch default dtype (as returned by torch.get_default_dtype()). Note smallest_normal returns the smallest normal number, but there are smaller subnormal numbers. See https://en.wikipedia.org/wiki/Denormal_number for more information. torch.iinfo# class torch.iinfo# A torch.iinfo is an object that represents the numerical properties of a integer torch.dtype (i.e. torch.uint8, torch.int8, torch.int16, torch.int32, and torch.int64). This is similar to numpy.iinfo. A torch.iinfo provides the following attributes: Name Type Description bits int The number of bits occupied by the type. max int The largest representable number. min int The smallest representable number."
+       }
    </script>
 
   </body>

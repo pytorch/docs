@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.nn.utils.parametrize.register_parametrization">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4026,7 +4021,7 @@ document.write(`
 <h1>torch.nn.utils.parametrize.register_parametrization<a class="headerlink" href="#torch-nn-utils-parametrize-register-parametrization" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.parametrize.register_parametrization">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.parametrize.</span></span><span class="sig-name descname"><span class="pre">register_parametrization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parametrization</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsafe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/nn/utils/parametrize.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.parametrize.register_parametrization" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.parametrize.</span></span><span class="sig-name descname"><span class="pre">register_parametrization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parametrization</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsafe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/nn/utils/parametrize.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.parametrize.register_parametrization" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a parametrization to a tensor in a module.</p>
 <p>Assume that <code class="docutils literal notranslate"><span class="pre">tensor_name=&quot;weight&quot;</span></code> for simplicity. When accessing <code class="docutils literal notranslate"><span class="pre">module.weight</span></code>,
 the module will return the parametrized version <code class="docutils literal notranslate"><span class="pre">parametrization(module.weight)</span></code>.
@@ -4463,17 +4458,23 @@ Enable this flag at your own risk.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.nn.utils.parametrize.register_parametrization",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.nn.utils.parametrize.register_parametrization",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.nn.utils.parametrize.register_parametrization.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "torch.nn.utils.parametrize.register_parametrization# torch.nn.utils.parametrize.register_parametrization(module, tensor_name, parametrization, *, unsafe=False)[source]# Register a parametrization to a tensor in a module. Assume that tensor_name=&#34;weight&#34; for simplicity. When accessing module.weight, the module will return the parametrized version parametrization(module.weight). If the original tensor requires a gradient, the backward pass will differentiate through parametrization, and the optimizer will update the tensor accordingly. The first time that a module registers a parametrization, this function will add an attribute parametrizations to the module of type ParametrizationList. The list of parametrizations on the tensor weight will be accessible under module.parametrizations.weight. The original tensor will be accessible under module.parametrizations.weight.original. Parametrizations may be concatenated by registering several parametrizations on the same attribute. The training mode of a registered parametrization is updated on registration to match the training mode of the host module Parametrized parameters and buffers have an inbuilt caching system that can be activated using the context manager cached(). A parametrization may optionally implement a method with signature def right_inverse(self, X: Tensor) -&gt; Union[Tensor, Sequence[Tensor]] This method is called on the unparametrized tensor when the first parametrization is registered to compute the initial value of the original tensor. If this method is not implemented, the original tensor will be just the unparametrized tensor. If all the parametrizations registered on a tensor implement right_inverse it is possible to initialize a parametrized tensor by assigning to it, as shown in the example below. It is possible for the first parametrization to depend on several inputs. This may be implemented returning a tuple of tensors from right_inverse (see the example implementation of a RankOne parametrization below). In this case, the unconstrained tensors are also located under module.parametrizations.weight with names original0, original1,… Note If unsafe=False (default) both the forward and right_inverse methods will be called once to perform a number of consistency checks. If unsafe=True, then right_inverse will be called if the tensor is not parametrized, and nothing will be called otherwise. Note In most situations, right_inverse will be a function such that forward(right_inverse(X)) == X (see right inverse). Sometimes, when the parametrization is not surjective, it may be reasonable to relax this. Warning If a parametrization depends on several inputs, register_parametrization() will register a number of new parameters. If such parametrization is registered after the optimizer is created, these new parameters will need to be added manually to the optimizer. See torch.Optimizer.add_param_group(). Parameters module (nn.Module) – module on which to register the parametrization tensor..."
+       }
    </script>
 
   </body>

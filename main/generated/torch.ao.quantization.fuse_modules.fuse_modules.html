@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3993,12 +3993,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="fuse_modules">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4037,7 +4032,7 @@ document.write(`
 <h1>fuse_modules<a class="headerlink" href="#fuse-modules" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.fuse_modules.fuse_modules">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fuse_modules.</span></span><span class="sig-name descname"><span class="pre">fuse_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modules_to_fuse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fuser_func=&lt;function</span> <span class="pre">fuse_known_modules&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fuse_custom_config_dict=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/quantization/fuse_modules.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fuse_modules.fuse_modules" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fuse_modules.</span></span><span class="sig-name descname"><span class="pre">fuse_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modules_to_fuse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fuser_func=&lt;function</span> <span class="pre">fuse_known_modules&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fuse_custom_config_dict=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/quantization/fuse_modules.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fuse_modules.fuse_modules" title="Permalink to this definition">#</a></dt>
 <dd><p>Fuse a list of modules into a single module.</p>
 <p>Fuses only the following sequence of modules:
 conv, bn
@@ -4414,17 +4409,23 @@ Defaults to torch.ao.quantization.fuse_known_modules</p></li>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "fuse_modules",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "fuse_modules",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.ao.quantization.fuse_modules.fuse_modules.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "fuse_modules# class torch.ao.quantization.fuse_modules.fuse_modules(model, modules_to_fuse, inplace=False, fuser_func=&lt;function fuse_known_modules&gt;, fuse_custom_config_dict=None)[source]# Fuse a list of modules into a single module. Fuses only the following sequence of modules: conv, bn conv, bn, relu conv, relu linear, relu bn, relu All other sequences are left unchanged. For these sequences, replaces the first item in the list with the fused module, replacing the rest of the modules with identity. Parameters model – Model containing the modules to be fused modules_to_fuse – list of list of module names to fuse. Can also be a list of strings if there is only a single list of modules to fuse. inplace – bool specifying if fusion happens in place on the model, by default a new model is returned fuser_func – Function that takes in a list of modules and outputs a list of fused modules of the same length. For example, fuser_func([convModule, BNModule]) returns the list [ConvBNModule, nn.Identity()] Defaults to torch.ao.quantization.fuse_known_modules fuse_custom_config_dict – custom configuration for fusion # Example of fuse_custom_config_dict fuse_custom_config_dict = { # Additional fuser_method mapping &#34;additional_fuser_method_mapping&#34;: { (torch.nn.Conv2d, torch.nn.BatchNorm2d): fuse_conv_bn }, } Returns model with fused modules. A new copy is created if inplace=True. Examples: &gt;&gt;&gt; m = M().eval() &gt;&gt;&gt; # m is a module containing the sub-modules below &gt;&gt;&gt; modules_to_fuse = [ [&#39;conv1&#39;, &#39;bn1&#39;, &#39;relu1&#39;], [&#39;submodule.conv&#39;, &#39;submodule.relu&#39;]] &gt;&gt;&gt; fused_m = torch.ao.quantization.fuse_modules(m, modules_to_fuse) &gt;&gt;&gt; output = fused_m(input) &gt;&gt;&gt; m = M().eval() &gt;&gt;&gt; # Alternately provide a single list of modules to fuse &gt;&gt;&gt; modules_to_fuse = [&#39;conv1&#39;, &#39;bn1&#39;, &#39;relu1&#39;] &gt;&gt;&gt; fused_m = torch.ao.quantization.fuse_modules(m, modules_to_fuse) &gt;&gt;&gt; output = fused_m(input)"
+       }
    </script>
 
   </body>

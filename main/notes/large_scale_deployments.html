@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1522,12 +1522,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Features for large-scale deployments">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Jul 24, 2019">
-   <meta itemprop="dateModified" content="May 11, 2020">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -2022,17 +2017,23 @@ with specialized version. Common extension points include:</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Features for large-scale deployments",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Jul 24, 2019",
-        "dateModified": "May 11, 2020",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Features for large-scale deployments",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/notes/large_scale_deployments.html"
+         },
+         "datePublished": "Jul 24, 2019",
+         "dateModified": "May 11, 2020",
+         "articleBody": "Features for large-scale deployments# Created On: Jul 24, 2019 | Last Updated On: May 11, 2020 Fleet-wide operator profiling API usage logging Attaching metadata to saved TorchScript models Build environment considerations Common extension points This note talks about several extension points and tricks that might be useful when running PyTorch within a larger system or operating multiple systems using PyTorch in a larger organization. It doesn’t cover topics of deploying models to production. Check torch.jit or one of the corresponding tutorials. The note assumes that you either build PyTorch from source in your organization or have an ability to statically link additional code to be loaded when PyTorch is used. Therefore, many of the hooks are exposed as C++ APIs that can be triggered once in a centralized place, e.g. in static initialization code. Fleet-wide operator profiling# PyTorch comes with torch.autograd.profiler capable of measuring time taken by individual operators on demand. One can use the same mechanism to do “always ON” measurements for any process running PyTorch. It might be useful for gathering information about PyTorch workloads running in a given process or across the entire set of machines. New callbacks for any operator invocation can be added with torch::addGlobalCallback. Hooks will be called with torch::RecordFunction struct that describes invocation context (e.g. name). If enabled, RecordFunction::inputs() contains arguments of the function represented as torch::IValue variant type. Note, that inputs logging is relatively expensive and thus has to be enabled explicitly. The operator callbacks also have access to c10::ThreadLocalDebugInfo::get() interface that returns a pointer to the struct holding the debug information. This debug information can be set earlier by using at::DebugInfoGuard object. Debug information is propagated through the forward (including async fork tasks) and backward passes and can be useful for passing some extra information about execution environment (e.g. model id) from the higher layers of the application down to the operator callbacks. Invoking callbacks adds some overhead, so usually it’s useful to just randomly sample operator invocations. This can be enabled on per-callback basis with an optional sampling rate passed into torch::addGlobalCallback. Note, that addGlobalCallback is not thread-safe and can be called only when no PyTorch operator is running. Usually, it’s a good idea to call them once during initialization. Here’s an example: // Called somewhere in the program beginning void init() { // Sample one in a hundred operator runs randomly addGlobalCallback( RecordFunctionCallback( &amp;onFunctionEnter, &amp;onFunctionExit) .needsInputs(true) .samplingProb(0.01) ); // Note, to enable observers in the model calling thread, // call enableRecordFunction() in the thread before running a model } void onFunctionEnter(const RecordFunction&amp; fn) { std::cerr &lt;&lt; &#34;Before function &#34; &lt;&lt; fn.name() &lt;&lt; &#34;..."
+       }
    </script>
 
   </body>

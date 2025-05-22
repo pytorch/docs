@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1522,12 +1522,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Broadcasting semantics">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Apr 27, 2017">
-   <meta itemprop="dateModified" content="Jan 31, 2021">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -1998,17 +1993,23 @@ in such cases.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Broadcasting semantics",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Apr 27, 2017",
-        "dateModified": "Jan 31, 2021",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Broadcasting semantics",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/notes/broadcasting.html"
+         },
+         "datePublished": "Apr 27, 2017",
+         "dateModified": "Jan 31, 2021",
+         "articleBody": "Broadcasting semantics# Created On: Apr 27, 2017 | Last Updated On: Jan 31, 2021 Many PyTorch operations support NumPy’s broadcasting semantics. See https://numpy.org/doc/stable/user/basics.broadcasting.html for details. In short, if a PyTorch operation supports broadcast, then its Tensor arguments can be automatically expanded to be of equal sizes (without making copies of the data). General semantics# Two tensors are “broadcastable” if the following rules hold: Each tensor has at least one dimension. When iterating over the dimension sizes, starting at the trailing dimension, the dimension sizes must either be equal, one of them is 1, or one of them does not exist. For Example: &gt;&gt;&gt; x=torch.empty(5,7,3) &gt;&gt;&gt; y=torch.empty(5,7,3) # same shapes are always broadcastable (i.e. the above rules always hold) &gt;&gt;&gt; x=torch.empty((0,)) &gt;&gt;&gt; y=torch.empty(2,2) # x and y are not broadcastable, because x does not have at least 1 dimension # can line up trailing dimensions &gt;&gt;&gt; x=torch.empty(5,3,4,1) &gt;&gt;&gt; y=torch.empty( 3,1,1) # x and y are broadcastable. # 1st trailing dimension: both have size 1 # 2nd trailing dimension: y has size 1 # 3rd trailing dimension: x size == y size # 4th trailing dimension: y dimension doesn&#39;t exist # but: &gt;&gt;&gt; x=torch.empty(5,2,4,1) &gt;&gt;&gt; y=torch.empty( 3,1,1) # x and y are not broadcastable, because in the 3rd trailing dimension 2 != 3 If two tensors x, y are “broadcastable”, the resulting tensor size is calculated as follows: If the number of dimensions of x and y are not equal, prepend 1 to the dimensions of the tensor with fewer dimensions to make them equal length. Then, for each dimension size, the resulting dimension size is the max of the sizes of x and y along that dimension. For Example: # can line up trailing dimensions to make reading easier &gt;&gt;&gt; x=torch.empty(5,1,4,1) &gt;&gt;&gt; y=torch.empty( 3,1,1) &gt;&gt;&gt; (x+y).size() torch.Size([5, 3, 4, 1]) # but not necessary: &gt;&gt;&gt; x=torch.empty(1) &gt;&gt;&gt; y=torch.empty(3,1,7) &gt;&gt;&gt; (x+y).size() torch.Size([3, 1, 7]) &gt;&gt;&gt; x=torch.empty(5,2,4,1) &gt;&gt;&gt; y=torch.empty(3,1,1) &gt;&gt;&gt; (x+y).size() RuntimeError: The size of tensor a (2) must match the size of tensor b (3) at non-singleton dimension 1 In-place semantics# One complication is that in-place operations do not allow the in-place tensor to change shape as a result of the broadcast. For Example: &gt;&gt;&gt; x=torch.empty(5,3,4,1) &gt;&gt;&gt; y=torch.empty(3,1,1) &gt;&gt;&gt; (x.add_(y)).size() torch.Size([5, 3, 4, 1]) # but: &gt;&gt;&gt; x=torch.empty(1,3,1) &gt;&gt;&gt; y=torch.empty(3,1,7) &gt;&gt;&gt; (x.add_(y)).size() RuntimeError: The expanded size of the tensor (1) must match the existing size (7) at non-singleton dimension 2. Backwards compatibility# Prior versions of PyTorch allowed certain pointwise functions to execute on tensors with different shapes, as long as the number of elements in each tensor was equal. The pointwise operation would then be carried out by viewing each tensor as 1-dimensional. PyTorch now supports broadcasting and the “1-dimensional” pointwise behavior is considered depre..."
+       }
    </script>
 
   </body>

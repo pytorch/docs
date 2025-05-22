@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="TorchScript Language Reference">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Dec 18, 2019">
-   <meta itemprop="dateModified" content="Aug 05, 2024">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4788,7 +4783,7 @@ to TorchScript, leaving calls to Python functions in place. This way you can inc
 check the correctness of the model as you go.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.is_scripting">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_scripting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/_jit_internal.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_scripting" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_scripting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/_jit_internal.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_scripting" title="Permalink to this definition">#</a></dt>
 <dd><p>Function that returns True when in compilation and False otherwise. This
 is useful especially with the &#64;unused decorator to leave code in your
 model that is not yet TorchScript compatible.
@@ -4815,7 +4810,7 @@ model that is not yet TorchScript compatible.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.is_tracing">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_tracing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/jit/_trace.py#L1324"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_tracing" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_tracing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/jit/_trace.py#L1324"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_tracing" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a boolean value.</p>
 <p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> in tracing (if a function is called during the
 tracing of code with <code class="docutils literal notranslate"><span class="pre">torch.jit.trace</span></code>) and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
@@ -5306,17 +5301,23 @@ to the resulting <code class="xref py py-class docutils literal notranslate"><sp
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "TorchScript Language Reference",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Dec 18, 2019",
-        "dateModified": "Aug 05, 2024",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "TorchScript Language Reference",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/jit_language_reference.html"
+         },
+         "datePublished": "Dec 18, 2019",
+         "dateModified": "Aug 05, 2024",
+         "articleBody": "TorchScript Language Reference Types Expressions Statements Variable Resolution Use of Python Values TorchScript Language Reference# Created On: Dec 18, 2019 | Last Updated On: Aug 05, 2024 TorchScript is a statically typed subset of Python that can either be written directly (using the @torch.jit.script decorator) or generated automatically from Python code via tracing. When using tracing, code is automatically converted into this subset of Python by recording only the actual operators on tensors and simply executing and discarding the other surrounding Python code. When writing TorchScript directly using @torch.jit.script decorator, the programmer must only use the subset of Python supported in TorchScript. This section documents what is supported in TorchScript as if it were a language reference for a stand alone language. Any features of Python not mentioned in this reference are not part of TorchScript. See Builtin Functions for a complete reference of available PyTorch tensor methods, modules, and functions. As a subset of Python, any valid TorchScript function is also a valid Python function. This makes it possible to disable TorchScript and debug the function using standard Python tools like pdb. The reverse is not true: there are many valid Python programs that are not valid TorchScript programs. Instead, TorchScript focuses specifically on the features of Python that are needed to represent neural network models in PyTorch. Types# The largest difference between TorchScript and the full Python language is that TorchScript only supports a small set of types that are needed to express neural net models. In particular, TorchScript supports: Type Description Tensor A PyTorch tensor of any dtype, dimension, or backend Tuple[T0, T1, ..., TN] A tuple containing subtypes T0, T1, etc. (e.g. Tuple[Tensor, Tensor]) bool A boolean value int A scalar integer float A scalar floating point number str A string List[T] A list of which all members are type T Optional[T] A value which is either None or type T Dict[K, V] A dict with key type K and value type V. Only str, int, and float are allowed as key types. T A TorchScript Class E A TorchScript Enum NamedTuple[T0, T1, ...] A collections.namedtuple tuple type Union[T0, T1, ...] One of the subtypes T0, T1, etc. Unlike Python, each variable in TorchScript function must have a single static type. This makes it easier to optimize TorchScript functions. Example (a type mismatch) import torch @torch.jit.script def an_error(x): if x: r = torch.rand(1) else: r = 4 return r Traceback (most recent call last): ... RuntimeError: ... Type mismatch: r is set to type Tensor in the true branch and type int in the false branch: @torch.jit.script def an_error(x): if x: ~~~~~ r = torch.rand(1) ~~~~~~~~~~~~~~~~~ else: ~~~~~ r = 4 ~~~~~ &lt;--- HERE return r and was used here: else: r = 4 return r ~ &lt;--- HERE... Unsupported Typing Constructs# TorchScript does not support all features and types of the typing module. Some of t..."
+       }
    </script>
 
   </body>

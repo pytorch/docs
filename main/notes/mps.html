@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1522,12 +1522,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="MPS backend">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="May 13, 2022">
-   <meta itemprop="dateModified" content="Jun 02, 2022">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -1912,17 +1907,23 @@ capabilities to setup and run operations on GPU.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "MPS backend",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "May 13, 2022",
-        "dateModified": "Jun 02, 2022",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "MPS backend",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/notes/mps.html"
+         },
+         "datePublished": "May 13, 2022",
+         "dateModified": "Jun 02, 2022",
+         "articleBody": "MPS backend# Created On: May 13, 2022 | Last Updated On: Jun 02, 2022 mps device enables high-performance training on GPU for MacOS devices with Metal programming framework. It introduces a new device to map Machine Learning computational graphs and primitives on highly efficient Metal Performance Shaders Graph framework and tuned kernels provided by Metal Performance Shaders framework respectively. The new MPS backend extends the PyTorch ecosystem and provides existing scripts capabilities to setup and run operations on GPU. To get started, simply move your Tensor and Module to the mps device: # Check that MPS is available if not torch.backends.mps.is_available(): if not torch.backends.mps.is_built(): print(&#34;MPS not available because the current PyTorch install was not &#34; &#34;built with MPS enabled.&#34;) else: print(&#34;MPS not available because the current MacOS version is not 12.3+ &#34; &#34;and/or you do not have an MPS-enabled device on this machine.&#34;) else: mps_device = torch.device(&#34;mps&#34;) # Create a Tensor directly on the mps device x = torch.ones(5, device=mps_device) # Or x = torch.ones(5, device=&#34;mps&#34;) # Any operation happens on the GPU y = x * 2 # Move your model to mps just like any other device model = YourFavoriteNet() model.to(mps_device) # Now every call runs on the GPU pred = model(x)"
+       }
    </script>
 
   </body>

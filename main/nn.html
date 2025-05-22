@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3985,12 +3985,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.nn">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Dec 23, 2016">
-   <meta itemprop="dateModified" content="Nov 06, 2024">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -5471,17 +5466,23 @@ floating point precision. PyTorch supports both per tensor and per channel asymm
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.nn",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Dec 23, 2016",
-        "dateModified": "Nov 06, 2024",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.nn",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/nn.html"
+         },
+         "datePublished": "Dec 23, 2016",
+         "dateModified": "Nov 06, 2024",
+         "articleBody": "torch.nn# Created On: Dec 23, 2016 | Last Updated On: Nov 06, 2024 These are the basic building blocks for graphs: torch.nn Containers Convolution Layers Pooling layers Padding Layers Non-linear Activations (weighted sum, nonlinearity) Non-linear Activations (other) Normalization Layers Recurrent Layers Transformer Layers Linear Layers Dropout Layers Sparse Layers Distance Functions Loss Functions Vision Layers Shuffle Layers DataParallel Layers (multi-GPU, distributed) Utilities Quantized Functions Lazy Modules Initialization Aliases Buffer A kind of Tensor that should not be considered a model parameter. Parameter A kind of Tensor that is to be considered a module parameter. UninitializedParameter A parameter that is not initialized. UninitializedBuffer A buffer that is not initialized. Containers# Module Base class for all neural network modules. Sequential A sequential container. ModuleList Holds submodules in a list. ModuleDict Holds submodules in a dictionary. ParameterList Holds parameters in a list. ParameterDict Holds parameters in a dictionary. Global Hooks For Module register_module_forward_pre_hook Register a forward pre-hook common to all modules. register_module_forward_hook Register a global forward hook for all the modules. register_module_backward_hook Register a backward hook common to all the modules. register_module_full_backward_pre_hook Register a backward pre-hook common to all the modules. register_module_full_backward_hook Register a backward hook common to all the modules. register_module_buffer_registration_hook Register a buffer registration hook common to all modules. register_module_module_registration_hook Register a module registration hook common to all modules. register_module_parameter_registration_hook Register a parameter registration hook common to all modules. Convolution Layers# nn.Conv1d Applies a 1D convolution over an input signal composed of several input planes. nn.Conv2d Applies a 2D convolution over an input signal composed of several input planes. nn.Conv3d Applies a 3D convolution over an input signal composed of several input planes. nn.ConvTranspose1d Applies a 1D transposed convolution operator over an input image composed of several input planes. nn.ConvTranspose2d Applies a 2D transposed convolution operator over an input image composed of several input planes. nn.ConvTranspose3d Applies a 3D transposed convolution operator over an input image composed of several input planes. nn.LazyConv1d A torch.nn.Conv1d module with lazy initialization of the in_channels argument. nn.LazyConv2d A torch.nn.Conv2d module with lazy initialization of the in_channels argument. nn.LazyConv3d A torch.nn.Conv3d module with lazy initialization of the in_channels argument. nn.LazyConvTranspose1d A torch.nn.ConvTranspose1d module with lazy initialization of the in_channels argument. nn.LazyConvTranspose2d A torch.nn.ConvTranspose2d module with lazy initialization of the in_channels argument. nn.LazyConvTranspose3d..."
+       }
    </script>
 
   </body>

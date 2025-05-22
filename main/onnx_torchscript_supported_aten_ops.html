@@ -103,7 +103,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1484,12 +1484,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="ONNX supported TorchScript operators">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Apr 07, 2022">
-   <meta itemprop="dateModified" content="Sep 08, 2023">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -7385,17 +7380,23 @@ document.write(`
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "ONNX supported TorchScript operators",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Apr 07, 2022",
-        "dateModified": "Sep 08, 2023",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "ONNX supported TorchScript operators",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/onnx_torchscript_supported_aten_ops.html"
+         },
+         "datePublished": "Apr 07, 2022",
+         "dateModified": "Sep 08, 2023",
+         "articleBody": "ONNX supported TorchScript operators# Created On: Apr 07, 2022 | Last Updated On: Sep 08, 2023 This page lists the TorchScript operators that are supported/unsupported by ONNX export. Supported operators# ONNX support for TorchScript operators# Operator opset_version(s) prim::ConstantChunk Since opset 9 aten::Delete Since opset 11 prim::Uninitialized Since opset 9 aten::__and_ Since opset 9 aten::__contains_ Since opset 9 aten::__derive_index Since opset 9 aten::__getitem_ Since opset 9 aten::__interpolate Since opset 8 aten::__is_ Since opset 9 aten::__isnot_ Since opset 9 aten::__lshift_ Since opset 9 aten::__not_ Since opset 9 aten::__or_ Since opset 9 aten::__range_length Since opset 9 aten::__rshift_ Since opset 9 aten::__xor_ Since opset 9 aten::_cast_Byte Since opset 9 aten::_cast_Char Since opset 9 aten::_cast_Double Since opset 9 aten::_cast_Float Since opset 9 aten::_cast_Half Since opset 9 aten::_cast_Int Since opset 9 aten::_cast_Long Since opset 9 aten::_cast_Short Since opset 9 aten::_conj Since opset 9 aten::_convolution Since opset 9 aten::_convolution_mode Since opset 9 aten::_dim_arange Since opset 9 aten::_log_softmax Since opset 9 aten::_pack_padded_sequence Since opset 9 aten::_pad_packed_sequence Since opset 9 aten::_reshape_from_tensor Since opset 9 aten::_sample_dirichlet Since opset 9 aten::_set_item Since opset 11 aten::_shape_as_tensor Since opset 9 aten::_standard_gamma Since opset 9 aten::_unique Since opset 9 aten::_unique2 Since opset 9 aten::_weight_norm Since opset 9 aten::abs Since opset 9 aten::acos Since opset 9 aten::adaptive_avg_pool1d Since opset 9 aten::adaptive_avg_pool2d Since opset 9 aten::adaptive_avg_pool3d Since opset 9 aten::adaptive_max_pool1d Since opset 7 aten::adaptive_max_pool2d Since opset 7 aten::adaptive_max_pool3d Since opset 7 aten::add Since opset 9 quantized::add Since opset 10 quantized::add_relu Since opset 10 aten::addcmul Since opset 9 aten::addmm Since opset 8 aten::affine_grid_generator Since opset 20 aten::alias Since opset 9 aten::all Since opset 8 aten::alpha_dropout Since opset 9 aten::amax Since opset 9 aten::amin Since opset 9 aten::aminmax Since opset 9 aten::any Since opset 8 aten::append Since opset 11 aten::arange Since opset 8 aten::argmax Since opset 9 aten::argmin Since opset 9 aten::argsort Since opset 11 aten::as_strided Since opset 9 aten::as_tensor Since opset 9 aten::asin Since opset 9 aten::atan Since opset 9 aten::atan2 Since opset 9 aten::atleast_1d Since opset 11 aten::atleast_2d Since opset 11 aten::atleast_3d Since opset 11 aten::avg_pool1d Since opset 9 aten::avg_pool2d Since opset 9 aten::avg_pool3d Since opset 9 aten::baddbmm Since opset 9 aten::batch_norm Since opset 9 aten::bernoulli Since opset 9 aten::binary_cross_entropy_with_logits Since opset 12 aten::bitwise_and Since opset 18 aten::bitwise_left_shift Since opset 11 aten::bitwise_not Since opset 9 aten::bitwise_or Since opset 9 aten::bitwise_right_shift Since opset 11 aten::bmm Since opset 8 ate..."
+       }
    </script>
 
   </body>

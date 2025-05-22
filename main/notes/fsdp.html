@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1522,12 +1522,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="FSDP Notes">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Jan 21, 2024">
-   <meta itemprop="dateModified" content="Jan 22, 2024">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -2005,17 +2000,23 @@ size is determined as follows”, we can analyze as follows:</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "FSDP Notes",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Jan 21, 2024",
-        "dateModified": "Jan 22, 2024",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "FSDP Notes",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/notes/fsdp.html"
+         },
+         "datePublished": "Jan 21, 2024",
+         "dateModified": "Jan 22, 2024",
+         "articleBody": "FSDP Notes# Created On: Jan 21, 2024 | Last Updated On: Jan 22, 2024 FSDP Prefetch Nuances# For overlapping forward all-gathers with forward compute, there are two possible mechanisms: Implicit forward prefetching (always enabled) Explicit forward prefetching (forward_prefetch=True) Implicit forward prefetching refers to relying on issuing the all-gathers from a separate CUDA stream to allow for overlapping an all-gather with forward compute issued before it (from the CPU perspective). For example, if we have layer 0 all-gather -&gt; layer 0 forward compute -&gt; layer 1 all-gather -&gt; …, then layer 1 all-gather can overlap with layer 0 forward compute even though the CPU thread issued it afterwards. (The 1st all-gather will not be able to overlap with anything.) Explicit forward prefetching refers to changing the CPU thread’s issue order: e.g. layer 0 all-gather -&gt; layer 1 all-gather -&gt; layer 0 forward compute -&gt; …. In eager mode, there is no way to know in general which layer is the next layer (e.g. layer 1 in the example) when still executing on layer 0. Therefore, explicit forward prefetching should only be used for models whose execution order is fixed from iteration to iteration (which we sometimes call “static graph”). An example of a model that does not satisfy this constraint is FLAVA). Explicit forward prefetching only saves the time taken to issue a layer’s forward compute kernels at the cost that the next all-gather’s output tensor must be allocated while the current one is still in use. By issuing the next all- gather before the current forward compute kernels, the next all-gather can start sooner on GPU. For most LLM workloads, this is not the case, so there is no motivation for enabling forward_prefetch=True. In contrast, for backward, we must use explicit backward prefetching or else there will be 0 overlap of communication and computation. The reason is because we use a single NCCL process group for both all-gather and reduce-scatter (partially because in earlier NCCL versions, it was not safe to use multiple concurrently on the same device over the same ranks). A single NCCL process group means a single internal NCCL stream on which reduce-scatters and all-gathers run serially. As such, unless we explicitly reorder the CPU issue order to be next all-gather -&gt; current reduce-scatter, then the current reduce-scatter would block the next all-gather and hence the next backward computation, preventing the current reduce-scatter from overlapping. Communication payload size# In FSDP the communications are: all-gather on parameters in forward all-gather on parameters in backward reduce-scatter on gradients in backward If activation checkpointing (checkpoint()) is used there is no additional communication since the parameters are prefetched anyway during backward. In the FSDP design, the communication payload per rank is determined as follows: Each call to FullyShardedDataParallel creates one communication group consisting of the parameters ..."
+       }
    </script>
 
   </body>

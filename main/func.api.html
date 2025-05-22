@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.func API Reference">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Dec 19, 2022">
-   <meta itemprop="dateModified" content="Feb 06, 2025">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4479,17 +4474,23 @@ guidance here</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.func API Reference",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Dec 19, 2022",
-        "dateModified": "Feb 06, 2025",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.func API Reference",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/func.api.html"
+         },
+         "datePublished": "Dec 19, 2022",
+         "dateModified": "Feb 06, 2025",
+         "articleBody": "torch.func API Reference# Created On: Dec 19, 2022 | Last Updated On: Feb 06, 2025 Function Transforms# vmap vmap is the vectorizing map; vmap(func) returns a new function that maps func over some dimension of the inputs. grad grad operator helps computing gradients of func with respect to the input(s) specified by argnums. grad_and_value Returns a function to compute a tuple of the gradient and primal, or forward, computation. vjp Standing for the vector-Jacobian product, returns a tuple containing the results of func applied to primals and a function that, when given cotangents, computes the reverse-mode Jacobian of func with respect to primals times cotangents. jvp Standing for the Jacobian-vector product, returns a tuple containing the output of func(*primals) and the &#34;Jacobian of func evaluated at primals&#34; times tangents. linearize Returns the value of func at primals and linear approximation at primals. jacrev Computes the Jacobian of func with respect to the arg(s) at index argnum using reverse mode autodiff jacfwd Computes the Jacobian of func with respect to the arg(s) at index argnum using forward-mode autodiff hessian Computes the Hessian of func with respect to the arg(s) at index argnum via a forward-over-reverse strategy. functionalize functionalize is a transform that can be used to remove (intermediate) mutations and aliasing from a function, while preserving the function&#39;s semantics. Utilities for working with torch.nn.Modules# In general, you can transform over a function that calls a torch.nn.Module. For example, the following is an example of computing a jacobian of a function that takes three values and returns three values: model = torch.nn.Linear(3, 3) def f(x): return model(x) x = torch.randn(3) jacobian = jacrev(f)(x) assert jacobian.shape == (3, 3) However, if you want to do something like compute a jacobian over the parameters of the model, then there needs to be a way to construct a function where the parameters are the inputs to the function. That’s what functional_call() is for: it accepts an nn.Module, the transformed parameters, and the inputs to the Module’s forward pass. It returns the value of running the Module’s forward pass with the replaced parameters. Here’s how we would compute the Jacobian over the parameters model = torch.nn.Linear(3, 3) def f(params, x): return torch.func.functional_call(model, params, x) x = torch.randn(3) jacobian = jacrev(f)(dict(model.named_parameters()), x) functional_call Performs a functional call on the module by replacing the module parameters and buffers with the provided ones. stack_module_state Prepares a list of torch.nn.Modules for ensembling with vmap(). replace_all_batch_norm_modules_ In place updates root by setting the running_mean and running_var to be None and setting track_running_stats to be False for any nn.BatchNorm module in root If you’re looking for information on fixing Batch Norm modules, please follow the guidance here Patching Batch Norm Debug utilities..."
+       }
    </script>
 
   </body>

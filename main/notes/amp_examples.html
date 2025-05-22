@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1522,12 +1522,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Automatic Mixed Precision examples">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Feb 13, 2020">
-   <meta itemprop="dateModified" content="Sep 13, 2024">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -2302,17 +2297,23 @@ inputs to <code class="docutils literal notranslate"><span class="pre">float32</
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Automatic Mixed Precision examples",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Feb 13, 2020",
-        "dateModified": "Sep 13, 2024",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Automatic Mixed Precision examples",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/notes/amp_examples.html"
+         },
+         "datePublished": "Feb 13, 2020",
+         "dateModified": "Sep 13, 2024",
+         "articleBody": "Automatic Mixed Precision examples# Created On: Feb 13, 2020 | Last Updated On: Sep 13, 2024 Ordinarily, “automatic mixed precision training” means training with torch.autocast and torch.amp.GradScaler together. Instances of torch.autocast enable autocasting for chosen regions. Autocasting automatically chooses the precision for operations to improve performance while maintaining accuracy. Instances of torch.amp.GradScaler help perform the steps of gradient scaling conveniently. Gradient scaling improves convergence for networks with float16 (by default on CUDA and XPU) gradients by minimizing gradient underflow, as explained here. torch.autocast and torch.amp.GradScaler are modular. In the samples below, each is used as its individual documentation suggests. (Samples here are illustrative. See the Automatic Mixed Precision recipe for a runnable walkthrough.) Typical Mixed Precision Training Working with Unscaled Gradients Gradient clipping Working with Scaled Gradients Gradient accumulation Gradient penalty Working with Multiple Models, Losses, and Optimizers Working with Multiple GPUs DataParallel in a single process DistributedDataParallel, one GPU per process DistributedDataParallel, multiple GPUs per process Autocast and Custom Autograd Functions Functions with multiple inputs or autocastable ops Functions that need a particular dtype Typical Mixed Precision Training# # Creates model and optimizer in default precision model = Net().cuda() optimizer = optim.SGD(model.parameters(), ...) # Creates a GradScaler once at the beginning of training. scaler = GradScaler() for epoch in epochs: for input, target in data: optimizer.zero_grad() # Runs the forward pass with autocasting. with autocast(device_type=&#39;cuda&#39;, dtype=torch.float16): output = model(input) loss = loss_fn(output, target) # Scales loss. Calls backward() on scaled loss to create scaled gradients. # Backward passes under autocast are not recommended. # Backward ops run in the same dtype autocast chose for corresponding forward ops. scaler.scale(loss).backward() # scaler.step() first unscales the gradients of the optimizer&#39;s assigned params. # If these gradients do not contain infs or NaNs, optimizer.step() is then called, # otherwise, optimizer.step() is skipped. scaler.step(optimizer) # Updates the scale for next iteration. scaler.update() Working with Unscaled Gradients# All gradients produced by scaler.scale(loss).backward() are scaled. If you wish to modify or inspect the parameters’ .grad attributes between backward() and scaler.step(optimizer), you should unscale them first. For example, gradient clipping manipulates a set of gradients such that their global norm (see torch.nn.utils.clip_grad_norm_()) or maximum magnitude (see torch.nn.utils.clip_grad_value_()) is &lt;=&lt;=&lt;= some user-imposed threshold. If you attempted to clip without unscaling, the gradients’ norm/maximum magnitude would also be scaled, so your requested threshold (which was meant to be the threshold for unscale..."
+       }
    </script>
 
   </body>

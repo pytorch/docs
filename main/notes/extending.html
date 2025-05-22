@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1522,12 +1522,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Extending PyTorch">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Jan 16, 2017">
-   <meta itemprop="dateModified" content="May 07, 2025">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -2873,17 +2868,23 @@ This means in particular that all modes handlers will be called before any subcl
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Extending PyTorch",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Jan 16, 2017",
-        "dateModified": "May 07, 2025",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Extending PyTorch",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/notes/extending.html"
+         },
+         "datePublished": "Jan 16, 2017",
+         "dateModified": "May 07, 2025",
+         "articleBody": "Extending PyTorch# Created On: Jan 16, 2017 | Last Updated On: May 07, 2025 In this note we’ll cover ways of extending torch.nn, torch.autograd, torch, and writing custom C++ extensions. Adding new operators# PyTorch offers a large library of operators that work on Tensors (e.g. torch.add(), torch.sum(), etc). However, you may wish to bring a new custom operation to PyTorch and have it behave like PyTorch’s built-in operators. In order to do so, you must register the custom operation with PyTorch via the Python torch.library or C++ TORCH_LIBRARY APIs. Please see PyTorch Custom Operators Landing Page for more details. Extending torch.autograd# Adding operations to autograd requires implementing a new Function subclass for each operation. Recall that Functions are what autograd uses to encode the operation history and compute gradients. The first part of this doc is focused on backward mode AD as it is the most widely used feature. A section at the end discusses the extensions for forward mode AD. When to use# In general, implement a custom function if you want to perform computations in your model that are not differentiable or rely on non-PyTorch libraries (e.g., NumPy), but still wish for your operation to chain with other ops and work with the autograd engine. In some situations, custom functions can also be used to improve performance and memory usage: If you implemented your forward and backward passes using a C++ extension, you can wrap them in Function to interface with the autograd engine. If you’d like to reduce the number of buffers saved for the backward pass, custom functions can be used to combine ops together. When not to use# If you can already write your function in terms of PyTorch’s built-in ops, its backward graph is (most likely) already able to be recorded by autograd. In this case, you do not need to implement the backward function yourself. Consider using a plain old Python function. If you need to maintain state, i.e., trainable parameters, you should (also) use a custom module. See the section below for more information on extending torch.nn. If you’d like to alter the gradients during the backward pass or perform a side effect, consider registering a tensor or Module hook. How to use# Take the following steps: 1. Subclass Function and implement the forward(), (optional) setup_context() and backward() methods. 2. Call the proper methods on the ctx argument. 3. Declare whether your function supports double backward. 4. Validate whether your gradients are correct using gradcheck. Step 1: After subclassing Function, you’ll need to define 3 methods: forward() is the code that performs the operation. It can take as many arguments as you want, with some of them being optional, if you specify the default values. All kinds of Python objects are accepted here. Tensor arguments that track history (i.e., with requires_grad=True) will be converted to ones that don’t track history before the call, and their use will be registered in..."
+       }
    </script>
 
   </body>

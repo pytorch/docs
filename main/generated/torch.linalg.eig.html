@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.linalg.eig">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4443,17 +4438,23 @@ will be given by the columns of <cite>eigenvectors</cite>.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.linalg.eig",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.linalg.eig",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.linalg.eig.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "torch.linalg.eig# torch.linalg.eig(A, *, out=None)# Computes the eigenvalue decomposition of a square matrix if it exists. Letting K\mathbb{K}K be R\mathbb{R}R or C\mathbb{C}C, the eigenvalue decomposition of a square matrix A∈Kn×nA \in \mathbb{K}^{n \times n}A∈Kn×n (if it exists) is defined as A=Vdiag⁡(Λ)V−1V∈Cn×n,Λ∈CnA = V \operatorname{diag}(\Lambda) V^{-1}\mathrlap{\qquad V \in \mathbb{C}^{n \times n}, \Lambda \in \mathbb{C}^n}A=Vdiag(Λ)V−1V∈Cn×n,Λ∈CnThis decomposition exists if and only if AAA is diagonalizable. This is the case when all its eigenvalues are different. Supports input of float, double, cfloat and cdouble dtypes. Also supports batches of matrices, and if A is a batch of matrices then the output has the same batch dimensions. The returned eigenvalues are not guaranteed to be in any specific order. Note The eigenvalues and eigenvectors of a real matrix may be complex. Note When inputs are on a CUDA device, this function synchronizes that device with the CPU. Warning This function assumes that A is diagonalizable (for example, when all the eigenvalues are different). If it is not diagonalizable, the returned eigenvalues will be correct but A≠Vdiag⁡(Λ)V−1A \neq V \operatorname{diag}(\Lambda)V^{-1}A=Vdiag(Λ)V−1. Warning The returned eigenvectors are normalized to have norm 1. Even then, the eigenvectors of a matrix are not unique, nor are they continuous with respect to A. Due to this lack of uniqueness, different hardware and software may compute different eigenvectors. This non-uniqueness is caused by the fact that multiplying an eigenvector by by eiϕ,ϕ∈Re^{i \phi}, \phi \in \mathbb{R}eiϕ,ϕ∈R produces another set of valid eigenvectors of the matrix. For this reason, the loss function shall not depend on the phase of the eigenvectors, as this quantity is not well-defined. This is checked when computing the gradients of this function. As such, when inputs are on a CUDA device, the computation of the gradients of this function synchronizes that device with the CPU. Warning Gradients computed using the eigenvectors tensor will only be finite when A has distinct eigenvalues. Furthermore, if the distance between any two eigenvalues is close to zero, the gradient will be numerically unstable, as it depends on the eigenvalues λi\lambda_iλi​ through the computation of 1min⁡i≠jλi−λj\frac{1}{\min_{i \neq j} \lambda_i - \lambda_j}mini=j​λi​−λj​1​. See also torch.linalg.eigvals() computes only the eigenvalues. Unlike torch.linalg.eig(), the gradients of eigvals() are always numerically stable. torch.linalg.eigh() for a (faster) function that computes the eigenvalue decomposition for Hermitian and symmetric matrices. torch.linalg.svd() for a function that computes another type of spectral decomposition that works on matrices of any shape. torch.linalg.qr() for another (much faster) decomposition that works on matrices of any shape. Parameters A (Tensor) – tensor of shape (*, n, n) where * is zero or more batch dimensions consisting of diag..."
+       }
    </script>
 
   </body>

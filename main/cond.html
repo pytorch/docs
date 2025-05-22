@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Control Flow - Cond">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Oct 03, 2023">
-   <meta itemprop="dateModified" content="Aug 05, 2024">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4191,7 +4186,7 @@ and branch functions becomes two sub-graph attributes of the top level graph mod
 <h3>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._higher_order_ops.cond.cond">
-<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.cond.</span></span><span class="sig-name descname"><span class="pre">cond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">false_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/_higher_order_ops/cond.py#L65"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.cond.cond" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.cond.</span></span><span class="sig-name descname"><span class="pre">cond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">false_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/_higher_order_ops/cond.py#L65"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.cond.cond" title="Permalink to this definition">#</a></dt>
 <dd><p>Conditionally applies <cite>true_fn</cite> or <cite>false_fn</cite>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4604,17 +4599,23 @@ are allowed in a branch)</p></li>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Control Flow - Cond",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Oct 03, 2023",
-        "dateModified": "Aug 05, 2024",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Control Flow - Cond",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/cond.html"
+         },
+         "datePublished": "Oct 03, 2023",
+         "dateModified": "Aug 05, 2024",
+         "articleBody": "Control Flow - Cond# Created On: Oct 03, 2023 | Last Updated On: Aug 05, 2024 torch.cond is a structured control flow operator. It can be used to specify if-else like control flow and can logically be seen as implemented as follows. def cond( pred: Union[bool, torch.Tensor], true_fn: Callable, false_fn: Callable, operands: Tuple[torch.Tensor] ): if pred: return true_fn(*operands) else: return false_fn(*operands) Its unique power lies in its ability of expressing data-dependent control flow: it lowers to a conditional operator (torch.ops.higher_order.cond), which preserves predicate, true function and false functions. This unlocks great flexibility in writing and deploying models that change model architecture based on the value or shape of inputs or intermediate outputs of tensor operations. Warning torch.cond is a prototype feature in PyTorch. It has limited support for input and output types and doesn’t support training currently. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype Examples# Below is an example that uses cond to branch based on input shape: import torch def true_fn(x: torch.Tensor): return x.cos() + x.sin() def false_fn(x: torch.Tensor): return x.sin() class DynamicShapeCondPredicate(torch.nn.Module): &#34;&#34;&#34; A basic usage of cond based on dynamic shape predicate. &#34;&#34;&#34; def __init__(self): super().__init__() def forward(self, x: torch.Tensor) -&gt; torch.Tensor: def true_fn(x: torch.Tensor): return x.cos() def false_fn(x: torch.Tensor): return x.sin() return torch.cond(x.shape[0] &gt; 4, true_fn, false_fn, (x,)) dyn_shape_mod = DynamicShapeCondPredicate() We can eagerly run the model and expect the results vary based on input shape: inp = torch.randn(3) inp2 = torch.randn(5) assert torch.equal(dyn_shape_mod(inp), false_fn(inp)) assert torch.equal(dyn_shape_mod(inp2), true_fn(inp2)) We can export the model for further transformations and deployment: inp = torch.randn(4, 3) dim_batch = torch.export.Dim(&#34;batch&#34;, min=2) ep = torch.export.export(DynamicShapeCondPredicate(), (inp,), {}, dynamic_shapes={&#34;x&#34;: {0: dim_batch}}) print(ep) This gives us an exported program as shown below: class GraphModule(torch.nn.Module): def forward(self, arg0_1: f32[s0, 3]): sym_size: Sym(s0) = torch.ops.aten.sym_size.int(arg0_1, 0) gt: Sym(s0 &gt; 4) = sym_size &gt; 4; sym_size = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 conditional: f32[s0, 3] = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [arg0_1]); gt = true_graph_0 = false_graph_0 = arg0_1 = None return (conditional,) class &lt;lambda&gt;(torch.nn.Module): def forward(self, arg0_1: f32[s0, 3]): cos: f32[s0, 3] = torch.ops.aten.cos.default(arg0_1) sin: f32[s0, 3] = torch.ops.aten.sin.default(arg0_1); arg0_1 = None add: f32[s0, 3] = torch.ops.aten.add.Tensor(cos, sin); cos = sin = None return add class &lt;lambda&gt;(torch.nn.Module..."
+       }
    </script>
 
   </body>

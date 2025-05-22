@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1522,12 +1522,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Multiprocessing best practices">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Jan 16, 2017">
-   <meta itemprop="dateModified" content="Apr 08, 2025">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -2114,17 +2109,23 @@ subscription, you can achieve a 30x performance boost.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Multiprocessing best practices",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Jan 16, 2017",
-        "dateModified": "Apr 08, 2025",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Multiprocessing best practices",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/notes/multiprocessing.html"
+         },
+         "datePublished": "Jan 16, 2017",
+         "dateModified": "Apr 08, 2025",
+         "articleBody": "Multiprocessing best practices# Created On: Jan 16, 2017 | Last Updated On: Apr 08, 2025 torch.multiprocessing is a drop in replacement for Python’s multiprocessing module. It supports the exact same operations, but extends it, so that all tensors sent through a multiprocessing.Queue, will have their data moved into shared memory and will only send a handle to another process. Note When a Tensor is sent to another process, the Tensor data is shared. If torch.Tensor.grad is not None, it is also shared. After a Tensor without a torch.Tensor.grad field is sent to the other process, it creates a standard process-specific .grad Tensor that is not automatically shared across all processes, unlike how the Tensor’s data has been shared. This allows to implement various training methods, like Hogwild, A3C, or any others that require asynchronous operation. Poison fork in multiprocessing# When using multiprocessing with accelerators, a known issue called “poison fork” may occur. This happens when the accelerator’s runtime is not fork safe and is initialized before a process forks, leading to runtime errors in child processes. To prevent such errors: Avoid initializing the accelerator in the main process beofre forking child processes. Use an alternative process start methods, such as spawn or forkserver, which ensures a clean initialization of each process. CUDA in multiprocessing# The CUDA runtime has the limitation described in Poison fork in multiprocessing when using the fork start method; either the spawn or forkserver start method are required to use CUDA in subprocesses. Note The start method can be set via either creating a context with multiprocessing.get_context(...) or directly using multiprocessing.set_start_method(...). Unlike CPU tensors, the sending process is required to keep the original tensor as long as the receiving process retains a copy of the tensor. It is implemented under the hood but requires users to follow the best practices for the program to run correctly. For example, the sending process must stay alive as long as the consumer process has references to the tensor, and the refcounting can not save you if the consumer process exits abnormally via a fatal signal. See this section. See also: Use nn.parallel.DistributedDataParallel instead of multiprocessing or nn.DataParallel Best practices and tips# Avoiding and fighting deadlocks# There are a lot of things that can go wrong when a new process is spawned, with the most common cause of deadlocks being background threads. If there’s any thread that holds a lock or imports a module, and fork is called, it’s very likely that the subprocess will be in a corrupted state and will deadlock or fail in a different way. Note that even if you don’t, Python built in libraries do - no need to look further than multiprocessing. multiprocessing.Queue is actually a very complex class, that spawns multiple threads used to serialize, send and receive objects, and they can cause aforementioned p..."
+       }
    </script>
 
   </body>

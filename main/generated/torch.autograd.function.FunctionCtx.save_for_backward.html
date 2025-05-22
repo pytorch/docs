@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.autograd.function.FunctionCtx.save_for_backward">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4026,7 +4021,7 @@ document.write(`
 <h1>torch.autograd.function.FunctionCtx.save_for_backward<a class="headerlink" href="#torch-autograd-function-functionctx-save-for-backward" title="Permalink to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.FunctionCtx.save_for_backward">
-<span class="sig-prename descclassname"><span class="pre">FunctionCtx.</span></span><span class="sig-name descname"><span class="pre">save_for_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/autograd/function.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.FunctionCtx.save_for_backward" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">FunctionCtx.</span></span><span class="sig-name descname"><span class="pre">save_for_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/autograd/function.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.FunctionCtx.save_for_backward" title="Permalink to this definition">#</a></dt>
 <dd><p>Save given tensors for a future call to <code class="xref py py-func docutils literal notranslate"><span class="pre">backward()</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">save_for_backward</span></code> should be called at most once, in either the
 <code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code> or <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> methods, and only with tensors.</p>
@@ -4050,8 +4045,8 @@ attribute. Before returning them to the user, a check is made to ensure
 they weren’t used in any in-place operation that modified their content.</p>
 <p>Arguments can also be <code class="docutils literal notranslate"><span class="pre">None</span></code>. This is a no-op.</p>
 <p>See <a class="reference internal" href="../notes/extending.html#extending-autograd"><span class="std std-ref">Extending torch.autograd</span></a> for more details on how to use this method.</p>
-<dl>
-<dt>Example::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Func</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Func</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="nd">@staticmethod</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>        <span class="n">w</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">z</span>
@@ -4076,8 +4071,6 @@ they weren’t used in any in-place operation that modified their content.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">Func</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -4401,17 +4394,23 @@ they weren’t used in any in-place operation that modified their content.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.autograd.function.FunctionCtx.save_for_backward",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.autograd.function.FunctionCtx.save_for_backward",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.autograd.function.FunctionCtx.save_for_backward.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "torch.autograd.function.FunctionCtx.save_for_backward# FunctionCtx.save_for_backward(*tensors)[source]# Save given tensors for a future call to backward(). save_for_backward should be called at most once, in either the setup_context() or forward() methods, and only with tensors. All tensors intended to be used in the backward pass should be saved with save_for_backward (as opposed to directly on ctx) to prevent incorrect gradients and memory leaks, and enable the application of saved tensor hooks. See torch.autograd.graph.saved_tensors_hooks. See Extending torch.autograd for more details. Note that if intermediary tensors, tensors that are neither inputs nor outputs of forward(), are saved for backward, your custom Function may not support double backward. Custom Functions that do not support double backward should decorate their backward() method with @once_differentiable so that performing double backward raises an error. If you’d like to support double backward, you can either recompute intermediaries based on the inputs during backward or return the intermediaries as the outputs of the custom Function. See the double backward tutorial for more details. In backward(), saved tensors can be accessed through the saved_tensors attribute. Before returning them to the user, a check is made to ensure they weren’t used in any in-place operation that modified their content. Arguments can also be None. This is a no-op. See Extending torch.autograd for more details on how to use this method. Example: &gt;&gt;&gt; class Func(Function): &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; def forward(ctx, x: torch.Tensor, y: torch.Tensor, z: int): &gt;&gt;&gt; w = x * z &gt;&gt;&gt; out = x * y + y * z + w * y &gt;&gt;&gt; ctx.save_for_backward(x, y, w, out) &gt;&gt;&gt; ctx.z = z # z is not a tensor &gt;&gt;&gt; return out &gt;&gt;&gt; &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; @once_differentiable &gt;&gt;&gt; def backward(ctx, grad_out): &gt;&gt;&gt; x, y, w, out = ctx.saved_tensors &gt;&gt;&gt; z = ctx.z &gt;&gt;&gt; gx = grad_out * (y + y * z) &gt;&gt;&gt; gy = grad_out * (x + z + w) &gt;&gt;&gt; gz = None &gt;&gt;&gt; return gx, gy, gz &gt;&gt;&gt; &gt;&gt;&gt; a = torch.tensor(1., requires_grad=True, dtype=torch.double) &gt;&gt;&gt; b = torch.tensor(2., requires_grad=True, dtype=torch.double) &gt;&gt;&gt; c = 4 &gt;&gt;&gt; d = Func.apply(a, b, c)"
+       }
    </script>
 
   </body>

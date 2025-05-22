@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.linalg.pinv">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4446,17 +4441,23 @@ or symmetric if real. Default: <cite>False</cite>.</p></li>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.linalg.pinv",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.linalg.pinv",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.linalg.pinv.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "torch.linalg.pinv# torch.linalg.pinv(A, *, atol=None, rtol=None, hermitian=False, out=None) → Tensor# Computes the pseudoinverse (Moore-Penrose inverse) of a matrix. The pseudoinverse may be defined algebraically but it is more computationally convenient to understand it through the SVD Supports input of float, double, cfloat and cdouble dtypes. Also supports batches of matrices, and if A is a batch of matrices then the output has the same batch dimensions. If hermitian= True, A is assumed to be Hermitian if complex or symmetric if real, but this is not checked internally. Instead, just the lower triangular part of the matrix is used in the computations. The singular values (or the norm of the eigenvalues when hermitian= True) that are below max⁡(atol,σ1⋅rtol)\max(\text{atol}, \sigma_1 \cdot \text{rtol})max(atol,σ1​⋅rtol) threshold are treated as zero and discarded in the computation, where σ1\sigma_1σ1​ is the largest singular value (or eigenvalue). If rtol is not specified and A is a matrix of dimensions (m, n), the relative tolerance is set to be rtol=max⁡(m,n)ε\text{rtol} = \max(m, n) \varepsilonrtol=max(m,n)ε and ε\varepsilonε is the epsilon value for the dtype of A (see finfo). If rtol is not specified and atol is specified to be larger than zero then rtol is set to zero. If atol or rtol is a torch.Tensor, its shape must be broadcastable to that of the singular values of A as returned by torch.linalg.svd(). Note This function uses torch.linalg.svd() if hermitian= False and torch.linalg.eigh() if hermitian= True. For CUDA inputs, this function synchronizes that device with the CPU. Note Consider using torch.linalg.lstsq() if possible for multiplying a matrix on the left by the pseudoinverse, as: torch.linalg.lstsq(A, B).solution == A.pinv() @ B It is always preferred to use lstsq() when possible, as it is faster and more numerically stable than computing the pseudoinverse explicitly. Note This function has NumPy compatible variant linalg.pinv(A, rcond, hermitian=False). However, use of the positional argument rcond is deprecated in favor of rtol. Warning This function uses internally torch.linalg.svd() (or torch.linalg.eigh() when hermitian= True), so its derivative has the same problems as those of these functions. See the warnings in torch.linalg.svd() and torch.linalg.eigh() for more details. See also torch.linalg.inv() computes the inverse of a square matrix. torch.linalg.lstsq() computes A.pinv() @ B with a numerically stable algorithm. Parameters A (Tensor) – tensor of shape (*, m, n) where * is zero or more batch dimensions. rcond (float, Tensor, optional) – [NumPy Compat]. Alias for rtol. Default: None. Keyword Arguments atol (float, Tensor, optional) – the absolute tolerance value. When None it’s considered to be zero. Default: None. rtol (float, Tensor, optional) – the relative tolerance value. See above for the value it takes when None. Default: None. hermitian (bool, optional) – indicates whether A is Hermitian if complex or s..."
+       }
    </script>
 
   </body>

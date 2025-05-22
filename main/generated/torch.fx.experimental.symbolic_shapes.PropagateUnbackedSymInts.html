@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="PropagateUnbackedSymInts">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4026,12 +4021,12 @@ document.write(`
 <h1>PropagateUnbackedSymInts<a class="headerlink" href="#propagateunbackedsymints" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">PropagateUnbackedSymInts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">garbage_collect_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/fx/experimental/symbolic_shapes.py#L7459"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">PropagateUnbackedSymInts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">garbage_collect_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/fx/experimental/symbolic_shapes.py#L7459"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.boxed_run">
-<span class="sig-name descname"><span class="pre">boxed_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args_list</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/fx/interpreter.py#L200"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.boxed_run" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">boxed_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args_list</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/fx/interpreter.py#L200"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.boxed_run" title="Permalink to this definition">#</a></dt>
 <dd><p>Run <cite>module</cite> via interpretation and return the result.  This uses the “boxed”
 calling convention, where you pass a list of arguments, which will be cleared
 by the interpreter.  This ensures that input tensors are promptly deallocated.</p>
@@ -4043,7 +4038,7 @@ by the interpreter.  This ensures that input tensors are promptly deallocated.</
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_function">
-<span class="sig-name descname"><span class="pre">call_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/fx/interpreter.py#L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_function" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">call_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/fx/interpreter.py#L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_function" title="Permalink to this definition">#</a></dt>
 <dd><p>Execute a <code class="docutils literal notranslate"><span class="pre">call_function</span></code> node and return the result.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4071,7 +4066,7 @@ details on semantics</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_method">
-<span class="sig-name descname"><span class="pre">call_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/fx/interpreter.py#L322"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_method" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">call_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/fx/interpreter.py#L322"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_method" title="Permalink to this definition">#</a></dt>
 <dd><p>Execute a <code class="docutils literal notranslate"><span class="pre">call_method</span></code> node and return the result.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4099,7 +4094,7 @@ details on semantics</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_module">
-<span class="sig-name descname"><span class="pre">call_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/fx/interpreter.py#L346"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_module" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">call_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/fx/interpreter.py#L346"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_module" title="Permalink to this definition">#</a></dt>
 <dd><p>Execute a <code class="docutils literal notranslate"><span class="pre">call_module</span></code> node and return the result.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4127,7 +4122,7 @@ details on semantics</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.fetch_args_kwargs_from_env">
-<span class="sig-name descname"><span class="pre">fetch_args_kwargs_from_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/fx/interpreter.py#L413"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.fetch_args_kwargs_from_env" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fetch_args_kwargs_from_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/fx/interpreter.py#L413"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.fetch_args_kwargs_from_env" title="Permalink to this definition">#</a></dt>
 <dd><p>Fetch the concrete values of <code class="docutils literal notranslate"><span class="pre">args</span></code> and <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> of node <code class="docutils literal notranslate"><span class="pre">n</span></code>
 from the current execution environment.</p>
 <dl class="field-list simple">
@@ -4149,7 +4144,7 @@ from the current execution environment.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.fetch_attr">
-<span class="sig-name descname"><span class="pre">fetch_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/fx/interpreter.py#L392"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.fetch_attr" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fetch_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/fx/interpreter.py#L392"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.fetch_attr" title="Permalink to this definition">#</a></dt>
 <dd><p>Fetch an attribute from the <code class="docutils literal notranslate"><span class="pre">Module</span></code> hierarchy of <code class="docutils literal notranslate"><span class="pre">self.module</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4170,7 +4165,7 @@ from the current execution environment.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.get_attr">
-<span class="sig-name descname"><span class="pre">get_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/fx/interpreter.py#L279"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.get_attr" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/fx/interpreter.py#L279"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.get_attr" title="Permalink to this definition">#</a></dt>
 <dd><p>Execute a <code class="docutils literal notranslate"><span class="pre">get_attr</span></code> node. Will retrieve an attribute
 value from the <code class="docutils literal notranslate"><span class="pre">Module</span></code> hierarchy of <code class="docutils literal notranslate"><span class="pre">self.module</span></code>.</p>
 <dl class="field-list simple">
@@ -4198,7 +4193,7 @@ details on semantics</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.map_nodes_to_values">
-<span class="sig-name descname"><span class="pre">map_nodes_to_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/fx/interpreter.py#L431"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.map_nodes_to_values" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">map_nodes_to_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/fx/interpreter.py#L431"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.map_nodes_to_values" title="Permalink to this definition">#</a></dt>
 <dd><p>Recursively descend through <code class="docutils literal notranslate"><span class="pre">args</span></code> and look up the concrete value
 for each <code class="docutils literal notranslate"><span class="pre">Node</span></code> in the current execution environment.</p>
 <dl class="field-list simple">
@@ -4220,7 +4215,7 @@ for each <code class="docutils literal notranslate"><span class="pre">Node</span
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.output">
-<span class="sig-name descname"><span class="pre">output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/fx/interpreter.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.output" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/fx/interpreter.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.output" title="Permalink to this definition">#</a></dt>
 <dd><p>Execute an <code class="docutils literal notranslate"><span class="pre">output</span></code> node. This really just retrieves
 the value referenced by the <code class="docutils literal notranslate"><span class="pre">output</span></code> node and returns it.</p>
 <dl class="field-list simple">
@@ -4248,7 +4243,7 @@ details on semantics</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.placeholder">
-<span class="sig-name descname"><span class="pre">placeholder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/fx/interpreter.py#L243"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.placeholder" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">placeholder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/fx/interpreter.py#L243"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.placeholder" title="Permalink to this definition">#</a></dt>
 <dd><p>Execute a <code class="docutils literal notranslate"><span class="pre">placeholder</span></code> node. Note that this is stateful:
 <code class="docutils literal notranslate"><span class="pre">Interpreter</span></code> maintains an internal iterator over
 arguments passed to <code class="docutils literal notranslate"><span class="pre">run</span></code> and this method returns
@@ -4278,7 +4273,7 @@ details on semantics</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_env</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_io_processing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/fx/interpreter.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_env</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_io_processing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/fx/interpreter.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run" title="Permalink to this definition">#</a></dt>
 <dd><p>Run <cite>module</cite> via interpretation and return the result.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4307,7 +4302,7 @@ process_outputs function first before using them.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run_node">
-<span class="sig-name descname"><span class="pre">run_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/fx/experimental/symbolic_shapes.py#L7460"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run_node" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">run_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/fx/experimental/symbolic_shapes.py#L7460"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run_node" title="Permalink to this definition">#</a></dt>
 <dd><p>Run an FX node, propagating unbacked Symbol bindings to the new fake tensor</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4651,17 +4646,23 @@ process_outputs function first before using them.</p></li>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "PropagateUnbackedSymInts",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "PropagateUnbackedSymInts",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "PropagateUnbackedSymInts# class torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts(module, garbage_collect_values=True, graph=None)[source]# boxed_run(args_list)[source]# Run module via interpretation and return the result. This uses the “boxed” calling convention, where you pass a list of arguments, which will be cleared by the interpreter. This ensures that input tensors are promptly deallocated. Note Backwards-compatibility for this API is guaranteed. call_function(target, args, kwargs)[source]# Execute a call_function node and return the result. Parameters target (Target) – The call target for this node. See Node for details on semantics args (Tuple) – Tuple of positional args for this invocation kwargs (Dict) – Dict of keyword arguments for this invocation Return type Any ReturnAny: The value returned by the function invocation Note Backwards-compatibility for this API is guaranteed. call_method(target, args, kwargs)[source]# Execute a call_method node and return the result. Parameters target (Target) – The call target for this node. See Node for details on semantics args (Tuple) – Tuple of positional args for this invocation kwargs (Dict) – Dict of keyword arguments for this invocation Return type Any ReturnAny: The value returned by the method invocation Note Backwards-compatibility for this API is guaranteed. call_module(target, args, kwargs)[source]# Execute a call_module node and return the result. Parameters target (Target) – The call target for this node. See Node for details on semantics args (Tuple) – Tuple of positional args for this invocation kwargs (Dict) – Dict of keyword arguments for this invocation Return type Any ReturnAny: The value returned by the module invocation Note Backwards-compatibility for this API is guaranteed. fetch_args_kwargs_from_env(n)[source]# Fetch the concrete values of args and kwargs of node n from the current execution environment. Parameters n (Node) – The node for which args and kwargs should be fetched. Returns args and kwargs with concrete values for n. Return type Tuple[Tuple, Dict] Note Backwards-compatibility for this API is guaranteed. fetch_attr(target)[source]# Fetch an attribute from the Module hierarchy of self.module. Parameters target (str) – The fully-qualified name of the attribute to fetch Returns The value of the attribute. Return type Any Note Backwards-compatibility for this API is guaranteed. get_attr(target, args, kwargs)[source]# Execute a get_attr node. Will retrieve an attribute value from the Module hierarchy of self.module. Parameters target (Target) – The call target for this node. See Node for details on semantics args (Tuple) – Tuple of positional args for this invocation kwargs (Dict) – Dict of keyword arguments for this invocation Returns The value of the attribute that was retrieved Return type Any Note Backwards-compatibility for this API is guaranteed. map_nodes_to_values(args, n)[source]# Recursively descend through args and look up the concrete value..."
+       }
    </script>
 
   </body>

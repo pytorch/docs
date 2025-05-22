@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3985,12 +3985,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.fx.experimental">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Feb 07, 2024">
-   <meta itemprop="dateModified" content="Apr 29, 2025">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4512,17 +4507,23 @@ document.write(`
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.fx.experimental",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Feb 07, 2024",
-        "dateModified": "Apr 29, 2025",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.fx.experimental",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/fx.experimental.html"
+         },
+         "datePublished": "Feb 07, 2024",
+         "dateModified": "Apr 29, 2025",
+         "articleBody": "torch.fx.experimental# Created On: Feb 07, 2024 | Last Updated On: Apr 29, 2025 Warning These APIs are experimental and subject to change without notice. torch.fx.experimental.symbolic_shapes# ShapeEnv DimDynamic Controls how to perform symbol allocation for a dimension. StrictMinMaxConstraint For clients: the size at this dimension must be within &#39;vr&#39; (which specifies a lower and upper bound, inclusive-inclusive) AND it must be non-negative and should not be 0 or 1 (but see NB below). RelaxedUnspecConstraint For clients: no explicit constraint; constraint is whatever is implicitly inferred by guards from tracing. EqualityConstraint Represent and decide various kinds of equality constraints between input sources. SymbolicContext Data structure specifying how we should create symbols in create_symbolic_sizes_strides_storage_offset; e.g., should they be static or dynamic. StatelessSymbolicContext Create symbols in create_symbolic_sizes_strides_storage_offset via a symbolic_context determination as given by DimDynamic and DimConstraint. StatefulSymbolicContext Create symbols in create_symbolic_sizes_strides_storage_offset via a symbolic_context determination as given by a cache of Source:Symbol. SubclassSymbolicContext The correct symbolic context for a given inner tensor of a traceable tensor subclass may differ from that of the outer symbolic context. DimConstraints Custom solver for a system of constraints on symbolic dimensions. ShapeEnvSettings Encapsulates all shape env settings that could potentially affect FakeTensor dispatch. ConvertIntKey CallMethodKey PropagateUnbackedSymInts DivideByKey InnerTensorKey hint_int Retrieve the hint for an int (based on the underlying real values as observed at runtime). is_concrete_int Utility to check if underlying object in SymInt is concrete value. is_concrete_bool Utility to check if underlying object in SymBool is concrete value. is_concrete_float Utility to check if underlying object in SymInt is concrete value. has_free_symbols Faster version of bool(free_symbols(val)) has_free_unbacked_symbols Faster version of bool(free_unbacked_symbols(val)) guard_or_true Try to guard a, if data dependent error encountered just return true. guard_or_false Try to guard a, if data dependent error encountered just return false. guard_size_oblivious Perform a guard on a symbolic boolean expression in a size oblivious way. sym_and and, but for symbolic expressions, without bool casting. sym_eq Like ==, but when run on list/tuple, it will recursively test equality and use sym_and to join the results together, without guarding. sym_or or, but for symbolic expressions, without bool casting. constrain_range Applies a constraint that the passed in SymInt must lie between min-max inclusive-inclusive, WITHOUT introducing a guard on the SymInt (meaning that it can be used on unbacked SymInts). constrain_unify Given two SymInts, constrain them so that they must be equal. canonicalize_bool_expr Canonicalize a boolean expressio..."
+       }
    </script>
 
   </body>

@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Remote Reference Protocol">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Nov 20, 2019">
-   <meta itemprop="dateModified" content="Apr 27, 2025">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4629,17 +4624,23 @@ provided function. During this time, the parent (A) will hold its
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Remote Reference Protocol",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Nov 20, 2019",
-        "dateModified": "Apr 27, 2025",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Remote Reference Protocol",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/rpc/rref.html"
+         },
+         "datePublished": "Nov 20, 2019",
+         "dateModified": "Apr 27, 2025",
+         "articleBody": "Remote Reference Protocol# Created On: Nov 20, 2019 | Last Updated On: Apr 27, 2025 This note describes the design details of Remote Reference protocol and walks through message flows in different scenarios. Make sure you’re familiar with the Distributed RPC Framework before proceeding. Background# RRef stands for Remote REFerence. It is a reference of an object which is located on the local or remote worker, and transparently handles reference counting under the hood. Conceptually, it can be considered as a distributed shared pointer. Applications can create an RRef by calling remote(). Each RRef is owned by the callee worker of the remote() call (i.e., owner) and can be used by multiple users. The owner stores the real data and keeps track of the global reference count. Every RRef can be uniquely identified by a global RRefId, which is assigned at the time of creation on the caller of the remote() call. On the owner worker, there is only one OwnerRRef instance, which contains the real data, while on user workers, there can be as many UserRRefs as necessary, and UserRRef does not hold the data. All usage on the owner will retrieve the unique OwnerRRef instance using the globally unique RRefId. A UserRRef will be created when it is used as an argument or return value in rpc_sync(), rpc_async() or remote() invocation, and the owner will be notified according to update the reference count. An OwnerRRef and its data will be deleted when there is no UserRRef instances globally and there are no reference to the OwnerRRef on the owner as well. Assumptions# RRef protocol is designed with the following assumptions. Transient Network Failures: The RRef design handles transient network failures by retrying messages. It cannot handle node crashes or permanent network partitions. When those incidents occur, the application should take down all workers, revert to the previous checkpoint, and resume training. Non-idempotent UDFs: We assume the user functions (UDF) provided to rpc_sync(), rpc_async() or remote() are not idempotent and therefore cannot be retried. However, internal RRef control messages are idempotent and retried upon message failure. Out of Order Message Delivery: We do not assume message delivery order between any pair of nodes, because both sender and receiver are using multiple threads. There is no guarantee on which message will be processed first. RRef Lifetime# The goal of the protocol is to delete an OwnerRRef at an appropriate time. The right time to delete an OwnerRRef is when there are no living UserRRef instances and user code is not holding references to the OwnerRRef either. The tricky part is to determine if there are any living UserRRef instances. Design Reasoning# A user can get a UserRRef in three situations: Receiving a UserRRef from the owner. Receiving a UserRRef from another user. Creating a new UserRRef owned by another worker. Case 1 is the simplest where the owner passes its RRef to a user, where the owner calls rpc_s..."
+       }
    </script>
 
   </body>

@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3993,12 +3993,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Patching Batch Norm">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Jan 03, 2023">
-   <meta itemprop="dateModified" content="Mar 21, 2023">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4446,17 +4441,23 @@ have a net where you want the BatchNorm to not use running stats, you can run
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Patching Batch Norm",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Jan 03, 2023",
-        "dateModified": "Mar 21, 2023",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Patching Batch Norm",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/func.batch_norm.html"
+         },
+         "datePublished": "Jan 03, 2023",
+         "dateModified": "Mar 21, 2023",
+         "articleBody": "Patching Batch Norm# Created On: Jan 03, 2023 | Last Updated On: Mar 21, 2023 What’s happening?# Batch Norm requires in-place updates to running_mean and running_var of the same size as the input. Functorch does not support inplace update to a regular tensor that takes in a batched tensor (i.e. regular.add_(batched) is not allowed). So when vmapping over a batch of inputs to a single module, we end up with this error How to fix# One of the best supported ways is to switch BatchNorm for GroupNorm. Options 1 and 2 support this All of these options assume that you don’t need running stats. If you’re using a module this means that it’s assumed you won’t use batch norm in evaluation mode. If you have a use case that involves running batch norm with vmap in evaluation mode, please file an issue Option 1: Change the BatchNorm# If you want to change for GroupNorm, anywhere that you have BatchNorm, replace it with: BatchNorm2d(C, G, track_running_stats=False) Here C is the same C as in the original BatchNorm. G is the number of groups to break C into. As such, C % G == 0 and as a fallback, you can set C == G, meaning each channel will be treated separately. If you must use BatchNorm and you’ve built the module yourself, you can change the module to not use running stats. In other words, anywhere that there’s a BatchNorm module, set the track_running_stats flag to be False BatchNorm2d(64, track_running_stats=False) Option 2: torchvision parameter# Some torchvision models, like resnet and regnet, can take in a norm_layer parameter. These are often defaulted to be BatchNorm2d if they’ve been defaulted. Instead you can set it to be GroupNorm. import torchvision from functools import partial torchvision.models.resnet18(norm_layer=lambda c: GroupNorm(num_groups=g, c)) Here, once again, c % g == 0 so as a fallback, set g = c. If you are attached to BatchNorm, be sure to use a version that doesn’t use running stats import torchvision from functools import partial torchvision.models.resnet18(norm_layer=partial(BatchNorm2d, track_running_stats=False)) Option 3: functorch’s patching# functorch has added some functionality to allow for quick, in-place patching of the module to not use running stats. Changing the norm layer is more fragile, so we have not offered that. If you have a net where you want the BatchNorm to not use running stats, you can run replace_all_batch_norm_modules_ to update the module in-place to not use running stats from torch.func import replace_all_batch_norm_modules_ replace_all_batch_norm_modules_(net) Option 4: eval mode# When run under eval mode, the running_mean and running_var will not be updated. Therefore, vmap can support this mode model.eval() vmap(model)(x) model.train()"
+       }
    </script>
 
   </body>

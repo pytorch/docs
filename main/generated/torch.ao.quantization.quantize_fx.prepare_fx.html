@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3993,12 +3993,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="prepare_fx">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4037,7 +4032,7 @@ document.write(`
 <h1>prepare_fx<a class="headerlink" href="#prepare-fx" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.quantize_fx.prepare_fx">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.quantize_fx.</span></span><span class="sig-name descname"><span class="pre">prepare_fx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qconfig_mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepare_custom_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_equalization_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/quantization/quantize_fx.py#L252"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.quantize_fx.prepare_fx" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.quantize_fx.</span></span><span class="sig-name descname"><span class="pre">prepare_fx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qconfig_mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepare_custom_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_equalization_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/quantization/quantize_fx.py#L252"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.quantize_fx.prepare_fx" title="Permalink to this definition">#</a></dt>
 <dd><p>Prepare a model for post training quantization</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4491,17 +4486,23 @@ inserted, supported dtypes etc. See <a class="reference internal" href="torch.ao
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "prepare_fx",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "prepare_fx",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.ao.quantization.quantize_fx.prepare_fx.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "prepare_fx# class torch.ao.quantization.quantize_fx.prepare_fx(model, qconfig_mapping, example_inputs, prepare_custom_config=None, _equalization_config=None, backend_config=None)[source]# Prepare a model for post training quantization Parameters model (*) – torch.nn.Module model qconfig_mapping (*) – QConfigMapping object to configure how a model is quantized, see QConfigMapping for more details example_inputs (*) – Example inputs for forward function of the model, Tuple of positional args (keyword args can be passed as positional args as well) prepare_custom_config (*) – customization configuration for quantization tool. See PrepareCustomConfig for more details _equalization_config (*) – config for specifying how to perform equalization on the model backend_config (*) – config that specifies how operators are quantized in a backend, this includes how the operators are observed, supported fusion patterns, how quantize/dequantize ops are inserted, supported dtypes etc. See BackendConfig for more details Returns A GraphModule with observer (configured by qconfig_mapping), ready for calibration Return type GraphModule Example: import torch from torch.ao.quantization import get_default_qconfig_mapping from torch.ao.quantization.quantize_fx import prepare_fx class Submodule(torch.nn.Module): def __init__(self) -&gt; None: super().__init__() self.linear = torch.nn.Linear(5, 5) def forward(self, x): x = self.linear(x) return x class M(torch.nn.Module): def __init__(self) -&gt; None: super().__init__() self.linear = torch.nn.Linear(5, 5) self.sub = Submodule() def forward(self, x): x = self.linear(x) x = self.sub(x) + x return x # initialize a floating point model float_model = M().eval() # define calibration function def calibrate(model, data_loader): model.eval() with torch.no_grad(): for image, target in data_loader: model(image) # qconfig is the configuration for how we insert observers for a particular # operator # qconfig = get_default_qconfig(&#34;fbgemm&#34;) # Example of customizing qconfig: # qconfig = torch.ao.quantization.QConfig( # activation=MinMaxObserver.with_args(dtype=torch.qint8), # weight=MinMaxObserver.with_args(dtype=torch.qint8)) # `activation` and `weight` are constructors of observer module # qconfig_mapping is a collection of quantization configurations, user can # set the qconfig for each operator (torch op calls, functional calls, module calls) # in the model through qconfig_mapping # the following call will get the qconfig_mapping that works best for models # that target &#34;fbgemm&#34; backend qconfig_mapping = get_default_qconfig_mapping(&#34;fbgemm&#34;) # We can customize qconfig_mapping in different ways. # e.g. set the global qconfig, which means we will use the same qconfig for # all operators in the model, this can be overwritten by other settings # qconfig_mapping = QConfigMapping().set_global(qconfig) # e.g. quantize the linear submodule with a specific qconfig # qconfig_mapping = QConfigMapping().set_module_name(&#34;linear&#34;, qconfig) # e.g. qu..."
+       }
    </script>
 
   </body>

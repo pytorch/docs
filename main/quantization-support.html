@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Quantization API Reference">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Jul 25, 2020">
-   <meta itemprop="dateModified" content="Apr 01, 2025">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -5471,17 +5466,23 @@ while adding an import statement here.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Quantization API Reference",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Jul 25, 2020",
-        "dateModified": "Apr 01, 2025",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Quantization API Reference",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/quantization-support.html"
+         },
+         "datePublished": "Jul 25, 2020",
+         "dateModified": "Apr 01, 2025",
+         "articleBody": "Quantization API Reference# Created On: Jul 25, 2020 | Last Updated On: Apr 01, 2025 torch.ao.quantization# This module contains Eager mode quantization APIs. Top level APIs# quantize Quantize the input float model with post training static quantization. quantize_dynamic Converts a float model to dynamic (i.e. quantize_qat Do quantization aware training and output a quantized model prepare Prepares a copy of the model for quantization calibration or quantization-aware training. prepare_qat Prepares a copy of the model for quantization calibration or quantization-aware training and converts it to quantized version. convert Converts submodules in input module to a different module according to mapping by calling from_float method on the target module class. Preparing model for quantization# fuse_modules.fuse_modules Fuse a list of modules into a single module. QuantStub Quantize stub module, before calibration, this is same as an observer, it will be swapped as nnq.Quantize in convert. DeQuantStub Dequantize stub module, before calibration, this is same as identity, this will be swapped as nnq.DeQuantize in convert. QuantWrapper A wrapper class that wraps the input module, adds QuantStub and DeQuantStub and surround the call to module with call to quant and dequant modules. add_quant_dequant Wrap the leaf child module in QuantWrapper if it has a valid qconfig Note that this function will modify the children of module inplace and it can return a new module which wraps the input module as well. Utility functions# swap_module Swaps the module if it has a quantized counterpart and it has an observer attached. propagate_qconfig_ Propagate qconfig through the module hierarchy and assign qconfig attribute on each leaf module default_eval_fn Define the default evaluation function. torch.ao.quantization.quantize_fx# This module contains FX graph mode quantization APIs (prototype). prepare_fx Prepare a model for post training quantization prepare_qat_fx Prepare a model for quantization aware training convert_fx Convert a calibrated or trained model to a quantized model fuse_fx Fuse modules like conv+bn, conv+bn+relu etc, model must be in eval mode. torch.ao.quantization.qconfig_mapping# This module contains QConfigMapping for configuring FX graph mode quantization. QConfigMapping Mapping from model ops to torch.ao.quantization.QConfig s. get_default_qconfig_mapping Return the default QConfigMapping for post training quantization. get_default_qat_qconfig_mapping Return the default QConfigMapping for quantization aware training. torch.ao.quantization.backend_config# This module contains BackendConfig, a config object that defines how quantization is supported in a backend. Currently only used by FX Graph Mode Quantization, but we may extend Eager Mode Quantization to work with this as well. BackendConfig Config that defines the set of patterns that can be quantized on a given backend, and how reference quantized models can be produced from these patterns. B..."
+       }
    </script>
 
   </body>

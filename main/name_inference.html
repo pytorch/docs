@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3985,12 +3985,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Named Tensors operator coverage">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Oct 08, 2019">
-   <meta itemprop="dateModified" content="Aug 29, 2023">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -5242,17 +5237,23 @@ from name inference. For example:</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Named Tensors operator coverage",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Oct 08, 2019",
-        "dateModified": "Aug 29, 2023",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Named Tensors operator coverage",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/name_inference.html"
+         },
+         "datePublished": "Oct 08, 2019",
+         "dateModified": "Aug 29, 2023",
+         "articleBody": "Named Tensors operator coverage# Created On: Oct 08, 2019 | Last Updated On: Aug 29, 2023 Please read Named Tensors first for an introduction to named tensors. This document is a reference for name inference, a process that defines how named tensors: use names to provide additional automatic runtime correctness checks propagate names from input tensors to output tensors Below is a list of all operations that are supported with named tensors and their associated name inference rules. If you don’t see an operation listed here, but it would help your use case, please search if an issue has already been filed and if not, file one. Warning The named tensor API is experimental and subject to change. Supported Operations# API Name inference rule Tensor.abs(), torch.abs() Keeps input names Tensor.abs_() Keeps input names Tensor.acos(), torch.acos() Keeps input names Tensor.acos_() Keeps input names Tensor.add(), torch.add() Unifies names from inputs Tensor.add_() Unifies names from inputs Tensor.addmm(), torch.addmm() Contracts away dims Tensor.addmm_() Contracts away dims Tensor.addmv(), torch.addmv() Contracts away dims Tensor.addmv_() Contracts away dims Tensor.align_as() See documentation Tensor.align_to() See documentation Tensor.all(), torch.all() None Tensor.any(), torch.any() None Tensor.asin(), torch.asin() Keeps input names Tensor.asin_() Keeps input names Tensor.atan(), torch.atan() Keeps input names Tensor.atan2(), torch.atan2() Unifies names from inputs Tensor.atan2_() Unifies names from inputs Tensor.atan_() Keeps input names Tensor.bernoulli(), torch.bernoulli() Keeps input names Tensor.bernoulli_() None Tensor.bfloat16() Keeps input names Tensor.bitwise_not(), torch.bitwise_not() Keeps input names Tensor.bitwise_not_() None Tensor.bmm(), torch.bmm() Contracts away dims Tensor.bool() Keeps input names Tensor.byte() Keeps input names torch.cat() Unifies names from inputs Tensor.cauchy_() None Tensor.ceil(), torch.ceil() Keeps input names Tensor.ceil_() None Tensor.char() Keeps input names Tensor.chunk(), torch.chunk() Keeps input names Tensor.clamp(), torch.clamp() Keeps input names Tensor.clamp_() None Tensor.copy_() out function and in-place variants Tensor.cos(), torch.cos() Keeps input names Tensor.cos_() None Tensor.cosh(), torch.cosh() Keeps input names Tensor.cosh_() None Tensor.acosh(), torch.acosh() Keeps input names Tensor.acosh_() None Tensor.cpu() Keeps input names Tensor.cuda() Keeps input names Tensor.cumprod(), torch.cumprod() Keeps input names Tensor.cumsum(), torch.cumsum() Keeps input names Tensor.data_ptr() None Tensor.deg2rad(), torch.deg2rad() Keeps input names Tensor.deg2rad_() None Tensor.detach(), torch.detach() Keeps input names Tensor.detach_() None Tensor.device, torch.device() None Tensor.digamma(), torch.digamma() Keeps input names Tensor.digamma_() None Tensor.dim() None Tensor.div(), torch.div() Unifies names from inputs Tensor.div_() Unifies names from inputs Tensor.dot(), torch.dot() None Tensor.double() ..."
+       }
    </script>
 
   </body>

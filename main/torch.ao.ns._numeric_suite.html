@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3993,12 +3993,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.ao.ns._numeric_suite">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Oct 09, 2021">
-   <meta itemprop="dateModified" content="Oct 11, 2021">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4042,7 +4037,7 @@ document.write(`
 </div>
 <span class="target" id="module-torch.ao.ns._numeric_suite"></span><dl class="py function">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.compare_weights">
-<span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">compare_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">float_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantized_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.compare_weights" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">compare_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">float_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantized_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.compare_weights" title="Permalink to this definition">#</a></dt>
 <dd><p>Compare the weights of the float module with its corresponding quantized
 module. Return a dict with key corresponding to module names and each entry being
 a dictionary with two keys ‘float’ and ‘quantized’, containing the float and
@@ -4081,7 +4076,7 @@ quantized weights</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.get_logger_dict">
-<span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">get_logger_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L150"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.get_logger_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">get_logger_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L150"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.get_logger_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Traverse the modules and save all logger stats into target dict.
 This is mainly used for quantization accuracy debug.</p>
 <dl class="simple">
@@ -4107,41 +4102,41 @@ OutputLogger: used to log the outputs of the modules</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.Logger">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Logger" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Logger" title="Permalink to this definition">#</a></dt>
 <dd><p>Base class for stats logging</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.Logger.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L184"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Logger.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L184"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Logger.forward" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.ShadowLogger">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">ShadowLogger</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L191"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.ShadowLogger" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">ShadowLogger</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L191"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.ShadowLogger" title="Permalink to this definition">#</a></dt>
 <dd><p>Class used in Shadow module to record the outputs of the original and
 shadow modules.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.ShadowLogger.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L201"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.ShadowLogger.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L201"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.ShadowLogger.forward" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.OutputLogger">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">OutputLogger</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.OutputLogger" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">OutputLogger</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.OutputLogger" title="Permalink to this definition">#</a></dt>
 <dd><p>Class used to log the outputs of the module</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.OutputLogger.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L221"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.OutputLogger.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L221"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.OutputLogger.forward" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.Shadow">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">Shadow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">float_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_cls</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L244"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">Shadow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">float_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_cls</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L244"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow" title="Permalink to this definition">#</a></dt>
 <dd><p>Shadow module attaches the float module to its matching quantized module
 as the shadow. Then it uses Logger module to process the outputs of both
 modules.</p>
@@ -4157,7 +4152,7 @@ float_module. ShadowLogger or custom loggers can be used.</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.Shadow.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L263"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L263"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow.forward" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
@@ -4167,7 +4162,7 @@ float_module. ShadowLogger or custom loggers can be used.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.Shadow.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L275"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow.add" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L275"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow.add" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
@@ -4177,7 +4172,7 @@ float_module. ShadowLogger or custom loggers can be used.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.Shadow.add_scalar">
-<span class="sig-name descname"><span class="pre">add_scalar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L287"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow.add_scalar" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_scalar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L287"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow.add_scalar" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
@@ -4187,7 +4182,7 @@ float_module. ShadowLogger or custom loggers can be used.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.Shadow.mul">
-<span class="sig-name descname"><span class="pre">mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L298"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow.mul" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L298"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow.mul" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
@@ -4197,7 +4192,7 @@ float_module. ShadowLogger or custom loggers can be used.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.Shadow.mul_scalar">
-<span class="sig-name descname"><span class="pre">mul_scalar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L310"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow.mul_scalar" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mul_scalar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L310"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow.mul_scalar" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
@@ -4207,7 +4202,7 @@ float_module. ShadowLogger or custom loggers can be used.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.Shadow.cat">
-<span class="sig-name descname"><span class="pre">cat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L321"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow.cat" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L321"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow.cat" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
@@ -4217,7 +4212,7 @@ float_module. ShadowLogger or custom loggers can be used.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.Shadow.add_relu">
-<span class="sig-name descname"><span class="pre">add_relu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L332"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow.add_relu" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_relu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L332"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.Shadow.add_relu" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
@@ -4229,7 +4224,7 @@ float_module. ShadowLogger or custom loggers can be used.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.prepare_model_with_stubs">
-<span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">prepare_model_with_stubs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">float_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_swap_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_cls</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L345"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.prepare_model_with_stubs" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">prepare_model_with_stubs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">float_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_swap_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_cls</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L345"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.prepare_model_with_stubs" title="Permalink to this definition">#</a></dt>
 <dd><p>Prepare the model by attaching the float module to its matching quantized
 module as the shadow if the float module type is in module_swap_list.</p>
 <p>Example usage:</p>
@@ -4253,7 +4248,7 @@ quantized module and its float shadow module</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.compare_model_stub">
-<span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">compare_model_stub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">float_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_swap_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_cls=&lt;class</span> <span class="pre">'torch.ao.ns._numeric_suite.ShadowLogger'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L401"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.compare_model_stub" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">compare_model_stub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">float_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_swap_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_cls=&lt;class</span> <span class="pre">'torch.ao.ns._numeric_suite.ShadowLogger'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L401"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.compare_model_stub" title="Permalink to this definition">#</a></dt>
 <dd><p>Compare quantized module in a model with its floating point counterpart,
 feeding both of them the same input. Return a dict with key corresponding to
 module names and each entry being a dictionary with two keys ‘float’ and
@@ -4294,7 +4289,7 @@ quantized module and its float shadow module</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.get_matching_activations">
-<span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">get_matching_activations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">float_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L446"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.get_matching_activations" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">get_matching_activations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">float_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L446"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.get_matching_activations" title="Permalink to this definition">#</a></dt>
 <dd><p>Find the matching activation between float and quantized modules.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4316,7 +4311,7 @@ the matching float and quantized activations</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.prepare_model_outputs">
-<span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">prepare_model_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">float_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_cls=&lt;class</span> <span class="pre">'torch.ao.ns._numeric_suite.OutputLogger'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_list=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L478"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.prepare_model_outputs" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">prepare_model_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">float_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_cls=&lt;class</span> <span class="pre">'torch.ao.ns._numeric_suite.OutputLogger'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_list=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L478"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.prepare_model_outputs" title="Permalink to this definition">#</a></dt>
 <dd><p>Prepare the model by attaching the logger to both float module
 and quantized module if they are in the allow_list.</p>
 <dl class="field-list simple">
@@ -4333,7 +4328,7 @@ and quantized module if they are in the allow_list.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.ao.ns._numeric_suite.compare_model_outputs">
-<span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">compare_model_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">float_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_cls=&lt;class</span> <span class="pre">'torch.ao.ns._numeric_suite.OutputLogger'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_list=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/32b1baa981fe53d13d77acbee509c51087abf107/torch/ao/ns/_numeric_suite.py#L514"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.compare_model_outputs" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.ao.ns._numeric_suite.</span></span><span class="sig-name descname"><span class="pre">compare_model_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">float_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_cls=&lt;class</span> <span class="pre">'torch.ao.ns._numeric_suite.OutputLogger'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_list=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/ao/ns/_numeric_suite.py#L514"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.ns._numeric_suite.compare_model_outputs" title="Permalink to this definition">#</a></dt>
 <dd><p>Compare output activations between float and quantized models at
 corresponding locations for the same input. Return a dict with key corresponding
 to quantized module names and each entry being a dictionary with two keys
@@ -4736,17 +4731,23 @@ containing the matching float and quantized activations</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.ao.ns._numeric_suite",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Oct 09, 2021",
-        "dateModified": "Oct 11, 2021",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.ao.ns._numeric_suite",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/torch.ao.ns._numeric_suite.html"
+         },
+         "datePublished": "Oct 09, 2021",
+         "dateModified": "Oct 11, 2021",
+         "articleBody": "torch.ao.ns._numeric_suite# Created On: Oct 09, 2021 | Last Updated On: Oct 11, 2021 Warning This module is an early prototype and is subject to change. torch.ao.ns._numeric_suite.compare_weights(float_dict, quantized_dict)[source]# Compare the weights of the float module with its corresponding quantized module. Return a dict with key corresponding to module names and each entry being a dictionary with two keys ‘float’ and ‘quantized’, containing the float and quantized weights. This dict can be used to compare and compute the quantization error of the weights of float and quantized models. Example usage: wt_compare_dict = compare_weights( float_model.state_dict(), qmodel.state_dict()) for key in wt_compare_dict: print( key, compute_error( wt_compare_dict[key][&#39;float&#39;], wt_compare_dict[key][&#39;quantized&#39;].dequantize() ) ) Parameters float_dict (dict[str, Any]) – state dict of the float model quantized_dict (dict[str, Any]) – state dict of the quantized model Returns dict with key corresponding to module names and each entry being a dictionary with two keys ‘float’ and ‘quantized’, containing the float and quantized weights Return type weight_dict torch.ao.ns._numeric_suite.get_logger_dict(mod, prefix=&#39;&#39;)[source]# Traverse the modules and save all logger stats into target dict. This is mainly used for quantization accuracy debug. Type of loggers supported:ShadowLogger: used to log the outputs of the quantized module and its matching float shadow module, OutputLogger: used to log the outputs of the modules Parameters mod (Module) – module we want to save all logger stats prefix (str) – prefix for the current module Returns the dictionary used to save all logger stats Return type target_dict class torch.ao.ns._numeric_suite.Logger[source]# Base class for stats logging forward(x)[source]# class torch.ao.ns._numeric_suite.ShadowLogger[source]# Class used in Shadow module to record the outputs of the original and shadow modules. forward(x, y)[source]# class torch.ao.ns._numeric_suite.OutputLogger[source]# Class used to log the outputs of the module forward(x)[source]# class torch.ao.ns._numeric_suite.Shadow(q_module, float_module, logger_cls)[source]# Shadow module attaches the float module to its matching quantized module as the shadow. Then it uses Logger module to process the outputs of both modules. Parameters q_module – module quantized from float_module that we want to shadow float_module – float module used to shadow q_module logger_cls – type of logger used to process the outputs of q_module and float_module. ShadowLogger or custom loggers can be used. forward(*x)[source]# Return type Tensor add(x, y)[source]# Return type Tensor add_scalar(x, y)[source]# Return type Tensor mul(x, y)[source]# Return type Tensor mul_scalar(x, y)[source]# Return type Tensor cat(x, dim=0)[source]# Return type Tensor add_relu(x, y)[source]# Return type Tensor torch.ao.ns._numeric_suite.prepare_model_with_stubs(float_module, q_module, module_swap_list, logger_cls)[s..."
+       }
    </script>
 
   </body>

@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3993,12 +3993,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Understanding TorchDynamo-based ONNX Exporter Memory Usage">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Nov 06, 2024">
-   <meta itemprop="dateModified" content="Jan 03, 2025">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4465,17 +4460,23 @@ it reduces 98% memory usage.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Understanding TorchDynamo-based ONNX Exporter Memory Usage",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Nov 06, 2024",
-        "dateModified": "Jan 03, 2025",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Understanding TorchDynamo-based ONNX Exporter Memory Usage",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/onnx_dynamo_memory_usage.html"
+         },
+         "datePublished": "Nov 06, 2024",
+         "dateModified": "Jan 03, 2025",
+         "articleBody": "Understanding TorchDynamo-based ONNX Exporter Memory Usage# Created On: Nov 06, 2024 | Last Updated On: Jan 03, 2025 The previous TorchScript-based ONNX exporter would execute the model once to trace its execution, which could cause it to run out of memory on your GPU if the model’s memory requirements exceeded the available GPU memory. This issue has been addressed with the new TorchDynamo-based ONNX exporter. The TorchDynamo-based ONNX exporter utilizes torch.export.export() function to leverage FakeTensorMode to avoid performing actual tensor computations during the export process. This approach results in significantly lower memory usage compared to the TorchScript-based ONNX exporter. Below is an example demonstrating the memory usage difference between TorchScript-based and TorchDynamo-based ONNX exporters. In this example, we use the HighResNet model from MONAI. Before proceeding, please install it from PyPI: pip install monai PyTorch offers a tool for capturing and visualizing memory usage traces. We will use this tool to record the memory usage of the two exporters during the export process and compare the results. You can find more details about this tool on Understanding CUDA Memory Usage. TorchScript-based exporter# The code below could be run to generate a snapshot file which records the state of allocated CUDA memory during the export process. import torch from monai.networks.nets import ( HighResNet, ) torch.cuda.memory._record_memory_history() model = HighResNet( spatial_dims=3, in_channels=1, out_channels=3, norm_type=&#34;batch&#34; ).eval() model = model.to(&#34;cuda&#34;) data = torch.randn(30, 1, 48, 48, 48, dtype=torch.float32).to(&#34;cuda&#34;) with torch.no_grad(): onnx_program = torch.onnx.export( model, data, &#34;torchscript_exporter_highresnet.onnx&#34;, dynamo=False, ) snapshot_name = &#34;torchscript_exporter_example.pickle&#34; print(f&#34;generate {snapshot_name}&#34;) torch.cuda.memory._dump_snapshot(snapshot_name) print(&#34;Export is done.&#34;) Open pytorch.org/memory_viz and drag/drop the generated pickled snapshot file into the visualizer. The memory usage is described as below: By this figure, we can see the memory usage peak is above 2.8GB. TorchDynamo-based exporter# The code below could be run to generate a snapshot file which records the state of allocated CUDA memory during the export process. import torch from monai.networks.nets import ( HighResNet, ) torch.cuda.memory._record_memory_history() model = HighResNet( spatial_dims=3, in_channels=1, out_channels=3, norm_type=&#34;batch&#34; ).eval() model = model.to(&#34;cuda&#34;) data = torch.randn(30, 1, 48, 48, 48, dtype=torch.float32).to(&#34;cuda&#34;) with torch.no_grad(): onnx_program = torch.onnx.export( model, data, &#34;test_faketensor.onnx&#34;, dynamo=True, ) snapshot_name = f&#34;torchdynamo_exporter_example.pickle&#34; print(f&#34;generate {snapshot_name}&#34;) torch.cuda.memory._dump_snapshot(snapshot_name) print(f&#34;Export is done.&#34;) Open pytorch.org/memory_viz and drag/drop the generated pickled snapshot file into the visualizer. The memeo..."
+       }
    </script>
 
   </body>

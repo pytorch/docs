@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1522,12 +1522,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="Autograd mechanics">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Jan 16, 2017">
-   <meta itemprop="dateModified" content="May 14, 2025">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -2797,17 +2792,23 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Autograd mechanics",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Jan 16, 2017",
-        "dateModified": "May 14, 2025",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "Autograd mechanics",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/notes/autograd.html"
+         },
+         "datePublished": "Jan 16, 2017",
+         "dateModified": "May 14, 2025",
+         "articleBody": "Autograd mechanics# Created On: Jan 16, 2017 | Last Updated On: May 14, 2025 This note will present an overview of how autograd works and records the operations. It’s not strictly necessary to understand all this, but we recommend getting familiar with it, as it will help you write more efficient, cleaner programs, and can aid you in debugging. How autograd encodes the history# Autograd is a reverse automatic differentiation system. Conceptually, autograd records a graph recording all of the operations that created the data as you execute operations, giving you a directed acyclic graph whose leaves are the input tensors and roots are the output tensors. By tracing this graph from roots to leaves, you can automatically compute the gradients using the chain rule. Internally, autograd represents this graph as a graph of Function objects (really expressions), which can be apply() ed to compute the result of evaluating the graph. When computing the forward pass, autograd simultaneously performs the requested computations and builds up a graph representing the function that computes the gradient (the .grad_fn attribute of each torch.Tensor is an entry point into this graph). When the forward pass is completed, we evaluate this graph in the backwards pass to compute the gradients. An important thing to note is that the graph is recreated from scratch at every iteration, and this is exactly what allows for using arbitrary Python control flow statements, that can change the overall shape and size of the graph at every iteration. You don’t have to encode all possible paths before you launch the training - what you run is what you differentiate. Saved tensors# Some operations need intermediary results to be saved during the forward pass in order to execute the backward pass. For example, the function x↦x2x\mapsto x^2x↦x2 saves the input xxx to compute the gradient. When defining a custom Python Function, you can use save_for_backward() to save tensors during the forward pass and saved_tensors to retrieve them during the backward pass. See Extending PyTorch for more information. For operations that PyTorch defines (e.g. torch.pow()), tensors are automatically saved as needed. You can explore (for educational or debugging purposes) which tensors are saved by a certain grad_fn by looking for its attributes starting with the prefix _saved. x = torch.randn(5, requires_grad=True) y = x.pow(2) print(x.equal(y.grad_fn._saved_self)) # True print(x is y.grad_fn._saved_self) # True In the previous code, y.grad_fn._saved_self refers to the same Tensor object as x. But that may not always be the case. For instance: x = torch.randn(5, requires_grad=True) y = x.exp() print(y.equal(y.grad_fn._saved_result)) # True print(y is y.grad_fn._saved_result) # False Under the hood, to prevent reference cycles, PyTorch has packed the tensor upon saving and unpacked it into a different tensor for reading. Here, the tensor you get from accessing y.grad_fn._saved_result is a differe..."
+       }
    </script>
 
   </body>

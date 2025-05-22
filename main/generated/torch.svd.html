@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3988,12 +3988,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.svd">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="">
-   <meta itemprop="dateModified" content="">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4487,17 +4482,23 @@ consequently, the shape of returned <cite>U</cite> and <cite>V</cite>. Default: 
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.svd",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "",
-        "dateModified": "",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.svd",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "../_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/generated/torch.svd.html"
+         },
+         "datePublished": "",
+         "dateModified": "",
+         "articleBody": "torch.svd# torch.svd(input, some=True, compute_uv=True, *, out=None)# Computes the singular value decomposition of either a matrix or batch of matrices input. The singular value decomposition is represented as a namedtuple (U, S, V), such that input =Udiag(S)VH= U \text{diag}(S) V^{\text{H}}=Udiag(S)VH. where VHV^{\text{H}}VH is the transpose of V for real inputs, and the conjugate transpose of V for complex inputs. If input is a batch of matrices, then U, S, and V are also batched with the same batch dimensions as input. If some is True (default), the method returns the reduced singular value decomposition. In this case, if the last two dimensions of input are m and n, then the returned U and V matrices will contain only min(n, m) orthonormal columns. If compute_uv is False, the returned U and V will be zero-filled matrices of shape (m, m) and (n, n) respectively, and the same device as input. The argument some has no effect when compute_uv is False. Supports input of float, double, cfloat and cdouble data types. The dtypes of U and V are the same as input’s. S will always be real-valued, even if input is complex. Warning torch.svd() is deprecated in favor of torch.linalg.svd() and will be removed in a future PyTorch release. U, S, V = torch.svd(A, some=some, compute_uv=True) (default) should be replaced with U, S, Vh = torch.linalg.svd(A, full_matrices=not some) V = Vh.mH _, S, _ = torch.svd(A, some=some, compute_uv=False) should be replaced with S = torch.linalg.svdvals(A) Note Differences with torch.linalg.svd(): some is the opposite of torch.linalg.svd()’s full_matrices. Note that default value for both is True, so the default behavior is effectively the opposite. torch.svd() returns V, whereas torch.linalg.svd() returns Vh, that is, VHV^{\text{H}}VH. If compute_uv is False, torch.svd() returns zero-filled tensors for U and Vh, whereas torch.linalg.svd() returns empty tensors. Note The singular values are returned in descending order. If input is a batch of matrices, then the singular values of each matrix in the batch are returned in descending order. Note The S tensor can only be used to compute gradients if compute_uv is True. Note When some is False, the gradients on U[…, :, min(m, n):] and V[…, :, min(m, n):] will be ignored in the backward pass, as those vectors can be arbitrary bases of the corresponding subspaces. Note The implementation of torch.linalg.svd() on CPU uses LAPACK’s routine ?gesdd (a divide-and-conquer algorithm) instead of ?gesvd for speed. Analogously, on GPU, it uses cuSOLVER’s routines gesvdj and gesvdjBatched on CUDA 10.1.243 and later, and MAGMA’s routine gesdd on earlier versions of CUDA. Note The returned U will not be contiguous. The matrix (or batch of matrices) will be represented as a column-major matrix (i.e. Fortran-contiguous). Warning The gradients with respect to U and V will only be finite when the input does not have zero nor repeated singular values. Warning If the distance between any two singula..."
+       }
    </script>
 
   </body>

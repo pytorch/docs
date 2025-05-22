@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3985,12 +3985,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.utils.bottleneck">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Mar 23, 2018">
-   <meta itemprop="dateModified" content="Sep 28, 2022">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4394,17 +4389,23 @@ or <a class="reference internal" href="autograd.html#torch.autograd.profiler.pro
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.utils.bottleneck",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Mar 23, 2018",
-        "dateModified": "Sep 28, 2022",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.utils.bottleneck",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/bottleneck.html"
+         },
+         "datePublished": "Mar 23, 2018",
+         "dateModified": "Sep 28, 2022",
+         "articleBody": "torch.utils.bottleneck# Created On: Mar 23, 2018 | Last Updated On: Sep 28, 2022 torch.utils.bottleneck is a tool that can be used as an initial step for debugging bottlenecks in your program. It summarizes runs of your script with the Python profiler and PyTorch’s autograd profiler. Run it on the command line with python -m torch.utils.bottleneck /path/to/source/script.py [args] where [args] are any number of arguments to script.py, or run python -m torch.utils.bottleneck -h for more usage instructions. Warning Because your script will be profiled, please ensure that it exits in a finite amount of time. Warning Due to the asynchronous nature of CUDA kernels, when running against CUDA code, the cProfile output and CPU-mode autograd profilers may not show correct timings: the reported CPU time reports the amount of time used to launch the kernels but does not include the time the kernel spent executing on a GPU unless the operation does a synchronize. Ops that do synchronize appear to be extremely expensive under regular CPU-mode profilers. In these case where timings are incorrect, the CUDA-mode autograd profiler may be helpful. Note To decide which (CPU-only-mode or CUDA-mode) autograd profiler output to look at, you should first check if your script is CPU-bound (“CPU total time is much greater than CUDA total time”). If it is CPU-bound, looking at the results of the CPU-mode autograd profiler will help. If on the other hand your script spends most of its time executing on the GPU, then it makes sense to start looking for responsible CUDA operators in the output of the CUDA-mode autograd profiler. Of course the reality is much more complicated and your script might not be in one of those two extremes depending on the part of the model you’re evaluating. If the profiler outputs don’t help, you could try looking at the result of torch.autograd.profiler.emit_nvtx() with nvprof. However, please take into account that the NVTX overhead is very high and often gives a heavily skewed timeline. Similarly, Intel® VTune™ Profiler helps to analyze performance on Intel platforms further with torch.autograd.profiler.emit_itt(). Warning If you are profiling CUDA code, the first profiler that bottleneck runs (cProfile) will include the CUDA startup time (CUDA buffer allocation cost) in its time reporting. This should not matter if your bottlenecks result in code much slower than the CUDA startup time. For more complicated uses of the profilers (like in a multi-GPU case), please see https://docs.python.org/3/library/profile.html or torch.autograd.profiler.profile() for more information."
+       }
    </script>
 
   </body>

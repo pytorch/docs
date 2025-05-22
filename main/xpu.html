@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git32b1baa )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3985,12 +3985,7 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article" itemscope="itemscope" itemtype="https://schema.org/Article" itemprop="articleBody">
-   <meta itemprop="headline" content="torch.xpu">
-   <meta itemprop="description" content="PyTorch documentation">
-   <meta itemprop="datePublished" content="Feb 01, 2024">
-   <meta itemprop="dateModified" content="Dec 31, 2024">
-   <meta itemprop="author" content="PyTorch Contributors">
+  <article class="bd-article"id="pytorch-article">
    <!-- Hidden breadcrumb schema for SEO only -->
    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
@@ -4522,17 +4517,23 @@ Intel GPU optimization.</p>
   </footer>
    <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "torch.xpu",
-        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-        "author": {
-          "@type": "Organization",
-          "name": "PyTorch Contributors"
-        },
-        "datePublished": "Feb 01, 2024",
-        "dateModified": "Dec 31, 2024",
-      }
+         "@context": "https://schema.org",
+         "@type": "Article",
+         "headline": "torch.xpu",
+         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "author": {
+           "@type": "Organization",
+           "name": "PyTorch Contributors"
+         },
+         "image": "_static/img/pytorch_seo.png",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "/xpu.html"
+         },
+         "datePublished": "Feb 01, 2024",
+         "dateModified": "Dec 31, 2024",
+         "articleBody": "torch.xpu# Created On: Feb 01, 2024 | Last Updated On: Dec 31, 2024 This package introduces support for the XPU backend, specifically tailored for Intel GPU optimization. This package is lazily initialized, so you can always import it, and use is_available() to determine if your system supports XPU. StreamContext Context-manager that selects a given stream. current_device Return the index of a currently selected device. current_stream Return the currently selected Stream for a given device. device Context-manager that changes the selected device. device_count Return the number of XPU device available. device_of Context-manager that changes the current device to that of given object. get_arch_list Return list XPU architectures this library was compiled for. get_device_capability Get the xpu capability of a device. get_device_name Get the name of a device. get_device_properties Get the properties of a device. get_gencode_flags Return XPU AOT(ahead-of-time) build flags this library was compiled with. get_stream_from_external Return a Stream from an external SYCL queue. init Initialize PyTorch&#39;s XPU state. is_available Return a bool indicating if XPU is currently available. is_initialized Return whether PyTorch&#39;s XPU state has been initialized. set_device Set the current device. set_stream Set the current stream.This is a wrapper API to set the stream. stream Wrap around the Context-manager StreamContext that selects a given stream. synchronize Wait for all kernels in all streams on a XPU device to complete. Random Number Generator# get_rng_state Return the random number generator state of the specified GPU as a ByteTensor. get_rng_state_all Return a list of ByteTensor representing the random number states of all devices. initial_seed Return the current random seed of the current GPU. manual_seed Set the seed for generating random numbers for the current GPU. manual_seed_all Set the seed for generating random numbers on all GPUs. seed Set the seed for generating random numbers to a random number for the current GPU. seed_all Set the seed for generating random numbers to a random number on all GPUs. set_rng_state Set the random number generator state of the specified GPU. set_rng_state_all Set the random number generator state of all devices. Streams and events# Event Wrapper around a XPU event. Stream Wrapper around a XPU stream. Memory management# empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other XPU application. max_memory_allocated Return the maximum GPU memory occupied by tensors in bytes for a given device. max_memory_reserved Return the maximum GPU memory managed by the caching allocator in bytes for a given device. mem_get_info Return the global free and total GPU memory for a given device. memory_allocated Return the current GPU memory occupied by tensors in bytes for a given device. memory_reserved Return the current GPU memory managed by the caching allocator in by..."
+       }
    </script>
 
   </body>
