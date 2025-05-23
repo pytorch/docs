@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git31f3ee0 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4021,7 +4021,7 @@ document.write(`
 <h1>torch.jit.unused<a class="headerlink" href="#torch-jit-unused" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.unused">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">unused</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/_jit_internal.py#L719"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.unused" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">unused</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31f3ee09665ceb693713857b642d395fe6c3745c/torch/_jit_internal.py#L714"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.unused" title="Permalink to this definition">#</a></dt>
 <dd><p>This decorator indicates to the compiler that a function or method should
 be ignored and replaced with the raising of an exception. This allows you
 to leave code in your model that is not yet TorchScript compatible and still
@@ -4061,11 +4061,6 @@ export your model.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.13)"><em>Callable</em></a>[[<em>_P</em>], <em>_R</em>]</p>
-</dd>
-</dl>
 </dd></dl>
 
 </div>
@@ -4402,7 +4397,7 @@ export your model.</p>
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.jit.unused# torch.jit.unused(fn)[source]# This decorator indicates to the compiler that a function or method should be ignored and replaced with the raising of an exception. This allows you to leave code in your model that is not yet TorchScript compatible and still export your model. Example (using @torch.jit.unused on a method): import torch import torch.nn as nn class MyModule(nn.Module): def __init__(self, use_memory_efficient): super().__init__() self.use_memory_efficient = use_memory_efficient @torch.jit.unused def memory_efficient(self, x): import pdb pdb.set_trace() return x + 10 def forward(self, x): # Use not-yet-scriptable memory efficient mode if self.use_memory_efficient: return self.memory_efficient(x) else: return x + 10 m = torch.jit.script(MyModule(use_memory_efficient=False)) m.save(&#34;m.pt&#34;) m = torch.jit.script(MyModule(use_memory_efficient=True)) # exception raised m(torch.rand(100)) Return type Callable[[_P], _R]"
+         "articleBody": "torch.jit.unused# torch.jit.unused(fn)[source]# This decorator indicates to the compiler that a function or method should be ignored and replaced with the raising of an exception. This allows you to leave code in your model that is not yet TorchScript compatible and still export your model. Example (using @torch.jit.unused on a method): import torch import torch.nn as nn class MyModule(nn.Module): def __init__(self, use_memory_efficient): super().__init__() self.use_memory_efficient = use_memory_efficient @torch.jit.unused def memory_efficient(self, x): import pdb pdb.set_trace() return x + 10 def forward(self, x): # Use not-yet-scriptable memory efficient mode if self.use_memory_efficient: return self.memory_efficient(x) else: return x + 10 m = torch.jit.script(MyModule(use_memory_efficient=False)) m.save(&#34;m.pt&#34;) m = torch.jit.script(MyModule(use_memory_efficient=True)) # exception raised m(torch.rand(100))"
        }
    </script>
 

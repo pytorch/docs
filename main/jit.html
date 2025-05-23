@@ -105,7 +105,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2618977 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git31f3ee0 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3077,8 +3077,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4679,7 +4679,7 @@ lazily compiled in the order they are used in <code class="docutils literal notr
 <code class="docutils literal notranslate"><span class="pre">&#64;torch.jit.export</span></code> methods.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.export">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/261897734a4d3c0be31eceb20f14e9e1c2cd9644/torch/_jit_internal.py#L673"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.export" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31f3ee09665ceb693713857b642d395fe6c3745c/torch/_jit_internal.py#L668"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.export" title="Permalink to this definition">#</a></dt>
 <dd><p>This decorator indicates that a method on an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> is used as an entry point into a
 <a class="reference internal" href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> and should be compiled.</p>
 <p><code class="docutils literal notranslate"><span class="pre">forward</span></code> implicitly is assumed to be an entry point, so it does not need this decorator.
@@ -4716,11 +4716,6 @@ by the compiler, so they do not need this decorator either.</p>
 <span class="n">m</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span><span class="p">(</span><span class="n">MyModule</span><span class="p">())</span>
 </pre></div>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.13)"><em>Callable</em></a>[[<em>_P</em>], <em>_R</em>]</p>
-</dd>
-</dl>
 </dd></dl>
 
 </div>
