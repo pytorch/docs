@@ -59,6 +59,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.autograd.forward_ad.make_dual.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="torch.autograd.forward_ad.unpack_dual" href="torch.autograd.forward_ad.unpack_dual.html" />
@@ -105,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git31f3ee0 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git7ba6fb6 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4021,7 +4022,7 @@ document.write(`
 <h1>torch.autograd.forward_ad.make_dual<a class="headerlink" href="#torch-autograd-forward-ad-make-dual" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.autograd.forward_ad.make_dual">
-<span class="sig-prename descclassname"><span class="pre">torch.autograd.forward_ad.</span></span><span class="sig-name descname"><span class="pre">make_dual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tangent</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31f3ee09665ceb693713857b642d395fe6c3745c/torch/autograd/forward_ad.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.forward_ad.make_dual" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.autograd.forward_ad.</span></span><span class="sig-name descname"><span class="pre">make_dual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tangent</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7ba6fb69e6ebf1887d52d82f79260fbaba88f10f/torch/autograd/forward_ad.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.forward_ad.make_dual" title="Permalink to this definition">#</a></dt>
 <dd><p>Associate a tensor value with its tangent to create a “dual tensor” for forward AD gradient computation.</p>
 <p>The result is a new tensor aliased to <code class="xref py py-attr docutils literal notranslate"><span class="pre">tensor</span></code> with <code class="xref py py-attr docutils literal notranslate"><span class="pre">tangent</span></code> embedded
 as an attribute as-is if it has the same storage layout or copied otherwise.

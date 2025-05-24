@@ -59,6 +59,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.hardsigmoid.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="torch.nn.functional.silu" href="torch.nn.functional.silu.html" />
@@ -105,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git31f3ee0 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git7ba6fb6 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4021,7 +4022,7 @@ document.write(`
 <h1>torch.nn.functional.hardsigmoid<a class="headerlink" href="#torch-nn-functional-hardsigmoid" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.functional.hardsigmoid">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">hardsigmoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31f3ee09665ceb693713857b642d395fe6c3745c/torch/nn/functional.py#L2296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.hardsigmoid" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">hardsigmoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7ba6fb69e6ebf1887d52d82f79260fbaba88f10f/torch/nn/functional.py#L2296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.hardsigmoid" title="Permalink to this definition">#</a></dt>
 <dd><p>Apply the Hardsigmoid function element-wise.</p>
 <div class="math">
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Hardsigmoid</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.36em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>if </mtext><mi>x</mi><mo>≤</mo><mo>−</mo><mn>3</mn><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>if </mtext><mi>x</mi><mo>≥</mo><mo>+</mo><mn>3</mn><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>x</mi><mi mathvariant="normal">/</mi><mn>6</mn><mo>+</mo><mn>1</mn><mi mathvariant="normal">/</mi><mn>2</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>otherwise</mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\text{Hardsigmoid}(x) = \begin{cases}

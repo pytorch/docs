@@ -59,6 +59,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.ao.quantization.qconfig.QConfig.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="default_qconfig" href="torch.ao.quantization.qconfig.default_qconfig.html" />
@@ -105,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git31f3ee0 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git7ba6fb6 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4032,7 +4033,7 @@ document.write(`
 <h1>QConfig<a class="headerlink" href="#qconfig" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.qconfig.QConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.qconfig.</span></span><span class="sig-name descname"><span class="pre">QConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">activation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31f3ee09665ceb693713857b642d395fe6c3745c/torch/ao/quantization/qconfig.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig.QConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.qconfig.</span></span><span class="sig-name descname"><span class="pre">QConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">activation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7ba6fb69e6ebf1887d52d82f79260fbaba88f10f/torch/ao/quantization/qconfig.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig.QConfig" title="Permalink to this definition">#</a></dt>
 <dd><p>Describes how to quantize a layer or a part of the network by providing
 settings (observer classes) for activations and weights respectively.</p>
 <p>Note that QConfig needs to contain observer <strong>classes</strong> (like MinMaxObserver) or a callable that returns

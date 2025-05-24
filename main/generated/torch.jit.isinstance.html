@@ -59,6 +59,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.jit.isinstance.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Attribute" href="torch.jit.Attribute.html" />
@@ -105,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git31f3ee0 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git7ba6fb6 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4021,7 +4022,7 @@ document.write(`
 <h1>torch.jit.isinstance<a class="headerlink" href="#torch-jit-isinstance" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.isinstance">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">isinstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/31f3ee09665ceb693713857b642d395fe6c3745c/torch/jit/__init__.py#L199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.isinstance" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">isinstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7ba6fb69e6ebf1887d52d82f79260fbaba88f10f/torch/jit/__init__.py#L199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.isinstance" title="Permalink to this definition">#</a></dt>
 <dd><p>Provide container type refinement in TorchScript.</p>
 <p>It can refine parameterized containers of the List, Dict, Tuple, and Optional types. E.g. <code class="docutils literal notranslate"><span class="pre">List[str]</span></code>,
 <code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">List[torch.Tensor]]</span></code>, <code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int,str,int]]</span></code>. It can also
