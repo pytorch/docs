@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git7ba6fb6 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git53ecb81 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3257,6 +3257,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.constrain_unify.html">torch.fx.experimental.symbolic_shapes.constrain_unify</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr.html">torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.statically_known_true.html">torch.fx.experimental.symbolic_shapes.statically_known_true</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.statically_known_false.html">torch.fx.experimental.symbolic_shapes.statically_known_false</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_static_value.html">torch.fx.experimental.symbolic_shapes.has_static_value</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.lru_cache.html">torch.fx.experimental.symbolic_shapes.lru_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.check_consistent.html">torch.fx.experimental.symbolic_shapes.check_consistent</a></li>
@@ -4022,7 +4023,7 @@ document.write(`
 <h1>set_grad_enabled<a class="headerlink" href="#set-grad-enabled" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.grad_mode.set_grad_enabled">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.grad_mode.</span></span><span class="sig-name descname"><span class="pre">set_grad_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7ba6fb69e6ebf1887d52d82f79260fbaba88f10f/torch/autograd/grad_mode.py#L143"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.grad_mode.set_grad_enabled" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.grad_mode.</span></span><span class="sig-name descname"><span class="pre">set_grad_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/53ecb8159aa28b3c015917acaa89604cfae0d2c6/torch/autograd/grad_mode.py#L143"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.grad_mode.set_grad_enabled" title="Permalink to this definition">#</a></dt>
 <dd><p>Context-manager that sets gradient calculation on or off.</p>
 <p><code class="docutils literal notranslate"><span class="pre">set_grad_enabled</span></code> will enable or disable grads based on its argument <code class="xref py py-attr docutils literal notranslate"><span class="pre">mode</span></code>.
 It can be used as a context-manager or as a function.</p>
@@ -4066,7 +4067,7 @@ more information on how they compare.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.grad_mode.set_grad_enabled.clone">
-<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7ba6fb69e6ebf1887d52d82f79260fbaba88f10f/torch/autograd/grad_mode.py#L199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.grad_mode.set_grad_enabled.clone" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/53ecb8159aa28b3c015917acaa89604cfae0d2c6/torch/autograd/grad_mode.py#L199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.grad_mode.set_grad_enabled.clone" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a copy of this class</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
