@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git53ecb81 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitb04852e )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3078,8 +3078,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4043,7 +4043,7 @@ numbers indicate higher priority. By default, streams have priority 0.</p></li>
 <dd class="field-even"><p>An torch.Stream object.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#torch.Stream" title="torch.Stream">Stream</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="torch.mtia.Stream.html#torch.mtia.Stream" title="torch.Stream">Stream</a></p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -4075,17 +4075,17 @@ numbers indicate higher priority. By default, streams have priority 0.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Stream.record_event">
-<span class="sig-name descname"><span class="pre">record_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="torch.Event.html#torch.Event" title="torch.Event"><span class="pre">Event</span></a></span></span><a class="headerlink" href="#torch.Stream.record_event" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">record_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="torch.mtia.Event.html#torch.mtia.Event" title="torch.Event"><span class="pre">Event</span></a></span></span><a class="headerlink" href="#torch.Stream.record_event" title="Permalink to this definition">#</a></dt>
 <dd><p>Record an event. En-queuing it into the Stream to allow further synchronization from the current point in the FIFO queue.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>event</strong> (<a class="reference internal" href="torch.Event.html#torch.Event" title="torch.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Event</span></code></a>, optional) – event to record. If not given, a new one will be allocated.</p>
+<dd class="field-odd"><p><strong>event</strong> (<a class="reference internal" href="torch.mtia.Event.html#torch.mtia.Event" title="torch.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Event</span></code></a>, optional) – event to record. If not given, a new one will be allocated.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Recorded event.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="torch.Event.html#torch.Event" title="torch.Event">Event</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="torch.mtia.Event.html#torch.mtia.Event" title="torch.Event">Event</a></p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -4112,7 +4112,7 @@ numbers indicate higher priority. By default, streams have priority 0.</p></li>
 <dd><p>Make all future work submitted to the stream wait for an event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>event</strong> (<a class="reference internal" href="torch.Event.html#torch.Event" title="torch.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Event</span></code></a>) – an event to wait for.</p>
+<dd class="field-odd"><p><strong>event</strong> (<a class="reference internal" href="torch.mtia.Event.html#torch.mtia.Event" title="torch.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Event</span></code></a>) – an event to wait for.</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -4131,7 +4131,7 @@ numbers indicate higher priority. By default, streams have priority 0.</p></li>
 already submitted to the given stream are completed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="#torch.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>) – a stream to synchronize.</p>
+<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="torch.mtia.Stream.html#torch.mtia.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>) – a stream to synchronize.</p>
 </dd>
 </dl>
 <p>Example:</p>
