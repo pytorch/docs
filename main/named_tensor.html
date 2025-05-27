@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitb04852e )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git6006352 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4280,7 +4280,7 @@ name must be a valid Python variable name (i.e., does not start with underscore)
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.rename">
-<span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b04852e40452ee074a39c28d6053f6846295bd83/torch/_tensor.py#L1451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6006352ed35535bf396cc11958b09417cbf66422/torch/_tensor.py#L1451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename" title="Permalink to this definition">#</a></dt>
 <dd><p>Renames dimension names of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code>.</p>
 <p>There are two main usages:</p>
 <p><code class="docutils literal notranslate"><span class="pre">self.rename(**rename_map)</span></code> returns a view on tensor that has dims
@@ -4313,13 +4313,13 @@ Use <code class="docutils literal notranslate"><span class="pre">self.rename(Non
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.rename_">
-<span class="sig-name descname"><span class="pre">rename_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b04852e40452ee074a39c28d6053f6846295bd83/torch/_tensor.py#L1436"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename_" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rename_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6006352ed35535bf396cc11958b09417cbf66422/torch/_tensor.py#L1436"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename_" title="Permalink to this definition">#</a></dt>
 <dd><p>In-place version of <a class="reference internal" href="#torch.Tensor.rename" title="torch.Tensor.rename"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rename()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.refine_names">
-<span class="sig-name descname"><span class="pre">refine_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b04852e40452ee074a39c28d6053f6846295bd83/torch/_tensor.py#L1325"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.refine_names" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">refine_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6006352ed35535bf396cc11958b09417cbf66422/torch/_tensor.py#L1325"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.refine_names" title="Permalink to this definition">#</a></dt>
 <dd><p>Refines the dimension names of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> according to <a class="reference internal" href="#torch.Tensor.names" title="torch.Tensor.names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">names</span></code></a>.</p>
 <p>Refining is a special case of renaming that “lifts” unnamed dimensions.
 A <code class="docutils literal notranslate"><span class="pre">None</span></code> dim can be refined to have any name; a named dim can only be
@@ -4401,7 +4401,7 @@ the output tensor has a size-one dimension for each of those new names.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.align_to">
-<span class="sig-name descname"><span class="pre">align_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b04852e40452ee074a39c28d6053f6846295bd83/torch/_tensor.py#L1369"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.align_to" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">align_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6006352ed35535bf396cc11958b09417cbf66422/torch/_tensor.py#L1369"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.align_to" title="Permalink to this definition">#</a></dt>
 <dd><p>Permutes the dimensions of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> tensor to match the order
 specified in <a class="reference internal" href="#torch.Tensor.names" title="torch.Tensor.names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">names</span></code></a>, adding size-one dims for any new names.</p>
 <p>All of the dims of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> must be named in order to use this method.
