@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite79790e )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git40abb2b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2944,7 +2944,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.CUDAPluggableAllocator.html">CUDAPluggableAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.change_current_allocator.html">torch.cuda.change_current_allocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.MemPool.html">MemPool</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cuda.MemPoolContext.html">MemPoolContext</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.caching_allocator_enable.html">torch.cuda.memory.caching_allocator_enable</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.nvtx.mark.html">torch.cuda.nvtx.mark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.nvtx.range_push.html">torch.cuda.nvtx.range_push</a></li>
@@ -4023,7 +4022,7 @@ document.write(`
 <h1>torch.nn.utils.convert_conv2d_weight_memory_format<a class="headerlink" href="#torch-nn-utils-convert-conv2d-weight-memory-format" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.convert_conv2d_weight_memory_format">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.</span></span><span class="sig-name descname"><span class="pre">convert_conv2d_weight_memory_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_format</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e79790e14bd722d9f78a22040da2846ba2d2fda1/torch/nn/utils/memory_format.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.convert_conv2d_weight_memory_format" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.</span></span><span class="sig-name descname"><span class="pre">convert_conv2d_weight_memory_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_format</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/40abb2b403192a63787f146a330420a4a209bce6/torch/nn/utils/memory_format.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.convert_conv2d_weight_memory_format" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert <code class="docutils literal notranslate"><span class="pre">memory_format</span></code> of <code class="docutils literal notranslate"><span class="pre">nn.Conv2d.weight</span></code> to <code class="docutils literal notranslate"><span class="pre">memory_format</span></code>.</p>
 <p>The conversion recursively applies to nested <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>, including <code class="docutils literal notranslate"><span class="pre">module</span></code>.
 Note that it only changes the memory_format, but not the semantics of each dimensions.
