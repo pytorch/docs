@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git40abb2b )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2c1cb38 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4680,7 +4680,7 @@ lazily compiled in the order they are used in <code class="docutils literal notr
 <code class="docutils literal notranslate"><span class="pre">&#64;torch.jit.export</span></code> methods.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.export">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/40abb2b403192a63787f146a330420a4a209bce6/torch/_jit_internal.py#L668"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.export" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2c1cb38d9516e10474b4f12a2e839046648a71a8/torch/_jit_internal.py#L673"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.export" title="Permalink to this definition">#</a></dt>
 <dd><p>This decorator indicates that a method on an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> is used as an entry point into a
 <a class="reference internal" href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> and should be compiled.</p>
 <p><code class="docutils literal notranslate"><span class="pre">forward</span></code> implicitly is assumed to be an entry point, so it does not need this decorator.
@@ -4717,6 +4717,11 @@ by the compiler, so they do not need this decorator either.</p>
 <span class="n">m</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span><span class="p">(</span><span class="n">MyModule</span><span class="p">())</span>
 </pre></div>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.13)"><em>Callable</em></a>[[<em>_P</em>], <em>_R</em>]</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

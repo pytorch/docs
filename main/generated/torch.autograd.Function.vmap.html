@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git40abb2b )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2c1cb38 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4022,7 +4022,7 @@ document.write(`
 <h1>torch.autograd.Function.vmap<a class="headerlink" href="#torch-autograd-function-vmap" title="Permalink to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.Function.vmap">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Function.</span></span><span class="sig-name descname"><span class="pre">vmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_dims</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/40abb2b403192a63787f146a330420a4a209bce6/torch/autograd/function.py#L530"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.Function.vmap" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Function.</span></span><span class="sig-name descname"><span class="pre">vmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_dims</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2c1cb38d9516e10474b4f12a2e839046648a71a8/torch/autograd/function.py#L530"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.Function.vmap" title="Permalink to this definition">#</a></dt>
 <dd><p>Define the behavior for this autograd.Function underneath <a class="reference internal" href="torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a>.</p>
 <p>For a <a class="reference internal" href="../autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.Function()</span></code></a> to support
 <a class="reference internal" href="torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a>, you must either override this static method, or set
