@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2c1cb38 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitda4aaca )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2944,6 +2944,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.CUDAPluggableAllocator.html">CUDAPluggableAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.change_current_allocator.html">torch.cuda.change_current_allocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.MemPool.html">MemPool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.MemPoolContext.html">MemPoolContext</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.caching_allocator_enable.html">torch.cuda.memory.caching_allocator_enable</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.nvtx.mark.html">torch.cuda.nvtx.mark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.nvtx.range_push.html">torch.cuda.nvtx.range_push</a></li>
@@ -3077,8 +3078,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3240,6 +3241,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html">PropagateUnbackedSymInts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.DivideByKey.html">DivideByKey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.InnerTensorKey.html">InnerTensorKey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.Specialization.html">Specialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.hint_int.html">torch.fx.experimental.symbolic_shapes.hint_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_int.html">torch.fx.experimental.symbolic_shapes.is_concrete_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_concrete_bool.html">torch.fx.experimental.symbolic_shapes.is_concrete_bool</a></li>
@@ -4022,7 +4024,7 @@ document.write(`
 <h1>torch.cpu.set_device<a class="headerlink" href="#torch-cpu-set-device" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cpu.set_device">
-<span class="sig-prename descclassname"><span class="pre">torch.cpu.</span></span><span class="sig-name descname"><span class="pre">set_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2c1cb38d9516e10474b4f12a2e839046648a71a8/torch/cpu/__init__.py#L184"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cpu.set_device" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cpu.</span></span><span class="sig-name descname"><span class="pre">set_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/da4aacabac0953ae2d73c6402a69fee750fa8ce8/torch/cpu/__init__.py#L184"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cpu.set_device" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets the current device, in CPU we do nothing.</p>
 <p>N.B. This function only exists to facilitate device-agnostic code</p>
 <dl class="field-list simple">
