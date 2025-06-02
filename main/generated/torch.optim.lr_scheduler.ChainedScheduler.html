@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitc33fc9d )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2b2245d )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2895,6 +2895,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.temperature.html">torch.cuda.temperature</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.power_draw.html">torch.cuda.power_draw</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.clock_rate.html">torch.cuda.clock_rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.AcceleratorError.html">torch.cuda.AcceleratorError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.OutOfMemoryError.html">torch.cuda.OutOfMemoryError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.get_rng_state.html">torch.cuda.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.get_rng_state_all.html">torch.cuda.get_rng_state_all</a></li>
@@ -4023,7 +4024,7 @@ document.write(`
 <h1>ChainedScheduler<a class="headerlink" href="#chainedscheduler" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.ChainedScheduler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.lr_scheduler.</span></span><span class="sig-name descname"><span class="pre">ChainedScheduler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schedulers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c33fc9dae362f00e9aaa83f86cbcf8e3eee4f99f/torch/optim/lr_scheduler.py#L1118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ChainedScheduler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.lr_scheduler.</span></span><span class="sig-name descname"><span class="pre">ChainedScheduler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schedulers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2b2245d5db4ecc2a45de70d3e7496e3ea792195a/torch/optim/lr_scheduler.py#L1118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ChainedScheduler" title="Permalink to this definition">#</a></dt>
 <dd><p>Chains a list of learning rate schedulers.</p>
 <p>Takes in a sequence of chainable learning rate schedulers and calls their
 step() functions consecutively in just one call to step().</p>
@@ -4056,7 +4057,7 @@ step() functions consecutively in just one call to step().</p>
 <img alt="../_images/ChainedScheduler.png" src="../_images/ChainedScheduler.png" />
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.ChainedScheduler.get_last_lr">
-<span class="sig-name descname"><span class="pre">get_last_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c33fc9dae362f00e9aaa83f86cbcf8e3eee4f99f/torch/optim/lr_scheduler.py#L167"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ChainedScheduler.get_last_lr" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_last_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2b2245d5db4ecc2a45de70d3e7496e3ea792195a/torch/optim/lr_scheduler.py#L167"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ChainedScheduler.get_last_lr" title="Permalink to this definition">#</a></dt>
 <dd><p>Return last computed learning rate by current scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4067,7 +4068,7 @@ step() functions consecutively in just one call to step().</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.ChainedScheduler.get_lr">
-<span class="sig-name descname"><span class="pre">get_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c33fc9dae362f00e9aaa83f86cbcf8e3eee4f99f/torch/optim/lr_scheduler.py#L171"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ChainedScheduler.get_lr" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2b2245d5db4ecc2a45de70d3e7496e3ea792195a/torch/optim/lr_scheduler.py#L171"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ChainedScheduler.get_lr" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute learning rate using chainable form of the scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4078,7 +4079,7 @@ step() functions consecutively in just one call to step().</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.ChainedScheduler.load_state_dict">
-<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c33fc9dae362f00e9aaa83f86cbcf8e3eee4f99f/torch/optim/lr_scheduler.py#L1209"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ChainedScheduler.load_state_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2b2245d5db4ecc2a45de70d3e7496e3ea792195a/torch/optim/lr_scheduler.py#L1209"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ChainedScheduler.load_state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Load the scheduler’s state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4090,7 +4091,7 @@ from a call to <a class="reference internal" href="#torch.optim.lr_scheduler.Cha
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.ChainedScheduler.state_dict">
-<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c33fc9dae362f00e9aaa83f86cbcf8e3eee4f99f/torch/optim/lr_scheduler.py#L1189"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ChainedScheduler.state_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2b2245d5db4ecc2a45de70d3e7496e3ea792195a/torch/optim/lr_scheduler.py#L1189"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ChainedScheduler.state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the state of the scheduler as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
 <p>It contains an entry for every variable in self.__dict__ which
 is not the optimizer.
@@ -4104,7 +4105,7 @@ The wrapped scheduler states will also be saved.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.ChainedScheduler.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c33fc9dae362f00e9aaa83f86cbcf8e3eee4f99f/torch/optim/lr_scheduler.py#L1181"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ChainedScheduler.step" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2b2245d5db4ecc2a45de70d3e7496e3ea792195a/torch/optim/lr_scheduler.py#L1181"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ChainedScheduler.step" title="Permalink to this definition">#</a></dt>
 <dd><p>Perform a step.</p>
 <dl class="field-list simple">
 </dl>

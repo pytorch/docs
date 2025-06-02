@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitc33fc9d )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2b2245d )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2895,6 +2895,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.temperature.html">torch.cuda.temperature</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.power_draw.html">torch.cuda.power_draw</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.clock_rate.html">torch.cuda.clock_rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.AcceleratorError.html">torch.cuda.AcceleratorError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.OutOfMemoryError.html">torch.cuda.OutOfMemoryError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.get_rng_state.html">torch.cuda.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.get_rng_state_all.html">torch.cuda.get_rng_state_all</a></li>
@@ -4023,7 +4024,7 @@ document.write(`
 <h1>L1Unstructured<a class="headerlink" href="#l1unstructured" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.utils.prune.L1Unstructured">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.utils.prune.</span></span><span class="sig-name descname"><span class="pre">L1Unstructured</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c33fc9dae362f00e9aaa83f86cbcf8e3eee4f99f/torch/nn/utils/prune.py#L491"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.L1Unstructured" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.utils.prune.</span></span><span class="sig-name descname"><span class="pre">L1Unstructured</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2b2245d5db4ecc2a45de70d3e7496e3ea792195a/torch/nn/utils/prune.py#L491"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.L1Unstructured" title="Permalink to this definition">#</a></dt>
 <dd><p>Prune (currently unpruned) units in a tensor by zeroing out the ones with the lowest L1-norm.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4035,7 +4036,7 @@ absolute number of parameters to prune.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.utils.prune.L1Unstructured.apply">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importance_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c33fc9dae362f00e9aaa83f86cbcf8e3eee4f99f/torch/nn/utils/prune.py#L530"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.L1Unstructured.apply" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importance_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2b2245d5db4ecc2a45de70d3e7496e3ea792195a/torch/nn/utils/prune.py#L530"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.L1Unstructured.apply" title="Permalink to this definition">#</a></dt>
 <dd><p>Add pruning on the fly and reparametrization of a tensor.</p>
 <p>Adds the forward pre-hook that enables pruning on the fly and
 the reparametrization of a tensor in terms of the original tensor
@@ -4062,7 +4063,7 @@ If unspecified or None, the module parameter will be used in its place.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.utils.prune.L1Unstructured.apply_mask">
-<span class="sig-name descname"><span class="pre">apply_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c33fc9dae362f00e9aaa83f86cbcf8e3eee4f99f/torch/nn/utils/prune.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.L1Unstructured.apply_mask" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">apply_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2b2245d5db4ecc2a45de70d3e7496e3ea792195a/torch/nn/utils/prune.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.L1Unstructured.apply_mask" title="Permalink to this definition">#</a></dt>
 <dd><p>Simply handles the multiplication between the parameter being pruned and the generated mask.</p>
 <p>Fetches the mask and the original tensor from the module
 and returns the pruned version of the tensor.</p>
@@ -4081,7 +4082,7 @@ and returns the pruned version of the tensor.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.utils.prune.L1Unstructured.prune">
-<span class="sig-name descname"><span class="pre">prune</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importance_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c33fc9dae362f00e9aaa83f86cbcf8e3eee4f99f/torch/nn/utils/prune.py#L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.L1Unstructured.prune" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">prune</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importance_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2b2245d5db4ecc2a45de70d3e7496e3ea792195a/torch/nn/utils/prune.py#L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.L1Unstructured.prune" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute and returns a pruned version of input tensor <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
 <p>According to the pruning rule specified in <code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_mask()</span></code>.</p>
 <dl class="field-list simple">
@@ -4108,7 +4109,7 @@ default to a mask of ones.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.utils.prune.L1Unstructured.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c33fc9dae362f00e9aaa83f86cbcf8e3eee4f99f/torch/nn/utils/prune.py#L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.L1Unstructured.remove" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2b2245d5db4ecc2a45de70d3e7496e3ea792195a/torch/nn/utils/prune.py#L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.L1Unstructured.remove" title="Permalink to this definition">#</a></dt>
 <dd><p>Remove the pruning reparameterization from a module.</p>
 <p>The pruned parameter named <code class="docutils literal notranslate"><span class="pre">name</span></code> remains permanently pruned,
 and the parameter named <code class="docutils literal notranslate"><span class="pre">name+'_orig'</span></code> is removed from the parameter list.
