@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2b2245d )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git47a142c )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4024,7 +4024,7 @@ document.write(`
 <h1>torch.cuda.gds.gds_deregister_buffer<a class="headerlink" href="#torch-cuda-gds-gds-deregister-buffer" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.gds.gds_deregister_buffer">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.gds.</span></span><span class="sig-name descname"><span class="pre">gds_deregister_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2b2245d5db4ecc2a45de70d3e7496e3ea792195a/torch/cuda/gds.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.gds_deregister_buffer" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.gds.</span></span><span class="sig-name descname"><span class="pre">gds_deregister_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47a142c3c22174db884c3c9ddfe711abaf282a92/torch/cuda/gds.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.gds_deregister_buffer" title="Permalink to this definition">#</a></dt>
 <dd><p>Deregisters a previously registered storage on a CUDA device as a cufile buffer.</p>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>

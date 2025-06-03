@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2b2245d )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git47a142c )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4033,7 +4033,7 @@ document.write(`
                   
   <div class="section" id="dynamic-shapes">
 <h1>Dynamic shapes<a class="headerlink" href="#dynamic-shapes" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 19, 2023 | Last Updated On: Mar 07, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 19, 2023 | Last Updated On: Jun 02, 2025</p>
 <p>Code: <a class="reference external" href="https://github.com/pytorch/pytorch/blob/db4572dbf18f1cf50cf662547e272d3117063747/torch/fx/experimental/symbolic_shapes.py">symbolic_shapes.py</a></p>
 <p>See also: <a class="reference external" href="https://docs.google.com/document/d/1GgvOe7C8_NVOMLOCwDaYV1mXXyHMXY7ExoewHqooxrs/edit#heading=h.fh8zzonyw8ng">The dynamic shapes manual</a></p>
 <div class="section" id="motivation">
@@ -4067,6 +4067,19 @@ Conversely, if you say <code class="docutils literal notranslate"><span class="p
 everything as dynamic as possible.  This is mostly useful for small
 operators; if you try it on a big model it will (1) probably crash PT2 and
 (2) run slow for no good reason.</p></li>
+<li><p>You can whitelist specific sources to be marked as dynamic using the
+<code class="docutils literal notranslate"><span class="pre">TORCH_COMPILE_DYNAMIC_SOURCES</span></code> environment variable or by setting
+<code class="docutils literal notranslate"><span class="pre">torch.compiler.config.dynamic_sources</span></code>. This is particularly useful for large
+models with graph breaks, as you can maintain dynamism across graph breaks since
+source names stay consistent. You can also use this to mark integers as dynamic.
+The format is a comma-delimited list of source names, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;L['x'],</span> <span class="pre">L['y']&quot;</span></code>.
+You can also use regexes, e.g., <cite>“L\[‘x.*’\], L\[‘y.*’\]”)</cite>.
+This whitelist takes precedence over other flags like <code class="docutils literal notranslate"><span class="pre">dynamic=False</span></code>,
+<code class="docutils literal notranslate"><span class="pre">force_nn_module_property_static_shapes</span></code>, and <code class="docutils literal notranslate"><span class="pre">force_parameter_static_shapes</span></code>.</p></li>
+<li><p>Sometimes it can be cumbersome to find the right inputs to mark as dynamic. If
+you’re willing to take a performance hit for the first batch, one other affordable
+option we have are the eager_then_compile stances which derive dynamism for you.
+See <a class="reference external" href="https://docs.pytorch.org/docs/stable/generated/torch.compiler.set_stance.html">torch.compiler.set_stance</a> for more details.</p></li>
 </ul>
 </div>
 <div class="section" id="the-guard-model">
@@ -4138,6 +4151,7 @@ operators; if you try it on a big model it will (1) probably crash PT2 and
 <li><p>Even if nontrivial compute is needed, sometimes a property is never actually queried at all. Making these precomputed properties lazy allows us to avoid guarding on an unbacked symbolic integer unless it is actually needed.</p></li>
 <li><p>The data in an integer tensor is generally not known to be non-negative. However, we provide an API <code class="docutils literal notranslate"><span class="pre">constrain_range</span></code> whereby a user can specify that a size is bounded above and below by known limits.</p></li>
 </ul>
+<p>Similar to the dynamic APIs, there are corresponding unbacked APIs: namely you can use mark_unbacked instead of <code class="docutils literal notranslate"><span class="pre">mark_dynamic</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_COMPILE_UNBACKED_SOURCES</span></code> instead of <code class="docutils literal notranslate"><span class="pre">TORCH_COMPILE_DYNAMIC_SOURCES</span></code> to tell the compiler to mark an input as unbacked.</p>
 <p>In future versions of PT2 (beyond PT2.1), we will extend our reasoning system
 to infer that an unbacked symbolic integer is size-like based on usage.  For
 example, if you pass the result of an <code class="docutils literal notranslate"><span class="pre">.item()</span></code> call to a factory function
@@ -4500,8 +4514,8 @@ at runtime, raising an error if it was not fulfilled.</p>
            "@id": "/torch.compiler_dynamic_shapes.html"
          },
          "datePublished": "May 19, 2023",
-         "dateModified": "Mar 07, 2024",
-         "articleBody": "Dynamic shapes# Created On: May 19, 2023 | Last Updated On: Mar 07, 2024 Code: symbolic_shapes.py See also: The dynamic shapes manual Motivation# Deep learning compilers commonly only work for static shapes, that is to say, they produced compiled programs which only work for a single specific configuration of input shapes, and must recompile if any input shape changes. This assumption works great for the majority of commonly run deep learning models today, but there are a few situations where it is insufficient: Some dimensions, such as batch size or sequence length, may vary. For example, an inference service performing adaptive batching will execute inference requests with varying batch sizes depending on how many requests it received within its batching window. We may also want to consider padding out variable size sequences only to the maximum sequence length within a batch, which may vary from batch-to-batch. Some models exhibit data-dependent output shapes, that is to say, the size of their outputs and intermediates may depend on the actual input data which may vary across runs. For example, detection models may first generate a variable number of potential bounding boxes before running a more expensive image recognition model to identify if the subject is in a bounding box. The number of bounding boxes is data dependent. One particularly important case of data-dependent shapes occurs when dealing with sparse representations, such as sparse tensors, jagged tensors, and graph neural networks. In all of these cases, the amount of data to be processed depends on the sparse structure of the problem, which will typically vary in a data-dependent way. In supporting dynamic shapes, we chose not to support dynamic rank programs, e.g., programs whose inputs tensors change in dimensionality, as this pattern rarely occurs in real-world deep learning programs, and it avoids the need to reason inductively over symbolic lists of shapes. Abridged public API# The default dynamic behavior in PyTorch 2.1 is: PT2 assumes everything is static by default If we recompile because a size changed, we will instead attempt to recompile that size as being dynamic (sizes that have changed are likely to change in the future). This generalization may fail (e.g., because user code does a conditional branch on the size in question or missing dynamic shapes support in PT2). If you are trying to understand why PT2 has overspecialized some code, run with TORCH_LOGS=dynamic and look for “eval” entries that say when guards are added and why. If you know ahead of time something will be dynamic, you can skip the first recompile with torch._dynamo.mark_dynamic(tensor, dim). If you know ahead of time the min and max value this dimension can take, you can specify torch._dynamo.mark_dynamic(tensor, dim, min=min, max=max) If you say torch.compile(dynamic=False), we will turn off automatic dynamic shapes on recompiles and always recompile for each distinct size. Conversely, if you s..."
+         "dateModified": "Jun 02, 2025",
+         "articleBody": "Dynamic shapes# Created On: May 19, 2023 | Last Updated On: Jun 02, 2025 Code: symbolic_shapes.py See also: The dynamic shapes manual Motivation# Deep learning compilers commonly only work for static shapes, that is to say, they produced compiled programs which only work for a single specific configuration of input shapes, and must recompile if any input shape changes. This assumption works great for the majority of commonly run deep learning models today, but there are a few situations where it is insufficient: Some dimensions, such as batch size or sequence length, may vary. For example, an inference service performing adaptive batching will execute inference requests with varying batch sizes depending on how many requests it received within its batching window. We may also want to consider padding out variable size sequences only to the maximum sequence length within a batch, which may vary from batch-to-batch. Some models exhibit data-dependent output shapes, that is to say, the size of their outputs and intermediates may depend on the actual input data which may vary across runs. For example, detection models may first generate a variable number of potential bounding boxes before running a more expensive image recognition model to identify if the subject is in a bounding box. The number of bounding boxes is data dependent. One particularly important case of data-dependent shapes occurs when dealing with sparse representations, such as sparse tensors, jagged tensors, and graph neural networks. In all of these cases, the amount of data to be processed depends on the sparse structure of the problem, which will typically vary in a data-dependent way. In supporting dynamic shapes, we chose not to support dynamic rank programs, e.g., programs whose inputs tensors change in dimensionality, as this pattern rarely occurs in real-world deep learning programs, and it avoids the need to reason inductively over symbolic lists of shapes. Abridged public API# The default dynamic behavior in PyTorch 2.1 is: PT2 assumes everything is static by default If we recompile because a size changed, we will instead attempt to recompile that size as being dynamic (sizes that have changed are likely to change in the future). This generalization may fail (e.g., because user code does a conditional branch on the size in question or missing dynamic shapes support in PT2). If you are trying to understand why PT2 has overspecialized some code, run with TORCH_LOGS=dynamic and look for “eval” entries that say when guards are added and why. If you know ahead of time something will be dynamic, you can skip the first recompile with torch._dynamo.mark_dynamic(tensor, dim). If you know ahead of time the min and max value this dimension can take, you can specify torch._dynamo.mark_dynamic(tensor, dim, min=min, max=max) If you say torch.compile(dynamic=False), we will turn off automatic dynamic shapes on recompiles and always recompile for each distinct size. Conversely, if you s..."
        }
    </script>
 
