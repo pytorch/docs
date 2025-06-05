@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git40a8770 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd5f6422 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3078,8 +3078,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4036,12 +4036,12 @@ input planes.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input</strong> – input tensor <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mtext>minibatch</mtext><mo separator="true">,</mo><mtext>in_channels</mtext><mo separator="true">,</mo><mi>i</mi><mi>H</mi><mo separator="true">,</mo><mi>i</mi><mi>W</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\text{minibatch} , \text{in\_channels} , iH , iW)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.06em;vertical-align:-0.31em;"></span><span class="mopen">(</span><span class="mord text"><span class="mord">minibatch</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">in_channels</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">iW</span><span class="mclose">)</span></span></span></span></span></p></li>
-<li><p><strong>kernel_size</strong> – size of the pooling region. Can be a single number or a
+<li><p><strong>kernel_size</strong> – size of the pooling region. Can be a single number, a single-element tuple or a
 tuple <cite>(kH, kW)</cite></p></li>
-<li><p><strong>stride</strong> – stride of the pooling operation. Can be a single number or a
+<li><p><strong>stride</strong> – stride of the pooling operation. Can be a single number, a single-element tuple or a
 tuple <cite>(sH, sW)</cite>. Default: <code class="xref py py-attr docutils literal notranslate"><span class="pre">kernel_size</span></code></p></li>
 <li><p><strong>padding</strong> – implicit zero paddings on both sides of the input. Can be a
-single number or a tuple <cite>(padH, padW)</cite>. Default: 0</p></li>
+single number, a single-element tuple or a tuple <cite>(padH, padW)</cite>. Default: 0</p></li>
 <li><p><strong>ceil_mode</strong> – when True, will use <cite>ceil</cite> instead of <cite>floor</cite> in the formula
 to compute the output shape. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
 <li><p><strong>count_include_pad</strong> – when True, will include the zero-padding in the
@@ -4387,7 +4387,7 @@ size of the pooling region will be used. Default: None</p></li>
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.nn.functional.avg_pool2d# torch.nn.functional.avg_pool2d(input, kernel_size, stride=None, padding=0, ceil_mode=False, count_include_pad=True, divisor_override=None) → Tensor# Applies 2D average-pooling operation in kH×kWkH \times kWkH×kW regions by step size sH×sWsH \times sWsH×sW steps. The number of output features is equal to the number of input planes. Note pad should be at most half of effective kernel size. See AvgPool2d for details and output shape. Parameters input – input tensor (minibatch,in_channels,iH,iW)(\text{minibatch} , \text{in\_channels} , iH , iW)(minibatch,in_channels,iH,iW) kernel_size – size of the pooling region. Can be a single number or a tuple (kH, kW) stride – stride of the pooling operation. Can be a single number or a tuple (sH, sW). Default: kernel_size padding – implicit zero paddings on both sides of the input. Can be a single number or a tuple (padH, padW). Default: 0 ceil_mode – when True, will use ceil instead of floor in the formula to compute the output shape. Default: False count_include_pad – when True, will include the zero-padding in the averaging calculation. Default: True divisor_override – if specified, it will be used as divisor, otherwise size of the pooling region will be used. Default: None"
+         "articleBody": "torch.nn.functional.avg_pool2d# torch.nn.functional.avg_pool2d(input, kernel_size, stride=None, padding=0, ceil_mode=False, count_include_pad=True, divisor_override=None) → Tensor# Applies 2D average-pooling operation in kH×kWkH \times kWkH×kW regions by step size sH×sWsH \times sWsH×sW steps. The number of output features is equal to the number of input planes. Note pad should be at most half of effective kernel size. See AvgPool2d for details and output shape. Parameters input – input tensor (minibatch,in_channels,iH,iW)(\text{minibatch} , \text{in\_channels} , iH , iW)(minibatch,in_channels,iH,iW) kernel_size – size of the pooling region. Can be a single number, a single-element tuple or a tuple (kH, kW) stride – stride of the pooling operation. Can be a single number, a single-element tuple or a tuple (sH, sW). Default: kernel_size padding – implicit zero paddings on both sides of the input. Can be a single number, a single-element tuple or a tuple (padH, padW). Default: 0 ceil_mode – when True, will use ceil instead of floor in the formula to compute the output shape. Default: False count_include_pad – when True, will include the zero-padding in the averaging calculation. Default: True divisor_override – if specified, it will be used as divisor, otherwise size of the pooling region will be used. Default: None"
        }
    </script>
 

@@ -62,7 +62,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/exportdb/torch.escape-hatch.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="torch.cond" href="torch.cond.html" />
+    <link rel="next" title="torch.dynamic-shape" href="torch.dynamic-shape.html" />
     <link rel="prev" title="ExportDB" href="index.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git40a8770 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd5f6422 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3078,8 +3078,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">ExportDB</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="python.data-structure.html">python.data-structure</a></li>
@@ -4088,7 +4088,7 @@ document.write(`
 <h2>constrain_as_size_example<a class="headerlink" href="#constrain-as-size-example" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.dynamic-value.html"><span class="doc">torch.dynamic-value</span></a>, <a class="reference internal" href="#"><span class="doc">torch.escape-hatch</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.escape-hatch</span></a>, <a class="reference internal" href="torch.dynamic-value.html"><span class="doc">torch.dynamic-value</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -4154,7 +4154,7 @@ document.write(`
 <h2>constrain_as_value_example<a class="headerlink" href="#constrain-as-value-example" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.dynamic-value.html"><span class="doc">torch.dynamic-value</span></a>, <a class="reference internal" href="#"><span class="doc">torch.escape-hatch</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.escape-hatch</span></a>, <a class="reference internal" href="torch.dynamic-value.html"><span class="doc">torch.dynamic-value</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -4271,11 +4271,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="torch.cond.html"
+       href="torch.dynamic-shape.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.cond</p>
+        <p class="prev-next-title">torch.dynamic-shape</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -4314,11 +4314,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="torch.cond.html"
+       href="torch.dynamic-shape.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.cond</p>
+        <p class="prev-next-title">torch.dynamic-shape</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -4552,7 +4552,7 @@ document.write(`
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.escape-hatch# assume_constant_result# Note Tags: torch.escape-hatch Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch import torch._dynamo as torchdynamo class AssumeConstantResult(torch.nn.Module): &#34;&#34;&#34; Applying `assume_constant_result` decorator to burn make non-tracable code as constant. &#34;&#34;&#34; @torchdynamo.assume_constant_result def get_item(self, y): return y.int().item() def forward(self, x, y): return x[: self.get_item(y)] example_args = (torch.randn(3, 2), torch.tensor(4)) tags = {&#34;torch.escape-hatch&#34;} model = AssumeConstantResult() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: &#34;f32[3, 2]&#34;, y: &#34;i64[]&#34;): slice_1: &#34;f32[3, 2]&#34; = torch.ops.aten.slice.Tensor(x, 0, 0, 4); x = None return (slice_1,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs slice_1: USER_OUTPUT Range constraints: {} constrain_as_size_example# Note Tags: torch.dynamic-value, torch.escape-hatch Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ConstrainAsSizeExample(torch.nn.Module): &#34;&#34;&#34; If the value is not known at tracing time, you can provide hint so that we can trace further. Please look at torch._check and torch._check_is_size APIs. torch._check_is_size is used for values that NEED to be used for constructing tensor. &#34;&#34;&#34; def forward(self, x): a = x.item() torch._check_is_size(a) torch._check(a &lt;= 5) return torch.zeros((a, 5)) example_args = (torch.tensor(4),) tags = { &#34;torch.dynamic-value&#34;, &#34;torch.escape-hatch&#34;, } model = ConstrainAsSizeExample() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: &#34;i64[]&#34;): item: &#34;Sym(u0)&#34; = torch.ops.aten.item.default(x); x = None # sym_constrain_range_for_size_default = torch.ops.aten.sym_constrain_range_for_size.default(item); sym_constrain_range_for_size_default = None ge_1: &#34;Sym(u0 &gt;= 0)&#34; = item &gt;= 0 _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_1, &#34;Runtime assertion failed for expression u0 &gt;= 0 on node &#39;ge_1&#39;&#34;); ge_1 = _assert_scalar_default = None le_1: &#34;Sym(u0 &lt;= 5)&#34; = item &lt;= 5 _assert_scalar_default_1 = torch.ops.aten._assert_scalar.default(le_1, &#34;Runtime assertion failed for expression u0 &lt;= 5 on node &#39;le_1&#39;&#34;); le_1 = _assert_scalar_default_1 = None zeros: &#34;f32[u0, 5]&#34; = torch.ops.aten.zeros.default([item, 5], device = device(type=&#39;cpu&#39;), pin_memory = False); item = None return (zeros,) Graph signature: # inputs x: USER_INPUT # outputs zeros: USER_OUTPUT Range constraints: {u0: VR[0, 5], u1: VR[0, 5]} constrain_as_value_example# Note Tags: torch.dynamic-value, torch.escape-hatch Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ConstrainAsValueExample(torch.nn.Module): &#34;&#34;&#34; If the value is not known at tracing time, you can provide hint so that we can trace further. Please look at torch._check and torch._check_is_size A..."
+         "articleBody": "torch.escape-hatch# assume_constant_result# Note Tags: torch.escape-hatch Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch import torch._dynamo as torchdynamo class AssumeConstantResult(torch.nn.Module): &#34;&#34;&#34; Applying `assume_constant_result` decorator to burn make non-tracable code as constant. &#34;&#34;&#34; @torchdynamo.assume_constant_result def get_item(self, y): return y.int().item() def forward(self, x, y): return x[: self.get_item(y)] example_args = (torch.randn(3, 2), torch.tensor(4)) tags = {&#34;torch.escape-hatch&#34;} model = AssumeConstantResult() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: &#34;f32[3, 2]&#34;, y: &#34;i64[]&#34;): slice_1: &#34;f32[3, 2]&#34; = torch.ops.aten.slice.Tensor(x, 0, 0, 4); x = None return (slice_1,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs slice_1: USER_OUTPUT Range constraints: {} constrain_as_size_example# Note Tags: torch.escape-hatch, torch.dynamic-value Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ConstrainAsSizeExample(torch.nn.Module): &#34;&#34;&#34; If the value is not known at tracing time, you can provide hint so that we can trace further. Please look at torch._check and torch._check_is_size APIs. torch._check_is_size is used for values that NEED to be used for constructing tensor. &#34;&#34;&#34; def forward(self, x): a = x.item() torch._check_is_size(a) torch._check(a &lt;= 5) return torch.zeros((a, 5)) example_args = (torch.tensor(4),) tags = { &#34;torch.dynamic-value&#34;, &#34;torch.escape-hatch&#34;, } model = ConstrainAsSizeExample() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: &#34;i64[]&#34;): item: &#34;Sym(u0)&#34; = torch.ops.aten.item.default(x); x = None # sym_constrain_range_for_size_default = torch.ops.aten.sym_constrain_range_for_size.default(item); sym_constrain_range_for_size_default = None ge_1: &#34;Sym(u0 &gt;= 0)&#34; = item &gt;= 0 _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_1, &#34;Runtime assertion failed for expression u0 &gt;= 0 on node &#39;ge_1&#39;&#34;); ge_1 = _assert_scalar_default = None le_1: &#34;Sym(u0 &lt;= 5)&#34; = item &lt;= 5 _assert_scalar_default_1 = torch.ops.aten._assert_scalar.default(le_1, &#34;Runtime assertion failed for expression u0 &lt;= 5 on node &#39;le_1&#39;&#34;); le_1 = _assert_scalar_default_1 = None zeros: &#34;f32[u0, 5]&#34; = torch.ops.aten.zeros.default([item, 5], device = device(type=&#39;cpu&#39;), pin_memory = False); item = None return (zeros,) Graph signature: # inputs x: USER_INPUT # outputs zeros: USER_OUTPUT Range constraints: {u0: VR[0, 5], u1: VR[0, 5]} constrain_as_value_example# Note Tags: torch.escape-hatch, torch.dynamic-value Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ConstrainAsValueExample(torch.nn.Module): &#34;&#34;&#34; If the value is not known at tracing time, you can provide hint so that we can trace further. Please look at torch._check and torch._check_is_size A..."
        }
    </script>
 

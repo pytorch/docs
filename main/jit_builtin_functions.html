@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git40a8770 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd5f6422 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3078,8 +3078,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -13232,6 +13232,19 @@ document.write(`
 
 <span class="n">torch</span><span class="o">.</span><span class="n">randint_like</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                    <span class="n">high</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                   <span class="n">memory_format</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+                   <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">randint_like</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+                   <span class="n">high</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+                   <span class="n">dtype</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+                   <span class="n">layout</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+                   <span class="n">device</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Device</span><span class="p">],</span>
+                   <span class="n">pin_memory</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">],</span>
+                   <span class="n">memory_format</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">randint_like</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+                   <span class="n">high</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                    <span class="n">memory_format</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
                    <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
