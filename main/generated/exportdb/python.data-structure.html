@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd5f6422 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git83d2225 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2920,31 +2920,35 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.CUDAGraph.html">CUDAGraph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.graph.html">graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.make_graphed_callables.html">torch.cuda.make_graphed_callables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.empty_cache.html">torch.cuda.empty_cache</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.get_per_process_memory_fraction.html">torch.cuda.get_per_process_memory_fraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.list_gpu_processes.html">torch.cuda.list_gpu_processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.mem_get_info.html">torch.cuda.mem_get_info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory_stats.html">torch.cuda.memory_stats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.host_memory_stats.html">torch.cuda.host_memory_stats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory_summary.html">torch.cuda.memory_summary</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory_snapshot.html">torch.cuda.memory_snapshot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory_allocated.html">torch.cuda.memory_allocated</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.max_memory_allocated.html">torch.cuda.max_memory_allocated</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.reset_max_memory_allocated.html">torch.cuda.reset_max_memory_allocated</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory_reserved.html">torch.cuda.memory_reserved</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.max_memory_reserved.html">torch.cuda.max_memory_reserved</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.set_per_process_memory_fraction.html">torch.cuda.set_per_process_memory_fraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory_cached.html">torch.cuda.memory_cached</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.max_memory_cached.html">torch.cuda.max_memory_cached</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.reset_max_memory_cached.html">torch.cuda.reset_max_memory_cached</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.reset_peak_memory_stats.html">torch.cuda.reset_peak_memory_stats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.reset_peak_host_memory_stats.html">torch.cuda.reset_peak_host_memory_stats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.caching_allocator_alloc.html">torch.cuda.caching_allocator_alloc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.caching_allocator_delete.html">torch.cuda.caching_allocator_delete</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.get_allocator_backend.html">torch.cuda.get_allocator_backend</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.CUDAPluggableAllocator.html">CUDAPluggableAllocator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.change_current_allocator.html">torch.cuda.change_current_allocator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.MemPool.html">MemPool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.empty_cache.html">torch.cuda.memory.empty_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.get_per_process_memory_fraction.html">torch.cuda.memory.get_per_process_memory_fraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.list_gpu_processes.html">torch.cuda.memory.list_gpu_processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.mem_get_info.html">torch.cuda.memory.mem_get_info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.memory_stats.html">torch.cuda.memory.memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.memory_stats_as_nested_dict.html">torch.cuda.memory.memory_stats_as_nested_dict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.reset_accumulated_memory_stats.html">torch.cuda.memory.reset_accumulated_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.host_memory_stats.html">torch.cuda.memory.host_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.host_memory_stats_as_nested_dict.html">torch.cuda.memory.host_memory_stats_as_nested_dict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.reset_accumulated_host_memory_stats.html">torch.cuda.memory.reset_accumulated_host_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.memory_summary.html">torch.cuda.memory.memory_summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.memory_snapshot.html">torch.cuda.memory.memory_snapshot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.memory_allocated.html">torch.cuda.memory.memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.max_memory_allocated.html">torch.cuda.memory.max_memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.reset_max_memory_allocated.html">torch.cuda.memory.reset_max_memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.memory_reserved.html">torch.cuda.memory.memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.max_memory_reserved.html">torch.cuda.memory.max_memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.set_per_process_memory_fraction.html">torch.cuda.memory.set_per_process_memory_fraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.memory_cached.html">torch.cuda.memory.memory_cached</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.max_memory_cached.html">torch.cuda.memory.max_memory_cached</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.reset_max_memory_cached.html">torch.cuda.memory.reset_max_memory_cached</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.reset_peak_memory_stats.html">torch.cuda.memory.reset_peak_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.reset_peak_host_memory_stats.html">torch.cuda.memory.reset_peak_host_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.caching_allocator_alloc.html">torch.cuda.memory.caching_allocator_alloc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.caching_allocator_delete.html">torch.cuda.memory.caching_allocator_delete</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.get_allocator_backend.html">torch.cuda.memory.get_allocator_backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.CUDAPluggableAllocator.html">CUDAPluggableAllocator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.change_current_allocator.html">torch.cuda.memory.change_current_allocator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.MemPool.html">MemPool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.memory.caching_allocator_enable.html">torch.cuda.memory.caching_allocator_enable</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.nvtx.mark.html">torch.cuda.nvtx.mark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.nvtx.range_push.html">torch.cuda.nvtx.range_push</a></li>
@@ -3016,16 +3020,16 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.Stream.html">Stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.empty_cache.html">torch.xpu.empty_cache</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.max_memory_allocated.html">torch.xpu.max_memory_allocated</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.max_memory_reserved.html">torch.xpu.max_memory_reserved</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.mem_get_info.html">torch.xpu.mem_get_info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory_allocated.html">torch.xpu.memory_allocated</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory_reserved.html">torch.xpu.memory_reserved</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory_stats.html">torch.xpu.memory_stats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory_stats_as_nested_dict.html">torch.xpu.memory_stats_as_nested_dict</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.reset_accumulated_memory_stats.html">torch.xpu.reset_accumulated_memory_stats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.reset_peak_memory_stats.html">torch.xpu.reset_peak_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory.max_memory_reserved.html">torch.xpu.memory.max_memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory.mem_get_info.html">torch.xpu.memory.mem_get_info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory.memory_allocated.html">torch.xpu.memory.memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory.memory_reserved.html">torch.xpu.memory.memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory.memory_stats.html">torch.xpu.memory.memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory.memory_stats_as_nested_dict.html">torch.xpu.memory.memory_stats_as_nested_dict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory.reset_accumulated_memory_stats.html">torch.xpu.memory.reset_accumulated_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory.reset_peak_memory_stats.html">torch.xpu.memory.reset_peak_memory_stats</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../mtia.html">torch.mtia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3078,8 +3082,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">ExportDB</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">python.data-structure</a></li>
@@ -4164,7 +4168,7 @@ document.write(`
 <h2>list_contains<a class="headerlink" href="#list-contains" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="#"><span class="doc">python.data-structure</span></a>, <a class="reference internal" href="python.assert.html"><span class="doc">python.assert</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="python.assert.html"><span class="doc">python.assert</span></a>, <a class="reference internal" href="#"><span class="doc">python.data-structure</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -4212,7 +4216,7 @@ document.write(`
 <h2>list_unpack<a class="headerlink" href="#list-unpack" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="#"><span class="doc">python.data-structure</span></a>, <a class="reference internal" href="python.control-flow.html"><span class="doc">python.control-flow</span></a></p>
+<p>Tags: <a class="reference internal" href="python.control-flow.html"><span class="doc">python.control-flow</span></a>, <a class="reference internal" href="#"><span class="doc">python.data-structure</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -4599,7 +4603,7 @@ document.write(`
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "python.data-structure# dictionary# Note Tags: python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class Dictionary(torch.nn.Module): &#34;&#34;&#34; Dictionary structures are inlined and flattened along tracing. &#34;&#34;&#34; def forward(self, x, y): elements = {} elements[&#34;x2&#34;] = x * x y = y * elements[&#34;x2&#34;] return {&#34;y&#34;: y} example_args = (torch.randn(3, 2), torch.tensor(4)) tags = {&#34;python.data-structure&#34;} model = Dictionary() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: &#34;f32[3, 2]&#34;, y: &#34;i64[]&#34;): mul: &#34;f32[3, 2]&#34; = torch.ops.aten.mul.Tensor(x, x); x = None mul_1: &#34;f32[3, 2]&#34; = torch.ops.aten.mul.Tensor(y, mul); y = mul = None return (mul_1,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs mul_1: USER_OUTPUT Range constraints: {} fn_with_kwargs# Note Tags: python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class FnWithKwargs(torch.nn.Module): &#34;&#34;&#34; Keyword arguments are not supported at the moment. &#34;&#34;&#34; def forward(self, pos0, tuple0, *myargs, mykw0, **mykwargs): out = pos0 for arg in tuple0: out = out * arg for arg in myargs: out = out * arg out = out * mykw0 out = out * mykwargs[&#34;input0&#34;] * mykwargs[&#34;input1&#34;] return out example_args = ( torch.randn(4), (torch.randn(4), torch.randn(4)), *[torch.randn(4), torch.randn(4)] ) example_kwargs = { &#34;mykw0&#34;: torch.randn(4), &#34;input0&#34;: torch.randn(4), &#34;input1&#34;: torch.randn(4), } tags = {&#34;python.data-structure&#34;} model = FnWithKwargs() torch.export.export(model, example_args, example_kwargs) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, pos0: &#34;f32[4]&#34;, tuple0_0: &#34;f32[4]&#34;, tuple0_1: &#34;f32[4]&#34;, myargs_0: &#34;f32[4]&#34;, myargs_1: &#34;f32[4]&#34;, mykw0: &#34;f32[4]&#34;, input0: &#34;f32[4]&#34;, input1: &#34;f32[4]&#34;): mul: &#34;f32[4]&#34; = torch.ops.aten.mul.Tensor(pos0, tuple0_0); pos0 = tuple0_0 = None mul_1: &#34;f32[4]&#34; = torch.ops.aten.mul.Tensor(mul, tuple0_1); mul = tuple0_1 = None mul_2: &#34;f32[4]&#34; = torch.ops.aten.mul.Tensor(mul_1, myargs_0); mul_1 = myargs_0 = None mul_3: &#34;f32[4]&#34; = torch.ops.aten.mul.Tensor(mul_2, myargs_1); mul_2 = myargs_1 = None mul_4: &#34;f32[4]&#34; = torch.ops.aten.mul.Tensor(mul_3, mykw0); mul_3 = mykw0 = None mul_5: &#34;f32[4]&#34; = torch.ops.aten.mul.Tensor(mul_4, input0); mul_4 = input0 = None mul_6: &#34;f32[4]&#34; = torch.ops.aten.mul.Tensor(mul_5, input1); mul_5 = input1 = None return (mul_6,) Graph signature: # inputs pos0: USER_INPUT tuple0_0: USER_INPUT tuple0_1: USER_INPUT myargs_0: USER_INPUT myargs_1: USER_INPUT mykw0: USER_INPUT input0: USER_INPUT input1: USER_INPUT # outputs mul_6: USER_OUTPUT Range constraints: {} list_contains# Note Tags: torch.dynamic-shape, python.data-structure, python.assert Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ListContains(torch.nn.Module): &#34;&#34;&#34; List containment relation can be checked on a dynamic shape or constants. &#34;&#34;&#34; def forwa..."
+         "articleBody": "python.data-structure# dictionary# Note Tags: python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class Dictionary(torch.nn.Module): &#34;&#34;&#34; Dictionary structures are inlined and flattened along tracing. &#34;&#34;&#34; def forward(self, x, y): elements = {} elements[&#34;x2&#34;] = x * x y = y * elements[&#34;x2&#34;] return {&#34;y&#34;: y} example_args = (torch.randn(3, 2), torch.tensor(4)) tags = {&#34;python.data-structure&#34;} model = Dictionary() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: &#34;f32[3, 2]&#34;, y: &#34;i64[]&#34;): mul: &#34;f32[3, 2]&#34; = torch.ops.aten.mul.Tensor(x, x); x = None mul_1: &#34;f32[3, 2]&#34; = torch.ops.aten.mul.Tensor(y, mul); y = mul = None return (mul_1,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs mul_1: USER_OUTPUT Range constraints: {} fn_with_kwargs# Note Tags: python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class FnWithKwargs(torch.nn.Module): &#34;&#34;&#34; Keyword arguments are not supported at the moment. &#34;&#34;&#34; def forward(self, pos0, tuple0, *myargs, mykw0, **mykwargs): out = pos0 for arg in tuple0: out = out * arg for arg in myargs: out = out * arg out = out * mykw0 out = out * mykwargs[&#34;input0&#34;] * mykwargs[&#34;input1&#34;] return out example_args = ( torch.randn(4), (torch.randn(4), torch.randn(4)), *[torch.randn(4), torch.randn(4)] ) example_kwargs = { &#34;mykw0&#34;: torch.randn(4), &#34;input0&#34;: torch.randn(4), &#34;input1&#34;: torch.randn(4), } tags = {&#34;python.data-structure&#34;} model = FnWithKwargs() torch.export.export(model, example_args, example_kwargs) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, pos0: &#34;f32[4]&#34;, tuple0_0: &#34;f32[4]&#34;, tuple0_1: &#34;f32[4]&#34;, myargs_0: &#34;f32[4]&#34;, myargs_1: &#34;f32[4]&#34;, mykw0: &#34;f32[4]&#34;, input0: &#34;f32[4]&#34;, input1: &#34;f32[4]&#34;): mul: &#34;f32[4]&#34; = torch.ops.aten.mul.Tensor(pos0, tuple0_0); pos0 = tuple0_0 = None mul_1: &#34;f32[4]&#34; = torch.ops.aten.mul.Tensor(mul, tuple0_1); mul = tuple0_1 = None mul_2: &#34;f32[4]&#34; = torch.ops.aten.mul.Tensor(mul_1, myargs_0); mul_1 = myargs_0 = None mul_3: &#34;f32[4]&#34; = torch.ops.aten.mul.Tensor(mul_2, myargs_1); mul_2 = myargs_1 = None mul_4: &#34;f32[4]&#34; = torch.ops.aten.mul.Tensor(mul_3, mykw0); mul_3 = mykw0 = None mul_5: &#34;f32[4]&#34; = torch.ops.aten.mul.Tensor(mul_4, input0); mul_4 = input0 = None mul_6: &#34;f32[4]&#34; = torch.ops.aten.mul.Tensor(mul_5, input1); mul_5 = input1 = None return (mul_6,) Graph signature: # inputs pos0: USER_INPUT tuple0_0: USER_INPUT tuple0_1: USER_INPUT myargs_0: USER_INPUT myargs_1: USER_INPUT mykw0: USER_INPUT input0: USER_INPUT input1: USER_INPUT # outputs mul_6: USER_OUTPUT Range constraints: {} list_contains# Note Tags: torch.dynamic-shape, python.assert, python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ListContains(torch.nn.Module): &#34;&#34;&#34; List containment relation can be checked on a dynamic shape or constants. &#34;&#34;&#34; def forwa..."
        }
    </script>
 

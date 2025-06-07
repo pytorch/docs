@@ -1,0 +1,6 @@
+﻿torch.cuda.memory.memory\_snapshot
+==================================
+
+.. currentmodule:: torch.cuda.memory
+
+.. autofunction:: memory_snapshot

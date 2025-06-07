@@ -112,7 +112,7 @@ window.addEventListener("load", () => mermaid.run());
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd5f6422 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git83d2225 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2014,7 +2014,7 @@ document.write(`
         <li><a href="generated/torch.Tensor.allclose.html#torch.Tensor.allclose">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.cuda.MemPool.html#torch.cuda.MemPool.allocator">allocator (torch.cuda.MemPool property)</a>
+      <li><a href="generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool.allocator">allocator (torch.cuda.memory.MemPool property)</a>
 </li>
       <li><a href="backends.html#torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction">allow_bf16_reduced_precision_reduction (in module torch.backends.cuda.matmul)</a>
 </li>
@@ -2760,9 +2760,9 @@ document.write(`
 </li>
       <li><a href="generated/torch.nn.utils.parametrize.cached.html#torch.nn.utils.parametrize.cached">cached() (in module torch.nn.utils.parametrize)</a>
 </li>
-      <li><a href="generated/torch.cuda.caching_allocator_alloc.html#torch.cuda.caching_allocator_alloc">caching_allocator_alloc() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.caching_allocator_alloc.html#torch.cuda.memory.caching_allocator_alloc">caching_allocator_alloc() (in module torch.cuda.memory)</a>
 </li>
-      <li><a href="generated/torch.cuda.caching_allocator_delete.html#torch.cuda.caching_allocator_delete">caching_allocator_delete() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.caching_allocator_delete.html#torch.cuda.memory.caching_allocator_delete">caching_allocator_delete() (in module torch.cuda.memory)</a>
 </li>
       <li><a href="generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable">caching_allocator_enable() (in module torch.cuda.memory)</a>
 </li>
@@ -2908,7 +2908,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.Tensor.chalf.html#torch.Tensor.chalf">chalf() (torch.Tensor method)</a>
 </li>
-      <li><a href="generated/torch.cuda.change_current_allocator.html#torch.cuda.change_current_allocator">change_current_allocator() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.change_current_allocator.html#torch.cuda.memory.change_current_allocator">change_current_allocator() (in module torch.cuda.memory)</a>
 </li>
       <li><a href="generated/torch.nn.ChannelShuffle.html#torch.nn.ChannelShuffle">ChannelShuffle (class in torch.nn)</a>
 </li>
@@ -3634,7 +3634,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.compiler.cudagraph_mark_step_begin.html#torch.compiler.cudagraph_mark_step_begin">cudagraph_mark_step_begin() (in module torch.compiler)</a>
 </li>
-      <li><a href="generated/torch.cuda.CUDAPluggableAllocator.html#torch.cuda.CUDAPluggableAllocator">CUDAPluggableAllocator (class in torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.CUDAPluggableAllocator.html#torch.cuda.memory.CUDAPluggableAllocator">CUDAPluggableAllocator (class in torch.cuda.memory)</a>
 </li>
       <li><a href="generated/torch.cuda.cudart.html#torch.cuda.cudart">cudart() (in module torch.cuda)</a>
 </li>
@@ -4286,14 +4286,14 @@ document.write(`
         <li><a href="distributed.tensor.html#torch.distributed.tensor.empty">(in module torch.distributed.tensor)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.cuda.empty_cache.html#torch.cuda.empty_cache">empty_cache() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.empty_cache.html#torch.cuda.memory.empty_cache">empty_cache() (in module torch.cuda.memory)</a>
 
       <ul>
         <li><a href="generated/torch.mps.empty_cache.html#torch.mps.empty_cache">(in module torch.mps)</a>
 </li>
         <li><a href="generated/torch.mtia.empty_cache.html#torch.mtia.empty_cache">(in module torch.mtia)</a>
 </li>
-        <li><a href="generated/torch.xpu.empty_cache.html#torch.xpu.empty_cache">(in module torch.xpu)</a>
+        <li><a href="generated/torch.xpu.memory.empty_cache.html#torch.xpu.memory.empty_cache">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
       <li><a href="generated/torch.empty_like.html#torch.empty_like">empty_like() (in module torch)</a>
@@ -5367,7 +5367,7 @@ document.write(`
 </li>
       <li><a href="multiprocessing.html#torch.multiprocessing.get_all_sharing_strategies">get_all_sharing_strategies() (in module torch.multiprocessing)</a>
 </li>
-      <li><a href="generated/torch.cuda.get_allocator_backend.html#torch.cuda.get_allocator_backend">get_allocator_backend() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.get_allocator_backend.html#torch.cuda.memory.get_allocator_backend">get_allocator_backend() (in module torch.cuda.memory)</a>
 </li>
       <li><a href="generated/torch.cuda.get_arch_list.html#torch.cuda.get_arch_list">get_arch_list() (in module torch.cuda)</a>
 
@@ -5631,7 +5631,7 @@ document.write(`
       </ul></li>
       <li><a href="distributed.tensor.html#torch.distributed.tensor.debug.CommDebugMode.get_parameter_info">get_parameter_info() (torch.distributed.tensor.debug.CommDebugMode method)</a>
 </li>
-      <li><a href="generated/torch.cuda.get_per_process_memory_fraction.html#torch.cuda.get_per_process_memory_fraction">get_per_process_memory_fraction() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.get_per_process_memory_fraction.html#torch.cuda.memory.get_per_process_memory_fraction">get_per_process_memory_fraction() (in module torch.cuda.memory)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.get_process_group_ranks">get_process_group_ranks() (in module torch.distributed)</a>
 </li>
@@ -6075,7 +6075,9 @@ document.write(`
 </li>
       <li><a href="distributed.html#torch.distributed.TCPStore.host">host (torch.distributed.TCPStore property)</a>
 </li>
-      <li><a href="generated/torch.cuda.host_memory_stats.html#torch.cuda.host_memory_stats">host_memory_stats() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.host_memory_stats.html#torch.cuda.memory.host_memory_stats">host_memory_stats() (in module torch.cuda.memory)</a>
+</li>
+      <li><a href="generated/torch.cuda.memory.host_memory_stats_as_nested_dict.html#torch.cuda.memory.host_memory_stats_as_nested_dict">host_memory_stats_as_nested_dict() (in module torch.cuda.memory)</a>
 </li>
       <li><a href="generated/torch.linalg.householder_product.html#torch.linalg.householder_product">householder_product() (in module torch.linalg)</a>
 </li>
@@ -6155,7 +6157,7 @@ document.write(`
         <li><a href="distributions.html#torch.distributions.uniform.Uniform.icdf">(torch.distributions.uniform.Uniform method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.cuda.MemPool.html#torch.cuda.MemPool.id">id (torch.cuda.MemPool property)</a>
+      <li><a href="generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool.id">id (torch.cuda.memory.MemPool property)</a>
 
       <ul>
         <li><a href="rpc.html#torch.distributed.rpc.WorkerInfo.id">(torch.distributed.rpc.WorkerInfo property)</a>
@@ -7061,7 +7063,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.compiler.list_backends.html#torch.compiler.list_backends">list_backends() (in module torch.compiler)</a>
 </li>
-      <li><a href="generated/torch.cuda.list_gpu_processes.html#torch.cuda.list_gpu_processes">list_gpu_processes() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.list_gpu_processes.html#torch.cuda.memory.list_gpu_processes">list_gpu_processes() (in module torch.cuda.memory)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.lkj_cholesky.LKJCholesky">LKJCholesky (class in torch.distributions.lkj_cholesky)</a>
 </li>
@@ -7675,18 +7677,18 @@ document.write(`
         <li><a href="generated/torch.Tensor.max.html#torch.Tensor.max">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.cuda.max_memory_allocated.html#torch.cuda.max_memory_allocated">max_memory_allocated() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.max_memory_allocated.html#torch.cuda.memory.max_memory_allocated">max_memory_allocated() (in module torch.cuda.memory)</a>
 
       <ul>
-        <li><a href="generated/torch.xpu.max_memory_allocated.html#torch.xpu.max_memory_allocated">(in module torch.xpu)</a>
+        <li><a href="generated/torch.xpu.memory.max_memory_allocated.html#torch.xpu.memory.max_memory_allocated">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.cuda.max_memory_cached.html#torch.cuda.max_memory_cached">max_memory_cached() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.max_memory_cached.html#torch.cuda.memory.max_memory_cached">max_memory_cached() (in module torch.cuda.memory)</a>
 </li>
-      <li><a href="generated/torch.cuda.max_memory_reserved.html#torch.cuda.max_memory_reserved">max_memory_reserved() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.max_memory_reserved.html#torch.cuda.memory.max_memory_reserved">max_memory_reserved() (in module torch.cuda.memory)</a>
 
       <ul>
-        <li><a href="generated/torch.xpu.max_memory_reserved.html#torch.xpu.max_memory_reserved">(in module torch.xpu)</a>
+        <li><a href="generated/torch.xpu.memory.max_memory_reserved.html#torch.xpu.memory.max_memory_reserved">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
       <li><a href="generated/torch.ao.nn.quantized.functional.max_pool1d.html#torch.ao.nn.quantized.functional.max_pool1d">max_pool1d (class in torch.ao.nn.quantized.functional)</a>
@@ -7817,47 +7819,51 @@ document.write(`
       </ul></li>
       <li><a href="backends.html#torch.backends.cuda.mem_efficient_sdp_enabled">mem_efficient_sdp_enabled() (in module torch.backends.cuda)</a>
 </li>
-      <li><a href="generated/torch.cuda.mem_get_info.html#torch.cuda.mem_get_info">mem_get_info() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.mem_get_info.html#torch.cuda.memory.mem_get_info">mem_get_info() (in module torch.cuda.memory)</a>
 
       <ul>
-        <li><a href="generated/torch.xpu.mem_get_info.html#torch.xpu.mem_get_info">(in module torch.xpu)</a>
+        <li><a href="generated/torch.xpu.memory.mem_get_info.html#torch.xpu.memory.mem_get_info">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.cuda.memory_allocated.html#torch.cuda.memory_allocated">memory_allocated() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.memory_allocated.html#torch.cuda.memory.memory_allocated">memory_allocated() (in module torch.cuda.memory)</a>
 
       <ul>
-        <li><a href="generated/torch.xpu.memory_allocated.html#torch.xpu.memory_allocated">(in module torch.xpu)</a>
+        <li><a href="generated/torch.xpu.memory.memory_allocated.html#torch.xpu.memory.memory_allocated">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.cuda.memory_cached.html#torch.cuda.memory_cached">memory_cached() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.memory_cached.html#torch.cuda.memory.memory_cached">memory_cached() (in module torch.cuda.memory)</a>
 </li>
       <li><a href="tensor_attributes.html#torch.memory_format">memory_format (class in torch)</a>
 </li>
-      <li><a href="generated/torch.cuda.memory_reserved.html#torch.cuda.memory_reserved">memory_reserved() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.memory_reserved.html#torch.cuda.memory.memory_reserved">memory_reserved() (in module torch.cuda.memory)</a>
 
       <ul>
-        <li><a href="generated/torch.xpu.memory_reserved.html#torch.xpu.memory_reserved">(in module torch.xpu)</a>
+        <li><a href="generated/torch.xpu.memory.memory_reserved.html#torch.xpu.memory.memory_reserved">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.cuda.memory_snapshot.html#torch.cuda.memory_snapshot">memory_snapshot() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.memory_snapshot.html#torch.cuda.memory.memory_snapshot">memory_snapshot() (in module torch.cuda.memory)</a>
 </li>
-      <li><a href="generated/torch.cuda.memory_stats.html#torch.cuda.memory_stats">memory_stats() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.memory_stats.html#torch.cuda.memory.memory_stats">memory_stats() (in module torch.cuda.memory)</a>
 
       <ul>
         <li><a href="generated/torch.mtia.memory_stats.html#torch.mtia.memory_stats">(in module torch.mtia)</a>
 </li>
         <li><a href="generated/torch.mtia.memory.memory_stats.html#torch.mtia.memory.memory_stats">(in module torch.mtia.memory)</a>
 </li>
-        <li><a href="generated/torch.xpu.memory_stats.html#torch.xpu.memory_stats">(in module torch.xpu)</a>
+        <li><a href="generated/torch.xpu.memory.memory_stats.html#torch.xpu.memory.memory_stats">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.xpu.memory_stats_as_nested_dict.html#torch.xpu.memory_stats_as_nested_dict">memory_stats_as_nested_dict() (in module torch.xpu)</a>
+      <li><a href="generated/torch.cuda.memory.memory_stats_as_nested_dict.html#torch.cuda.memory.memory_stats_as_nested_dict">memory_stats_as_nested_dict() (in module torch.cuda.memory)</a>
+
+      <ul>
+        <li><a href="generated/torch.xpu.memory.memory_stats_as_nested_dict.html#torch.xpu.memory.memory_stats_as_nested_dict">(in module torch.xpu.memory)</a>
 </li>
-      <li><a href="generated/torch.cuda.memory_summary.html#torch.cuda.memory_summary">memory_summary() (in module torch.cuda)</a>
+      </ul></li>
+      <li><a href="generated/torch.cuda.memory.memory_summary.html#torch.cuda.memory.memory_summary">memory_summary() (in module torch.cuda.memory)</a>
 </li>
       <li><a href="generated/torch.cuda.memory_usage.html#torch.cuda.memory_usage">memory_usage() (in module torch.cuda)</a>
 </li>
-      <li><a href="generated/torch.cuda.MemPool.html#torch.cuda.MemPool">MemPool (class in torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool">MemPool (class in torch.cuda.memory)</a>
 </li>
       <li><a href="generated/torch.autograd.profiler_util.MemRecordsAcc.html#torch.autograd.profiler_util.MemRecordsAcc">MemRecordsAcc (class in torch.autograd.profiler_util)</a>
 </li>
@@ -11478,11 +11484,17 @@ document.write(`
         <li><a href="generated/torch.quasirandom.SobolEngine.html#torch.quasirandom.SobolEngine.reset">(torch.quasirandom.SobolEngine method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.xpu.reset_accumulated_memory_stats.html#torch.xpu.reset_accumulated_memory_stats">reset_accumulated_memory_stats() (in module torch.xpu)</a>
+      <li><a href="generated/torch.cuda.memory.reset_accumulated_host_memory_stats.html#torch.cuda.memory.reset_accumulated_host_memory_stats">reset_accumulated_host_memory_stats() (in module torch.cuda.memory)</a>
 </li>
-      <li><a href="generated/torch.cuda.reset_max_memory_allocated.html#torch.cuda.reset_max_memory_allocated">reset_max_memory_allocated() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.reset_accumulated_memory_stats.html#torch.cuda.memory.reset_accumulated_memory_stats">reset_accumulated_memory_stats() (in module torch.cuda.memory)</a>
+
+      <ul>
+        <li><a href="generated/torch.xpu.memory.reset_accumulated_memory_stats.html#torch.xpu.memory.reset_accumulated_memory_stats">(in module torch.xpu.memory)</a>
 </li>
-      <li><a href="generated/torch.cuda.reset_max_memory_cached.html#torch.cuda.reset_max_memory_cached">reset_max_memory_cached() (in module torch.cuda)</a>
+      </ul></li>
+      <li><a href="generated/torch.cuda.memory.reset_max_memory_allocated.html#torch.cuda.memory.reset_max_memory_allocated">reset_max_memory_allocated() (in module torch.cuda.memory)</a>
+</li>
+      <li><a href="generated/torch.cuda.memory.reset_max_memory_cached.html#torch.cuda.memory.reset_max_memory_cached">reset_max_memory_cached() (in module torch.cuda.memory)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.observer.MinMaxObserver.html#torch.ao.quantization.observer.MinMaxObserver.reset_min_max_vals">reset_min_max_vals() (torch.ao.quantization.observer.MinMaxObserver method)</a>
 
@@ -11496,12 +11508,12 @@ document.write(`
         <li><a href="generated/torch.nn.RMSNorm.html#torch.nn.RMSNorm.reset_parameters">(torch.nn.RMSNorm method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.cuda.reset_peak_host_memory_stats.html#torch.cuda.reset_peak_host_memory_stats">reset_peak_host_memory_stats() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.reset_peak_host_memory_stats.html#torch.cuda.memory.reset_peak_host_memory_stats">reset_peak_host_memory_stats() (in module torch.cuda.memory)</a>
 </li>
-      <li><a href="generated/torch.cuda.reset_peak_memory_stats.html#torch.cuda.reset_peak_memory_stats">reset_peak_memory_stats() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.reset_peak_memory_stats.html#torch.cuda.memory.reset_peak_memory_stats">reset_peak_memory_stats() (in module torch.cuda.memory)</a>
 
       <ul>
-        <li><a href="generated/torch.xpu.reset_peak_memory_stats.html#torch.xpu.reset_peak_memory_stats">(in module torch.xpu)</a>
+        <li><a href="generated/torch.xpu.memory.reset_peak_memory_stats.html#torch.xpu.memory.reset_peak_memory_stats">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
       <li><a href="generated/torch.reshape.html#torch.reshape">reshape() (in module torch)</a>
@@ -12136,7 +12148,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.ao.quantization.backend_config.BackendPatternConfig.html#torch.ao.quantization.backend_config.BackendPatternConfig.set_pattern">set_pattern() (torch.ao.quantization.backend_config.BackendPatternConfig method)</a>
 </li>
-      <li><a href="generated/torch.cuda.set_per_process_memory_fraction.html#torch.cuda.set_per_process_memory_fraction">set_per_process_memory_fraction() (in module torch.cuda)</a>
+      <li><a href="generated/torch.cuda.memory.set_per_process_memory_fraction.html#torch.cuda.memory.set_per_process_memory_fraction">set_per_process_memory_fraction() (in module torch.cuda.memory)</a>
 
       <ul>
         <li><a href="generated/torch.mps.set_per_process_memory_fraction.html#torch.mps.set_per_process_memory_fraction">(in module torch.mps)</a>
@@ -12465,7 +12477,7 @@ document.write(`
       <li><a href="generated/torch.mtia.snapshot.html#torch.mtia.snapshot">snapshot() (in module torch.mtia)</a>
 
       <ul>
-        <li><a href="generated/torch.cuda.MemPool.html#torch.cuda.MemPool.snapshot">(torch.cuda.MemPool method)</a>
+        <li><a href="generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool.snapshot">(torch.cuda.memory.MemPool method)</a>
 </li>
       </ul></li>
       <li><a href="generated/torch.quasirandom.SobolEngine.html#torch.quasirandom.SobolEngine">SobolEngine (class in torch.quasirandom)</a>
@@ -19550,7 +19562,7 @@ document.write(`
 </li>
       <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousHandler.use_agent_store">use_agent_store (torch.distributed.elastic.rendezvous.RendezvousHandler property)</a>
 </li>
-      <li><a href="generated/torch.cuda.MemPool.html#torch.cuda.MemPool.use_count">use_count() (torch.cuda.MemPool method)</a>
+      <li><a href="generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool.use_count">use_count() (torch.cuda.memory.MemPool method)</a>
 </li>
       <li><a href="generated/torch.use_deterministic_algorithms.html#torch.use_deterministic_algorithms">use_deterministic_algorithms() (in module torch)</a>
 </li>

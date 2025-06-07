@@ -104,7 +104,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd5f6422 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git83d2225 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1504,7 +1504,7 @@ document.write(`
                   
   <div class="section" id="pytorch-2-0-troubleshooting-old">
 <span id="torch-compiler-troubleshooting-old"></span><h1>PyTorch 2.0 Troubleshooting (old)<a class="headerlink" href="#pytorch-2-0-troubleshooting-old" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Nov 28, 2022 | Last Updated On: Apr 27, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 06, 2025 | Last Updated On: Jun 06, 2025</p>
 <p><strong>Author</strong>: <a class="reference external" href="https://github.com/mlazos">Michael Lazos</a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1516,9 +1516,9 @@ available.</p>
 <p>We are actively developing debug tools, profilers, and improving our
 error and warning messages. Below is a table of the available
 tools and their typical usage. For additional help see
-<a class="reference external" href="#diagnosing-runtime-errors">Diagnosing Runtime Errors</a>.</p>
-<div class="pst-scrollable-table-container"><table class="colwidths-given table" id="id1">
-<caption><span class="caption-text">Title</span><a class="headerlink" href="#id1" title="Permalink to this table">#</a></caption>
+<a class="reference internal" href="#diagnosing-runtime-errors"><span class="std std-ref">Diagnosing Runtime Errors</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="colwidths-given table" id="id5">
+<caption><span class="caption-text">Title</span><a class="headerlink" href="#id5" title="Permalink to this table">#</a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -1593,7 +1593,7 @@ visualization</p></td>
 you can use <a class="reference external" href="https://pytorch.org/docs/main/logging.html">torch._logging</a>
 for more fine-grained logging.</p>
 <div class="section" id="diagnosing-runtime-errors">
-<h2>Diagnosing Runtime Errors<a class="headerlink" href="#diagnosing-runtime-errors" title="Permalink to this heading">#</a></h2>
+<span id="id1"></span><h2>Diagnosing Runtime Errors<a class="headerlink" href="#diagnosing-runtime-errors" title="Permalink to this heading">#</a></h2>
 <p>At a high level, the TorchDynamo stack consists of a graph capture from
 Python code (TorchDynamo) and a backend compiler. For example, a
 backend compiler may consist of backward graph tracing (AOTAutograd) and
@@ -1606,11 +1606,7 @@ and look for <code class="docutils literal notranslate"><span class="pre">Step</
 each step, so the step that an error should correspond to is the most recently
 logged step whose end has not yet been logged. The steps correspond to the
 following parts of the stack:</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 80%" />
-</colgroup>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Step</p></th>
 <th class="head"><p>Component</p></th>
@@ -1645,16 +1641,15 @@ to AOTAutograd.</p></li>
 <ol class="arabic simple">
 <li><p>Run your program with the <code class="docutils literal notranslate"><span class="pre">&quot;eager&quot;</span></code> backend. If the error no longer
 occurs, the issue is in the backend compiler that is being used (if
-using TorchInductor, proceed to step 2. If not, see <a class="reference external" href="#minifying-backend-compiler-errors">this
-section</a>). If the error still
-occurs with the <code class="docutils literal notranslate"><span class="pre">&quot;eager&quot;</span></code> backend, it is an <a class="reference external" href="#torchdynamo-errors">error while running
-torchdynamo</a>.</p></li>
+using TorchInductor, proceed to step 2. If not, see
+<a class="reference internal" href="#minifying-backend-compiler-errors"><span class="std std-ref">Minifying Backend Compiler Errors</span></a>). If the error still
+occurs with the <code class="docutils literal notranslate"><span class="pre">&quot;eager&quot;</span></code> backend, it is due to
+<a class="reference internal" href="#torchdynamo-errors"><span class="std std-ref">Torchdynamo Errors</span></a>.</p></li>
 <li><p>This step is only necessary if <code class="docutils literal notranslate"><span class="pre">TorchInductor</span></code> is used as the backend
 compiler. Run the model with the <code class="docutils literal notranslate"><span class="pre">&quot;aot_eager&quot;</span></code> backend. If this
 backend raises an error then the error is occurring during
 AOTAutograd tracing. If the error no longer occurs with this backend,
-then <a class="reference external" href="#minifying-torchinductor-errors">the error is in
-TorchInductor*</a>.</p></li>
+then <a class="reference internal" href="#minifying-torchinductor-errors"><span class="std std-ref">Minifying TorchInductor Errors</span></a>.</p></li>
 </ol>
 <p>Each of these cases are analyzed in the following sections.</p>
 <div class="admonition note">
@@ -1666,7 +1661,7 @@ TorchInductor lowering as the phase which lowers the graph traced by
 AOTAutograd.</p>
 </div>
 <div class="section" id="torchdynamo-errors">
-<h3>Torchdynamo Errors<a class="headerlink" href="#torchdynamo-errors" title="Permalink to this heading">#</a></h3>
+<span id="id2"></span><h3>Torchdynamo Errors<a class="headerlink" href="#torchdynamo-errors" title="Permalink to this heading">#</a></h3>
 <p>If the error that is generated occurs with the <code class="docutils literal notranslate"><span class="pre">&quot;eager&quot;</span></code> backend, then
 TorchDynamo is most likely the source of the error. Here is a sample code
 which will generate an error.</p>
@@ -1734,7 +1729,7 @@ then be replayed to run only the frame where an error occurred.</p></li>
 <p>If the error does not occur with the <code class="docutils literal notranslate"><span class="pre">&quot;eager&quot;</span></code> backend, then the
 backend compiler is the source of the error (<a class="reference external" href="https://gist.github.com/mlazos/2f13681e3cc6c43b3911f336327032de">example
 error</a>).
-There are <a class="reference external" href="./torch.compiler.rst">different choices</a>
+There are <a class="reference internal" href="torch.compiler.html"><span class="doc std std-doc">different choices</span></a>
 for backend compilers for TorchDynamo, with TorchInductor
 fitting the needs of most users. This section focuses on TorchInductor
 as the motivating example, but some tools can also be used with other
@@ -1796,7 +1791,7 @@ issue</a>
 is in the TorchInductor lowering process, not in AOTAutograd.</p>
 </div>
 <div class="section" id="minifying-torchinductor-errors">
-<h3>Minifying TorchInductor Errors<a class="headerlink" href="#minifying-torchinductor-errors" title="Permalink to this heading">#</a></h3>
+<span id="id3"></span><h3>Minifying TorchInductor Errors<a class="headerlink" href="#minifying-torchinductor-errors" title="Permalink to this heading">#</a></h3>
 <p>From here, let’s run the minifier to get a minimal repro. Setting the
 environment variable <code class="docutils literal notranslate"><span class="pre">TORCHDYNAMO_REPRO_AFTER=&quot;aot&quot;</span></code> (or setting
 <code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.repro_after=&quot;aot&quot;</span></code> directly) will generate a
@@ -1860,10 +1855,10 @@ which causes the issue. When filing an issue, please include any
 minified repros to aid in debugging.</p>
 </div>
 <div class="section" id="minifying-backend-compiler-errors">
-<h3>Minifying Backend Compiler Errors<a class="headerlink" href="#minifying-backend-compiler-errors" title="Permalink to this heading">#</a></h3>
+<span id="id4"></span><h3>Minifying Backend Compiler Errors<a class="headerlink" href="#minifying-backend-compiler-errors" title="Permalink to this heading">#</a></h3>
 <p>With backend compilers other than TorchInductor the process for finding
 the subgraph causing the error is nearly identical to the procedure in
-<a class="reference external" href="#torchinductor-errors">errors in TorchInductor</a> with one important
+<a class="reference internal" href="#minifying-torchinductor-errors"><span class="std std-ref">Minifying TorchInductor Errors</span></a> with one important
 caveat. Namely, that the minifier will now be run on the graph that is
 traced by TorchDynamo, not the output graph of AOTAutograd. Let’s walk
 through an example.</p>
@@ -1938,7 +1933,7 @@ will run the minifier after the backward graph has been generated.</p>
 </div>
 <p>The minifier successfully reduced the graph to the op that raises the
 error in <code class="docutils literal notranslate"><span class="pre">toy_compiler</span></code>. The other difference from the procedure in
-<a class="reference external" href="#torchinductor-errors">TorchInductor Errors</a> is that the minifier is
+<a class="reference internal" href="#minifying-torchinductor-errors"><span class="std std-ref">Minifying TorchInductor Errors</span></a> is that the minifier is
 automatically run after encountering a backend compiler error. After a
 successful run, the minifier writes <code class="docutils literal notranslate"><span class="pre">repro.py</span></code> to
 <code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.base_dir</span></code>.</p>
@@ -2312,7 +2307,7 @@ other caching config option and disable all compile time caching.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_troubleshooting_old.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_troubleshooting_old.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -2326,7 +2321,7 @@ other caching config option and disable all compile time caching.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/torch.compiler_troubleshooting_old.rst.txt">
+      <a href="_sources/torch.compiler_troubleshooting_old.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -2528,9 +2523,9 @@ other caching config option and disable all compile time caching.</p>
            "@type": "WebPage",
            "@id": "/torch.compiler_troubleshooting_old.html"
          },
-         "datePublished": "Nov 28, 2022",
-         "dateModified": "Apr 27, 2025",
-         "articleBody": "PyTorch 2.0 Troubleshooting (old)# Created On: Nov 28, 2022 | Last Updated On: Apr 27, 2025 Author: Michael Lazos Note This document is outdated and is now mainly a primary resource on how to run the torch.compile minifier. Please see the updated troubleshooting document. There is also a more comprehensive manual for torch.compile available. We are actively developing debug tools, profilers, and improving our error and warning messages. Below is a table of the available tools and their typical usage. For additional help see Diagnosing Runtime Errors. Title# Tool Purpose Usage Info logging View summarized steps of compilation torch._logging.set_logs(dynamo = logging.INFO) or TORCH_LOGS=&#34;dynamo&#34; Debug logging View detailed steps of compilation (print every instruction traced) torch._logging.set_logs(dynamo = logging.DEBUG) and torch._dynamo.config.verbose = True, or TORCH_LOGS=&#34;+dynamo&#34; TORCHDYNAMO_VERBOSE=1 Minifier for any backend Find smallest subgraph which reproduces errors for any backend set environment variable TORCHDYNAMO_REPRO_AFTER=&#34;dynamo&#34; Minifier for TorchInductor If the error is known to occur after AOTAutograd find smallest subgraph which reproduces errors during TorchInductor lowering set environment variable TORCHDYNAMO_REPRO_AFTER=&#34;aot&#34; Dynamo accuracy minifier Finds the smallest subgraph which reproduces an accuracy issue between an eager mode model and optimized model, when you suspect the problem is in AOTAutograd TORCHDYNAMO_REPRO_AFTER=&#34;dynamo&#34; TORCHDYNAMO_REPRO_LEVEL=4 Inductor accuracy minifier Finds the smallest subgraph which reproduces an accuracy issue between an eager mode model and optimized model, when you suspect the problem is in the backend (e.g., inductor). If this doesn’t work, try the Dynamo accuracy minifier instead. TORCHDYNAMO_REPRO_AFTER=&#34;aot&#34; TORCHDYNAMO_REPRO_LEVEL=4 torch._dynamo.explain Find graph breaks and display reasoning for them torch._dynamo.explain(fn)(*inputs) Record/Replay Record and replay frames which to reproduce errors during graph capture torch._dynamo.config.replay_record_enabled = True TorchDynamo function name filtering Only compile functions with the given name to reduce noise when debugging an issue set environment variable TORCHDYNAMO_DEBUG_FUNCTION=&lt;name&gt; TorchInductor Debug logging Print general TorchInductor debug info and generated Triton/C++ code torch._inductor.config.debug = True TorchInductor Tracing Show time taken in each TorchInductor stage + output code and graph visualization set the environment variable TORCH_COMPILE_DEBUG=1 or torch._inductor.config.trace.enabled = True In addition to info and debug logging, you can use torch._logging for more fine-grained logging. Diagnosing Runtime Errors# At a high level, the TorchDynamo stack consists of a graph capture from Python code (TorchDynamo) and a backend compiler. For example, a backend compiler may consist of backward graph tracing (AOTAutograd) and graph lowering (TorchInductor)*. Errors can occur in any component ..."
+         "datePublished": "Jun 06, 2025",
+         "dateModified": "Jun 06, 2025",
+         "articleBody": "PyTorch 2.0 Troubleshooting (old)# Created On: Jun 06, 2025 | Last Updated On: Jun 06, 2025 Author: Michael Lazos Note This document is outdated and is now mainly a primary resource on how to run the torch.compile minifier. Please see the updated troubleshooting document. There is also a more comprehensive manual for torch.compile available. We are actively developing debug tools, profilers, and improving our error and warning messages. Below is a table of the available tools and their typical usage. For additional help see Diagnosing Runtime Errors. Title# Tool Purpose Usage Info logging View summarized steps of compilation torch._logging.set_logs(dynamo = logging.INFO) or TORCH_LOGS=&#34;dynamo&#34; Debug logging View detailed steps of compilation (print every instruction traced) torch._logging.set_logs(dynamo = logging.DEBUG) and torch._dynamo.config.verbose = True, or TORCH_LOGS=&#34;+dynamo&#34; TORCHDYNAMO_VERBOSE=1 Minifier for any backend Find smallest subgraph which reproduces errors for any backend set environment variable TORCHDYNAMO_REPRO_AFTER=&#34;dynamo&#34; Minifier for TorchInductor If the error is known to occur after AOTAutograd find smallest subgraph which reproduces errors during TorchInductor lowering set environment variable TORCHDYNAMO_REPRO_AFTER=&#34;aot&#34; Dynamo accuracy minifier Finds the smallest subgraph which reproduces an accuracy issue between an eager mode model and optimized model, when you suspect the problem is in AOTAutograd TORCHDYNAMO_REPRO_AFTER=&#34;dynamo&#34; TORCHDYNAMO_REPRO_LEVEL=4 Inductor accuracy minifier Finds the smallest subgraph which reproduces an accuracy issue between an eager mode model and optimized model, when you suspect the problem is in the backend (e.g., inductor). If this doesn’t work, try the Dynamo accuracy minifier instead. TORCHDYNAMO_REPRO_AFTER=&#34;aot&#34; TORCHDYNAMO_REPRO_LEVEL=4 torch._dynamo.explain Find graph breaks and display reasoning for them torch._dynamo.explain(fn)(*inputs) Record/Replay Record and replay frames which to reproduce errors during graph capture torch._dynamo.config.replay_record_enabled = True TorchDynamo function name filtering Only compile functions with the given name to reduce noise when debugging an issue set environment variable TORCHDYNAMO_DEBUG_FUNCTION=&lt;name&gt; TorchInductor Debug logging Print general TorchInductor debug info and generated Triton/C++ code torch._inductor.config.debug = True TorchInductor Tracing Show time taken in each TorchInductor stage + output code and graph visualization set the environment variable TORCH_COMPILE_DEBUG=1 or torch._inductor.config.trace.enabled = True In addition to info and debug logging, you can use torch._logging for more fine-grained logging. Diagnosing Runtime Errors# At a high level, the TorchDynamo stack consists of a graph capture from Python code (TorchDynamo) and a backend compiler. For example, a backend compiler may consist of backward graph tracing (AOTAutograd) and graph lowering (TorchInductor)*. Errors can occur in any component ..."
        }
    </script>
 
