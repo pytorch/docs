@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitabf4da0 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2908c10 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3082,8 +3082,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4016,7 +4016,7 @@ document.write(`
                   
   <div class="section" id="torch-mtia">
 <h1>torch.mtia<a class="headerlink" href="#torch-mtia" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 11, 2023 | Last Updated On: Apr 27, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 11, 2023 | Last Updated On: Jun 08, 2025</p>
 <p>The MTIA backend is implemented out of the tree, only interfaces are be defined here.</p>
 <span class="target" id="module-torch.mtia"></span><p>This package enables an interface for accessing MTIA backend in python</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
@@ -4244,7 +4244,7 @@ document.write(`
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/mtia.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/mtia.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4258,7 +4258,7 @@ document.write(`
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/mtia.rst.txt">
+      <a href="_sources/mtia.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4461,8 +4461,8 @@ document.write(`
            "@id": "/mtia.html"
          },
          "datePublished": "Jul 11, 2023",
-         "dateModified": "Apr 27, 2025",
-         "articleBody": "torch.mtia# Created On: Jul 11, 2023 | Last Updated On: Apr 27, 2025 The MTIA backend is implemented out of the tree, only interfaces are be defined here. This package enables an interface for accessing MTIA backend in python StreamContext Context-manager that selects a given stream. current_device Return the index of a currently selected device. current_stream Return the currently selected Stream for a given device. default_stream Return the default Stream for a given device. device_count Return the number of MTIA devices available. init is_available Return true if MTIA device is available is_initialized Return whether PyTorch&#39;s MTIA state has been initialized. memory_stats Return a dictionary of MTIA memory allocator statistics for a given device. get_device_capability Return capability of a given device as a tuple of (major version, minor version). empty_cache Empty the MTIA device cache. record_memory_history Enable/Disable the memory profiler on MTIA allocator snapshot Return a dictionary of MTIA memory allocator history attach_out_of_memory_observer Attach an out-of-memory observer to MTIA memory allocator set_device Set the current device. set_stream Set the current stream.This is a wrapper API to set the stream. stream Wrap around the Context-manager StreamContext that selects a given stream. synchronize Waits for all jobs in all streams on a MTIA device to complete. device Context-manager that changes the selected device. set_rng_state Sets the random number generator state. get_rng_state Returns the random number generator state as a ByteTensor. DeferredMtiaCallError Streams and events# Event Query and record Stream status to identify or control dependencies across Stream and measure timing. Stream An in-order queue of executing the respective tasks asynchronously in first in first out (FIFO) order."
+         "dateModified": "Jun 08, 2025",
+         "articleBody": "torch.mtia# Created On: Jul 11, 2023 | Last Updated On: Jun 08, 2025 The MTIA backend is implemented out of the tree, only interfaces are be defined here. This package enables an interface for accessing MTIA backend in python StreamContext Context-manager that selects a given stream. current_device Return the index of a currently selected device. current_stream Return the currently selected Stream for a given device. default_stream Return the default Stream for a given device. device_count Return the number of MTIA devices available. init is_available Return true if MTIA device is available is_initialized Return whether PyTorch&#39;s MTIA state has been initialized. memory_stats Return a dictionary of MTIA memory allocator statistics for a given device. get_device_capability Return capability of a given device as a tuple of (major version, minor version). empty_cache Empty the MTIA device cache. record_memory_history Enable/Disable the memory profiler on MTIA allocator snapshot Return a dictionary of MTIA memory allocator history attach_out_of_memory_observer Attach an out-of-memory observer to MTIA memory allocator set_device Set the current device. set_stream Set the current stream.This is a wrapper API to set the stream. stream Wrap around the Context-manager StreamContext that selects a given stream. synchronize Waits for all jobs in all streams on a MTIA device to complete. device Context-manager that changes the selected device. set_rng_state Sets the random number generator state. get_rng_state Returns the random number generator state as a ByteTensor. DeferredMtiaCallError Streams and events# Event Query and record Stream status to identify or control dependencies across Stream and measure timing. Stream An in-order queue of executing the respective tasks asynchronously in first in first out (FIFO) order."
        }
    </script>
 
