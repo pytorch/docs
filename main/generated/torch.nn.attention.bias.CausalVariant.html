@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2908c10 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite7698ff )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4038,21 +4038,21 @@ document.write(`
 <h1>CausalVariant<a class="headerlink" href="#causalvariant" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.attention.bias.CausalVariant">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.bias.</span></span><span class="sig-name descname"><span class="pre">CausalVariant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2908c10259bac21b00e9b36318e364801e0ae910/torch/nn/attention/bias.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.bias.CausalVariant" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.bias.</span></span><span class="sig-name descname"><span class="pre">CausalVariant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e7698ff5cf40729d11df6c32c6df0a163e5d0ce0/torch/nn/attention/bias.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.bias.CausalVariant" title="Permalink to this definition">#</a></dt>
 <dd><p>Enum for causal variants used in attention mechanisms.</p>
 <p>Defines two types of causal biases:</p>
-<p><cite>UPPER_LEFT</cite>: Represents upper-left triangular bias for standard causal attention.
+<p><code class="docutils literal notranslate"><span class="pre">UPPER_LEFT</span></code>: Represents upper-left triangular bias for standard causal attention.
 The equivalent pytorch code for constructing this bias is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">tril</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>For instance, with <cite>shape=(3,4)</cite>, the materialized bias tensor will be:</p>
+<p>For instance, with <code class="docutils literal notranslate"><span class="pre">shape=(3,4)</span></code>, the materialized bias tensor will be:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[[1, 0, 0, 0],
  [1, 1, 0, 0],
  [1, 1, 1, 0]]
 </pre></div>
 </div>
-<p><cite>LOWER_RIGHT</cite>: Represents lower-right triangular bias, the include values are aligned to the lower
+<p><code class="docutils literal notranslate"><span class="pre">LOWER_RIGHT</span></code>: Represents lower-right triangular bias, the include values are aligned to the lower
 right corner of the matrix.</p>
 <p>The equivalent pytorch code for constructing this bias is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">diagonal_offset</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -4062,7 +4062,7 @@ right corner of the matrix.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>For instance, with <cite>shape=(3,4)</cite>, the materialized bias tensor will be:</p>
+<p>For instance, with <code class="docutils literal notranslate"><span class="pre">shape=(3,4)</span></code>, the materialized bias tensor will be:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[[1, 1, 0, 0],
  [1, 1, 1, 0],
  [1, 1, 1, 1]]
