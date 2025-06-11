@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite7698ff )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2963,10 +2963,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html">GdsFile</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">torch.cuda.memory</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mps.html">torch.mps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.device_count.html">torch.mps.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.synchronize.html">torch.mps.synchronize</a></li>
@@ -3070,7 +3067,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="export.ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="draft_export.html">Draft Export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="logging.html">torch._logging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
@@ -3082,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3100,7 +3097,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 </ul>
 </details></li>
@@ -3161,13 +3158,14 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_profiling_torch_compile.html">Profiling to understand torch.compile performance</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4025,7 +4023,7 @@ document.write(`
                   
   <div class="section" id="onnx-backend-for-torchdynamo">
 <h1>ONNX Backend for TorchDynamo<a class="headerlink" href="#onnx-backend-for-torchdynamo" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 08, 2023 | Last Updated On: Sep 09, 2023</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 10, 2025 | Last Updated On: Jun 10, 2025</p>
 <p>For a quick overview of <code class="docutils literal notranslate"><span class="pre">torch.compiler</span></code>, see <a class="reference internal" href="torch.compiler.html#torch-compiler-overview"><span class="std std-ref">torch.compiler</span></a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4033,7 +4031,7 @@ document.write(`
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.is_onnxrt_backend_supported">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">is_onnxrt_backend_supported</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e7698ff5cf40729d11df6c32c6df0a163e5d0ce0/torch/onnx/_internal/onnxruntime.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.is_onnxrt_backend_supported" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">is_onnxrt_backend_supported</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dbec08bc1cc9113c13652128a4ddcfcf2426a8c0/torch/onnx/_internal/onnxruntime.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.is_onnxrt_backend_supported" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if ONNX Runtime dependencies are installed and usable
 to support TorchDynamo backend integration; <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
 <p>Example:</p>
@@ -4188,7 +4186,7 @@ to support TorchDynamo backend integration; <code class="docutils literal notran
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/onnx_dynamo_onnxruntime_backend.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/onnx_dynamo_onnxruntime_backend.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4202,7 +4200,7 @@ to support TorchDynamo backend integration; <code class="docutils literal notran
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/onnx_dynamo_onnxruntime_backend.rst.txt">
+      <a href="_sources/onnx_dynamo_onnxruntime_backend.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4404,9 +4402,9 @@ to support TorchDynamo backend integration; <code class="docutils literal notran
            "@type": "WebPage",
            "@id": "/onnx_dynamo_onnxruntime_backend.html"
          },
-         "datePublished": "Sep 08, 2023",
-         "dateModified": "Sep 09, 2023",
-         "articleBody": "ONNX Backend for TorchDynamo# Created On: Sep 08, 2023 | Last Updated On: Sep 09, 2023 For a quick overview of torch.compiler, see torch.compiler. Warning The ONNX backend for torch.compile is a rapidly evolving beta technology. torch.onnx.is_onnxrt_backend_supported()[source]# Returns True if ONNX Runtime dependencies are installed and usable to support TorchDynamo backend integration; False otherwise. Example: # xdoctest: +REQUIRES(env:TORCH_DOCTEST_ONNX) &gt;&gt;&gt; import torch &gt;&gt;&gt; if torch.onnx.is_onnxrt_backend_supported(): ... @torch.compile(backend=&#34;onnxrt&#34;) ... def f(x): ... return x * x ... print(f(torch.randn(10))) ... else: ... print(&#34;pip install onnx onnxscript onnxruntime&#34;) ... Return type bool"
+         "datePublished": "Jun 10, 2025",
+         "dateModified": "Jun 10, 2025",
+         "articleBody": "ONNX Backend for TorchDynamo# Created On: Jun 10, 2025 | Last Updated On: Jun 10, 2025 For a quick overview of torch.compiler, see torch.compiler. Warning The ONNX backend for torch.compile is a rapidly evolving beta technology. torch.onnx.is_onnxrt_backend_supported()[source]# Returns True if ONNX Runtime dependencies are installed and usable to support TorchDynamo backend integration; False otherwise. Example: # xdoctest: +REQUIRES(env:TORCH_DOCTEST_ONNX) &gt;&gt;&gt; import torch &gt;&gt;&gt; if torch.onnx.is_onnxrt_backend_supported(): ... @torch.compile(backend=&#34;onnxrt&#34;) ... def f(x): ... return x * x ... print(f(torch.randn(10))) ... else: ... print(&#34;pip install onnx onnxscript onnxruntime&#34;) ... Return type bool"
        }
    </script>
 

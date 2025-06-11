@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite7698ff )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2963,10 +2963,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html">GdsFile</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">torch.cuda.memory</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mps.html">torch.mps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.device_count.html">torch.mps.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.synchronize.html">torch.mps.synchronize</a></li>
@@ -3070,7 +3067,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="export.ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="draft_export.html">Draft Export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="logging.html">torch._logging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
@@ -3082,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3100,7 +3097,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 </ul>
 </details></li>
@@ -3161,13 +3158,14 @@ document.write(`
 </details></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">TorchInductor GPU Profiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_profiling_torch_compile.html">Profiling to understand torch.compile performance</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4024,8 +4022,8 @@ document.write(`
                 <article class="bd-article">
                   
   <div class="section" id="torchinductor-gpu-profiling">
-<span id="id1"></span><h1>TorchInductor GPU Profiling<a class="headerlink" href="#torchinductor-gpu-profiling" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2023 | Last Updated On: Jul 28, 2023</p>
+<h1>TorchInductor GPU Profiling<a class="headerlink" href="#torchinductor-gpu-profiling" title="Permalink to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2023 | Last Updated On: Jun 10, 2025</p>
 <p>This section lists useful commands and workflows that can help
 you dive into a model’s performance in TorchInductor. When a model is not
 running as fast as expected, you may want to check individual kernels of the
@@ -4069,9 +4067,9 @@ time with the hope to improve performance.</p></li>
 individual kernels. We take <code class="docutils literal notranslate"><span class="pre">mixnet_l</span></code> as an example.</p>
 <ol class="arabic">
 <li><p>Run the benchmark script for the model:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">TORCHINDUCTOR_UNIQUE_KERNEL_NAMES</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">TORCHINDUCTOR_BENCHMARK_KERNEL</span><span class="o">=</span><span class="m">1</span>
-python<span class="w"> </span>-u<span class="w"> </span>benchmarks/dynamo/timm_models.py<span class="w"> </span>–backend<span class="w"> </span>inductor<span class="w"> </span>–amp
-–performance<span class="w"> </span>–dashboard<span class="w"> </span>–only<span class="w"> </span>mixnet_l<span class="w"> </span>–disable-cudagraphs<span class="w"> </span>–training
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nv">TORCHINDUCTOR_UNIQUE_KERNEL_NAMES</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">TORCHINDUCTOR_BENCHMARK_KERNEL</span><span class="o">=</span><span class="m">1</span>
+<span class="w">   </span>python<span class="w"> </span>-u<span class="w"> </span>benchmarks/dynamo/timm_models.py<span class="w"> </span>–backend<span class="w"> </span>inductor<span class="w"> </span>–amp
+<span class="w">   </span>–performance<span class="w"> </span>–dashboard<span class="w"> </span>–only<span class="w"> </span>mixnet_l<span class="w"> </span>–disable-cudagraphs<span class="w"> </span>–training
 </pre></div>
 </div>
 <div class="admonition note">
@@ -4081,8 +4079,8 @@ python<span class="w"> </span>-u<span class="w"> </span>benchmarks/dynamo/timm_m
 </div>
 </li>
 <li><p>In the output log, look for lines:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>**Compiled<span class="w"> </span>module<span class="w"> </span>path:
-/tmp/torchinductor_shunting/qz/cqz7hvhood7y3psp7fy6msjxsxyli7qiwiybizdwtjw6ffyq5wwd.py**
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>**Compiled<span class="w"> </span>module<span class="w"> </span>path:
+<span class="w">   </span>/tmp/torchinductor_shunting/qz/cqz7hvhood7y3psp7fy6msjxsxyli7qiwiybizdwtjw6ffyq5wwd.py**
 </pre></div>
 </div>
 </li>
@@ -4093,34 +4091,28 @@ and one for the backward graph.</p>
 <p>For our example command, we get the following compiled module for the
 forward and backward graphs respectively:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://gist.github.com/shunting314/c2a4d8a28b00fcb5586d0e9d9bf77f9f">https://gist.github.com/shunting314/c2a4d8a28b00fcb5586d0e9d9bf77f9f</a></p></li>
-<li><p><a class="reference external" href="https://gist.github.com/shunting314/48efc83b12ec3ead950052e4a0220b10">https://gist.github.com/shunting314/48efc83b12ec3ead950052e4a0220b10</a></p></li>
+<li><p><a class="reference external" href="https://gist.github.com/shunting314/c2a4d8a28b00fcb5586d0e9d9bf77f9f">Forward graph compiled module</a></p></li>
+<li><p><a class="reference external" href="https://gist.github.com/shunting314/48efc83b12ec3ead950052e4a0220b10">Backward graph compiled module</a></p></li>
 </ul>
 <ol class="arabic" start="3">
 <li><p>Now we can dive into the perf for each individual compiled module.
 Let’s pick the one for the forward graph for illustration purposes.
 I’ll name it <code class="docutils literal notranslate"><span class="pre">fwd.py</span></code> for convenience. Run it directly with the
 <code class="docutils literal notranslate"><span class="pre">-p</span></code> argument:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>**&gt;<span class="w"> </span>python<span class="w"> </span>fwd.py<span class="w"> </span>-p**
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>**&gt;<span class="w"> </span>python<span class="w"> </span>fwd.py<span class="w"> </span>-p**
 </pre></div>
 </div>
 </li>
 </ol>
-<p>See the full output log in this
-<a class="reference external" href="https://gist.github.com/shunting314/8243734a38b5733ea78479209c0ae893">example gist</a>.</p>
+<p>See the full output log in this <a class="reference external" href="https://gist.github.com/shunting314/8243734a38b5733ea78479209c0ae893">example gist</a></p>
 <p>In the output, you can notice the following:</p>
-<ul class="simple">
-<li><p>We write a chrome trace file for the profile so we can load the trace and interact with it. In the log, look for lines as follows to find the path of the trace file.</p></li>
-</ul>
-<blockquote>
-<div><p><strong>Chrome trace for the profile is written to
-/tmp/compiled_module_profile.json</strong></p>
-<p>Loading the trace into Chrome (visit chrome://tracing in the chrome
-browser and load the file as the UI suggested) will show UI as follows:</p>
+<ul>
+<li><p>We write a chrome trace file for the profile so we can load the trace and interact with it. In the log, look for lines as follows to find the path of the trace file.</p>
+<p><strong>Chrome trace for the profile is written to /tmp/compiled_module_profile.json</strong></p>
+<p>Loading the trace into Chrome (visit chrome://tracing in the chrome browser and load the file as the UI suggested) will show UI as follows:</p>
 <img alt="_images/trace.png" src="_images/trace.png" />
 <p>You can zoom in and out to check the profile.</p>
-</div></blockquote>
-<ul>
+</li>
 <li><p>We report the percent of GPU time regarding to the wall time by log line like:</p>
 <p><strong>Percent of time when GPU is busy: 102.88%</strong></p>
 <p>Sometimes you may see a value larger than 100%. The reason is because PyTorch
@@ -4129,7 +4121,7 @@ with profiling disabled. Profiling may distort the kernel execution time a
 bit. But overall it should not be a big deal.</p>
 <p>If we run the model like <code class="docutils literal notranslate"><span class="pre">densenet121</span></code> with a small batch size, we would see
 low percent of time when GPU is busy:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Forward</span> <span class="n">graph</span><span class="p">)</span> <span class="n">Percent</span> <span class="n">of</span> <span class="n">time</span> <span class="n">when</span> <span class="n">GPU</span> <span class="ow">is</span> <span class="n">busy</span><span class="p">:</span> <span class="mf">32.69</span><span class="o">%</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="o">(</span>Forward<span class="w"> </span>graph<span class="o">)</span><span class="w"> </span>Percent<span class="w"> </span>of<span class="w"> </span><span class="nb">time</span><span class="w"> </span>when<span class="w"> </span>GPU<span class="w"> </span>is<span class="w"> </span>busy:<span class="w"> </span><span class="m">32</span>.69%
 </pre></div>
 </div>
 <p>This means the model has a lot of CPU overhead. This is consistent with
@@ -4172,14 +4164,13 @@ the forward graph.</p>
 <p><strong># kernel path:
 /tmp/torchinductor_shunting/jk/cjk2vm3446xrk7rth7hr6pun7xxo3dnzubwcn6ydrpifal4eykrz.py</strong></p>
 <img alt="_images/inductor_code.png" src="_images/inductor_code.png" />
-<p>I’ll rename it k.py for convenience. Here is a paste for this
-<a class="reference external" href="https://gist.github.com/shunting314/96a0afef9dce53d6357bf1633094f358">file</a>.</p>
+<p>I’ll rename it k.py for convenience. Here is a paste for this <a class="reference external" href="https://gist.github.com/shunting314/96a0afef9dce53d6357bf1633094f358">file</a>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">k.py</span></code> is a standalone Python module containing the kernel code and its
 benchmark.</p>
 <p>Run <code class="docutils literal notranslate"><span class="pre">k.py</span></code> directly will report its execution time and bandwidth:</p>
 <img alt="_images/terminal_printout.png" src="_images/terminal_printout.png" />
 <p>We can check if max-autotune helps this kernel, by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>**TORCHINDUCTOR_MAX_AUTOTUNE<span class="o">=</span><span class="m">1</span><span class="w"> </span>python<span class="w"> </span>/tmp/k.py**
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>**TORCHINDUCTOR_MAX_AUTOTUNE<span class="o">=</span><span class="m">1</span><span class="w"> </span>python<span class="w"> </span>/tmp/k.py**
 </pre></div>
 </div>
 <p>We may also temporarily add more reduction heuristics and run the script
@@ -4319,7 +4310,7 @@ again to check how that helps with the kernel.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_inductor_profiling.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_inductor_profiling.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4333,7 +4324,7 @@ again to check how that helps with the kernel.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/torch.compiler_inductor_profiling.rst.txt">
+      <a href="_sources/torch.compiler_inductor_profiling.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4536,8 +4527,8 @@ again to check how that helps with the kernel.</p>
            "@id": "/torch.compiler_inductor_profiling.html"
          },
          "datePublished": "Jul 28, 2023",
-         "dateModified": "Jul 28, 2023",
-         "articleBody": "TorchInductor GPU Profiling# Created On: Jul 28, 2023 | Last Updated On: Jul 28, 2023 This section lists useful commands and workflows that can help you dive into a model’s performance in TorchInductor. When a model is not running as fast as expected, you may want to check individual kernels of the model. Usually, those kernels taking the majority of the GPU time are the most interesting ones. After that, you may also want to run individual kernels directly and inspect its perf. PyTorch provides tools to cover everything mentioned above. Relevant Environment Variables# You can use the following environment variables in your analysis: TORCHINDUCTOR_UNIQUE_KERNEL_NAMES By default, TorchInductor names a Triton kernel as ‘triton\_’. When this environmental variable is enabled, inductor generates a more meaningful kernel name in the trace, for example, triton_poi_fused_cat_155 which contains the kernel category (poi for pointwise) and original ATen operator. This config is disabled by default to improve the chance of compilation cache hit. TORCHINDUCTOR_BENCHMARK_KERNEL Enabling this will make inductor codegen harness to benchmark individual triton kernels. TORCHINDUCTOR_MAX_AUTOTUNE Inductor autotuner will benchmark more triton.Configs and pick the one with the best performance results. This will increase compilation time with the hope to improve performance. Breakdown Model GPU Time# Below are the steps to breakdown execution time of a model into individual kernels. We take mixnet_l as an example. Run the benchmark script for the model: TORCHINDUCTOR_UNIQUE_KERNEL_NAMES=1 TORCHINDUCTOR_BENCHMARK_KERNEL=1 python -u benchmarks/dynamo/timm_models.py –backend inductor –amp –performance –dashboard –only mixnet_l –disable-cudagraphs –training Note The tool relies on kernel name to decide its category. Enabling TORCHINDUCTOR_UNIQUE_KERNEL_NAMES is crucial for that. In the output log, look for lines: **Compiled module path: /tmp/torchinductor_shunting/qz/cqz7hvhood7y3psp7fy6msjxsxyli7qiwiybizdwtjw6ffyq5wwd.py** We have one line for each compiled module. If there are no extra graph breaks, we would see 2 such lines in the log, one for the forward graph and one for the backward graph. For our example command, we get the following compiled module for the forward and backward graphs respectively: https://gist.github.com/shunting314/c2a4d8a28b00fcb5586d0e9d9bf77f9f https://gist.github.com/shunting314/48efc83b12ec3ead950052e4a0220b10 Now we can dive into the perf for each individual compiled module. Let’s pick the one for the forward graph for illustration purposes. I’ll name it fwd.py for convenience. Run it directly with the -p argument: **&gt; python fwd.py -p** See the full output log in this example gist. In the output, you can notice the following: We write a chrome trace file for the profile so we can load the trace and interact with it. In the log, look for lines as follows to find the path of the trace file. Chrome trace for the profile is written to /tm..."
+         "dateModified": "Jun 10, 2025",
+         "articleBody": "TorchInductor GPU Profiling# Created On: Jul 28, 2023 | Last Updated On: Jun 10, 2025 This section lists useful commands and workflows that can help you dive into a model’s performance in TorchInductor. When a model is not running as fast as expected, you may want to check individual kernels of the model. Usually, those kernels taking the majority of the GPU time are the most interesting ones. After that, you may also want to run individual kernels directly and inspect its perf. PyTorch provides tools to cover everything mentioned above. Relevant Environment Variables# You can use the following environment variables in your analysis: TORCHINDUCTOR_UNIQUE_KERNEL_NAMES By default, TorchInductor names a Triton kernel as ‘triton\_’. When this environmental variable is enabled, inductor generates a more meaningful kernel name in the trace, for example, triton_poi_fused_cat_155 which contains the kernel category (poi for pointwise) and original ATen operator. This config is disabled by default to improve the chance of compilation cache hit. TORCHINDUCTOR_BENCHMARK_KERNEL Enabling this will make inductor codegen harness to benchmark individual triton kernels. TORCHINDUCTOR_MAX_AUTOTUNE Inductor autotuner will benchmark more triton.Configs and pick the one with the best performance results. This will increase compilation time with the hope to improve performance. Breakdown Model GPU Time# Below are the steps to breakdown execution time of a model into individual kernels. We take mixnet_l as an example. Run the benchmark script for the model: TORCHINDUCTOR_UNIQUE_KERNEL_NAMES=1 TORCHINDUCTOR_BENCHMARK_KERNEL=1 python -u benchmarks/dynamo/timm_models.py –backend inductor –amp –performance –dashboard –only mixnet_l –disable-cudagraphs –training Note The tool relies on kernel name to decide its category. Enabling TORCHINDUCTOR_UNIQUE_KERNEL_NAMES is crucial for that. In the output log, look for lines: **Compiled module path: /tmp/torchinductor_shunting/qz/cqz7hvhood7y3psp7fy6msjxsxyli7qiwiybizdwtjw6ffyq5wwd.py** We have one line for each compiled module. If there are no extra graph breaks, we would see 2 such lines in the log, one for the forward graph and one for the backward graph. For our example command, we get the following compiled module for the forward and backward graphs respectively: Forward graph compiled module Backward graph compiled module Now we can dive into the perf for each individual compiled module. Let’s pick the one for the forward graph for illustration purposes. I’ll name it fwd.py for convenience. Run it directly with the -p argument: **&gt; python fwd.py -p** See the full output log in this example gist In the output, you can notice the following: We write a chrome trace file for the profile so we can load the trace and interact with it. In the log, look for lines as follows to find the path of the trace file. Chrome trace for the profile is written to /tmp/compiled_module_profile.json Loading the trace into Chrome (visit chrome://t..."
        }
    </script>
 

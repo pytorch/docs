@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite7698ff )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2963,10 +2963,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html">GdsFile</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">torch.cuda.memory</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mps.html">torch.mps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.device_count.html">torch.mps.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.synchronize.html">torch.mps.synchronize</a></li>
@@ -3070,7 +3067,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="export.ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="draft_export.html">Draft Export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="logging.html">torch._logging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
@@ -3082,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3100,7 +3097,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 </ul>
 </details></li>
@@ -3161,13 +3158,14 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_profiling_torch_compile.html">Profiling to understand torch.compile performance</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4025,7 +4023,7 @@ document.write(`
                   
   <div class="section" id="pytorch-processgroupnccl-environment-variables">
 <span id="torch-nccl-environment-variables"></span><h1>PYTORCH ProcessGroupNCCL Environment Variables<a class="headerlink" href="#pytorch-processgroupnccl-environment-variables" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 07, 2024 | Last Updated On: Aug 09, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 10, 2025 | Last Updated On: Jun 10, 2025</p>
 <p>For more information on the environment variables, see <a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/csrc/distributed/c10d/ProcessGroupNCCL.hpp">ProcessGroupNCCL Environment Variables</a>.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
@@ -4033,8 +4031,8 @@ document.write(`
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Variable</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p><strong>Variable</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
 </tr>
 </thead>
 <tbody>
@@ -4206,7 +4204,7 @@ document.write(`
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch_nccl_environment_variables.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch_nccl_environment_variables.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4220,7 +4218,7 @@ document.write(`
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/torch_nccl_environment_variables.rst.txt">
+      <a href="_sources/torch_nccl_environment_variables.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4422,9 +4420,9 @@ document.write(`
            "@type": "WebPage",
            "@id": "/torch_nccl_environment_variables.html"
          },
-         "datePublished": "Jun 07, 2024",
-         "dateModified": "Aug 09, 2024",
-         "articleBody": "PYTORCH ProcessGroupNCCL Environment Variables# Created On: Jun 07, 2024 | Last Updated On: Aug 09, 2024 For more information on the environment variables, see ProcessGroupNCCL Environment Variables. Variable Description TORCH_NCCL_ASYNC_ERROR_HANDLING Control how we perform Async Error Handling with NCCL when an exception is observed in watchdog. If set to 0, no handling of asynchronous NCCL errors. If set to 1, aborting NCCL communicator and tearing down process upon error. If set to 2, only abort NCCL communicator and if set to 3, tearing down process without aborting NCCL communicator. By default, it is set to 3. TORCH_NCCL_HIGH_PRIORITY Control whether to use high priority stream for the NCCL communicator. TORCH_NCCL_BLOCKING_WAIT Control whether or not wait() is blocking or non-blocking. TORCH_NCCL_DUMP_ON_TIMEOUT Control whether dumping debug info on watchdog timeout or exception is detected. This variable must be set together with TORCH_NCCL_TRACE_BUFFER_SIZE larger than 0. TORCH_NCCL_DESYNC_DEBUG Control whether Desync Debug is enabled. This is helpful in figuring out the culprit rank of collective desync. TORCH_NCCL_ENABLE_TIMING If set to 1, enable recording start-events for all ProcessGroupNCCL collectives, and compute accurate collective timing per-collective. TORCH_NCCL_ENABLE_MONITORING If set to 1,enable monitoring thread which aborts the process when the ProcessGroupNCCL Watchdog thread gets stuck and no heartbeat is detected after TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC. This can happen due to calling CUDA/NCCL APIs that may hang. It is Useful to prevent jobs being stuck for a prolonged time than necessary tying up cluster resources. TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC Control the watchdog heartbeat timeout period after which the monitoring thread will abort the process. TORCH_NCCL_TRACE_BUFFER_SIZE The maximum number of events we store in the flight recorder’s ring buffer. One event could be the start or end of a collective, for example. Set to 0 to disable the tracebuffer and debugging info dump. TORCH_NCCL_TRACE_CPP_STACK Whether to collect cpp stack traces for flight recorder. Default value is False. TORCH_NCCL_COORD_CHECK_MILSEC Control the interval inside the monitoring thread to check the coordinated signal from other ranks, e.g. to dump the debugging information. Default value is 1000 ms. TORCH_NCCL_WAIT_TIMEOUT_DUMP_MILSEC Control how much extra time we will wait for dumping the debugging info before we exit and throws timeout exception. TORCH_NCCL_DEBUG_INFO_TEMP_FILE The file into which the debugging info would be dumped. TORCH_NCCL_DEBUG_INFO_PIPE_FILE The pipe file to trigger debugging dump manually, write anything into the pipe would trigger the dump. TORCH_NCCL_NAN_CHECK Control whether to enable NAN check for the input, Error would be thrown if NAN is detected."
+         "datePublished": "Jun 10, 2025",
+         "dateModified": "Jun 10, 2025",
+         "articleBody": "PYTORCH ProcessGroupNCCL Environment Variables# Created On: Jun 10, 2025 | Last Updated On: Jun 10, 2025 For more information on the environment variables, see ProcessGroupNCCL Environment Variables. Variable Description TORCH_NCCL_ASYNC_ERROR_HANDLING Control how we perform Async Error Handling with NCCL when an exception is observed in watchdog. If set to 0, no handling of asynchronous NCCL errors. If set to 1, aborting NCCL communicator and tearing down process upon error. If set to 2, only abort NCCL communicator and if set to 3, tearing down process without aborting NCCL communicator. By default, it is set to 3. TORCH_NCCL_HIGH_PRIORITY Control whether to use high priority stream for the NCCL communicator. TORCH_NCCL_BLOCKING_WAIT Control whether or not wait() is blocking or non-blocking. TORCH_NCCL_DUMP_ON_TIMEOUT Control whether dumping debug info on watchdog timeout or exception is detected. This variable must be set together with TORCH_NCCL_TRACE_BUFFER_SIZE larger than 0. TORCH_NCCL_DESYNC_DEBUG Control whether Desync Debug is enabled. This is helpful in figuring out the culprit rank of collective desync. TORCH_NCCL_ENABLE_TIMING If set to 1, enable recording start-events for all ProcessGroupNCCL collectives, and compute accurate collective timing per-collective. TORCH_NCCL_ENABLE_MONITORING If set to 1,enable monitoring thread which aborts the process when the ProcessGroupNCCL Watchdog thread gets stuck and no heartbeat is detected after TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC. This can happen due to calling CUDA/NCCL APIs that may hang. It is Useful to prevent jobs being stuck for a prolonged time than necessary tying up cluster resources. TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC Control the watchdog heartbeat timeout period after which the monitoring thread will abort the process. TORCH_NCCL_TRACE_BUFFER_SIZE The maximum number of events we store in the flight recorder’s ring buffer. One event could be the start or end of a collective, for example. Set to 0 to disable the tracebuffer and debugging info dump. TORCH_NCCL_TRACE_CPP_STACK Whether to collect cpp stack traces for flight recorder. Default value is False. TORCH_NCCL_COORD_CHECK_MILSEC Control the interval inside the monitoring thread to check the coordinated signal from other ranks, e.g. to dump the debugging information. Default value is 1000 ms. TORCH_NCCL_WAIT_TIMEOUT_DUMP_MILSEC Control how much extra time we will wait for dumping the debugging info before we exit and throws timeout exception. TORCH_NCCL_DEBUG_INFO_TEMP_FILE The file into which the debugging info would be dumped. TORCH_NCCL_DEBUG_INFO_PIPE_FILE The pipe file to trigger debugging dump manually, write anything into the pipe would trigger the dump. TORCH_NCCL_NAN_CHECK Control whether to enable NAN check for the input, Error would be thrown if NAN is detected."
        }
    </script>
 

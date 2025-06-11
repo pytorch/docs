@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dynamic shapes &#8212; PyTorch main documentation</title>
+    <title>Dynamic Shapes &#8212; PyTorch main documentation</title>
   
   
   
@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite7698ff )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2963,10 +2963,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html">GdsFile</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">torch.cuda.memory</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mps.html">torch.mps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.device_count.html">torch.mps.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.synchronize.html">torch.mps.synchronize</a></li>
@@ -3070,7 +3067,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="export.ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="draft_export.html">Draft Export</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Dynamic shapes</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Dynamic Shapes</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="logging.html">torch._logging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
@@ -3082,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3100,7 +3097,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Dynamic shapes</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 </ul>
 </details></li>
@@ -3161,13 +3158,14 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_profiling_torch_compile.html">Profiling to understand torch.compile performance</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Dynamic shapes</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -3962,7 +3960,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="draft_export.html" class="nav-link">Draft Export</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">Dynamic shapes</li>
+    <li class="breadcrumb-item active" aria-current="page">Dynamic Shapes</li>
   </ul>
 </nav>
 </div>
@@ -4022,7 +4020,7 @@ document.write(`
         </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <meta itemprop="name" content="Dynamic shapes">
+        <meta itemprop="name" content="Dynamic Shapes">
         <meta itemprop="position" content="4">
       </div>
    </div>
@@ -4035,8 +4033,8 @@ document.write(`
                 <article class="bd-article">
                   
   <div class="section" id="dynamic-shapes">
-<h1>Dynamic shapes<a class="headerlink" href="#dynamic-shapes" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 19, 2023 | Last Updated On: Jun 02, 2025</p>
+<h1>Dynamic Shapes<a class="headerlink" href="#dynamic-shapes" title="Permalink to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 19, 2023 | Last Updated On: Jun 10, 2025</p>
 <p>Code: <a class="reference external" href="https://github.com/pytorch/pytorch/blob/db4572dbf18f1cf50cf662547e272d3117063747/torch/fx/experimental/symbolic_shapes.py">symbolic_shapes.py</a></p>
 <p>See also: <a class="reference external" href="https://docs.google.com/document/d/1GgvOe7C8_NVOMLOCwDaYV1mXXyHMXY7ExoewHqooxrs/edit#heading=h.fh8zzonyw8ng">The dynamic shapes manual</a></p>
 <div class="section" id="motivation">
@@ -4056,9 +4054,9 @@ document.write(`
 <li><p>PT2 assumes everything is static by default</p></li>
 <li><p>If we recompile because a size changed, we will instead attempt to recompile
 that size as being dynamic (sizes that have changed are likely to change in
-the future).  This generalization may fail (e.g., because user code does a
+the future). This generalization may fail (e.g., because user code does a
 conditional branch on the size in question or missing dynamic shapes support
-in PT2).  If you are trying to understand why PT2 has overspecialized some
+in PT2). If you are trying to understand why PT2 has overspecialized some
 code, run with <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code> and look for “eval” entries that say
 when guards are added and why.</p></li>
 <li><p>If you know ahead of time something will be dynamic, you can skip the first
@@ -4067,16 +4065,15 @@ the <code class="docutils literal notranslate"><span class="pre">min</span></cod
 <li><p>If you say <code class="docutils literal notranslate"><span class="pre">torch.compile(dynamic=False)</span></code>, we will turn off automatic
 dynamic shapes on recompiles and always recompile for each distinct size.
 Conversely, if you say <code class="docutils literal notranslate"><span class="pre">torch.compile(dynamic=True)</span></code>, we will try to make
-everything as dynamic as possible.  This is mostly useful for small
-operators; if you try it on a big model it will (1) probably crash PT2 and
-(2) run slow for no good reason.</p></li>
+everything as dynamic as possible. This is mostly useful for small
+operators; if you try it on a big model it will (1) probably crash PT2 and (2) run slow for no good reason.</p></li>
 <li><p>You can whitelist specific sources to be marked as dynamic using the
 <code class="docutils literal notranslate"><span class="pre">TORCH_COMPILE_DYNAMIC_SOURCES</span></code> environment variable or by setting
 <code class="docutils literal notranslate"><span class="pre">torch.compiler.config.dynamic_sources</span></code>. This is particularly useful for large
 models with graph breaks, as you can maintain dynamism across graph breaks since
 source names stay consistent. You can also use this to mark integers as dynamic.
 The format is a comma-delimited list of source names, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;L['x'],</span> <span class="pre">L['y']&quot;</span></code>.
-You can also use regexes, e.g., <cite>“L\[‘x.*’\], L\[‘y.*’\]”)</cite>.
+You can also use regexes, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;L\['x.*'\],</span> <span class="pre">L\['y.*'\]&quot;)</span></code>.
 This whitelist takes precedence over other flags like <code class="docutils literal notranslate"><span class="pre">dynamic=False</span></code>,
 <code class="docutils literal notranslate"><span class="pre">force_nn_module_property_static_shapes</span></code>, and <code class="docutils literal notranslate"><span class="pre">force_parameter_static_shapes</span></code>.</p></li>
 <li><p>Sometimes it can be cumbersome to find the right inputs to mark as dynamic. If
@@ -4156,10 +4153,10 @@ See <a class="reference external" href="https://docs.pytorch.org/docs/stable/gen
 </ul>
 <p>Similar to the dynamic APIs, there are corresponding unbacked APIs: namely you can use mark_unbacked instead of <code class="docutils literal notranslate"><span class="pre">mark_dynamic</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_COMPILE_UNBACKED_SOURCES</span></code> instead of <code class="docutils literal notranslate"><span class="pre">TORCH_COMPILE_DYNAMIC_SOURCES</span></code> to tell the compiler to mark an input as unbacked.</p>
 <p>In future versions of PT2 (beyond PT2.1), we will extend our reasoning system
-to infer that an unbacked symbolic integer is size-like based on usage.  For
+to infer that an unbacked symbolic integer is size-like based on usage. For
 example, if you pass the result of an <code class="docutils literal notranslate"><span class="pre">.item()</span></code> call to a factory function
 like <code class="docutils literal notranslate"><span class="pre">torch.empty</span></code>, we will automatically infer that the result is a size
-(because if it was not, it would fail.)  This assumption would get validated
+(because if it was not, it would fail.) This assumption would get validated
 at runtime, raising an error if it was not fulfilled.</p>
 </div>
 </div>
@@ -4300,7 +4297,7 @@ at runtime, raising an error if it was not fulfilled.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_dynamic_shapes.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_dynamic_shapes.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4314,7 +4311,7 @@ at runtime, raising an error if it was not fulfilled.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/torch.compiler_dynamic_shapes.rst.txt">
+      <a href="_sources/torch.compiler_dynamic_shapes.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4505,7 +4502,7 @@ at runtime, raising an error if it was not fulfilled.</p>
       {
          "@context": "https://schema.org",
          "@type": "Article",
-         "headline": "Dynamic shapes",
+         "headline": "Dynamic Shapes",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
          "author": {
            "@type": "Organization",
@@ -4517,8 +4514,8 @@ at runtime, raising an error if it was not fulfilled.</p>
            "@id": "/torch.compiler_dynamic_shapes.html"
          },
          "datePublished": "May 19, 2023",
-         "dateModified": "Jun 02, 2025",
-         "articleBody": "Dynamic shapes# Created On: May 19, 2023 | Last Updated On: Jun 02, 2025 Code: symbolic_shapes.py See also: The dynamic shapes manual Motivation# Deep learning compilers commonly only work for static shapes, that is to say, they produced compiled programs which only work for a single specific configuration of input shapes, and must recompile if any input shape changes. This assumption works great for the majority of commonly run deep learning models today, but there are a few situations where it is insufficient: Some dimensions, such as batch size or sequence length, may vary. For example, an inference service performing adaptive batching will execute inference requests with varying batch sizes depending on how many requests it received within its batching window. We may also want to consider padding out variable size sequences only to the maximum sequence length within a batch, which may vary from batch-to-batch. Some models exhibit data-dependent output shapes, that is to say, the size of their outputs and intermediates may depend on the actual input data which may vary across runs. For example, detection models may first generate a variable number of potential bounding boxes before running a more expensive image recognition model to identify if the subject is in a bounding box. The number of bounding boxes is data dependent. One particularly important case of data-dependent shapes occurs when dealing with sparse representations, such as sparse tensors, jagged tensors, and graph neural networks. In all of these cases, the amount of data to be processed depends on the sparse structure of the problem, which will typically vary in a data-dependent way. In supporting dynamic shapes, we chose not to support dynamic rank programs, e.g., programs whose inputs tensors change in dimensionality, as this pattern rarely occurs in real-world deep learning programs, and it avoids the need to reason inductively over symbolic lists of shapes. Abridged public API# The default dynamic behavior in PyTorch 2.1 is: PT2 assumes everything is static by default If we recompile because a size changed, we will instead attempt to recompile that size as being dynamic (sizes that have changed are likely to change in the future). This generalization may fail (e.g., because user code does a conditional branch on the size in question or missing dynamic shapes support in PT2). If you are trying to understand why PT2 has overspecialized some code, run with TORCH_LOGS=dynamic and look for “eval” entries that say when guards are added and why. If you know ahead of time something will be dynamic, you can skip the first recompile with torch._dynamo.mark_dynamic(tensor, dim). If you know ahead of time the min and max value this dimension can take, you can specify torch._dynamo.mark_dynamic(tensor, dim, min=min, max=max) If you say torch.compile(dynamic=False), we will turn off automatic dynamic shapes on recompiles and always recompile for each distinct size. Conversely, if you s..."
+         "dateModified": "Jun 10, 2025",
+         "articleBody": "Dynamic Shapes# Created On: May 19, 2023 | Last Updated On: Jun 10, 2025 Code: symbolic_shapes.py See also: The dynamic shapes manual Motivation# Deep learning compilers commonly only work for static shapes, that is to say, they produced compiled programs which only work for a single specific configuration of input shapes, and must recompile if any input shape changes. This assumption works great for the majority of commonly run deep learning models today, but there are a few situations where it is insufficient: Some dimensions, such as batch size or sequence length, may vary. For example, an inference service performing adaptive batching will execute inference requests with varying batch sizes depending on how many requests it received within its batching window. We may also want to consider padding out variable size sequences only to the maximum sequence length within a batch, which may vary from batch-to-batch. Some models exhibit data-dependent output shapes, that is to say, the size of their outputs and intermediates may depend on the actual input data which may vary across runs. For example, detection models may first generate a variable number of potential bounding boxes before running a more expensive image recognition model to identify if the subject is in a bounding box. The number of bounding boxes is data dependent. One particularly important case of data-dependent shapes occurs when dealing with sparse representations, such as sparse tensors, jagged tensors, and graph neural networks. In all of these cases, the amount of data to be processed depends on the sparse structure of the problem, which will typically vary in a data-dependent way. In supporting dynamic shapes, we chose not to support dynamic rank programs, e.g., programs whose inputs tensors change in dimensionality, as this pattern rarely occurs in real-world deep learning programs, and it avoids the need to reason inductively over symbolic lists of shapes. Abridged public API# The default dynamic behavior in PyTorch 2.1 is: PT2 assumes everything is static by default If we recompile because a size changed, we will instead attempt to recompile that size as being dynamic (sizes that have changed are likely to change in the future). This generalization may fail (e.g., because user code does a conditional branch on the size in question or missing dynamic shapes support in PT2). If you are trying to understand why PT2 has overspecialized some code, run with TORCH_LOGS=dynamic and look for “eval” entries that say when guards are added and why. If you know ahead of time something will be dynamic, you can skip the first recompile with torch._dynamo.mark_dynamic(tensor, dim). If you know ahead of time the min and max value this dimension can take, you can specify torch._dynamo.mark_dynamic(tensor, dim, min=min, max=max) If you say torch.compile(dynamic=False), we will turn off automatic dynamic shapes on recompiles and always recompile for each distinct size. Conversely, if you s..."
        }
    </script>
 

@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite7698ff )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2963,10 +2963,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html">GdsFile</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">torch.cuda.memory</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mps.html">torch.mps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.device_count.html">torch.mps.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.synchronize.html">torch.mps.synchronize</a></li>
@@ -3070,7 +3067,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="export.ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="draft_export.html">Draft Export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="logging.html">torch._logging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
@@ -3082,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3100,7 +3097,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 </ul>
 </details></li>
@@ -3161,13 +3158,14 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_profiling_torch_compile.html">Profiling to understand torch.compile performance</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4025,7 +4023,7 @@ document.write(`
                   
   <div class="section" id="module-torch.onnx.ops">
 <span id="torch-onnx-ops"></span><h1>torch.onnx.ops<a class="headerlink" href="#module-torch.onnx.ops" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Mar 18, 2025 | Last Updated On: Jun 04, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 10, 2025 | Last Updated On: Jun 10, 2025</p>
 <p>ONNX operators as native torch.fx operators.</p>
 <p>This module provides a set of functions to create ONNX operators in the FX graph
 which are exportable to ONNX.</p>
@@ -4036,7 +4034,7 @@ These operators do not do actual computation. It’s recommended that you used t
 inside an <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">torch.onnx.is_in_onnx_export</span></code> block.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.ops.symbolic">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">symbolic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain_op</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_props</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e7698ff5cf40729d11df6c32c6df0a163e5d0ce0/torch/onnx/ops/__init__.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.symbolic" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">symbolic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain_op</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_props</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dbec08bc1cc9113c13652128a4ddcfcf2426a8c0/torch/onnx/ops/__init__.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.symbolic" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a symbolic FX operator to represent an arbitrary ONNX operator.</p>
 <p>This function is used to create a symbolic operator with a single output.
 To create an operator with multiple outputs, use <a class="reference internal" href="#torch.onnx.ops.symbolic_multi_out" title="torch.onnx.ops.symbolic_multi_out"><code class="xref py py-func docutils literal notranslate"><span class="pre">symbolic_multi_out()</span></code></a>.</p>
@@ -4096,7 +4094,7 @@ This is a dictionary of str-str pairs.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.ops.symbolic_multi_out">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">symbolic_multi_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain_op</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtypes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_props</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e7698ff5cf40729d11df6c32c6df0a163e5d0ce0/torch/onnx/ops/__init__.py#L174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.symbolic_multi_out" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">symbolic_multi_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain_op</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtypes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_props</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dbec08bc1cc9113c13652128a4ddcfcf2426a8c0/torch/onnx/ops/__init__.py#L174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.symbolic_multi_out" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a symbolic FX operator to represent an arbitrary ONNX operator with multiple outputs.</p>
 <p>You may use <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">torch.onnx.is_in_onnx_export()</span></code> to conditionally enable the
 symbolic logic only during <code class="docutils literal notranslate"><span class="pre">torch.onnx.export()</span></code>.</p>
@@ -4159,7 +4157,7 @@ This is a dictionary of str-str pairs.</p></li>
 <p>The following operators are implemented as native PyTorch ops and can be exported as
 ONNX operators. They can be used natively in an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>.</p>
 <p>For example, you can define a module:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">,</span> <span class="n">cos_cache_data</span><span class="p">,</span> <span class="n">sin_cache_data</span><span class="p">,</span> <span class="n">position_ids_data</span>
     <span class="p">):</span>
@@ -4172,7 +4170,7 @@ ONNX operators. They can be used natively in an <code class="docutils literal no
 </pre></div>
 </div>
 <p>and export it to ONNX using:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">input_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">input_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
 <span class="n">position_ids_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>
 <span class="n">sin_cache_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 <span class="n">cos_cache_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
@@ -4193,6 +4191,7 @@ ONNX operators. They can be used natively in an <code class="docutils literal no
 </div>
 <p>Printing the ONNX program will show the ONNX operators used in the graph:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;...&gt;
+
 graph(
     name=main_graph,
     inputs=(
@@ -4212,16 +4211,16 @@ graph(
 </pre></div>
 </div>
 <p>with the corresponding <code class="docutils literal notranslate"><span class="pre">ExportedProgram</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ExportedProgram</span><span class="p">:</span>
-    <span class="k">class</span> <span class="nc">GraphModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">:</span> <span class="s2">&quot;f32[s0, 3, 4, 8]&quot;</span><span class="p">,</span> <span class="n">cos_cache_data</span><span class="p">:</span> <span class="s2">&quot;f32[50, 4]&quot;</span><span class="p">,</span> <span class="n">sin_cache_data</span><span class="p">:</span> <span class="s2">&quot;f32[50, 4]&quot;</span><span class="p">,</span> <span class="n">position_ids_data</span><span class="p">:</span> <span class="s2">&quot;i64[s0, 3]&quot;</span><span class="p">):</span>
-            <span class="n">rotary_embedding</span><span class="p">:</span> <span class="s2">&quot;f32[s0, 3, 4, 8]&quot;</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">RotaryEmbedding</span><span class="o">.</span><span class="n">opset23</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">cos_cache_data</span><span class="p">,</span> <span class="n">sin_cache_data</span><span class="p">,</span> <span class="n">position_ids_data</span><span class="p">);</span>  <span class="n">input_data</span> <span class="o">=</span> <span class="n">cos_cache_data</span> <span class="o">=</span> <span class="n">sin_cache_data</span> <span class="o">=</span> <span class="n">position_ids_data</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">return</span> <span class="p">(</span><span class="n">rotary_embedding</span><span class="p">,)</span>
+<p>ExportedProgram:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GraphModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">:</span> <span class="s2">&quot;f32[s0, 3, 4, 8]&quot;</span><span class="p">,</span> <span class="n">cos_cache_data</span><span class="p">:</span> <span class="s2">&quot;f32[50, 4]&quot;</span><span class="p">,</span> <span class="n">sin_cache_data</span><span class="p">:</span> <span class="s2">&quot;f32[50, 4]&quot;</span><span class="p">,</span> <span class="n">position_ids_data</span><span class="p">:</span> <span class="s2">&quot;i64[s0, 3]&quot;</span><span class="p">):</span>
+        <span class="n">rotary_embedding</span><span class="p">:</span> <span class="s2">&quot;f32[s0, 3, 4, 8]&quot;</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">RotaryEmbedding</span><span class="o">.</span><span class="n">opset23</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">cos_cache_data</span><span class="p">,</span> <span class="n">sin_cache_data</span><span class="p">,</span> <span class="n">position_ids_data</span><span class="p">);</span>  <span class="n">input_data</span> <span class="o">=</span> <span class="n">cos_cache_data</span> <span class="o">=</span> <span class="n">sin_cache_data</span> <span class="o">=</span> <span class="n">position_ids_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">rotary_embedding</span><span class="p">,)</span>
 </pre></div>
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.ops.rotary_embedding">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">rotary_embedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cos_cache</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sin_cache</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interleaved</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotary_embedding_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e7698ff5cf40729d11df6c32c6df0a163e5d0ce0/torch/onnx/ops/__init__.py#L282"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.rotary_embedding" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">rotary_embedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cos_cache</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sin_cache</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interleaved</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotary_embedding_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dbec08bc1cc9113c13652128a4ddcfcf2426a8c0/torch/onnx/ops/__init__.py#L282"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.rotary_embedding" title="Permalink to this definition">#</a></dt>
 <dd><p>RotaryEmbedding op in ONNX.</p>
 <p><a class="reference external" href="https://onnx.ai/onnx/operators/onnx__RotaryEmbedding.html">https://onnx.ai/onnx/operators/onnx__RotaryEmbedding.html</a></p>
 <p>RotaryEmbedding is the implementation of rotary positional embeddings (RoPE) based on the paper <a class="reference external" href="https://arxiv.org/pdf/2104.09864">https://arxiv.org/pdf/2104.09864</a>.
@@ -4277,7 +4276,7 @@ to the model.</p></li>
 <h2>ONNX to ATen Decomposition Table<a class="headerlink" href="#onnx-to-aten-decomposition-table" title="Permalink to this heading">#</a></h2>
 <p>You can use <a class="reference internal" href="#torch.onnx.ops.aten_decompositions" title="torch.onnx.ops.aten_decompositions"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.onnx.ops.aten_decompositions()</span></code></a> to obtain a decomposition table
 to decompose ONNX operators defined above to ATen operators.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">,</span> <span class="n">cos_cache_data</span><span class="p">,</span> <span class="n">sin_cache_data</span><span class="p">,</span> <span class="n">position_ids_data</span>
     <span class="p">):</span>
@@ -4300,7 +4299,7 @@ to decompose ONNX operators defined above to ATen operators.</p>
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.ops.aten_decompositions">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">aten_decompositions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e7698ff5cf40729d11df6c32c6df0a163e5d0ce0/torch/onnx/ops/__init__.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.aten_decompositions" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">aten_decompositions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dbec08bc1cc9113c13652128a4ddcfcf2426a8c0/torch/onnx/ops/__init__.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.aten_decompositions" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the ONNX to ATen decomp table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4454,7 +4453,7 @@ to decompose ONNX operators defined above to ATen operators.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/onnx_ops.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/onnx_ops.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4468,7 +4467,7 @@ to decompose ONNX operators defined above to ATen operators.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/onnx_ops.rst.txt">
+      <a href="_sources/onnx_ops.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4670,9 +4669,9 @@ to decompose ONNX operators defined above to ATen operators.</p>
            "@type": "WebPage",
            "@id": "/onnx_ops.html"
          },
-         "datePublished": "Mar 18, 2025",
-         "dateModified": "Jun 04, 2025",
-         "articleBody": "torch.onnx.ops# Created On: Mar 18, 2025 | Last Updated On: Jun 04, 2025 ONNX operators as native torch.fx operators. This module provides a set of functions to create ONNX operators in the FX graph which are exportable to ONNX. Symbolic Operators# Operators that can be used to create any ONNX ops in the FX graph symbolically. These operators do not do actual computation. It’s recommended that you used them inside an if torch.onnx.is_in_onnx_export block. torch.onnx.ops.symbolic(domain_op, /, inputs, attrs=None, *, dtype, shape, version=None, metadata_props=None)[source]# Create a symbolic FX operator to represent an arbitrary ONNX operator. This function is used to create a symbolic operator with a single output. To create an operator with multiple outputs, use symbolic_multi_out(). You may use if torch.onnx.is_in_onnx_export() to conditionally enable the symbolic logic only during torch.onnx.export(). Example: class CustomOp(torch.nn.Module): def forward(self, x: torch.Tensor) -&gt; torch.Tensor: # Normal torch operators can interleave with the symbolic ops during ONNX export x = x + 1 # Create a symbolic ONNX operator with the name &#34;CustomOp&#34; in the &#34;custom_domain&#34; domain. # The output tensor will have the specified dtype and shape val = torch.onnx.ops.symbolic( &#34;custom_domain::CustomOp&#34;, (x,), dict(attr_key=&#34;attr_value&#34;), dtype=x.dtype, shape=x.shape, version=1, ) # The result of the symbolic op can be used in normal torch operations during ONNX export return torch.nn.functional.relu(val) # You may then export this model to ONNX using torch.onnx.export(..., dynamo=True). Parameters domain_op (str) – The domain and operator name, separated by “::”. For example, “custom_domain::CustomOp”. inputs (Sequence[torch.Tensor | None]) – The input tensors to the operator. attrs (dict[str, int | float | str | bool | Sequence[int] | Sequence[float] | Sequence[str] | Sequence[bool]] | None) – The attributes of the operator. The keys are attribute names and the values are attribute values. Valid attribute types are int, float, str, bool, and lists of int, float, str, and bool. Tensor attributes are unsupported. dtype (torch.dtype | int) – The data type of the output tensor.This can be either a torch.dtype or an integer representing the ONNX data type. shape (Sequence[int | torch.SymInt]) – The shape of the output tensor. This can be a list of integers or SymInt values. version (int | None) – The version of the opset used for the operator. metadata_props (dict[str, str] | None) – Metadata properties for the ONNX node. This is a dictionary of str-str pairs. Returns The output tensor of the operator. Return type torch.Tensor torch.onnx.ops.symbolic_multi_out(domain_op, /, inputs, attrs=None, *, dtypes, shapes, version=None, metadata_props=None)[source]# Create a symbolic FX operator to represent an arbitrary ONNX operator with multiple outputs. You may use if torch.onnx.is_in_onnx_export() to conditionally enable the symbolic logic only during torch.onnx.expor..."
+         "datePublished": "Jun 10, 2025",
+         "dateModified": "Jun 10, 2025",
+         "articleBody": "torch.onnx.ops# Created On: Jun 10, 2025 | Last Updated On: Jun 10, 2025 ONNX operators as native torch.fx operators. This module provides a set of functions to create ONNX operators in the FX graph which are exportable to ONNX. Symbolic Operators# Operators that can be used to create any ONNX ops in the FX graph symbolically. These operators do not do actual computation. It’s recommended that you used them inside an if torch.onnx.is_in_onnx_export block. torch.onnx.ops.symbolic(domain_op, /, inputs, attrs=None, *, dtype, shape, version=None, metadata_props=None)[source]# Create a symbolic FX operator to represent an arbitrary ONNX operator. This function is used to create a symbolic operator with a single output. To create an operator with multiple outputs, use symbolic_multi_out(). You may use if torch.onnx.is_in_onnx_export() to conditionally enable the symbolic logic only during torch.onnx.export(). Example: class CustomOp(torch.nn.Module): def forward(self, x: torch.Tensor) -&gt; torch.Tensor: # Normal torch operators can interleave with the symbolic ops during ONNX export x = x + 1 # Create a symbolic ONNX operator with the name &#34;CustomOp&#34; in the &#34;custom_domain&#34; domain. # The output tensor will have the specified dtype and shape val = torch.onnx.ops.symbolic( &#34;custom_domain::CustomOp&#34;, (x,), dict(attr_key=&#34;attr_value&#34;), dtype=x.dtype, shape=x.shape, version=1, ) # The result of the symbolic op can be used in normal torch operations during ONNX export return torch.nn.functional.relu(val) # You may then export this model to ONNX using torch.onnx.export(..., dynamo=True). Parameters domain_op (str) – The domain and operator name, separated by “::”. For example, “custom_domain::CustomOp”. inputs (Sequence[torch.Tensor | None]) – The input tensors to the operator. attrs (dict[str, int | float | str | bool | Sequence[int] | Sequence[float] | Sequence[str] | Sequence[bool]] | None) – The attributes of the operator. The keys are attribute names and the values are attribute values. Valid attribute types are int, float, str, bool, and lists of int, float, str, and bool. Tensor attributes are unsupported. dtype (torch.dtype | int) – The data type of the output tensor.This can be either a torch.dtype or an integer representing the ONNX data type. shape (Sequence[int | torch.SymInt]) – The shape of the output tensor. This can be a list of integers or SymInt values. version (int | None) – The version of the opset used for the operator. metadata_props (dict[str, str] | None) – Metadata properties for the ONNX node. This is a dictionary of str-str pairs. Returns The output tensor of the operator. Return type torch.Tensor torch.onnx.ops.symbolic_multi_out(domain_op, /, inputs, attrs=None, *, dtypes, shapes, version=None, metadata_props=None)[source]# Create a symbolic FX operator to represent an arbitrary ONNX operator with multiple outputs. You may use if torch.onnx.is_in_onnx_export() to conditionally enable the symbolic logic only during torch.onnx.expor..."
        }
    </script>
 

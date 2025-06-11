@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite7698ff )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2963,10 +2963,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html">GdsFile</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Understanding CUDA Memory Usage</a></li>
-
-
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">torch.cuda.memory</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mps.html">torch.mps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.device_count.html">torch.mps.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.synchronize.html">torch.mps.synchronize</a></li>
@@ -3070,7 +3067,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="export.ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="draft_export.html">Draft Export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="logging.html">torch._logging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
@@ -3082,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3100,7 +3097,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 </ul>
 </details></li>
@@ -3161,13 +3158,14 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_profiling_torch_compile.html">Profiling to understand torch.compile performance</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4016,7 +4014,7 @@ document.write(`
                   
   <div class="section" id="understanding-cuda-memory-usage">
 <span id="torch-cuda-memory"></span><h1>Understanding CUDA Memory Usage<a class="headerlink" href="#understanding-cuda-memory-usage" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Aug 23, 2023 | Last Updated On: Apr 17, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Aug 23, 2023 | Last Updated On: Jun 10, 2025</p>
 <p>To debug CUDA memory use, PyTorch provides a way to generate memory snapshots that record the state of allocated CUDA memory
 at any point in time, and optionally record the history of allocation events that led up to that snapshot.</p>
 <p>The generated snapshots can then be drag and dropped onto the interactiver viewer hosted at <a class="reference external" href="https://pytorch.org/memory_viz">pytorch.org/memory_viz</a> which
@@ -4029,9 +4027,8 @@ visible in the PyTorch memory profiler.</p>
 <p>NCCL (used for distributed communication on CUDA devices) is a common example of a library that allocates some
 GPU memory that is invisible to the PyTorch memory profiler.  See <a class="reference internal" href="#non-pytorch-alloc"><span class="std std-ref">Identifying Non-PyTorch allocations</span></a> for more info.</p>
 </div>
-</div>
 <div class="section" id="generating-a-snapshot">
-<h1>Generating a Snapshot<a class="headerlink" href="#generating-a-snapshot" title="Permalink to this heading">#</a></h1>
+<h2>Generating a Snapshot<a class="headerlink" href="#generating-a-snapshot" title="Permalink to this heading">#</a></h2>
 <p>The common pattern for recording a snapshot is to enable memory history, run the code to be observed, and then save a file with a pickled snapshot:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># enable memory history, which will</span>
 <span class="c1"># add tracebacks and event history to snapshots</span>
@@ -4043,9 +4040,10 @@ GPU memory that is invisible to the PyTorch memory profiler.  See <a class="refe
 </div>
 </div>
 <div class="section" id="using-the-visualizer">
-<h1>Using the visualizer<a class="headerlink" href="#using-the-visualizer" title="Permalink to this heading">#</a></h1>
-<p>Open <a class="reference external" href="https://pytorch.org/memory_viz">pytorch.org/memory_viz</a> and drag/drop the pickled snapshot file into the visualizer.
+<h2>Using the visualizer<a class="headerlink" href="#using-the-visualizer" title="Permalink to this heading">#</a></h2>
+<p>Open <a class="reference external" href="https://pytorch.org/memory_viz%3E">pytorch.org/memory_viz</a> and drag/drop the pickled snapshot file into the visualizer.
 The visualizer is a javascript application that runs locally on your computer. It does not upload any snapshot data.</p>
+</div>
 <div class="section" id="active-memory-timeline">
 <h2>Active Memory Timeline<a class="headerlink" href="#active-memory-timeline" title="Permalink to this heading">#</a></h2>
 <p>The Active Memory Timeline shows all the live tensors over time in the snapshot on a particular GPU. Pan/Zoom over the plot to look at smaller allocations.
@@ -4070,19 +4068,18 @@ in the Active State History to examine the memory state when a tensor was alloca
 <span id="identifying-non-pytorch-allocations"></span><h2>Identifying Non-PyTorch allocations<a class="headerlink" href="#non-pytorch-alloc" title="Permalink to this heading">#</a></h2>
 <p>If you suspect CUDA memory is being allocated outside of PyTorch, you can collect the raw CUDA allocation info using
 the pynvml package, and compare that to the allocation reported by pytorch.</p>
-<p>To collect raw memory usage outside pytorch, use <code class="xref py py-func docutils literal notranslate"><span class="pre">device_memory_used()</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<p>To collect raw memory usage outside pytorch, use <code class="xref py py-func docutils literal notranslate"><span class="pre">device_memory_used()</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="n">device_idx</span> <span class="o">=</span> <span class="o">...</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_memory_used</span><span class="p">(</span><span class="n">device_idx</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
-</div>
 <div class="section" id="snapshot-api-reference">
-<h1>Snapshot API Reference<a class="headerlink" href="#snapshot-api-reference" title="Permalink to this heading">#</a></h1>
+<h2>Snapshot API Reference<a class="headerlink" href="#snapshot-api-reference" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory._record_memory_history">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_record_memory_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_entries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clear_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compile_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_record_annotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e7698ff5cf40729d11df6c32c6df0a163e5d0ce0/torch/cuda/memory.py#L864"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._record_memory_history" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_record_memory_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_entries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clear_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compile_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_record_annotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dbec08bc1cc9113c13652128a4ddcfcf2426a8c0/torch/cuda/memory.py#L864"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._record_memory_history" title="Permalink to this definition">#</a></dt>
 <dd><p>Enable recording of stack traces associated with memory
 allocations, so you can tell what allocated any piece of memory in
 <a class="reference internal" href="#torch.cuda.memory._snapshot" title="torch.cuda.memory._snapshot"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.cuda.memory._snapshot()</span></code></a>.</p>
@@ -4119,7 +4116,7 @@ alloc/free events in the recorded history recorded.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory._snapshot">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e7698ff5cf40729d11df6c32c6df0a163e5d0ce0/torch/cuda/memory.py#L933"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._snapshot" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dbec08bc1cc9113c13652128a4ddcfcf2426a8c0/torch/cuda/memory.py#L933"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._snapshot" title="Permalink to this definition">#</a></dt>
 <dd><p>Save a snapshot of CUDA memory state at the time it was called.</p>
 <p>The state is represented as a dictionary with the following structure.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Snapshot</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
@@ -4196,7 +4193,7 @@ alloc/free events in the recorded history recorded.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory._dump_snapshot">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_dump_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dump_snapshot.pickle'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e7698ff5cf40729d11df6c32c6df0a163e5d0ce0/torch/cuda/memory.py#L1010"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._dump_snapshot" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_dump_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dump_snapshot.pickle'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dbec08bc1cc9113c13652128a4ddcfcf2426a8c0/torch/cuda/memory.py#L1010"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._dump_snapshot" title="Permalink to this definition">#</a></dt>
 <dd><p>Save a pickled version of the <cite>torch.memory._snapshot()</cite> dictionary to a file.</p>
 <p>This file can be opened by the interactive snapshot viewer at pytorch.org/memory_viz</p>
 <dl class="field-list simple">
@@ -4206,6 +4203,7 @@ alloc/free events in the recorded history recorded.</p></li>
 </dl>
 </dd></dl>
 
+</div>
 </div>
 
 
@@ -4330,29 +4328,25 @@ alloc/free events in the recorded history recorded.</p></li>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Understanding CUDA Memory Usage</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-snapshot">Generating a Snapshot</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-visualizer">Using the visualizer</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-snapshot">Generating a Snapshot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-visualizer">Using the visualizer</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#active-memory-timeline">Active Memory Timeline</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#allocator-state-history">Allocator State History</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-pytorch-alloc">Identifying Non-PyTorch allocations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snapshot-api-reference">Snapshot API Reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.memory._record_memory_history"><code class="docutils literal notranslate"><span class="pre">_record_memory_history()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.memory._snapshot"><code class="docutils literal notranslate"><span class="pre">_snapshot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.memory._dump_snapshot"><code class="docutils literal notranslate"><span class="pre">_dump_snapshot()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#snapshot-api-reference">Snapshot API Reference</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.memory._record_memory_history"><code class="docutils literal notranslate"><span class="pre">_record_memory_history()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.memory._snapshot"><code class="docutils literal notranslate"><span class="pre">_snapshot()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.memory._dump_snapshot"><code class="docutils literal notranslate"><span class="pre">_dump_snapshot()</span></code></a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
     
        <div class="sidebar-secondary-item">
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch_cuda_memory.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch_cuda_memory.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4366,7 +4360,7 @@ alloc/free events in the recorded history recorded.</p></li>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/torch_cuda_memory.rst.txt">
+      <a href="_sources/torch_cuda_memory.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4569,8 +4563,8 @@ alloc/free events in the recorded history recorded.</p></li>
            "@id": "/torch_cuda_memory.html"
          },
          "datePublished": "Aug 23, 2023",
-         "dateModified": "Apr 17, 2025",
-         "articleBody": "Understanding CUDA Memory Usage# Created On: Aug 23, 2023 | Last Updated On: Apr 17, 2025 To debug CUDA memory use, PyTorch provides a way to generate memory snapshots that record the state of allocated CUDA memory at any point in time, and optionally record the history of allocation events that led up to that snapshot. The generated snapshots can then be drag and dropped onto the interactiver viewer hosted at pytorch.org/memory_viz which can be used to explore the snapshot. Note The memory profiler and visualizer described in this document only have visibility into the CUDA memory that is allocated and managed through the PyTorch allocator. Any memory allocated directly from CUDA APIs will not be visible in the PyTorch memory profiler. NCCL (used for distributed communication on CUDA devices) is a common example of a library that allocates some GPU memory that is invisible to the PyTorch memory profiler. See Identifying Non-PyTorch allocations for more info. Generating a Snapshot# The common pattern for recording a snapshot is to enable memory history, run the code to be observed, and then save a file with a pickled snapshot: # enable memory history, which will # add tracebacks and event history to snapshots torch.cuda.memory._record_memory_history() run_your_code() torch.cuda.memory._dump_snapshot(&#34;my_snapshot.pickle&#34;) Using the visualizer# Open pytorch.org/memory_viz and drag/drop the pickled snapshot file into the visualizer. The visualizer is a javascript application that runs locally on your computer. It does not upload any snapshot data. Active Memory Timeline# The Active Memory Timeline shows all the live tensors over time in the snapshot on a particular GPU. Pan/Zoom over the plot to look at smaller allocations. Mouse over allocated blocks to see a stack trace for when that block was allocated, and details like its address. The detail slider can be adjusted to render fewer allocations and improve performance when there is a lot of data. Allocator State History# The Allocator State History shows individual allocator events in a timeline on the left. Select an event in the timeline to see a visual summary of the allocator state at that event. This summary shows each individual segment returned from cudaMalloc and how it is split up into blocks of individual allocations or free space. Mouse over segments and blocks to see the stack trace when the memory was allocated. Mouse over events to see the stack trace when the event occurred, such as when a tensor was freed. Out of memory errors are reported as OOM events. Looking at the state of memory during an OOM may provide insight into why an allocation failed even though reserved memory still exists. The stack trace information also reports the address at which an allocation occurred. The address b7f064c000000_0 refers to the (b)lock at address 7f064c000000 which is the “_0”th time this address was allocated. This unique string can be looked up in the Active Memory Timeline and searched in ..."
+         "dateModified": "Jun 10, 2025",
+         "articleBody": "Understanding CUDA Memory Usage# Created On: Aug 23, 2023 | Last Updated On: Jun 10, 2025 To debug CUDA memory use, PyTorch provides a way to generate memory snapshots that record the state of allocated CUDA memory at any point in time, and optionally record the history of allocation events that led up to that snapshot. The generated snapshots can then be drag and dropped onto the interactiver viewer hosted at pytorch.org/memory_viz which can be used to explore the snapshot. Note The memory profiler and visualizer described in this document only have visibility into the CUDA memory that is allocated and managed through the PyTorch allocator. Any memory allocated directly from CUDA APIs will not be visible in the PyTorch memory profiler. NCCL (used for distributed communication on CUDA devices) is a common example of a library that allocates some GPU memory that is invisible to the PyTorch memory profiler. See Identifying Non-PyTorch allocations for more info. Generating a Snapshot# The common pattern for recording a snapshot is to enable memory history, run the code to be observed, and then save a file with a pickled snapshot: # enable memory history, which will # add tracebacks and event history to snapshots torch.cuda.memory._record_memory_history() run_your_code() torch.cuda.memory._dump_snapshot(&#34;my_snapshot.pickle&#34;) Using the visualizer# Open pytorch.org/memory_viz and drag/drop the pickled snapshot file into the visualizer. The visualizer is a javascript application that runs locally on your computer. It does not upload any snapshot data. Active Memory Timeline# The Active Memory Timeline shows all the live tensors over time in the snapshot on a particular GPU. Pan/Zoom over the plot to look at smaller allocations. Mouse over allocated blocks to see a stack trace for when that block was allocated, and details like its address. The detail slider can be adjusted to render fewer allocations and improve performance when there is a lot of data. Allocator State History# The Allocator State History shows individual allocator events in a timeline on the left. Select an event in the timeline to see a visual summary of the allocator state at that event. This summary shows each individual segment returned from cudaMalloc and how it is split up into blocks of individual allocations or free space. Mouse over segments and blocks to see the stack trace when the memory was allocated. Mouse over events to see the stack trace when the event occurred, such as when a tensor was freed. Out of memory errors are reported as OOM events. Looking at the state of memory during an OOM may provide insight into why an allocation failed even though reserved memory still exists. The stack trace information also reports the address at which an allocation occurred. The address b7f064c000000_0 refers to the (b)lock at address 7f064c000000 which is the “_0”th time this address was allocated. This unique string can be looked up in the Active Memory Timeline and searched in ..."
        }
    </script>
 

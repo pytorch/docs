@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite7698ff )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2963,10 +2963,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html">GdsFile</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">torch.cuda.memory</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mps.html">torch.mps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.device_count.html">torch.mps.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.synchronize.html">torch.mps.synchronize</a></li>
@@ -3070,7 +3067,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="export.ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="draft_export.html">Draft Export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="logging.html">torch._logging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
@@ -3082,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3100,7 +3097,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 </ul>
 </details></li>
@@ -3161,13 +3158,14 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_profiling_torch_compile.html">Profiling to understand torch.compile performance</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4025,7 +4023,7 @@ document.write(`
                   
   <div class="section" id="cudagraph-trees">
 <h1>CUDAGraph Trees<a class="headerlink" href="#cudagraph-trees" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 19, 2023 | Last Updated On: Feb 13, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 19, 2023 | Last Updated On: Jun 10, 2025</p>
 <div class="section" id="background">
 <h2><strong>Background</strong><a class="headerlink" href="#background" title="Permalink to this heading">#</a></h2>
 <div class="section" id="cudagraph">
@@ -4120,7 +4118,7 @@ x and x’ reside on different CUDA memory addresses.</p>
 <p>A closer look at input mutation functions reveals that there are three types of inputs:</p>
 <ul class="simple">
 <li><p><strong>inputs from eager</strong>: These tensors we assume will vary input tensor addresses from
-execution to execution. Because cudagraphs freeze memory   addresses, we need to copy these
+execution to execution. Because cudagraphs freeze memory addresses, we need to copy these
 inputs to a static address tensor prior to graph recording and execution.</p></li>
 <li><p><strong>Parameters and buffers</strong>: These tensors we assume (and runtime-check) have the same tensor
 addresses on every execution. We do not need to copy over their contents because the recorded
@@ -4171,12 +4169,11 @@ shows CUDAGraph Trees’ support for tensors which are prior outputs from CUDAGr
 </div>
 <p>To enable CUDAGraph Trees for a function mutating inputs from eager, please re-write
 the function to avoid input mutation.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Enable input mutation support by setting
-<a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/_inductor/config.py#L662">torch._inductor.config.cudagraph_support_input_mutation = True</a>
-for “reduce-overhead” mode.</p>
-</div>
+<blockquote>
+<div><p><strong>Note</strong><br />
+Enable input mutation support by setting
+<a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/_inductor/config.py#L662">torch._inductor.config.cudagraph_support_input_mutation = True</a> for “reduce-overhead” mode.</p>
+</div></blockquote>
 </div>
 <div class="section" id="dynamic-shape-support">
 <h3>Dynamic Shape Support<a class="headerlink" href="#dynamic-shape-support" title="Permalink to this heading">#</a></h3>
@@ -4191,7 +4188,7 @@ device memory per kernel launch in CUDAGraph, up until CUDA 12.4 and Driver Vers
 This memory cost can be significant with many CUDAGraph re-recordings.</p>
 <p>For functions with frequently changing input tensor shapes, we suggest padding input
 tensors to a few fixed tensor shapes to still enjoy benefits from CUDAGraph. In addition,
-setting  <a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/_inductor/config.py#L653">torch._inductor.config.triton.cudagraph_skip_dynamic_graphs=True</a>
+setting <a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/_inductor/config.py#L653">torch._inductor.config.triton.cudagraph_skip_dynamic_graphs=True</a>
 allows to skip cudagraphing functions with dynamic shape inputs and only cudagraphing
 functions with static input tensor shapes.</p>
 </div>
@@ -4283,12 +4280,7 @@ tensors of a prior iteration (outside of torch.compile) before you begin the nex
 </div>
 <div class="section" id="comparisons">
 <h3>Comparisons<a class="headerlink" href="#comparisons" title="Permalink to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="colwidths-given table">
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 40%" />
-<col style="width: 40%" />
-</colgroup>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Footguns</p></th>
 <th class="head"><p>Separate CudaGraph</p></th>
@@ -4460,7 +4452,7 @@ tensors of a prior iteration (outside of torch.compile) before you begin the nex
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_cudagraph_trees.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_cudagraph_trees.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4474,7 +4466,7 @@ tensors of a prior iteration (outside of torch.compile) before you begin the nex
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/torch.compiler_cudagraph_trees.rst.txt">
+      <a href="_sources/torch.compiler_cudagraph_trees.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4677,8 +4669,8 @@ tensors of a prior iteration (outside of torch.compile) before you begin the nex
            "@id": "/torch.compiler_cudagraph_trees.html"
          },
          "datePublished": "May 19, 2023",
-         "dateModified": "Feb 13, 2025",
-         "articleBody": "CUDAGraph Trees# Created On: May 19, 2023 | Last Updated On: Feb 13, 2025 Background# CUDAGraph# For a longer background on CUDAGraphs, read accelerating pytorch with CUDAGraphs. CUDA Graphs, which made its debut in CUDA 10, let a series of CUDA kernels to be defined and encapsulated as a single unit, i.e., a graph of operations, rather than a sequence of individually-launched operations. It provides a mechanism to launch multiple GPU operations through a single CPU operation, and hence reduces the launching overheads. CUDA Graphs can give large speedups, especially for models with high CPU overhead or small compute. There are a number of limitations from requiring the same kernels to be run with the same arguments and dependencies, and memory addresses. Control Flow is not possible Kernels which trigger host to device syncs (such as .item()) errors All input arguments to kernels are fixed to what they were recorded CUDA Memory addresses are fixed, however the values of the memory at those addresses can change No Essential CPU ops or CPU side effects PyTorch CUDAGraph Integration# PyTorch provides a convenience wrapper around CUDAGraphs that handles a couple of tricky interactions with PyTorch’s caching allocator. The CachingAllocator uses a separate memory pool for all the new allocations. During CUDAGraph recording, memory is accounted for, allocated, and freed exactly as during eager run. On replay, just the kernels are invoked, and there are no changes to the allocator. Subsequent to initial recording, the allocator does not know which memory is actively being used in user programs. Using a separate memory pool between eager allocations and cudagraph allocations may increase the memory of your program if there is substantial memory allocated to both. Make Graphed Callables# Make Graphed Callables is a PyTorch Abstraction to share a single memory pool over a series of callables. Graphed Callables takes advantage of the fact that on CUDA Graph recording, memory is exactly accounted for by the caching allocator to safely share memory between separate CUDA Graph recordings. In each invocation, outputs are preserved as live memory, preventing one callable from overwriting the live memory of another. Graphed Callables can only be invoked in a single order; memory addresses from the first run are burned into the second, and so forth. TorchDynamo Previous CUDA Graphs Integration# Running with cudagraph_trees=False does not reuse memory across separate graph captures, which can lead to large memory regressions. Even for a model that has no graph breaks, this has issues. The forward and backward are separate graph captures, so the memory pools for forward and backward are not shared. In particular, memory for activations that are saved in the forward cannot be reclaimed in the backward. CUDAGraph Trees Integration# Like Graph Callables, CUDA Graph Trees use a single memory pool across all graph captures. However, instead of requiring a single sequen..."
+         "dateModified": "Jun 10, 2025",
+         "articleBody": "CUDAGraph Trees# Created On: May 19, 2023 | Last Updated On: Jun 10, 2025 Background# CUDAGraph# For a longer background on CUDAGraphs, read accelerating pytorch with CUDAGraphs. CUDA Graphs, which made its debut in CUDA 10, let a series of CUDA kernels to be defined and encapsulated as a single unit, i.e., a graph of operations, rather than a sequence of individually-launched operations. It provides a mechanism to launch multiple GPU operations through a single CPU operation, and hence reduces the launching overheads. CUDA Graphs can give large speedups, especially for models with high CPU overhead or small compute. There are a number of limitations from requiring the same kernels to be run with the same arguments and dependencies, and memory addresses. Control Flow is not possible Kernels which trigger host to device syncs (such as .item()) errors All input arguments to kernels are fixed to what they were recorded CUDA Memory addresses are fixed, however the values of the memory at those addresses can change No Essential CPU ops or CPU side effects PyTorch CUDAGraph Integration# PyTorch provides a convenience wrapper around CUDAGraphs that handles a couple of tricky interactions with PyTorch’s caching allocator. The CachingAllocator uses a separate memory pool for all the new allocations. During CUDAGraph recording, memory is accounted for, allocated, and freed exactly as during eager run. On replay, just the kernels are invoked, and there are no changes to the allocator. Subsequent to initial recording, the allocator does not know which memory is actively being used in user programs. Using a separate memory pool between eager allocations and cudagraph allocations may increase the memory of your program if there is substantial memory allocated to both. Make Graphed Callables# Make Graphed Callables is a PyTorch Abstraction to share a single memory pool over a series of callables. Graphed Callables takes advantage of the fact that on CUDA Graph recording, memory is exactly accounted for by the caching allocator to safely share memory between separate CUDA Graph recordings. In each invocation, outputs are preserved as live memory, preventing one callable from overwriting the live memory of another. Graphed Callables can only be invoked in a single order; memory addresses from the first run are burned into the second, and so forth. TorchDynamo Previous CUDA Graphs Integration# Running with cudagraph_trees=False does not reuse memory across separate graph captures, which can lead to large memory regressions. Even for a model that has no graph breaks, this has issues. The forward and backward are separate graph captures, so the memory pools for forward and backward are not shared. In particular, memory for activations that are saved in the forward cannot be reclaimed in the backward. CUDAGraph Trees Integration# Like Graph Callables, CUDA Graph Trees use a single memory pool across all graph captures. However, instead of requiring a single sequen..."
        }
    </script>
 

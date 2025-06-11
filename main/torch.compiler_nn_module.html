@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite7698ff )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2963,10 +2963,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html">GdsFile</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">torch.cuda.memory</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mps.html">torch.mps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.device_count.html">torch.mps.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.synchronize.html">torch.mps.synchronize</a></li>
@@ -3070,7 +3067,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="export.ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="draft_export.html">Draft Export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="logging.html">torch._logging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
@@ -3082,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3100,7 +3097,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 </ul>
 </details></li>
@@ -3161,13 +3158,14 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_profiling_torch_compile.html">Profiling to understand torch.compile performance</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4025,26 +4023,27 @@ document.write(`
                   
   <div class="section" id="pytorch-2-0-nnmodule-support">
 <h1>PyTorch 2.0 NNModule Support<a class="headerlink" href="#pytorch-2-0-nnmodule-support" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 06, 2023 | Last Updated On: Oct 10, 2023</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 06, 2023 | Last Updated On: Jun 10, 2025</p>
 <p><strong>Author</strong>: <a class="reference external" href="https://github.com/wconstab">Will Constable</a></p>
-<p><cite>torch.compile</cite> has special handling for torch.nn.Module objects, tracing them differently than it traces
+<p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has special handling for torch.nn.Module objects, tracing them differently than it traces
 arbitrary python classes, with the intent of producing faster code by making assumptions about the structure.</p>
 <p>This doc describes some of the tradeoffs or edge cases that come up due to this specialization.</p>
 <div class="section" id="nnmodule-hooks-support">
 <h2>NNModule Hooks Support<a class="headerlink" href="#nnmodule-hooks-support" title="Permalink to this heading">#</a></h2>
-<p>Previously, <cite>torch.compile</cite> had no support for hooks on nn.Modules, and if hooks were registered
+<p>Previously, <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> had no support for hooks on nn.Modules, and if hooks were registered
 they would simply be ignored in the compiled program. Indeed many users do not
 use nn.Module hooks at all, or only use them for debug workflows, but there are valid use cases
-for composing nn.Module hooks with <cite>torch.compile</cite>.</p>
-<p>Hooks that are orchestrated via nn.Module.__call__ implementation include <cite>_forward_pre_hooks</cite>,
-<cite>forward_hooks</cite>, <cite>_backward_pre_hooks</cite>, and <cite>_backward_hooks</cite>, and will be referred to as ‘call hooks’.
-These hooks are partially supported by <cite>torch.compile</cite> with limitations described below.</p>
-<p>Another category of hooks includes <cite>_state_dict_hooks</cite> and its <cite>pre</cite> and <cite>load_</cite> variants, and are still
-unsupported by <cite>torch.compile</cite>.</p>
+for composing nn.Module hooks with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>.</p>
+<p>Hooks that are orchestrated via nn.Module.<strong>call</strong> implementation include <code class="docutils literal notranslate"><span class="pre">_forward_pre_hooks</span></code>,
+<code class="docutils literal notranslate"><span class="pre">forward_hooks</span></code>, <code class="docutils literal notranslate"><span class="pre">_backward_pre_hooks</span></code>, and <code class="docutils literal notranslate"><span class="pre">_backward_hooks</span></code>, and will be referred to as ‘call hooks’.
+These hooks are partially supported by <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> with limitations described below.</p>
+<p>Another category of hooks includes <code class="docutils literal notranslate"><span class="pre">_state_dict_hooks</span></code> and its <code class="docutils literal notranslate"><span class="pre">pre</span></code> and <code class="docutils literal notranslate"><span class="pre">load_</span></code> variants, and are still
+unsupported by <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>.</p>
+</div>
 <div class="section" id="nn-module-call-hooks-usage-and-limitations">
-<h3><cite>nn.Module.__call__</cite> Hooks Usage and limitations<a class="headerlink" href="#nn-module-call-hooks-usage-and-limitations" title="Permalink to this heading">#</a></h3>
-<p>By default, <cite>torch.compile</cite> will trace the contents of <cite>nn.Module.__call__</cite> which means it will encounter
-and run forward/pre-forward hooks.  If you install hooks before calling <cite>torch.compile</cite> and then do not remove
+<h2><code class="docutils literal notranslate"><span class="pre">nn.Module.__call__</span></code> Hooks Usage and limitations<a class="headerlink" href="#nn-module-call-hooks-usage-and-limitations" title="Permalink to this heading">#</a></h2>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> will trace the contents of <code class="docutils literal notranslate"><span class="pre">nn.Module.__call__</span></code> which means it will encounter
+and run forward/pre-forward hooks.  If you install hooks before calling <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> and then do not remove
 or alter the hooks later, your use case should be supported by default.</p>
 <p>Backward/Pre-backward hooks are generally also supported, with similar caveats: currently graph-breaks in dynamo
 occur when accessing backward_hooks dicts, which is probably avoiable with some work.  Graph-breaks also impact the
@@ -4053,24 +4052,23 @@ the same time.  Assuming it were possible for dynamo to not graph-break on the p
 still expect the backward hooks for a series of modules to all fire together after the whole compiled graph’s backward
 ran.</p>
 <p><strong>hooks on ‘allowed modules’</strong>
-<cite>torch.compile</cite> treats common modules such as torch.conv, as well as modules that are difficult to trace, specially
+<code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> treats common modules such as torch.conv, as well as modules that are difficult to trace, specially
 by allowing them to be called opaquely in the dynamo graph instead of traced into by dynamo.  For such modules, hooks
 currently trigger a graph-break so that the affected modules run outside of dynamo.  Depending on the model, this could
 introduce a significant performance regression, and additional work is required to improve this support.</p>
 <p><strong>skip_nnmodule_hook_guards</strong>
-By default, <cite>torch._dynamo.config.skip_nnmodule_hook_guards</cite> is set to True, meaning no guards will be installed
+By default, <code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.skip_nnmodule_hook_guards</span></code> is set to True, meaning no guards will be installed
 on each nn.Module hook dictionary, improving runtime by reducing guard execution time, at the cost of not noticing
 if any hook dict is changed after compilation.</p>
-<p>If you want to be able to remove or modify hooks after compilation and have <cite>torch.compile</cite> react appropriately
-(by recompiling), then you need to set <cite>skip_nnmodule_hook_guards=False</cite> and expect a runtime penalty for the added
+<p>If you want to be able to remove or modify hooks after compilation and have <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> react appropriately
+(by recompiling), then you need to set <code class="docutils literal notranslate"><span class="pre">skip_nnmodule_hook_guards=False</span></code> and expect a runtime penalty for the added
 guards.</p>
 <p>TODO: confirm if backward/pre_backward hooks are working or not and document accordingly</p>
 </div>
 <div class="section" id="state-dict-hooks">
-<h3>state_dict Hooks<a class="headerlink" href="#state-dict-hooks" title="Permalink to this heading">#</a></h3>
-<p>State dict hooks have not yet been supported in <cite>torch.compile</cite>.</p>
+<h2>state_dict Hooks<a class="headerlink" href="#state-dict-hooks" title="Permalink to this heading">#</a></h2>
+<p>State dict hooks have not yet been supported in <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>.</p>
 <p>TODO: warn_once if graph-breaking on hooks.  warn_once to point to this doc if hooks are present.</p>
-</div>
 </div>
 </div>
 
@@ -4196,11 +4194,9 @@ guards.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nnmodule-hooks-support">NNModule Hooks Support</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nn-module-call-hooks-usage-and-limitations"><cite>nn.Module.__call__</cite> Hooks Usage and limitations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#state-dict-hooks">state_dict Hooks</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nnmodule-hooks-support">NNModule Hooks Support</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nn-module-call-hooks-usage-and-limitations"><code class="docutils literal notranslate"><span class="pre">nn.Module.__call__</span></code> Hooks Usage and limitations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#state-dict-hooks">state_dict Hooks</a></li>
 </ul>
   </nav></div>
     
@@ -4208,7 +4204,7 @@ guards.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_nn_module.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_nn_module.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4222,7 +4218,7 @@ guards.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/torch.compiler_nn_module.rst.txt">
+      <a href="_sources/torch.compiler_nn_module.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4425,8 +4421,8 @@ guards.</p>
            "@id": "/torch.compiler_nn_module.html"
          },
          "datePublished": "Apr 06, 2023",
-         "dateModified": "Oct 10, 2023",
-         "articleBody": "PyTorch 2.0 NNModule Support# Created On: Apr 06, 2023 | Last Updated On: Oct 10, 2023 Author: Will Constable torch.compile has special handling for torch.nn.Module objects, tracing them differently than it traces arbitrary python classes, with the intent of producing faster code by making assumptions about the structure. This doc describes some of the tradeoffs or edge cases that come up due to this specialization. NNModule Hooks Support# Previously, torch.compile had no support for hooks on nn.Modules, and if hooks were registered they would simply be ignored in the compiled program. Indeed many users do not use nn.Module hooks at all, or only use them for debug workflows, but there are valid use cases for composing nn.Module hooks with torch.compile. Hooks that are orchestrated via nn.Module.__call__ implementation include _forward_pre_hooks, forward_hooks, _backward_pre_hooks, and _backward_hooks, and will be referred to as ‘call hooks’. These hooks are partially supported by torch.compile with limitations described below. Another category of hooks includes _state_dict_hooks and its pre and load_ variants, and are still unsupported by torch.compile. nn.Module.__call__ Hooks Usage and limitations# By default, torch.compile will trace the contents of nn.Module.__call__ which means it will encounter and run forward/pre-forward hooks. If you install hooks before calling torch.compile and then do not remove or alter the hooks later, your use case should be supported by default. Backward/Pre-backward hooks are generally also supported, with similar caveats: currently graph-breaks in dynamo occur when accessing backward_hooks dicts, which is probably avoiable with some work. Graph-breaks also impact the timing of firing backward hooks, since graph-segments are run as autograd-functions which produce all their grads at the same time. Assuming it were possible for dynamo to not graph-break on the presence of backward-hooks, we would still expect the backward hooks for a series of modules to all fire together after the whole compiled graph’s backward ran. hooks on ‘allowed modules’ torch.compile treats common modules such as torch.conv, as well as modules that are difficult to trace, specially by allowing them to be called opaquely in the dynamo graph instead of traced into by dynamo. For such modules, hooks currently trigger a graph-break so that the affected modules run outside of dynamo. Depending on the model, this could introduce a significant performance regression, and additional work is required to improve this support. skip_nnmodule_hook_guards By default, torch._dynamo.config.skip_nnmodule_hook_guards is set to True, meaning no guards will be installed on each nn.Module hook dictionary, improving runtime by reducing guard execution time, at the cost of not noticing if any hook dict is changed after compilation. If you want to be able to remove or modify hooks after compilation and have torch.compile react appropriately (by recompiling), th..."
+         "dateModified": "Jun 10, 2025",
+         "articleBody": "PyTorch 2.0 NNModule Support# Created On: Apr 06, 2023 | Last Updated On: Jun 10, 2025 Author: Will Constable torch.compile has special handling for torch.nn.Module objects, tracing them differently than it traces arbitrary python classes, with the intent of producing faster code by making assumptions about the structure. This doc describes some of the tradeoffs or edge cases that come up due to this specialization. NNModule Hooks Support# Previously, torch.compile had no support for hooks on nn.Modules, and if hooks were registered they would simply be ignored in the compiled program. Indeed many users do not use nn.Module hooks at all, or only use them for debug workflows, but there are valid use cases for composing nn.Module hooks with torch.compile. Hooks that are orchestrated via nn.Module.call implementation include _forward_pre_hooks, forward_hooks, _backward_pre_hooks, and _backward_hooks, and will be referred to as ‘call hooks’. These hooks are partially supported by torch.compile with limitations described below. Another category of hooks includes _state_dict_hooks and its pre and load_ variants, and are still unsupported by torch.compile. nn.Module.__call__ Hooks Usage and limitations# By default, torch.compile will trace the contents of nn.Module.__call__ which means it will encounter and run forward/pre-forward hooks. If you install hooks before calling torch.compile and then do not remove or alter the hooks later, your use case should be supported by default. Backward/Pre-backward hooks are generally also supported, with similar caveats: currently graph-breaks in dynamo occur when accessing backward_hooks dicts, which is probably avoiable with some work. Graph-breaks also impact the timing of firing backward hooks, since graph-segments are run as autograd-functions which produce all their grads at the same time. Assuming it were possible for dynamo to not graph-break on the presence of backward-hooks, we would still expect the backward hooks for a series of modules to all fire together after the whole compiled graph’s backward ran. hooks on ‘allowed modules’ torch.compile treats common modules such as torch.conv, as well as modules that are difficult to trace, specially by allowing them to be called opaquely in the dynamo graph instead of traced into by dynamo. For such modules, hooks currently trigger a graph-break so that the affected modules run outside of dynamo. Depending on the model, this could introduce a significant performance regression, and additional work is required to improve this support. skip_nnmodule_hook_guards By default, torch._dynamo.config.skip_nnmodule_hook_guards is set to True, meaning no guards will be installed on each nn.Module hook dictionary, improving runtime by reducing guard execution time, at the cost of not noticing if any hook dict is changed after compilation. If you want to be able to remove or modify hooks after compilation and have torch.compile react appropriately (by recompiling), then y..."
        }
    </script>
 

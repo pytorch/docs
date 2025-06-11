@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite7698ff )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2963,10 +2963,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html">GdsFile</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">torch.cuda.memory</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mps.html">torch.mps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.device_count.html">torch.mps.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.synchronize.html">torch.mps.synchronize</a></li>
@@ -3070,7 +3067,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="export.ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="draft_export.html">Draft Export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="logging.html">torch._logging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
@@ -3082,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3100,7 +3097,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 </ul>
 </details></li>
@@ -3161,13 +3158,14 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_profiling_torch_compile.html">Profiling to understand torch.compile performance</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4025,7 +4023,7 @@ document.write(`
                   
   <div class="section" id="custom-backends">
 <h1>Custom Backends<a class="headerlink" href="#custom-backends" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Nov 28, 2022 | Last Updated On: Nov 05, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 10, 2025 | Last Updated On: Jun 10, 2025</p>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> provides a straightforward method to enable users
@@ -4096,7 +4094,7 @@ via <code class="docutils literal notranslate"><span class="pre">entry_points</s
 <ul class="simple">
 <li><p>You can pass a string containing your backend function’s name to <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> instead of the function itself,
 for example, <code class="docutils literal notranslate"><span class="pre">torch.compile(model,</span> <span class="pre">backend=&quot;my_compiler&quot;)</span></code>.</p></li>
-<li><p>It is required for use with the <a class="reference internal" href="torch.compiler_troubleshooting_old.html#torch-compiler-troubleshooting-old"><span class="std std-ref">minifier</span></a>. Any generated
+<li><p>It is required for use with the <a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_troubleshooting_old.html#minifier">minifier</a>. Any generated
 code from the minifier must call your code that registers your backend function, typically through an <code class="docutils literal notranslate"><span class="pre">import</span></code> statement.</p></li>
 </ul>
 </div>
@@ -4418,7 +4416,7 @@ together with the following code:</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_custom_backends.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_custom_backends.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4432,7 +4430,7 @@ together with the following code:</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/torch.compiler_custom_backends.rst.txt">
+      <a href="_sources/torch.compiler_custom_backends.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4634,9 +4632,9 @@ together with the following code:</p>
            "@type": "WebPage",
            "@id": "/torch.compiler_custom_backends.html"
          },
-         "datePublished": "Nov 28, 2022",
-         "dateModified": "Nov 05, 2024",
-         "articleBody": "Custom Backends# Created On: Nov 28, 2022 | Last Updated On: Nov 05, 2024 Overview# torch.compile provides a straightforward method to enable users to define custom backends. A backend function has the contract (gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]) -&gt; Callable. Backend functions can be called by TorchDynamo, the graph tracing component of torch.compile, after tracing an FX graph and are expected to return a compiled function that is equivalent to the traced FX graph. The returned callable should have the same contract as the forward function of the original torch.fx.GraphModule passed into the backend: (*args: torch.Tensor) -&gt; List[torch.Tensor]. In order for TorchDynamo to call your backend, pass your backend function as the backend kwarg in torch.compile. For example, import torch def my_custom_backend(gm, example_inputs): return gm.forward def f(...): ... f_opt = torch.compile(f, backend=my_custom_backend) @torch.compile(backend=my_custom_backend) def g(...): ... See below for more examples. Registering Custom Backends# You can register your backend using the register_backend decorator, for example, from torch._dynamo import register_backend @register_backend def my_compiler(gm, example_inputs): ... Besides the register_backend decorator, if your backend is in another python package, you could also register your backend through entry points of python package, which provides a way for a package to register a plugin for another one. Hint You can learn more about entry_points in the python packaging documentation. To register your backend through entry_points, you could add your backend function to the torch_dynamo_backends entry point group in the setup.py file of your package like: ... setup( ... &#39;torch_dynamo_backends&#39;: [ &#39;my_compiler = your_module.submodule:my_compiler&#39;, ] ... ) Please replace the my_compiler before = to the name of your backend’s name and replace the part after = to the module and function name of your backend function. The entry point will be added to your python environment after the installation of the package. When you call torch.compile(model, backend=&#34;my_compiler&#34;), PyTorch would first search the backend named my_compiler that has been registered with register_backend. If not found, it will continue to search in all backends registered via entry_points. Registration serves two purposes: You can pass a string containing your backend function’s name to torch.compile instead of the function itself, for example, torch.compile(model, backend=&#34;my_compiler&#34;). It is required for use with the minifier. Any generated code from the minifier must call your code that registers your backend function, typically through an import statement. Custom Backends after AOTAutograd# It is possible to define custom backends that are called by AOTAutograd rather than TorchDynamo. This is useful for 2 main reasons: Users can define backends that support model training, as AOTAutograd can generate the backward graph fo..."
+         "datePublished": "Jun 10, 2025",
+         "dateModified": "Jun 10, 2025",
+         "articleBody": "Custom Backends# Created On: Jun 10, 2025 | Last Updated On: Jun 10, 2025 Overview# torch.compile provides a straightforward method to enable users to define custom backends. A backend function has the contract (gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]) -&gt; Callable. Backend functions can be called by TorchDynamo, the graph tracing component of torch.compile, after tracing an FX graph and are expected to return a compiled function that is equivalent to the traced FX graph. The returned callable should have the same contract as the forward function of the original torch.fx.GraphModule passed into the backend: (*args: torch.Tensor) -&gt; List[torch.Tensor]. In order for TorchDynamo to call your backend, pass your backend function as the backend kwarg in torch.compile. For example, import torch def my_custom_backend(gm, example_inputs): return gm.forward def f(...): ... f_opt = torch.compile(f, backend=my_custom_backend) @torch.compile(backend=my_custom_backend) def g(...): ... See below for more examples. Registering Custom Backends# You can register your backend using the register_backend decorator, for example, from torch._dynamo import register_backend @register_backend def my_compiler(gm, example_inputs): ... Besides the register_backend decorator, if your backend is in another python package, you could also register your backend through entry points of python package, which provides a way for a package to register a plugin for another one. Hint You can learn more about entry_points in the python packaging documentation. To register your backend through entry_points, you could add your backend function to the torch_dynamo_backends entry point group in the setup.py file of your package like: ... setup( ... &#39;torch_dynamo_backends&#39;: [ &#39;my_compiler = your_module.submodule:my_compiler&#39;, ] ... ) Please replace the my_compiler before = to the name of your backend’s name and replace the part after = to the module and function name of your backend function. The entry point will be added to your python environment after the installation of the package. When you call torch.compile(model, backend=&#34;my_compiler&#34;), PyTorch would first search the backend named my_compiler that has been registered with register_backend. If not found, it will continue to search in all backends registered via entry_points. Registration serves two purposes: You can pass a string containing your backend function’s name to torch.compile instead of the function itself, for example, torch.compile(model, backend=&#34;my_compiler&#34;). It is required for use with the minifier. Any generated code from the minifier must call your code that registers your backend function, typically through an import statement. Custom Backends after AOTAutograd# It is possible to define custom backends that are called by AOTAutograd rather than TorchDynamo. This is useful for 2 main reasons: Users can define backends that support model training, as AOTAutograd can generate the backward graph fo..."
        }
    </script>
 
