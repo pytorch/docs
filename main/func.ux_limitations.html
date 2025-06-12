@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git7485ef0 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4023,7 +4023,7 @@ document.write(`
                   
   <div class="section" id="ux-limitations">
 <span id="id1"></span><h1>UX Limitations<a class="headerlink" href="#ux-limitations" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Mar 08, 2022 | Last Updated On: Dec 29, 2022</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 12, 2025 | Last Updated On: Jun 12, 2025</p>
 <p>torch.func, like <a class="reference external" href="https://github.com/google/jax">JAX</a>, has restrictions around
 what can be transformed. In general, JAX’s limitations are that transforms
 only work with pure functions: that is, functions where the output is completely
@@ -4041,7 +4041,7 @@ from the function. This restriction comes from how torch.func is implemented:
 each transform wraps Tensor inputs in special torch.func Tensor subclasses
 that facilitate the transform.</p>
 <p>So, instead of the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">grad</span>
 
 <span class="c1"># Don&#39;t do this</span>
@@ -4058,7 +4058,7 @@ that facilitate the transform.</p>
 </pre></div>
 </div>
 <p>Please rewrite <code class="docutils literal notranslate"><span class="pre">f</span></code> to return <code class="docutils literal notranslate"><span class="pre">intermediate</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="n">intermediate</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
   <span class="n">z</span> <span class="o">=</span> <span class="n">intermediate</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
   <span class="k">return</span> <span class="n">z</span><span class="p">,</span> <span class="n">intermediate</span>
@@ -4076,11 +4076,13 @@ or <code class="docutils literal notranslate"><span class="pre">torch.autograd.b
 If it is unable to do so, you’ll receive an error message.</p>
 <p>This is a fundamental design limitation in how PyTorch’s AD support is implemented
 and the reason why we designed the torch.func library. Please instead use the torch.func
-equivalents of the <code class="docutils literal notranslate"><span class="pre">torch.autograd</span></code> APIs:
-- <code class="docutils literal notranslate"><span class="pre">torch.autograd.grad</span></code>, <code class="docutils literal notranslate"><span class="pre">Tensor.backward</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">torch.func.vjp</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.func.grad</span></code>
-- <code class="docutils literal notranslate"><span class="pre">torch.autograd.functional.jvp</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">torch.func.jvp</span></code>
-- <code class="docutils literal notranslate"><span class="pre">torch.autograd.functional.jacobian</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">torch.func.jacrev</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.func.jacfwd</span></code>
-- <code class="docutils literal notranslate"><span class="pre">torch.autograd.functional.hessian</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">torch.func.hessian</span></code></p>
+equivalents of the <code class="docutils literal notranslate"><span class="pre">torch.autograd</span></code> APIs:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.autograd.grad</span></code>, <code class="docutils literal notranslate"><span class="pre">Tensor.backward</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">torch.func.vjp</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.func.grad</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.autograd.functional.jvp</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">torch.func.jvp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.autograd.functional.jacobian</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">torch.func.jacrev</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.func.jacfwd</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.autograd.functional.hessian</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">torch.func.hessian</span></code></p></li>
+</ul>
 </div>
 <div class="section" id="vmap-limitations">
 <h2>vmap limitations<a class="headerlink" href="#vmap-limitations" title="Permalink to this heading">#</a></h2>
@@ -4096,14 +4098,14 @@ implemented with <a class="reference internal" href="generated/torch.func.jacfwd
 some new dimension of each input Tensor. The mental model for vmap is that it is
 like running a for-loop: for pure functions (i.e. in the absence of side
 effects), <code class="docutils literal notranslate"><span class="pre">vmap(f)(x)</span></code> is equivalent to:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">f</span><span class="p">(</span><span class="n">x_i</span><span class="p">)</span> <span class="k">for</span> <span class="n">x_i</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="mi">0</span><span class="p">)])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">f</span><span class="p">(</span><span class="n">x_i</span><span class="p">)</span> <span class="k">for</span> <span class="n">x_i</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="mi">0</span><span class="p">)])</span>
 </pre></div>
 </div>
 <div class="section" id="mutation-arbitrary-mutation-of-python-data-structures">
 <h3>Mutation: Arbitrary mutation of Python data structures<a class="headerlink" href="#mutation-arbitrary-mutation-of-python-data-structures" title="Permalink to this heading">#</a></h3>
 <p>In the presence of side effects, <a class="reference internal" href="generated/torch.func.vmap.html#torch.func.vmap" title="torch.func.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">vmap()</span></code></a> no longer acts like it is running
 a for-loop. For example, the following function:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
   <span class="nb">list</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hello!&quot;</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -4129,7 +4131,7 @@ operations. <a class="reference internal" href="generated/torch.func.vmap.html#t
 in-place operation and it will succeed otherwise. Unsupported operations
 are those that would cause a Tensor with more elements to be written to a
 Tensor with fewer elements. Here’s an example of how this can occur:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
   <span class="n">x</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">x</span>
 
@@ -4146,7 +4148,7 @@ three elements back into <code class="docutils literal notranslate"><span class=
 due to attempting to write three elements into a Tensor with a single element.</p>
 <p>There is no problem if the Tensor being written to is batched under
 <a class="reference internal" href="generated/torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">vmap()</span></code></a> (i.e. it is being vmapped over).</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
   <span class="n">x</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">x</span>
 
@@ -4166,7 +4168,7 @@ their “new_*” equivalent. For example:</p>
 <li><p>Replace <a class="reference internal" href="generated/torch.empty.html#torch.empty" title="torch.empty"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.empty()</span></code></a> with <code class="xref py py-meth docutils literal notranslate"><span class="pre">Tensor.new_empty()</span></code></p></li>
 </ul>
 <p>To see why this helps, consider the following.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">diag_embed</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">diag_embed</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
   <span class="k">assert</span> <span class="n">vec</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
   <span class="n">result</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">vec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
   <span class="n">result</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
@@ -4183,7 +4185,7 @@ However, although <code class="docutils literal notranslate"><span class="pre">v
 underlying shape [2, 3].
 It is not possible to copy <code class="docutils literal notranslate"><span class="pre">vec</span></code> into <code class="docutils literal notranslate"><span class="pre">result.diagonal()</span></code>, which has
 shape [3], because it has too many elements.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">diag_embed</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">diag_embed</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
   <span class="k">assert</span> <span class="n">vec</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
   <span class="n">result</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">(</span><span class="n">vec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
   <span class="n">result</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
@@ -4210,7 +4212,7 @@ future but we have chosen not to for now.</p>
 control flow is when the condition of an if-statement, while-loop, or
 for-loop is a Tensor that is being <code class="docutils literal notranslate"><span class="pre">vmap</span></code>’ed over. For example, the
 following will raise an error message:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">relu</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">relu</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">x</span>
   <span class="k">return</span> <span class="mi">0</span>
@@ -4221,7 +4223,7 @@ following will raise an error message:</p>
 </div>
 <p>However, any control flow that is not dependent on the values in <code class="docutils literal notranslate"><span class="pre">vmap</span></code>’ed
 tensors will work:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">custom_dot</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">custom_dot</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
   <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -4239,7 +4241,7 @@ We’re investigating adding equivalents of those to PyTorch.</p>
 <h3>Data-dependent operations (.item())<a class="headerlink" href="#data-dependent-operations-item" title="Permalink to this heading">#</a></h3>
 <p>We do not (and will not) support vmap over a user-defined function that calls
 <code class="docutils literal notranslate"><span class="pre">.item()</span></code> on a Tensor. For example, the following will raise an error message:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -4258,7 +4260,7 @@ PyTorch internals.</p>
 returns a Tensor with the same shape. Operations such as <code class="docutils literal notranslate"><span class="pre">torch.nonzero</span></code>,
 <code class="docutils literal notranslate"><span class="pre">torch.is_nonzero</span></code> are not supported and will error as a result.</p>
 <p>To see why, consider the following example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
 <span class="n">vmap</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nonzero</span><span class="p">)(</span><span class="n">xs</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -4278,7 +4280,7 @@ To address this, <code class="docutils literal notranslate"><span class="pre">vm
 to error. Under “error” mode, any call to a random function will produce an error asking the user to use
 one of the other two flags based on their use case.</p>
 <p>Under “different” randomness, elements in a batch produce different random values. For instance,</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_noise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_noise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(())</span>  <span class="c1"># y will be different across the batch</span>
   <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 
@@ -4287,7 +4289,7 @@ one of the other two flags based on their use case.</p>
 </pre></div>
 </div>
 <p>Under “same” randomness, elements in a batch produce same random values. For instance,</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_noise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_noise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(())</span>  <span class="c1"># y will be the same across the batch</span>
   <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 
@@ -4457,7 +4459,7 @@ file an issue.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/func.ux_limitations.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/func.ux_limitations.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4471,7 +4473,7 @@ file an issue.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/func.ux_limitations.rst.txt">
+      <a href="_sources/func.ux_limitations.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4673,9 +4675,9 @@ file an issue.</p>
            "@type": "WebPage",
            "@id": "/func.ux_limitations.html"
          },
-         "datePublished": "Mar 08, 2022",
-         "dateModified": "Dec 29, 2022",
-         "articleBody": "UX Limitations# Created On: Mar 08, 2022 | Last Updated On: Dec 29, 2022 torch.func, like JAX, has restrictions around what can be transformed. In general, JAX’s limitations are that transforms only work with pure functions: that is, functions where the output is completely determined by the input and that do not involve side effects (like mutation). We have a similar guarantee: our transforms work well with pure functions. However, we do support certain in-place operations. On one hand, writing code compatible with function transforms may involve changing how you write PyTorch code, on the other hand, you may find that our transforms let you express things that were previously difficult to express in PyTorch. General limitations# All torch.func transforms share a limitation in that a function should not assign to global variables. Instead, all outputs to a function must be returned from the function. This restriction comes from how torch.func is implemented: each transform wraps Tensor inputs in special torch.func Tensor subclasses that facilitate the transform. So, instead of the following: import torch from torch.func import grad # Don&#39;t do this intermediate = None def f(x): global intermediate intermediate = x.sin() z = intermediate.sin() return z x = torch.randn([]) grad_x = grad(f)(x) Please rewrite f to return intermediate: def f(x): intermediate = x.sin() z = intermediate.sin() return z, intermediate grad_x, intermediate = grad(f, has_aux=True)(x) torch.autograd APIs# If you are trying to use a torch.autograd API like torch.autograd.grad or torch.autograd.backward inside of a function being transformed by vmap() or one of torch.func’s AD transforms (vjp(), jvp(), jacrev(), jacfwd()), the transform may not be able to transform over it. If it is unable to do so, you’ll receive an error message. This is a fundamental design limitation in how PyTorch’s AD support is implemented and the reason why we designed the torch.func library. Please instead use the torch.func equivalents of the torch.autograd APIs: - torch.autograd.grad, Tensor.backward -&gt; torch.func.vjp or torch.func.grad - torch.autograd.functional.jvp -&gt; torch.func.jvp - torch.autograd.functional.jacobian -&gt; torch.func.jacrev or torch.func.jacfwd - torch.autograd.functional.hessian -&gt; torch.func.hessian vmap limitations# Note vmap() is our most restrictive transform. The grad-related transforms (grad(), vjp(), jvp()) do not have these limitations. jacfwd() (and hessian(), which is implemented with jacfwd()) is a composition of vmap() and jvp() so it also has these limitations. vmap(func) is a transform that returns a function that maps func over some new dimension of each input Tensor. The mental model for vmap is that it is like running a for-loop: for pure functions (i.e. in the absence of side effects), vmap(f)(x) is equivalent to: torch.stack([f(x_i) for x_i in x.unbind(0)]) Mutation: Arbitrary mutation of Python data structures# In the presence of side effects, vmap() no long..."
+         "datePublished": "Jun 12, 2025",
+         "dateModified": "Jun 12, 2025",
+         "articleBody": "UX Limitations# Created On: Jun 12, 2025 | Last Updated On: Jun 12, 2025 torch.func, like JAX, has restrictions around what can be transformed. In general, JAX’s limitations are that transforms only work with pure functions: that is, functions where the output is completely determined by the input and that do not involve side effects (like mutation). We have a similar guarantee: our transforms work well with pure functions. However, we do support certain in-place operations. On one hand, writing code compatible with function transforms may involve changing how you write PyTorch code, on the other hand, you may find that our transforms let you express things that were previously difficult to express in PyTorch. General limitations# All torch.func transforms share a limitation in that a function should not assign to global variables. Instead, all outputs to a function must be returned from the function. This restriction comes from how torch.func is implemented: each transform wraps Tensor inputs in special torch.func Tensor subclasses that facilitate the transform. So, instead of the following: import torch from torch.func import grad # Don&#39;t do this intermediate = None def f(x): global intermediate intermediate = x.sin() z = intermediate.sin() return z x = torch.randn([]) grad_x = grad(f)(x) Please rewrite f to return intermediate: def f(x): intermediate = x.sin() z = intermediate.sin() return z, intermediate grad_x, intermediate = grad(f, has_aux=True)(x) torch.autograd APIs# If you are trying to use a torch.autograd API like torch.autograd.grad or torch.autograd.backward inside of a function being transformed by vmap() or one of torch.func’s AD transforms (vjp(), jvp(), jacrev(), jacfwd()), the transform may not be able to transform over it. If it is unable to do so, you’ll receive an error message. This is a fundamental design limitation in how PyTorch’s AD support is implemented and the reason why we designed the torch.func library. Please instead use the torch.func equivalents of the torch.autograd APIs: torch.autograd.grad, Tensor.backward -&gt; torch.func.vjp or torch.func.grad torch.autograd.functional.jvp -&gt; torch.func.jvp torch.autograd.functional.jacobian -&gt; torch.func.jacrev or torch.func.jacfwd torch.autograd.functional.hessian -&gt; torch.func.hessian vmap limitations# Note vmap() is our most restrictive transform. The grad-related transforms (grad(), vjp(), jvp()) do not have these limitations. jacfwd() (and hessian(), which is implemented with jacfwd()) is a composition of vmap() and jvp() so it also has these limitations. vmap(func) is a transform that returns a function that maps func over some new dimension of each input Tensor. The mental model for vmap is that it is like running a for-loop: for pure functions (i.e. in the absence of side effects), vmap(f)(x) is equivalent to: torch.stack([f(x_i) for x_i in x.unbind(0)]) Mutation: Arbitrary mutation of Python data structures# In the presence of side effects, vmap() no longer acts ..."
        }
    </script>
 

@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git7485ef0 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4014,7 +4014,7 @@ document.write(`
                   
   <div class="section" id="torch-fx-experimental">
 <h1>torch.fx.experimental<a class="headerlink" href="#torch-fx-experimental" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 07, 2024 | Last Updated On: May 29, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 07, 2024 | Last Updated On: Jun 12, 2025</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>These APIs are experimental and subject to change without notice.</p>
@@ -4314,7 +4314,7 @@ document.write(`
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/fx.experimental.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/fx.experimental.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4328,7 +4328,7 @@ document.write(`
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/fx.experimental.rst.txt">
+      <a href="_sources/fx.experimental.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4531,8 +4531,8 @@ document.write(`
            "@id": "/fx.experimental.html"
          },
          "datePublished": "Feb 07, 2024",
-         "dateModified": "May 29, 2025",
-         "articleBody": "torch.fx.experimental# Created On: Feb 07, 2024 | Last Updated On: May 29, 2025 Warning These APIs are experimental and subject to change without notice. torch.fx.experimental.symbolic_shapes# ShapeEnv DimDynamic Controls how to perform symbol allocation for a dimension. StrictMinMaxConstraint For clients: the size at this dimension must be within &#39;vr&#39; (which specifies a lower and upper bound, inclusive-inclusive) AND it must be non-negative and should not be 0 or 1 (but see NB below). RelaxedUnspecConstraint For clients: no explicit constraint; constraint is whatever is implicitly inferred by guards from tracing. EqualityConstraint Represent and decide various kinds of equality constraints between input sources. SymbolicContext Data structure specifying how we should create symbols in create_symbolic_sizes_strides_storage_offset; e.g., should they be static or dynamic. StatelessSymbolicContext Create symbols in create_symbolic_sizes_strides_storage_offset via a symbolic_context determination as given by DimDynamic and DimConstraint. StatefulSymbolicContext Create symbols in create_symbolic_sizes_strides_storage_offset via a symbolic_context determination as given by a cache of Source:Symbol. SubclassSymbolicContext The correct symbolic context for a given inner tensor of a traceable tensor subclass may differ from that of the outer symbolic context. DimConstraints Custom solver for a system of constraints on symbolic dimensions. ShapeEnvSettings Encapsulates all shape env settings that could potentially affect FakeTensor dispatch. ConvertIntKey CallMethodKey PropagateUnbackedSymInts DivideByKey InnerTensorKey Specialization This class is used in multi-graph compilation contexts where we generate multiple specialized graphs and dispatch to the appropriate one at runtime. hint_int Retrieve the hint for an int (based on the underlying real values as observed at runtime). is_concrete_int Utility to check if underlying object in SymInt is concrete value. is_concrete_bool Utility to check if underlying object in SymBool is concrete value. is_concrete_float Utility to check if underlying object in SymInt is concrete value. has_free_symbols Faster version of bool(free_symbols(val)) has_free_unbacked_symbols Faster version of bool(free_unbacked_symbols(val)) guard_or_true Try to guard a, if data dependent error encountered just return true. guard_or_false Try to guard a, if data dependent error encountered just return false. guard_size_oblivious Perform a guard on a symbolic boolean expression in a size oblivious way. sym_and and, but for symbolic expressions, without bool casting. sym_eq Like ==, but when run on list/tuple, it will recursively test equality and use sym_and to join the results together, without guarding. sym_or or, but for symbolic expressions, without bool casting. constrain_range Applies a constraint that the passed in SymInt must lie between min-max inclusive-inclusive, WITHOUT introducing a guard on the SymInt (meaning that it can..."
+         "dateModified": "Jun 12, 2025",
+         "articleBody": "torch.fx.experimental# Created On: Feb 07, 2024 | Last Updated On: Jun 12, 2025 Warning These APIs are experimental and subject to change without notice. torch.fx.experimental.symbolic_shapes# ShapeEnv DimDynamic Controls how to perform symbol allocation for a dimension. StrictMinMaxConstraint For clients: the size at this dimension must be within &#39;vr&#39; (which specifies a lower and upper bound, inclusive-inclusive) AND it must be non-negative and should not be 0 or 1 (but see NB below). RelaxedUnspecConstraint For clients: no explicit constraint; constraint is whatever is implicitly inferred by guards from tracing. EqualityConstraint Represent and decide various kinds of equality constraints between input sources. SymbolicContext Data structure specifying how we should create symbols in create_symbolic_sizes_strides_storage_offset; e.g., should they be static or dynamic. StatelessSymbolicContext Create symbols in create_symbolic_sizes_strides_storage_offset via a symbolic_context determination as given by DimDynamic and DimConstraint. StatefulSymbolicContext Create symbols in create_symbolic_sizes_strides_storage_offset via a symbolic_context determination as given by a cache of Source:Symbol. SubclassSymbolicContext The correct symbolic context for a given inner tensor of a traceable tensor subclass may differ from that of the outer symbolic context. DimConstraints Custom solver for a system of constraints on symbolic dimensions. ShapeEnvSettings Encapsulates all shape env settings that could potentially affect FakeTensor dispatch. ConvertIntKey CallMethodKey PropagateUnbackedSymInts DivideByKey InnerTensorKey Specialization This class is used in multi-graph compilation contexts where we generate multiple specialized graphs and dispatch to the appropriate one at runtime. hint_int Retrieve the hint for an int (based on the underlying real values as observed at runtime). is_concrete_int Utility to check if underlying object in SymInt is concrete value. is_concrete_bool Utility to check if underlying object in SymBool is concrete value. is_concrete_float Utility to check if underlying object in SymInt is concrete value. has_free_symbols Faster version of bool(free_symbols(val)) has_free_unbacked_symbols Faster version of bool(free_unbacked_symbols(val)) guard_or_true Try to guard a, if data dependent error encountered just return true. guard_or_false Try to guard a, if data dependent error encountered just return false. guard_size_oblivious Perform a guard on a symbolic boolean expression in a size oblivious way. sym_and and, but for symbolic expressions, without bool casting. sym_eq Like ==, but when run on list/tuple, it will recursively test equality and use sym_and to join the results together, without guarding. sym_or or, but for symbolic expressions, without bool casting. constrain_range Applies a constraint that the passed in SymInt must lie between min-max inclusive-inclusive, WITHOUT introducing a guard on the SymInt (meaning that it can..."
        }
    </script>
 

@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git7485ef0 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4023,7 +4023,7 @@ document.write(`
                   
   <div class="section" id="torch-export-programming-model">
 <span id="export-programming-model"></span><h1>torch.export Programming Model<a class="headerlink" href="#torch-export-programming-model" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 18, 2024 | Last Updated On: Dec 20, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 18, 2024 | Last Updated On: Jun 11, 2025</p>
 <p>This document aims to explain the behaviors and capabilities of
 <a class="reference internal" href="export.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a>. It is intended to help build your intuition
 for how <a class="reference internal" href="export.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> handles code.</p>
@@ -4271,10 +4271,10 @@ control flow statements over dynamic values is not permitted, because the
 compiler cannot evaluate the conditions necessary to continue tracing and
 thus an error must be raised at export time.</p>
 <p>We provide <strong>operators to express general conditionals and loops over dynamic
-values</strong>, e.g., <cite>torch.cond</cite>, <cite>torch.map</cite>. Note that you only need to use these
+values</strong>, e.g., <code class="docutils literal notranslate"><span class="pre">torch.cond</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.map</span></code>. Note that you only need to use these
 if you truly want <em>data-dependent control flow</em>.</p>
 <p>Here’s an example of an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement on a data-dependent condition,
-<code class="docutils literal notranslate"><span class="pre">x.sum()</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is an input Tensor, rewritten using <cite>torch.cond</cite>.
+<code class="docutils literal notranslate"><span class="pre">x.sum()</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is an input Tensor, rewritten using <code class="docutils literal notranslate"><span class="pre">torch.cond</span></code>.
 Instead of having to decide which branch to trace, now both branches are
 traced.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">M_old</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -4302,12 +4302,12 @@ control flow operator, in this case you can provide an assertion that decides
 whether the condition is <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. Given such an assertion, we can
 continue tracing, emitting a guard as above.</p>
 <p>We provide <strong>operators to express assertions on dynamic shapes</strong>, e.g.,
-<cite>torch._check</cite>. Note that you only need to use this when there is control
+<code class="docutils literal notranslate"><span class="pre">torch._check</span></code>. Note that you only need to use this when there is control
 flow on data-dependent dynamic shapes.</p>
 <p>Here’s an example of an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement on a condition involving a
 data-dependent dynamic shape, <code class="docutils literal notranslate"><span class="pre">nz.shape[0]</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>, where <code class="docutils literal notranslate"><span class="pre">nz</span></code> is the result of
 calling <a class="reference internal" href="generated/torch.nonzero.html#torch.nonzero" title="torch.nonzero"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nonzero()</span></code></a>, an operator whose output shape depends on input
-data. Instead of rewriting it, you can add an assertion using <cite>torch._check</cite>
+data. Instead of rewriting it, you can add an assertion using <code class="docutils literal notranslate"><span class="pre">torch._check</span></code>
 to effectively decide which branch to trace.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">M_old</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
@@ -4683,7 +4683,7 @@ attributes.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/export.programming_model.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/export.programming_model.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4697,7 +4697,7 @@ attributes.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/export.programming_model.rst.txt">
+      <a href="_sources/export.programming_model.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4900,8 +4900,8 @@ attributes.</p>
            "@id": "/export.programming_model.html"
          },
          "datePublished": "Dec 18, 2024",
-         "dateModified": "Dec 20, 2024",
-         "articleBody": "torch.export Programming Model# Created On: Dec 18, 2024 | Last Updated On: Dec 20, 2024 This document aims to explain the behaviors and capabilities of torch.export.export(). It is intended to help build your intuition for how torch.export.export() handles code. Basics of Tracing# torch.export.export() captures a graph representing your model by tracing its execution on “example” inputs and recording the PyTorch operations and conditions observed along the traced path. This graph can then be run on different inputs as long as they satisfy the same conditions. The basic output of torch.export.export() is a single graph of PyTorch operations, with associated metadata. The exact format of this output is covered in the torch.export IR Specification. Strict vs. Non-Strict Tracing# torch.export.export() provides two modes of tracing. In non-strict mode, we trace through the program using the normal Python interpreter. Your code executes exactly as it would in eager mode; the only difference is that all Tensors are replaced by fake Tensors, which have shapes and other forms of metadata but no data, wrapped in Proxy objects that record all operations on them into a graph. We also capture conditions on Tensor shapes that guard the correctness of the generated code. In strict mode, we first trace through the program using TorchDynamo, a Python bytecode analysis engine. TorchDynamo does not actually execute your Python code. Instead, it symbolically analyzes it and builds a graph based on the results. On the one hand, this analysis allows torch.export.export() to provide additional guarantees on Python-level safety (beyond capturing conditions on Tensor shapes, as in non-strict mode). On the other hand, not all Python features are supported by this analysis. Although currently the default mode of tracing is strict, we strongly recommend using non-strict, which will soon become the default. For most models, conditions on Tensor shapes are enough for soundness, and the additional guarantees on Python-level safety have no impact; at the same time, the possibility of hitting unsupported Python features in TorchDynamo presents an unnecessary risk. In the rest of this document we assume we are tracing in non-strict mode; in particular, we assume that all Python features are supported. Values: Static vs. Dynamic# A key concept in understanding the behavior of torch.export.export() is the difference between static and dynamic values. Static Values# A static value is a value that is fixed at export time and cannot change between executions of the exported program. When the value is encountered during tracing, we treat it as a constant and hard-code it into the graph. When an operation is performed (e.g. x + y) and all inputs are static, the output of the operation is directly hard-coded into the graph and the operation does not show up (i.e. it gets “constant-folded”). When a value has been hard-coded into the graph, we say that the graph has been specialized to..."
+         "dateModified": "Jun 11, 2025",
+         "articleBody": "torch.export Programming Model# Created On: Dec 18, 2024 | Last Updated On: Jun 11, 2025 This document aims to explain the behaviors and capabilities of torch.export.export(). It is intended to help build your intuition for how torch.export.export() handles code. Basics of Tracing# torch.export.export() captures a graph representing your model by tracing its execution on “example” inputs and recording the PyTorch operations and conditions observed along the traced path. This graph can then be run on different inputs as long as they satisfy the same conditions. The basic output of torch.export.export() is a single graph of PyTorch operations, with associated metadata. The exact format of this output is covered in the torch.export IR Specification. Strict vs. Non-Strict Tracing# torch.export.export() provides two modes of tracing. In non-strict mode, we trace through the program using the normal Python interpreter. Your code executes exactly as it would in eager mode; the only difference is that all Tensors are replaced by fake Tensors, which have shapes and other forms of metadata but no data, wrapped in Proxy objects that record all operations on them into a graph. We also capture conditions on Tensor shapes that guard the correctness of the generated code. In strict mode, we first trace through the program using TorchDynamo, a Python bytecode analysis engine. TorchDynamo does not actually execute your Python code. Instead, it symbolically analyzes it and builds a graph based on the results. On the one hand, this analysis allows torch.export.export() to provide additional guarantees on Python-level safety (beyond capturing conditions on Tensor shapes, as in non-strict mode). On the other hand, not all Python features are supported by this analysis. Although currently the default mode of tracing is strict, we strongly recommend using non-strict, which will soon become the default. For most models, conditions on Tensor shapes are enough for soundness, and the additional guarantees on Python-level safety have no impact; at the same time, the possibility of hitting unsupported Python features in TorchDynamo presents an unnecessary risk. In the rest of this document we assume we are tracing in non-strict mode; in particular, we assume that all Python features are supported. Values: Static vs. Dynamic# A key concept in understanding the behavior of torch.export.export() is the difference between static and dynamic values. Static Values# A static value is a value that is fixed at export time and cannot change between executions of the exported program. When the value is encountered during tracing, we treat it as a constant and hard-code it into the graph. When an operation is performed (e.g. x + y) and all inputs are static, the output of the operation is directly hard-coded into the graph and the operation does not show up (i.e. it gets “constant-folded”). When a value has been hard-coded into the graph, we say that the graph has been specialized to..."
        }
    </script>
 

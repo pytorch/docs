@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git7485ef0 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4023,13 +4023,9 @@ document.write(`
                   
   <div class="section" id="mps-environment-variables">
 <span id="id1"></span><h1>MPS Environment Variables<a class="headerlink" href="#mps-environment-variables" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 19, 2024 | Last Updated On: Jul 02, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025</p>
 <p><strong>PyTorch Environment Variables</strong></p>
-<div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Variable</p></th>
 <th class="head"><p>Description</p></th>
@@ -4040,25 +4036,25 @@ document.write(`
 <td><p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, set allocator logging level to verbose.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PYTORCH_MPS_LOG_PROFILE_INFO</span></code></p></td>
-<td><p>Set log options bitmask to <code class="docutils literal notranslate"><span class="pre">MPSProfiler</span></code>. See <code class="docutils literal notranslate"><span class="pre">LogOptions</span></code> enum in <cite>aten/src/ATen/mps/MPSProfiler.h</cite> for available options.</p></td>
+<td><p>Set log options bitmask to <code class="docutils literal notranslate"><span class="pre">MPSProfiler</span></code>. See <code class="docutils literal notranslate"><span class="pre">LogOptions</span></code> enum in <code class="docutils literal notranslate"><span class="pre">aten/src/ATen/mps/MPSProfiler.h</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PYTORCH_MPS_TRACE_SIGNPOSTS</span></code></p></td>
-<td><p>Set profile and signpost bitmasks to <code class="docutils literal notranslate"><span class="pre">MPSProfiler</span></code>. See <code class="docutils literal notranslate"><span class="pre">ProfileOptions</span></code> and <code class="docutils literal notranslate"><span class="pre">SignpostTypes</span></code> enums in <cite>aten/src/ATen/mps/MPSProfiler.h</cite> for available options.</p></td>
+<td><p>Set profile and signpost bitmasks to <code class="docutils literal notranslate"><span class="pre">MPSProfiler</span></code>. See <code class="docutils literal notranslate"><span class="pre">ProfileOptions</span></code> and <code class="docutils literal notranslate"><span class="pre">SignpostTypes</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PYTORCH_MPS_HIGH_WATERMARK_RATIO</span></code></p></td>
-<td><p>High watermark ratio for MPS allocator. By default, it is set to 1.7.</p></td>
+<td><p>High watermark ratio for MPS allocator. Default is 1.7.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PYTORCH_MPS_LOW_WATERMARK_RATIO</span></code></p></td>
-<td><p>Low watermark ratio for MPS allocator. By default, it is set to 1.4 if the memory is unified and set to 1.0 if the memory is discrete.</p></td>
+<td><p>Low watermark ratio for MPS allocator. Default is 1.4 (unified) or 1.0 (discrete).</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PYTORCH_MPS_FAST_MATH</span></code></p></td>
-<td><p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, enable fast math for MPS metal kernels. See section 1.6.3 in <a class="reference external" href="https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf">https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf</a> for precision implications.</p></td>
+<td><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, enables fast math for MPS kernels. See section 1.6.3 in the <a class="reference external" href="https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf">Metal Shading Language Spec</a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PYTORCH_MPS_PREFER_METAL</span></code></p></td>
-<td><p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, force using metal kernels instead of using MPS Graph APIs. For now this is only used for matmul op.</p></td>
+<td><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, uses metal kernels instead of MPS Graph APIs. Used for matmul.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PYTORCH_ENABLE_MPS_FALLBACK</span></code></p></td>
-<td><p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, full back operations to CPU when MPS does not support them.</p></td>
+<td><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, falls back to CPU when MPS ops aren’t supported.</p></td>
 </tr>
 </tbody>
 </table>
@@ -4067,9 +4063,9 @@ document.write(`
 <p class="admonition-title">Note</p>
 <p><strong>high watermark ratio</strong> is a hard limit for the total allowed allocations</p>
 <ul class="simple">
-<li><p><cite>0.0</cite> : disables high watermark limit (may cause system failure if system-wide OOM occurs)</p></li>
-<li><p><cite>1.0</cite> : recommended maximum allocation size (i.e., device.recommendedMaxWorkingSetSize)</p></li>
-<li><p><cite>&gt;1.0</cite>: allows limits beyond the device.recommendedMaxWorkingSetSize</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code> : disables high watermark limit (may cause system failure if system-wide OOM occurs)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.0</span></code> : recommended maximum allocation size (i.e., device.recommendedMaxWorkingSetSize)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&gt;1.0</span></code>: allows limits beyond the device.recommendedMaxWorkingSetSize</p></li>
 </ul>
 <p>e.g., value 0.95 means we allocate up to 95% of recommended maximum
 allocation size; beyond that, the allocations would fail with OOM error.</p>
@@ -4199,7 +4195,7 @@ allocation size.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/mps_environment_variables.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/mps_environment_variables.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4213,7 +4209,7 @@ allocation size.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/mps_environment_variables.rst.txt">
+      <a href="_sources/mps_environment_variables.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4415,9 +4411,9 @@ allocation size.</p>
            "@type": "WebPage",
            "@id": "/mps_environment_variables.html"
          },
-         "datePublished": "Jun 19, 2024",
-         "dateModified": "Jul 02, 2024",
-         "articleBody": "MPS Environment Variables# Created On: Jun 19, 2024 | Last Updated On: Jul 02, 2024 PyTorch Environment Variables Variable Description PYTORCH_DEBUG_MPS_ALLOCATOR If set to 1, set allocator logging level to verbose. PYTORCH_MPS_LOG_PROFILE_INFO Set log options bitmask to MPSProfiler. See LogOptions enum in aten/src/ATen/mps/MPSProfiler.h for available options. PYTORCH_MPS_TRACE_SIGNPOSTS Set profile and signpost bitmasks to MPSProfiler. See ProfileOptions and SignpostTypes enums in aten/src/ATen/mps/MPSProfiler.h for available options. PYTORCH_MPS_HIGH_WATERMARK_RATIO High watermark ratio for MPS allocator. By default, it is set to 1.7. PYTORCH_MPS_LOW_WATERMARK_RATIO Low watermark ratio for MPS allocator. By default, it is set to 1.4 if the memory is unified and set to 1.0 if the memory is discrete. PYTORCH_MPS_FAST_MATH If set to 1, enable fast math for MPS metal kernels. See section 1.6.3 in https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf for precision implications. PYTORCH_MPS_PREFER_METAL If set to 1, force using metal kernels instead of using MPS Graph APIs. For now this is only used for matmul op. PYTORCH_ENABLE_MPS_FALLBACK If set to 1, full back operations to CPU when MPS does not support them. Note high watermark ratio is a hard limit for the total allowed allocations 0.0 : disables high watermark limit (may cause system failure if system-wide OOM occurs) 1.0 : recommended maximum allocation size (i.e., device.recommendedMaxWorkingSetSize) &gt;1.0: allows limits beyond the device.recommendedMaxWorkingSetSize e.g., value 0.95 means we allocate up to 95% of recommended maximum allocation size; beyond that, the allocations would fail with OOM error. low watermark ratio is a soft limit to attempt limiting memory allocations up to the lower watermark level by garbage collection or committing command buffers more frequently (a.k.a, adaptive commit). Value between 0 to m_high_watermark_ratio (setting 0.0 disables adaptive commit and garbage collection) e.g., value 0.9 means we ‘attempt’ to limit allocations up to 90% of recommended maximum allocation size."
+         "datePublished": "Jun 11, 2025",
+         "dateModified": "Jun 11, 2025",
+         "articleBody": "MPS Environment Variables# Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025 PyTorch Environment Variables Variable Description PYTORCH_DEBUG_MPS_ALLOCATOR If set to 1, set allocator logging level to verbose. PYTORCH_MPS_LOG_PROFILE_INFO Set log options bitmask to MPSProfiler. See LogOptions enum in aten/src/ATen/mps/MPSProfiler.h. PYTORCH_MPS_TRACE_SIGNPOSTS Set profile and signpost bitmasks to MPSProfiler. See ProfileOptions and SignpostTypes. PYTORCH_MPS_HIGH_WATERMARK_RATIO High watermark ratio for MPS allocator. Default is 1.7. PYTORCH_MPS_LOW_WATERMARK_RATIO Low watermark ratio for MPS allocator. Default is 1.4 (unified) or 1.0 (discrete). PYTORCH_MPS_FAST_MATH If 1, enables fast math for MPS kernels. See section 1.6.3 in the Metal Shading Language Spec. PYTORCH_MPS_PREFER_METAL If 1, uses metal kernels instead of MPS Graph APIs. Used for matmul. PYTORCH_ENABLE_MPS_FALLBACK If 1, falls back to CPU when MPS ops aren’t supported. Note high watermark ratio is a hard limit for the total allowed allocations 0.0 : disables high watermark limit (may cause system failure if system-wide OOM occurs) 1.0 : recommended maximum allocation size (i.e., device.recommendedMaxWorkingSetSize) &gt;1.0: allows limits beyond the device.recommendedMaxWorkingSetSize e.g., value 0.95 means we allocate up to 95% of recommended maximum allocation size; beyond that, the allocations would fail with OOM error. low watermark ratio is a soft limit to attempt limiting memory allocations up to the lower watermark level by garbage collection or committing command buffers more frequently (a.k.a, adaptive commit). Value between 0 to m_high_watermark_ratio (setting 0.0 disables adaptive commit and garbage collection) e.g., value 0.9 means we ‘attempt’ to limit allocations up to 90% of recommended maximum allocation size."
        }
    </script>
 

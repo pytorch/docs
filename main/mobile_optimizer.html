@@ -7,8 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta content="noindex" name="robots" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>torch.utils.mobile_optimizer &#8212; PyTorch main documentation</title>
   
   
@@ -107,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git7485ef0 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4015,7 +4014,7 @@ document.write(`
                   
   <div class="section" id="torch-utils-mobile-optimizer">
 <h1>torch.utils.mobile_optimizer<a class="headerlink" href="#torch-utils-mobile-optimizer" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 15, 2020 | Last Updated On: May 20, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025</p>
 <p>PyTorch Mobile is no longer actively supported. Redirecting to <a class="reference external" href="https://docs.pytorch.org/executorch">ExecuTorch documentation</a>.</p>
 <meta http-equiv="Refresh" content="0; url='https://docs.pytorch.org/executorch'" /><div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4027,7 +4026,7 @@ and <a class="reference external" href="https://pytorch.org/executorch/stable/na
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.mobile_optimizer.optimize_for_mobile">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.mobile_optimizer.</span></span><span class="sig-name descname"><span class="pre">optimize_for_mobile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_blocklist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preserved_methods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CPU'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dbec08bc1cc9113c13652128a4ddcfcf2426a8c0/torch/utils/mobile_optimizer.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.mobile_optimizer.optimize_for_mobile" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.mobile_optimizer.</span></span><span class="sig-name descname"><span class="pre">optimize_for_mobile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_blocklist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preserved_methods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CPU'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7485ef078f182af981b5f17d06602de68816492c/torch/utils/mobile_optimizer.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.mobile_optimizer.optimize_for_mobile" title="Permalink to this definition">#</a></dt>
 <dd><p>Optimize a torch script module for mobile deployment.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4181,7 +4180,7 @@ method will run the optimization pass that is not included inside optimization_b
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/mobile_optimizer.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/mobile_optimizer.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4195,7 +4194,7 @@ method will run the optimization pass that is not included inside optimization_b
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/mobile_optimizer.rst.txt">
+      <a href="_sources/mobile_optimizer.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4397,9 +4396,9 @@ method will run the optimization pass that is not included inside optimization_b
            "@type": "WebPage",
            "@id": "/mobile_optimizer.html"
          },
-         "datePublished": "Jul 15, 2020",
-         "dateModified": "May 20, 2025",
-         "articleBody": "torch.utils.mobile_optimizer# Created On: Jul 15, 2020 | Last Updated On: May 20, 2025 PyTorch Mobile is no longer actively supported. Redirecting to ExecuTorch documentation. Warning PyTorch Mobile is no longer actively supported. Please check out ExecuTorch, PyTorch’s all-new on-device inference library. You can also review documentation on XNNPACK and Vulkan delegates. torch.utils.mobile_optimizer.optimize_for_mobile(script_module, optimization_blocklist=None, preserved_methods=None, backend=&#39;CPU&#39;)[source]# Optimize a torch script module for mobile deployment. Parameters script_module (ScriptModule) – An instance of torch script module with type of ScriptModule. optimization_blocklist (Optional[set[torch._C._MobileOptimizerType]]) – A set with type of MobileOptimizerType. When set is not passed, optimization method will run all the optimizer pass; otherwise, optimizer method will run the optimization pass that is not included inside optimization_blocklist. preserved_methods (Optional[list[~AnyStr]]) – A list of methods that needed to be preserved when freeze_module pass is invoked backend (str) – Device type to use for running the result model (‘CPU’(default), ‘Vulkan’ or ‘Metal’). Returns A new optimized torch script module Return type RecursiveScriptModule"
+         "datePublished": "Jun 11, 2025",
+         "dateModified": "Jun 11, 2025",
+         "articleBody": "torch.utils.mobile_optimizer# Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025 PyTorch Mobile is no longer actively supported. Redirecting to ExecuTorch documentation. Warning PyTorch Mobile is no longer actively supported. Please check out ExecuTorch, PyTorch’s all-new on-device inference library. You can also review documentation on XNNPACK and Vulkan delegates. torch.utils.mobile_optimizer.optimize_for_mobile(script_module, optimization_blocklist=None, preserved_methods=None, backend=&#39;CPU&#39;)[source]# Optimize a torch script module for mobile deployment. Parameters script_module (ScriptModule) – An instance of torch script module with type of ScriptModule. optimization_blocklist (Optional[set[torch._C._MobileOptimizerType]]) – A set with type of MobileOptimizerType. When set is not passed, optimization method will run all the optimizer pass; otherwise, optimizer method will run the optimization pass that is not included inside optimization_blocklist. preserved_methods (Optional[list[~AnyStr]]) – A list of methods that needed to be preserved when freeze_module pass is invoked backend (str) – Device type to use for running the result model (‘CPU’(default), ‘Vulkan’ or ‘Metal’). Returns A new optimized torch script module Return type RecursiveScriptModule"
        }
    </script>
 

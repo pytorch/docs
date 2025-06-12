@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git7485ef0 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4023,7 +4023,7 @@ document.write(`
                   
   <div class="section" id="migrating-from-functorch-to-torch-func">
 <h1>Migrating from functorch to torch.func<a class="headerlink" href="#migrating-from-functorch-to-torch-func" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 17, 2023 | Last Updated On: Jan 17, 2023</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025</p>
 <p>torch.func, previously known as “functorch”, is
 <a class="reference external" href="https://github.com/google/jax">JAX-like</a> composable function transforms for PyTorch.</p>
 <p>functorch started as an out-of-tree library over at
@@ -4041,11 +4041,7 @@ backwards compatibility for a couple of releases.</p>
 <p>The following APIs are a drop-in replacement for the following
 <a class="reference external" href="https://pytorch.org/functorch/1.13/functorch.html">functorch APIs</a>.
 They are fully backwards compatible.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 40%" />
-<col style="width: 60%" />
-</colgroup>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>functorch API</p></th>
 <th class="head"><p>PyTorch API (as of PyTorch 2.0)</p></th>
@@ -4082,11 +4078,7 @@ They are fully backwards compatible.</p>
 <p>Furthermore, if you are using torch.autograd.functional APIs, please try out
 the <a class="reference internal" href="func.api.html#module-torch.func" title="torch.func"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.func</span></code></a> equivalents instead. <a class="reference internal" href="func.api.html#module-torch.func" title="torch.func"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.func</span></code></a> function
 transforms are more composable and more performant in many cases.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 44%" />
-<col style="width: 56%" />
-</colgroup>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>torch.autograd.functional API</p></th>
 <th class="head"><p>torch.func API (as of PyTorch 2.0)</p></th>
@@ -4132,7 +4124,7 @@ The functional module accepts parameters and inputs to the model as arguments.
 module using new parameters and buffers and inputs.</p>
 <p>Here’s an example of how to compute gradients of parameters of a model using functorch
 vs <a class="reference internal" href="func.api.html#module-torch.func" title="torch.func"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.func</span></code></a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ---------------</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ---------------</span>
 <span class="c1"># using functorch</span>
 <span class="c1"># ---------------</span>
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -4167,7 +4159,7 @@ vs <a class="reference internal" href="func.api.html#module-torch.func" title="t
 </pre></div>
 </div>
 <p>And here’s an example of how to compute jacobians of model parameters:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ---------------</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ---------------</span>
 <span class="c1"># using functorch</span>
 <span class="c1"># ---------------</span>
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -4211,7 +4203,7 @@ dictionary and the one in the <code class="docutils literal notranslate"><span c
 one of stacked buffers, that can then be used with <a class="reference internal" href="generated/torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a> and <a class="reference internal" href="generated/torch.func.functional_call.html#torch.func.functional_call" title="torch.func.functional_call"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.func.functional_call()</span></code></a>
 for ensembling.</p>
 <p>For example, here is an example of how to ensemble over a very simple model:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="n">num_models</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">64</span>
 <span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span>
@@ -4394,7 +4386,7 @@ into PyTorch’s compilation story. If you are a user, please use
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/func.migrating.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/func.migrating.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4408,7 +4400,7 @@ into PyTorch’s compilation story. If you are a user, please use
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/func.migrating.rst.txt">
+      <a href="_sources/func.migrating.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4610,9 +4602,9 @@ into PyTorch’s compilation story. If you are a user, please use
            "@type": "WebPage",
            "@id": "/func.migrating.html"
          },
-         "datePublished": "Jan 17, 2023",
-         "dateModified": "Jan 17, 2023",
-         "articleBody": "Migrating from functorch to torch.func# Created On: Jan 17, 2023 | Last Updated On: Jan 17, 2023 torch.func, previously known as “functorch”, is JAX-like composable function transforms for PyTorch. functorch started as an out-of-tree library over at the pytorch/functorch repository. Our goal has always been to upstream functorch directly into PyTorch and provide it as a core PyTorch library. As the final step of the upstream, we’ve decided to migrate from being a top level package (functorch) to being a part of PyTorch to reflect how the function transforms are integrated directly into PyTorch core. As of PyTorch 2.0, we are deprecating import functorch and ask that users migrate to the newest APIs, which we will maintain going forward. import functorch will be kept around to maintain backwards compatibility for a couple of releases. function transforms# The following APIs are a drop-in replacement for the following functorch APIs. They are fully backwards compatible. functorch API PyTorch API (as of PyTorch 2.0) functorch.vmap torch.vmap() or torch.func.vmap() functorch.grad torch.func.grad() functorch.vjp torch.func.vjp() functorch.jvp torch.func.jvp() functorch.jacrev torch.func.jacrev() functorch.jacfwd torch.func.jacfwd() functorch.hessian torch.func.hessian() functorch.functionalize torch.func.functionalize() Furthermore, if you are using torch.autograd.functional APIs, please try out the torch.func equivalents instead. torch.func function transforms are more composable and more performant in many cases. torch.autograd.functional API torch.func API (as of PyTorch 2.0) torch.autograd.functional.vjp() torch.func.grad() or torch.func.vjp() torch.autograd.functional.jvp() torch.func.jvp() torch.autograd.functional.jacobian() torch.func.jacrev() or torch.func.jacfwd() torch.autograd.functional.hessian() torch.func.hessian() NN module utilities# We’ve changed the APIs to apply function transforms over NN modules to make them fit better into the PyTorch design philosophy. The new API is different, so please read this section carefully. functorch.make_functional# torch.func.functional_call() is the replacement for functorch.make_functional and functorch.make_functional_with_buffers. However, it is not a drop-in replacement. If you’re in a hurry, you can use helper functions in this gist that emulate the behavior of functorch.make_functional and functorch.make_functional_with_buffers. We recommend using torch.func.functional_call() directly because it is a more explicit and flexible API. Concretely, functorch.make_functional returns a functional module and parameters. The functional module accepts parameters and inputs to the model as arguments. torch.func.functional_call() allows one to call the forward pass of an existing module using new parameters and buffers and inputs. Here’s an example of how to compute gradients of parameters of a model using functorch vs torch.func: # --------------- # using functorch # --------------- import torch impor..."
+         "datePublished": "Jun 11, 2025",
+         "dateModified": "Jun 11, 2025",
+         "articleBody": "Migrating from functorch to torch.func# Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025 torch.func, previously known as “functorch”, is JAX-like composable function transforms for PyTorch. functorch started as an out-of-tree library over at the pytorch/functorch repository. Our goal has always been to upstream functorch directly into PyTorch and provide it as a core PyTorch library. As the final step of the upstream, we’ve decided to migrate from being a top level package (functorch) to being a part of PyTorch to reflect how the function transforms are integrated directly into PyTorch core. As of PyTorch 2.0, we are deprecating import functorch and ask that users migrate to the newest APIs, which we will maintain going forward. import functorch will be kept around to maintain backwards compatibility for a couple of releases. function transforms# The following APIs are a drop-in replacement for the following functorch APIs. They are fully backwards compatible. functorch API PyTorch API (as of PyTorch 2.0) functorch.vmap torch.vmap() or torch.func.vmap() functorch.grad torch.func.grad() functorch.vjp torch.func.vjp() functorch.jvp torch.func.jvp() functorch.jacrev torch.func.jacrev() functorch.jacfwd torch.func.jacfwd() functorch.hessian torch.func.hessian() functorch.functionalize torch.func.functionalize() Furthermore, if you are using torch.autograd.functional APIs, please try out the torch.func equivalents instead. torch.func function transforms are more composable and more performant in many cases. torch.autograd.functional API torch.func API (as of PyTorch 2.0) torch.autograd.functional.vjp() torch.func.grad() or torch.func.vjp() torch.autograd.functional.jvp() torch.func.jvp() torch.autograd.functional.jacobian() torch.func.jacrev() or torch.func.jacfwd() torch.autograd.functional.hessian() torch.func.hessian() NN module utilities# We’ve changed the APIs to apply function transforms over NN modules to make them fit better into the PyTorch design philosophy. The new API is different, so please read this section carefully. functorch.make_functional# torch.func.functional_call() is the replacement for functorch.make_functional and functorch.make_functional_with_buffers. However, it is not a drop-in replacement. If you’re in a hurry, you can use helper functions in this gist that emulate the behavior of functorch.make_functional and functorch.make_functional_with_buffers. We recommend using torch.func.functional_call() directly because it is a more explicit and flexible API. Concretely, functorch.make_functional returns a functional module and parameters. The functional module accepts parameters and inputs to the model as arguments. torch.func.functional_call() allows one to call the forward pass of an existing module using new parameters and buffers and inputs. Here’s an example of how to compute gradients of parameters of a model using functorch vs torch.func: # --------------- # using functorch # --------------- import torch impor..."
        }
    </script>
 

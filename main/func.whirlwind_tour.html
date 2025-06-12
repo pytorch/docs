@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitdbec08b )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git7485ef0 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4023,7 +4023,7 @@ document.write(`
                   
   <div class="section" id="torch-func-whirlwind-tour">
 <h1>torch.func Whirlwind Tour<a class="headerlink" href="#torch-func-whirlwind-tour" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 29, 2022 | Last Updated On: Dec 29, 2022</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 12, 2025 | Last Updated On: Jun 12, 2025</p>
 <div class="section" id="what-is-torch-func">
 <h2>What is torch.func?<a class="headerlink" href="#what-is-torch-func" title="Permalink to this heading">#</a></h2>
 <p>torch.func, previously known as functorch, is a library for
@@ -4043,9 +4043,9 @@ per-sample-gradients that stock PyTorch cannot efficiently compute today.</p></l
 </div>
 <div class="section" id="why-composable-function-transforms">
 <h2>Why composable function transforms?<a class="headerlink" href="#why-composable-function-transforms" title="Permalink to this heading">#</a></h2>
-<p>There are a number of use cases that are tricky to do in PyTorch today:
-- computing per-sample-gradients (or other per-sample quantities)</p>
+<p>There are a number of use cases that are tricky to do in PyTorch today:</p>
 <ul class="simple">
+<li><p>computing per-sample-gradients (or other per-sample quantities)</p></li>
 <li><p>running ensembles of models on a single machine</p></li>
 <li><p>efficiently batching together tasks in the inner-loop of MAML</p></li>
 <li><p>efficiently computing Jacobians and Hessians</p></li>
@@ -4335,7 +4335,7 @@ forward-mode AD:</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/func.whirlwind_tour.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/func.whirlwind_tour.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4349,7 +4349,7 @@ forward-mode AD:</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/func.whirlwind_tour.rst.txt">
+      <a href="_sources/func.whirlwind_tour.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4551,9 +4551,9 @@ forward-mode AD:</p>
            "@type": "WebPage",
            "@id": "/func.whirlwind_tour.html"
          },
-         "datePublished": "Dec 29, 2022",
-         "dateModified": "Dec 29, 2022",
-         "articleBody": "torch.func Whirlwind Tour# Created On: Dec 29, 2022 | Last Updated On: Dec 29, 2022 What is torch.func?# torch.func, previously known as functorch, is a library for JAX-like composable function transforms in PyTorch. A “function transform” is a higher-order function that accepts a numerical function and returns a new function that computes a different quantity. torch.func has auto-differentiation transforms (grad(f) returns a function that computes the gradient of f), a vectorization/batching transform (vmap(f) returns a function that computes f over batches of inputs), and others. These function transforms can compose with each other arbitrarily. For example, composing vmap(grad(f)) computes a quantity called per-sample-gradients that stock PyTorch cannot efficiently compute today. Why composable function transforms?# There are a number of use cases that are tricky to do in PyTorch today: - computing per-sample-gradients (or other per-sample quantities) running ensembles of models on a single machine efficiently batching together tasks in the inner-loop of MAML efficiently computing Jacobians and Hessians efficiently computing batched Jacobians and Hessians Composing vmap(), grad(), vjp(), and jvp() transforms allows us to express the above without designing a separate subsystem for each. What are the transforms?# grad() (gradient computation)# grad(func) is our gradient computation transform. It returns a new function that computes the gradients of func. It assumes func returns a single-element Tensor and by default it computes the gradients of the output of func w.r.t. to the first input. import torch from torch.func import grad x = torch.randn([]) cos_x = grad(lambda x: torch.sin(x))(x) assert torch.allclose(cos_x, x.cos()) # Second-order gradients neg_sin_x = grad(grad(lambda x: torch.sin(x)))(x) assert torch.allclose(neg_sin_x, -x.sin()) vmap() (auto-vectorization)# Note: vmap() imposes restrictions on the code that it can be used on. For more details, please see UX Limitations. vmap(func)(*inputs) is a transform that adds a dimension to all Tensor operations in func. vmap(func) returns a new function that maps func over some dimension (default: 0) of each Tensor in inputs. vmap is useful for hiding batch dimensions: one can write a function func that runs on examples and then lift it to a function that can take batches of examples with vmap(func), leading to a simpler modeling experience: import torch from torch.func import vmap batch_size, feature_size = 3, 5 weights = torch.randn(feature_size, requires_grad=True) def model(feature_vec): # Very simple linear model with activation assert feature_vec.dim() == 1 return feature_vec.dot(weights).relu() examples = torch.randn(batch_size, feature_size) result = vmap(model)(examples) When composed with grad(), vmap() can be used to compute per-sample-gradients: from torch.func import vmap batch_size, feature_size = 3, 5 def model(weights,feature_vec): # Very simple linear model with activation..."
+         "datePublished": "Jun 12, 2025",
+         "dateModified": "Jun 12, 2025",
+         "articleBody": "torch.func Whirlwind Tour# Created On: Jun 12, 2025 | Last Updated On: Jun 12, 2025 What is torch.func?# torch.func, previously known as functorch, is a library for JAX-like composable function transforms in PyTorch. A “function transform” is a higher-order function that accepts a numerical function and returns a new function that computes a different quantity. torch.func has auto-differentiation transforms (grad(f) returns a function that computes the gradient of f), a vectorization/batching transform (vmap(f) returns a function that computes f over batches of inputs), and others. These function transforms can compose with each other arbitrarily. For example, composing vmap(grad(f)) computes a quantity called per-sample-gradients that stock PyTorch cannot efficiently compute today. Why composable function transforms?# There are a number of use cases that are tricky to do in PyTorch today: computing per-sample-gradients (or other per-sample quantities) running ensembles of models on a single machine efficiently batching together tasks in the inner-loop of MAML efficiently computing Jacobians and Hessians efficiently computing batched Jacobians and Hessians Composing vmap(), grad(), vjp(), and jvp() transforms allows us to express the above without designing a separate subsystem for each. What are the transforms?# grad() (gradient computation)# grad(func) is our gradient computation transform. It returns a new function that computes the gradients of func. It assumes func returns a single-element Tensor and by default it computes the gradients of the output of func w.r.t. to the first input. import torch from torch.func import grad x = torch.randn([]) cos_x = grad(lambda x: torch.sin(x))(x) assert torch.allclose(cos_x, x.cos()) # Second-order gradients neg_sin_x = grad(grad(lambda x: torch.sin(x)))(x) assert torch.allclose(neg_sin_x, -x.sin()) vmap() (auto-vectorization)# Note: vmap() imposes restrictions on the code that it can be used on. For more details, please see UX Limitations. vmap(func)(*inputs) is a transform that adds a dimension to all Tensor operations in func. vmap(func) returns a new function that maps func over some dimension (default: 0) of each Tensor in inputs. vmap is useful for hiding batch dimensions: one can write a function func that runs on examples and then lift it to a function that can take batches of examples with vmap(func), leading to a simpler modeling experience: import torch from torch.func import vmap batch_size, feature_size = 3, 5 weights = torch.randn(feature_size, requires_grad=True) def model(feature_vec): # Very simple linear model with activation assert feature_vec.dim() == 1 return feature_vec.dot(weights).relu() examples = torch.randn(batch_size, feature_size) result = vmap(model)(examples) When composed with grad(), vmap() can be used to compute per-sample-gradients: from torch.func import vmap batch_size, feature_size = 3, 5 def model(weights,feature_vec): # Very simple linear model with activation a..."
        }
    </script>
 
