@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd7e657d )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4023,8 +4023,8 @@ document.write(`
                   
   <div class="section" id="control-flow-cond">
 <span id="cond"></span><h1>Control Flow - Cond<a class="headerlink" href="#control-flow-cond" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 03, 2023 | Last Updated On: Aug 05, 2024</p>
-<p><cite>torch.cond</cite> is a structured control flow operator. It can be used to specify if-else like control flow
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 03, 2023 | Last Updated On: Jun 13, 2025</p>
+<p><code class="docutils literal notranslate"><span class="pre">torch.cond</span></code> is a structured control flow operator. It can be used to specify if-else like control flow
 and can logically be seen as implemented as follows.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cond</span><span class="p">(</span>
     <span class="n">pred</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span>
@@ -4039,158 +4039,153 @@ and can logically be seen as implemented as follows.</p>
 </pre></div>
 </div>
 <p>Its unique power lies in its ability of expressing <strong>data-dependent control flow</strong>: it lowers to a conditional
-operator (<cite>torch.ops.higher_order.cond</cite>), which preserves predicate, true function and false functions.
+operator (<code class="docutils literal notranslate"><span class="pre">torch.ops.higher_order.cond</span></code>), which preserves predicate, true function and false functions.
 This unlocks great flexibility in writing and deploying models that change model architecture based on
 the <strong>value</strong> or <strong>shape</strong> of inputs or intermediate outputs of tensor operations.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><cite>torch.cond</cite> is a prototype feature in PyTorch. It has limited support for input and output types and
+<p><code class="docutils literal notranslate"><span class="pre">torch.cond</span></code> is a prototype feature in PyTorch. It has limited support for input and output types and
 doesn’t support training currently. Please look forward to a more stable implementation in a future version of PyTorch.
-Read more about feature classification at: <a class="reference external" href="https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype">https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype</a></p>
+Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h2>
 <p>Below is an example that uses cond to branch based on input shape:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="kn">import</span> <span class="nn">torch</span>
 
-<span class="k">def</span> <span class="nf">true_fn</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">true_fn</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
 
-<span class="k">def</span> <span class="nf">false_fn</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">false_fn</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
 
-<span class="k">class</span> <span class="nc">DynamicShapeCondPredicate</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A basic usage of cond based on dynamic shape predicate.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">DynamicShapeCondPredicate</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A basic usage of cond based on dynamic shape predicate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">def</span> <span class="nf">true_fn</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
+        <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+            <span class="k">def</span> <span class="nf">true_fn</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
 
-        <span class="k">def</span> <span class="nf">false_fn</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
+            <span class="k">def</span> <span class="nf">false_fn</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="n">true_fn</span><span class="p">,</span> <span class="n">false_fn</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,))</span>
+            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="n">true_fn</span><span class="p">,</span> <span class="n">false_fn</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,))</span>
 
-<span class="n">dyn_shape_mod</span> <span class="o">=</span> <span class="n">DynamicShapeCondPredicate</span><span class="p">()</span>
+    <span class="n">dyn_shape_mod</span> <span class="o">=</span> <span class="n">DynamicShapeCondPredicate</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>We can eagerly run the model and expect the results vary based on input shape:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">inp2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">dyn_shape_mod</span><span class="p">(</span><span class="n">inp</span><span class="p">),</span> <span class="n">false_fn</span><span class="p">(</span><span class="n">inp</span><span class="p">))</span>
-<span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">dyn_shape_mod</span><span class="p">(</span><span class="n">inp2</span><span class="p">),</span> <span class="n">true_fn</span><span class="p">(</span><span class="n">inp2</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">inp2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">dyn_shape_mod</span><span class="p">(</span><span class="n">inp</span><span class="p">),</span> <span class="n">false_fn</span><span class="p">(</span><span class="n">inp</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">dyn_shape_mod</span><span class="p">(</span><span class="n">inp2</span><span class="p">),</span> <span class="n">true_fn</span><span class="p">(</span><span class="n">inp2</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>We can export the model for further transformations and deployment:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">dim_batch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">Dim</span><span class="p">(</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ep</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">DynamicShapeCondPredicate</span><span class="p">(),</span> <span class="p">(</span><span class="n">inp</span><span class="p">,),</span> <span class="p">{},</span> <span class="n">dynamic_shapes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">dim_batch</span><span class="p">}})</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ep</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">dim_batch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">Dim</span><span class="p">(</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ep</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">DynamicShapeCondPredicate</span><span class="p">(),</span> <span class="p">(</span><span class="n">inp</span><span class="p">,),</span> <span class="p">{},</span> <span class="n">dynamic_shapes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">dim_batch</span><span class="p">}})</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ep</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This gives us an exported program as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>class GraphModule(torch.nn.Module):
-    def forward(self, arg0_1: f32[s0, 3]):
-        sym_size: Sym(s0) = torch.ops.aten.sym_size.int(arg0_1, 0)
-        gt: Sym(s0 &gt; 4) = sym_size &gt; 4;  sym_size = None
-        true_graph_0 = self.true_graph_0
-        false_graph_0 = self.false_graph_0
-        conditional: f32[s0, 3] = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [arg0_1]);  gt = true_graph_0 = false_graph_0 = arg0_1 = None
-        return (conditional,)
-
-    class &lt;lambda&gt;(torch.nn.Module):
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    class GraphModule(torch.nn.Module):
         def forward(self, arg0_1: f32[s0, 3]):
-            cos: f32[s0, 3] = torch.ops.aten.cos.default(arg0_1)
-            sin: f32[s0, 3] = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
-            add: f32[s0, 3] = torch.ops.aten.add.Tensor(cos, sin);  cos = sin = None
-            return add
+            sym_size: Sym(s0) = torch.ops.aten.sym_size.int(arg0_1, 0)
+            gt: Sym(s0 &gt; 4) = sym_size &gt; 4;  sym_size = None
+            true_graph_0 = self.true_graph_0
+            false_graph_0 = self.false_graph_0
+            conditional: f32[s0, 3] = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [arg0_1]);  gt = true_graph_0 = false_graph_0 = arg0_1 = None
+            return (conditional,)
 
-    class &lt;lambda&gt;(torch.nn.Module):
-        def forward(self, arg0_1: f32[s0, 3]):
-            sin: f32[s0, 3] = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
-            return sin
+        class &lt;lambda&gt;(torch.nn.Module):
+            def forward(self, arg0_1: f32[s0, 3]):
+                cos: f32[s0, 3] = torch.ops.aten.cos.default(arg0_1)
+                sin: f32[s0, 3] = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
+                add: f32[s0, 3] = torch.ops.aten.add.Tensor(cos, sin);  cos = sin = None
+                return add
+
+        class &lt;lambda&gt;(torch.nn.Module):
+            def forward(self, arg0_1: f32[s0, 3]):
+                sin: f32[s0, 3] = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
+                return sin
 </pre></div>
 </div>
-<p>Notice that <cite>torch.cond</cite> is lowered to <cite>torch.ops.higher_order.cond</cite>, its predicate becomes a Symbolic expression over the shape of input,
+<p>Notice that <code class="docutils literal notranslate"><span class="pre">torch.cond</span></code> is lowered to <code class="docutils literal notranslate"><span class="pre">torch.ops.higher_order.cond</span></code>, its predicate becomes a Symbolic expression over the shape of input,
 and branch functions becomes two sub-graph attributes of the top level graph module.</p>
 <p>Here is another example that showcases how to express a data-dependent control flow:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DataDependentCondPredicate</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A basic usage of cond based on data dependent predicate.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">class</span> <span class="nc">DataDependentCondPredicate</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A basic usage of cond based on data dependent predicate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">4.0</span><span class="p">,</span> <span class="n">true_fn</span><span class="p">,</span> <span class="n">false_fn</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,))</span>
+        <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">4.0</span><span class="p">,</span> <span class="n">true_fn</span><span class="p">,</span> <span class="n">false_fn</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,))</span>
 </pre></div>
 </div>
 <p>The exported program we get after export:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>class GraphModule(torch.nn.Module):
-    def forward(self, arg0_1: f32[s0, 3]):
-        sum_1: f32[] = torch.ops.aten.sum.default(arg0_1)
-        gt: b8[] = torch.ops.aten.gt.Scalar(sum_1, 4.0);  sum_1 = None
-
-        true_graph_0 = self.true_graph_0
-        false_graph_0 = self.false_graph_0
-        conditional: f32[s0, 3] = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [arg0_1]);  gt = true_graph_0 = false_graph_0 = arg0_1 = None
-        return (conditional,)
-
-    class &lt;lambda&gt;(torch.nn.Module):
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    class GraphModule(torch.nn.Module):
         def forward(self, arg0_1: f32[s0, 3]):
-            cos: f32[s0, 3] = torch.ops.aten.cos.default(arg0_1)
-            sin: f32[s0, 3] = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
-            add: f32[s0, 3] = torch.ops.aten.add.Tensor(cos, sin);  cos = sin = None
-            return add
+            sum_1: f32[] = torch.ops.aten.sum.default(arg0_1)
+            gt: b8[] = torch.ops.aten.gt.Scalar(sum_1, 4.0);  sum_1 = None
 
-    class &lt;lambda&gt;(torch.nn.Module):
-        def forward(self, arg0_1: f32[s0, 3]):
-            sin: f32[s0, 3] = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
-            return sin
+            true_graph_0 = self.true_graph_0
+            false_graph_0 = self.false_graph_0
+            conditional: f32[s0, 3] = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [arg0_1]);  gt = true_graph_0 = false_graph_0 = arg0_1 = None
+            return (conditional,)
+
+        class &lt;lambda&gt;(torch.nn.Module):
+            def forward(self, arg0_1: f32[s0, 3]):
+                cos: f32[s0, 3] = torch.ops.aten.cos.default(arg0_1)
+                sin: f32[s0, 3] = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
+                add: f32[s0, 3] = torch.ops.aten.add.Tensor(cos, sin);  cos = sin = None
+                return add
+
+        class &lt;lambda&gt;(torch.nn.Module):
+            def forward(self, arg0_1: f32[s0, 3]):
+                sin: f32[s0, 3] = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
+                return sin
 </pre></div>
 </div>
 </div>
 <div class="section" id="invariants-of-torch-ops-higher-order-cond">
 <h2>Invariants of torch.ops.higher_order.cond<a class="headerlink" href="#invariants-of-torch-ops-higher-order-cond" title="Permalink to this heading">#</a></h2>
-<p>There are several useful invariants for <cite>torch.ops.higher_order.cond</cite>:</p>
+<p>There are several useful invariants for <code class="docutils literal notranslate"><span class="pre">torch.ops.higher_order.cond</span></code>:</p>
 <ul class="simple">
-<li><dl class="simple">
-<dt>For predicate:</dt><dd><ul>
-<li><p>Dynamicness of predicate is preserved (e.g. <cite>gt</cite> shown in the above example)</p></li>
-<li><p>If the predicate in user-program is constant (e.g. a python bool constant), the <cite>pred</cite> of the operator will be a constant.</p></li>
+<li><p>For predicate:</p>
+<ul>
+<li><p>Dynamicness of predicate is preserved (e.g. <code class="docutils literal notranslate"><span class="pre">gt</span></code> shown in the above example)</p></li>
+<li><p>If the predicate in user-program is constant (e.g. a python bool constant), the <code class="docutils literal notranslate"><span class="pre">pred</span></code> of the operator will be a constant.</p></li>
 </ul>
-</dd>
-</dl>
 </li>
-<li><dl class="simple">
-<dt>For branches:</dt><dd><ul>
+<li><p>For branches:</p>
+<ul>
 <li><p>The input and output signature will be a flattened tuple.</p></li>
-<li><p>They are <cite>torch.fx.GraphModule</cite>.</p></li>
+<li><p>They are <code class="docutils literal notranslate"><span class="pre">torch.fx.GraphModule</span></code>.</p></li>
 <li><p>Closures in original function becomes explicit inputs. No closures.</p></li>
 <li><p>No mutations on inputs or globals are allowed.</p></li>
 </ul>
-</dd>
-</dl>
 </li>
-<li><dl class="simple">
-<dt>For operands:</dt><dd><ul>
+<li><p>For operands:</p>
+<ul>
 <li><p>It will also be a flat tuple.</p></li>
 </ul>
-</dd>
-</dl>
 </li>
-<li><p>Nesting of <cite>torch.cond</cite> in user program becomes nested graph modules.</p></li>
+<li><p>Nesting of <code class="docutils literal notranslate"><span class="pre">torch.cond</span></code> in user program becomes nested graph modules.</p></li>
 </ul>
+</div>
 <div class="section" id="api-reference">
-<h3>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h3>
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._higher_order_ops.cond.cond">
-<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.cond.</span></span><span class="sig-name descname"><span class="pre">cond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">false_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/_higher_order_ops/cond.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.cond.cond" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.cond.</span></span><span class="sig-name descname"><span class="pre">cond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">false_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/_higher_order_ops/cond.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.cond.cond" title="Permalink to this definition">#</a></dt>
 <dd><p>Conditionally applies <cite>true_fn</cite> or <cite>false_fn</cite>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4261,7 +4256,6 @@ are allowed in a branch)</p></li>
 </dl>
 </dd></dl>
 
-</div>
 </div>
 </div>
 
@@ -4388,11 +4382,9 @@ are allowed in a branch)</p></li>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invariants-of-torch-ops-higher-order-cond">Invariants of torch.ops.higher_order.cond</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-reference">API Reference</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch._higher_order_ops.cond.cond"><code class="docutils literal notranslate"><span class="pre">cond()</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invariants-of-torch-ops-higher-order-cond">Invariants of torch.ops.higher_order.cond</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-reference">API Reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch._higher_order_ops.cond.cond"><code class="docutils literal notranslate"><span class="pre">cond()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -4402,7 +4394,7 @@ are allowed in a branch)</p></li>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/cond.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/cond.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4416,7 +4408,7 @@ are allowed in a branch)</p></li>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/cond.rst.txt">
+      <a href="_sources/cond.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4619,8 +4611,8 @@ are allowed in a branch)</p></li>
            "@id": "/cond.html"
          },
          "datePublished": "Oct 03, 2023",
-         "dateModified": "Aug 05, 2024",
-         "articleBody": "Control Flow - Cond# Created On: Oct 03, 2023 | Last Updated On: Aug 05, 2024 torch.cond is a structured control flow operator. It can be used to specify if-else like control flow and can logically be seen as implemented as follows. def cond( pred: Union[bool, torch.Tensor], true_fn: Callable, false_fn: Callable, operands: Tuple[torch.Tensor] ): if pred: return true_fn(*operands) else: return false_fn(*operands) Its unique power lies in its ability of expressing data-dependent control flow: it lowers to a conditional operator (torch.ops.higher_order.cond), which preserves predicate, true function and false functions. This unlocks great flexibility in writing and deploying models that change model architecture based on the value or shape of inputs or intermediate outputs of tensor operations. Warning torch.cond is a prototype feature in PyTorch. It has limited support for input and output types and doesn’t support training currently. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype Examples# Below is an example that uses cond to branch based on input shape: import torch def true_fn(x: torch.Tensor): return x.cos() + x.sin() def false_fn(x: torch.Tensor): return x.sin() class DynamicShapeCondPredicate(torch.nn.Module): &#34;&#34;&#34; A basic usage of cond based on dynamic shape predicate. &#34;&#34;&#34; def __init__(self): super().__init__() def forward(self, x: torch.Tensor) -&gt; torch.Tensor: def true_fn(x: torch.Tensor): return x.cos() def false_fn(x: torch.Tensor): return x.sin() return torch.cond(x.shape[0] &gt; 4, true_fn, false_fn, (x,)) dyn_shape_mod = DynamicShapeCondPredicate() We can eagerly run the model and expect the results vary based on input shape: inp = torch.randn(3) inp2 = torch.randn(5) assert torch.equal(dyn_shape_mod(inp), false_fn(inp)) assert torch.equal(dyn_shape_mod(inp2), true_fn(inp2)) We can export the model for further transformations and deployment: inp = torch.randn(4, 3) dim_batch = torch.export.Dim(&#34;batch&#34;, min=2) ep = torch.export.export(DynamicShapeCondPredicate(), (inp,), {}, dynamic_shapes={&#34;x&#34;: {0: dim_batch}}) print(ep) This gives us an exported program as shown below: class GraphModule(torch.nn.Module): def forward(self, arg0_1: f32[s0, 3]): sym_size: Sym(s0) = torch.ops.aten.sym_size.int(arg0_1, 0) gt: Sym(s0 &gt; 4) = sym_size &gt; 4; sym_size = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 conditional: f32[s0, 3] = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [arg0_1]); gt = true_graph_0 = false_graph_0 = arg0_1 = None return (conditional,) class &lt;lambda&gt;(torch.nn.Module): def forward(self, arg0_1: f32[s0, 3]): cos: f32[s0, 3] = torch.ops.aten.cos.default(arg0_1) sin: f32[s0, 3] = torch.ops.aten.sin.default(arg0_1); arg0_1 = None add: f32[s0, 3] = torch.ops.aten.add.Tensor(cos, sin); cos = sin = None return add class &lt;lambda&gt;(torch.nn.Module..."
+         "dateModified": "Jun 13, 2025",
+         "articleBody": "Control Flow - Cond# Created On: Oct 03, 2023 | Last Updated On: Jun 13, 2025 torch.cond is a structured control flow operator. It can be used to specify if-else like control flow and can logically be seen as implemented as follows. def cond( pred: Union[bool, torch.Tensor], true_fn: Callable, false_fn: Callable, operands: Tuple[torch.Tensor] ): if pred: return true_fn(*operands) else: return false_fn(*operands) Its unique power lies in its ability of expressing data-dependent control flow: it lowers to a conditional operator (torch.ops.higher_order.cond), which preserves predicate, true function and false functions. This unlocks great flexibility in writing and deploying models that change model architecture based on the value or shape of inputs or intermediate outputs of tensor operations. Warning torch.cond is a prototype feature in PyTorch. It has limited support for input and output types and doesn’t support training currently. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype Examples# Below is an example that uses cond to branch based on input shape: import torch def true_fn(x: torch.Tensor): return x.cos() + x.sin() def false_fn(x: torch.Tensor): return x.sin() class DynamicShapeCondPredicate(torch.nn.Module): &#34;&#34;&#34; A basic usage of cond based on dynamic shape predicate. &#34;&#34;&#34; def __init__(self): super().__init__() def forward(self, x: torch.Tensor) -&gt; torch.Tensor: def true_fn(x: torch.Tensor): return x.cos() def false_fn(x: torch.Tensor): return x.sin() return torch.cond(x.shape[0] &gt; 4, true_fn, false_fn, (x,)) dyn_shape_mod = DynamicShapeCondPredicate() We can eagerly run the model and expect the results vary based on input shape: inp = torch.randn(3) inp2 = torch.randn(5) assert torch.equal(dyn_shape_mod(inp), false_fn(inp)) assert torch.equal(dyn_shape_mod(inp2), true_fn(inp2)) We can export the model for further transformations and deployment: inp = torch.randn(4, 3) dim_batch = torch.export.Dim(&#34;batch&#34;, min=2) ep = torch.export.export(DynamicShapeCondPredicate(), (inp,), {}, dynamic_shapes={&#34;x&#34;: {0: dim_batch}}) print(ep) This gives us an exported program as shown below: class GraphModule(torch.nn.Module): def forward(self, arg0_1: f32[s0, 3]): sym_size: Sym(s0) = torch.ops.aten.sym_size.int(arg0_1, 0) gt: Sym(s0 &gt; 4) = sym_size &gt; 4; sym_size = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 conditional: f32[s0, 3] = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [arg0_1]); gt = true_graph_0 = false_graph_0 = arg0_1 = None return (conditional,) class &lt;lambda&gt;(torch.nn.Module): def forward(self, arg0_1: f32[s0, 3]): cos: f32[s0, 3] = torch.ops.aten.cos.default(arg0_1) sin: f32[s0, 3] = torch.ops.aten.sin.default(arg0_1); arg0_1 = None add: f32[s0, 3] = torch.ops.aten.add.Tensor(cos, sin); cos = sin = None return add class &lt;lambda&gt;(torch.nn.Module..."
        }
    </script>
 

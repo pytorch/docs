@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd7e657d )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4034,15 +4034,15 @@ document.write(`
                   
   <div class="section" id="aotinductor-ahead-of-time-compilation-for-torch-export-ed-models">
 <h1>AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models<a class="headerlink" href="#aotinductor-ahead-of-time-compilation-for-torch-export-ed-models" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Nov 09, 2023 | Last Updated On: Mar 21, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>AOTInductor and its related features are in prototype status and are
 subject to backwards compatibility breaking changes.</p>
 </div>
 <p>AOTInductor is a specialized version of
-<a class="reference external" href="https://dev-discuss.pytorch.org/t/torchinductor-a-pytorch-native-compiler-with-define-by-run-ir-and-symbolic-shapes/747">TorchInductor</a>
-, designed to process exported PyTorch models, optimize them, and produce shared libraries as well
+<a class="reference external" href="https://dev-discuss.pytorch.org/t/torchinductor-a-pytorch-native-compiler-with-define-by-run-ir-and-symbolic-shapes/747">TorchInductor</a>,
+designed to process exported PyTorch models, optimize them, and produce shared libraries as well
 as other relevant artifacts.
 These compiled artifacts are specifically crafted for deployment in non-Python environments,
 which are frequently employed for inference deployments on the server side.</p>
@@ -4178,13 +4178,13 @@ automates the process of invoking <code class="docutils literal notranslate"><sp
 to construct the binary. It is essential to note that the <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> variable
 is crucial for CMake to locate the LibTorch library, and it should be set to an absolute path.
 Please be mindful that your path may vary from the one illustrated in this example.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>aoti_example/
-<span class="w">    </span>CMakeLists.txt
-<span class="w">    </span>inference.cpp
-<span class="w">    </span>model.py
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aoti_example</span><span class="o">/</span>
+    <span class="n">CMakeLists</span><span class="o">.</span><span class="n">txt</span>
+    <span class="n">inference</span><span class="o">.</span><span class="n">cpp</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>build
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>build
 $<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
 $<span class="w"> </span><span class="nv">CMAKE_PREFIX_PATH</span><span class="o">=</span>/path/to/python/install/site-packages/torch/share/cmake<span class="w"> </span>cmake<span class="w"> </span>..
 $<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--config<span class="w"> </span>Release
@@ -4192,7 +4192,7 @@ $<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </
 </div>
 <p>After the <code class="docutils literal notranslate"><span class="pre">aoti_example</span></code> binary has been generated in the <code class="docutils literal notranslate"><span class="pre">build</span></code> directory, executing it will
 display results akin to the following:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./aoti_example
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./aoti_example
 Result<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>first<span class="w"> </span>inference:
 <span class="m">0</span>.4866
 <span class="m">0</span>.5184
@@ -4220,13 +4220,13 @@ Result<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </
 <li class="toctree-l1"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
 </ul>
 </div>
-<p>To enable runtime checks on inputs, set the environment variable <cite>AOTI_RUNTIME_CHECK_INPUTS</cite> to 1. This will raise a <cite>RuntimeError</cite> if the inputs to the compiled model differ in size, data type, or strides from those used during export.</p>
+<p>To enable runtime checks on inputs, set the environment variable <code class="docutils literal notranslate"><span class="pre">AOTI_RUNTIME_CHECK_INPUTS</span></code> to 1. This will raise a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> if the inputs to the compiled model differ in size, data type, or strides from those used during export.</p>
 </div>
 <div class="section" id="api-reference">
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._inductor.aoti_compile_and_package">
-<span class="sig-prename descclassname"><span class="pre">torch._inductor.</span></span><span class="sig-name descname"><span class="pre">aoti_compile_and_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exported_program</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_deprecated_unused_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_deprecated_unused_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inductor_configs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/_inductor/__init__.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._inductor.aoti_compile_and_package" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._inductor.</span></span><span class="sig-name descname"><span class="pre">aoti_compile_and_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exported_program</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_deprecated_unused_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_deprecated_unused_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inductor_configs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/_inductor/__init__.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._inductor.aoti_compile_and_package" title="Permalink to this definition">#</a></dt>
 <dd><p>Compiles the exported program with AOTInductor, and packages it into a .pt2
 artifact specified by the input package_path. To load the package, you can
 call <code class="docutils literal notranslate"><span class="pre">torch._inductor.aoti_load_package(package_path)</span></code>.</p>
@@ -4276,7 +4276,7 @@ the following:</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._inductor.aoti_load_package">
-<span class="sig-prename descclassname"><span class="pre">torch._inductor.</span></span><span class="sig-name descname"><span class="pre">aoti_load_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_single_threaded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/_inductor/__init__.py#L238"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._inductor.aoti_load_package" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._inductor.</span></span><span class="sig-name descname"><span class="pre">aoti_load_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_single_threaded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/_inductor/__init__.py#L238"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._inductor.aoti_load_package" title="Permalink to this definition">#</a></dt>
 <dd><p>Loads the model from the PT2 package.</p>
 <p>If multiple models were packaged into the PT2, this will load the default
 model. To load a specific model, you can directly call the load API</p>
@@ -4446,7 +4446,7 @@ load the package to <cite>cuda:1</cite>, for example.</p></li>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_aot_inductor.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_aot_inductor.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4460,7 +4460,7 @@ load the package to <cite>cuda:1</cite>, for example.</p></li>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/torch.compiler_aot_inductor.rst.txt">
+      <a href="_sources/torch.compiler_aot_inductor.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4662,9 +4662,9 @@ load the package to <cite>cuda:1</cite>, for example.</p></li>
            "@type": "WebPage",
            "@id": "/torch.compiler_aot_inductor.html"
          },
-         "datePublished": "Nov 09, 2023",
-         "dateModified": "Mar 21, 2025",
-         "articleBody": "AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models# Created On: Nov 09, 2023 | Last Updated On: Mar 21, 2025 Warning AOTInductor and its related features are in prototype status and are subject to backwards compatibility breaking changes. AOTInductor is a specialized version of TorchInductor , designed to process exported PyTorch models, optimize them, and produce shared libraries as well as other relevant artifacts. These compiled artifacts are specifically crafted for deployment in non-Python environments, which are frequently employed for inference deployments on the server side. In this tutorial, you will gain insight into the process of taking a PyTorch model, exporting it, compiling it into an artifact, and conducting model predictions using C++. Model Compilation# To compile a model using AOTInductor, we first need to use torch.export.export() to capture a given PyTorch model into a computational graph. torch.export provides soundness guarantees and a strict specification on the IR captured, which AOTInductor relies on. We will then use torch._inductor.aoti_compile_and_package() to compile the exported program using TorchInductor, and save the compiled artifacts into one package. Note If you have a CUDA-enabled device on your machine and you installed PyTorch with CUDA support, the following code will compile the model into a shared library for CUDA execution. Otherwise, the compiled artifact will run on CPU. For better performance during CPU inference, it is suggested to enable freezing by setting export TORCHINDUCTOR_FREEZING=1 before running the Python script below. The same behavior works in an environment with Intel® GPU as well. import os import torch class Model(torch.nn.Module): def __init__(self): super().__init__() self.fc1 = torch.nn.Linear(10, 16) self.relu = torch.nn.ReLU() self.fc2 = torch.nn.Linear(16, 1) self.sigmoid = torch.nn.Sigmoid() def forward(self, x): x = self.fc1(x) x = self.relu(x) x = self.fc2(x) x = self.sigmoid(x) return x with torch.no_grad(): device = &#34;cuda&#34; if torch.cuda.is_available() else &#34;cpu&#34; model = Model().to(device=device) example_inputs=(torch.randn(8, 10, device=device),) batch_dim = torch.export.Dim(&#34;batch&#34;, min=1, max=1024) # [Optional] Specify the first dimension of the input x as dynamic. exported = torch.export.export(model, example_inputs, dynamic_shapes={&#34;x&#34;: {0: batch_dim}}) # [Note] In this example we directly feed the exported module to aoti_compile_and_package. # Depending on your use case, e.g. if your training platform and inference platform # are different, you may choose to save the exported model using torch.export.save and # then load it back using torch.export.load on your inference platform to run AOT compilation. output_path = torch._inductor.aoti_compile_and_package( exported, # [Optional] Specify the generated shared library path. If not specified, # the generated artifact is stored in your system temp directory. package_path=os.path.join(os.getcwd(), &#34;model.p..."
+         "datePublished": "Jun 13, 2025",
+         "dateModified": "Jun 13, 2025",
+         "articleBody": "AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models# Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025 Warning AOTInductor and its related features are in prototype status and are subject to backwards compatibility breaking changes. AOTInductor is a specialized version of TorchInductor, designed to process exported PyTorch models, optimize them, and produce shared libraries as well as other relevant artifacts. These compiled artifacts are specifically crafted for deployment in non-Python environments, which are frequently employed for inference deployments on the server side. In this tutorial, you will gain insight into the process of taking a PyTorch model, exporting it, compiling it into an artifact, and conducting model predictions using C++. Model Compilation# To compile a model using AOTInductor, we first need to use torch.export.export() to capture a given PyTorch model into a computational graph. torch.export provides soundness guarantees and a strict specification on the IR captured, which AOTInductor relies on. We will then use torch._inductor.aoti_compile_and_package() to compile the exported program using TorchInductor, and save the compiled artifacts into one package. Note If you have a CUDA-enabled device on your machine and you installed PyTorch with CUDA support, the following code will compile the model into a shared library for CUDA execution. Otherwise, the compiled artifact will run on CPU. For better performance during CPU inference, it is suggested to enable freezing by setting export TORCHINDUCTOR_FREEZING=1 before running the Python script below. The same behavior works in an environment with Intel® GPU as well. import os import torch class Model(torch.nn.Module): def __init__(self): super().__init__() self.fc1 = torch.nn.Linear(10, 16) self.relu = torch.nn.ReLU() self.fc2 = torch.nn.Linear(16, 1) self.sigmoid = torch.nn.Sigmoid() def forward(self, x): x = self.fc1(x) x = self.relu(x) x = self.fc2(x) x = self.sigmoid(x) return x with torch.no_grad(): device = &#34;cuda&#34; if torch.cuda.is_available() else &#34;cpu&#34; model = Model().to(device=device) example_inputs=(torch.randn(8, 10, device=device),) batch_dim = torch.export.Dim(&#34;batch&#34;, min=1, max=1024) # [Optional] Specify the first dimension of the input x as dynamic. exported = torch.export.export(model, example_inputs, dynamic_shapes={&#34;x&#34;: {0: batch_dim}}) # [Note] In this example we directly feed the exported module to aoti_compile_and_package. # Depending on your use case, e.g. if your training platform and inference platform # are different, you may choose to save the exported model using torch.export.save and # then load it back using torch.export.load on your inference platform to run AOT compilation. output_path = torch._inductor.aoti_compile_and_package( exported, # [Optional] Specify the generated shared library path. If not specified, # the generated artifact is stored in your system temp directory. package_path=os.path.join(os.getcwd(), &#34;model.pt..."
        }
    </script>
 

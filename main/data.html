@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd7e657d )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4014,19 +4014,19 @@ document.write(`
                   
   <div class="section" id="module-torch.utils.data">
 <span id="torch-utils-data"></span><h1>torch.utils.data<a class="headerlink" href="#module-torch.utils.data" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 23, 2016 | Last Updated On: Aug 23, 2023</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025</p>
 <p>At the heart of PyTorch data loading utility is the <a class="reference internal" href="#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.DataLoader</span></code></a>
-class.  It represents a Python iterable over a dataset, with support for</p>
+class. It represents a Python iterable over a dataset, with support for</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#dataset-types">map-style and iterable-style datasets</a>,</p></li>
-<li><p><a class="reference internal" href="#data-loading-order-and-sampler">customizing data loading order</a>,</p></li>
-<li><p><a class="reference internal" href="#loading-batched-and-non-batched-data">automatic batching</a>,</p></li>
-<li><p><a class="reference internal" href="#single-and-multi-process-data-loading">single- and multi-process data loading</a>,</p></li>
-<li><p><a class="reference internal" href="#memory-pinning">automatic memory pinning</a>.</p></li>
+<li><p><a class="reference internal" href="#dataset-types"><span class="std std-ref">map-style and iterable-style datasets</span></a>,</p></li>
+<li><p><a class="reference internal" href="#data-loading-order-and-sampler"><span class="std std-ref">customizing data loading order</span></a>,</p></li>
+<li><p><a class="reference internal" href="#loading-batched-and-non-batched-data"><span class="std std-ref">automatic batching</span></a>,</p></li>
+<li><p><a class="reference internal" href="#single-and-multi-process-data-loading"><span class="std std-ref">single- and multi-process data loading</span></a>,</p></li>
+<li><p><a class="reference internal" href="#memory-pinning"><span class="std std-ref">automatic memory pinning</span></a>.</p></li>
 </ul>
 <p>These options are configured by the constructor arguments of a
 <a class="reference internal" href="#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a>, which has signature:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sampler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sampler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
            <span class="n">batch_sampler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collate_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
            <span class="n">pin_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">drop_last</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
            <span class="n">worker_init_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">prefetch_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -4035,16 +4035,16 @@ class.  It represents a Python iterable over a dataset, with support for</p>
 </div>
 <p>The sections below describe in details the effects and usages of these options.</p>
 <div class="section" id="dataset-types">
-<h2>Dataset Types<a class="headerlink" href="#dataset-types" title="Permalink to this heading">#</a></h2>
+<span id="id1"></span><h2>Dataset Types<a class="headerlink" href="#dataset-types" title="Permalink to this heading">#</a></h2>
 <p>The most important argument of <a class="reference internal" href="#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a>
 constructor is <a class="reference internal" href="utils.html#module-torch.utils.data.dataset" title="torch.utils.data.dataset"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dataset</span></code></a>, which indicates a dataset object to load data
 from. PyTorch supports two different types of datasets:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#map-style-datasets">map-style datasets</a>,</p></li>
-<li><p><a class="reference internal" href="#iterable-style-datasets">iterable-style datasets</a>.</p></li>
+<li><p><a class="reference internal" href="#map-style-datasets"><span class="std std-ref">Map-style datasets</span></a>,</p></li>
+<li><p><a class="reference internal" href="#iterable-style-datasets"><span class="std std-ref">Iterable-style datasets</span></a>.</p></li>
 </ul>
 <div class="section" id="map-style-datasets">
-<h3>Map-style datasets<a class="headerlink" href="#map-style-datasets" title="Permalink to this heading">#</a></h3>
+<span id="id2"></span><h3>Map-style datasets<a class="headerlink" href="#map-style-datasets" title="Permalink to this heading">#</a></h3>
 <p>A map-style dataset is one that implements the <code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code> and
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">__len__()</span></code> protocols, and represents a map from (possibly non-integral)
 indices/keys to data samples.</p>
@@ -4053,7 +4053,7 @@ the <code class="docutils literal notranslate"><span class="pre">idx</span></cod
 <p>See <a class="reference internal" href="#torch.utils.data.Dataset" title="torch.utils.data.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> for more details.</p>
 </div>
 <div class="section" id="iterable-style-datasets">
-<h3>Iterable-style datasets<a class="headerlink" href="#iterable-style-datasets" title="Permalink to this heading">#</a></h3>
+<span id="id3"></span><h3>Iterable-style datasets<a class="headerlink" href="#iterable-style-datasets" title="Permalink to this heading">#</a></h3>
 <p>An iterable-style dataset is an instance of a subclass of <a class="reference internal" href="#torch.utils.data.IterableDataset" title="torch.utils.data.IterableDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterableDataset</span></code></a>
 that implements the <code class="xref py py-meth docutils literal notranslate"><span class="pre">__iter__()</span></code> protocol, and represents an iterable over
 data samples. This type of datasets is particularly suitable for cases where
@@ -4066,7 +4066,7 @@ in real time.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When using a <a class="reference internal" href="#torch.utils.data.IterableDataset" title="torch.utils.data.IterableDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterableDataset</span></code></a> with
-<a class="reference internal" href="#multi-process-data-loading">multi-process data loading</a>. The same
+<a class="reference internal" href="#multi-process-data-loading"><span class="std std-ref">multi-process data loading</span></a>. The same
 dataset object is replicated on each worker process, and thus the
 replicas must be configured differently to avoid duplicated data. See
 <a class="reference internal" href="#torch.utils.data.IterableDataset" title="torch.utils.data.IterableDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterableDataset</span></code></a> documentations for how to
@@ -4075,15 +4075,15 @@ achieve this.</p>
 </div>
 </div>
 <div class="section" id="data-loading-order-and-sampler">
-<h2>Data Loading Order and <a class="reference internal" href="#torch.utils.data.Sampler" title="torch.utils.data.Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sampler</span></code></a><a class="headerlink" href="#data-loading-order-and-sampler" title="Permalink to this heading">#</a></h2>
-<p>For <a class="reference internal" href="#iterable-style-datasets">iterable-style datasets</a>, data loading order
+<span id="id4"></span><h2>Data Loading Order and <a class="reference internal" href="#torch.utils.data.Sampler" title="torch.utils.data.Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sampler</span></code></a><a class="headerlink" href="#data-loading-order-and-sampler" title="Permalink to this heading">#</a></h2>
+<p>For <a class="reference internal" href="#iterable-style-datasets"><span class="std std-ref">iterable-style datasets</span></a>, data loading order
 is entirely controlled by the user-defined iterable. This allows easier
 implementations of chunk-reading and dynamic batch size (e.g., by yielding a
 batched sample at each time).</p>
 <p>The rest of this section concerns the case with
-<a class="reference internal" href="#map-style-datasets">map-style datasets</a>. <a class="reference internal" href="#torch.utils.data.Sampler" title="torch.utils.data.Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.Sampler</span></code></a>
+<a class="reference internal" href="#map-style-datasets"><span class="std std-ref">map-style datasets</span></a>. <a class="reference internal" href="#torch.utils.data.Sampler" title="torch.utils.data.Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.Sampler</span></code></a>
 classes are used to specify the sequence of indices/keys used in data loading.
-They represent iterable objects over the indices to datasets.  E.g., in the
+They represent iterable objects over the indices to datasets. E.g., in the
 common case with stochastic gradient decent (SGD), a
 <a class="reference internal" href="#torch.utils.data.Sampler" title="torch.utils.data.Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sampler</span></code></a> could randomly permute a list of indices
 and yield each one at a time, or yield a small number of them for mini-batch
@@ -4096,7 +4096,7 @@ the next index/key to fetch.</p>
 indices at a time can be passed as the <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_sampler</span></code> argument.
 Automatic batching can also be enabled via <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_size</span></code> and
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">drop_last</span></code> arguments. See
-<a class="reference internal" href="#loading-batched-and-non-batched-data">the next section</a> for more details
+<a class="reference internal" href="#loading-batched-and-non-batched-data"><span class="std std-ref">the next section</span></a> for more details
 on this.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4106,13 +4106,13 @@ index.</p>
 </div>
 </div>
 <div class="section" id="loading-batched-and-non-batched-data">
-<h2>Loading Batched and Non-Batched Data<a class="headerlink" href="#loading-batched-and-non-batched-data" title="Permalink to this heading">#</a></h2>
+<span id="id5"></span><h2>Loading Batched and Non-Batched Data<a class="headerlink" href="#loading-batched-and-non-batched-data" title="Permalink to this heading">#</a></h2>
 <p><a class="reference internal" href="#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> supports automatically collating
 individual fetched data samples into batches via arguments
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_size</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">drop_last</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_sampler</span></code>, and
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">collate_fn</span></code> (which has a default function).</p>
 <div class="section" id="automatic-batching-default">
-<h3>Automatic batching (default)<a class="headerlink" href="#automatic-batching-default" title="Permalink to this heading">#</a></h3>
+<span id="id6"></span><h3>Automatic batching (default)<a class="headerlink" href="#automatic-batching-default" title="Permalink to this heading">#</a></h3>
 <p>This is the most common case, and corresponds to fetching a minibatch of
 data and collating them into batched samples, i.e., containing Tensors with
 one dimension being the batch dimension (usually the first).</p>
@@ -4128,41 +4128,41 @@ to construct a <code class="xref py py-attr docutils literal notranslate"><span 
 datasets, the <a class="reference internal" href="utils.html#module-torch.utils.data.sampler" title="torch.utils.data.sampler"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sampler</span></code></a> is either provided by user or constructed
 based on the <code class="xref py py-attr docutils literal notranslate"><span class="pre">shuffle</span></code> argument. For iterable-style datasets, the
 <a class="reference internal" href="utils.html#module-torch.utils.data.sampler" title="torch.utils.data.sampler"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sampler</span></code></a> is a dummy infinite one. See
-<a class="reference internal" href="#data-loading-order-and-sampler">this section</a> on more details on
+<a class="reference internal" href="#data-loading-order-and-sampler"><span class="std std-ref">this section</span></a> on more details on
 samplers.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When fetching from
-<a class="reference internal" href="#iterable-style-datasets">iterable-style datasets</a> with
-<a class="reference internal" href="#multi-process-data-loading">multi-processing</a>, the <code class="xref py py-attr docutils literal notranslate"><span class="pre">drop_last</span></code>
+<a class="reference internal" href="#iterable-style-datasets"><span class="std std-ref">iterable-style datasets</span></a> with
+<a class="reference internal" href="#multi-process-data-loading"><span class="std std-ref">multi-processing</span></a> the <code class="xref py py-attr docutils literal notranslate"><span class="pre">drop_last</span></code>
 argument drops the last non-full batch of each worker’s dataset replica.</p>
 </div>
 <p>After fetching a list of samples using the indices from sampler, the function
 passed as the <code class="xref py py-attr docutils literal notranslate"><span class="pre">collate_fn</span></code> argument is used to collate lists of samples
 into batches.</p>
 <p>In this case, loading from a map-style dataset is roughly equivalent with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">indices</span> <span class="ow">in</span> <span class="n">batch_sampler</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">indices</span> <span class="ow">in</span> <span class="n">batch_sampler</span><span class="p">:</span>
     <span class="k">yield</span> <span class="n">collate_fn</span><span class="p">([</span><span class="n">dataset</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>and loading from an iterable-style dataset is roughly equivalent with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dataset_iter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset_iter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">indices</span> <span class="ow">in</span> <span class="n">batch_sampler</span><span class="p">:</span>
     <span class="k">yield</span> <span class="n">collate_fn</span><span class="p">([</span><span class="nb">next</span><span class="p">(</span><span class="n">dataset_iter</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>A custom <code class="xref py py-attr docutils literal notranslate"><span class="pre">collate_fn</span></code> can be used to customize collation, e.g., padding
 sequential data to max length of a batch. See
-<a class="reference internal" href="#dataloader-collate-fn">this section</a> on more about <code class="xref py py-attr docutils literal notranslate"><span class="pre">collate_fn</span></code>.</p>
+<a class="reference internal" href="#dataloader-collate-fn"><span class="std std-ref">this section</span></a> on more about <code class="xref py py-attr docutils literal notranslate"><span class="pre">collate_fn</span></code>.</p>
 </div>
 <div class="section" id="disable-automatic-batching">
-<h3>Disable automatic batching<a class="headerlink" href="#disable-automatic-batching" title="Permalink to this heading">#</a></h3>
+<span id="id7"></span><h3>Disable automatic batching<a class="headerlink" href="#disable-automatic-batching" title="Permalink to this heading">#</a></h3>
 <p>In certain cases, users may want to handle batching manually in dataset code,
 or simply load individual samples. For example, it could be cheaper to directly
 load batched data (e.g., bulk reads from a database or reading continuous
 chunks of memory), or the batch size is data dependent, or the program is
-designed to work on individual samples.  Under these scenarios, it’s likely
+designed to work on individual samples. Under these scenarios, it’s likely
 better to not use automatic batching (where <code class="xref py py-attr docutils literal notranslate"><span class="pre">collate_fn</span></code> is used to
 collate the samples), but let the data loader directly return each member of
 the <a class="reference internal" href="utils.html#module-torch.utils.data.dataset" title="torch.utils.data.dataset"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dataset</span></code></a> object.</p>
@@ -4173,16 +4173,16 @@ function passed as the <code class="xref py py-attr docutils literal notranslate
 <p><strong>When automatic batching is disabled</strong>, the default <code class="xref py py-attr docutils literal notranslate"><span class="pre">collate_fn</span></code> simply
 converts NumPy arrays into PyTorch Tensors, and keeps everything else untouched.</p>
 <p>In this case, loading from a map-style dataset is roughly equivalent with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">sampler</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">sampler</span><span class="p">:</span>
     <span class="k">yield</span> <span class="n">collate_fn</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>and loading from an iterable-style dataset is roughly equivalent with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
     <span class="k">yield</span> <span class="n">collate_fn</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="#dataloader-collate-fn">this section</a> on more about <code class="xref py py-attr docutils literal notranslate"><span class="pre">collate_fn</span></code>.</p>
+<p>See <a class="reference internal" href="#dataloader-collate-fn"><span class="std std-ref">this section</span></a> on more about <code class="xref py py-attr docutils literal notranslate"><span class="pre">collate_fn</span></code>.</p>
 </div>
 <div class="section" id="working-with-collate-fn">
 <span id="dataloader-collate-fn"></span><h3>Working with <code class="xref py py-attr docutils literal notranslate"><span class="pre">collate_fn</span></code><a class="headerlink" href="#working-with-collate-fn" title="Permalink to this heading">#</a></h3>
@@ -4221,7 +4221,7 @@ want to check your <code class="xref py py-attr docutils literal notranslate"><s
 </div>
 </div>
 <div class="section" id="single-and-multi-process-data-loading">
-<h2>Single- and Multi-process Data Loading<a class="headerlink" href="#single-and-multi-process-data-loading" title="Permalink to this heading">#</a></h2>
+<span id="id8"></span><h2>Single- and Multi-process Data Loading<a class="headerlink" href="#single-and-multi-process-data-loading" title="Permalink to this heading">#</a></h2>
 <p>A <a class="reference internal" href="#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> uses single-process data loading by
 default.</p>
 <p>Within a Python process, the
@@ -4231,17 +4231,17 @@ computation code with data loading, PyTorch provides an easy switch to perform
 multi-process data loading by simply setting the argument <code class="xref py py-attr docutils literal notranslate"><span class="pre">num_workers</span></code>
 to a positive integer.</p>
 <div class="section" id="single-process-data-loading-default">
-<h3>Single-process data loading (default)<a class="headerlink" href="#single-process-data-loading-default" title="Permalink to this heading">#</a></h3>
+<span id="id9"></span><h3>Single-process data loading (default)<a class="headerlink" href="#single-process-data-loading-default" title="Permalink to this heading">#</a></h3>
 <p>In this mode, data fetching is done in the same process a
-<a class="reference internal" href="#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> is initialized.  Therefore, data loading
-may block computing.  However, this mode may be preferred when resource(s) used
+<a class="reference internal" href="#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> is initialized. Therefore, data loading
+may block computing. However, this mode may be preferred when resource(s) used
 for sharing data among processes (e.g., shared memory, file descriptors) is
 limited, or when the entire dataset is small and can be loaded entirely in
-memory.  Additionally, single-process loading often shows more readable error
+memory. Additionally, single-process loading often shows more readable error
 traces and thus is useful for debugging.</p>
 </div>
 <div class="section" id="multi-process-data-loading">
-<h3>Multi-process data loading<a class="headerlink" href="#multi-process-data-loading" title="Permalink to this heading">#</a></h3>
+<span id="id10"></span><h3>Multi-process data loading<a class="headerlink" href="#multi-process-data-loading" title="Permalink to this heading">#</a></h3>
 <p>Setting the argument <code class="xref py py-attr docutils literal notranslate"><span class="pre">num_workers</span></code> as a positive integer will
 turn on multi-process data loading with the specified number of loader worker
 processes.</p>
@@ -4250,12 +4250,12 @@ processes.</p>
 <p>After several iterations, the loader worker processes will consume
 the same amount of CPU memory as the parent process for all Python
 objects in the parent process which are accessed from the worker
-processes.  This can be problematic if the Dataset contains a lot of
+processes. This can be problematic if the Dataset contains a lot of
 data (e.g., you are loading a very large list of filenames at Dataset
 construction time) and/or you are using a lot of workers (overall
-memory usage is <code class="docutils literal notranslate"><span class="pre">number</span> <span class="pre">of</span> <span class="pre">workers</span> <span class="pre">*</span> <span class="pre">size</span> <span class="pre">of</span> <span class="pre">parent</span> <span class="pre">process</span></code>).  The
+memory usage is <code class="docutils literal notranslate"><span class="pre">number</span> <span class="pre">of</span> <span class="pre">workers</span> <span class="pre">*</span> <span class="pre">size</span> <span class="pre">of</span> <span class="pre">parent</span> <span class="pre">process</span></code>). The
 simplest workaround is to replace Python objects with non-refcounted
-representations such as Pandas, Numpy or PyArrow objects.  Check out
+representations such as Pandas, Numpy or PyArrow objects. Check out
 <a class="reference external" href="https://github.com/pytorch/pytorch/issues/13246#issuecomment-905703662">issue #13246</a>
 for more details on why this occurs and example code for how to
 workaround these problems.</p>
@@ -4265,7 +4265,7 @@ is created (e.g., when you call <code class="docutils literal notranslate"><span
 worker processes are created. At this point, the <a class="reference internal" href="utils.html#module-torch.utils.data.dataset" title="torch.utils.data.dataset"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dataset</span></code></a>,
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">collate_fn</span></code>, and <code class="xref py py-attr docutils literal notranslate"><span class="pre">worker_init_fn</span></code> are passed to each
 worker, where they are used to initialize, and fetch data. This means that
-dataset access together with its  internal IO, transforms
+dataset access together with its internal IO, transforms
 (including <code class="xref py py-attr docutils literal notranslate"><span class="pre">collate_fn</span></code>) runs in the worker process.</p>
 <p><a class="reference internal" href="#torch.utils.data.get_worker_info" title="torch.utils.data.get_worker_info"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.utils.data.get_worker_info()</span></code></a> returns various useful information
 in a worker process (including the worker id, dataset replica, initial seed,
@@ -4291,12 +4291,12 @@ iterator becomes garbage collected.</p>
 <p>It is generally not recommended to return CUDA tensors in multi-process
 loading because of many subtleties in using CUDA and sharing CUDA tensors in
 multiprocessing (see <a class="reference internal" href="notes/multiprocessing.html#multiprocessing-cuda-note"><span class="std std-ref">CUDA in multiprocessing</span></a>). Instead, we recommend
-using <a class="reference internal" href="#memory-pinning">automatic memory pinning</a> (i.e., setting
+using <a class="reference internal" href="#memory-pinning"><span class="std std-ref">automatic memory pinning</span></a> (i.e., setting
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">pin_memory=True</span></code>), which enables fast data transfer to CUDA-enabled
 GPUs.</p>
 </div>
 <div class="section" id="platform-specific-behaviors">
-<h4>Platform-specific behaviors<a class="headerlink" href="#platform-specific-behaviors" title="Permalink to this heading">#</a></h4>
+<span id="id11"></span><h4>Platform-specific behaviors<a class="headerlink" href="#platform-specific-behaviors" title="Permalink to this heading">#</a></h4>
 <p>Since workers rely on Python <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a>, worker launch behavior is
 different on Windows compared to Unix.</p>
 <ul class="simple">
@@ -4336,7 +4336,7 @@ loading.</p>
 </div>
 </div>
 <div class="section" id="memory-pinning">
-<h2>Memory Pinning<a class="headerlink" href="#memory-pinning" title="Permalink to this heading">#</a></h2>
+<span id="id12"></span><h2>Memory Pinning<a class="headerlink" href="#memory-pinning" title="Permalink to this heading">#</a></h2>
 <p>Host to GPU copies are much faster when they originate from pinned (page-locked)
 memory. See <a class="reference internal" href="notes/cuda.html#cuda-memory-pinning"><span class="std std-ref">Use pinned memory buffers</span></a> for more details on when and how to use
 pinned memory generally.</p>
@@ -4345,16 +4345,16 @@ pinned memory generally.</p>
 Tensors in pinned memory, and thus enables faster data transfer to CUDA-enabled
 GPUs.</p>
 <p>The default memory pinning logic only recognizes Tensors and maps and iterables
-containing Tensors.  By default, if the pinning logic sees a batch that is a
+containing Tensors. By default, if the pinning logic sees a batch that is a
 custom type (which will occur if you have a <code class="xref py py-attr docutils literal notranslate"><span class="pre">collate_fn</span></code> that returns a
 custom batch type), or if each element of your batch is a custom type, the
 pinning logic will not recognize them, and it will return that batch (or those
-elements) without pinning the memory.  To enable memory pinning for custom
+elements) without pinning the memory. To enable memory pinning for custom
 batch or data type(s), define a <code class="xref py py-meth docutils literal notranslate"><span class="pre">pin_memory()</span></code> method on your custom
 type(s).</p>
 <p>See the example below.</p>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SimpleCustomBatch</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SimpleCustomBatch</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="n">transposed_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">transposed_data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
@@ -4383,7 +4383,7 @@ type(s).</p>
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.DataLoader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">DataLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_sampler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collate_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_init_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiprocessing_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persistent_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_memory_device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/dataloader.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.DataLoader" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">DataLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_sampler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collate_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_init_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiprocessing_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persistent_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_memory_device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/dataloader.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.DataLoader" title="Permalink to this definition">#</a></dt>
 <dd><p>Data loader combines a dataset and a sampler, and provides an iterable over the given dataset.</p>
 <p>The <a class="reference internal" href="#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> supports both map-style and
 iterable-style datasets with single- or multi-process loading, customizing
@@ -4424,7 +4424,9 @@ from workers. Should always be non-negative. (default: <code class="docutils lit
 worker subprocess with the worker id (an int in <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">num_workers</span> <span class="pre">-</span> <span class="pre">1]</span></code>) as
 input, after seeding and before data loading. (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
 <li><p><strong>multiprocessing_context</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><em>multiprocessing.context.BaseContext</em><em>, </em><em>optional</em>) – If
-<code class="docutils literal notranslate"><span class="pre">None</span></code>, the default <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods">multiprocessing context</a> of your operating system will
+<code class="docutils literal notranslate"><span class="pre">None</span></code>, the default
+<a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods">multiprocessing context</a> # noqa: D401
+of your operating system will
 be used. (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
 <li><p><strong>generator</strong> (<a class="reference internal" href="generated/torch.Generator.html#torch.Generator" title="torch.Generator"><em>torch.Generator</em></a><em>, </em><em>optional</em>) – If not <code class="docutils literal notranslate"><span class="pre">None</span></code>, this RNG will be used
 by RandomSampler to generate random indexes and multiprocessing to generate
@@ -4466,9 +4468,9 @@ this estimate can still be inaccurate, because (1) an otherwise complete batch c
 be broken into multiple ones and (2) more than one batch worth of samples can be
 dropped when <code class="xref py py-attr docutils literal notranslate"><span class="pre">drop_last</span></code> is set. Unfortunately, PyTorch can not detect such
 cases in general.</p>
-<p>See <a class="reference internal" href="#dataset-types">Dataset Types</a> for more details on these two types of datasets and how
+<p>See <a class="reference internal" href="#id1">Dataset Types</a> for more details on these two types of datasets and how
 <a class="reference internal" href="#torch.utils.data.IterableDataset" title="torch.utils.data.IterableDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterableDataset</span></code></a> interacts with
-<a class="reference internal" href="#multi-process-data-loading">Multi-process data loading</a>.</p>
+<a class="reference internal" href="#id10">Multi-process data loading</a>.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4484,7 +4486,7 @@ distribution being fed to the trainer in cases with imbalanced data.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.Dataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">Dataset</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/dataset.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.Dataset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">Dataset</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/dataset.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.Dataset" title="Permalink to this definition">#</a></dt>
 <dd><p>An abstract class representing a <a class="reference internal" href="#torch.utils.data.Dataset" title="torch.utils.data.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>.</p>
 <p>All datasets that represent a map from keys to data samples should subclass
 it. All subclasses should overwrite <code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code>, supporting fetching a
@@ -4505,7 +4507,7 @@ dataset with non-integral indices/keys, a custom sampler must be provided.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.IterableDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">IterableDataset</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/dataset.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.IterableDataset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">IterableDataset</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/dataset.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.IterableDataset" title="Permalink to this definition">#</a></dt>
 <dd><p>An iterable Dataset.</p>
 <p>All datasets that represent an iterable of data samples should subclass it.
 Such form of datasets is particularly useful when data come from a stream.</p>
@@ -4607,7 +4609,7 @@ dataset’s <code class="xref py py-meth docutils literal notranslate"><span cla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.TensorDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">TensorDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/dataset.py#L189"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.TensorDataset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">TensorDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/dataset.py#L189"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.TensorDataset" title="Permalink to this definition">#</a></dt>
 <dd><p>Dataset wrapping tensors.</p>
 <p>Each sample will be retrieved by indexing tensors along the first dimension.</p>
 <dl class="field-list simple">
@@ -4619,7 +4621,7 @@ dataset’s <code class="xref py py-meth docutils literal notranslate"><span cla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.StackDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">StackDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/dataset.py#L213"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.StackDataset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">StackDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/dataset.py#L213"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.StackDataset" title="Permalink to this definition">#</a></dt>
 <dd><p>Dataset as a stacking of multiple datasets.</p>
 <p>This class is useful to assemble different parts of complex input data, given as datasets.</p>
 <p class="rubric">Example</p>
@@ -4643,7 +4645,7 @@ dataset’s <code class="xref py py-meth docutils literal notranslate"><span cla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.ConcatDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">ConcatDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasets</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/dataset.py#L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.ConcatDataset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">ConcatDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasets</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/dataset.py#L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.ConcatDataset" title="Permalink to this definition">#</a></dt>
 <dd><p>Dataset as a concatenation of multiple datasets.</p>
 <p>This class is useful to assemble different existing datasets.</p>
 <dl class="field-list simple">
@@ -4655,7 +4657,7 @@ dataset’s <code class="xref py py-meth docutils literal notranslate"><span cla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.ChainDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">ChainDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasets</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/dataset.py#L357"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.ChainDataset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">ChainDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasets</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/dataset.py#L357"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.ChainDataset" title="Permalink to this definition">#</a></dt>
 <dd><p>Dataset for chaining multiple <a class="reference internal" href="#torch.utils.data.IterableDataset" title="torch.utils.data.IterableDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterableDataset</span></code></a> s.</p>
 <p>This class is useful to assemble different existing dataset streams. The
 chaining operation is done on-the-fly, so concatenating large-scale
@@ -4669,7 +4671,7 @@ datasets with this class will be efficient.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.Subset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">Subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/dataset.py#L389"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.Subset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">Subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/dataset.py#L389"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.Subset" title="Permalink to this definition">#</a></dt>
 <dd><p>Subset of a dataset at specified indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4683,7 +4685,7 @@ datasets with this class will be efficient.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.data._utils.collate.collate">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.data._utils.collate.</span></span><span class="sig-name descname"><span class="pre">collate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collate_fn_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/_utils/collate.py#L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data._utils.collate.collate" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.data._utils.collate.</span></span><span class="sig-name descname"><span class="pre">collate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collate_fn_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/_utils/collate.py#L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data._utils.collate.collate" title="Permalink to this definition">#</a></dt>
 <dd><p>General collate function that handles collection type of element within each batch.</p>
 <p>The function also opens function registry to deal with specific element types. <cite>default_collate_fn_map</cite>
 provides default collate functions for tensors, numpy arrays, numbers and strings.</p>
@@ -4718,7 +4720,7 @@ for the dictionary of collate functions as <cite>collate_fn_map</cite>.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.data.default_collate">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">default_collate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/_utils/collate.py#L337"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.default_collate" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">default_collate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/_utils/collate.py#L337"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.default_collate" title="Permalink to this definition">#</a></dt>
 <dd><p>Take in a batch of data and put the elements within the batch into a tensor with an additional outer dimension - batch size.</p>
 <p>The exact output type can be a <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>, a <cite>Sequence</cite> of <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>, a
 Collection of <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>, or left unchanged, depending on the input type.
@@ -4784,7 +4786,7 @@ default_collate([V2_1, V2_2, …]), …]</cite></p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.data.default_convert">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">default_convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/_utils/collate.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.default_convert" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">default_convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/_utils/collate.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.default_convert" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert each NumPy array element into a <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.</p>
 <p>If the input is a <cite>Sequence</cite>, <cite>Collection</cite>, or <cite>Mapping</cite>, it tries to convert each element inside to a <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.
 If the input is not an NumPy array, it is left unchanged.
@@ -4819,7 +4821,7 @@ of <a class="reference internal" href="#torch.utils.data.default_collate" title=
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.data.get_worker_info">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">get_worker_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/_utils/worker.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.get_worker_info" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">get_worker_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/_utils/worker.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.get_worker_info" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the information about the current
 <a class="reference internal" href="#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> iterator worker process.</p>
 <p>When called in a worker, this returns an object guaranteed to have the
@@ -4853,7 +4855,7 @@ code.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.data.random_split">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">random_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator=&lt;torch._C.Generator</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/dataset.py#L422"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.random_split" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">random_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator=&lt;torch._C.Generator</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/dataset.py#L422"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.random_split" title="Permalink to this definition">#</a></dt>
 <dd><p>Randomly split a dataset into non-overlapping new datasets of given lengths.</p>
 <p>If a list of fractions that sum up to 1 is given,
 the lengths will be computed automatically as
@@ -4885,7 +4887,7 @@ until there are no remainders left.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.Sampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">Sampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/sampler.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.Sampler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">Sampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/sampler.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.Sampler" title="Permalink to this definition">#</a></dt>
 <dd><p>Base class for all Samplers.</p>
 <p>Every Sampler subclass has to provide an <code class="xref py py-meth docutils literal notranslate"><span class="pre">__iter__()</span></code> method, providing a
 way to iterate over indices or lists of indices (batches) of dataset elements,
@@ -4932,7 +4934,7 @@ calculation involving the length of a <a class="reference internal" href="#torch
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.SequentialSampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">SequentialSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_source</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/sampler.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.SequentialSampler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">SequentialSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_source</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/sampler.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.SequentialSampler" title="Permalink to this definition">#</a></dt>
 <dd><p>Samples elements sequentially, always in the same order.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4943,7 +4945,7 @@ calculation involving the length of a <a class="reference internal" href="#torch
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.RandomSampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">RandomSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/sampler.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.RandomSampler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">RandomSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/sampler.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.RandomSampler" title="Permalink to this definition">#</a></dt>
 <dd><p>Samples elements randomly. If without replacement, then sample from a shuffled dataset.</p>
 <p>If with replacement, then user can specify <code class="xref py py-attr docutils literal notranslate"><span class="pre">num_samples</span></code> to draw.</p>
 <dl class="field-list simple">
@@ -4960,7 +4962,7 @@ calculation involving the length of a <a class="reference internal" href="#torch
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.SubsetRandomSampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">SubsetRandomSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/sampler.py#L198"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.SubsetRandomSampler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">SubsetRandomSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/sampler.py#L198"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.SubsetRandomSampler" title="Permalink to this definition">#</a></dt>
 <dd><p>Samples elements randomly from a given list of indices, without replacement.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4974,7 +4976,7 @@ calculation involving the length of a <a class="reference internal" href="#torch
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.WeightedRandomSampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">WeightedRandomSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/sampler.py#L220"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.WeightedRandomSampler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">WeightedRandomSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/sampler.py#L220"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.WeightedRandomSampler" title="Permalink to this definition">#</a></dt>
 <dd><p>Samples elements from <code class="docutils literal notranslate"><span class="pre">[0,..,len(weights)-1]</span></code> with given probabilities (weights).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4999,7 +5001,7 @@ sample index is drawn for a row, it cannot be drawn again for that row.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.BatchSampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">BatchSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sampler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_last</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/sampler.py#L285"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.BatchSampler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">BatchSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sampler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_last</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/sampler.py#L285"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.BatchSampler" title="Permalink to this definition">#</a></dt>
 <dd><p>Wraps another sampler to yield a mini-batch of indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -5022,7 +5024,7 @@ its size would be less than <code class="docutils literal notranslate"><span cla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.distributed.DistributedSampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.distributed.</span></span><span class="sig-name descname"><span class="pre">DistributedSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_replicas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/data/distributed.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.distributed.DistributedSampler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.distributed.</span></span><span class="sig-name descname"><span class="pre">DistributedSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_replicas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/data/distributed.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.distributed.DistributedSampler" title="Permalink to this definition">#</a></dt>
 <dd><p>Sampler that restricts data loading to a subset of the dataset.</p>
 <p>It is especially useful in conjunction with
 <a class="reference internal" href="generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel" title="torch.nn.parallel.DistributedDataParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.parallel.DistributedDataParallel</span></code></a>. In such a case, each
@@ -5251,7 +5253,7 @@ the same ordering will be always used.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/data.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/data.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -5265,7 +5267,7 @@ the same ordering will be always used.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/data.rst.txt">
+      <a href="_sources/data.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -5467,9 +5469,9 @@ the same ordering will be always used.</p>
            "@type": "WebPage",
            "@id": "/data.html"
          },
-         "datePublished": "Dec 23, 2016",
-         "dateModified": "Aug 23, 2023",
-         "articleBody": "torch.utils.data# Created On: Dec 23, 2016 | Last Updated On: Aug 23, 2023 At the heart of PyTorch data loading utility is the torch.utils.data.DataLoader class. It represents a Python iterable over a dataset, with support for map-style and iterable-style datasets, customizing data loading order, automatic batching, single- and multi-process data loading, automatic memory pinning. These options are configured by the constructor arguments of a DataLoader, which has signature: DataLoader(dataset, batch_size=1, shuffle=False, sampler=None, batch_sampler=None, num_workers=0, collate_fn=None, pin_memory=False, drop_last=False, timeout=0, worker_init_fn=None, *, prefetch_factor=2, persistent_workers=False) The sections below describe in details the effects and usages of these options. Dataset Types# The most important argument of DataLoader constructor is dataset, which indicates a dataset object to load data from. PyTorch supports two different types of datasets: map-style datasets, iterable-style datasets. Map-style datasets# A map-style dataset is one that implements the __getitem__() and __len__() protocols, and represents a map from (possibly non-integral) indices/keys to data samples. For example, such a dataset, when accessed with dataset[idx], could read the idx-th image and its corresponding label from a folder on the disk. See Dataset for more details. Iterable-style datasets# An iterable-style dataset is an instance of a subclass of IterableDataset that implements the __iter__() protocol, and represents an iterable over data samples. This type of datasets is particularly suitable for cases where random reads are expensive or even improbable, and where the batch size depends on the fetched data. For example, such a dataset, when called iter(dataset), could return a stream of data reading from a database, a remote server, or even logs generated in real time. See IterableDataset for more details. Note When using a IterableDataset with multi-process data loading. The same dataset object is replicated on each worker process, and thus the replicas must be configured differently to avoid duplicated data. See IterableDataset documentations for how to achieve this. Data Loading Order and Sampler# For iterable-style datasets, data loading order is entirely controlled by the user-defined iterable. This allows easier implementations of chunk-reading and dynamic batch size (e.g., by yielding a batched sample at each time). The rest of this section concerns the case with map-style datasets. torch.utils.data.Sampler classes are used to specify the sequence of indices/keys used in data loading. They represent iterable objects over the indices to datasets. E.g., in the common case with stochastic gradient decent (SGD), a Sampler could randomly permute a list of indices and yield each one at a time, or yield a small number of them for mini-batch SGD. A sequential or shuffled sampler will be automatically constructed based on the shuffle argument to a DataL..."
+         "datePublished": "Jun 13, 2025",
+         "dateModified": "Jun 13, 2025",
+         "articleBody": "torch.utils.data# Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025 At the heart of PyTorch data loading utility is the torch.utils.data.DataLoader class. It represents a Python iterable over a dataset, with support for map-style and iterable-style datasets, customizing data loading order, automatic batching, single- and multi-process data loading, automatic memory pinning. These options are configured by the constructor arguments of a DataLoader, which has signature: DataLoader(dataset, batch_size=1, shuffle=False, sampler=None, batch_sampler=None, num_workers=0, collate_fn=None, pin_memory=False, drop_last=False, timeout=0, worker_init_fn=None, *, prefetch_factor=2, persistent_workers=False) The sections below describe in details the effects and usages of these options. Dataset Types# The most important argument of DataLoader constructor is dataset, which indicates a dataset object to load data from. PyTorch supports two different types of datasets: Map-style datasets, Iterable-style datasets. Map-style datasets# A map-style dataset is one that implements the __getitem__() and __len__() protocols, and represents a map from (possibly non-integral) indices/keys to data samples. For example, such a dataset, when accessed with dataset[idx], could read the idx-th image and its corresponding label from a folder on the disk. See Dataset for more details. Iterable-style datasets# An iterable-style dataset is an instance of a subclass of IterableDataset that implements the __iter__() protocol, and represents an iterable over data samples. This type of datasets is particularly suitable for cases where random reads are expensive or even improbable, and where the batch size depends on the fetched data. For example, such a dataset, when called iter(dataset), could return a stream of data reading from a database, a remote server, or even logs generated in real time. See IterableDataset for more details. Note When using a IterableDataset with multi-process data loading. The same dataset object is replicated on each worker process, and thus the replicas must be configured differently to avoid duplicated data. See IterableDataset documentations for how to achieve this. Data Loading Order and Sampler# For iterable-style datasets, data loading order is entirely controlled by the user-defined iterable. This allows easier implementations of chunk-reading and dynamic batch size (e.g., by yielding a batched sample at each time). The rest of this section concerns the case with map-style datasets. torch.utils.data.Sampler classes are used to specify the sequence of indices/keys used in data loading. They represent iterable objects over the indices to datasets. E.g., in the common case with stochastic gradient decent (SGD), a Sampler could randomly permute a list of indices and yield each one at a time, or yield a small number of them for mini-batch SGD. A sequential or shuffled sampler will be automatically constructed based on the shuffle argument to a DataL..."
        }
    </script>
 

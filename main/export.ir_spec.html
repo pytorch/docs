@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd7e657d )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4023,7 +4023,7 @@ document.write(`
                   
   <div class="section" id="torch-export-ir-specification">
 <span id="export-ir-spec"></span><h1>torch.export IR Specification<a class="headerlink" href="#torch-export-ir-specification" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 05, 2023 | Last Updated On: Dec 05, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 05, 2023 | Last Updated On: Jun 13, 2025</p>
 <p>Export IR is an intermediate representation (IR) for compilers, which bears
 similarities to MLIR and TorchScript. It is specifically designed to express the
 semantics of PyTorch programs. Export IR primarily represents computation in a
@@ -4070,7 +4070,7 @@ consumes.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">graph_module</span></code> (<a class="reference internal" href="fx.html#torch.fx.GraphModule" title="torch.fx.GraphModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.fx.GraphModule</span></code></a>): Data structure containing
 the flattened computational graph of the PyTorch model. The graph can be
-directly accessed through <cite>ExportedProgram.graph</cite>.</p></li>
+directly accessed through <code class="docutils literal notranslate"><span class="pre">ExportedProgram.graph</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">graph_signature</span></code> (<a class="reference internal" href="export.html#torch.export.ExportGraphSignature" title="torch.export.ExportGraphSignature"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.export.ExportGraphSignature</span></code></a>): The graph
 signature, which specifies the parameters and buffer names used and mutated
 within the graph. Instead of storing parameters and buffers as attributes of
@@ -4088,7 +4088,7 @@ the symbolic shapes to their lower/upper ranges.</p></li>
 <div class="section" id="graph">
 <h2>Graph<a class="headerlink" href="#graph" title="Permalink to this heading">#</a></h2>
 <p>An Export IR Graph is a PyTorch program represented in the form of a DAG
-(directed acyclic graph).  Each node in this graph represents a particular
+(directed acyclic graph). Each node in this graph represents a particular
 computation or operation, and edges of this graph consist of references between
 nodes.</p>
 <p>We can view Graph having this schema:</p>
@@ -4107,10 +4107,10 @@ details in the next section):</p>
 <p><strong>Collorary:</strong> The smallest valid Graph will be of one node. i.e. nodes is never empty.</p>
 <p><strong>Definition:</strong>
 The set of <code class="docutils literal notranslate"><span class="pre">placeholder</span></code> nodes of a Graph represents the <strong>inputs</strong> of the
-Graph of GraphModule. The <cite>output</cite> node of a Graph represents the <strong>outputs</strong>
+Graph of GraphModule. The <code class="docutils literal notranslate"><span class="pre">output</span></code> node of a Graph represents the <strong>outputs</strong>
 of the Graph of GraphModule.</p>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
 
 <span class="k">class</span> <span class="nc">MyModule</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -4161,11 +4161,11 @@ placeholders (aka inputs), conditionals, and loops.</p>
 <code class="docutils literal notranslate"><span class="pre">meta</span></code>, in a compact format.</p>
 <p>Concretely:</p>
 <ul class="simple">
-<li><p><strong>&lt;name&gt;</strong> is the name of the node as it would appear in <code class="docutils literal notranslate"><span class="pre">node.name</span></code>.</p></li>
+<li><p><strong><name></strong> is the name of the node as it would appear in <code class="docutils literal notranslate"><span class="pre">node.name</span></code>.</p></li>
 <li><p><strong>&lt;op_name&gt;</strong> is the <code class="docutils literal notranslate"><span class="pre">node.op</span></code> field, which must be one of these:
-<cite>&lt;call_function&gt;</cite>, <cite>&lt;placeholder&gt;</cite>,
-<cite>&lt;get_attr&gt;</cite>, or <cite>&lt;output&gt;</cite>.</p></li>
-<li><p><strong>&lt;target&gt;</strong> is the target of the node as <code class="docutils literal notranslate"><span class="pre">node.target</span></code>. The meaning of this
+<code class="docutils literal notranslate"><span class="pre">&lt;call_function&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;placeholder&gt;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&lt;get_attr&gt;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&lt;output&gt;</span></code>.</p></li>
+<li><p><strong><target></strong> is the target of the node as <code class="docutils literal notranslate"><span class="pre">node.target</span></code>. The meaning of this
 field depends on <code class="docutils literal notranslate"><span class="pre">op_name</span></code>.</p></li>
 <li><p><strong>args1, … args 4…</strong> are what is listed in the <code class="docutils literal notranslate"><span class="pre">node.args</span></code> tuple. If a
 value in the list is an <a class="reference internal" href="fx.html#torch.fx.Node" title="torch.fx.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.fx.Node</span></code></a>, then it will be especially
@@ -4175,7 +4175,7 @@ indicated with a leading <strong>%.</strong></p></li>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">add1</span> <span class="o">=</span> <span class="n">call_function</span><span class="p">[</span><span class="n">target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">Tensor</span><span class="p">](</span><span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="o">%</span><span class="n">x</span><span class="p">,</span> <span class="o">%</span><span class="n">y</span><span class="p">),</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{})</span>
 </pre></div>
 </div>
-<p>Where <code class="docutils literal notranslate"><span class="pre">%x</span></code>, <code class="docutils literal notranslate"><span class="pre">%y</span></code> are two other Nodes that have names x and y.  Worth noting
+<p>Where <code class="docutils literal notranslate"><span class="pre">%x</span></code>, <code class="docutils literal notranslate"><span class="pre">%y</span></code> are two other Nodes that have names x and y. Worth noting
 that the string <code class="docutils literal notranslate"><span class="pre">torch.op.aten.add.Tensor</span></code> represents the callable object that
 is actually stored in the target field, not merely its string name.</p>
 <p>The final line of this text format is:</p>
@@ -4234,7 +4234,7 @@ like:</p>
 </div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">node.meta[&quot;val&quot;]</span></code> describes the output of running the operation. It can be
-of type <cite>&lt;symint&gt;</cite>, <cite>&lt;FakeTensor&gt;</cite>, a
+of type <code class="docutils literal notranslate"><span class="pre">&lt;symint&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;FakeTensor&gt;</span></code>, a
 <code class="docutils literal notranslate"><span class="pre">List[Union[FakeTensor,</span> <span class="pre">SymInt]]</span></code>, or <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">node.meta[&quot;nn_module_stack&quot;]</span></code> describes the “stacktrace” of the
 <a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a> from which the node came, if it was from a
@@ -4274,7 +4274,7 @@ expected to receive for this input parameter.</p>
 <div class="section" id="output">
 <h3>output<a class="headerlink" href="#output" title="Permalink to this heading">#</a></h3>
 <p>An output call represents a return statement in a function; it thus terminates the
-current graph.  There is one and only one output node, and it will always be the
+current graph. There is one and only one output node, and it will always be the
 last node of the graph.</p>
 <p><strong>Representation in FX</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>output[](args = (%something, …))
@@ -4300,7 +4300,7 @@ inputs to the graph module, and stored in the top-level
 </div>
 <p><strong>Example</strong></p>
 <p>Consider the following model:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functorch.experimental.control_flow</span> <span class="kn">import</span> <span class="n">cond</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functorch.experimental.control_flow</span> <span class="kn">import</span> <span class="n">cond</span>
 
 <span class="k">def</span> <span class="nf">true_fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
@@ -4374,7 +4374,7 @@ will also be a 2-tuple of FakeTensor objects, the first TensorMeta describes
 the first element of the return value etc.</p></li>
 </ul>
 <p>Python code:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_one</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_one</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -4386,7 +4386,7 @@ the first element of the return value etc.</p></li>
 </pre></div>
 </div>
 <p>FakeTensor:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FakeTensor</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,],</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">FakeTensor</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,],</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -4630,7 +4630,7 @@ that contains other Pytree-able types.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/export.ir_spec.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/export.ir_spec.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4644,7 +4644,7 @@ that contains other Pytree-able types.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/export.ir_spec.rst.txt">
+      <a href="_sources/export.ir_spec.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4847,8 +4847,8 @@ that contains other Pytree-able types.</p>
            "@id": "/export.ir_spec.html"
          },
          "datePublished": "Oct 05, 2023",
-         "dateModified": "Dec 05, 2024",
-         "articleBody": "torch.export IR Specification# Created On: Oct 05, 2023 | Last Updated On: Dec 05, 2024 Export IR is an intermediate representation (IR) for compilers, which bears similarities to MLIR and TorchScript. It is specifically designed to express the semantics of PyTorch programs. Export IR primarily represents computation in a streamlined list of operations, with limited support for dynamism such as control flows. To create an Export IR graph, a frontend can be used that soundly captures a PyTorch program via a trace-specializing mechanism. The resulting Export IR can then be optimized and executed by a backend. This can be done today through torch.export.export(). The key concepts that will be covered in this document include: ExportedProgram: the data structure containing the Export IR program Graph: which consists of a list of nodes. Nodes: which represents operations, control flow, and metadata stored on this node. Values are produced and consumed by nodes. Types are associated with values and nodes. The size and memory layout of values are also defined. Assumptions# This doc assumes that the audience is sufficiently familiar with PyTorch, specifically with torch.fx and its related toolings. Thus it will stop describing contents present in torch.fx documentation and paper. What is Export IR# Export IR is a graph-based intermediate representation IR of PyTorch programs. Export IR is realized on top of torch.fx.Graph. In other words, all Export IR graphs are also valid FX graphs, and if interpreted using standard FX semantics, Export IR can be interpreted soundly. One implication is that an exported graph can be converted to a valid Python program via standard FX codegen. This documentation will primarily focus on highlighting areas where Export IR differs from FX in terms of its strictness, while skipping parts where it shares similarities with FX. ExportedProgram# The top-level Export IR construct is an torch.export.ExportedProgram class. It bundles the computational graph of a PyTorch model (which is usually a torch.nn.Module) with the parameters or weights that this model consumes. Some notable attributes of the torch.export.ExportedProgram class are: graph_module (torch.fx.GraphModule): Data structure containing the flattened computational graph of the PyTorch model. The graph can be directly accessed through ExportedProgram.graph. graph_signature (torch.export.ExportGraphSignature): The graph signature, which specifies the parameters and buffer names used and mutated within the graph. Instead of storing parameters and buffers as attributes of the graph, they are lifted as inputs to the graph. The graph_signature is utilized to keep track of additional information on these parameters and buffers. state_dict (Dict[str, Union[torch.Tensor, torch.nn.Parameter]]): Data structure containing the parameters and buffers. range_constraints (Dict[sympy.Symbol, RangeConstraint]): For programs that are exported with data dependent behavior, the metadata..."
+         "dateModified": "Jun 13, 2025",
+         "articleBody": "torch.export IR Specification# Created On: Oct 05, 2023 | Last Updated On: Jun 13, 2025 Export IR is an intermediate representation (IR) for compilers, which bears similarities to MLIR and TorchScript. It is specifically designed to express the semantics of PyTorch programs. Export IR primarily represents computation in a streamlined list of operations, with limited support for dynamism such as control flows. To create an Export IR graph, a frontend can be used that soundly captures a PyTorch program via a trace-specializing mechanism. The resulting Export IR can then be optimized and executed by a backend. This can be done today through torch.export.export(). The key concepts that will be covered in this document include: ExportedProgram: the data structure containing the Export IR program Graph: which consists of a list of nodes. Nodes: which represents operations, control flow, and metadata stored on this node. Values are produced and consumed by nodes. Types are associated with values and nodes. The size and memory layout of values are also defined. Assumptions# This doc assumes that the audience is sufficiently familiar with PyTorch, specifically with torch.fx and its related toolings. Thus it will stop describing contents present in torch.fx documentation and paper. What is Export IR# Export IR is a graph-based intermediate representation IR of PyTorch programs. Export IR is realized on top of torch.fx.Graph. In other words, all Export IR graphs are also valid FX graphs, and if interpreted using standard FX semantics, Export IR can be interpreted soundly. One implication is that an exported graph can be converted to a valid Python program via standard FX codegen. This documentation will primarily focus on highlighting areas where Export IR differs from FX in terms of its strictness, while skipping parts where it shares similarities with FX. ExportedProgram# The top-level Export IR construct is an torch.export.ExportedProgram class. It bundles the computational graph of a PyTorch model (which is usually a torch.nn.Module) with the parameters or weights that this model consumes. Some notable attributes of the torch.export.ExportedProgram class are: graph_module (torch.fx.GraphModule): Data structure containing the flattened computational graph of the PyTorch model. The graph can be directly accessed through ExportedProgram.graph. graph_signature (torch.export.ExportGraphSignature): The graph signature, which specifies the parameters and buffer names used and mutated within the graph. Instead of storing parameters and buffers as attributes of the graph, they are lifted as inputs to the graph. The graph_signature is utilized to keep track of additional information on these parameters and buffers. state_dict (Dict[str, Union[torch.Tensor, torch.nn.Parameter]]): Data structure containing the parameters and buffers. range_constraints (Dict[sympy.Symbol, RangeConstraint]): For programs that are exported with data dependent behavior, the metadata..."
        }
    </script>
 

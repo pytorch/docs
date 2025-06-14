@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd7e657d )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4023,7 +4023,7 @@ document.write(`
                   
   <div class="section" id="dynamo-overview">
 <h1>Dynamo Overview<a class="headerlink" href="#dynamo-overview" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Nov 28, 2022 | Last Updated On: Apr 27, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025</p>
 <p>Before you read this section, read <a class="reference internal" href="torch.compiler.html#torch-compiler-overview"><span class="std std-ref">torch.compiler</span></a>.</p>
 <p>TorchDynamo (or simply Dynamo) is a Python-level Just-In-Time (JIT) compiler designed to make
 unmodified PyTorch programs faster. Dynamo hooks into the frame evaluation
@@ -4041,7 +4041,7 @@ backends to make PyTorch code faster with a single line decorator
 <p>The following diagram demonstrates how PyTorch works with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>
 and without it:</p>
 <img alt="_images/TorchDynamo.png" src="_images/TorchDynamo.png" />
-<p><cite>TorchInductor</cite> is one of the backends
+<p><code class="docutils literal notranslate"><span class="pre">TorchInductor</span></code> is one of the backends
 supported by <a class="reference external" href="https://pytorch.org/docs/stable/fx.html">Dynamo Graph</a>
 into <a class="reference external" href="https://github.com/openai/triton">Triton</a> for GPUs or
 <a class="reference external" href="https://www.openmp.org/">C++/OpenMP</a> for CPUs. We have a
@@ -4051,12 +4051,10 @@ more in the <a class="reference external" href="https://dev-discuss.pytorch.org/
 dev-discuss</a>.</p>
 <p>For an in-depth overview, read the sections below, watch the deep-dive video,
 and check out the dev-discuss topics.</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p><a class="reference external" href="https://www.youtube.com/watch?v=egZB5Uxki0I">Dynamo deep-dive video</a></p></li>
 <li><p><a class="reference external" href="https://dev-discuss.pytorch.org/search?q=TorchDynamo%20order%3Alatest">dev-discuss topics</a></p></li>
 </ul>
-</div></blockquote>
 <div class="section" id="dynamo-internals">
 <h2>Dynamo Internals<a class="headerlink" href="#dynamo-internals" title="Permalink to this heading">#</a></h2>
 <p><strong>Author</strong>: <a class="reference external" href="https://github.com/jansel">Jason Ansel</a> and <a class="reference external" href="https://github.com/youkaichao">Kaichao You</a></p>
@@ -4144,7 +4142,6 @@ are:</p>
 <span class="n">call_method</span>    <span class="n">sum_1</span>    <span class="nb">sum</span>                                                     <span class="p">(</span><span class="n">b</span><span class="p">,)</span>              <span class="p">{}</span>
 <span class="n">call_function</span>  <span class="n">lt</span>       <span class="o">&lt;</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">function</span> <span class="n">lt</span><span class="o">&gt;</span>                                  <span class="p">(</span><span class="n">sum_1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>        <span class="p">{}</span>
 <span class="n">output</span>         <span class="n">output</span>   <span class="n">output</span>                                                  <span class="p">((</span><span class="n">truediv</span><span class="p">,</span> <span class="n">lt</span><span class="p">),)</span>  <span class="p">{}</span>
-
 <span class="n">ORIGINAL</span> <span class="n">BYTECODE</span> <span class="n">toy_example</span> <span class="n">example</span><span class="o">.</span><span class="n">py</span> <span class="n">line</span> <span class="mi">12</span>
  <span class="mi">14</span>           <span class="mi">0</span> <span class="n">LOAD_FAST</span>                <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
               <span class="mi">2</span> <span class="n">LOAD_GLOBAL</span>              <span class="mi">0</span> <span class="p">(</span><span class="n">torch</span><span class="p">)</span>
@@ -4155,25 +4152,20 @@ are:</p>
              <span class="mi">12</span> <span class="n">BINARY_ADD</span>
              <span class="mi">14</span> <span class="n">BINARY_TRUE_DIVIDE</span>
              <span class="mi">16</span> <span class="n">STORE_FAST</span>               <span class="mi">2</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
  <span class="mi">15</span>          <span class="mi">18</span> <span class="n">LOAD_FAST</span>                <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
              <span class="mi">20</span> <span class="n">LOAD_METHOD</span>              <span class="mi">2</span> <span class="p">(</span><span class="nb">sum</span><span class="p">)</span>
              <span class="mi">22</span> <span class="n">CALL_METHOD</span>              <span class="mi">0</span>
              <span class="mi">24</span> <span class="n">LOAD_CONST</span>               <span class="mi">2</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span>
              <span class="mi">26</span> <span class="n">COMPARE_OP</span>               <span class="mi">0</span> <span class="p">(</span><span class="o">&lt;</span><span class="p">)</span>
              <span class="mi">28</span> <span class="n">POP_JUMP_IF_FALSE</span>       <span class="mi">19</span> <span class="p">(</span><span class="n">to</span> <span class="mi">38</span><span class="p">)</span>
-
  <span class="mi">16</span>          <span class="mi">30</span> <span class="n">LOAD_FAST</span>                <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
              <span class="mi">32</span> <span class="n">LOAD_CONST</span>               <span class="mi">3</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
              <span class="mi">34</span> <span class="n">BINARY_MULTIPLY</span>
              <span class="mi">36</span> <span class="n">STORE_FAST</span>               <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
-
  <span class="mi">17</span>     <span class="o">&gt;&gt;</span>   <span class="mi">38</span> <span class="n">LOAD_FAST</span>                <span class="mi">2</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
              <span class="mi">40</span> <span class="n">LOAD_FAST</span>                <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
              <span class="mi">42</span> <span class="n">BINARY_MULTIPLY</span>
              <span class="mi">44</span> <span class="n">RETURN_VALUE</span>
-
-
 <span class="n">MODIFIED</span> <span class="n">BYTECODE</span> <span class="n">toy_example</span> <span class="n">example</span><span class="o">.</span><span class="n">py</span> <span class="n">line</span> <span class="mi">12</span>
  <span class="mi">12</span>           <span class="mi">0</span> <span class="n">LOAD_GLOBAL</span>              <span class="mi">3</span> <span class="p">(</span><span class="n">__compiled_fn_0</span><span class="p">)</span>
               <span class="mi">2</span> <span class="n">LOAD_FAST</span>                <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -4192,8 +4184,6 @@ are:</p>
              <span class="mi">28</span> <span class="n">LOAD_FAST</span>                <span class="mi">2</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
              <span class="mi">30</span> <span class="n">CALL_FUNCTION</span>            <span class="mi">2</span>
              <span class="mi">32</span> <span class="n">RETURN_VALUE</span>
-
-
 <span class="n">possible</span> <span class="n">source</span> <span class="n">code</span><span class="p">:</span>
 <span class="k">def</span> <span class="nf">toy_example</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="n">__temp_1</span> <span class="o">=</span> <span class="n">__compiled_fn_0</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
@@ -4201,7 +4191,6 @@ are:</p>
     <span class="k">if</span> <span class="n">__temp_1</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
         <span class="k">return</span> <span class="n">__resume_at_30_1</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">__resume_at_38_2</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-
 <span class="n">If</span> <span class="n">you</span> <span class="n">find</span> <span class="n">the</span> <span class="n">decompiled</span> <span class="n">code</span> <span class="ow">is</span> <span class="n">wrong</span><span class="p">,</span><span class="n">please</span> <span class="n">submit</span> <span class="n">an</span> <span class="n">issue</span> <span class="n">at</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">youkaichao</span><span class="o">/</span><span class="n">depyf</span><span class="o">/</span><span class="n">issues</span><span class="o">.</span>
 </pre></div>
 </div>
@@ -4288,7 +4277,6 @@ point for the first time.</p>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">code</span> <span class="n">of</span> <span class="n">__compiled_fn_0</span><span class="p">:</span>
-
 <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">L_a_</span> <span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">L_b_</span> <span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
     <span class="n">l_a_</span> <span class="o">=</span> <span class="n">L_a_</span>
     <span class="n">l_b_</span> <span class="o">=</span> <span class="n">L_b_</span>
@@ -4298,14 +4286,12 @@ point for the first time.</p>
     <span class="n">sum_1</span> <span class="o">=</span> <span class="n">l_b_</span><span class="o">.</span><span class="n">sum</span><span class="p">();</span>  <span class="n">l_b_</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">lt</span> <span class="o">=</span> <span class="n">sum_1</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span>  <span class="n">sum_1</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">truediv</span><span class="p">,</span> <span class="n">lt</span><span class="p">)</span>
-
 <span class="c1"># To see more debug info, please use ``graph_module.print_readable()``</span>
 <span class="o">============================================================</span>
 <span class="n">source</span> <span class="n">code</span> <span class="n">of</span> <span class="n">__resume_at_30_1</span><span class="p">:</span>
 <span class="k">def</span> <span class="o">&lt;</span><span class="n">resume</span> <span class="ow">in</span> <span class="n">toy_example</span><span class="o">&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">b</span>
-
 <span class="o">============================================================</span>
 <span class="n">source</span> <span class="n">code</span> <span class="n">of</span> <span class="n">__resume_at_38_2</span><span class="p">:</span>
 <span class="k">def</span> <span class="o">&lt;</span><span class="n">resume</span> <span class="ow">in</span> <span class="n">toy_example</span><span class="o">&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
@@ -4464,7 +4450,7 @@ point for the first time.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_dynamo_overview.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_dynamo_overview.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4478,7 +4464,7 @@ point for the first time.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/torch.compiler_dynamo_overview.rst.txt">
+      <a href="_sources/torch.compiler_dynamo_overview.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4680,9 +4666,9 @@ point for the first time.</p>
            "@type": "WebPage",
            "@id": "/torch.compiler_dynamo_overview.html"
          },
-         "datePublished": "Nov 28, 2022",
-         "dateModified": "Apr 27, 2024",
-         "articleBody": "Dynamo Overview# Created On: Nov 28, 2022 | Last Updated On: Apr 27, 2024 Before you read this section, read torch.compiler. TorchDynamo (or simply Dynamo) is a Python-level Just-In-Time (JIT) compiler designed to make unmodified PyTorch programs faster. Dynamo hooks into the frame evaluation API in CPython (PEP 523) to dynamically modify Python bytecode right before it is executed. It rewrites Python bytecode to extract sequences of PyTorch operations into an FX Graph which is then compiled with a customizable backend. It creates this FX Graph through bytecode analysis and is designed to mix Python execution with compiled backends to get the best of both worlds — usability and performance. Dynamo makes it easy to experiment with different compiler backends to make PyTorch code faster with a single line decorator torch._dynamo.optimize() which is wrapped for convenience by torch.compile() The following diagram demonstrates how PyTorch works with torch.compile and without it: TorchInductor is one of the backends supported by Dynamo Graph into Triton for GPUs or C++/OpenMP for CPUs. We have a training performance dashboard that provides performance comparison for different training backends. You can read more in the TorchInductor post on PyTorch dev-discuss. For an in-depth overview, read the sections below, watch the deep-dive video, and check out the dev-discuss topics. Dynamo deep-dive video dev-discuss topics Dynamo Internals# Author: Jason Ansel and Kaichao You This section will go over some of the Dynamo internals and will demonstrate how Dynamo works under the hood. What is a guard?# Dynamo operates just-in-time and specializes graphs based on dynamic properties. Below is a basic example of how to use Dynamo. One can decorate a function or a method using torchdynamo.optimize to enable Dynamo optimization: from typing import List import torch from torch import _dynamo as torchdynamo def my_compiler(gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]): print(&#34;my_compiler() called with FX graph:&#34;) gm.graph.print_tabular() return gm.forward # return a python callable @torchdynamo.optimize(my_compiler) def toy_example(a, b): x = a / (torch.abs(a) + 1) if b.sum() &lt; 0: b = b * -1 return x * b for _ in range(100): toy_example(torch.randn(10), torch.randn(10)) For example, the first graph above has the following guards: GUARDS: hasattr(L[&#39;a&#39;], &#39;_dynamo_dynamic_indices&#39;) == False hasattr(L[&#39;b&#39;], &#39;_dynamo_dynamic_indices&#39;) == False utils_device.CURRENT_DEVICE == None ___skip_backend_check() or ___current_backend() == ___lookup_backend(140355900538256) check_tensor(L[&#39;a&#39;], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[10], stride=[1]) check_tensor(L[&#39;b&#39;], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[10], stride=[1]) If any of those guards fail, the graph will be recaptured and ..."
+         "datePublished": "Jun 13, 2025",
+         "dateModified": "Jun 13, 2025",
+         "articleBody": "Dynamo Overview# Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025 Before you read this section, read torch.compiler. TorchDynamo (or simply Dynamo) is a Python-level Just-In-Time (JIT) compiler designed to make unmodified PyTorch programs faster. Dynamo hooks into the frame evaluation API in CPython (PEP 523) to dynamically modify Python bytecode right before it is executed. It rewrites Python bytecode to extract sequences of PyTorch operations into an FX Graph which is then compiled with a customizable backend. It creates this FX Graph through bytecode analysis and is designed to mix Python execution with compiled backends to get the best of both worlds — usability and performance. Dynamo makes it easy to experiment with different compiler backends to make PyTorch code faster with a single line decorator torch._dynamo.optimize() which is wrapped for convenience by torch.compile() The following diagram demonstrates how PyTorch works with torch.compile and without it: TorchInductor is one of the backends supported by Dynamo Graph into Triton for GPUs or C++/OpenMP for CPUs. We have a training performance dashboard that provides performance comparison for different training backends. You can read more in the TorchInductor post on PyTorch dev-discuss. For an in-depth overview, read the sections below, watch the deep-dive video, and check out the dev-discuss topics. Dynamo deep-dive video dev-discuss topics Dynamo Internals# Author: Jason Ansel and Kaichao You This section will go over some of the Dynamo internals and will demonstrate how Dynamo works under the hood. What is a guard?# Dynamo operates just-in-time and specializes graphs based on dynamic properties. Below is a basic example of how to use Dynamo. One can decorate a function or a method using torchdynamo.optimize to enable Dynamo optimization: from typing import List import torch from torch import _dynamo as torchdynamo def my_compiler(gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]): print(&#34;my_compiler() called with FX graph:&#34;) gm.graph.print_tabular() return gm.forward # return a python callable @torchdynamo.optimize(my_compiler) def toy_example(a, b): x = a / (torch.abs(a) + 1) if b.sum() &lt; 0: b = b * -1 return x * b for _ in range(100): toy_example(torch.randn(10), torch.randn(10)) For example, the first graph above has the following guards: GUARDS: hasattr(L[&#39;a&#39;], &#39;_dynamo_dynamic_indices&#39;) == False hasattr(L[&#39;b&#39;], &#39;_dynamo_dynamic_indices&#39;) == False utils_device.CURRENT_DEVICE == None ___skip_backend_check() or ___current_backend() == ___lookup_backend(140355900538256) check_tensor(L[&#39;a&#39;], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[10], stride=[1]) check_tensor(L[&#39;b&#39;], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[10], stride=[1]) If any of those guards fail, the graph will be recaptured and ..."
        }
    </script>
 

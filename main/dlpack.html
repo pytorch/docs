@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd7e657d )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4014,10 +4014,10 @@ document.write(`
                   
   <div class="section" id="torch-utils-dlpack">
 <h1>torch.utils.dlpack<a class="headerlink" href="#torch-utils-dlpack" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 11, 2018 | Last Updated On: Mar 30, 2021</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 11, 2018 | Last Updated On: Jun 13, 2025</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.dlpack.from_dlpack">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.dlpack.</span></span><span class="sig-name descname"><span class="pre">from_dlpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ext_tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d7e657da358d6d393e2105f94f1312fb969654a2/torch/utils/dlpack.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.dlpack.from_dlpack" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.dlpack.</span></span><span class="sig-name descname"><span class="pre">from_dlpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ext_tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/utils/dlpack.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.dlpack.from_dlpack" title="Permalink to this definition">#</a></dt>
 <dd><p>Converts a tensor from an external library into a <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>.</p>
 <p>The returned PyTorch tensor will share the memory with the input tensor
 (which may have come from another library). Note that in-place operations
@@ -4228,7 +4228,7 @@ Behavior when a capsule is consumed multiple times is undefined.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/dlpack.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/dlpack.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4242,7 +4242,7 @@ Behavior when a capsule is consumed multiple times is undefined.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/dlpack.rst.txt">
+      <a href="_sources/dlpack.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4445,8 +4445,8 @@ Behavior when a capsule is consumed multiple times is undefined.</p>
            "@id": "/dlpack.html"
          },
          "datePublished": "Jul 11, 2018",
-         "dateModified": "Mar 30, 2021",
-         "articleBody": "torch.utils.dlpack# Created On: Jul 11, 2018 | Last Updated On: Mar 30, 2021 torch.utils.dlpack.from_dlpack(ext_tensor) → Tensor[source]# Converts a tensor from an external library into a torch.Tensor. The returned PyTorch tensor will share the memory with the input tensor (which may have come from another library). Note that in-place operations will therefore also affect the data of the input tensor. This may lead to unexpected issues (e.g., other libraries may have read-only flags or immutable data structures), so the user should only do this if they know for sure that this is fine. Parameters ext_tensor (object with __dlpack__ attribute, or a DLPack capsule) – The tensor or DLPack capsule to convert. If ext_tensor is a tensor (or ndarray) object, it must support the __dlpack__ protocol (i.e., have a ext_tensor.__dlpack__ method). Otherwise ext_tensor may be a DLPack capsule, which is an opaque PyCapsule instance, typically produced by a to_dlpack function or method. Return type Tensor Examples: &gt;&gt;&gt; import torch.utils.dlpack &gt;&gt;&gt; t = torch.arange(4) # Convert a tensor directly (supported in PyTorch &gt;= 1.10) &gt;&gt;&gt; t2 = torch.from_dlpack(t) &gt;&gt;&gt; t2[:2] = -1 # show that memory is shared &gt;&gt;&gt; t2 tensor([-1, -1, 2, 3]) &gt;&gt;&gt; t tensor([-1, -1, 2, 3]) # The old-style DLPack usage, with an intermediate capsule object &gt;&gt;&gt; capsule = torch.utils.dlpack.to_dlpack(t) &gt;&gt;&gt; capsule &lt;capsule object &#34;dltensor&#34; at ...&gt; &gt;&gt;&gt; t3 = torch.from_dlpack(capsule) &gt;&gt;&gt; t3 tensor([-1, -1, 2, 3]) &gt;&gt;&gt; t3[0] = -9 # now we&#39;re sharing memory between 3 tensors &gt;&gt;&gt; t3 tensor([-9, -1, 2, 3]) &gt;&gt;&gt; t2 tensor([-9, -1, 2, 3]) &gt;&gt;&gt; t tensor([-9, -1, 2, 3]) torch.utils.dlpack.to_dlpack(tensor) → PyCapsule# Returns an opaque object (a “DLPack capsule”) representing the tensor. Note to_dlpack is a legacy DLPack interface. The capsule it returns cannot be used for anything in Python other than use it as input to from_dlpack. The more idiomatic use of DLPack is to call from_dlpack directly on the tensor object - this works when that object has a __dlpack__ method, which PyTorch and most other libraries indeed have now. Warning Only call from_dlpack once per capsule produced with to_dlpack. Behavior when a capsule is consumed multiple times is undefined. Parameters tensor – a tensor to be exported The DLPack capsule shares the tensor’s memory."
+         "dateModified": "Jun 13, 2025",
+         "articleBody": "torch.utils.dlpack# Created On: Jul 11, 2018 | Last Updated On: Jun 13, 2025 torch.utils.dlpack.from_dlpack(ext_tensor) → Tensor[source]# Converts a tensor from an external library into a torch.Tensor. The returned PyTorch tensor will share the memory with the input tensor (which may have come from another library). Note that in-place operations will therefore also affect the data of the input tensor. This may lead to unexpected issues (e.g., other libraries may have read-only flags or immutable data structures), so the user should only do this if they know for sure that this is fine. Parameters ext_tensor (object with __dlpack__ attribute, or a DLPack capsule) – The tensor or DLPack capsule to convert. If ext_tensor is a tensor (or ndarray) object, it must support the __dlpack__ protocol (i.e., have a ext_tensor.__dlpack__ method). Otherwise ext_tensor may be a DLPack capsule, which is an opaque PyCapsule instance, typically produced by a to_dlpack function or method. Return type Tensor Examples: &gt;&gt;&gt; import torch.utils.dlpack &gt;&gt;&gt; t = torch.arange(4) # Convert a tensor directly (supported in PyTorch &gt;= 1.10) &gt;&gt;&gt; t2 = torch.from_dlpack(t) &gt;&gt;&gt; t2[:2] = -1 # show that memory is shared &gt;&gt;&gt; t2 tensor([-1, -1, 2, 3]) &gt;&gt;&gt; t tensor([-1, -1, 2, 3]) # The old-style DLPack usage, with an intermediate capsule object &gt;&gt;&gt; capsule = torch.utils.dlpack.to_dlpack(t) &gt;&gt;&gt; capsule &lt;capsule object &#34;dltensor&#34; at ...&gt; &gt;&gt;&gt; t3 = torch.from_dlpack(capsule) &gt;&gt;&gt; t3 tensor([-1, -1, 2, 3]) &gt;&gt;&gt; t3[0] = -9 # now we&#39;re sharing memory between 3 tensors &gt;&gt;&gt; t3 tensor([-9, -1, 2, 3]) &gt;&gt;&gt; t2 tensor([-9, -1, 2, 3]) &gt;&gt;&gt; t tensor([-9, -1, 2, 3]) torch.utils.dlpack.to_dlpack(tensor) → PyCapsule# Returns an opaque object (a “DLPack capsule”) representing the tensor. Note to_dlpack is a legacy DLPack interface. The capsule it returns cannot be used for anything in Python other than use it as input to from_dlpack. The more idiomatic use of DLPack is to call from_dlpack directly on the tensor object - this works when that object has a __dlpack__ method, which PyTorch and most other libraries indeed have now. Warning Only call from_dlpack once per capsule produced with to_dlpack. Behavior when a capsule is consumed multiple times is undefined. Parameters tensor – a tensor to be exported The DLPack capsule shares the tensor’s memory."
        }
    </script>
 

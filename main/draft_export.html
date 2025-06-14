@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd7e657d )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4023,7 +4023,7 @@ document.write(`
                   
   <div class="section" id="draft-export">
 <span id="id1"></span><h1>Draft Export<a class="headerlink" href="#draft-export" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 07, 2025 | Last Updated On: May 14, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This feature is not meant to be used in production and is designed to be
@@ -4088,7 +4088,7 @@ generate a more correct fake kernel.</p>
 <div class="section" id="how-can-i-use-draft-export">
 <h2>How can I use draft export?<a class="headerlink" href="#how-can-i-use-draft-export" title="Permalink to this heading">#</a></h2>
 <p>Let’s say you’re trying to export this piece of code:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">M</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">M</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">mylib</span><span class="o">.</span><span class="n">foo2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
@@ -4113,7 +4113,7 @@ generate a more correct fake kernel.</p>
 <code class="docutils literal notranslate"><span class="pre">GuardOnDataDependentExpression</span></code> because of the slicing of <code class="docutils literal notranslate"><span class="pre">z</span></code> with <code class="docutils literal notranslate"><span class="pre">a</span></code>,
 an unbacked symint.</p>
 <p>To call <code class="docutils literal notranslate"><span class="pre">draft-export</span></code>, we can replace the <code class="docutils literal notranslate"><span class="pre">torch.export</span></code> line with the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ep</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">draft_export</span><span class="p">(</span><span class="n">M</span><span class="p">(),</span> <span class="n">inp</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ep</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">draft_export</span><span class="p">(</span><span class="n">M</span><span class="p">(),</span> <span class="n">inp</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ep</span></code> is a valid ExportedProgram which can now be passed through further environments!</p>
@@ -4178,7 +4178,7 @@ context manager <code class="docutils literal notranslate"><span class="pre">tor
 generate and register a fake implementation based on these operator profiles.
 This way future fake tensor retracing will work.</p>
 <p>The workflow would look something like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">M</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">M</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">mylib</span><span class="o">.</span><span class="n">foo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>  <span class="c1"># no fake impl</span>
         <span class="k">return</span> <span class="n">res</span>
@@ -4203,7 +4203,7 @@ This way future fake tensor retracing will work.</p>
 which describe the input and outputs of the operator, and could be manually
 written, saved into a yaml file, and checked into a codebase. Here’s an example
 of a profile for <code class="docutils literal notranslate"><span class="pre">mylib.foo.default</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;mylib.foo.default&quot;</span><span class="p">:</span> <span class="p">{</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;mylib.foo.default&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="n">OpProfile</span><span class="p">(</span>
         <span class="n">args_profile</span><span class="o">=</span><span class="p">(</span>
             <span class="n">TensorMetadata</span><span class="p">(</span>
@@ -4395,7 +4395,7 @@ original model can be directly traceable with <code class="docutils literal notr
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/draft_export.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/draft_export.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4409,7 +4409,7 @@ original model can be directly traceable with <code class="docutils literal notr
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/draft_export.rst.txt">
+      <a href="_sources/draft_export.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4611,9 +4611,9 @@ original model can be directly traceable with <code class="docutils literal notr
            "@type": "WebPage",
            "@id": "/draft_export.html"
          },
-         "datePublished": "May 07, 2025",
-         "dateModified": "May 14, 2025",
-         "articleBody": "Draft Export# Created On: May 07, 2025 | Last Updated On: May 14, 2025 Warning This feature is not meant to be used in production and is designed to be used as a tool for debugging torch.export tracing errors. Draft-export is a new version of export, which is designed to consistently produce a graph, even if there are potential soundness issues, and to generate a report listing out all of the issues export encountered during tracing and providing additional debugging information. For custom operators that don’t have fake kernels, it will also generate a profile which you can register to automatically generate a fake kernel. Have you ever tried to export a model using torch.export.export(), only to encounter a data-dependent issue? You fix it, but then run into a missing fake kernel problem. And after resolving that, you get hit with another data-dependent issue. You wonder to yourself, I wish there was a way I could just get a graph to play around with, and be able to view all the issues in one place so that I can fix them later… draft_export to the rescue! draft_export is a version of export which will always successfully export a graph, even if there are potential soundness issues. These issues will then be compiled into a report for clearer visualization, which can be fixed later on. What sort of errors does it catch?# Draft-export helps to catch and debug the following errors: Guard on data-dependent errors Constraint violation errors Missing fake kernels Incorrectly written fake kernels How does it work?# In normal export, we will convert the sample inputs into FakeTensors and use them to record operations and trace the program into a graph. Input tensor shapes that can change (which are marked through dynamic_shapes), or values within tensors (typically from an .item() call) will be represented as a symbolic shape (SymInt) instead of a concrete integer. However some issues may occur while tracing - we may run into guards that we cannot evaluate, like if we want to check if some item in a tensor is greater than 0 (u0 &gt;= 0). Since the tracer doesn’t know anything about the value of u0, it will throw a data-dependent error. If the model uses a custom operator but a fake kernel hasn’t been defined for it, then we will error with fake_tensor.UnsupportedOperatorException because export doesn’t know how to apply this on FakeTensors. If a custom operator has a fake kernel implemented incorrectly, export will silently produce an incorrect graph that doesn’t match the eager behavior. To fix the above errors, draft-export uses real tensor tracing to guide us on how to proceed when tracing. As we trace the model with fake tensors, for every operation that happens on a fake tensor, draft-export will also run the operator on stored real tensors which come from the example inputs passed to export. This allows us to address the above errors: When we reach a guard that we cannot evaluate, like u0 &gt;= 0, we will use the stored real tensor values to evaluat..."
+         "datePublished": "Jun 13, 2025",
+         "dateModified": "Jun 13, 2025",
+         "articleBody": "Draft Export# Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025 Warning This feature is not meant to be used in production and is designed to be used as a tool for debugging torch.export tracing errors. Draft-export is a new version of export, which is designed to consistently produce a graph, even if there are potential soundness issues, and to generate a report listing out all of the issues export encountered during tracing and providing additional debugging information. For custom operators that don’t have fake kernels, it will also generate a profile which you can register to automatically generate a fake kernel. Have you ever tried to export a model using torch.export.export(), only to encounter a data-dependent issue? You fix it, but then run into a missing fake kernel problem. And after resolving that, you get hit with another data-dependent issue. You wonder to yourself, I wish there was a way I could just get a graph to play around with, and be able to view all the issues in one place so that I can fix them later… draft_export to the rescue! draft_export is a version of export which will always successfully export a graph, even if there are potential soundness issues. These issues will then be compiled into a report for clearer visualization, which can be fixed later on. What sort of errors does it catch?# Draft-export helps to catch and debug the following errors: Guard on data-dependent errors Constraint violation errors Missing fake kernels Incorrectly written fake kernels How does it work?# In normal export, we will convert the sample inputs into FakeTensors and use them to record operations and trace the program into a graph. Input tensor shapes that can change (which are marked through dynamic_shapes), or values within tensors (typically from an .item() call) will be represented as a symbolic shape (SymInt) instead of a concrete integer. However some issues may occur while tracing - we may run into guards that we cannot evaluate, like if we want to check if some item in a tensor is greater than 0 (u0 &gt;= 0). Since the tracer doesn’t know anything about the value of u0, it will throw a data-dependent error. If the model uses a custom operator but a fake kernel hasn’t been defined for it, then we will error with fake_tensor.UnsupportedOperatorException because export doesn’t know how to apply this on FakeTensors. If a custom operator has a fake kernel implemented incorrectly, export will silently produce an incorrect graph that doesn’t match the eager behavior. To fix the above errors, draft-export uses real tensor tracing to guide us on how to proceed when tracing. As we trace the model with fake tensors, for every operation that happens on a fake tensor, draft-export will also run the operator on stored real tensors which come from the example inputs passed to export. This allows us to address the above errors: When we reach a guard that we cannot evaluate, like u0 &gt;= 0, we will use the stored real tensor values to evaluat..."
        }
    </script>
 

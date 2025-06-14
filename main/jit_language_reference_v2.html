@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitd7e657d )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4023,7 +4023,7 @@ document.write(`
                   
   <div class="section" id="torchscript-language-reference">
 <span id="language-reference-v2"></span><h1>TorchScript Language Reference<a class="headerlink" href="#torchscript-language-reference" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Mar 10, 2021 | Last Updated On: Aug 05, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Mar 10, 2021 | Last Updated On: Jun 13, 2025</p>
 <p>This reference manual describes the syntax and core semantics of the TorchScript language.
 TorchScript is a statically typed subset of the Python language. This document explains the supported features of
 Python in TorchScript and also how the language diverges from regular Python. Any features of Python that are not mentioned in
@@ -4031,18 +4031,18 @@ this reference manual are not part of TorchScript. TorchScript focuses specifica
 represent neural network models in PyTorch.</p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#terminology" id="id7">Terminology</a></p></li>
-<li><p><a class="reference internal" href="#id1" id="id8">Type System</a></p></li>
-<li><p><a class="reference internal" href="#type-annotation" id="id9">Type Annotation</a></p></li>
-<li><p><a class="reference internal" href="#expressions" id="id10">Expressions</a></p></li>
-<li><p><a class="reference internal" href="#simple-statements" id="id11">Simple Statements</a></p></li>
-<li><p><a class="reference internal" href="#compound-statements" id="id12">Compound Statements</a></p></li>
-<li><p><a class="reference internal" href="#python-values" id="id13">Python Values</a></p></li>
-<li><p><a class="reference internal" href="#torch-apis" id="id14">torch.* APIs</a></p></li>
+<li><p><a class="reference internal" href="#terminology" id="id6">Terminology</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id7">Type System</a></p></li>
+<li><p><a class="reference internal" href="#type-annotation" id="id8">Type Annotation</a></p></li>
+<li><p><a class="reference internal" href="#expressions" id="id9">Expressions</a></p></li>
+<li><p><a class="reference internal" href="#simple-statements" id="id10">Simple Statements</a></p></li>
+<li><p><a class="reference internal" href="#compound-statements" id="id11">Compound Statements</a></p></li>
+<li><p><a class="reference internal" href="#python-values" id="id12">Python Values</a></p></li>
+<li><p><a class="reference internal" href="#torch-apis" id="id13">torch.* APIs</a></p></li>
 </ul>
 </div>
 <div class="section" id="terminology">
-<span id="type-system"></span><h2><a class="toc-backref" href="#id7">Terminology</a><a class="headerlink" href="#terminology" title="Permalink to this heading">#</a></h2>
+<span id="type-system"></span><h2><a class="toc-backref" href="#id6">Terminology</a><a class="headerlink" href="#terminology" title="Permalink to this heading">#</a></h2>
 <p>This document uses the following terminologies:</p>
 <div class="pst-scrollable-table-container"><table class="colwidths-given table">
 <colgroup>
@@ -4081,7 +4081,7 @@ represent neural network models in PyTorch.</p>
 </div>
 </div>
 <div class="section" id="id1">
-<h2><a class="toc-backref" href="#id8">Type System</a><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id7">Type System</a><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>TorchScript is a statically typed subset of Python. The largest difference between TorchScript and the full Python language is that TorchScript only supports a small set of types that are needed to express
 neural net models.</p>
 <div class="section" id="torchscript-types">
@@ -4268,7 +4268,7 @@ such as <code class="docutils literal notranslate"><span class="pre">Future[int]
 <p><strong>Example 3</strong></p>
 <p>This example illustrates a common mistake of annotating structural types, i.e., not importing the composite type
 classes from the <code class="docutils literal notranslate"><span class="pre">typing</span></code> module:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="c1"># ERROR: Tuple not recognized because not imported from typing</span>
 <span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">export</span>
@@ -4280,7 +4280,7 @@ classes from the <code class="docutils literal notranslate"><span class="pre">ty
 </pre></div>
 </div>
 <p>Running the above code yields the following scripting error:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">File</span> <span class="s2">&quot;test-tuple.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">5</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">File</span> <span class="s2">&quot;test-tuple.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">5</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
     <span class="k">def</span> <span class="nf">inc</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
 <span class="ne">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s1">&#39;Tuple&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
 </pre></div>
@@ -4302,9 +4302,9 @@ name and are compared using class names. Nominal classes are further classified 
 TorchScript defines the semantics of these built-in nominal types, and often supports only a subset of the methods or
 attributes of its Python class definition.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TSBuiltinClass</span> <span class="p">:</span><span class="o">:=</span> <span class="n">TSTensor</span> <span class="o">|</span> <span class="s2">&quot;torch.device&quot;</span> <span class="o">|</span> <span class="s2">&quot;torch.Stream&quot;</span> <span class="o">|</span> <span class="s2">&quot;torch.dtype&quot;</span> <span class="o">|</span>
-                   <span class="s2">&quot;torch.nn.ModuleList&quot;</span> <span class="o">|</span> <span class="s2">&quot;torch.nn.ModuleDict&quot;</span> <span class="o">|</span> <span class="o">...</span>
+                    <span class="s2">&quot;torch.nn.ModuleList&quot;</span> <span class="o">|</span> <span class="s2">&quot;torch.nn.ModuleDict&quot;</span> <span class="o">|</span> <span class="o">...</span>
 <span class="n">TSTensor</span>       <span class="p">:</span><span class="o">:=</span> <span class="s2">&quot;torch.Tensor&quot;</span> <span class="o">|</span> <span class="s2">&quot;common.SubTensor&quot;</span> <span class="o">|</span> <span class="s2">&quot;common.SubWithTorchFunction&quot;</span> <span class="o">|</span>
-                   <span class="s2">&quot;torch.nn.parameter.Parameter&quot;</span> <span class="o">|</span> <span class="ow">and</span> <span class="n">subclasses</span> <span class="n">of</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+                    <span class="s2">&quot;torch.nn.parameter.Parameter&quot;</span> <span class="o">|</span> <span class="ow">and</span> <span class="n">subclasses</span> <span class="n">of</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 </pre></div>
 </div>
 <div class="section" id="special-note-on-torch-nn-modulelist-and-torch-nn-moduledict">
@@ -4312,12 +4312,12 @@ attributes of its Python class definition.</p>
 <p>Although <code class="docutils literal notranslate"><span class="pre">torch.nn.ModuleList</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.nn.ModuleDict</span></code> are defined as a list and dictionary in Python,
 they behave more like tuples in TorchScript:</p>
 <ul class="simple">
-<li><p>In TorchScript, instances of <code class="docutils literal notranslate"><span class="pre">torch.nn.ModuleList</span></code>  or <code class="docutils literal notranslate"><span class="pre">torch.nn.ModuleDict</span></code> are immutable.</p></li>
+<li><p>In TorchScript, instances of <code class="docutils literal notranslate"><span class="pre">torch.nn.ModuleList</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.nn.ModuleDict</span></code> are immutable.</p></li>
 <li><p>Code that iterates over <code class="docutils literal notranslate"><span class="pre">torch.nn.ModuleList</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.nn.ModuleDict</span></code> is completely unrolled so that elements of <code class="docutils literal notranslate"><span class="pre">torch.nn.ModuleList</span></code> or keys of <code class="docutils literal notranslate"><span class="pre">torch.nn.ModuleDict</span></code> can be of different subclasses of <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code>.</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <p>The following example highlights the use of a few built-in Torchscript classes (<code class="docutils literal notranslate"><span class="pre">torch.*</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span>
 <span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
@@ -4341,7 +4341,7 @@ they behave more like tuples in TorchScript:</p>
 <h3>Custom Class<a class="headerlink" href="#custom-class" title="Permalink to this heading">#</a></h3>
 <p>Unlike built-in classes, semantics of custom classes are user-defined and the entire class definition must be compilable to TorchScript IR and subject to TorchScript type-checking rules.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TSClassDef</span> <span class="p">:</span><span class="o">:=</span> <span class="p">[</span> <span class="s2">&quot;@torch.jit.script&quot;</span> <span class="p">]</span>
-                 <span class="s2">&quot;class&quot;</span> <span class="n">ClassName</span> <span class="p">[</span> <span class="s2">&quot;(object)&quot;</span> <span class="p">]</span>  <span class="s2">&quot;:&quot;</span>
+                  <span class="s2">&quot;class&quot;</span> <span class="n">ClassName</span> <span class="p">[</span> <span class="s2">&quot;(object)&quot;</span> <span class="p">]</span>  <span class="s2">&quot;:&quot;</span>
                     <span class="n">MethodDefinition</span> <span class="o">|</span>
                 <span class="p">[</span> <span class="s2">&quot;@torch.jit.ignore&quot;</span> <span class="p">]</span> <span class="o">|</span> <span class="p">[</span> <span class="s2">&quot;@torch.jit.unused&quot;</span> <span class="p">]</span>
                     <span class="n">MethodDefinition</span>
@@ -4361,12 +4361,12 @@ they behave more like tuples in TorchScript:</p>
 <li><p>Do not support class attributes.</p></li>
 <li><p>Do not support subclassing except for subclassing an interface type or object.</p></li>
 <li><p>Do not support method overloading.</p></li>
-<li><p>Must initialize all its instance attributes in  <code class="docutils literal notranslate"><span class="pre">__init__()</span></code>; this is because TorchScript constructs a static schema of the class by inferring attribute types in <code class="docutils literal notranslate"><span class="pre">__init__()</span></code>.</p></li>
+<li><p>Must initialize all its instance attributes in <code class="docutils literal notranslate"><span class="pre">__init__()</span></code>; this is because TorchScript constructs a static schema of the class by inferring attribute types in <code class="docutils literal notranslate"><span class="pre">__init__()</span></code>.</p></li>
 <li><p>Must contain only methods that satisfy TorchScript type-checking rules and are compilable to TorchScript IRs.</p></li>
 </ul>
 <p><strong>Example 1</strong></p>
 <p>Python classes can be used in TorchScript if they are annotated with <code class="docutils literal notranslate"><span class="pre">&#64;torch.jit.script</span></code>, similar to how a TorchScript function would be declared:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span>
 <span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
@@ -4377,7 +4377,7 @@ they behave more like tuples in TorchScript:</p>
 </div>
 <p><strong>Example 2</strong></p>
 <p>A TorchScript custom class type must “declare” all its instance attributes by assignments in <code class="docutils literal notranslate"><span class="pre">__init__()</span></code>. If an instance attribute is not defined in <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> but accessed in other methods of the class, the class cannot be compiled as a TorchScript class, as shown in the following example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span>
 <span class="k">class</span> <span class="nc">foo</span><span class="p">:</span>
@@ -4399,7 +4399,7 @@ def assign_x(self):
 </div>
 <p><strong>Example 3</strong></p>
 <p>In this example, a TorchScript custom class defines a class variable name, which is not allowed:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span>
 <span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -4425,8 +4425,8 @@ def fn(a: MyClass):
 <h3>Enum Type<a class="headerlink" href="#enum-type" title="Permalink to this heading">#</a></h3>
 <p>Like custom classes, semantics of the enum type are user-defined and the entire class definition must be compilable to TorchScript IR and adhere to TorchScript type-checking rules.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TSEnumDef</span> <span class="p">:</span><span class="o">:=</span> <span class="s2">&quot;class&quot;</span> <span class="n">Identifier</span> <span class="s2">&quot;(enum.Enum | TSEnumType)&quot;</span> <span class="s2">&quot;:&quot;</span>
-               <span class="p">(</span> <span class="n">MemberIdentifier</span> <span class="s2">&quot;=&quot;</span> <span class="n">Value</span> <span class="p">)</span><span class="o">+</span>
-               <span class="p">(</span> <span class="n">MethodDefinition</span> <span class="p">)</span><span class="o">*</span>
+                <span class="p">(</span> <span class="n">MemberIdentifier</span> <span class="s2">&quot;=&quot;</span> <span class="n">Value</span> <span class="p">)</span><span class="o">+</span>
+                <span class="p">(</span> <span class="n">MethodDefinition</span> <span class="p">)</span><span class="o">*</span>
 </pre></div>
 </div>
 <p>Where:</p>
@@ -4442,7 +4442,7 @@ def fn(a: MyClass):
 </ul>
 <p><strong>Example 1</strong></p>
 <p>The following example defines the class <code class="docutils literal notranslate"><span class="pre">Color</span></code> as an <code class="docutils literal notranslate"><span class="pre">Enum</span></code> type:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 
 <span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
@@ -4462,7 +4462,7 @@ def fn(a: MyClass):
 </div>
 <p><strong>Example 2</strong></p>
 <p>The following example shows the case of restricted enum subclassing, where <code class="docutils literal notranslate"><span class="pre">BaseColor</span></code> does not define any member, thus can be subclassed by <code class="docutils literal notranslate"><span class="pre">Color</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 
 <span class="k">class</span> <span class="nc">BaseColor</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
@@ -4493,7 +4493,7 @@ def fn(a: MyClass):
 </div>
 <div class="section" id="module-instance-class">
 <h3>Module Instance Class<a class="headerlink" href="#module-instance-class" title="Permalink to this heading">#</a></h3>
-<p>TorchScript module type represents the type schema of a user-defined PyTorch module instance.  When scripting a PyTorch module, the module object is always created outside TorchScript (i.e., passed in as parameter to <code class="docutils literal notranslate"><span class="pre">forward</span></code>). The Python module class is treated as a module instance class, so the <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> method of the Python module class is not subject to the type-checking rules of TorchScript.</p>
+<p>TorchScript module type represents the type schema of a user-defined PyTorch module instance. When scripting a PyTorch module, the module object is always created outside TorchScript (i.e., passed in as parameter to <code class="docutils literal notranslate"><span class="pre">forward</span></code>). The Python module class is treated as a module instance class, so the <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> method of the Python module class is not subject to the type-checking rules of TorchScript.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TSModuleType</span> <span class="p">:</span><span class="o">:=</span> <span class="s2">&quot;class&quot;</span> <span class="n">Identifier</span> <span class="s2">&quot;(torch.nn.Module)&quot;</span> <span class="s2">&quot;:&quot;</span>
                     <span class="n">ClassBodyDefinition</span>
 </pre></div>
@@ -4502,7 +4502,7 @@ def fn(a: MyClass):
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">forward()</span></code> and other methods decorated with <code class="docutils literal notranslate"><span class="pre">&#64;torch.jit.export</span></code> must be compilable to TorchScript IR and subject to TorchScript’s type-checking rules.</p></li>
 </ul>
-<p>Unlike custom classes, only the forward method and other methods decorated with <code class="docutils literal notranslate"><span class="pre">&#64;torch.jit.export</span></code>  of the module type need to be compilable. Most notably, <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> is not considered a TorchScript method. Consequently, module type constructors cannot be invoked within the scope of TorchScript. Instead, TorchScript module objects are always constructed outside and passed into <code class="docutils literal notranslate"><span class="pre">torch.jit.script(ModuleObj)</span></code>.</p>
+<p>Unlike custom classes, only the forward method and other methods decorated with <code class="docutils literal notranslate"><span class="pre">&#64;torch.jit.export</span></code> of the module type need to be compilable. Most notably, <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> is not considered a TorchScript method. Consequently, module type constructors cannot be invoked within the scope of TorchScript. Instead, TorchScript module objects are always constructed outside and passed into <code class="docutils literal notranslate"><span class="pre">torch.jit.script(ModuleObj)</span></code>.</p>
 <p><strong>Example 1</strong></p>
 <p>This example illustrates a few features of module types:</p>
 <ul class="simple">
@@ -4562,7 +4562,7 @@ Second instance: tensor([4., 4., 4., 4., 4.])
 </div>
 </div>
 <div class="section" id="type-annotation">
-<span id="id2"></span><h2><a class="toc-backref" href="#id9">Type Annotation</a><a class="headerlink" href="#type-annotation" title="Permalink to this heading">#</a></h2>
+<span id="id2"></span><h2><a class="toc-backref" href="#id8">Type Annotation</a><a class="headerlink" href="#type-annotation" title="Permalink to this heading">#</a></h2>
 <p>Since TorchScript is statically typed, programmers need to annotate types at <em>strategic points</em> of TorchScript code so that every local variable or
 instance data attribute has a static type, and every function and method has a statically typed signature.</p>
 <div class="section" id="when-to-annotate-types">
@@ -4604,7 +4604,7 @@ default type of <code class="docutils literal notranslate"><span class="pre">Ten
 <li><p><code class="docutils literal notranslate"><span class="pre">b</span></code> is annotated as type <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p></li>
 <li><p>The return type is not annotated and is automatically inferred as type <code class="docutils literal notranslate"><span class="pre">TensorType</span></code> (based on the type of the value being returned).</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
@@ -4616,7 +4616,7 @@ default type of <code class="docutils literal notranslate"><span class="pre">Ten
 <p><strong>Example 2</strong></p>
 <p>The following example uses Mypy style annotation. Note that parameters or return values must be annotated even if some of
 them assume the default type.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="c1"># type: (torch.Tensor, int) → torch.Tensor</span>
@@ -4641,7 +4641,7 @@ type annotated as a <em>wider</em> type such as <code class="docutils literal no
 <p>In general, types of local variables can be automatically inferred. In some cases, however, you may need to annotate a multi-type for local variables
 that may be associated with different concrete types. Typical multi-types include <code class="docutils literal notranslate"><span class="pre">Optional[T]</span></code> and <code class="docutils literal notranslate"><span class="pre">Any</span></code>.</p>
 <p><strong>Example</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">setVal</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
     <span class="n">value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -4670,7 +4670,7 @@ via <code class="docutils literal notranslate"><span class="pre">Final</span></c
 <li><p><code class="docutils literal notranslate"><span class="pre">Final</span></code> indicates that the attribute cannot be re-assigned outside of <code class="docutils literal notranslate"><span class="pre">__init__</span></code> or overridden in subclasses.</p></li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="k">class</span> <span class="nc">MyModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="n">offset_</span><span class="p">:</span> <span class="nb">int</span>
@@ -4690,10 +4690,10 @@ via <code class="docutils literal notranslate"><span class="pre">Final</span></c
 <p>This API annotates type <code class="docutils literal notranslate"><span class="pre">T</span></code> to an expression <code class="docutils literal notranslate"><span class="pre">expr</span></code>. This is often used when the default type of an expression is not the type intended by the programmer.
 For instance, an empty list (dictionary) has the default type of <code class="docutils literal notranslate"><span class="pre">List[TensorType]</span></code> (<code class="docutils literal notranslate"><span class="pre">Dict[TensorType,</span> <span class="pre">TensorType]</span></code>), but sometimes it may be used to initialize
 a list of some other types. Another common use case is for annotating the return type of <code class="docutils literal notranslate"><span class="pre">tensor.tolist()</span></code>. Note, however, that it cannot be used to annotate
-the type of a module attribute in <cite>__init__</cite>; <code class="docutils literal notranslate"><span class="pre">torch.jit.Attribute</span></code> should be used for this instead.</p>
+the type of a module attribute in <code class="docutils literal notranslate"><span class="pre">__init__</span></code>; <code class="docutils literal notranslate"><span class="pre">torch.jit.Attribute</span></code> should be used for this instead.</p>
 <p><strong>Example</strong></p>
 <p>In this example, <code class="docutils literal notranslate"><span class="pre">[]</span></code> is declared as a list of integers via <code class="docutils literal notranslate"><span class="pre">torch.jit.annotate</span></code> (instead of assuming <code class="docutils literal notranslate"><span class="pre">[]</span></code> to be the default type of <code class="docutils literal notranslate"><span class="pre">List[TensorType]</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
 <span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
@@ -4723,7 +4723,7 @@ the type of a module attribute in <cite>__init__</cite>; <code class="docutils l
 <span class="n">TSPrimitiveType</span> <span class="p">:</span><span class="o">:=</span> <span class="s2">&quot;int&quot;</span> <span class="o">|</span> <span class="s2">&quot;float&quot;</span> <span class="o">|</span> <span class="s2">&quot;double&quot;</span> <span class="o">|</span> <span class="s2">&quot;complex&quot;</span> <span class="o">|</span> <span class="s2">&quot;bool&quot;</span> <span class="o">|</span> <span class="s2">&quot;str&quot;</span> <span class="o">|</span> <span class="s2">&quot;None&quot;</span>
 
 <span class="n">TSStructuralType</span> <span class="p">:</span><span class="o">:=</span> <span class="n">TSTuple</span> <span class="o">|</span> <span class="n">TSNamedTuple</span> <span class="o">|</span> <span class="n">TSList</span> <span class="o">|</span> <span class="n">TSDict</span> <span class="o">|</span> <span class="n">TSOptional</span> <span class="o">|</span>
-                     <span class="n">TSUnion</span> <span class="o">|</span> <span class="n">TSFuture</span> <span class="o">|</span> <span class="n">TSRRef</span> <span class="o">|</span> <span class="n">TSAwait</span>
+                    <span class="n">TSUnion</span> <span class="o">|</span> <span class="n">TSFuture</span> <span class="o">|</span> <span class="n">TSRRef</span> <span class="o">|</span> <span class="n">TSAwait</span>
 <span class="n">TSTuple</span>         <span class="p">:</span><span class="o">:=</span> <span class="s2">&quot;Tuple&quot;</span> <span class="s2">&quot;[&quot;</span> <span class="p">(</span><span class="n">TSType</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span><span class="o">*</span> <span class="n">TSType</span> <span class="s2">&quot;]&quot;</span>
 <span class="n">TSNamedTuple</span>    <span class="p">:</span><span class="o">:=</span> <span class="s2">&quot;namedtuple&quot;</span> <span class="s2">&quot;(&quot;</span> <span class="p">(</span><span class="n">TSType</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span><span class="o">*</span> <span class="n">TSType</span> <span class="s2">&quot;)&quot;</span>
 <span class="n">TSList</span>          <span class="p">:</span><span class="o">:=</span> <span class="s2">&quot;List&quot;</span> <span class="s2">&quot;[&quot;</span> <span class="n">TSType</span> <span class="s2">&quot;]&quot;</span>
@@ -4803,7 +4803,7 @@ documentation is unsupported. The following table summarizes <code class="docuti
 </div>
 </div>
 <div class="section" id="expressions">
-<span id="id4"></span><h2><a class="toc-backref" href="#id10">Expressions</a><a class="headerlink" href="#expressions" title="Permalink to this heading">#</a></h2>
+<span id="id3"></span><h2><a class="toc-backref" href="#id9">Expressions</a><a class="headerlink" href="#expressions" title="Permalink to this heading">#</a></h2>
 <p>The following section describes the grammar of expressions that are supported in TorchScript.
 It is modeled after <a class="reference external" href="https://docs.python.org/3/reference/expressions.html">the expressions chapter of the Python language reference</a>.</p>
 <div class="section" id="arithmetic-conversions">
@@ -4932,7 +4932,7 @@ before the call is attempted.</p>
 </div>
 <p>The power operator has the same semantics as the built-in pow function (not supported); it computes its
 left argument raised to the power of its right argument. It binds more tightly than unary operators on the
-left, but less tightly than unary operators on the right; i.e. <code class="docutils literal notranslate"><span class="pre">-2</span> <span class="pre">**</span> <span class="pre">-3</span> <span class="pre">==</span> <span class="pre">-(2</span> <span class="pre">**</span> <span class="pre">(-3))</span></code>.  The left and right
+left, but less tightly than unary operators on the right; i.e. <code class="docutils literal notranslate"><span class="pre">-2</span> <span class="pre">**</span> <span class="pre">-3</span> <span class="pre">==</span> <span class="pre">-(2</span> <span class="pre">**</span> <span class="pre">(-3))</span></code>. The left and right
 operands can be <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code> or <code class="docutils literal notranslate"><span class="pre">Tensor</span></code>. Scalars are broadcast in the case of scalar-tensor/tensor-scalar
 exponentiation operations, and tensor-tensor exponentiation is done elementwise without any broadcasting.</p>
 </div>
@@ -5031,7 +5031,7 @@ first evaluates <code class="docutils literal notranslate"><span class="pre">x</
 <div class="section" id="conditional-expressions">
 <h3>Conditional Expressions<a class="headerlink" href="#conditional-expressions" title="Permalink to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conditional_expression</span> <span class="p">:</span><span class="o">:=</span>  <span class="n">or_expr</span> <span class="p">[</span><span class="s1">&#39;if&#39;</span> <span class="n">or_test</span> <span class="s1">&#39;else&#39;</span> <span class="n">conditional_expression</span><span class="p">]</span>
- <span class="n">expression</span>            <span class="p">:</span><span class="o">:=</span>  <span class="n">conditional_expression</span>
+<span class="n">expression</span>            <span class="p">:</span><span class="o">:=</span>  <span class="n">conditional_expression</span>
 </pre></div>
 </div>
 <p>The expression <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">if</span> <span class="pre">c</span> <span class="pre">else</span> <span class="pre">y</span></code> first evaluates the condition <code class="docutils literal notranslate"><span class="pre">c</span></code> rather than x. If <code class="docutils literal notranslate"><span class="pre">c</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code> is
@@ -5048,7 +5048,7 @@ evaluated and its value is returned; otherwise, <code class="docutils literal no
 </div>
 </div>
 <div class="section" id="simple-statements">
-<h2><a class="toc-backref" href="#id11">Simple Statements</a><a class="headerlink" href="#simple-statements" title="Permalink to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id10">Simple Statements</a><a class="headerlink" href="#simple-statements" title="Permalink to this heading">#</a></h2>
 <p>The following section describes the syntax of simple statements that are supported in TorchScript.
 It is modeled after <a class="reference external" href="https://docs.python.org/3/reference/simple_stmts.html">the simple statements chapter of the Python language reference</a>.</p>
 <div class="section" id="expression-statements">
@@ -5064,12 +5064,12 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">assignment_stmt</span> <span class="p">:</span><span class="o">:=</span>  <span class="p">(</span><span class="n">target_list</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span><span class="o">+</span> <span class="p">(</span><span class="n">starred_expression</span><span class="p">)</span>
 <span class="n">target_list</span>     <span class="p">:</span><span class="o">:=</span>  <span class="n">target</span> <span class="p">(</span><span class="s2">&quot;,&quot;</span> <span class="n">target</span><span class="p">)</span><span class="o">*</span> <span class="p">[</span><span class="s2">&quot;,&quot;</span><span class="p">]</span>
 <span class="n">target</span>          <span class="p">:</span><span class="o">:=</span>  <span class="n">identifier</span>
-                     <span class="o">|</span> <span class="s2">&quot;(&quot;</span> <span class="p">[</span><span class="n">target_list</span><span class="p">]</span> <span class="s2">&quot;)&quot;</span>
-                     <span class="o">|</span> <span class="s2">&quot;[&quot;</span> <span class="p">[</span><span class="n">target_list</span><span class="p">]</span> <span class="s2">&quot;]&quot;</span>
-                     <span class="o">|</span> <span class="n">attributeref</span>
-                     <span class="o">|</span> <span class="n">subscription</span>
-                     <span class="o">|</span> <span class="n">slicing</span>
-                     <span class="o">|</span> <span class="s2">&quot;*&quot;</span> <span class="n">target</span>
+                    <span class="o">|</span> <span class="s2">&quot;(&quot;</span> <span class="p">[</span><span class="n">target_list</span><span class="p">]</span> <span class="s2">&quot;)&quot;</span>
+                    <span class="o">|</span> <span class="s2">&quot;[&quot;</span> <span class="p">[</span><span class="n">target_list</span><span class="p">]</span> <span class="s2">&quot;]&quot;</span>
+                    <span class="o">|</span> <span class="n">attributeref</span>
+                    <span class="o">|</span> <span class="n">subscription</span>
+                    <span class="o">|</span> <span class="n">slicing</span>
+                    <span class="o">|</span> <span class="s2">&quot;*&quot;</span> <span class="n">target</span>
 </pre></div>
 </div>
 </div>
@@ -5142,7 +5142,7 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 </div>
 </div>
 <div class="section" id="compound-statements">
-<h2><a class="toc-backref" href="#id12">Compound Statements</a><a class="headerlink" href="#compound-statements" title="Permalink to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id11">Compound Statements</a><a class="headerlink" href="#compound-statements" title="Permalink to this heading">#</a></h2>
 <p>The following section describes the syntax of compound statements that are supported in TorchScript.
 The section also highlights how Torchscript differs from regular Python statements.
 It is modeled after <a class="reference external" href="https://docs.python.org/3/reference/compound_stmts.html">the compound statements chapter of the Python language reference</a>.</p>
@@ -5181,7 +5181,7 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 </div>
 <p><strong>Example 2</strong></p>
 <p>A <code class="docutils literal notranslate"><span class="pre">tensor</span></code> with multi dimensions are not promoted to <code class="docutils literal notranslate"><span class="pre">bool</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="c1"># Multi dimensional Tensors error out.</span>
 
@@ -5202,7 +5202,7 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 <span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span>
 <span class="k">def</span> <span class="nf">fn</span><span class="p">():</span>
     <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-       <span class="o">~~~~~~~~~~~~</span> <span class="o">&lt;---</span> <span class="n">HERE</span>
+      <span class="o">~~~~~~~~~~~~</span> <span class="o">&lt;---</span> <span class="n">HERE</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tensor is available&quot;</span><span class="p">)</span>
 <span class="ne">RuntimeError</span><span class="p">:</span> <span class="n">Boolean</span> <span class="n">value</span> <span class="n">of</span> <span class="n">Tensor</span> <span class="k">with</span> <span class="n">more</span> <span class="n">than</span> <span class="n">one</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">ambiguous</span>
 </pre></div>
@@ -5210,7 +5210,7 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 <p>If a conditional variable is annotated as <code class="docutils literal notranslate"><span class="pre">final</span></code>, either the true or false branch is evaluated depending on the evaluation of the conditional variable.</p>
 <p><strong>Example 3</strong></p>
 <p>In this example, only the True branch is evaluated, since <code class="docutils literal notranslate"><span class="pre">a</span></code> is annotated as <code class="docutils literal notranslate"><span class="pre">final</span></code> and set to <code class="docutils literal notranslate"><span class="pre">True</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="n">a</span> <span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">final</span><span class="p">[</span><span class="n">Bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -5227,7 +5227,7 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">while_stmt</span> <span class="p">:</span><span class="o">:=</span>  <span class="s2">&quot;while&quot;</span> <span class="n">assignment_expression</span> <span class="s2">&quot;:&quot;</span> <span class="n">suite</span>
 </pre></div>
 </div>
-<p><cite>while…else</cite> statements are not supported in Torchscript. It results in a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">while...else</span></code> statements are not supported in Torchscript. It results in a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>.</p>
 </div>
 <div class="section" id="the-for-in-statement">
 <h3>The <code class="docutils literal notranslate"><span class="pre">for-in</span></code> Statement<a class="headerlink" href="#the-for-in-statement" title="Permalink to this heading">#</a></h3>
@@ -5261,7 +5261,7 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 </div>
 <p><strong>Example 2</strong></p>
 <p>For loops on lists: for loops over a <code class="docutils literal notranslate"><span class="pre">nn.ModuleList</span></code> will unroll the body of the loop at compile time, with each member of the module list.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SubModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SubModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
@@ -5382,12 +5382,12 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 </div>
 </div>
 <div class="section" id="python-values">
-<span id="python-values-torch-script"></span><h2><a class="toc-backref" href="#id13">Python Values</a><a class="headerlink" href="#python-values" title="Permalink to this heading">#</a></h2>
+<span id="python-values-torch-script"></span><h2><a class="toc-backref" href="#id12">Python Values</a><a class="headerlink" href="#python-values" title="Permalink to this heading">#</a></h2>
 <div class="section" id="resolution-rules">
 <span id="python-builtin-functions-values-resolution"></span><h3>Resolution Rules<a class="headerlink" href="#resolution-rules" title="Permalink to this heading">#</a></h3>
 <p>When given a Python value, TorchScript attempts to resolve it in the following five different ways:</p>
 <ul class="simple">
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt>Compilable Python Implementation:</dt><dd><ul>
 <li><p>When a Python value is backed by a Python implementation that can be compiled by TorchScript, TorchScript compiles and uses the underlying Python implementation.</p></li>
 <li><p>Example: <code class="docutils literal notranslate"><span class="pre">torch.jit.Attribute</span></code></p></li>
@@ -5395,7 +5395,7 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt>Op Python Wrapper:</dt><dd><ul>
 <li><p>When a Python value is a wrapper of a native PyTorch op, TorchScript emits the corresponding operator.</p></li>
 <li><p>Example: <code class="docutils literal notranslate"><span class="pre">torch.jit._logging.add_stat_value</span></code></p></li>
@@ -5403,7 +5403,7 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt>Python Object Identity Match:</dt><dd><ul>
 <li><p>For a limited set of <code class="docutils literal notranslate"><span class="pre">torch.*</span></code> API calls (in the form of Python values) that TorchScript supports, TorchScript attempts to match a Python value against each item in the set.</p></li>
 <li><p>When matched, TorchScript generates a corresponding <code class="docutils literal notranslate"><span class="pre">SugaredValue</span></code> instance that contains lowering logic for these values.</p></li>
@@ -5412,7 +5412,7 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt>Name Match:</dt><dd><ul>
 <li><p>For Python built-in functions and constants, TorchScript identifies them by name, and creates a corresponding <code class="docutils literal notranslate"><span class="pre">SugaredValue</span></code> instance that implements their functionality.</p></li>
 <li><p>Example: <code class="docutils literal notranslate"><span class="pre">all()</span></code></p></li>
@@ -5420,7 +5420,7 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt>Value Snapshot:</dt><dd><ul>
 <li><p>For Python values from unrecognized modules, TorchScript attempts to take a snapshot of the value and converts it to a constant in the graph of the function(s) or method(s) that are being compiled.</p></li>
 <li><p>Example: <code class="docutils literal notranslate"><span class="pre">math.pi</span></code></p></li>
@@ -5432,8 +5432,8 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 </div>
 <div class="section" id="python-built-in-functions-support">
 <span id="python-builtin-functions-support"></span><h3>Python Built-in Functions Support<a class="headerlink" href="#python-built-in-functions-support" title="Permalink to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="colwidths-given table" id="id5">
-<caption><span class="caption-text">TorchScript Support for Python Built-in Functions</span><a class="headerlink" href="#id5" title="Permalink to this table">#</a></caption>
+<div class="pst-scrollable-table-container"><table class="colwidths-given table" id="id4">
+<caption><span class="caption-text">TorchScript Support for Python Built-in Functions</span><a class="headerlink" href="#id4" title="Permalink to this table">#</a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -5684,8 +5684,8 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 </div>
 <div class="section" id="python-built-in-values-support">
 <span id="python-builtin-values-support"></span><h3>Python Built-in Values Support<a class="headerlink" href="#python-built-in-values-support" title="Permalink to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="colwidths-given table" id="id6">
-<caption><span class="caption-text">TorchScript Support for Python Built-in Values</span><a class="headerlink" href="#id6" title="Permalink to this table">#</a></caption>
+<div class="pst-scrollable-table-container"><table class="colwidths-given table" id="id5">
+<caption><span class="caption-text">TorchScript Support for Python Built-in Values</span><a class="headerlink" href="#id5" title="Permalink to this table">#</a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -5724,14 +5724,14 @@ It is modeled after <a class="reference external" href="https://docs.python.org/
 </div>
 </div>
 <div class="section" id="torch-apis">
-<span id="torch-apis-in-torchscript"></span><h2><a class="toc-backref" href="#id14">torch.* APIs</a><a class="headerlink" href="#torch-apis" title="Permalink to this heading">#</a></h2>
+<span id="torch-apis-in-torchscript"></span><h2><a class="toc-backref" href="#id13">torch.* APIs</a><a class="headerlink" href="#torch-apis" title="Permalink to this heading">#</a></h2>
 <div class="section" id="remote-procedure-calls">
 <span id="torch-apis-in-torchscript-rpc"></span><h3>Remote Procedure Calls<a class="headerlink" href="#remote-procedure-calls" title="Permalink to this heading">#</a></h3>
 <p>TorchScript supports a subset of RPC APIs that supports running a function on
 a specified remote worker instead of locally.</p>
 <p>Specifically, following APIs are fully supported:</p>
 <ul class="simple">
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">torch.distributed.rpc.rpc_sync()</span></code></dt><dd><ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">rpc_sync()</span></code> makes a blocking RPC call to run a function on a remote worker. RPC messages are sent and received in parallel to execution of Python code.</p></li>
 <li><p>More details about its usage and examples can be found in <a class="reference internal" href="rpc.html#torch.distributed.rpc.rpc_sync" title="torch.distributed.rpc.rpc_sync"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rpc_sync()</span></code></a>.</p></li>
@@ -5739,7 +5739,7 @@ a specified remote worker instead of locally.</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">torch.distributed.rpc.rpc_async()</span></code></dt><dd><ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">rpc_async()</span></code> makes a non-blocking RPC call to run a function on a remote worker. RPC messages are sent and received in parallel to execution of Python code.</p></li>
 <li><p>More details about its usage and examples can be found in <a class="reference internal" href="rpc.html#torch.distributed.rpc.rpc_async" title="torch.distributed.rpc.rpc_async"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rpc_async()</span></code></a>.</p></li>
@@ -5747,7 +5747,7 @@ a specified remote worker instead of locally.</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">torch.distributed.rpc.remote()</span></code></dt><dd><ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">remote.()</span></code> executes a remote call on a worker and gets a Remote Reference <code class="docutils literal notranslate"><span class="pre">RRef</span></code> as the return value.</p></li>
 <li><p>More details about its usage and examples can be found in <a class="reference internal" href="rpc.html#torch.distributed.rpc.remote" title="torch.distributed.rpc.remote"><code class="xref py py-meth docutils literal notranslate"><span class="pre">remote()</span></code></a>.</p></li>
@@ -5763,7 +5763,7 @@ a specified remote worker instead of locally.</p>
 of computation resources. This is done via supporting a list of APIs that are
 only usable within TorchScript:</p>
 <ul class="simple">
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">torch.jit.fork()</span></code></dt><dd><ul>
 <li><p>Creates an asynchronous task executing func and a reference to the value of the result of this execution. Fork will return immediately.</p></li>
 <li><p>Synonymous to <code class="docutils literal notranslate"><span class="pre">torch.jit._fork()</span></code>, which is only kept for backward compatibility reasons.</p></li>
@@ -5772,7 +5772,7 @@ only usable within TorchScript:</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">torch.jit.wait()</span></code></dt><dd><ul>
 <li><p>Forces completion of a <code class="docutils literal notranslate"><span class="pre">torch.jit.Future[T]</span></code> asynchronous task, returning the result of the task.</p></li>
 <li><p>Synonymous to <code class="docutils literal notranslate"><span class="pre">torch.jit._wait()</span></code>, which is only kept for backward compatibility reasons.</p></li>
@@ -5787,7 +5787,7 @@ only usable within TorchScript:</p>
 <span id="torch-apis-in-torchscript-annotation"></span><h3>Type Annotations<a class="headerlink" href="#type-annotations" title="Permalink to this heading">#</a></h3>
 <p>TorchScript is statically-typed. It provides and supports a set of utilities to help annotate variables and attributes:</p>
 <ul class="simple">
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">torch.jit.annotate()</span></code></dt><dd><ul>
 <li><p>Provides a type hint to TorchScript where Python 3 style type hints do not work well.</p></li>
 <li><p>One common example is to annotate type for expressions like <code class="docutils literal notranslate"><span class="pre">[]</span></code>. <code class="docutils literal notranslate"><span class="pre">[]</span></code> is treated as <code class="docutils literal notranslate"><span class="pre">List[torch.Tensor]</span></code> by default. When a different type is needed, you can use this code to hint TorchScript: <code class="docutils literal notranslate"><span class="pre">torch.jit.annotate(List[int],</span> <span class="pre">[])</span></code>.</p></li>
@@ -5796,7 +5796,7 @@ only usable within TorchScript:</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">torch.jit.Attribute</span></code></dt><dd><ul>
 <li><p>Common use cases include providing type hint for <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code> attributes. Because their <code class="docutils literal notranslate"><span class="pre">__init__</span></code> methods are not parsed by TorchScript, <code class="docutils literal notranslate"><span class="pre">torch.jit.Attribute</span></code> should be used instead of <code class="docutils literal notranslate"><span class="pre">torch.jit.annotate</span></code> in the module’s <code class="docutils literal notranslate"><span class="pre">__init__</span></code> methods.</p></li>
 <li><p>More details can be found in <a class="reference internal" href="generated/torch.jit.Attribute.html#torch.jit.Attribute" title="torch.jit.Attribute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Attribute()</span></code></a></p></li>
@@ -5804,7 +5804,7 @@ only usable within TorchScript:</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">torch.jit.Final</span></code></dt><dd><ul>
 <li><p>An alias for Python’s <code class="docutils literal notranslate"><span class="pre">typing.Final</span></code>. <code class="docutils literal notranslate"><span class="pre">torch.jit.Final</span></code> is kept only for backward compatibility reasons.</p></li>
 </ul>
@@ -5817,7 +5817,7 @@ only usable within TorchScript:</p>
 <span id="torch-apis-in-torchscript-meta-programming"></span><h3>Meta Programming<a class="headerlink" href="#meta-programming" title="Permalink to this heading">#</a></h3>
 <p>TorchScript provides a set of utilities to facilitate meta programming:</p>
 <ul class="simple">
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">torch.jit.is_scripting()</span></code></dt><dd><ul>
 <li><p>Returns a boolean value indicating whether the current program is compiled by <code class="docutils literal notranslate"><span class="pre">torch.jit.script</span></code> or not.</p></li>
 <li><p>When used in an <code class="docutils literal notranslate"><span class="pre">assert</span></code> or an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement, the scope or branch where <code class="docutils literal notranslate"><span class="pre">torch.jit.is_scripting()</span></code> evaluates to <code class="docutils literal notranslate"><span class="pre">False</span></code> is not compiled.</p></li>
@@ -5827,7 +5827,7 @@ only usable within TorchScript:</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">torch.jit.is_tracing()</span></code></dt><dd><ul>
 <li><p>Returns a boolean value indicating whether the current program is traced by <code class="docutils literal notranslate"><span class="pre">torch.jit.trace</span></code> / <code class="docutils literal notranslate"><span class="pre">torch.jit.trace_module</span></code> or not.</p></li>
 <li><p>More details can be found in <a class="reference internal" href="jit_language_reference.html#torch.jit.is_tracing" title="torch.jit.is_tracing"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_tracing()</span></code></a></p></li>
@@ -5835,7 +5835,7 @@ only usable within TorchScript:</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">&#64;torch.jit.ignore</span></code></dt><dd><ul>
 <li><p>This decorator indicates to the compiler that a function or method should be ignored and left as a Python function.</p></li>
 <li><p>This allows you to leave code in your model that is not yet TorchScript compatible.</p></li>
@@ -5846,7 +5846,7 @@ only usable within TorchScript:</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">&#64;torch.jit.unused</span></code></dt><dd><ul>
 <li><p>This decorator indicates to the compiler that a function or method should be ignored and replaced with the raising of an exception.</p></li>
 <li><p>This allows you to leave code in your model that is not yet TorchScript compatible and still export your model.</p></li>
@@ -5861,7 +5861,7 @@ only usable within TorchScript:</p>
 <div class="section" id="type-refinement">
 <span id="torch-apis-in-torchscript-type-refinement"></span><h3>Type Refinement<a class="headerlink" href="#type-refinement" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><dl class="simple">
+<li><dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">torch.jit.isinstance()</span></code></dt><dd><ul>
 <li><p>Returns a boolean indicating whether a variable is of the specified type.</p></li>
 <li><p>More details about its usage and examples can be found in <a class="reference internal" href="generated/torch.jit.isinstance.html#torch.jit.isinstance" title="torch.jit.isinstance"><code class="xref py py-meth docutils literal notranslate"><span class="pre">isinstance()</span></code></a>.</p></li>
@@ -6121,7 +6121,7 @@ only usable within TorchScript:</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/jit_language_reference_v2.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/jit_language_reference_v2.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -6135,7 +6135,7 @@ only usable within TorchScript:</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/jit_language_reference_v2.rst.txt">
+      <a href="_sources/jit_language_reference_v2.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -6338,8 +6338,8 @@ only usable within TorchScript:</p>
            "@id": "/jit_language_reference_v2.html"
          },
          "datePublished": "Mar 10, 2021",
-         "dateModified": "Aug 05, 2024",
-         "articleBody": "TorchScript Language Reference# Created On: Mar 10, 2021 | Last Updated On: Aug 05, 2024 This reference manual describes the syntax and core semantics of the TorchScript language. TorchScript is a statically typed subset of the Python language. This document explains the supported features of Python in TorchScript and also how the language diverges from regular Python. Any features of Python that are not mentioned in this reference manual are not part of TorchScript. TorchScript focuses specifically on the features of Python that are needed to represent neural network models in PyTorch. Terminology Type System Type Annotation Expressions Simple Statements Compound Statements Python Values torch.* APIs Terminology# This document uses the following terminologies: Pattern Notes ::= Indicates that the given symbol is defined as. &#34; &#34; Represents real keywords and delimiters that are part of the syntax. A | B Indicates either A or B. ( ) Indicates grouping. [] Indicates optional. A+ Indicates a regular expression where term A is repeated at least once. A* Indicates a regular expression where term A is repeated zero or more times. Type System# TorchScript is a statically typed subset of Python. The largest difference between TorchScript and the full Python language is that TorchScript only supports a small set of types that are needed to express neural net models. TorchScript Types# The TorchScript type system consists of TSType and TSModuleType as defined below. TSAllType ::= TSType | TSModuleType TSType ::= TSMetaType | TSPrimitiveType | TSStructuralType | TSNominalType TSType represents the majority of TorchScript types that are composable and that can be used in TorchScript type annotations. TSType refers to any of the following: Meta Types, e.g., Any Primitive Types, e.g., int, float, and str Structural Types, e.g., Optional[int] or List[MyClass] Nominal Types (Python classes), e.g., MyClass (user-defined), torch.tensor (built-in) TSModuleType represents torch.nn.Module and its subclasses. It is treated differently from TSType because its type schema is inferred partly from the object instance and partly from the class definition. As such, instances of a TSModuleType may not follow the same static type schema. TSModuleType cannot be used as a TorchScript type annotation or be composed with TSType for type safety considerations. Meta Types# Meta types are so abstract that they are more like type constraints than concrete types. Currently TorchScript defines one meta-type, Any, that represents any TorchScript type. Any Type# The Any type represents any TorchScript type. Any specifies no type constraints, thus there is no type-checking on Any. As such it can be bound to any Python or TorchScript data types (e.g., int, TorchScript tuple, or an arbitrary Python class that is not scripted). TSMetaType ::= &#34;Any&#34; Where: Any is the Python class name from the typing module. Therefore, to use the Any type, you must import it from typing (e.g., from typing i..."
+         "dateModified": "Jun 13, 2025",
+         "articleBody": "TorchScript Language Reference# Created On: Mar 10, 2021 | Last Updated On: Jun 13, 2025 This reference manual describes the syntax and core semantics of the TorchScript language. TorchScript is a statically typed subset of the Python language. This document explains the supported features of Python in TorchScript and also how the language diverges from regular Python. Any features of Python that are not mentioned in this reference manual are not part of TorchScript. TorchScript focuses specifically on the features of Python that are needed to represent neural network models in PyTorch. Terminology Type System Type Annotation Expressions Simple Statements Compound Statements Python Values torch.* APIs Terminology# This document uses the following terminologies: Pattern Notes ::= Indicates that the given symbol is defined as. &#34; &#34; Represents real keywords and delimiters that are part of the syntax. A | B Indicates either A or B. ( ) Indicates grouping. [] Indicates optional. A+ Indicates a regular expression where term A is repeated at least once. A* Indicates a regular expression where term A is repeated zero or more times. Type System# TorchScript is a statically typed subset of Python. The largest difference between TorchScript and the full Python language is that TorchScript only supports a small set of types that are needed to express neural net models. TorchScript Types# The TorchScript type system consists of TSType and TSModuleType as defined below. TSAllType ::= TSType | TSModuleType TSType ::= TSMetaType | TSPrimitiveType | TSStructuralType | TSNominalType TSType represents the majority of TorchScript types that are composable and that can be used in TorchScript type annotations. TSType refers to any of the following: Meta Types, e.g., Any Primitive Types, e.g., int, float, and str Structural Types, e.g., Optional[int] or List[MyClass] Nominal Types (Python classes), e.g., MyClass (user-defined), torch.tensor (built-in) TSModuleType represents torch.nn.Module and its subclasses. It is treated differently from TSType because its type schema is inferred partly from the object instance and partly from the class definition. As such, instances of a TSModuleType may not follow the same static type schema. TSModuleType cannot be used as a TorchScript type annotation or be composed with TSType for type safety considerations. Meta Types# Meta types are so abstract that they are more like type constraints than concrete types. Currently TorchScript defines one meta-type, Any, that represents any TorchScript type. Any Type# The Any type represents any TorchScript type. Any specifies no type constraints, thus there is no type-checking on Any. As such it can be bound to any Python or TorchScript data types (e.g., int, TorchScript tuple, or an arbitrary Python class that is not scripted). TSMetaType ::= &#34;Any&#34; Where: Any is the Python class name from the typing module. Therefore, to use the Any type, you must import it from typing (e.g., from typing i..."
        }
    </script>
 
