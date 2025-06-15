@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3159ee2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3373,8 +3373,13 @@ document.write(`
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.nn.attention.sdpa_kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.SDPBackend.html">SDPBackend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.flex_attention.html">torch.nn.attention.flex_attention</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-
+<li class="toctree-l2 has-children"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalBias.html">torch.nn.attention.bias.CausalBias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_lower_right.html">torch.nn.attention.bias.causal_lower_right</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_upper_left.html">torch.nn.attention.bias.causal_upper_left</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalVariant.html">CausalVariant</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.experimental.html">torch.nn.attention.experimental</a></li>
 </ul>
 </details></li>
@@ -4025,7 +4030,7 @@ document.write(`
 <h1>torch.nn.attention.sdpa_kernel<a class="headerlink" href="#torch-nn-attention-sdpa-kernel" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.sdpa_kernel">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.</span></span><span class="sig-name descname"><span class="pre">sdpa_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backends</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/nn/attention/__init__.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.sdpa_kernel" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.</span></span><span class="sig-name descname"><span class="pre">sdpa_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backends</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3159ee2ad3e586573edb977c4c1745a26d9f1007/torch/nn/attention/__init__.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.sdpa_kernel" title="Permalink to this definition">#</a></dt>
 <dd><p>Context manager to select which backend to use for scaled dot product attention.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4042,6 +4047,7 @@ document.write(`
 <p>Example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.nn.functional</span> <span class="kn">import</span> <span class="n">scaled_dot_product_attention</span>
 <span class="kn">from</span> <span class="nn">torch.nn.attention</span> <span class="kn">import</span> <span class="n">SDPBackend</span><span class="p">,</span> <span class="n">sdpa_kernel</span>
+
 <span class="c1"># Only enable flash attention backend</span>
 <span class="k">with</span> <span class="n">sdpa_kernel</span><span class="p">(</span><span class="n">SDPBackend</span><span class="o">.</span><span class="n">FLASH_ATTENTION</span><span class="p">):</span>
     <span class="n">scaled_dot_product_attention</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>

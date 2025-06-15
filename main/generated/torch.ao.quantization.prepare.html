@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3159ee2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3373,8 +3373,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.sdpa_kernel.html">torch.nn.attention.sdpa_kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.SDPBackend.html">SDPBackend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.flex_attention.html">torch.nn.attention.flex_attention</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-
+<li class="toctree-l2 has-children"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalBias.html">torch.nn.attention.bias.CausalBias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_lower_right.html">torch.nn.attention.bias.causal_lower_right</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_upper_left.html">torch.nn.attention.bias.causal_upper_left</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalVariant.html">CausalVariant</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.experimental.html">torch.nn.attention.experimental</a></li>
 </ul>
 </details></li>
@@ -4036,7 +4041,7 @@ document.write(`
 <h1>prepare<a class="headerlink" href="#prepare" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.prepare">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.</span></span><span class="sig-name descname"><span class="pre">prepare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer_non_leaf_module_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepare_custom_config_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/ao/quantization/quantize.py#L340"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.prepare" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.</span></span><span class="sig-name descname"><span class="pre">prepare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer_non_leaf_module_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepare_custom_config_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3159ee2ad3e586573edb977c4c1745a26d9f1007/torch/ao/quantization/quantize.py#L340"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.prepare" title="Permalink to this definition">#</a></dt>
 <dd><p>Prepares a copy of the model for quantization calibration or quantization-aware training.</p>
 <p>Quantization configuration should be assigned preemptively
 to individual submodules in <cite>.qconfig</cite> attribute.</p>
@@ -4058,10 +4063,8 @@ will be propagated.</p>
     <span class="c1"># user will manually define the corresponding observed</span>
     <span class="c1"># module class which has a from_float class method that converts</span>
     <span class="c1"># float custom module to observed custom module</span>
-    <span class="s2">&quot;float_to_observed_custom_module_class&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="n">CustomModule</span><span class="p">:</span> <span class="n">ObservedCustomModule</span>
-    <span class="p">}</span>
- <span class="p">}</span>
+    <span class="s2">&quot;float_to_observed_custom_module_class&quot;</span><span class="p">:</span> <span class="p">{</span><span class="n">CustomModule</span><span class="p">:</span> <span class="n">ObservedCustomModule</span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -4400,7 +4403,7 @@ will be propagated.</p>
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "prepare# class torch.ao.quantization.prepare(model, inplace=False, allow_list=None, observer_non_leaf_module_list=None, prepare_custom_config_dict=None)[source]# Prepares a copy of the model for quantization calibration or quantization-aware training. Quantization configuration should be assigned preemptively to individual submodules in .qconfig attribute. The model will be attached with observer or fake quant modules, and qconfig will be propagated. Parameters model – input model to be modified in-place inplace – carry out model transformations in-place, the original module is mutated allow_list – list of quantizable modules observer_non_leaf_module_list – list of non-leaf modules we want to add observer prepare_custom_config_dict – customization configuration dictionary for prepare function # Example of prepare_custom_config_dict: prepare_custom_config_dict = { # user will manually define the corresponding observed # module class which has a from_float class method that converts # float custom module to observed custom module &#34;float_to_observed_custom_module_class&#34;: { CustomModule: ObservedCustomModule } }"
+         "articleBody": "prepare# class torch.ao.quantization.prepare(model, inplace=False, allow_list=None, observer_non_leaf_module_list=None, prepare_custom_config_dict=None)[source]# Prepares a copy of the model for quantization calibration or quantization-aware training. Quantization configuration should be assigned preemptively to individual submodules in .qconfig attribute. The model will be attached with observer or fake quant modules, and qconfig will be propagated. Parameters model – input model to be modified in-place inplace – carry out model transformations in-place, the original module is mutated allow_list – list of quantizable modules observer_non_leaf_module_list – list of non-leaf modules we want to add observer prepare_custom_config_dict – customization configuration dictionary for prepare function # Example of prepare_custom_config_dict: prepare_custom_config_dict = { # user will manually define the corresponding observed # module class which has a from_float class method that converts # float custom module to observed custom module &#34;float_to_observed_custom_module_class&#34;: {CustomModule: ObservedCustomModule} }"
        }
    </script>
 

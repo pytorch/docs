@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3159ee2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3373,8 +3373,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.sdpa_kernel.html">torch.nn.attention.sdpa_kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.SDPBackend.html">SDPBackend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.flex_attention.html">torch.nn.attention.flex_attention</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-
+<li class="toctree-l2 has-children"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalBias.html">torch.nn.attention.bias.CausalBias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_lower_right.html">torch.nn.attention.bias.causal_lower_right</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_upper_left.html">torch.nn.attention.bias.causal_upper_left</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalVariant.html">CausalVariant</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.experimental.html">torch.nn.attention.experimental</a></li>
 </ul>
 </details></li>
@@ -4025,7 +4030,7 @@ document.write(`
 <h1>FractionalMaxPool2d<a class="headerlink" href="#fractionalmaxpool2d" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.FractionalMaxPool2d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">FractionalMaxPool2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_random_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/nn/modules/pooling.py#L906"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.FractionalMaxPool2d" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">FractionalMaxPool2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_random_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3159ee2ad3e586573edb977c4c1745a26d9f1007/torch/nn/modules/pooling.py#L906"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.FractionalMaxPool2d" title="Permalink to this definition">#</a></dt>
 <dd><p>Applies a 2D fractional max pooling over an input signal composed of several input planes.</p>
 <p>Fractional MaxPooling is described in detail in the paper <a class="reference external" href="https://arxiv.org/abs/1412.6071">Fractional MaxPooling</a> by Ben Graham</p>
 <p>The max-pooling operation is applied in <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>H</mi><mo>×</mo><mi>k</mi><mi>W</mi></mrow><annotation encoding="application/x-tex">kH \times kW</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">kW</span></span></span></span></span> regions by a stochastic

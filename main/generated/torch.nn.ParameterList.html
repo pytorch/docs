@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3159ee2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3373,8 +3373,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.sdpa_kernel.html">torch.nn.attention.sdpa_kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.SDPBackend.html">SDPBackend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.flex_attention.html">torch.nn.attention.flex_attention</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-
+<li class="toctree-l2 has-children"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalBias.html">torch.nn.attention.bias.CausalBias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_lower_right.html">torch.nn.attention.bias.causal_lower_right</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_upper_left.html">torch.nn.attention.bias.causal_upper_left</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalVariant.html">CausalVariant</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.experimental.html">torch.nn.attention.experimental</a></li>
 </ul>
 </details></li>
@@ -4025,7 +4030,7 @@ document.write(`
 <h1>ParameterList<a class="headerlink" href="#parameterlist" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.ParameterList">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">ParameterList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/nn/modules/container.py#L637"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterList" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">ParameterList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3159ee2ad3e586573edb977c4c1745a26d9f1007/torch/nn/modules/container.py#L632"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterList" title="Permalink to this definition">#</a></dt>
 <dd><p>Holds parameters in a list.</p>
 <p><a class="reference internal" href="#torch.nn.ParameterList" title="torch.nn.ParameterList"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterList</span></code></a> can be used like a regular Python
 list, but Tensors that are <code class="xref py py-class docutils literal notranslate"><span class="pre">Parameter</span></code> are properly registered,
@@ -4042,7 +4047,9 @@ method will convert any <a class="reference internal" href="../tensors.html#torc
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModule</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ParameterList</span><span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ParameterList</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="c1"># ParameterList can act as an iterable, or be indexed using ints</span>
@@ -4053,7 +4060,7 @@ method will convert any <a class="reference internal" href="../tensors.html#torc
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ParameterList.append">
-<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/nn/modules/container.py#L724"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterList.append" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3159ee2ad3e586573edb977c4c1745a26d9f1007/torch/nn/modules/container.py#L719"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterList.append" title="Permalink to this definition">#</a></dt>
 <dd><p>Append a given value at the end of the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4067,7 +4074,7 @@ method will convert any <a class="reference internal" href="../tensors.html#torc
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ParameterList.extend">
-<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/nn/modules/container.py#L735"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterList.extend" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3159ee2ad3e586573edb977c4c1745a26d9f1007/torch/nn/modules/container.py#L730"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ParameterList.extend" title="Permalink to this definition">#</a></dt>
 <dd><p>Append values from a Python iterable to the end of the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4419,7 +4426,7 @@ method will convert any <a class="reference internal" href="../tensors.html#torc
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "ParameterList# class torch.nn.ParameterList(values=None)[source]# Holds parameters in a list. ParameterList can be used like a regular Python list, but Tensors that are Parameter are properly registered, and will be visible by all Module methods. Note that the constructor, assigning an element of the list, the append() method and the extend() method will convert any Tensor into Parameter. Parameters parameters (iterable, optional) – an iterable of elements to add to the list. Example: class MyModule(nn.Module): def __init__(self) -&gt; None: super().__init__() self.params = nn.ParameterList([nn.Parameter(torch.randn(10, 10)) for i in range(10)]) def forward(self, x): # ParameterList can act as an iterable, or be indexed using ints for i, p in enumerate(self.params): x = self.params[i // 2].mm(x) + p.mm(x) return x append(value)[source]# Append a given value at the end of the list. Parameters value (Any) – value to append Return type Self extend(values)[source]# Append values from a Python iterable to the end of the list. Parameters values (iterable) – iterable of values to append Return type Self"
+         "articleBody": "ParameterList# class torch.nn.ParameterList(values=None)[source]# Holds parameters in a list. ParameterList can be used like a regular Python list, but Tensors that are Parameter are properly registered, and will be visible by all Module methods. Note that the constructor, assigning an element of the list, the append() method and the extend() method will convert any Tensor into Parameter. Parameters parameters (iterable, optional) – an iterable of elements to add to the list. Example: class MyModule(nn.Module): def __init__(self) -&gt; None: super().__init__() self.params = nn.ParameterList( [nn.Parameter(torch.randn(10, 10)) for i in range(10)] ) def forward(self, x): # ParameterList can act as an iterable, or be indexed using ints for i, p in enumerate(self.params): x = self.params[i // 2].mm(x) + p.mm(x) return x append(value)[source]# Append a given value at the end of the list. Parameters value (Any) – value to append Return type Self extend(values)[source]# Append values from a Python iterable to the end of the list. Parameters values (iterable) – iterable of values to append Return type Self"
        }
    </script>
 

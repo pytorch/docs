@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3159ee2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3373,8 +3373,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.sdpa_kernel.html">torch.nn.attention.sdpa_kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.SDPBackend.html">SDPBackend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.flex_attention.html">torch.nn.attention.flex_attention</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">torch.nn.attention.bias.CausalBias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_lower_right.html">torch.nn.attention.bias.causal_lower_right</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_upper_left.html">torch.nn.attention.bias.causal_upper_left</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalVariant.html">CausalVariant</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.experimental.html">torch.nn.attention.experimental</a></li>
 </ul>
 </details></li>
@@ -4036,7 +4041,7 @@ document.write(`
 <h1>torch.nn.attention.bias.CausalBias<a class="headerlink" href="#torch-nn-attention-bias-causalbias" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.attention.bias.CausalBias">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.bias.</span></span><span class="sig-name descname"><span class="pre">CausalBias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_len_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_len_kv</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/nn/attention/bias.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.bias.CausalBias" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.bias.</span></span><span class="sig-name descname"><span class="pre">CausalBias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_len_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_len_kv</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3159ee2ad3e586573edb977c4c1745a26d9f1007/torch/nn/attention/bias.py#L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.bias.CausalBias" title="Permalink to this definition">#</a></dt>
 <dd><p>A bias representing causal attention patterns. For an overview of the bias structure, see the <a class="reference internal" href="torch.nn.attention.bias.CausalVariant.html#torch.nn.attention.bias.CausalVariant" title="torch.nn.attention.bias.CausalVariant"><code class="xref py py-class docutils literal notranslate"><span class="pre">CausalVariant</span></code></a> enum.</p>
 <p>This class is used for defining causal (triangular) attention biases. For construing the bias, there exist
 two factory functions: <a class="reference internal" href="torch.nn.attention.bias.causal_upper_left.html#torch.nn.attention.bias.causal_upper_left" title="torch.nn.attention.bias.causal_upper_left"><code class="xref py py-func docutils literal notranslate"><span class="pre">causal_upper_left()</span></code></a> and <a class="reference internal" href="torch.nn.attention.bias.causal_lower_right.html#torch.nn.attention.bias.causal_lower_right" title="torch.nn.attention.bias.causal_lower_right"><code class="xref py py-func docutils literal notranslate"><span class="pre">causal_lower_right()</span></code></a>.</p>
@@ -4048,9 +4053,15 @@ two factory functions: <a class="reference internal" href="torch.nn.attention.bi
 <span class="c1"># Create a lower-right causal bias</span>
 <span class="n">attn_bias</span> <span class="o">=</span> <span class="n">causal_lower_right</span><span class="p">(</span><span class="n">seqlen_q</span><span class="p">,</span> <span class="n">seqlen_kv</span><span class="p">)</span>
 
-<span class="n">q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">bsz</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">,</span> <span class="n">seqlen_q</span><span class="p">,</span> <span class="n">head_dim</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
-<span class="n">k</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">bsz</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">,</span> <span class="n">seqlen_kv</span><span class="p">,</span> <span class="n">head_dim</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">bsz</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">,</span> <span class="n">seqlen_kv</span><span class="p">,</span> <span class="n">head_dim</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span>
+    <span class="n">bsz</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">,</span> <span class="n">seqlen_q</span><span class="p">,</span> <span class="n">head_dim</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span>
+<span class="p">)</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span>
+    <span class="n">bsz</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">,</span> <span class="n">seqlen_kv</span><span class="p">,</span> <span class="n">head_dim</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span>
+<span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span>
+    <span class="n">bsz</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">,</span> <span class="n">seqlen_kv</span><span class="p">,</span> <span class="n">head_dim</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span>
+<span class="p">)</span>
 
 <span class="n">out</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">scaled_dot_product_attention</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">attn_bias</span><span class="p">)</span>
 </pre></div>
@@ -4397,7 +4408,7 @@ two factory functions: <a class="reference internal" href="torch.nn.attention.bi
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.nn.attention.bias.CausalBias# class torch.nn.attention.bias.CausalBias(variant, seq_len_q, seq_len_kv)[source]# A bias representing causal attention patterns. For an overview of the bias structure, see the CausalVariant enum. This class is used for defining causal (triangular) attention biases. For construing the bias, there exist two factory functions: causal_upper_left() and causal_lower_right(). Example: from torch.nn.attention.bias import causal_lower_right bsz, num_heads, seqlen_q, seqlen_kv, head_dim = 32, 8, 4, 12, 8 # Create a lower-right causal bias attn_bias = causal_lower_right(seqlen_q, seqlen_kv) q = torch.randn(bsz, num_heads, seqlen_q, head_dim, device=&#34;cuda&#34;, dtype=torch.float16) k = torch.randn(bsz, num_heads, seqlen_kv, head_dim, device=&#34;cuda&#34;, dtype=torch.float16) v = torch.randn(bsz, num_heads, seqlen_kv, head_dim, device=&#34;cuda&#34;, dtype=torch.float16) out = F.scaled_dot_product_attention(q, k, v, attn_bias) Warning This class is a prototype and subject to change."
+         "articleBody": "torch.nn.attention.bias.CausalBias# class torch.nn.attention.bias.CausalBias(variant, seq_len_q, seq_len_kv)[source]# A bias representing causal attention patterns. For an overview of the bias structure, see the CausalVariant enum. This class is used for defining causal (triangular) attention biases. For construing the bias, there exist two factory functions: causal_upper_left() and causal_lower_right(). Example: from torch.nn.attention.bias import causal_lower_right bsz, num_heads, seqlen_q, seqlen_kv, head_dim = 32, 8, 4, 12, 8 # Create a lower-right causal bias attn_bias = causal_lower_right(seqlen_q, seqlen_kv) q = torch.randn( bsz, num_heads, seqlen_q, head_dim, device=&#34;cuda&#34;, dtype=torch.float16 ) k = torch.randn( bsz, num_heads, seqlen_kv, head_dim, device=&#34;cuda&#34;, dtype=torch.float16 ) v = torch.randn( bsz, num_heads, seqlen_kv, head_dim, device=&#34;cuda&#34;, dtype=torch.float16 ) out = F.scaled_dot_product_attention(q, k, v, attn_bias) Warning This class is a prototype and subject to change."
        }
    </script>
 

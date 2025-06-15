@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3159ee2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3373,8 +3373,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.sdpa_kernel.html">torch.nn.attention.sdpa_kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.SDPBackend.html">SDPBackend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.flex_attention.html">torch.nn.attention.flex_attention</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-
+<li class="toctree-l2 has-children"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalBias.html">torch.nn.attention.bias.CausalBias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_lower_right.html">torch.nn.attention.bias.causal_lower_right</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_upper_left.html">torch.nn.attention.bias.causal_upper_left</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalVariant.html">CausalVariant</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.experimental.html">torch.nn.attention.experimental</a></li>
 </ul>
 </details></li>
@@ -4036,7 +4041,7 @@ document.write(`
 <h1>QConfig<a class="headerlink" href="#qconfig" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.qconfig.QConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.qconfig.</span></span><span class="sig-name descname"><span class="pre">QConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">activation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/ao/quantization/qconfig.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig.QConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.qconfig.</span></span><span class="sig-name descname"><span class="pre">QConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">activation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3159ee2ad3e586573edb977c4c1745a26d9f1007/torch/ao/quantization/qconfig.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.qconfig.QConfig" title="Permalink to this definition">#</a></dt>
 <dd><p>Describes how to quantize a layer or a part of the network by providing
 settings (observer classes) for activations and weights respectively.</p>
 <p>Note that QConfig needs to contain observer <strong>classes</strong> (like MinMaxObserver) or a callable that returns
@@ -4046,7 +4051,8 @@ Quantization preparation function will instantiate observers multiple times for 
 method (that behaves like functools.partial):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
     <span class="n">activation</span><span class="o">=</span><span class="n">MinMaxObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">),</span>
-    <span class="n">weight</span><span class="o">=</span><span class="n">default_observer</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">))</span>
+    <span class="n">weight</span><span class="o">=</span><span class="n">default_observer</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">),</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -4385,7 +4391,7 @@ method (that behaves like functools.partial):</p>
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "QConfig# class torch.ao.quantization.qconfig.QConfig(activation, weight)[source]# Describes how to quantize a layer or a part of the network by providing settings (observer classes) for activations and weights respectively. Note that QConfig needs to contain observer classes (like MinMaxObserver) or a callable that returns instances on invocation, not the concrete observer instances themselves. Quantization preparation function will instantiate observers multiple times for each of the layers. Observer classes have usually reasonable default arguments, but they can be overwritten with with_args method (that behaves like functools.partial): my_qconfig = QConfig( activation=MinMaxObserver.with_args(dtype=torch.qint8), weight=default_observer.with_args(dtype=torch.qint8))"
+         "articleBody": "QConfig# class torch.ao.quantization.qconfig.QConfig(activation, weight)[source]# Describes how to quantize a layer or a part of the network by providing settings (observer classes) for activations and weights respectively. Note that QConfig needs to contain observer classes (like MinMaxObserver) or a callable that returns instances on invocation, not the concrete observer instances themselves. Quantization preparation function will instantiate observers multiple times for each of the layers. Observer classes have usually reasonable default arguments, but they can be overwritten with with_args method (that behaves like functools.partial): my_qconfig = QConfig( activation=MinMaxObserver.with_args(dtype=torch.qint8), weight=default_observer.with_args(dtype=torch.qint8), )"
        }
    </script>
 

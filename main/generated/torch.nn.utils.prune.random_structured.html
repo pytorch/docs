@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3159ee2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3373,8 +3373,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.sdpa_kernel.html">torch.nn.attention.sdpa_kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.SDPBackend.html">SDPBackend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.flex_attention.html">torch.nn.attention.flex_attention</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-
+<li class="toctree-l2 has-children"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalBias.html">torch.nn.attention.bias.CausalBias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_lower_right.html">torch.nn.attention.bias.causal_lower_right</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_upper_left.html">torch.nn.attention.bias.causal_upper_left</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalVariant.html">CausalVariant</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.experimental.html">torch.nn.attention.experimental</a></li>
 </ul>
 </details></li>
@@ -4025,7 +4030,7 @@ document.write(`
 <h1>torch.nn.utils.prune.random_structured<a class="headerlink" href="#torch-nn-utils-prune-random-structured" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.prune.random_structured">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.prune.</span></span><span class="sig-name descname"><span class="pre">random_structured</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/nn/utils/prune.py#L938"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.random_structured" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.prune.</span></span><span class="sig-name descname"><span class="pre">random_structured</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3159ee2ad3e586573edb977c4c1745a26d9f1007/torch/nn/utils/prune.py#L939"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.random_structured" title="Permalink to this definition">#</a></dt>
 <dd><p>Prune tensor by removing random channels along the specified dimension.</p>
 <p>Prunes tensor corresponding to parameter called <code class="docutils literal notranslate"><span class="pre">name</span></code> in <code class="docutils literal notranslate"><span class="pre">module</span></code>
 by removing the specified <code class="docutils literal notranslate"><span class="pre">amount</span></code> of (currently unpruned) channels
@@ -4060,9 +4065,7 @@ absolute number of parameters to prune.</p></li>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">prune</span><span class="o">.</span><span class="n">random_structured</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span>
-<span class="gp">... </span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">prune</span><span class="o">.</span><span class="n">random_structured</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">columns_pruned</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">columns_pruned</span><span class="p">)</span>
 <span class="go">3</span>
@@ -4404,7 +4407,7 @@ absolute number of parameters to prune.</p></li>
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.nn.utils.prune.random_structured# torch.nn.utils.prune.random_structured(module, name, amount, dim)[source]# Prune tensor by removing random channels along the specified dimension. Prunes tensor corresponding to parameter called name in module by removing the specified amount of (currently unpruned) channels along the specified dim selected at random. Modifies module in place (and also return the modified module) by: adding a named buffer called name+&#39;_mask&#39; corresponding to the binary mask applied to the parameter name by the pruning method. replacing the parameter name by its pruned version, while the original (unpruned) parameter is stored in a new parameter named name+&#39;_orig&#39;. Parameters module (nn.Module) – module containing the tensor to prune name (str) – parameter name within module on which pruning will act. amount (int or float) – quantity of parameters to prune. If float, should be between 0.0 and 1.0 and represent the fraction of parameters to prune. If int, it represents the absolute number of parameters to prune. dim (int) – index of the dim along which we define channels to prune. Returns modified (i.e. pruned) version of the input module Return type module (nn.Module) Examples &gt;&gt;&gt; m = prune.random_structured( ... nn.Linear(5, 3), &#39;weight&#39;, amount=3, dim=1 ... ) &gt;&gt;&gt; columns_pruned = int(sum(torch.sum(m.weight, dim=0) == 0)) &gt;&gt;&gt; print(columns_pruned) 3"
+         "articleBody": "torch.nn.utils.prune.random_structured# torch.nn.utils.prune.random_structured(module, name, amount, dim)[source]# Prune tensor by removing random channels along the specified dimension. Prunes tensor corresponding to parameter called name in module by removing the specified amount of (currently unpruned) channels along the specified dim selected at random. Modifies module in place (and also return the modified module) by: adding a named buffer called name+&#39;_mask&#39; corresponding to the binary mask applied to the parameter name by the pruning method. replacing the parameter name by its pruned version, while the original (unpruned) parameter is stored in a new parameter named name+&#39;_orig&#39;. Parameters module (nn.Module) – module containing the tensor to prune name (str) – parameter name within module on which pruning will act. amount (int or float) – quantity of parameters to prune. If float, should be between 0.0 and 1.0 and represent the fraction of parameters to prune. If int, it represents the absolute number of parameters to prune. dim (int) – index of the dim along which we define channels to prune. Returns modified (i.e. pruned) version of the input module Return type module (nn.Module) Examples &gt;&gt;&gt; m = prune.random_structured(nn.Linear(5, 3), &#34;weight&#34;, amount=3, dim=1) &gt;&gt;&gt; columns_pruned = int(sum(torch.sum(m.weight, dim=0) == 0)) &gt;&gt;&gt; print(columns_pruned) 3"
        }
    </script>
 

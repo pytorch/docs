@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3159ee2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3373,8 +3373,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.attention.sdpa_kernel.html">torch.nn.attention.sdpa_kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.attention.SDPBackend.html">SDPBackend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nn.attention.flex_attention.html">torch.nn.attention.flex_attention</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nn.attention.bias.html">torch.nn.attention.bias</a></li>
-
+<li class="toctree-l2 has-children"><a class="reference internal" href="nn.attention.bias.html">torch.nn.attention.bias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.nn.attention.bias.CausalBias.html">torch.nn.attention.bias.CausalBias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.nn.attention.bias.causal_lower_right.html">torch.nn.attention.bias.causal_lower_right</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.nn.attention.bias.causal_upper_left.html">torch.nn.attention.bias.causal_upper_left</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.nn.attention.bias.CausalVariant.html">CausalVariant</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="nn.attention.experimental.html">torch.nn.attention.experimental</a></li>
 </ul>
 </details></li>
@@ -4045,7 +4050,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method adaptive_avg_pool1d of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method adaptive_avg_pool1d of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4065,7 +4070,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;function adaptive_avg_pool2d at 0x7f62a905fee0&gt;,
+  &#39;pattern&#39;: &lt;function adaptive_avg_pool2d at 0x7f0b4f124ee0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4085,7 +4090,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;function adaptive_avg_pool3d at 0x7f62a905ff70&gt;,
+  &#39;pattern&#39;: &lt;function adaptive_avg_pool3d at 0x7f0b4f124f70&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4110,7 +4115,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method add of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method add of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4135,7 +4140,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method avg_pool1d of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method avg_pool1d of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4196,7 +4201,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvBn1d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function fuse_conv_bn at 0x7f62a8690040&gt;,
+  &#39;fuser_method&#39;: &lt;function fuse_conv_bn at 0x7f0b4e73ddc0&gt;,
 },
 {
   &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.ConvTranspose1d&#39;&gt;, &lt;class &#39;torch.nn.modules.batchnorm.BatchNorm1d&#39;&gt;),
@@ -4211,7 +4216,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;root_module&#39;: &lt;class &#39;torch.nn.modules.conv.ConvTranspose1d&#39;&gt;,
   &#39;reference_quantized_module_for_root&#39;: &lt;class &#39;torch.ao.nn.quantized.reference.modules.conv.ConvTranspose1d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function fuse_convtranspose_bn at 0x7f62a86901f0&gt;,
+  &#39;fuser_method&#39;: &lt;function fuse_convtranspose_bn at 0x7f0b4e73df70&gt;,
 },
 {
   &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.linear.Linear&#39;&gt;, &lt;class &#39;torch.nn.modules.batchnorm.BatchNorm1d&#39;&gt;),
@@ -4239,7 +4244,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.LinearBn1d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function fuse_linear_bn at 0x7f62a8690160&gt;,
+  &#39;fuser_method&#39;: &lt;function fuse_linear_bn at 0x7f0b4e73dee0&gt;,
 },
 {
   &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv2d&#39;&gt;, &lt;class &#39;torch.nn.modules.batchnorm.BatchNorm2d&#39;&gt;),
@@ -4253,7 +4258,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvBn2d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function fuse_conv_bn at 0x7f62a8690040&gt;,
+  &#39;fuser_method&#39;: &lt;function fuse_conv_bn at 0x7f0b4e73ddc0&gt;,
 },
 {
   &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.ConvTranspose2d&#39;&gt;, &lt;class &#39;torch.nn.modules.batchnorm.BatchNorm2d&#39;&gt;),
@@ -4268,7 +4273,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;root_module&#39;: &lt;class &#39;torch.nn.modules.conv.ConvTranspose2d&#39;&gt;,
   &#39;reference_quantized_module_for_root&#39;: &lt;class &#39;torch.ao.nn.quantized.reference.modules.conv.ConvTranspose2d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function fuse_convtranspose_bn at 0x7f62a86901f0&gt;,
+  &#39;fuser_method&#39;: &lt;function fuse_convtranspose_bn at 0x7f0b4e73df70&gt;,
 },
 {
   &#39;pattern&#39;: &lt;class &#39;torch.nn.modules.batchnorm.BatchNorm2d&#39;&gt;,
@@ -4292,7 +4297,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvBn3d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function fuse_conv_bn at 0x7f62a8690040&gt;,
+  &#39;fuser_method&#39;: &lt;function fuse_conv_bn at 0x7f0b4e73ddc0&gt;,
 },
 {
   &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.ConvTranspose3d&#39;&gt;, &lt;class &#39;torch.nn.modules.batchnorm.BatchNorm3d&#39;&gt;),
@@ -4307,7 +4312,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;root_module&#39;: &lt;class &#39;torch.nn.modules.conv.ConvTranspose3d&#39;&gt;,
   &#39;reference_quantized_module_for_root&#39;: &lt;class &#39;torch.ao.nn.quantized.reference.modules.conv.ConvTranspose3d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function fuse_convtranspose_bn at 0x7f62a86901f0&gt;,
+  &#39;fuser_method&#39;: &lt;function fuse_convtranspose_bn at 0x7f0b4e73df70&gt;,
 },
 {
   &#39;pattern&#39;: &lt;class &#39;torch.nn.modules.batchnorm.BatchNorm3d&#39;&gt;,
@@ -4340,7 +4345,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method cat of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method cat of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4350,7 +4355,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method clamp of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method clamp of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4409,7 +4414,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;reference_quantized_module_for_root&#39;: &lt;class &#39;torch.ao.nn.quantized.reference.modules.conv.Conv1d&#39;&gt;,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method conv1d of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method conv1d of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4451,7 +4456,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;reference_quantized_module_for_root&#39;: &lt;class &#39;torch.ao.nn.quantized.reference.modules.conv.Conv2d&#39;&gt;,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method conv2d of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method conv2d of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4493,7 +4498,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;reference_quantized_module_for_root&#39;: &lt;class &#39;torch.ao.nn.quantized.reference.modules.conv.Conv3d&#39;&gt;,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method conv3d of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method conv3d of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4763,7 +4768,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;reference_quantized_module_for_root&#39;: &lt;class &#39;torch.ao.nn.quantized.reference.modules.conv.ConvTranspose1d&#39;&gt;,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method conv_transpose1d of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method conv_transpose1d of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4790,7 +4795,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;reference_quantized_module_for_root&#39;: &lt;class &#39;torch.ao.nn.quantized.reference.modules.conv.ConvTranspose2d&#39;&gt;,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method conv_transpose2d of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method conv_transpose2d of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4817,7 +4822,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;reference_quantized_module_for_root&#39;: &lt;class &#39;torch.ao.nn.quantized.reference.modules.conv.ConvTranspose3d&#39;&gt;,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method conv_transpose3d of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method conv_transpose3d of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4860,7 +4865,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;function dropout at 0x7f62a9061040&gt;,
+  &#39;pattern&#39;: &lt;function dropout at 0x7f0b4f127040&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4880,7 +4885,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;function elu at 0x7f62a9061670&gt;,
+  &#39;pattern&#39;: &lt;function elu at 0x7f0b4f127670&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4964,7 +4969,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;reference_quantized_module_for_root&#39;: &lt;class &#39;torch.ao.nn.quantized.reference.modules.sparse.EmbeddingBag&#39;&gt;,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method flatten of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method flatten of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -4984,7 +4989,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;function group_norm at 0x7f62a90675e0&gt;,
+  &#39;pattern&#39;: &lt;function group_norm at 0x7f0b4f12b5e0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5049,7 +5054,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;function hardsigmoid at 0x7f62a9061e50&gt;,
+  &#39;pattern&#39;: &lt;function hardsigmoid at 0x7f0b4f127e50&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=0, quant_max_upper_bound=255, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=0.00390625, zero_point_exact_match=0),
@@ -5089,7 +5094,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;function hardswish at 0x7f62a9067040&gt;,
+  &#39;pattern&#39;: &lt;function hardswish at 0x7f0b4f12b040&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5109,7 +5114,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;function hardtanh at 0x7f62a9061550&gt;,
+  &#39;pattern&#39;: &lt;function hardtanh at 0x7f0b4f127550&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5139,7 +5144,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;function instance_norm at 0x7f62a9067430&gt;,
+  &#39;pattern&#39;: &lt;function instance_norm at 0x7f0b4f12b430&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5180,7 +5185,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;function interpolate at 0x7f62a8f7c310&gt;,
+  &#39;pattern&#39;: &lt;function interpolate at 0x7f0b4f03f310&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5202,7 +5207,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;function layer_norm at 0x7f62a90674c0&gt;,
+  &#39;pattern&#39;: &lt;function layer_norm at 0x7f0b4f12b4c0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5225,7 +5230,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;function leaky_relu at 0x7f62a9061820&gt;,
+  &#39;pattern&#39;: &lt;function leaky_relu at 0x7f0b4f127820&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5477,7 +5482,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;reference_quantized_module_for_root&#39;: &lt;class &#39;torch.ao.nn.quantized.reference.modules.rnn.LSTMCell&#39;&gt;,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method matmul of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method matmul of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5547,7 +5552,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method mean of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method mean of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5582,7 +5587,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method mul of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method mul of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5597,7 +5602,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method narrow of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method narrow of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5627,7 +5632,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method pixel_shuffle of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method pixel_shuffle of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5647,7 +5652,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method pixel_unshuffle of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method pixel_unshuffle of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5678,10 +5683,10 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvReLU1d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f62d8331310&gt;,
+  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f0b7e3e9310&gt;,
 },
 {
-  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv1d&#39;&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv1d&#39;&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5692,10 +5697,10 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvReLU1d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f62a753fdc0&gt;,
+  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f0b4d5ffb80&gt;,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in method conv1d of type object at 0x7f62d0fffbe0&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
+  &#39;pattern&#39;: (&lt;built-in method conv1d of type object at 0x7f0b770b7bc0&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5707,7 +5712,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in method conv1d of type object at 0x7f62d0fffbe0&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;built-in method conv1d of type object at 0x7f0b770b7bc0&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5730,10 +5735,10 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvBnReLU1d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function fuse_conv_bn_relu at 0x7f62a86900d0&gt;,
+  &#39;fuser_method&#39;: &lt;function fuse_conv_bn_relu at 0x7f0b4e73de50&gt;,
 },
 {
-  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv1d&#39;&gt;, &lt;class &#39;torch.nn.modules.batchnorm.BatchNorm1d&#39;&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv1d&#39;&gt;, &lt;class &#39;torch.nn.modules.batchnorm.BatchNorm1d&#39;&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5745,7 +5750,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;root_module&#39;: &lt;class &#39;torch.nn.modules.conv.Conv1d&#39;&gt;,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvBnReLU1d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function fuse_conv_bn_relu at 0x7f62a86900d0&gt;,
+  &#39;fuser_method&#39;: &lt;function fuse_conv_bn_relu at 0x7f0b4e73de50&gt;,
 },
 {
   &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv2d&#39;&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
@@ -5759,10 +5764,10 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvReLU2d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f62a753fe50&gt;,
+  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f0b4d5ffc10&gt;,
 },
 {
-  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv2d&#39;&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv2d&#39;&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5773,10 +5778,10 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvReLU2d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f62a753fee0&gt;,
+  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f0b4d5ffca0&gt;,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in method conv2d of type object at 0x7f62d0fffbe0&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
+  &#39;pattern&#39;: (&lt;built-in method conv2d of type object at 0x7f0b770b7bc0&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5788,7 +5793,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in method conv2d of type object at 0x7f62d0fffbe0&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;built-in method conv2d of type object at 0x7f0b770b7bc0&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5811,10 +5816,10 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvBnReLU2d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function fuse_conv_bn_relu at 0x7f62a86900d0&gt;,
+  &#39;fuser_method&#39;: &lt;function fuse_conv_bn_relu at 0x7f0b4e73de50&gt;,
 },
 {
-  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv2d&#39;&gt;, &lt;class &#39;torch.nn.modules.batchnorm.BatchNorm2d&#39;&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv2d&#39;&gt;, &lt;class &#39;torch.nn.modules.batchnorm.BatchNorm2d&#39;&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5826,7 +5831,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;root_module&#39;: &lt;class &#39;torch.nn.modules.conv.Conv2d&#39;&gt;,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvBnReLU2d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function fuse_conv_bn_relu at 0x7f62a86900d0&gt;,
+  &#39;fuser_method&#39;: &lt;function fuse_conv_bn_relu at 0x7f0b4e73de50&gt;,
 },
 {
   &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv3d&#39;&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
@@ -5840,10 +5845,10 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvReLU3d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f62a753ff70&gt;,
+  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f0b4d5ffd30&gt;,
 },
 {
-  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv3d&#39;&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv3d&#39;&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5854,10 +5859,10 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvReLU3d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f62a7547040&gt;,
+  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f0b4d5ffdc0&gt;,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in method conv3d of type object at 0x7f62d0fffbe0&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
+  &#39;pattern&#39;: (&lt;built-in method conv3d of type object at 0x7f0b770b7bc0&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5869,7 +5874,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in method conv3d of type object at 0x7f62d0fffbe0&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;built-in method conv3d of type object at 0x7f0b770b7bc0&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5892,10 +5897,10 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvBnReLU3d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function fuse_conv_bn_relu at 0x7f62a86900d0&gt;,
+  &#39;fuser_method&#39;: &lt;function fuse_conv_bn_relu at 0x7f0b4e73de50&gt;,
 },
 {
-  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv3d&#39;&gt;, &lt;class &#39;torch.nn.modules.batchnorm.BatchNorm3d&#39;&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.conv.Conv3d&#39;&gt;, &lt;class &#39;torch.nn.modules.batchnorm.BatchNorm3d&#39;&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5907,7 +5912,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;root_module&#39;: &lt;class &#39;torch.nn.modules.conv.Conv3d&#39;&gt;,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.ConvBnReLU3d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function fuse_conv_bn_relu at 0x7f62a86900d0&gt;,
+  &#39;fuser_method&#39;: &lt;function fuse_conv_bn_relu at 0x7f0b4e73de50&gt;,
 },
 {
   &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.linear.Linear&#39;&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
@@ -5935,10 +5940,10 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.LinearReLU&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f62a75470d0&gt;,
+  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f0b4d5ffe50&gt;,
 },
 {
-  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.linear.Linear&#39;&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.linear.Linear&#39;&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -5963,7 +5968,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.LinearReLU&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f62a7547160&gt;,
+  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f0b4d5ffee0&gt;,
 },
 {
   &#39;pattern&#39;: (&lt;built-in function linear&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
@@ -5992,7 +5997,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in function linear&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;built-in function linear&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6033,7 +6038,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in function add&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;built-in function add&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6048,7 +6053,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in function add&gt;, &lt;built-in method relu of type object at 0x7f62d0fffbe0&gt;),
+  &#39;pattern&#39;: (&lt;built-in function add&gt;, &lt;built-in method relu of type object at 0x7f0b770b7bc0&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6063,7 +6068,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in method add of type object at 0x7f62d0fffbe0&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
+  &#39;pattern&#39;: (&lt;built-in method add of type object at 0x7f0b770b7bc0&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6078,7 +6083,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in method add of type object at 0x7f62d0fffbe0&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;built-in method add of type object at 0x7f0b770b7bc0&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6093,7 +6098,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in method add of type object at 0x7f62d0fffbe0&gt;, &lt;built-in method relu of type object at 0x7f62d0fffbe0&gt;),
+  &#39;pattern&#39;: (&lt;built-in method add of type object at 0x7f0b770b7bc0&gt;, &lt;built-in method relu of type object at 0x7f0b770b7bc0&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6123,7 +6128,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in function mul&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;built-in function mul&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6138,7 +6143,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in function mul&gt;, &lt;built-in method relu of type object at 0x7f62d0fffbe0&gt;),
+  &#39;pattern&#39;: (&lt;built-in function mul&gt;, &lt;built-in method relu of type object at 0x7f0b770b7bc0&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6153,7 +6158,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in method mul of type object at 0x7f62d0fffbe0&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
+  &#39;pattern&#39;: (&lt;built-in method mul of type object at 0x7f0b770b7bc0&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6168,7 +6173,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in method mul of type object at 0x7f62d0fffbe0&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;built-in method mul of type object at 0x7f0b770b7bc0&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6183,7 +6188,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: (&lt;built-in method mul of type object at 0x7f62d0fffbe0&gt;, &lt;built-in method relu of type object at 0x7f62d0fffbe0&gt;),
+  &#39;pattern&#39;: (&lt;built-in method mul of type object at 0x7f0b770b7bc0&gt;, &lt;built-in method relu of type object at 0x7f0b770b7bc0&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6208,7 +6213,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;function relu at 0x7f62a9061430&gt;,
+  &#39;pattern&#39;: &lt;function relu at 0x7f0b4f127430&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6247,10 +6252,10 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.BNReLU2d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f62a75471f0&gt;,
+  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f0b4d5fff70&gt;,
 },
 {
-  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.batchnorm.BatchNorm2d&#39;&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.batchnorm.BatchNorm2d&#39;&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6259,7 +6264,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.BNReLU2d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f62a7547280&gt;,
+  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f0b4d612040&gt;,
 },
 {
   &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.batchnorm.BatchNorm3d&#39;&gt;, &lt;class &#39;torch.nn.modules.activation.ReLU&#39;&gt;),
@@ -6271,10 +6276,10 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.BNReLU3d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f62a7547310&gt;,
+  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f0b4d6120d0&gt;,
 },
 {
-  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.batchnorm.BatchNorm3d&#39;&gt;, &lt;function relu at 0x7f62a9061430&gt;),
+  &#39;pattern&#39;: (&lt;class &#39;torch.nn.modules.batchnorm.BatchNorm3d&#39;&gt;, &lt;function relu at 0x7f0b4f127430&gt;),
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6283,7 +6288,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   ],
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
   &#39;fused_module&#39;: &lt;class &#39;torch.ao.nn.intrinsic.modules.fused.BNReLU3d&#39;&gt;,
-  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f62a75473a0&gt;,
+  &#39;fuser_method&#39;: &lt;function _sequential_wrapper2.&lt;locals&gt;.fuser_method at 0x7f0b4d612160&gt;,
 },
 {
   &#39;pattern&#39;: &lt;class &#39;torch.nn.modules.activation.ReLU6&#39;&gt;,
@@ -6296,7 +6301,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;function relu6 at 0x7f62a90615e0&gt;,
+  &#39;pattern&#39;: &lt;function relu6 at 0x7f0b4f1275e0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6316,7 +6321,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method repeat_interleave of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method repeat_interleave of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6398,7 +6403,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method sigmoid of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method sigmoid of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=0, quant_max_upper_bound=255, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=0.00390625, zero_point_exact_match=0),
@@ -6448,7 +6453,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method squeeze of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method squeeze of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6478,7 +6483,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method stack of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method stack of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6498,7 +6503,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method tanh of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method tanh of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=0, quant_max_upper_bound=255, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=0.0078125, zero_point_exact_match=128),
@@ -6528,7 +6533,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method transpose of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method transpose of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6548,7 +6553,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
   &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT,
 },
 {
-  &#39;pattern&#39;: &lt;built-in method unsqueeze of type object at 0x7f62d0fffbe0&gt;,
+  &#39;pattern&#39;: &lt;built-in method unsqueeze of type object at 0x7f0b770b7bc0&gt;,
   &#39;dtype_configs&#39;: [
     {
       &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None),
@@ -6940,7 +6945,7 @@ in x86 and qnnpack (PyTorch’s default quantized backends).</p>
          },
          "datePublished": "Apr 04, 2022",
          "dateModified": "Nov 30, 2022",
-         "articleBody": "Quantization Backend Configuration# Created On: Apr 04, 2022 | Last Updated On: Nov 30, 2022 FX Graph Mode Quantization allows the user to configure various quantization behaviors of an op in order to match the expectation of their backend. In the future, this document will contain a detailed spec of these configurations. Default values for native configurations# Below is the output of the configuration for quantization of ops in x86 and qnnpack (PyTorch’s default quantized backends). Results: { &#39;pattern&#39;: &lt;class &#39;torch.nn.modules.pooling.AdaptiveAvgPool1d&#39;&gt;, &#39;dtype_configs&#39;: [ { &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), &#39;output_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), }, ], &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT, }, { &#39;pattern&#39;: &lt;built-in method adaptive_avg_pool1d of type object at 0x7f62d0fffbe0&gt;, &#39;dtype_configs&#39;: [ { &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), &#39;output_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), }, ], &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT, }, { &#39;pattern&#39;: &lt;class &#39;torch.nn.modules.pooling.AdaptiveAvgPool2d&#39;&gt;, &#39;dtype_configs&#39;: [ { &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), &#39;output_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), }, ], &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT, }, { &#39;pattern&#39;: &lt;function adaptive_avg_pool2d at 0x7f62a905fee0&gt;, &#39;dtype_configs&#39;: [ { &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), &#39;output_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), }, ], &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT, }, { &#39;pattern&#39;: &lt;class &#39;torch.nn.module..."
+         "articleBody": "Quantization Backend Configuration# Created On: Apr 04, 2022 | Last Updated On: Nov 30, 2022 FX Graph Mode Quantization allows the user to configure various quantization behaviors of an op in order to match the expectation of their backend. In the future, this document will contain a detailed spec of these configurations. Default values for native configurations# Below is the output of the configuration for quantization of ops in x86 and qnnpack (PyTorch’s default quantized backends). Results: { &#39;pattern&#39;: &lt;class &#39;torch.nn.modules.pooling.AdaptiveAvgPool1d&#39;&gt;, &#39;dtype_configs&#39;: [ { &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), &#39;output_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), }, ], &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT, }, { &#39;pattern&#39;: &lt;built-in method adaptive_avg_pool1d of type object at 0x7f0b770b7bc0&gt;, &#39;dtype_configs&#39;: [ { &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), &#39;output_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), }, ], &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT, }, { &#39;pattern&#39;: &lt;class &#39;torch.nn.modules.pooling.AdaptiveAvgPool2d&#39;&gt;, &#39;dtype_configs&#39;: [ { &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), &#39;output_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), }, ], &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT, }, { &#39;pattern&#39;: &lt;function adaptive_avg_pool2d at 0x7f0b4f124ee0&gt;, &#39;dtype_configs&#39;: [ { &#39;input_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), &#39;output_dtype&#39;: DTypeWithConstraints(dtype=torch.quint8, quant_min_lower_bound=None, quant_max_upper_bound=None, scale_min_lower_bound=None, scale_max_upper_bound=None, scale_exact_match=None, zero_point_exact_match=None), }, ], &#39;observation_type&#39;: ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT, }, { &#39;pattern&#39;: &lt;class &#39;torch.nn.module..."
        }
    </script>
 

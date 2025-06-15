@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3159ee2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3373,8 +3373,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.sdpa_kernel.html">torch.nn.attention.sdpa_kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.attention.SDPBackend.html">SDPBackend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.flex_attention.html">torch.nn.attention.flex_attention</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-
+<li class="toctree-l2 has-children"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalBias.html">torch.nn.attention.bias.CausalBias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_lower_right.html">torch.nn.attention.bias.causal_lower_right</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.causal_upper_left.html">torch.nn.attention.bias.causal_upper_left</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.nn.attention.bias.CausalVariant.html">CausalVariant</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.experimental.html">torch.nn.attention.experimental</a></li>
 </ul>
 </details></li>
@@ -4025,7 +4030,7 @@ document.write(`
 <h1>torch.nn.utils.prune.custom_from_mask<a class="headerlink" href="#torch-nn-utils-prune-custom-from-mask" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.prune.custom_from_mask">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.prune.</span></span><span class="sig-name descname"><span class="pre">custom_from_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/38410cf9b57079f3360c1e79601973a01cb2588c/torch/nn/utils/prune.py#L1145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.custom_from_mask" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.prune.</span></span><span class="sig-name descname"><span class="pre">custom_from_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3159ee2ad3e586573edb977c4c1745a26d9f1007/torch/nn/utils/prune.py#L1148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.custom_from_mask" title="Permalink to this definition">#</a></dt>
 <dd><p>Prune tensor corresponding to parameter called <code class="docutils literal notranslate"><span class="pre">name</span></code> in <code class="docutils literal notranslate"><span class="pre">module</span></code> by applying the pre-computed mask in <code class="docutils literal notranslate"><span class="pre">mask</span></code>.</p>
 <p>Modifies module in place (and also return the modified module) by:</p>
 <ol class="arabic simple">
@@ -4054,7 +4059,7 @@ will act.</p></li>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch.nn.utils</span> <span class="kn">import</span> <span class="n">prune</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">prune</span><span class="o">.</span><span class="n">custom_from_mask</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bias&#39;</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">... </span>    <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bias&quot;</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">bias_mask</span><span class="p">)</span>
 <span class="go">tensor([0., 1., 0.])</span>
@@ -4396,7 +4401,7 @@ will act.</p></li>
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.nn.utils.prune.custom_from_mask# torch.nn.utils.prune.custom_from_mask(module, name, mask)[source]# Prune tensor corresponding to parameter called name in module by applying the pre-computed mask in mask. Modifies module in place (and also return the modified module) by: adding a named buffer called name+&#39;_mask&#39; corresponding to the binary mask applied to the parameter name by the pruning method. replacing the parameter name by its pruned version, while the original (unpruned) parameter is stored in a new parameter named name+&#39;_orig&#39;. Parameters module (nn.Module) – module containing the tensor to prune name (str) – parameter name within module on which pruning will act. mask (Tensor) – binary mask to be applied to the parameter. Returns modified (i.e. pruned) version of the input module Return type module (nn.Module) Examples &gt;&gt;&gt; from torch.nn.utils import prune &gt;&gt;&gt; m = prune.custom_from_mask( ... nn.Linear(5, 3), name=&#39;bias&#39;, mask=torch.tensor([0, 1, 0]) ... ) &gt;&gt;&gt; print(m.bias_mask) tensor([0., 1., 0.])"
+         "articleBody": "torch.nn.utils.prune.custom_from_mask# torch.nn.utils.prune.custom_from_mask(module, name, mask)[source]# Prune tensor corresponding to parameter called name in module by applying the pre-computed mask in mask. Modifies module in place (and also return the modified module) by: adding a named buffer called name+&#39;_mask&#39; corresponding to the binary mask applied to the parameter name by the pruning method. replacing the parameter name by its pruned version, while the original (unpruned) parameter is stored in a new parameter named name+&#39;_orig&#39;. Parameters module (nn.Module) – module containing the tensor to prune name (str) – parameter name within module on which pruning will act. mask (Tensor) – binary mask to be applied to the parameter. Returns modified (i.e. pruned) version of the input module Return type module (nn.Module) Examples &gt;&gt;&gt; from torch.nn.utils import prune &gt;&gt;&gt; m = prune.custom_from_mask( ... nn.Linear(5, 3), name=&#34;bias&#34;, mask=torch.tensor([0, 1, 0]) ... ) &gt;&gt;&gt; print(m.bias_mask) tensor([0., 1., 0.])"
        }
    </script>
 

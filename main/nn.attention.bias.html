@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git38410cf )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3159ee2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3373,8 +3373,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.attention.sdpa_kernel.html">torch.nn.attention.sdpa_kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.attention.SDPBackend.html">SDPBackend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nn.attention.flex_attention.html">torch.nn.attention.flex_attention</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.nn.attention.bias</a></li>
-
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">torch.nn.attention.bias</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.nn.attention.bias.CausalBias.html">torch.nn.attention.bias.CausalBias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.nn.attention.bias.causal_lower_right.html">torch.nn.attention.bias.causal_lower_right</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.nn.attention.bias.causal_upper_left.html">torch.nn.attention.bias.causal_upper_left</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.nn.attention.bias.CausalVariant.html">CausalVariant</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="nn.attention.experimental.html">torch.nn.attention.experimental</a></li>
 </ul>
 </details></li>
@@ -4023,11 +4028,10 @@ document.write(`
                   
   <div class="section" id="module-torch.nn.attention.bias">
 <span id="torch-nn-attention-bias"></span><h1>torch.nn.attention.bias<a class="headerlink" href="#module-torch.nn.attention.bias" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 05, 2023 | Last Updated On: Jan 24, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 05, 2023 | Last Updated On: Jun 14, 2025</p>
 <p>Defines bias subclasses that work with scaled_dot_product_attention</p>
-</div>
 <div class="section" id="causalbias">
-<h1>CausalBias<a class="headerlink" href="#causalbias" title="Permalink to this heading">#</a></h1>
+<h2>CausalBias<a class="headerlink" href="#causalbias" title="Permalink to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
@@ -4057,6 +4061,7 @@ document.write(`
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 
@@ -4182,19 +4187,17 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">torch.nn.attention.bias</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#causalbias">CausalBias</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#causalbias">CausalBias</a><ul class="nav section-nav flex-column">
 </ul>
 </li>
 </ul>
-
   </nav></div>
     
        <div class="sidebar-secondary-item">
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/nn.attention.bias.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/nn.attention.bias.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4208,7 +4211,7 @@ document.write(`
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/nn.attention.bias.rst.txt">
+      <a href="_sources/nn.attention.bias.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4411,8 +4414,8 @@ document.write(`
            "@id": "/nn.attention.bias.html"
          },
          "datePublished": "Dec 05, 2023",
-         "dateModified": "Jan 24, 2024",
-         "articleBody": "torch.nn.attention.bias# Created On: Dec 05, 2023 | Last Updated On: Jan 24, 2024 Defines bias subclasses that work with scaled_dot_product_attention CausalBias# CausalBias A bias representing causal attention patterns. causal_lower_right Creates a lower-right triangular causal bias. causal_upper_left Creates an upper-left triangular causal bias. CausalVariant Enum for causal variants used in attention mechanisms."
+         "dateModified": "Jun 14, 2025",
+         "articleBody": "torch.nn.attention.bias# Created On: Dec 05, 2023 | Last Updated On: Jun 14, 2025 Defines bias subclasses that work with scaled_dot_product_attention CausalBias# CausalBias A bias representing causal attention patterns. causal_lower_right Creates a lower-right triangular causal bias. causal_upper_left Creates an upper-left triangular causal bias. CausalVariant Enum for causal variants used in attention mechanisms."
        }
    </script>
 
