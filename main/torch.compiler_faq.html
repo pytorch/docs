@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitc83041c )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git4311aea )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4032,7 +4032,7 @@ document.write(`
                   
   <div class="section" id="frequently-asked-questions">
 <h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2023 | Last Updated On: Dec 21, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 16, 2025 | Last Updated On: Jun 16, 2025</p>
 <p><strong>Author</strong>: <a class="reference external" href="https://github.com/msaroufim">Mark Saroufim</a></p>
 <div class="section" id="does-torch-compile-support-training">
 <h2>Does <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> support training?<a class="headerlink" href="#does-torch-compile-support-training" title="Permalink to this heading">#</a></h2>
@@ -4045,7 +4045,7 @@ AOTAutograd to generate a backward graph segment.</p></li>
 <li><p>Each pair of forward and backward graph are (optionally) min-cut
 partitioned to save the minimal state between forward and backward.</p></li>
 <li><p>The forward and backward pairs are wrapped in <code class="docutils literal notranslate"><span class="pre">autograd.function</span></code> modules.</p></li>
-<li><p>Usercode calling<code class="docutils literal notranslate"><span class="pre">.backward()</span></code> still triggers eager’s autograd engine,
+<li><p>User code calling <code class="docutils literal notranslate"><span class="pre">.backward()</span></code> still triggers eager’s autograd engine,
 which runs each <em>compiled backward</em> graph as if it were one op, also running
 any non-compiled eager ops’ <code class="docutils literal notranslate"><span class="pre">.backward()</span></code> functions.</p></li>
 </ol>
@@ -4149,12 +4149,7 @@ recompile that function (or part) up to
 <code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.recompile_limit</span></code> times. If your program is
 hitting the cache limit, you will first need to determine which guard is
 failing and what part of your program is triggering it. The
-<a class="reference external" href="#recompilation-profiler">recompilation profiler</a> automates the
-process of setting TorchDynamo’s cache limit to 1 and running your
-program under an observation-only ‘compiler’ that records the causes of
-any guard failures. You should be sure to run your program for at least
-as long (as many iterations) as you were running when you ran into
-trouble, and the profiler will accumulate statistics over this duration.</p></li>
+Use <code class="docutils literal notranslate"><span class="pre">TORCH_TRACE/tlparse</span></code> or <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=recompiles</span></code> to trace the root of the issue, check <a class="reference internal" href="torch.compiler_troubleshooting.html#torch-compiler-troubleshooting"><span class="std std-ref">torch.compile Troubleshooting</span></a> for more details.</p></li>
 </ul>
 </div>
 <div class="section" id="why-are-you-recompiling-in-production">
@@ -4199,9 +4194,9 @@ and see approach so try out the PyTorch profiler, visually inspect the
 generated kernels and try to see what’s going on for yourself.</p>
 </div>
 <div class="section" id="why-am-i-not-seeing-speedups">
-<h2>Why am I not seeing speedups?<a class="headerlink" href="#why-am-i-not-seeing-speedups" title="Permalink to this heading">#</a></h2>
+<span id="torch-compiler-graph-breaks"></span><h2>Why am I not seeing speedups?<a class="headerlink" href="#why-am-i-not-seeing-speedups" title="Permalink to this heading">#</a></h2>
 <div class="section" id="graph-breaks">
-<span id="torch-compiler-graph-breaks"></span><h3>Graph Breaks<a class="headerlink" href="#graph-breaks" title="Permalink to this heading">#</a></h3>
+<h3>Graph Breaks<a class="headerlink" href="#graph-breaks" title="Permalink to this heading">#</a></h3>
 <p>The main reason you won’t see the speedups you’d like to by using dynamo
 is excessive graph breaks. So what’s a graph break?</p>
 <p>Given a program like:</p>
@@ -4314,7 +4309,7 @@ CUDA graphs with Triton are enabled by default in inductor but removing
 them may alleviate some OOM issues: <code class="docutils literal notranslate"><span class="pre">torch._inductor.config.triton.cudagraphs</span> <span class="pre">=</span> <span class="pre">False</span></code>.</p>
 </div>
 <div class="section" id="does-torch-func-work-with-torch-compile-for-grad-and-vmap-transforms">
-<h2>Does <code class="docutils literal notranslate"><span class="pre">torch.func</span></code> work with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> (for <cite>grad</cite> and <cite>vmap</cite> transforms)?<a class="headerlink" href="#does-torch-func-work-with-torch-compile-for-grad-and-vmap-transforms" title="Permalink to this heading">#</a></h2>
+<h2>Does <code class="docutils literal notranslate"><span class="pre">torch.func</span></code> work with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> (for <code class="docutils literal notranslate"><span class="pre">grad</span></code> and <code class="docutils literal notranslate"><span class="pre">vmap</span></code> transforms)?<a class="headerlink" href="#does-torch-func-work-with-torch-compile-for-grad-and-vmap-transforms" title="Permalink to this heading">#</a></h2>
 <p>Applying a <code class="docutils literal notranslate"><span class="pre">torch.func</span></code> transform to a function that uses <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>
 does work:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
@@ -4410,7 +4405,7 @@ array. If this breaks your code, you can workaround this by casting the NumPy sc
 to the relevant Python scalar type <code class="docutils literal notranslate"><span class="pre">bool/int/float</span></code>.</p></li>
 <li><p>Negative strides: <code class="docutils literal notranslate"><span class="pre">np.flip</span></code> and slicing with a negative step return a copy.</p></li>
 <li><p>Type promotion: NumPy’s type promotion will change in NumPy 2.0. The new rules
-are described in <a class="reference external" href="https://numpy.org/neps/nep-0050-scalar-promotion.html)">NEP 50</a>.
+are described in <a class="reference external" href="https://numpy.org/neps/nep-0050-scalar-promotion.html">NEP 50</a>.
 <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> implements NEP 50 rather than the current soon-to-be deprecated rules.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">{tril,triu}_indices_from/{tril,triu}_indices</span></code> return arrays rather than a tuple of arrays.</p></li>
 </ul>
@@ -4564,7 +4559,7 @@ transform NumPy code into Pytorch code. It is rather easy to read and modify,
 so if you find any bug in it feel free to submit a PR fixing it or simply open
 an issue.</p>
 <p>If the program does work when importing <code class="docutils literal notranslate"><span class="pre">torch._numpy</span> <span class="pre">as</span> <span class="pre">np</span></code>, chances are
-that the bug is in TorchDynamo. If this is the case, please feel open an issue
+that the bug is in TorchDynamo. If this is the case, please feel free to open an issue
 with a <a class="reference internal" href="torch.compiler_troubleshooting.html#torch-compiler-troubleshooting"><span class="std std-ref">minimal reproducer</span></a>.</p>
 </div>
 <div class="section" id="i-torch-compile-some-numpy-code-and-i-did-not-see-any-speed-up">
@@ -4589,13 +4584,13 @@ torch.compile compilations. This section provides some of the answers and
 you can find more information in <a class="reference internal" href="torch.compiler_fine_grain_apis.html#torchdynamo-fine-grain-tracing"><span class="std std-ref">TorchDynamo APIs for fine-grained tracing</span></a>.</p>
 <div class="section" id="how-do-i-graph-break-on-a-function">
 <h3>How do I graph break on a function?<a class="headerlink" href="#how-do-i-graph-break-on-a-function" title="Permalink to this heading">#</a></h3>
-<p>Graph break on a function is not enough to sufficiently express what you  want
+<p>Graph break on a function is not enough to sufficiently express what you want
 PyTorch to do. You need to be more specific about your use case. Some of the
 most common use cases you might want to consider:</p>
 <ul class="simple">
 <li><p>If you want to disable compilation on this function frame and the recursively
 invoked frames, use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disable</span></code>.</p></li>
-<li><p>If you want a particular operator, such as <code class="docutils literal notranslate"><span class="pre">fbgemm</span></code> to use the  eager mode,
+<li><p>If you want a particular operator, such as <code class="docutils literal notranslate"><span class="pre">fbgemm</span></code> to use the eager mode,
 use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disallow_in_graph</span></code>.</p></li>
 </ul>
 <p>Some of the uncommon use cases include:</p>
@@ -4770,7 +4765,7 @@ This is now supported by the <code class="docutils literal notranslate"><span cl
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-am-i-getting-incorrect-results">Why am I getting incorrect results?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-am-i-getting-ooms">Why am I getting OOMs?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#does-torch-func-work-with-torch-compile-for-grad-and-vmap-transforms">Does <code class="docutils literal notranslate"><span class="pre">torch.func</span></code> work with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> (for <cite>grad</cite> and <cite>vmap</cite> transforms)?</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#does-torch-func-work-with-torch-compile-for-grad-and-vmap-transforms">Does <code class="docutils literal notranslate"><span class="pre">torch.func</span></code> work with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> (for <code class="docutils literal notranslate"><span class="pre">grad</span></code> and <code class="docutils literal notranslate"><span class="pre">vmap</span></code> transforms)?</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calling-torch-func-transform-inside-of-a-function-handled-with-torch-compile">Calling <code class="docutils literal notranslate"><span class="pre">torch.func</span></code> transform inside of a function handled with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compiling-torch-func-grad-with-torch-compile">Compiling <code class="docutils literal notranslate"><span class="pre">torch.func.grad</span></code> with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compiling-torch-vmap-with-torch-compile">Compiling <code class="docutils literal notranslate"><span class="pre">torch.vmap</span></code> with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code></a></li>
@@ -4798,7 +4793,7 @@ This is now supported by the <code class="docutils literal notranslate"><span cl
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_faq.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_faq.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4812,7 +4807,7 @@ This is now supported by the <code class="docutils literal notranslate"><span cl
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/torch.compiler_faq.rst.txt">
+      <a href="_sources/torch.compiler_faq.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -5014,9 +5009,9 @@ This is now supported by the <code class="docutils literal notranslate"><span cl
            "@type": "WebPage",
            "@id": "/torch.compiler_faq.html"
          },
-         "datePublished": "Jul 28, 2023",
-         "dateModified": "Dec 21, 2024",
-         "articleBody": "Frequently Asked Questions# Created On: Jul 28, 2023 | Last Updated On: Dec 21, 2024 Author: Mark Saroufim Does torch.compile support training?# torch.compile supports training, using AOTAutograd to capture backwards: The .forward() graph and optimizer.step() is captured by TorchDynamo’s python evalframe frontend. For each segment of .forward() that torchdynamo captures, it uses AOTAutograd to generate a backward graph segment. Each pair of forward and backward graph are (optionally) min-cut partitioned to save the minimal state between forward and backward. The forward and backward pairs are wrapped in autograd.function modules. Usercode calling.backward() still triggers eager’s autograd engine, which runs each compiled backward graph as if it were one op, also running any non-compiled eager ops’ .backward() functions. Do you support Distributed code?# torch.compile supports DistributedDataParallel (DDP). Support for other distributed training libraries is being considered. The main reason why Distributed code is challenging with dynamo is because AOTAutograd unrolls both the forward and backward pass and provides 2 graphs for backends to optimize. This is a problem for distributed code because we’d like to ideally overlap communication operations with computations. Eager pytorch accomplishes this in different ways for DDP/FSDP- using autograd hooks, module hooks, and modifications/mutations of module states. In a naive application of dynamo, hooks that should run directly after an operation during backwards may be delayed until after the entire compiled region of backwards ops, due to how AOTAutograd compiled functions interact with dispatcher hooks. The basic strategy for optimizing DDP with Dynamo is outlined in distributed.py where the main idea will be to graph break on DDP bucket boundaries. When each node in DDP needs to synchronize its weights with the other nodes it organizes its gradients and parameters into buckets which reduces communication times and allows a node to broadcast a fraction of its gradients to other waiting nodes. Graph breaks in distributed code mean you can expect dynamo and its backends to optimize the compute overhead of a distributed program but not its communication overhead. Graph-breaks may interfere with compilation speedups, if the reduced graph-size robs the compiler of fusion opportunities. However, there are diminishing returns with increasing graph size since most of the current compute optimizations are local fusions. So in practice this approach may be sufficient. Do I still need to export whole graphs?# For the vast majority of models you probably don’t and you can use torch.compile() as is but there are a few situations where full graphs are necessary and you can can ensure a full graph by simply running torch.compile(..., fullgraph=True). These situations include: Large scale training runs, such as $250K+ that require pipeline parallelism and other advanced sharding strategies. Inference optimizer..."
+         "datePublished": "Jun 16, 2025",
+         "dateModified": "Jun 16, 2025",
+         "articleBody": "Frequently Asked Questions# Created On: Jun 16, 2025 | Last Updated On: Jun 16, 2025 Author: Mark Saroufim Does torch.compile support training?# torch.compile supports training, using AOTAutograd to capture backwards: The .forward() graph and optimizer.step() is captured by TorchDynamo’s python evalframe frontend. For each segment of .forward() that torchdynamo captures, it uses AOTAutograd to generate a backward graph segment. Each pair of forward and backward graph are (optionally) min-cut partitioned to save the minimal state between forward and backward. The forward and backward pairs are wrapped in autograd.function modules. User code calling .backward() still triggers eager’s autograd engine, which runs each compiled backward graph as if it were one op, also running any non-compiled eager ops’ .backward() functions. Do you support Distributed code?# torch.compile supports DistributedDataParallel (DDP). Support for other distributed training libraries is being considered. The main reason why Distributed code is challenging with dynamo is because AOTAutograd unrolls both the forward and backward pass and provides 2 graphs for backends to optimize. This is a problem for distributed code because we’d like to ideally overlap communication operations with computations. Eager pytorch accomplishes this in different ways for DDP/FSDP- using autograd hooks, module hooks, and modifications/mutations of module states. In a naive application of dynamo, hooks that should run directly after an operation during backwards may be delayed until after the entire compiled region of backwards ops, due to how AOTAutograd compiled functions interact with dispatcher hooks. The basic strategy for optimizing DDP with Dynamo is outlined in distributed.py where the main idea will be to graph break on DDP bucket boundaries. When each node in DDP needs to synchronize its weights with the other nodes it organizes its gradients and parameters into buckets which reduces communication times and allows a node to broadcast a fraction of its gradients to other waiting nodes. Graph breaks in distributed code mean you can expect dynamo and its backends to optimize the compute overhead of a distributed program but not its communication overhead. Graph-breaks may interfere with compilation speedups, if the reduced graph-size robs the compiler of fusion opportunities. However, there are diminishing returns with increasing graph size since most of the current compute optimizations are local fusions. So in practice this approach may be sufficient. Do I still need to export whole graphs?# For the vast majority of models you probably don’t and you can use torch.compile() as is but there are a few situations where full graphs are necessary and you can can ensure a full graph by simply running torch.compile(..., fullgraph=True). These situations include: Large scale training runs, such as $250K+ that require pipeline parallelism and other advanced sharding strategies. Inference optimiz..."
        }
    </script>
 

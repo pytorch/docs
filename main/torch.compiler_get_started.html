@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitc83041c )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git4311aea )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4032,9 +4032,9 @@ document.write(`
                   
   <div class="section" id="getting-started">
 <span id="torch-compiler-get-started"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2023 | Last Updated On: Oct 14, 2024</p>
-<p>Before you read this section, make sure to read the <a class="reference internal" href="torch.compiler.html#torch-compiler-overview"><span class="std std-ref">torch.compiler</span></a>.</p>
-<p>Let’s start by looking at a simple <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> example that demonstrates
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 16, 2025 | Last Updated On: Jun 16, 2025</p>
+<p>Before you read this section, make sure to read the <a class="reference internal" href="torch.compiler.html#torch-compiler-overview"><span class="std std-ref">torch.compiler</span></a></p>
+<p>let’s start by looking at a simple <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> example that demonstrates
 how to use <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> for inference. This example demonstrates the
 <code class="docutils literal notranslate"><span class="pre">torch.cos()</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.sin()</span></code> features which are examples of pointwise
 operators as they operate element by element on a vector. This example might
@@ -4295,7 +4295,7 @@ basic understanding of how torch.compile works. Here is what you check out next:
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_get_started.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_get_started.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4309,7 +4309,7 @@ basic understanding of how torch.compile works. Here is what you check out next:
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/torch.compiler_get_started.rst.txt">
+      <a href="_sources/torch.compiler_get_started.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4511,9 +4511,9 @@ basic understanding of how torch.compile works. Here is what you check out next:
            "@type": "WebPage",
            "@id": "/torch.compiler_get_started.html"
          },
-         "datePublished": "Jul 28, 2023",
-         "dateModified": "Oct 14, 2024",
-         "articleBody": "Getting Started# Created On: Jul 28, 2023 | Last Updated On: Oct 14, 2024 Before you read this section, make sure to read the torch.compiler. Let’s start by looking at a simple torch.compile example that demonstrates how to use torch.compile for inference. This example demonstrates the torch.cos() and torch.sin() features which are examples of pointwise operators as they operate element by element on a vector. This example might not show significant performance gains but should help you form an intuitive understanding of how you can use torch.compile in your own programs. Note To run this script, you need to have at least one GPU on your machine. If you do not have a GPU, you can remove the .to(device=&#34;cuda:0&#34;) code in the snippet below and it will run on CPU. You can also set device to xpu:0 to run on Intel® GPUs. import torch def fn(x): a = torch.cos(x) b = torch.sin(a) return b new_fn = torch.compile(fn, backend=&#34;inductor&#34;) input_tensor = torch.randn(10000).to(device=&#34;cuda:0&#34;) a = new_fn(input_tensor) A more famous pointwise operator you might want to use would be something like torch.relu(). Pointwise ops in eager mode are suboptimal because each one would need to read a tensor from the memory, make some changes, and then write back those changes. The single most important optimization that inductor performs is fusion. In the example above we can turn 2 reads (x, a) and 2 writes (a, b) into 1 read (x) and 1 write (b), which is crucial especially for newer GPUs where the bottleneck is memory bandwidth (how quickly you can send data to a GPU) rather than compute (how quickly your GPU can crunch floating point operations). Another major optimization that inductor provides is automatic support for CUDA graphs. CUDA graphs help eliminate the overhead from launching individual kernels from a Python program which is especially relevant for newer GPUs. TorchDynamo supports many different backends, but TorchInductor specifically works by generating Triton kernels. Let’s save our example above into a file called example.py. We can inspect the code generated Triton kernels by running TORCH_COMPILE_DEBUG=1 python example.py. As the script executes, you should see DEBUG messages printed to the terminal. Closer to the end of the log, you should see a path to a folder that contains torchinductor_&lt;your_username&gt;. In that folder, you can find the output_code.py file that contains the generated kernel code similar to the following: @pointwise(size_hints=[16384], filename=__file__, triton_meta={&#39;signature&#39;: {&#39;in_ptr0&#39;: &#39;*fp32&#39;, &#39;out_ptr0&#39;: &#39;*fp32&#39;, &#39;xnumel&#39;: &#39;i32&#39;}, &#39;device&#39;: 0, &#39;constants&#39;: {}, &#39;mutated_arg_names&#39;: [], &#39;configs&#39;: [AttrsDescriptor(divisible_by_16=(0, 1, 2), equal_to_1=())]}) @triton.jit def triton_(in_ptr0, out_ptr0, xnumel, XBLOCK : tl.constexpr): xnumel = 10000 xoffset = tl.program_id(0) * XBLOCK xindex = xoffset + tl.arange(0, XBLOCK)[:] xmask = xindex &lt; xnumel x0 = xindex tmp0 = tl.load(in_ptr0 + (x0), xmask, other=0.0) tmp1 = tl.cos(tmp..."
+         "datePublished": "Jun 16, 2025",
+         "dateModified": "Jun 16, 2025",
+         "articleBody": "Getting Started# Created On: Jun 16, 2025 | Last Updated On: Jun 16, 2025 Before you read this section, make sure to read the torch.compiler let’s start by looking at a simple torch.compile example that demonstrates how to use torch.compile for inference. This example demonstrates the torch.cos() and torch.sin() features which are examples of pointwise operators as they operate element by element on a vector. This example might not show significant performance gains but should help you form an intuitive understanding of how you can use torch.compile in your own programs. Note To run this script, you need to have at least one GPU on your machine. If you do not have a GPU, you can remove the .to(device=&#34;cuda:0&#34;) code in the snippet below and it will run on CPU. You can also set device to xpu:0 to run on Intel® GPUs. import torch def fn(x): a = torch.cos(x) b = torch.sin(a) return b new_fn = torch.compile(fn, backend=&#34;inductor&#34;) input_tensor = torch.randn(10000).to(device=&#34;cuda:0&#34;) a = new_fn(input_tensor) A more famous pointwise operator you might want to use would be something like torch.relu(). Pointwise ops in eager mode are suboptimal because each one would need to read a tensor from the memory, make some changes, and then write back those changes. The single most important optimization that inductor performs is fusion. In the example above we can turn 2 reads (x, a) and 2 writes (a, b) into 1 read (x) and 1 write (b), which is crucial especially for newer GPUs where the bottleneck is memory bandwidth (how quickly you can send data to a GPU) rather than compute (how quickly your GPU can crunch floating point operations). Another major optimization that inductor provides is automatic support for CUDA graphs. CUDA graphs help eliminate the overhead from launching individual kernels from a Python program which is especially relevant for newer GPUs. TorchDynamo supports many different backends, but TorchInductor specifically works by generating Triton kernels. Let’s save our example above into a file called example.py. We can inspect the code generated Triton kernels by running TORCH_COMPILE_DEBUG=1 python example.py. As the script executes, you should see DEBUG messages printed to the terminal. Closer to the end of the log, you should see a path to a folder that contains torchinductor_&lt;your_username&gt;. In that folder, you can find the output_code.py file that contains the generated kernel code similar to the following: @pointwise(size_hints=[16384], filename=__file__, triton_meta={&#39;signature&#39;: {&#39;in_ptr0&#39;: &#39;*fp32&#39;, &#39;out_ptr0&#39;: &#39;*fp32&#39;, &#39;xnumel&#39;: &#39;i32&#39;}, &#39;device&#39;: 0, &#39;constants&#39;: {}, &#39;mutated_arg_names&#39;: [], &#39;configs&#39;: [AttrsDescriptor(divisible_by_16=(0, 1, 2), equal_to_1=())]}) @triton.jit def triton_(in_ptr0, out_ptr0, xnumel, XBLOCK : tl.constexpr): xnumel = 10000 xoffset = tl.program_id(0) * XBLOCK xindex = xoffset + tl.arange(0, XBLOCK)[:] xmask = xindex &lt; xnumel x0 = xindex tmp0 = tl.load(in_ptr0 + (x0), xmask, other=0.0) tmp1 = tl.cos(tmp0..."
        }
    </script>
 

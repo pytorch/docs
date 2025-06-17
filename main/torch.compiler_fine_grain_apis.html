@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitc83041c )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git4311aea )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4032,12 +4032,11 @@ document.write(`
                   
   <div class="section" id="torchdynamo-apis-for-fine-grained-tracing">
 <span id="torchdynamo-fine-grain-tracing"></span><h1>TorchDynamo APIs for fine-grained tracing<a class="headerlink" href="#torchdynamo-apis-for-fine-grained-tracing" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2023 | Last Updated On: Dec 17, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2023 | Last Updated On: Jun 16, 2025</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In this document <code class="docutils literal notranslate"><span class="pre">torch.compiler.compile</span></code> and
-<code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> are used interchangeably. Both versions
-will work in your code.</p>
+<p>In this document <code class="docutils literal notranslate"><span class="pre">torch.compiler.compile</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> are used interchangeably.
+Both versions will work in your code.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> performs TorchDynamo tracing on the whole user model.
 However, it is possible that a small part of the model code cannot be
@@ -4139,7 +4138,7 @@ black-box and puts it as is in the generated graph.</p>
 <p class="admonition-title">Warning</p>
 <p><code class="docutils literal notranslate"><span class="pre">allow_in_graph</span></code> skips TorchDynamo completely on the decorated function
 omitting all TorchDynamo safety checks, including graph breaks, handling
-closures, and others. Use <cite>allow_in_graph</cite> with caution. PyTorch downstream
+closures, and others. Use <code class="docutils literal notranslate"><span class="pre">allow_in_graph</span></code> with caution. PyTorch downstream
 components, such as AOTAutograd rely on TorchDynamo to handle complex Python
 features, but <code class="docutils literal notranslate"><span class="pre">allow_in_graph</span></code> bypasses TorchDynamo. Using <code class="docutils literal notranslate"><span class="pre">allow_in_graph</span></code>
 could lead to soundness and hard-to-debug issues.</p>
@@ -4290,7 +4289,7 @@ above example.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_fine_grain_apis.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/torch.compiler_fine_grain_apis.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4304,7 +4303,7 @@ above example.</p>
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/torch.compiler_fine_grain_apis.rst.txt">
+      <a href="_sources/torch.compiler_fine_grain_apis.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4507,8 +4506,8 @@ above example.</p>
            "@id": "/torch.compiler_fine_grain_apis.html"
          },
          "datePublished": "Jul 28, 2023",
-         "dateModified": "Dec 17, 2024",
-         "articleBody": "TorchDynamo APIs for fine-grained tracing# Created On: Jul 28, 2023 | Last Updated On: Dec 17, 2024 Note In this document torch.compiler.compile and torch.compile are used interchangeably. Both versions will work in your code. torch.compile performs TorchDynamo tracing on the whole user model. However, it is possible that a small part of the model code cannot be handled by torch.compiler. In this case, you might want to disable the compiler on that particular portion, while running compilation on the rest of the model. This section describe the existing APIs that use to define parts of your code in which you want to skip compilation and the relevant use cases. The API that you can use to define portions of the code on which you can disable compilation are listed in the following table: TorchDynamo APIs to control fine-grained tracing# API Description When to use? torch.compiler.disable Disables Dynamo on the decorated function as well as recursively invoked functions. Excellent for unblocking a user, if a small portion of the model cannot be handled with torch.compile. torch._dynamo.disallow_in_graph Disallows the marked op in the TorchDynamo graph. TorchDynamo causes graph break, and runs the op in the eager (no compile) mode.nnThis is suitable for the ops, while torch.compiler.disable is suitable for decorating functions. This API is excellent for both debugging and unblocking if a custom op like torch.ops.fbgemm.* is causing issues with the torch.compile function. torch.compile.allow_in_graph The annotated callable goes as is in the TorchDynamo graph. For example, a black-box for TorchDynamo Dynamo.nnNote that AOT Autograd will trace through it, so the allow_in_graph is only a Dynamo-level concept. This API is useful for portions of the model which have known TorchDynamo hard-to-support features, like hooks or autograd.Function. However, each usage of allow_in_graph must be carefully screened (no graph breaks, no closures). torch._dynamo.graph_break Adds a graph break. The code before and after the graph break goes through TorchDynamo. Rarely useful for deployment - If you think you need this, most probably you need either disable or disallow_in_graph. torch.compiler.is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). torch.compiler.is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. It’s stricter than torch.compiler.is_compiling() flag, as it would only be set to True when TorchDynamo is used. torch.compiler.is_exporting Indicates whether a graph is traced via export. It’s stricter than torch.compiler.is_compiling() flag, as it would only be set to True when torch.export is used. torch.compiler.disable# torch.compiler.disable disables compilation on the decorated function frame and all the function frames recursively invoked from the decorated function frame. TorchDynamo intercepts the execution of each Python function frame. So, suppose you have a code structure (ima..."
+         "dateModified": "Jun 16, 2025",
+         "articleBody": "TorchDynamo APIs for fine-grained tracing# Created On: Jul 28, 2023 | Last Updated On: Jun 16, 2025 Note In this document torch.compiler.compile and torch.compile are used interchangeably. Both versions will work in your code. torch.compile performs TorchDynamo tracing on the whole user model. However, it is possible that a small part of the model code cannot be handled by torch.compiler. In this case, you might want to disable the compiler on that particular portion, while running compilation on the rest of the model. This section describe the existing APIs that use to define parts of your code in which you want to skip compilation and the relevant use cases. The API that you can use to define portions of the code on which you can disable compilation are listed in the following table: TorchDynamo APIs to control fine-grained tracing# API Description When to use? torch.compiler.disable Disables Dynamo on the decorated function as well as recursively invoked functions. Excellent for unblocking a user, if a small portion of the model cannot be handled with torch.compile. torch._dynamo.disallow_in_graph Disallows the marked op in the TorchDynamo graph. TorchDynamo causes graph break, and runs the op in the eager (no compile) mode.nnThis is suitable for the ops, while torch.compiler.disable is suitable for decorating functions. This API is excellent for both debugging and unblocking if a custom op like torch.ops.fbgemm.* is causing issues with the torch.compile function. torch.compile.allow_in_graph The annotated callable goes as is in the TorchDynamo graph. For example, a black-box for TorchDynamo Dynamo.nnNote that AOT Autograd will trace through it, so the allow_in_graph is only a Dynamo-level concept. This API is useful for portions of the model which have known TorchDynamo hard-to-support features, like hooks or autograd.Function. However, each usage of allow_in_graph must be carefully screened (no graph breaks, no closures). torch._dynamo.graph_break Adds a graph break. The code before and after the graph break goes through TorchDynamo. Rarely useful for deployment - If you think you need this, most probably you need either disable or disallow_in_graph. torch.compiler.is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). torch.compiler.is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. It’s stricter than torch.compiler.is_compiling() flag, as it would only be set to True when TorchDynamo is used. torch.compiler.is_exporting Indicates whether a graph is traced via export. It’s stricter than torch.compiler.is_compiling() flag, as it would only be set to True when torch.export is used. torch.compiler.disable# torch.compiler.disable disables compilation on the decorated function frame and all the function frames recursively invoked from the decorated function frame. TorchDynamo intercepts the execution of each Python function frame. So, suppose you have a code structure (ima..."
        }
    </script>
 
