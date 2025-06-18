@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git4311aea )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dabc35 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4026,14 +4026,48 @@ document.write(`
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 04, 2024 | Last Updated On: Jun 16, 2025</p>
 <div class="section" id="pytorch-fsdp2-fully-shard">
 <h2>PyTorch FSDP2 (<code class="docutils literal notranslate"><span class="pre">fully_shard</span></code>)<a class="headerlink" href="#pytorch-fsdp2-fully-shard" title="Permalink to this heading">#</a></h2>
-<p>PyTorch FSDP2 provides a fully sharded data parallelism (FSDP) implementation
-targeting performant eager-mode while using per-parameter sharding for improved
-usability.</p>
+<p>PyTorch FSDP2 (<a class="reference external" href="https://github.com/pytorch/pytorch/issues/114299">RFC</a>) provides
+a fully sharded data parallelism (FSDP) implementation targeting performant
+eager-mode while using per-parameter sharding for improved usability</p>
 <ul class="simple">
-<li><p>If you are new to FSDP, we recommend that you start with FSDP2 due to improved
-usability. See <a class="reference external" href="https://github.com/pytorch/torchtitan/blob/main/docs/fsdp.md">TorchTitan</a> for code examples.</p></li>
-<li><p>If you are currently using FSDP1, consider evaluating the following
-differences to see if you should switch to FSDP2:</p></li>
+<li><p>See the <a class="reference external" href="https://pytorch.org/tutorials/intermediate/FSDP_tutorial.html">Getting Started with FSDP2</a>
+tutorial for more information.</p></li>
+<li><p>If you are currently using FSDP1, consider migrating to FSDP2 using our
+<a class="reference external" href="https://docs.pytorch.org/tutorials/intermediate/FSDP_tutorial.html#fsdp1-to-fsdp2-migration-guide">migration guide</a>.</p></li>
+</ul>
+<p>The user contract for <code class="docutils literal notranslate"><span class="pre">fully_shard(model)</span></code> is as follows</p>
+<ul class="simple">
+<li><p>For model initialization, fully_shard converts model.parameters() from
+plain torch.Tensor to DTensor in-place. The parameters are moved to the
+appropriate device according to the device mesh.</p></li>
+<li><p>Before forward and backward passes, pre-forward/backward hooks are
+responsible for all-gathering the parameters and converting model.parameters()
+from DTensor to plain torch.Tensor.</p></li>
+<li><p>After forward and backward passes, post-forward/backward hooks free
+the unsharded parameters (no communication needed) and convert
+model.parameters() from plain torch.Tensor back to DTensor.</p></li>
+<li><p>For the optimizer, it must be initialized with the DTensor model.parameters(),
+and the optimizer step should be performed on DTensor parameters.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">model(input)</span></code> instead of <code class="docutils literal notranslate"><span class="pre">model.forward(input)</span></code> to trigger pre-forward
+hooks to all-gather parameters. To make model.forward(input) work, users must
+either call <code class="docutils literal notranslate"><span class="pre">model.unshard()</span></code> explicitly or use <code class="docutils literal notranslate"><span class="pre">register_fsdp_forward_method(model,</span> <span class="pre">&quot;forward&quot;)</span></code>
+to register the forward method for hooking.</p></li>
+<li><p>fully_shard groups parameters together for a single all-gather. User should apply
+fully_shard in a bottom-up manner. For example, in a Transformer model, fully_shard
+should be applied to each layer before applying it to the root model. When applied
+to the root model, fully_shard excludes model.parameters() from each layer and groups
+the remaining parameters (e.g., embeddings, output projection) into a single
+all-gather group.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type(model)</span></code> is “unioned” with <code class="docutils literal notranslate"><span class="pre">FSDPModule</span></code> in-place. For example, if model
+is originally of type nn.Linear, then fully_shard changes <code class="docutils literal notranslate"><span class="pre">type(model)</span></code> from
+nn.Linear to <code class="docutils literal notranslate"><span class="pre">FSDPLinear</span></code> in-place. <code class="docutils literal notranslate"><span class="pre">FSDPLinear</span></code> is an instance of both
+nn.Linear and <code class="docutils literal notranslate"><span class="pre">FSDPModule</span></code>. It retains all methods of nn.Linear while also
+exposing FSDP2-specific APIs under FSDPModule, such as <code class="docutils literal notranslate"><span class="pre">reshard()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">unshard()</span></code>.</p></li>
+<li><p>Fully Qualified Names (FQNs) for parameters remain unchanged. If we call
+<code class="docutils literal notranslate"><span class="pre">model.state_dict()</span></code>, the FQNs are the same before and after applying
+fully_shard. This is because fully_shard does not wrap the module but only
+registers hooks to the original module.</p></li>
 </ul>
 <p>Compared to PyTorch FSDP1 (<code class="docutils literal notranslate"><span class="pre">FullyShardedDataParallel</span></code>):</p>
 <ul class="simple">
@@ -4063,20 +4097,10 @@ distributed state dict APIs. Also, some other args have been removed; see
 <a class="reference external" href="https://github.com/pytorch/torchtitan/blob/main/docs/fsdp.md">here</a> for
 details.</p></li>
 </ul>
-<p>If you are onboarding FSDP for the first time or if any of the above appeals to
-your use case, we recommend that you consider using FSDP2.</p>
-<p>See <a class="reference external" href="https://github.com/pytorch/pytorch/issues/114299">this RFC</a> for details
-on system design and implementation.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">torch.distributed.fsdp.fully_shard</span></code> is currently in prototype state and
-under development. The core API will likely not change, but we may make some
-API changes if necessary.</p>
-</div>
 <p>The frontend API is <code class="docutils literal notranslate"><span class="pre">fully_shard</span></code> that can be called on a <code class="docutils literal notranslate"><span class="pre">module</span></code>:</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.fully_shard">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">fully_shard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reshard_after_forward</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shard_placement_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mp_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MixedPrecisionPolicy(param_dtype=None,</span> <span class="pre">reduce_dtype=None,</span> <span class="pre">output_dtype=None,</span> <span class="pre">cast_forward_inputs=True)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offload_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OffloadPolicy()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignored_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.fully_shard" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">fully_shard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reshard_after_forward</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shard_placement_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mp_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MixedPrecisionPolicy(param_dtype=None,</span> <span class="pre">reduce_dtype=None,</span> <span class="pre">output_dtype=None,</span> <span class="pre">cast_forward_inputs=True)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offload_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OffloadPolicy()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignored_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.fully_shard" title="Permalink to this definition">#</a></dt>
 <dd><p>Apply fully sharded data parallelism (FSDP) to <code class="docutils literal notranslate"><span class="pre">module</span></code>, where FSDP
 shards module parameters, gradients, and optimizer states across data
 parallel workers to save memory at the cost of communication.</p>
@@ -4174,19 +4198,12 @@ during init, nor have their gradients reduced in backward.</p></li>
 </dl>
 </dd></dl>
 
-<p>Calling <code class="docutils literal notranslate"><span class="pre">fully_shard(module)</span></code> dynamically constructs a new class that
-subclasses <code class="docutils literal notranslate"><span class="pre">type(module)</span></code> and an FSDP class <code class="docutils literal notranslate"><span class="pre">FSDPModule</span></code>. For example, if
-we call <code class="docutils literal notranslate"><span class="pre">fully_shard(linear)</span></code> on a module <code class="docutils literal notranslate"><span class="pre">linear:</span> <span class="pre">nn.Linear</span></code>, then FSDP
-constructs a new class <code class="docutils literal notranslate"><span class="pre">FSDPLinear</span></code> and changes <code class="docutils literal notranslate"><span class="pre">linear</span></code> ‘s type to this.
-Otherwise, <code class="docutils literal notranslate"><span class="pre">fully_shard</span></code> does not change the module structure and parameter
-fully-qualified names. The class <code class="docutils literal notranslate"><span class="pre">FSDPModule</span></code> allows providing some
-FSDP-specific methods on the module.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">FSDPModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule" title="Permalink to this definition">#</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule.reshard">
-<span class="sig-name descname"><span class="pre">reshard</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L271"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.reshard" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reshard</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L271"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.reshard" title="Permalink to this definition">#</a></dt>
 <dd><p>Reshards the module’s parameters, freeing the unsharded parameters if
 they are allocated and registering the sharded parameters to the
 module. This method is <em>not</em> recursive.</p>
@@ -4196,7 +4213,7 @@ module. This method is <em>not</em> recursive.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule.set_all_reduce_hook">
-<span class="sig-name descname"><span class="pre">set_all_reduce_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L457"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_all_reduce_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_all_reduce_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L457"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_all_reduce_hook" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -4214,8 +4231,24 @@ all-reduce stream used by the native HSDP all-reduce.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule.set_allocate_memory_from_process_group_for_comm">
+<span class="sig-name descname"><span class="pre">set_allocate_memory_from_process_group_for_comm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L527"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_allocate_memory_from_process_group_for_comm" title="Permalink to this definition">#</a></dt>
+<dd><p>Sets whether the temporary staging buffers used to send and receive data
+over collective communications should be allocated using the custom
+optimized allocator provided by the ProcessGroup itself (if any). This
+might allow the ProcessGroup to be more efficient. For example, when
+using NCCL, this enables it to leverage zero-copy transfers over SHARP
+(for NVLink and/or InfiniBand).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>enable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to turn on ProcessGroup allocation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule.set_is_last_backward">
-<span class="sig-name descname"><span class="pre">set_is_last_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_last_backward</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L310"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_is_last_backward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_is_last_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_last_backward</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L310"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_is_last_backward" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets whether the next backward is the last one. On the last backward,
 FSDP waits on pending gradient reduction and clears internal data
 data structures for backward prefetching. This can be useful for
@@ -4226,7 +4259,7 @@ microbatching.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule.set_modules_to_backward_prefetch">
-<span class="sig-name descname"><span class="pre">set_modules_to_backward_prefetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modules</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L437"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_modules_to_backward_prefetch" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_modules_to_backward_prefetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modules</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L437"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_modules_to_backward_prefetch" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets the FSDP modules for which this FSDP module should explicitly
 prefetch all-gathers in backward. This overrides the default backward
 pretching implementation that prefetches the next FSDP module based on
@@ -4244,7 +4277,7 @@ overlap and will use more reserved memory.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule.set_modules_to_forward_prefetch">
-<span class="sig-name descname"><span class="pre">set_modules_to_forward_prefetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modules</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L417"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_modules_to_forward_prefetch" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_modules_to_forward_prefetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modules</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L417"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_modules_to_forward_prefetch" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets the FSDP modules for which this FSDP module should explicitly
 prefetch all-gathers in forward. The prefetching runs after this
 module’s all-gather copy-out.</p>
@@ -4262,7 +4295,7 @@ will use more reserved memory.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule.set_post_optim_event">
-<span class="sig-name descname"><span class="pre">set_post_optim_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L482"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_post_optim_event" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_post_optim_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L482"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_post_optim_event" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets a post-optimizer-step event for the root FSDP module to wait the
 all-gather streams on.</p>
 <p>By default, the root FSDP module waits the all-gather streams on the
@@ -4282,7 +4315,7 @@ to wait all-gather streams on.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule.set_reduce_scatter_divide_factor">
-<span class="sig-name descname"><span class="pre">set_reduce_scatter_divide_factor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L501"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_reduce_scatter_divide_factor" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_reduce_scatter_divide_factor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L501"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_reduce_scatter_divide_factor" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets a custom divide factor for the reduce-scatter. This becomes a
 custom reduce op using NCCL’s PreMulSum, which allows multiplying by
 the factor before reduction.</p>
@@ -4295,7 +4328,7 @@ the factor before reduction.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule.set_requires_all_reduce">
-<span class="sig-name descname"><span class="pre">set_requires_all_reduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requires_all_reduce</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L344"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_requires_all_reduce" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_requires_all_reduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requires_all_reduce</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L344"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_requires_all_reduce" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets if the module should all-reduce gradients. This can be used to
 implement gradient accumulation with only reduce-scatter but not
 all-reduce for HSDP.</p>
@@ -4305,7 +4338,7 @@ all-reduce for HSDP.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule.set_requires_gradient_sync">
-<span class="sig-name descname"><span class="pre">set_requires_gradient_sync</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requires_gradient_sync</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L320"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_requires_gradient_sync" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_requires_gradient_sync</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requires_gradient_sync</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L320"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_requires_gradient_sync" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets if the module should sync gradients. This can be used to implement
 gradient accumulation <em>without communication</em>. For HSDP, this controls
 both reduce-scatter and all-reduce together. This is the equivalence of
@@ -4324,7 +4357,7 @@ passed-in module.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule.set_reshard_after_backward">
-<span class="sig-name descname"><span class="pre">set_reshard_after_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reshard_after_backward</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L394"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_reshard_after_backward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_reshard_after_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reshard_after_backward</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L394"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_reshard_after_backward" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets if the module should reshard parameters after backward. This can
 be used during gradient accumulation to trade off higher memory for
 reduced communication since the unsharded parameters do not need to be
@@ -4343,7 +4376,7 @@ passed-in module.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule.set_reshard_after_forward">
-<span class="sig-name descname"><span class="pre">set_reshard_after_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reshard_after_forward</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L360"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_reshard_after_forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_reshard_after_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reshard_after_forward</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L360"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_reshard_after_forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets if the module should reshard parameters after forward. This can be
 used to change the <code class="docutils literal notranslate"><span class="pre">reshard_after_forward</span></code> FSDP arg at runtime. For
 example, this can be used to set the FSDP root module’s value to
@@ -4364,7 +4397,7 @@ passed-in module.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule.set_unshard_in_backward">
-<span class="sig-name descname"><span class="pre">set_unshard_in_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unshard_in_backward</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L516"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_unshard_in_backward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_unshard_in_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unshard_in_backward</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L516"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.set_unshard_in_backward" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets whether the FSDP module’s parameters need to be unsharded in
 backward. This can be used in expert cases when the user knows that all
 parameters in this FSDP module’s parameter group are not needed for
@@ -4375,7 +4408,7 @@ backward computation (e.g. embedding).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FSDPModule.unshard">
-<span class="sig-name descname"><span class="pre">unshard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.unshard" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">unshard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FSDPModule.unshard" title="Permalink to this definition">#</a></dt>
 <dd><p>Unshards the module’s parameters by allocating memory and all-gathering
 the parameters. This method is <em>not</em> recursive. The unshard follows the
 <a class="reference internal" href="#torch.distributed.fsdp.MixedPrecisionPolicy" title="torch.distributed.fsdp.MixedPrecisionPolicy"><code class="xref py py-class docutils literal notranslate"><span class="pre">MixedPrecisionPolicy</span></code></a>, so it will all-gather following
@@ -4408,7 +4441,7 @@ before pre-forward.</p>
 <dd><p>A handle to wait on a <a class="reference internal" href="#torch.distributed.fsdp.FSDPModule.unshard" title="torch.distributed.fsdp.FSDPModule.unshard"><code class="xref py py-meth docutils literal notranslate"><span class="pre">FSDPModule.unshard()</span></code></a> op.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.UnshardHandle.wait">
-<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L571"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.UnshardHandle.wait" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L587"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.UnshardHandle.wait" title="Permalink to this definition">#</a></dt>
 <dd><p>Waits on the unshard op. This ensures that the current stream can use
 the unsharded parameters, which are now registered to the module.</p>
 <dl class="field-list simple">
@@ -4419,7 +4452,7 @@ the unsharded parameters, which are now registered to the module.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.register_fsdp_forward_method">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">register_fsdp_forward_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L590"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.register_fsdp_forward_method" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">register_fsdp_forward_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L606"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.register_fsdp_forward_method" title="Permalink to this definition">#</a></dt>
 <dd><p>Registers a method on <code class="docutils literal notranslate"><span class="pre">module</span></code> to be considered a forward method for
 FSDP.</p>
 <p>FSDP all-gathers parameters pre-forward and optionally frees parameters
@@ -4630,11 +4663,12 @@ you have insufficient CPU memory. (Default: <code class="docutils literal notran
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pytorch-fsdp2-fully-shard">PyTorch FSDP2 (<code class="docutils literal notranslate"><span class="pre">fully_shard</span></code>)</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pytorch-fsdp2-fully-shard">PyTorch FSDP2 (<code class="docutils literal notranslate"><span class="pre">fully_shard</span></code>)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.fsdp.fully_shard"><code class="docutils literal notranslate"><span class="pre">fully_shard()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.fsdp.FSDPModule"><code class="docutils literal notranslate"><span class="pre">FSDPModule</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.fsdp.FSDPModule.reshard"><code class="docutils literal notranslate"><span class="pre">FSDPModule.reshard()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.fsdp.FSDPModule.set_all_reduce_hook"><code class="docutils literal notranslate"><span class="pre">FSDPModule.set_all_reduce_hook()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.fsdp.FSDPModule.set_allocate_memory_from_process_group_for_comm"><code class="docutils literal notranslate"><span class="pre">FSDPModule.set_allocate_memory_from_process_group_for_comm()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.fsdp.FSDPModule.set_is_last_backward"><code class="docutils literal notranslate"><span class="pre">FSDPModule.set_is_last_backward()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.fsdp.FSDPModule.set_modules_to_backward_prefetch"><code class="docutils literal notranslate"><span class="pre">FSDPModule.set_modules_to_backward_prefetch()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.fsdp.FSDPModule.set_modules_to_forward_prefetch"><code class="docutils literal notranslate"><span class="pre">FSDPModule.set_modules_to_forward_prefetch()</span></code></a></li>
@@ -4883,7 +4917,7 @@ you have insufficient CPU memory. (Default: <code class="docutils literal notran
          },
          "datePublished": "Dec 04, 2024",
          "dateModified": "Jun 16, 2025",
-         "articleBody": "torch.distributed.fsdp.fully_shard# Created On: Dec 04, 2024 | Last Updated On: Jun 16, 2025 PyTorch FSDP2 (fully_shard)# PyTorch FSDP2 provides a fully sharded data parallelism (FSDP) implementation targeting performant eager-mode while using per-parameter sharding for improved usability. If you are new to FSDP, we recommend that you start with FSDP2 due to improved usability. See TorchTitan for code examples. If you are currently using FSDP1, consider evaluating the following differences to see if you should switch to FSDP2: Compared to PyTorch FSDP1 (FullyShardedDataParallel): FSDP2 uses DTensor-based dim-0 per-parameter sharding for a simpler sharding representation compared to FSDP1’s flat-parameter sharding, while preserving similar throughput performance. More specifically, FSDP2 chunks each parameter on dim-0 across the data parallel workers (using torch.chunk(dim=0)), whereas FSDP1 flattens, concatenates, and chunks a group of tensors together, making reasoning about what data is present on each worker and resharding to different parallelisms complex. Per-parameter sharding provides a more intuitive user experience, relaxes constraints around frozen parameters, and allows for communication-free (sharded) state dicts, which otherwise require all-gathers in FSDP1. FSDP2 implements a different memory management approach to handle the multi-stream usages that avoids torch.Tensor.record_stream. This ensures deterministic and expected memory usage and does not require blocking the CPU like in FSDP1’s limit_all_gathers=True. FSDP2 exposes APIs for manual control over prefetching and collective scheduling, allowing power users more customization. See the methods on FSDPModule below for details. FSDP2 simplifies some of the API surface: e.g. FSDP2 does not directly support full state dicts. Instead, users can reshard the sharded state dicts containing DTensor s to full state dicts themselves using DTensor APIs like DTensor.full_tensor() or by using higher-level APIs like PyTorch Distributed Checkpoint ‘s distributed state dict APIs. Also, some other args have been removed; see here for details. If you are onboarding FSDP for the first time or if any of the above appeals to your use case, we recommend that you consider using FSDP2. See this RFC for details on system design and implementation. Note torch.distributed.fsdp.fully_shard is currently in prototype state and under development. The core API will likely not change, but we may make some API changes if necessary. The frontend API is fully_shard that can be called on a module: torch.distributed.fsdp.fully_shard(module, *, mesh=None, reshard_after_forward=None, shard_placement_fn=None, mp_policy=MixedPrecisionPolicy(param_dtype=None, reduce_dtype=None, output_dtype=None, cast_forward_inputs=True), offload_policy=OffloadPolicy(), ignored_params=None)[source]# Apply fully sharded data parallelism (FSDP) to module, where FSDP shards module parameters, gradients, and optimizer states across data..."
+         "articleBody": "torch.distributed.fsdp.fully_shard# Created On: Dec 04, 2024 | Last Updated On: Jun 16, 2025 PyTorch FSDP2 (fully_shard)# PyTorch FSDP2 (RFC) provides a fully sharded data parallelism (FSDP) implementation targeting performant eager-mode while using per-parameter sharding for improved usability See the Getting Started with FSDP2 tutorial for more information. If you are currently using FSDP1, consider migrating to FSDP2 using our migration guide. The user contract for fully_shard(model) is as follows For model initialization, fully_shard converts model.parameters() from plain torch.Tensor to DTensor in-place. The parameters are moved to the appropriate device according to the device mesh. Before forward and backward passes, pre-forward/backward hooks are responsible for all-gathering the parameters and converting model.parameters() from DTensor to plain torch.Tensor. After forward and backward passes, post-forward/backward hooks free the unsharded parameters (no communication needed) and convert model.parameters() from plain torch.Tensor back to DTensor. For the optimizer, it must be initialized with the DTensor model.parameters(), and the optimizer step should be performed on DTensor parameters. Call model(input) instead of model.forward(input) to trigger pre-forward hooks to all-gather parameters. To make model.forward(input) work, users must either call model.unshard() explicitly or use register_fsdp_forward_method(model, &#34;forward&#34;) to register the forward method for hooking. fully_shard groups parameters together for a single all-gather. User should apply fully_shard in a bottom-up manner. For example, in a Transformer model, fully_shard should be applied to each layer before applying it to the root model. When applied to the root model, fully_shard excludes model.parameters() from each layer and groups the remaining parameters (e.g., embeddings, output projection) into a single all-gather group. type(model) is “unioned” with FSDPModule in-place. For example, if model is originally of type nn.Linear, then fully_shard changes type(model) from nn.Linear to FSDPLinear in-place. FSDPLinear is an instance of both nn.Linear and FSDPModule. It retains all methods of nn.Linear while also exposing FSDP2-specific APIs under FSDPModule, such as reshard() and unshard(). Fully Qualified Names (FQNs) for parameters remain unchanged. If we call model.state_dict(), the FQNs are the same before and after applying fully_shard. This is because fully_shard does not wrap the module but only registers hooks to the original module. Compared to PyTorch FSDP1 (FullyShardedDataParallel): FSDP2 uses DTensor-based dim-0 per-parameter sharding for a simpler sharding representation compared to FSDP1’s flat-parameter sharding, while preserving similar throughput performance. More specifically, FSDP2 chunks each parameter on dim-0 across the data parallel workers (using torch.chunk(dim=0)), whereas FSDP1 flattens, concatenates, and chunks a group of tensors together, mak..."
        }
    </script>
 

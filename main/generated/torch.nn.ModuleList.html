@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git4311aea )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dabc35 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4034,7 +4034,7 @@ document.write(`
 <h1>ModuleList<a class="headerlink" href="#modulelist" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.ModuleList">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">ModuleList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/nn/modules/container.py#L326"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleList" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">ModuleList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/nn/modules/container.py#L326"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleList" title="Permalink to this definition">#</a></dt>
 <dd><p>Holds submodules in a list.</p>
 <p><a class="reference internal" href="#torch.nn.ModuleList" title="torch.nn.ModuleList"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleList</span></code></a> can be indexed like a regular Python list, but
 modules it contains are properly registered, and will be visible by all
@@ -4059,7 +4059,7 @@ modules it contains are properly registered, and will be visible by all
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ModuleList.append">
-<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/nn/modules/container.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleList.append" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/nn/modules/container.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleList.append" title="Permalink to this definition">#</a></dt>
 <dd><p>Append a given module to the end of the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4073,7 +4073,7 @@ modules it contains are properly registered, and will be visible by all
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ModuleList.extend">
-<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modules</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/nn/modules/container.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleList.extend" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modules</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/nn/modules/container.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleList.extend" title="Permalink to this definition">#</a></dt>
 <dd><p>Append modules from a Python iterable to the end of the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4087,7 +4087,7 @@ modules it contains are properly registered, and will be visible by all
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.ModuleList.insert">
-<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/nn/modules/container.py#L448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleList.insert" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/nn/modules/container.py#L448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.ModuleList.insert" title="Permalink to this definition">#</a></dt>
 <dd><p>Insert a given module before a given index in the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4225,7 +4225,7 @@ modules it contains are properly registered, and will be visible by all
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.ModuleList"><code class="docutils literal notranslate"><span class="pre">ModuleList</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.ModuleList"><code class="docutils literal notranslate"><span class="pre">ModuleList</span></code></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.ModuleList.append"><code class="docutils literal notranslate"><span class="pre">ModuleList.append()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.ModuleList.extend"><code class="docutils literal notranslate"><span class="pre">ModuleList.extend()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.ModuleList.insert"><code class="docutils literal notranslate"><span class="pre">ModuleList.insert()</span></code></a></li>

@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git4311aea )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dabc35 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2582,15 +2582,15 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-autograd-encodes-the-history">How autograd encodes the history</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-autograd-encodes-the-history">How autograd encodes the history</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saved-tensors">Saved tensors</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradients-for-non-differentiable-functions">Gradients for non-differentiable functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradients-for-non-differentiable-functions">Gradients for non-differentiable functions</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#division-by-zero-in-autograd">Division by Zero in Autograd</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#locally-disabling-gradient-computation">Locally disabling gradient computation</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#locally-disabling-gradient-computation">Locally disabling gradient computation</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-requires-grad">Setting <code class="docutils literal notranslate"><span class="pre">requires_grad</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grad-modes">Grad Modes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-mode-grad-mode">Default Mode (Grad Mode)</a></li>
@@ -2599,11 +2599,11 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-mode-nn-module-eval">Evaluation Mode (<code class="docutils literal notranslate"><span class="pre">nn.Module.eval()</span></code>)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-place-operations-with-autograd">In-place operations with autograd</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-place-operations-with-autograd">In-place operations with autograd</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-place-correctness-checks">In-place correctness checks</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multithreaded-autograd">Multithreaded Autograd</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multithreaded-autograd">Multithreaded Autograd</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concurrency-on-cpu">Concurrency on CPU</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-determinism">Non-determinism</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-retaining">Graph retaining</a></li>
@@ -2611,7 +2611,7 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-thread-safety-on-c-hooks">No thread safety on C++ hooks</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autograd-for-complex-numbers">Autograd for Complex Numbers</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autograd-for-complex-numbers">Autograd for Complex Numbers</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-complex-derivatives">What are complex derivatives?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wirtinger-calculus-comes-into-the-picture">Wirtinger Calculus comes into the picture …</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-is-wirtinger-calculus-useful-in-optimization">How is Wirtinger Calculus useful in optimization?</a></li>
@@ -2620,12 +2620,12 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-about-cross-domain-functions">What about cross-domain functions?</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hooks-for-saved-tensors">Hooks for saved tensors</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hooks-for-saved-tensors">Hooks for saved tensors</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registering-hooks-for-a-saved-tensor">Registering hooks for a saved tensor</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registering-default-hooks-for-saved-tensors">Registering default hooks for saved tensors</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-hooks-execution">Backward Hooks execution</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-hooks-execution">Backward Hooks execution</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whether-a-particular-hook-will-be-fired">Whether a particular hook will be fired</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-order-in-which-the-different-hooks-are-fired">The order in which the different hooks are fired</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-hooks">Special hooks</a></li>

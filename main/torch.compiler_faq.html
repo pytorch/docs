@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git4311aea )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dabc35 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4757,7 +4757,7 @@ This is now supported by the <code class="docutils literal notranslate"><span cl
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-compilation-slow">Why is compilation slow?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-you-recompiling-in-production">Why are you recompiling in production?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-are-you-speeding-up-my-code">How are you speeding up my code?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-am-i-not-seeing-speedups">Why am I not seeing speedups?</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-am-i-not-seeing-speedups">Why am I not seeing speedups?</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-breaks">Graph Breaks</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identifying-the-cause-of-a-graph-break">Identifying the cause of a graph break</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-didnt-my-code-recompile-when-i-changed-it">Why didn’t my code recompile when I changed it?</a></li>
@@ -4765,14 +4765,14 @@ This is now supported by the <code class="docutils literal notranslate"><span cl
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-am-i-getting-incorrect-results">Why am I getting incorrect results?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-am-i-getting-ooms">Why am I getting OOMs?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#does-torch-func-work-with-torch-compile-for-grad-and-vmap-transforms">Does <code class="docutils literal notranslate"><span class="pre">torch.func</span></code> work with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> (for <code class="docutils literal notranslate"><span class="pre">grad</span></code> and <code class="docutils literal notranslate"><span class="pre">vmap</span></code> transforms)?</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#does-torch-func-work-with-torch-compile-for-grad-and-vmap-transforms">Does <code class="docutils literal notranslate"><span class="pre">torch.func</span></code> work with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> (for <code class="docutils literal notranslate"><span class="pre">grad</span></code> and <code class="docutils literal notranslate"><span class="pre">vmap</span></code> transforms)?</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calling-torch-func-transform-inside-of-a-function-handled-with-torch-compile">Calling <code class="docutils literal notranslate"><span class="pre">torch.func</span></code> transform inside of a function handled with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compiling-torch-func-grad-with-torch-compile">Compiling <code class="docutils literal notranslate"><span class="pre">torch.func.grad</span></code> with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compiling-torch-vmap-with-torch-compile">Compiling <code class="docutils literal notranslate"><span class="pre">torch.vmap</span></code> with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compiling-functions-besides-the-ones-which-are-supported-escape-hatch">Compiling functions besides the ones which are supported (escape hatch)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#does-numpy-work-with-torch-compile">Does NumPy work with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>?</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#does-numpy-work-with-torch-compile">Does NumPy work with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>?</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#which-numpy-features-does-torch-compile-support">Which NumPy features does <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> support?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#can-i-compile-numpy-code-using-torch-compile">Can I compile NumPy code using <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#can-i-execute-numpy-code-on-cuda-and-compute-gradients-via-torch-compile">Can I execute NumPy code on CUDA and compute gradients via <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>?</a></li>
@@ -4780,7 +4780,7 @@ This is now supported by the <code class="docutils literal notranslate"><span cl
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i-torch-compile-some-numpy-code-and-i-did-not-see-any-speed-up">I <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> some NumPy code and I did not see any speed-up.</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-api-to-use-for-fine-grain-tracing">Which API to use for fine grain tracing?</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-api-to-use-for-fine-grain-tracing">Which API to use for fine grain tracing?</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-graph-break-on-a-function">How do I graph break on a function?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-the-difference-between-torch-dynamo-disable-and-torch-dynamo-disallow-in-graph">What’s the difference between <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disable</span></code> and <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disallow_in_graph</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-the-difference-between-torch-dynamo-disable-and-torch-dynamo-skip">What’s the difference between <code class="docutils literal notranslate"><span class="pre">torch._dynamo.disable</span></code> and <code class="docutils literal notranslate"><span class="pre">torch._dynamo_skip</span></code></a></li>

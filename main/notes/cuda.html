@@ -108,7 +108,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git4311aea )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dabc35 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3034,7 +3034,7 @@ or if they’ll run concurrently, passing them as a tuple to a single invocation
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-precision-reduction-in-fp16-gemms">Reduced Precision Reduction in FP16 GEMMs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-precision-reduction-in-bf16-gemms">Reduced Precision Reduction in BF16 GEMMs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-fp16-accmumulation-in-fp16-gemms">Full FP16 Accmumulation in FP16 GEMMs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asynchronous-execution">Asynchronous execution</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asynchronous-execution">Asynchronous execution</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuda-streams">CUDA streams</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-semantics-of-backward-passes">Stream semantics of backward passes</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bc-note-using-grads-on-the-default-stream">BC note: Using grads on the default stream</a></li>
@@ -3042,7 +3042,7 @@ or if they’ll run concurrently, passing them as a tuple to a single invocation
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-management">Memory management</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-management">Memory management</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizing-memory-usage-with-pytorch-cuda-alloc-conf">Optimizing memory usage  with <code class="docutils literal notranslate"><span class="pre">PYTORCH_CUDA_ALLOC_CONF</span></code></a></li>
 </ul>
 </li>
@@ -3051,13 +3051,13 @@ or if they’ll run concurrently, passing them as a tuple to a single invocation
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cublas-workspaces">cuBLAS workspaces</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cufft-plan-cache">cuFFT plan cache</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#just-in-time-compilation">Just-in-Time Compilation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best practices</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best practices</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#device-agnostic-code">Device-agnostic code</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-pinned-memory-buffers">Use pinned memory buffers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-nn-parallel-distributeddataparallel-instead-of-multiprocessing-or-nn-dataparallel">Use nn.parallel.DistributedDataParallel instead of multiprocessing or nn.DataParallel</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuda-graphs">CUDA Graphs</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuda-graphs">CUDA Graphs</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-cuda-graphs">Why CUDA Graphs?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pytorch-api">PyTorch API</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#constraints">Constraints</a></li>

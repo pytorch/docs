@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git4311aea )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dabc35 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4796,7 +4796,7 @@ to TorchScript, leaving calls to Python functions in place. This way you can inc
 check the correctness of the model as you go.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.is_scripting">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_scripting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/_jit_internal.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_scripting" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_scripting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/_jit_internal.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_scripting" title="Permalink to this definition">#</a></dt>
 <dd><p>Function that returns True when in compilation and False otherwise. This
 is useful especially with the &#64;unused decorator to leave code in your
 model that is not yet TorchScript compatible.
@@ -4823,7 +4823,7 @@ model that is not yet TorchScript compatible.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.is_tracing">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_tracing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4311aea5e7568c9956a9f0d694f1980c387b6a37/torch/jit/_trace.py#L1324"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_tracing" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_tracing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dabc351bb5581f69825eee6b24fbac9f9260241/torch/jit/_trace.py#L1327"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_tracing" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a boolean value.</p>
 <p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> in tracing (if a function is called during the
 tracing of code with <code class="docutils literal notranslate"><span class="pre">torch.jit.trace</span></code>) and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
@@ -5050,7 +5050,7 @@ to the resulting <code class="xref py py-class docutils literal notranslate"><sp
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-type">Types</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-type">Types</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupported-typing-constructs">Unsupported Typing Constructs</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-types">Default Types</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-type-refinement">Optional Type Refinement</a></li>
@@ -5060,7 +5060,7 @@ to the resulting <code class="xref py py-class docutils literal notranslate"><sp
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterables">Iterables</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expressions">Expressions</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expressions">Expressions</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#literals">Literals</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#list-construction">List Construction</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tuple-construction">Tuple Construction</a></li>
@@ -5079,7 +5079,7 @@ to the resulting <code class="xref py py-class docutils literal notranslate"><sp
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-module-parameters">Accessing Module Parameters</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statements">Statements</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statements">Statements</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-assignments">Simple Assignments</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-matching-assignments">Pattern Matching Assignments</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#print-statements">Print Statements</a></li>
@@ -5093,7 +5093,7 @@ to the resulting <code class="xref py py-class docutils literal notranslate"><sp
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-resolution">Variable Resolution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-of-python-values">Use of Python Values</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-of-python-values">Use of Python Values</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.jit.is_scripting"><code class="docutils literal notranslate"><span class="pre">is_scripting()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.jit.is_tracing"><code class="docutils literal notranslate"><span class="pre">is_tracing()</span></code></a></li>

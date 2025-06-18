@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git4311aea )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dabc35 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -5233,24 +5233,24 @@ and <a class="reference external" href="https://pytorch.org/docs/stable/generate
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-expectations">Setting Expectations</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-expectations">Setting Expectations</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-times">Compile times</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#terminology">Terminology</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#terminology">Terminology</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-break">Graph break</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guards">Guards</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recompilation">Recompilation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-shapes">Dynamic Shapes</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logging-tools">Logging Tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logging-tools">Logging Tools</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tlparse-torch-trace">tlparse / TORCH_TRACE</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch-logs">TORCH_LOGS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tlparse-vs-torch-logs">tlparse vs. TORCH_LOGS</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-workarounds">Simple Workarounds</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-workarounds">Simple Workarounds</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-apply-torch-compile">Where to apply torch.compile?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#disabling-and-suppressing-errors">Disabling and Suppressing Errors</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resolving-graph-breaks">Resolving graph breaks</a><ul class="nav section-nav flex-column">
@@ -5268,14 +5268,14 @@ and <a class="reference external" href="https://pytorch.org/docs/stable/generate
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reporting-issues">Reporting Issues</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reporting-issues">Reporting Issues</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ablation">Ablation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bisecting">Bisecting</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-reproducer">Creating a reproducer</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minifier">Minifier</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-deeper">Debugging Deeper</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-deeper">Debugging Deeper</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torchdynamo">TorchDynamo</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#logging-what-dynamo-is-tracing">Logging what Dynamo is tracing</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#breakpointing-dynamo-tracing">Breakpointing Dynamo tracing</a></li>

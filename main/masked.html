@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git4311aea )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dabc35 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4023,7 +4023,7 @@ document.write(`
                   
   <span class="target" id="module-torch.masked"></span><span class="target" id="module-torch.masked.maskedtensor"></span><div class="section" id="torch-masked">
 <span id="masked-docs"></span><h1>torch.masked<a class="headerlink" href="#torch-masked" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Aug 15, 2022 | Last Updated On: Sep 06, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Aug 15, 2022 | Last Updated On: Jun 17, 2025</p>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
 <div class="section" id="motivation">
@@ -4058,11 +4058,10 @@ This clearly yields a different result depending on whether we have the mask, bu
 allows the user to systematically ignore any elements they’d like during computation.</p>
 <p>There are already a number of existing tutorials that we’ve written to help users onboard, such as:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://pytorch.org/tutorials/prototype/maskedtensor_overview">Overview - the place to start for new users, discusses how to use MaskedTensors and why they’re useful</a></p></li>
-<li><p><a class="reference external" href="https://pytorch.org/tutorials/prototype/maskedtensor_sparsity">Sparsity - MaskedTensor supports sparse COO and CSR data and mask Tensors</a></p></li>
-<li><p><a class="reference external" href="https://pytorch.org/tutorials/prototype/maskedtensor_adagrad">Adagrad sparse semantics - a practical example of how MaskedTensor can simplify sparse semantics and implementations</a></p></li>
-<li><p><a class="reference external" href="https://pytorch.org/tutorials/prototype/maskedtensor_advanced_semantics">Advanced semantics - discussion on why certain decisions were made (e.g. requiring masks to match for binary/reduction operations),
-differences with NumPy’s MaskedArray, and reduction semantics</a></p></li>
+<li><p><a class="reference external" href="https://pytorch.org/tutorials/prototype/maskedtensor_overview">Overview – the place to start for new users, discusses how to use MaskedTensors and why they’re useful</a></p></li>
+<li><p><a class="reference external" href="https://pytorch.org/tutorials/prototype/maskedtensor_sparsity">Sparsity – MaskedTensor supports sparse COO and CSR data and mask Tensors</a></p></li>
+<li><p><a class="reference external" href="https://pytorch.org/tutorials/prototype/maskedtensor_adagrad">Adagrad sparse semantics – a practical example of how MaskedTensor can simplify sparse semantics and implementations</a></p></li>
+<li><p><a class="reference external" href="https://pytorch.org/tutorials/prototype/maskedtensor_advanced_semantics">Advanced semantics – discussion on why certain decisions were made (e.g. requiring masks to match for binary/reduction operations), differences with NumPy’s MaskedArray, and reduction semantics</a></p></li>
 </ul>
 </div>
 </div>
@@ -4501,21 +4500,21 @@ has some further in-depth discussions about how we decided on certain reduction 
 <p>We’ve included a number of view and select functions as well; intuitively, these operators will apply to
 both the data and the mask and then wrap the result in a <code class="xref py py-class docutils literal notranslate"><span class="pre">MaskedTensor</span></code>. For a quick example,
 consider <a class="reference internal" href="generated/torch.select.html#torch.select" title="torch.select"><code class="xref py py-func docutils literal notranslate"><span class="pre">select()</span></code></a>:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
-<span class="go">tensor([[ 0.,  1.,  2.,  3.],</span>
-<span class="go">        [ 4.,  5.,  6.,  7.],</span>
-<span class="go">        [ 8.,  9., 10., 11.]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mt</span> <span class="o">=</span> <span class="n">masked_tensor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="go">tensor([4., 5., 6., 7.])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="go">tensor([False,  True, False, False])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="go">MaskedTensor(</span>
-<span class="go">  [      --,   5.0000,       --,       --]</span>
-<span class="go">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span>
+    <span class="n">tensor</span><span class="p">([[</span> <span class="mf">0.</span><span class="p">,</span>  <span class="mf">1.</span><span class="p">,</span>  <span class="mf">2.</span><span class="p">,</span>  <span class="mf">3.</span><span class="p">],</span>
+            <span class="p">[</span> <span class="mf">4.</span><span class="p">,</span>  <span class="mf">5.</span><span class="p">,</span>  <span class="mf">6.</span><span class="p">,</span>  <span class="mf">7.</span><span class="p">],</span>
+            <span class="p">[</span> <span class="mf">8.</span><span class="p">,</span>  <span class="mf">9.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">11.</span><span class="p">]])</span>
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">]])</span>
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">mt</span> <span class="o">=</span> <span class="n">masked_tensor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">tensor</span><span class="p">([</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">6.</span><span class="p">,</span> <span class="mf">7.</span><span class="p">])</span>
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">mask</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">tensor</span><span class="p">([</span><span class="kc">False</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">mt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">MaskedTensor</span><span class="p">(</span>
+      <span class="p">[</span>      <span class="o">--</span><span class="p">,</span>   <span class="mf">5.0000</span><span class="p">,</span>       <span class="o">--</span><span class="p">,</span>       <span class="o">--</span><span class="p">]</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
 <p>The following ops are currently supported:</p>
@@ -4738,12 +4737,12 @@ consider <a class="reference internal" href="generated/torch.select.html#torch.s
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-maskedtensor">What is a MaskedTensor?</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-operators">Supported Operators</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-operators">Supported Operators</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unary-operators">Unary Operators</a><ul class="nav section-nav flex-column">
 </ul>
 </li>
@@ -4761,7 +4760,7 @@ consider <a class="reference internal" href="generated/torch.select.html#torch.s
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/masked.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/masked.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4775,7 +4774,7 @@ consider <a class="reference internal" href="generated/torch.select.html#torch.s
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/masked.rst.txt">
+      <a href="_sources/masked.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4978,8 +4977,8 @@ consider <a class="reference internal" href="generated/torch.select.html#torch.s
            "@id": "/masked.html"
          },
          "datePublished": "Aug 15, 2022",
-         "dateModified": "Sep 06, 2024",
-         "articleBody": "torch.masked# Created On: Aug 15, 2022 | Last Updated On: Sep 06, 2024 Introduction# Motivation# Warning The PyTorch API of masked tensors is in the prototype stage and may or may not change in the future. MaskedTensor serves as an extension to torch.Tensor that provides the user with the ability to: use any masked semantics (e.g. variable length tensors, nan* operators, etc.) differentiate between 0 and NaN gradients various sparse applications (see tutorial below) “Specified” and “unspecified” have a long history in PyTorch without formal semantics and certainly without consistency; indeed, MaskedTensor was born out of a build up of issues that the vanilla torch.Tensor class could not properly address. Thus, a primary goal of MaskedTensor is to become the source of truth for said “specified” and “unspecified” values in PyTorch where they are a first class citizen instead of an afterthought. In turn, this should further unlock sparsity’s potential, enable safer and more consistent operators, and provide a smoother and more intuitive experience for users and developers alike. What is a MaskedTensor?# A MaskedTensor is a tensor subclass that consists of 1) an input (data), and 2) a mask. The mask tells us which entries from the input should be included or ignored. By way of example, suppose that we wanted to mask out all values that are equal to 0 (represented by the gray) and take the max: On top is the vanilla tensor example while the bottom is MaskedTensor where all the 0’s are masked out. This clearly yields a different result depending on whether we have the mask, but this flexible structure allows the user to systematically ignore any elements they’d like during computation. There are already a number of existing tutorials that we’ve written to help users onboard, such as: Overview - the place to start for new users, discusses how to use MaskedTensors and why they’re useful Sparsity - MaskedTensor supports sparse COO and CSR data and mask Tensors Adagrad sparse semantics - a practical example of how MaskedTensor can simplify sparse semantics and implementations Advanced semantics - discussion on why certain decisions were made (e.g. requiring masks to match for binary/reduction operations), differences with NumPy’s MaskedArray, and reduction semantics Supported Operators# Unary Operators# Unary operators are operators that only contain only a single input. Applying them to MaskedTensors is relatively straightforward: if the data is masked out at a given index, we apply the operator, otherwise we’ll continue to mask out the data. The available unary operators are: abs Computes the absolute value of each element in input. absolute Alias for torch.abs() acos Computes the inverse cosine of each element in input. arccos Alias for torch.acos(). acosh Returns a new tensor with the inverse hyperbolic cosine of the elements of input. arccosh Alias for torch.acosh(). angle Computes the element-wise angle (in radians) of the given input tensor. asin..."
+         "dateModified": "Jun 17, 2025",
+         "articleBody": "torch.masked# Created On: Aug 15, 2022 | Last Updated On: Jun 17, 2025 Introduction# Motivation# Warning The PyTorch API of masked tensors is in the prototype stage and may or may not change in the future. MaskedTensor serves as an extension to torch.Tensor that provides the user with the ability to: use any masked semantics (e.g. variable length tensors, nan* operators, etc.) differentiate between 0 and NaN gradients various sparse applications (see tutorial below) “Specified” and “unspecified” have a long history in PyTorch without formal semantics and certainly without consistency; indeed, MaskedTensor was born out of a build up of issues that the vanilla torch.Tensor class could not properly address. Thus, a primary goal of MaskedTensor is to become the source of truth for said “specified” and “unspecified” values in PyTorch where they are a first class citizen instead of an afterthought. In turn, this should further unlock sparsity’s potential, enable safer and more consistent operators, and provide a smoother and more intuitive experience for users and developers alike. What is a MaskedTensor?# A MaskedTensor is a tensor subclass that consists of 1) an input (data), and 2) a mask. The mask tells us which entries from the input should be included or ignored. By way of example, suppose that we wanted to mask out all values that are equal to 0 (represented by the gray) and take the max: On top is the vanilla tensor example while the bottom is MaskedTensor where all the 0’s are masked out. This clearly yields a different result depending on whether we have the mask, but this flexible structure allows the user to systematically ignore any elements they’d like during computation. There are already a number of existing tutorials that we’ve written to help users onboard, such as: Overview – the place to start for new users, discusses how to use MaskedTensors and why they’re useful Sparsity – MaskedTensor supports sparse COO and CSR data and mask Tensors Adagrad sparse semantics – a practical example of how MaskedTensor can simplify sparse semantics and implementations Advanced semantics – discussion on why certain decisions were made (e.g. requiring masks to match for binary/reduction operations), differences with NumPy’s MaskedArray, and reduction semantics Supported Operators# Unary Operators# Unary operators are operators that only contain only a single input. Applying them to MaskedTensors is relatively straightforward: if the data is masked out at a given index, we apply the operator, otherwise we’ll continue to mask out the data. The available unary operators are: abs Computes the absolute value of each element in input. absolute Alias for torch.abs() acos Computes the inverse cosine of each element in input. arccos Alias for torch.acos(). acosh Returns a new tensor with the inverse hyperbolic cosine of the elements of input. arccosh Alias for torch.acosh(). angle Computes the element-wise angle (in radians) of the given input tensor. asin..."
        }
    </script>
 

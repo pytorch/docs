@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git4311aea )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dabc35 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4032,12 +4032,8 @@ document.write(`
                   
   <div class="section" id="miscellaneous-environment-variables">
 <span id="id1"></span><h1>Miscellaneous Environment Variables<a class="headerlink" href="#miscellaneous-environment-variables" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 15, 2024 | Last Updated On: Oct 21, 2024</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 17, 2025 | Last Updated On: Jun 17, 2025</p>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Variable</p></th>
 <th class="head"><p>Description</p></th>
@@ -4045,15 +4041,13 @@ document.write(`
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_FORCE_WEIGHTS_ONLY_LOAD</span></code></p></td>
-<td><p>If set to [<code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">true</span></code>], the torch.load will use <code class="docutils literal notranslate"><span class="pre">weights_only=True</span></code>. This will happen even if
-<code class="docutils literal notranslate"><span class="pre">weights_only=False</span></code> was passed at the callsite. For more documentation on this, see <a class="reference internal" href="generated/torch.load.html#torch.load" title="torch.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.load()</span></code></a>.</p></td>
+<td><p>If set to [<code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">true</span></code>], the <code class="docutils literal notranslate"><span class="pre">torch.load</span></code> will use <code class="docutils literal notranslate"><span class="pre">weights_only=True</span></code>. This will happen even if <code class="docutils literal notranslate"><span class="pre">weights_only=False</span></code> was passed at the callsite. For more documentation on this, see <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.load.html"><code class="docutils literal notranslate"><span class="pre">torch.load</span></code></a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD</span></code></p></td>
-<td><p>If set to [<code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">true</span></code>], the torch.load will use <code class="docutils literal notranslate"><span class="pre">weights_only=False</span></code> if the <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> variable was not
-passed at the callsite. For more documentation on this, see <a class="reference internal" href="generated/torch.load.html#torch.load" title="torch.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.load()</span></code></a>.</p></td>
+<td><p>If set to [<code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">true</span></code>], the <code class="docutils literal notranslate"><span class="pre">torch.load</span></code> will use <code class="docutils literal notranslate"><span class="pre">weights_only=False</span></code> if the <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> variable was not passed at the callsite. For more documentation on this, see <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.load.html"><code class="docutils literal notranslate"><span class="pre">torch.load</span></code></a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_AUTOGRAD_SHUTDOWN_WAIT_LIMIT</span></code></p></td>
-<td><p>Under some conditions, autograd threads can hang on shutdown, therefore we do not wait for them to shutdown indefinitely but rely on timeout that is default set to <code class="docutils literal notranslate"><span class="pre">10</span></code> seconds. This environment variable can be used to set the timeout in seconds.</p></td>
+<td><p>Under some conditions, autograd threads can hang on shutdown, therefore we do not wait for them to shutdown indefinitely but rely on a timeout that is by default set to <code class="docutils literal notranslate"><span class="pre">10</span></code> seconds. This environment variable can be used to set the timeout in seconds.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_DEVICE_BACKEND_AUTOLOAD</span></code></p></td>
 <td><p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, out-of-tree backend extensions will be automatically imported when running <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">torch</span></code>.</p></td>
@@ -4181,7 +4175,7 @@ passed at the callsite. For more documentation on this, see <a class="reference 
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/miscellaneous_environment_variables.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/miscellaneous_environment_variables.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4195,7 +4189,7 @@ passed at the callsite. For more documentation on this, see <a class="reference 
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/miscellaneous_environment_variables.rst.txt">
+      <a href="_sources/miscellaneous_environment_variables.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4397,9 +4391,9 @@ passed at the callsite. For more documentation on this, see <a class="reference 
            "@type": "WebPage",
            "@id": "/miscellaneous_environment_variables.html"
          },
-         "datePublished": "Feb 15, 2024",
-         "dateModified": "Oct 21, 2024",
-         "articleBody": "Miscellaneous Environment Variables# Created On: Feb 15, 2024 | Last Updated On: Oct 21, 2024 Variable Description TORCH_FORCE_WEIGHTS_ONLY_LOAD If set to [1, y, yes, true], the torch.load will use weights_only=True. This will happen even if weights_only=False was passed at the callsite. For more documentation on this, see torch.load(). TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD If set to [1, y, yes, true], the torch.load will use weights_only=False if the weights_only variable was not passed at the callsite. For more documentation on this, see torch.load(). TORCH_AUTOGRAD_SHUTDOWN_WAIT_LIMIT Under some conditions, autograd threads can hang on shutdown, therefore we do not wait for them to shutdown indefinitely but rely on timeout that is default set to 10 seconds. This environment variable can be used to set the timeout in seconds. TORCH_DEVICE_BACKEND_AUTOLOAD If set to 1, out-of-tree backend extensions will be automatically imported when running import torch."
+         "datePublished": "Jun 17, 2025",
+         "dateModified": "Jun 17, 2025",
+         "articleBody": "Miscellaneous Environment Variables# Created On: Jun 17, 2025 | Last Updated On: Jun 17, 2025 Variable Description TORCH_FORCE_WEIGHTS_ONLY_LOAD If set to [1, y, yes, true], the torch.load will use weights_only=True. This will happen even if weights_only=False was passed at the callsite. For more documentation on this, see torch.load. TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD If set to [1, y, yes, true], the torch.load will use weights_only=False if the weights_only variable was not passed at the callsite. For more documentation on this, see torch.load. TORCH_AUTOGRAD_SHUTDOWN_WAIT_LIMIT Under some conditions, autograd threads can hang on shutdown, therefore we do not wait for them to shutdown indefinitely but rely on a timeout that is by default set to 10 seconds. This environment variable can be used to set the timeout in seconds. TORCH_DEVICE_BACKEND_AUTOLOAD If set to 1, out-of-tree backend extensions will be automatically imported when running import torch."
        }
    </script>
 

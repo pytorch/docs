@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git4311aea )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dabc35 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4023,7 +4023,7 @@ document.write(`
                   
   <div class="section" id="torch-linalg">
 <h1>torch.linalg<a class="headerlink" href="#torch-linalg" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Aug 07, 2020 | Last Updated On: Nov 07, 2022</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Aug 07, 2020 | Last Updated On: Jun 17, 2025</p>
 <p>Common linear algebra operations.</p>
 <p>See <a class="reference internal" href="notes/numerical_accuracy.html#linear-algebra-stability"><span class="std std-ref">Linear algebra (torch.linalg)</span></a> for some common numerical edge-cases.</p>
 <span class="target" id="module-torch.linalg"></span><div class="section" id="matrix-properties">
@@ -4397,7 +4397,7 @@ document.write(`
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/linalg.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/linalg.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4411,7 +4411,7 @@ document.write(`
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/linalg.rst.txt">
+      <a href="_sources/linalg.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4614,8 +4614,8 @@ document.write(`
            "@id": "/linalg.html"
          },
          "datePublished": "Aug 07, 2020",
-         "dateModified": "Nov 07, 2022",
-         "articleBody": "torch.linalg# Created On: Aug 07, 2020 | Last Updated On: Nov 07, 2022 Common linear algebra operations. See Linear algebra (torch.linalg) for some common numerical edge-cases. Matrix Properties# norm Computes a vector or matrix norm. vector_norm Computes a vector norm. matrix_norm Computes a matrix norm. diagonal Alias for torch.diagonal() with defaults dim1= -2, dim2= -1. det Computes the determinant of a square matrix. slogdet Computes the sign and natural logarithm of the absolute value of the determinant of a square matrix. cond Computes the condition number of a matrix with respect to a matrix norm. matrix_rank Computes the numerical rank of a matrix. Decompositions# cholesky Computes the Cholesky decomposition of a complex Hermitian or real symmetric positive-definite matrix. qr Computes the QR decomposition of a matrix. lu Computes the LU decomposition with partial pivoting of a matrix. lu_factor Computes a compact representation of the LU factorization with partial pivoting of a matrix. eig Computes the eigenvalue decomposition of a square matrix if it exists. eigvals Computes the eigenvalues of a square matrix. eigh Computes the eigenvalue decomposition of a complex Hermitian or real symmetric matrix. eigvalsh Computes the eigenvalues of a complex Hermitian or real symmetric matrix. svd Computes the singular value decomposition (SVD) of a matrix. svdvals Computes the singular values of a matrix. Solvers# solve Computes the solution of a square system of linear equations with a unique solution. solve_triangular Computes the solution of a triangular system of linear equations with a unique solution. lu_solve Computes the solution of a square system of linear equations with a unique solution given an LU decomposition. lstsq Computes a solution to the least squares problem of a system of linear equations. Inverses# inv Computes the inverse of a square matrix if it exists. pinv Computes the pseudoinverse (Moore-Penrose inverse) of a matrix. Matrix Functions# matrix_exp Computes the matrix exponential of a square matrix. matrix_power Computes the n-th power of a square matrix for an integer n. Matrix Products# cross Computes the cross product of two 3-dimensional vectors. matmul Alias for torch.matmul() vecdot Computes the dot product of two batches of vectors along a dimension. multi_dot Efficiently multiplies two or more matrices by reordering the multiplications so that the fewest arithmetic operations are performed. householder_product Computes the first n columns of a product of Householder matrices. Tensor Operations# tensorinv Computes the multiplicative inverse of torch.tensordot(). tensorsolve Computes the solution X to the system torch.tensordot(A, X) = B. Misc# vander Generates a Vandermonde matrix. Experimental Functions# cholesky_ex Computes the Cholesky decomposition of a complex Hermitian or real symmetric positive-definite matrix. inv_ex Computes the inverse of a square matrix if it is invertible. solve_ex A version of solv..."
+         "dateModified": "Jun 17, 2025",
+         "articleBody": "torch.linalg# Created On: Aug 07, 2020 | Last Updated On: Jun 17, 2025 Common linear algebra operations. See Linear algebra (torch.linalg) for some common numerical edge-cases. Matrix Properties# norm Computes a vector or matrix norm. vector_norm Computes a vector norm. matrix_norm Computes a matrix norm. diagonal Alias for torch.diagonal() with defaults dim1= -2, dim2= -1. det Computes the determinant of a square matrix. slogdet Computes the sign and natural logarithm of the absolute value of the determinant of a square matrix. cond Computes the condition number of a matrix with respect to a matrix norm. matrix_rank Computes the numerical rank of a matrix. Decompositions# cholesky Computes the Cholesky decomposition of a complex Hermitian or real symmetric positive-definite matrix. qr Computes the QR decomposition of a matrix. lu Computes the LU decomposition with partial pivoting of a matrix. lu_factor Computes a compact representation of the LU factorization with partial pivoting of a matrix. eig Computes the eigenvalue decomposition of a square matrix if it exists. eigvals Computes the eigenvalues of a square matrix. eigh Computes the eigenvalue decomposition of a complex Hermitian or real symmetric matrix. eigvalsh Computes the eigenvalues of a complex Hermitian or real symmetric matrix. svd Computes the singular value decomposition (SVD) of a matrix. svdvals Computes the singular values of a matrix. Solvers# solve Computes the solution of a square system of linear equations with a unique solution. solve_triangular Computes the solution of a triangular system of linear equations with a unique solution. lu_solve Computes the solution of a square system of linear equations with a unique solution given an LU decomposition. lstsq Computes a solution to the least squares problem of a system of linear equations. Inverses# inv Computes the inverse of a square matrix if it exists. pinv Computes the pseudoinverse (Moore-Penrose inverse) of a matrix. Matrix Functions# matrix_exp Computes the matrix exponential of a square matrix. matrix_power Computes the n-th power of a square matrix for an integer n. Matrix Products# cross Computes the cross product of two 3-dimensional vectors. matmul Alias for torch.matmul() vecdot Computes the dot product of two batches of vectors along a dimension. multi_dot Efficiently multiplies two or more matrices by reordering the multiplications so that the fewest arithmetic operations are performed. householder_product Computes the first n columns of a product of Householder matrices. Tensor Operations# tensorinv Computes the multiplicative inverse of torch.tensordot(). tensorsolve Computes the solution X to the system torch.tensordot(A, X) = B. Misc# vander Generates a Vandermonde matrix. Experimental Functions# cholesky_ex Computes the Cholesky decomposition of a complex Hermitian or real symmetric positive-definite matrix. inv_ex Computes the inverse of a square matrix if it is invertible. solve_ex A version of solv..."
        }
    </script>
 
