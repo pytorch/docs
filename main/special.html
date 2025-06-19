@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dabc35 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git6303cc4 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3671,8 +3671,12 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="quantization-backend-configuration.html">Quantization Backend Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quantization-accuracy-debugging.html">Quantization Accuracy Debugging</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="quantization-accuracy-debugging.html">Quantization Accuracy Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.ns._numeric_suite.html">torch.ao.ns._numeric_suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.ns._numeric_suite_fx.html">torch.ao.ns._numeric_suite_fx</a></li>
 
+</ul>
+</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4023,7 +4027,7 @@ document.write(`
                   
   <div class="section" id="torch-special">
 <h1>torch.special<a class="headerlink" href="#torch-special" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Mar 04, 2021 | Last Updated On: Jun 09, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Mar 04, 2021 | Last Updated On: Jun 18, 2025</p>
 <p>The torch.special module, modeled after SciPy’s <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/special.html">special</a> module.</p>
 <span class="target" id="module-torch.special"></span><div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">#</a></h2>
@@ -5544,7 +5548,7 @@ is performed. This is useful for preventing data type overflows. Default: None.<
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/special.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/special.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -5558,7 +5562,7 @@ is performed. This is useful for preventing data type overflows. Default: None.<
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/special.rst.txt">
+      <a href="_sources/special.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -5761,8 +5765,8 @@ is performed. This is useful for preventing data type overflows. Default: None.<
            "@id": "/special.html"
          },
          "datePublished": "Mar 04, 2021",
-         "dateModified": "Jun 09, 2025",
-         "articleBody": "torch.special# Created On: Mar 04, 2021 | Last Updated On: Jun 09, 2025 The torch.special module, modeled after SciPy’s special module. Functions# torch.special.airy_ai(input, *, out=None) → Tensor# Airy function Ai(input)\text{Ai}\left(\text{input}\right)Ai(input). Parameters input (Tensor) – the input tensor. Keyword Arguments out (Tensor, optional) – the output tensor. torch.special.bessel_j0(input, *, out=None) → Tensor# Bessel function of the first kind of order 000. Parameters input (Tensor) – the input tensor. Keyword Arguments out (Tensor, optional) – the output tensor. torch.special.bessel_j1(input, *, out=None) → Tensor# Bessel function of the first kind of order 111. Parameters input (Tensor) – the input tensor. Keyword Arguments out (Tensor, optional) – the output tensor. torch.special.bessel_y0(input, *, out=None) → Tensor# Bessel function of the second kind of order 000. Parameters input (Tensor) – the input tensor. Keyword Arguments out (Tensor, optional) – the output tensor. torch.special.bessel_y1(input, *, out=None) → Tensor# Bessel function of the second kind of order 111. Parameters input (Tensor) – the input tensor. Keyword Arguments out (Tensor, optional) – the output tensor. torch.special.chebyshev_polynomial_t(input, n, *, out=None) → Tensor# Chebyshev polynomial of the first kind Tn(input)T_{n}(\text{input})Tn​(input). If n=0n = 0n=0, 111 is returned. If n=1n = 1n=1, input\text{input}input is returned. If n&lt;6n &lt; 6n&lt;6 or ∣input∣&gt;1|\text{input}| &gt; 1∣input∣&gt;1 the recursion: Tn+1(input)=2×input×Tn(input)−Tn−1(input)T_{n + 1}(\text{input}) = 2 \times \text{input} \times T_{n}(\text{input}) - T_{n - 1}(\text{input}) Tn+1​(input)=2×input×Tn​(input)−Tn−1​(input)is evaluated. Otherwise, the explicit trigonometric formula: Tn(input)=cos(n×arccos(x))T_{n}(\text{input}) = \text{cos}(n \times \text{arccos}(x)) Tn​(input)=cos(n×arccos(x))is evaluated. Parameters input (Tensor) – the input tensor. n (Tensor) – Degree of the polynomial. Keyword Arguments out (Tensor, optional) – the output tensor. torch.special.chebyshev_polynomial_u(input, n, *, out=None) → Tensor# Chebyshev polynomial of the second kind Un(input)U_{n}(\text{input})Un​(input). If n=0n = 0n=0, 111 is returned. If n=1n = 1n=1, 2×input2 \times \text{input}2×input is returned. If n&lt;6n &lt; 6n&lt;6 or ∣input∣&gt;1|\text{input}| &gt; 1∣input∣&gt;1, the recursion: Un+1(input)=2×input×Un(input)−Un−1(input)U_{n + 1}(\text{input}) = 2 \times \text{input} \times U_{n}(\text{input}) - U_{n - 1}(\text{input}) Un+1​(input)=2×input×Un​(input)−Un−1​(input)is evaluated. Otherwise, the explicit trigonometric formula: sin((n+1)×arccos(input))sin(arccos(input))\frac{\text{sin}((n + 1) \times \text{arccos}(\text{input}))}{\text{sin}(\text{arccos}(\text{input}))} sin(arccos(input))sin((n+1)×arccos(input))​is evaluated. Parameters input (Tensor) – the input tensor. n (Tensor) – Degree of the polynomial. Keyword Arguments out (Tensor, optional) – the output tensor. torch.special.chebyshev_polynomial_v(inp..."
+         "dateModified": "Jun 18, 2025",
+         "articleBody": "torch.special# Created On: Mar 04, 2021 | Last Updated On: Jun 18, 2025 The torch.special module, modeled after SciPy’s special module. Functions# torch.special.airy_ai(input, *, out=None) → Tensor# Airy function Ai(input)\text{Ai}\left(\text{input}\right)Ai(input). Parameters input (Tensor) – the input tensor. Keyword Arguments out (Tensor, optional) – the output tensor. torch.special.bessel_j0(input, *, out=None) → Tensor# Bessel function of the first kind of order 000. Parameters input (Tensor) – the input tensor. Keyword Arguments out (Tensor, optional) – the output tensor. torch.special.bessel_j1(input, *, out=None) → Tensor# Bessel function of the first kind of order 111. Parameters input (Tensor) – the input tensor. Keyword Arguments out (Tensor, optional) – the output tensor. torch.special.bessel_y0(input, *, out=None) → Tensor# Bessel function of the second kind of order 000. Parameters input (Tensor) – the input tensor. Keyword Arguments out (Tensor, optional) – the output tensor. torch.special.bessel_y1(input, *, out=None) → Tensor# Bessel function of the second kind of order 111. Parameters input (Tensor) – the input tensor. Keyword Arguments out (Tensor, optional) – the output tensor. torch.special.chebyshev_polynomial_t(input, n, *, out=None) → Tensor# Chebyshev polynomial of the first kind Tn(input)T_{n}(\text{input})Tn​(input). If n=0n = 0n=0, 111 is returned. If n=1n = 1n=1, input\text{input}input is returned. If n&lt;6n &lt; 6n&lt;6 or ∣input∣&gt;1|\text{input}| &gt; 1∣input∣&gt;1 the recursion: Tn+1(input)=2×input×Tn(input)−Tn−1(input)T_{n + 1}(\text{input}) = 2 \times \text{input} \times T_{n}(\text{input}) - T_{n - 1}(\text{input}) Tn+1​(input)=2×input×Tn​(input)−Tn−1​(input)is evaluated. Otherwise, the explicit trigonometric formula: Tn(input)=cos(n×arccos(x))T_{n}(\text{input}) = \text{cos}(n \times \text{arccos}(x)) Tn​(input)=cos(n×arccos(x))is evaluated. Parameters input (Tensor) – the input tensor. n (Tensor) – Degree of the polynomial. Keyword Arguments out (Tensor, optional) – the output tensor. torch.special.chebyshev_polynomial_u(input, n, *, out=None) → Tensor# Chebyshev polynomial of the second kind Un(input)U_{n}(\text{input})Un​(input). If n=0n = 0n=0, 111 is returned. If n=1n = 1n=1, 2×input2 \times \text{input}2×input is returned. If n&lt;6n &lt; 6n&lt;6 or ∣input∣&gt;1|\text{input}| &gt; 1∣input∣&gt;1, the recursion: Un+1(input)=2×input×Un(input)−Un−1(input)U_{n + 1}(\text{input}) = 2 \times \text{input} \times U_{n}(\text{input}) - U_{n - 1}(\text{input}) Un+1​(input)=2×input×Un​(input)−Un−1​(input)is evaluated. Otherwise, the explicit trigonometric formula: sin((n+1)×arccos(input))sin(arccos(input))\frac{\text{sin}((n + 1) \times \text{arccos}(\text{input}))}{\text{sin}(\text{arccos}(\text{input}))} sin(arccos(input))sin((n+1)×arccos(input))​is evaluated. Parameters input (Tensor) – the input tensor. n (Tensor) – Degree of the polynomial. Keyword Arguments out (Tensor, optional) – the output tensor. torch.special.chebyshev_polynomial_v(inp..."
        }
    </script>
 

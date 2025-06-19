@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dabc35 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git6303cc4 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3671,8 +3671,12 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="quantization-backend-configuration.html">Quantization Backend Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quantization-accuracy-debugging.html">Quantization Accuracy Debugging</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="quantization-accuracy-debugging.html">Quantization Accuracy Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.ns._numeric_suite.html">torch.ao.ns._numeric_suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.ns._numeric_suite_fx.html">torch.ao.ns._numeric_suite_fx</a></li>
 
+</ul>
+</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4023,8 +4027,8 @@ document.write(`
                   
   <div class="section" id="module-torch.signal">
 <span id="torch-signal"></span><h1>torch.signal<a class="headerlink" href="#module-torch.signal" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 14, 2022 | Last Updated On: Dec 16, 2022</p>
-<p>The <cite>torch.signal</cite> module, modeled after SciPy’s <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/signal.html">signal</a> module.</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 14, 2022 | Last Updated On: Jun 18, 2025</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">torch.signal</span></code> module, modeled after SciPy’s <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/signal.html">signal</a>module.</p>
 <div class="section" id="module-torch.signal.windows">
 <span id="torch-signal-windows"></span><h2>torch.signal.windows<a class="headerlink" href="#module-torch.signal.windows" title="Permalink to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
@@ -4202,7 +4206,7 @@ document.write(`
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/signal.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/signal.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -4216,7 +4220,7 @@ document.write(`
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/signal.rst.txt">
+      <a href="_sources/signal.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -4419,8 +4423,8 @@ document.write(`
            "@id": "/signal.html"
          },
          "datePublished": "Oct 14, 2022",
-         "dateModified": "Dec 16, 2022",
-         "articleBody": "torch.signal# Created On: Oct 14, 2022 | Last Updated On: Dec 16, 2022 The torch.signal module, modeled after SciPy’s signal module. torch.signal.windows# bartlett Computes the Bartlett window. blackman Computes the Blackman window. cosine Computes a window with a simple cosine waveform, following the same implementation as SciPy. exponential Computes a window with an exponential waveform. gaussian Computes a window with a gaussian waveform. general_cosine Computes the general cosine window. general_hamming Computes the general Hamming window. hamming Computes the Hamming window. hann Computes the Hann window. kaiser Computes the Kaiser window. nuttall Computes the minimum 4-term Blackman-Harris window according to Nuttall."
+         "dateModified": "Jun 18, 2025",
+         "articleBody": "torch.signal# Created On: Oct 14, 2022 | Last Updated On: Jun 18, 2025 The torch.signal module, modeled after SciPy’s signalmodule. torch.signal.windows# bartlett Computes the Bartlett window. blackman Computes the Blackman window. cosine Computes a window with a simple cosine waveform, following the same implementation as SciPy. exponential Computes a window with an exponential waveform. gaussian Computes a window with a gaussian waveform. general_cosine Computes the general cosine window. general_hamming Computes the general Hamming window. hamming Computes the Hamming window. hann Computes the Hann window. kaiser Computes the Kaiser window. nuttall Computes the minimum 4-term Blackman-Harris window according to Nuttall."
        }
    </script>
 
