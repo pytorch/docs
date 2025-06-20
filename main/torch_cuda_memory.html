@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git6303cc4 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gitebab279 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4092,44 +4092,88 @@ the pynvml package, and compare that to the allocation reported by pytorch.</p>
 <h2>Snapshot API Reference<a class="headerlink" href="#snapshot-api-reference" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory._record_memory_history">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_record_memory_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_entries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clear_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compile_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_record_annotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6303cc41b71c02af9c855f3cc85b1146a97fc7a8/torch/cuda/memory.py#L864"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._record_memory_history" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_record_memory_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_entries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clear_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compile_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_record_annotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebab2799423987a16975ab07ee49dd944e5315e6/torch/cuda/memory.py#L864"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._record_memory_history" title="Permalink to this definition">#</a></dt>
 <dd><p>Enable recording of stack traces associated with memory
 allocations, so you can tell what allocated any piece of memory in
 <a class="reference internal" href="#torch.cuda.memory._snapshot" title="torch.cuda.memory._snapshot"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.cuda.memory._snapshot()</span></code></a>.</p>
-<p>In addition too keeping stack traces with each current allocation and free,
+<p>In addition to keeping stack traces with each current allocation and free,
 this will also enable recording of a history of all alloc/free events.</p>
 <p>Use <a class="reference internal" href="#torch.cuda.memory._snapshot" title="torch.cuda.memory._snapshot"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.cuda.memory._snapshot()</span></code></a> to retrieve this information,
 and the tools in <cite>_memory_viz.py</cite> to visualize snapshots.</p>
+<div class="section" id="buffer-behavior">
+<h3>Buffer behavior<a class="headerlink" href="#buffer-behavior" title="Permalink to this heading">#</a></h3>
+<p>This will store up to <cite>max_entries</cite> instances of <cite>TraceEntry</cite> when enabled.
+Python trace collection defaults to <cite>sys.maxsize</cite>, meaning long-running
+or indefinitely running jobs should set a reasonable limit to avoid excessive
+memory use. Expect each entry to be several KB.</p>
+<p>Longer running workflows or those with smaller <cite>max_entries</cite> values will only
+store the last accumulated <cite>max_entries</cite> entries, meaning new entries overwrite
+older entries.</p>
+<p>C++ implementation for reference to ring buffer implemenation:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">record_history</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alloc_trace</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">alloc_trace_max_entries_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">alloc_trace</span><span class="o">-&gt;</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">te</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">(</span><span class="o">*</span><span class="n">alloc_trace</span><span class="p">)[</span><span class="n">alloc_trace_next</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">te</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alloc_trace_next</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">alloc_trace_max_entries_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">alloc_trace_next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="latency-impact">
+<h3>Latency impact<a class="headerlink" href="#latency-impact" title="Permalink to this heading">#</a></h3>
 <p>The Python trace collection is fast (2us per trace), so you may consider
 enabling this on production jobs if you anticipate ever having to debug
 memory issues.</p>
 <p>C++ trace collection is also fast (~50ns/frame), which for many typical programs
 works out to ~2us per trace, but can vary depending on stack depth.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>enabled</strong> (<em>Literal</em><em>[</em><em>None</em><em>, </em><em>&quot;state&quot;</em><em>, </em><em>&quot;all&quot;</em><em>]</em><em>, </em><em>optional</em>) – <cite>None</cite>, disable recording memory history.
+<dt class="field-odd">param enabled</dt>
+<dd class="field-odd"><p><cite>None</cite>, disable recording memory history.
 <cite>“state”</cite>, keep information for currenly allocated memory.
 <cite>“all”</cite>, additionally keep a history of all alloc/free calls.
-Defaults to “all”.</p></li>
-<li><p><strong>context</strong> (<em>Literal</em><em>[</em><em>None</em><em>, </em><em>&quot;state&quot;</em><em>, </em><em>&quot;alloc&quot;</em><em>, </em><em>&quot;all&quot;</em><em>]</em><em>, </em><em>optional</em>) – <cite>None</cite>, Do not record any tracebacks.
+Defaults to “all”.</p>
+</dd>
+<dt class="field-even">type enabled</dt>
+<dd class="field-even"><p>Literal[None, “state”, “all”], optional</p>
+</dd>
+<dt class="field-odd">param context</dt>
+<dd class="field-odd"><p><cite>None</cite>, Do not record any tracebacks.
 <cite>“state”</cite>, Record tracebacks for currently allocated memory.
 <cite>“alloc”</cite>, additionally keep tracebacks for alloc calls.
 <cite>“all”</cite>, additionally keep tracebacks for free calls.
-Defaults to “all”.</p></li>
-<li><p><strong>stacks</strong> (<em>Literal</em><em>[</em><em>&quot;python&quot;</em><em>, </em><em>&quot;all&quot;</em><em>]</em><em>, </em><em>optional</em>) – <cite>“python”</cite>, include Python, TorchScript, and inductor frames in tracebacks
-<cite>“all”</cite>, additionally include C++ frames
-Defaults to “all”.</p></li>
-<li><p><strong>max_entries</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Keep a maximum of <cite>max_entries</cite>
-alloc/free events in the recorded history recorded.</p></li>
-</ul>
+Defaults to “all”.</p>
 </dd>
+<dt class="field-even">type context</dt>
+<dd class="field-even"><p>Literal[None, “state”, “alloc”, “all”], optional</p>
+</dd>
+<dt class="field-odd">param stacks</dt>
+<dd class="field-odd"><p><cite>“python”</cite>, include Python, TorchScript, and inductor frames in tracebacks
+<cite>“all”</cite>, additionally include C++ frames
+Defaults to “all”.</p>
+</dd>
+<dt class="field-even">type stacks</dt>
+<dd class="field-even"><p>Literal[“python”, “all”], optional</p>
+</dd>
+<dt class="field-odd">param max_entries</dt>
+<dd class="field-odd"><p>Keep a maximum of <cite>max_entries</cite>
+alloc/free events in the recorded history recorded.</p>
+</dd>
+<dt class="field-even">type max_entries</dt>
+<dd class="field-even"><p>int, optional</p>
+</dd>
+</dl>
+</div>
+<dl class="field-list simple">
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory._snapshot">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6303cc41b71c02af9c855f3cc85b1146a97fc7a8/torch/cuda/memory.py#L933"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._snapshot" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebab2799423987a16975ab07ee49dd944e5315e6/torch/cuda/memory.py#L963"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._snapshot" title="Permalink to this definition">#</a></dt>
 <dd><p>Save a snapshot of CUDA memory state at the time it was called.</p>
 <p>The state is represented as a dictionary with the following structure.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Snapshot</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
@@ -4206,9 +4250,12 @@ alloc/free events in the recorded history recorded.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.memory._dump_snapshot">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_dump_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dump_snapshot.pickle'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6303cc41b71c02af9c855f3cc85b1146a97fc7a8/torch/cuda/memory.py#L1010"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._dump_snapshot" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">_dump_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dump_snapshot.pickle'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ebab2799423987a16975ab07ee49dd944e5315e6/torch/cuda/memory.py#L1040"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory._dump_snapshot" title="Permalink to this definition">#</a></dt>
 <dd><p>Save a pickled version of the <cite>torch.memory._snapshot()</cite> dictionary to a file.</p>
 <p>This file can be opened by the interactive snapshot viewer at pytorch.org/memory_viz</p>
+<p>Snapshot file sizes scale with <cite>max_entries</cite> and stack trace depth per entry,
+with several KB per entry. These can easily be in the GB range for longer running
+workflows with large <cite>max_entries</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Name of the file to create. Defaults to “dump_snapshot.pickle”.</p>
