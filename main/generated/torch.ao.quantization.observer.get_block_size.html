@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2ee2317 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git74ebd8d )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3148,6 +3148,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.skip_guard_on_all_nn_modules_unsafe.html">torch.compiler.skip_guard_on_all_nn_modules_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.keep_tensor_guards_unsafe.html">torch.compiler.keep_tensor_guards_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler.config.html">torch.compiler.config</a></li>
@@ -4049,7 +4050,7 @@ document.write(`
 <h1>get_block_size<a class="headerlink" href="#get-block-size" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.get_block_size">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.observer.</span></span><span class="sig-name descname"><span class="pre">get_block_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2ee23175d96aa022a9c94209c14bbb7f8e064760/torch/ao/quantization/observer.py#L1776"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.get_block_size" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.observer.</span></span><span class="sig-name descname"><span class="pre">get_block_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/74ebd8d14e0d612ed35557ab254a90facf73b029/torch/ao/quantization/observer.py#L1776"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.get_block_size" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the block size based on the input shape and granularity type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

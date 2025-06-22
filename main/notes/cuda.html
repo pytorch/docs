@@ -108,7 +108,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2ee2317 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git74ebd8d )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1550,7 +1550,7 @@ document.write(`
                   
   <div class="section" id="cuda-semantics">
 <span id="id1"></span><h1>CUDA semantics<a class="headerlink" href="#cuda-semantics" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 16, 2017 | Last Updated On: Jun 08, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 16, 2017 | Last Updated On: Jun 18, 2025</p>
 <p><a class="reference internal" href="../cuda.html#module-torch.cuda" title="torch.cuda"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.cuda</span></code></a> is used to set up and run CUDA operations. It keeps track of
 the currently selected GPU, and all CUDA tensors you allocate will by default be
 created on that device. The selected device can be changed with a
@@ -1957,7 +1957,7 @@ size to nearest power-2 division and making better use of the blocks. In
 the native CUDACachingAllocator, the sizes are rounded up in multiple
 of blocks size of 512, so this works fine for smaller sizes. However, this
 can be inefficient for large near-by allocations as each will go to different
-size of blocks and re-use of those blocks are minimized. This might create
+size of blocks and reuse of those blocks are minimized. This might create
 lots of unused blocks and will waste GPU memory capacity. This option enables
 the rounding of allocation size to nearest power-2 division. For example, if
 we need to round-up size of 1200 and if number of divisions is 4,
@@ -1973,10 +1973,10 @@ set the knob value to: [256:1,512:2,1024:4,&gt;:8].
 <code class="docutils literal notranslate"><span class="pre">roundup_power2_divisions</span></code> is only meaningful with <code class="docutils literal notranslate"><span class="pre">backend:native</span></code>.
 With <code class="docutils literal notranslate"><span class="pre">backend:cudaMallocAsync</span></code>, <code class="docutils literal notranslate"><span class="pre">roundup_power2_divisions</span></code> is ignored.</p></li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">max_non_split_rounding_mb</span></code> will allow non-split blocks for better reuse, eg,</dt><dd><p>a 1024MB cached block can be re-used for a 512MB allocation request. In the default
+<dt><code class="docutils literal notranslate"><span class="pre">max_non_split_rounding_mb</span></code> will allow non-split blocks for better reuse, eg,</dt><dd><p>a 1024MB cached block can be reused for a 512MB allocation request. In the default
 case, we only allow up to 20MB of rounding of non-split blocks, so a 512MB block
 can only be served with between 512-532 MB size block. If we set the value of this
-option to 1024, it will alow 512-1536 MB size blocks to be used for a 512MB block
+option to 1024, it will allow 512-1536 MB size blocks to be used for a 512MB block
 which increases reuse of larger blocks. This will also help in reducing the stalls
 in avoiding expensive cudaMalloc calls.</p>
 </dd>
@@ -2270,7 +2270,7 @@ APIs can be used for debugging purposes:</p>
     <span class="n">out_2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">nelem_1mb</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
 
     <span class="c1"># pool now should have 2 segments since the CUDACachingAllocator had</span>
-    <span class="c1"># to make a new 2 MB buffer to accomodate out_2</span>
+    <span class="c1"># to make a new 2 MB buffer to accommodate out_2</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">pool</span><span class="o">.</span><span class="n">snapshot</span><span class="p">())</span> <span class="o">==</span> <span class="mi">2</span>
 </pre></div>
 </div>
@@ -3303,8 +3303,8 @@ or if they’ll run concurrently, passing them as a tuple to a single invocation
            "@id": "/notes/cuda.html"
          },
          "datePublished": "Jan 16, 2017",
-         "dateModified": "Jun 08, 2025",
-         "articleBody": "CUDA semantics# Created On: Jan 16, 2017 | Last Updated On: Jun 08, 2025 torch.cuda is used to set up and run CUDA operations. It keeps track of the currently selected GPU, and all CUDA tensors you allocate will by default be created on that device. The selected device can be changed with a torch.cuda.device context manager. However, once a tensor is allocated, you can do operations on it irrespective of the selected device, and the results will be always placed on the same device as the tensor. Cross-GPU operations are not allowed by default, with the exception of copy_() and other methods with copy-like functionality such as to() and cuda(). Unless you enable peer-to-peer memory access, any attempts to launch ops on tensors spread across different devices will raise an error. Below you can find a small example showcasing this: cuda = torch.device(&#39;cuda&#39;) # Default CUDA device cuda0 = torch.device(&#39;cuda:0&#39;) cuda2 = torch.device(&#39;cuda:2&#39;) # GPU 2 (these are 0-indexed) x = torch.tensor([1., 2.], device=cuda0) # x.device is device(type=&#39;cuda&#39;, index=0) y = torch.tensor([1., 2.]).cuda() # y.device is device(type=&#39;cuda&#39;, index=0) with torch.cuda.device(1): # allocates a tensor on GPU 1 a = torch.tensor([1., 2.], device=cuda) # transfers a tensor from CPU to GPU 1 b = torch.tensor([1., 2.]).cuda() # a.device and b.device are device(type=&#39;cuda&#39;, index=1) # You can also use ``Tensor.to`` to transfer a tensor: b2 = torch.tensor([1., 2.]).to(device=cuda) # b.device and b2.device are device(type=&#39;cuda&#39;, index=1) c = a + b # c.device is device(type=&#39;cuda&#39;, index=1) z = x + y # z.device is device(type=&#39;cuda&#39;, index=0) # even within a context, you can specify the device # (or give a GPU index to the .cuda call) d = torch.randn(2, device=cuda2) e = torch.randn(2).to(cuda2) f = torch.randn(2).cuda(cuda2) # d.device, e.device, and f.device are all device(type=&#39;cuda&#39;, index=2) TensorFloat-32 (TF32) on Ampere (and later) devices# Starting in PyTorch 1.7, there is a new flag called allow_tf32. This flag defaults to True in PyTorch 1.7 to PyTorch 1.11, and False in PyTorch 1.12 and later. This flag controls whether PyTorch is allowed to use the TensorFloat32 (TF32) tensor cores, available on NVIDIA GPUs since Ampere, internally to compute matmul (matrix multiplies and batched matrix multiplies) and convolutions. TF32 tensor cores are designed to achieve better performance on matmul and convolutions on torch.float32 tensors by rounding input data to have 10 bits of mantissa, and accumulating results with FP32 precision, maintaining FP32 dynamic range. matmuls and convolutions are controlled separately, and their corresponding flags can be accessed at: # The flag below controls whether to allow TF32 on matmul. This flag defaults to False # in PyTorch 1.12 and later. torch.backends.cuda.matmul.allow_tf32 = True # The flag below controls whether to allow TF32 on cuDNN. This flag defaults to True. torch.backends.cudnn.allow_tf32 = True The precision of matmuls can als..."
+         "dateModified": "Jun 18, 2025",
+         "articleBody": "CUDA semantics# Created On: Jan 16, 2017 | Last Updated On: Jun 18, 2025 torch.cuda is used to set up and run CUDA operations. It keeps track of the currently selected GPU, and all CUDA tensors you allocate will by default be created on that device. The selected device can be changed with a torch.cuda.device context manager. However, once a tensor is allocated, you can do operations on it irrespective of the selected device, and the results will be always placed on the same device as the tensor. Cross-GPU operations are not allowed by default, with the exception of copy_() and other methods with copy-like functionality such as to() and cuda(). Unless you enable peer-to-peer memory access, any attempts to launch ops on tensors spread across different devices will raise an error. Below you can find a small example showcasing this: cuda = torch.device(&#39;cuda&#39;) # Default CUDA device cuda0 = torch.device(&#39;cuda:0&#39;) cuda2 = torch.device(&#39;cuda:2&#39;) # GPU 2 (these are 0-indexed) x = torch.tensor([1., 2.], device=cuda0) # x.device is device(type=&#39;cuda&#39;, index=0) y = torch.tensor([1., 2.]).cuda() # y.device is device(type=&#39;cuda&#39;, index=0) with torch.cuda.device(1): # allocates a tensor on GPU 1 a = torch.tensor([1., 2.], device=cuda) # transfers a tensor from CPU to GPU 1 b = torch.tensor([1., 2.]).cuda() # a.device and b.device are device(type=&#39;cuda&#39;, index=1) # You can also use ``Tensor.to`` to transfer a tensor: b2 = torch.tensor([1., 2.]).to(device=cuda) # b.device and b2.device are device(type=&#39;cuda&#39;, index=1) c = a + b # c.device is device(type=&#39;cuda&#39;, index=1) z = x + y # z.device is device(type=&#39;cuda&#39;, index=0) # even within a context, you can specify the device # (or give a GPU index to the .cuda call) d = torch.randn(2, device=cuda2) e = torch.randn(2).to(cuda2) f = torch.randn(2).cuda(cuda2) # d.device, e.device, and f.device are all device(type=&#39;cuda&#39;, index=2) TensorFloat-32 (TF32) on Ampere (and later) devices# Starting in PyTorch 1.7, there is a new flag called allow_tf32. This flag defaults to True in PyTorch 1.7 to PyTorch 1.11, and False in PyTorch 1.12 and later. This flag controls whether PyTorch is allowed to use the TensorFloat32 (TF32) tensor cores, available on NVIDIA GPUs since Ampere, internally to compute matmul (matrix multiplies and batched matrix multiplies) and convolutions. TF32 tensor cores are designed to achieve better performance on matmul and convolutions on torch.float32 tensors by rounding input data to have 10 bits of mantissa, and accumulating results with FP32 precision, maintaining FP32 dynamic range. matmuls and convolutions are controlled separately, and their corresponding flags can be accessed at: # The flag below controls whether to allow TF32 on matmul. This flag defaults to False # in PyTorch 1.12 and later. torch.backends.cuda.matmul.allow_tf32 = True # The flag below controls whether to allow TF32 on cuDNN. This flag defaults to True. torch.backends.cudnn.allow_tf32 = True The precision of matmuls can als..."
        }
    </script>
 

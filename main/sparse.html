@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2ee2317 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git74ebd8d )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3148,6 +3148,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.compiler.skip_guard_on_all_nn_modules_unsafe.html">torch.compiler.skip_guard_on_all_nn_modules_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.compiler.keep_tensor_guards_unsafe.html">torch.compiler.keep_tensor_guards_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.config.html">torch.compiler.config</a></li>
@@ -4027,7 +4028,7 @@ document.write(`
                   
   <span class="target" id="module-torch.sparse"></span><div class="section" id="torch-sparse">
 <span id="sparse-docs"></span><h1>torch.sparse<a class="headerlink" href="#torch-sparse" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 26, 2017 | Last Updated On: Jun 01, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 26, 2017 | Last Updated On: Jun 18, 2025</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The PyTorch API of sparse tensors is in beta and may change in the near future.
@@ -5037,7 +5038,7 @@ The <code class="docutils literal notranslate"><span class="pre">size</span></co
 <div class="section" id="tools-for-working-with-sparse-compressed-tensors">
 <h3>Tools for working with sparse compressed tensors<a class="headerlink" href="#tools-for-working-with-sparse-compressed-tensors" title="Permalink to this heading">#</a></h3>
 <p>All sparse compressed tensors — CSR, CSC, BSR, and BSC tensors —
-are conceptionally very similar in that their indices data is split
+are conceptually very similar in that their indices data is split
 into two parts: so-called compressed indices that use the CSR
 encoding, and so-called plain indices that are orthogonal to the
 compressed indices. This allows various tools on these tensors to
@@ -5919,8 +5920,8 @@ As always please kindly try the search function first before opening an issue.</
            "@id": "/sparse.html"
          },
          "datePublished": "Apr 26, 2017",
-         "dateModified": "Jun 01, 2025",
-         "articleBody": "torch.sparse# Created On: Apr 26, 2017 | Last Updated On: Jun 01, 2025 Warning The PyTorch API of sparse tensors is in beta and may change in the near future. We highly welcome feature requests, bug reports and general suggestions as GitHub issues. Why and when to use sparsity# By default, PyTorch stores torch.Tensor elements contiguously in physical memory. This leads to efficient implementations of various array processing algorithms that require fast access to elements. Now, some users might decide to represent data such as graph adjacency matrices, pruned weights or points clouds by Tensors whose elements are mostly zero valued. We recognize these are important applications and aim to provide performance optimizations for these use cases via sparse storage formats. Various sparse storage formats such as COO, CSR/CSC, semi-structured, LIL, etc. have been developed over the years. While they differ in exact layouts, they all compress data through efficient representation of zero valued elements. We call the uncompressed values specified in contrast to unspecified, compressed elements. By compressing repeat zeros sparse storage formats aim to save memory and computational resources on various CPUs and GPUs. Especially for high degrees of sparsity or highly structured sparsity this can have significant performance implications. As such sparse storage formats can be seen as a performance optimization. Like many other performance optimization sparse storage formats are not always advantageous. When trying sparse formats for your use case you might find your execution time to increase rather than decrease. Please feel encouraged to open a GitHub issue if you analytically expected to see a stark increase in performance but measured a degradation instead. This helps us prioritize the implementation of efficient kernels and wider performance optimizations. We make it easy to try different sparsity layouts, and convert between them, without being opinionated on what’s best for your particular application. Functionality overview# We want it to be straightforward to construct a sparse Tensor from a given dense Tensor by providing conversion routines for each layout. In the next example we convert a 2D Tensor with default dense (strided) layout to a 2D Tensor backed by the COO memory layout. Only values and indices of non-zero elements are stored in this case. &gt;&gt;&gt; a = torch.tensor([[0, 2.], [3, 0]]) &gt;&gt;&gt; a.to_sparse() tensor(indices=tensor([[0, 1], [1, 0]]), values=tensor([2., 3.]), size=(2, 2), nnz=2, layout=torch.sparse_coo) PyTorch currently supports COO, CSR, CSC, BSR, and BSC. We also have a prototype implementation to support :ref: semi-structured sparsity&lt;sparse-semi-structured-docs&gt;. Please see the references for more details. Note that we provide slight generalizations of these formats. Batching: Devices such as GPUs require batching for optimal performance and thus we support batch dimensions. We currently offer a very simple version of batchin..."
+         "dateModified": "Jun 18, 2025",
+         "articleBody": "torch.sparse# Created On: Apr 26, 2017 | Last Updated On: Jun 18, 2025 Warning The PyTorch API of sparse tensors is in beta and may change in the near future. We highly welcome feature requests, bug reports and general suggestions as GitHub issues. Why and when to use sparsity# By default, PyTorch stores torch.Tensor elements contiguously in physical memory. This leads to efficient implementations of various array processing algorithms that require fast access to elements. Now, some users might decide to represent data such as graph adjacency matrices, pruned weights or points clouds by Tensors whose elements are mostly zero valued. We recognize these are important applications and aim to provide performance optimizations for these use cases via sparse storage formats. Various sparse storage formats such as COO, CSR/CSC, semi-structured, LIL, etc. have been developed over the years. While they differ in exact layouts, they all compress data through efficient representation of zero valued elements. We call the uncompressed values specified in contrast to unspecified, compressed elements. By compressing repeat zeros sparse storage formats aim to save memory and computational resources on various CPUs and GPUs. Especially for high degrees of sparsity or highly structured sparsity this can have significant performance implications. As such sparse storage formats can be seen as a performance optimization. Like many other performance optimization sparse storage formats are not always advantageous. When trying sparse formats for your use case you might find your execution time to increase rather than decrease. Please feel encouraged to open a GitHub issue if you analytically expected to see a stark increase in performance but measured a degradation instead. This helps us prioritize the implementation of efficient kernels and wider performance optimizations. We make it easy to try different sparsity layouts, and convert between them, without being opinionated on what’s best for your particular application. Functionality overview# We want it to be straightforward to construct a sparse Tensor from a given dense Tensor by providing conversion routines for each layout. In the next example we convert a 2D Tensor with default dense (strided) layout to a 2D Tensor backed by the COO memory layout. Only values and indices of non-zero elements are stored in this case. &gt;&gt;&gt; a = torch.tensor([[0, 2.], [3, 0]]) &gt;&gt;&gt; a.to_sparse() tensor(indices=tensor([[0, 1], [1, 0]]), values=tensor([2., 3.]), size=(2, 2), nnz=2, layout=torch.sparse_coo) PyTorch currently supports COO, CSR, CSC, BSR, and BSC. We also have a prototype implementation to support :ref: semi-structured sparsity&lt;sparse-semi-structured-docs&gt;. Please see the references for more details. Note that we provide slight generalizations of these formats. Batching: Devices such as GPUs require batching for optimal performance and thus we support batch dimensions. We currently offer a very simple version of batchin..."
        }
    </script>
 

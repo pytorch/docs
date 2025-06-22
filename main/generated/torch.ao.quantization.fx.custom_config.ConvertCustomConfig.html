@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2ee2317 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git74ebd8d )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3148,6 +3148,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.skip_guard_on_all_nn_modules_unsafe.html">torch.compiler.skip_guard_on_all_nn_modules_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.keep_tensor_guards_unsafe.html">torch.compiler.keep_tensor_guards_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler.config.html">torch.compiler.config</a></li>
@@ -4049,7 +4050,7 @@ document.write(`
 <h1>ConvertCustomConfig<a class="headerlink" href="#convertcustomconfig" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.fx.custom_config.ConvertCustomConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fx.custom_config.</span></span><span class="sig-name descname"><span class="pre">ConvertCustomConfig</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2ee23175d96aa022a9c94209c14bbb7f8e064760/torch/ao/quantization/fx/custom_config.py#L374"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.ConvertCustomConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fx.custom_config.</span></span><span class="sig-name descname"><span class="pre">ConvertCustomConfig</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/74ebd8d14e0d612ed35557ab254a90facf73b029/torch/ao/quantization/fx/custom_config.py#L374"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.ConvertCustomConfig" title="Permalink to this definition">#</a></dt>
 <dd><p>Custom configuration for <a class="reference internal" href="torch.ao.quantization.quantize_fx.convert_fx.html#torch.ao.quantization.quantize_fx.convert_fx" title="torch.ao.quantization.quantize_fx.convert_fx"><code class="xref py py-func docutils literal notranslate"><span class="pre">convert_fx()</span></code></a>.</p>
 <p>Example usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">convert_custom_config</span> <span class="o">=</span> <span class="n">ConvertCustomConfig</span><span class="p">()</span>             <span class="o">.</span><span class="n">set_observed_to_quantized_mapping</span><span class="p">(</span><span class="n">ObservedCustomModule</span><span class="p">,</span> <span class="n">QuantizedCustomModule</span><span class="p">)</span>             <span class="o">.</span><span class="n">set_preserved_attributes</span><span class="p">([</span><span class="s2">&quot;attr1&quot;</span><span class="p">,</span> <span class="s2">&quot;attr2&quot;</span><span class="p">])</span>
@@ -4059,7 +4060,7 @@ document.write(`
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.fx.custom_config.ConvertCustomConfig.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">convert_custom_config_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2ee23175d96aa022a9c94209c14bbb7f8e064760/torch/ao/quantization/fx/custom_config.py#L419"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.ConvertCustomConfig.from_dict" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">convert_custom_config_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/74ebd8d14e0d612ed35557ab254a90facf73b029/torch/ao/quantization/fx/custom_config.py#L419"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.ConvertCustomConfig.from_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a <code class="docutils literal notranslate"><span class="pre">ConvertCustomConfig</span></code> from a dictionary with the following items:</p>
 <blockquote>
 <div><p>“observed_to_quantized_custom_module_class”: a nested dictionary mapping from quantization
@@ -4081,7 +4082,7 @@ mode to an inner mapping from observed module classes to quantized module classe
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.fx.custom_config.ConvertCustomConfig.set_observed_to_quantized_mapping">
-<span class="sig-name descname"><span class="pre">set_observed_to_quantized_mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observed_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantized_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">QuantType.STATIC</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2ee23175d96aa022a9c94209c14bbb7f8e064760/torch/ao/quantization/fx/custom_config.py#L393"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.ConvertCustomConfig.set_observed_to_quantized_mapping" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_observed_to_quantized_mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observed_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantized_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">QuantType.STATIC</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/74ebd8d14e0d612ed35557ab254a90facf73b029/torch/ao/quantization/fx/custom_config.py#L393"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.ConvertCustomConfig.set_observed_to_quantized_mapping" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the mapping from a custom observed module class to a custom quantized module class.</p>
 <p>The quantized module class must have a <code class="docutils literal notranslate"><span class="pre">from_observed</span></code> class method that converts the observed module class
 to the quantized module class.</p>
@@ -4094,7 +4095,7 @@ to the quantized module class.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.fx.custom_config.ConvertCustomConfig.set_preserved_attributes">
-<span class="sig-name descname"><span class="pre">set_preserved_attributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attributes</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2ee23175d96aa022a9c94209c14bbb7f8e064760/torch/ao/quantization/fx/custom_config.py#L410"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.ConvertCustomConfig.set_preserved_attributes" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_preserved_attributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attributes</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/74ebd8d14e0d612ed35557ab254a90facf73b029/torch/ao/quantization/fx/custom_config.py#L410"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.ConvertCustomConfig.set_preserved_attributes" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the names of the attributes that will persist in the graph module even if they are not used in
 the model’s <code class="docutils literal notranslate"><span class="pre">forward</span></code> method.</p>
 <dl class="field-list simple">
@@ -4106,7 +4107,7 @@ the model’s <code class="docutils literal notranslate"><span class="pre">forwa
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.fx.custom_config.ConvertCustomConfig.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2ee23175d96aa022a9c94209c14bbb7f8e064760/torch/ao/quantization/fx/custom_config.py#L451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.ConvertCustomConfig.to_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/74ebd8d14e0d612ed35557ab254a90facf73b029/torch/ao/quantization/fx/custom_config.py#L451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.custom_config.ConvertCustomConfig.to_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert this <code class="docutils literal notranslate"><span class="pre">ConvertCustomConfig</span></code> to a dictionary with the items described in
 <a class="reference internal" href="#torch.ao.quantization.fx.custom_config.ConvertCustomConfig.from_dict" title="torch.ao.quantization.fx.custom_config.ConvertCustomConfig.from_dict"><code class="xref py py-func docutils literal notranslate"><span class="pre">from_dict()</span></code></a>.</p>
 <dl class="field-list simple">

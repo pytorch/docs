@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git2ee2317 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git74ebd8d )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3148,6 +3148,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.skip_guard_on_all_nn_modules_unsafe.html">torch.compiler.skip_guard_on_all_nn_modules_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.keep_tensor_guards_unsafe.html">torch.compiler.keep_tensor_guards_unsafe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler.skip_guard_on_globals_unsafe.html">torch.compiler.skip_guard_on_globals_unsafe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler.nested_compile_region.html">torch.compiler.nested_compile_region</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler.config.html">torch.compiler.config</a></li>
@@ -4038,7 +4039,7 @@ document.write(`
 <h1>torch.utils.generate_methods_for_privateuse1_backend<a class="headerlink" href="#torch-utils-generate-methods-for-privateuse1-backend" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.generate_methods_for_privateuse1_backend">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.</span></span><span class="sig-name descname"><span class="pre">generate_methods_for_privateuse1_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">for_tensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_packed_sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_storage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsupported_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2ee23175d96aa022a9c94209c14bbb7f8e064760/torch/utils/backend_registration.py#L345"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.generate_methods_for_privateuse1_backend" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.</span></span><span class="sig-name descname"><span class="pre">generate_methods_for_privateuse1_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">for_tensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_packed_sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_storage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsupported_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/74ebd8d14e0d612ed35557ab254a90facf73b029/torch/utils/backend_registration.py#L345"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.generate_methods_for_privateuse1_backend" title="Permalink to this definition">#</a></dt>
 <dd><p>Automatically generate attributes and methods for the custom backend after rename privateuse1 backend.</p>
 <p>In the default scenario, storage-related methods will not be generated automatically.</p>
 <p>When you implement kernels for various torch operations, and register them to the PrivateUse1 dispatch key.
