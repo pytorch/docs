@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git74ebd8d )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git03023f1 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4039,7 +4039,7 @@ document.write(`
 <h1>torch.cuda.jiterator._create_jit_fn<a class="headerlink" href="#torch-cuda-jiterator-create-jit-fn" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.jiterator._create_jit_fn">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.jiterator.</span></span><span class="sig-name descname"><span class="pre">_create_jit_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/74ebd8d14e0d612ed35557ab254a90facf73b029/torch/cuda/jiterator.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.jiterator._create_jit_fn" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.jiterator.</span></span><span class="sig-name descname"><span class="pre">_create_jit_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/03023f178c611249d41c62369ba95fe54316fe90/torch/cuda/jiterator.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.jiterator._create_jit_fn" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a jiterator-generated cuda kernel for an elementwise op.</p>
 <p>The code string has to be a valid CUDA function that describes the computation for a single element. The code
 string has to follow the c++ template pattern, as shown in the example below. This function will be inlined
