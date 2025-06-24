@@ -1,0 +1,6 @@
+﻿torch.cuda.memory.reset\_accumulated\_host\_memory\_stats
+=========================================================
+
+.. currentmodule:: torch.cuda.memory
+
+.. autofunction:: reset_accumulated_host_memory_stats

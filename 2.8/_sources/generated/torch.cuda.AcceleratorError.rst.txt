@@ -1,0 +1,6 @@
+﻿torch.cuda.AcceleratorError
+===========================
+
+.. currentmodule:: torch.cuda
+
+.. autoexception:: AcceleratorError

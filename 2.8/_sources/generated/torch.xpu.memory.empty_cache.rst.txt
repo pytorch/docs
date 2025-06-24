@@ -1,0 +1,6 @@
+﻿torch.xpu.memory.empty\_cache
+=============================
+
+.. currentmodule:: torch.xpu.memory
+
+.. autofunction:: empty_cache
