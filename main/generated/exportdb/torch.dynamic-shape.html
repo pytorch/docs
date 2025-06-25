@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git5dd9652 )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dd872e )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3140,6 +3140,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler.list_backends.html">torch.compiler.list_backends</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler.disable.html">torch.compiler.disable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler.set_stance.html">torch.compiler.set_stance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler.set_enable_guard_collectives.html">torch.compiler.set_enable_guard_collectives</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler.cudagraph_mark_step_begin.html">torch.compiler.cudagraph_mark_step_begin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler.is_compiling.html">torch.compiler.is_compiling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler.is_dynamo_compiling.html">torch.compiler.is_dynamo_compiling</a></li>
@@ -4483,7 +4484,7 @@ document.write(`
 <h2>dynamic_shape_if_guard<a class="headerlink" href="#dynamic-shape-if-guard" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="python.control-flow.html"><span class="doc">python.control-flow</span></a></p>
+<p>Tags: <a class="reference internal" href="python.control-flow.html"><span class="doc">python.control-flow</span></a>, <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -4533,7 +4534,7 @@ document.write(`
 <h2>dynamic_shape_map<a class="headerlink" href="#dynamic-shape-map" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.map.html"><span class="doc">torch.map</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.map.html"><span class="doc">torch.map</span></a>, <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -4591,7 +4592,7 @@ document.write(`
 <h2>dynamic_shape_round<a class="headerlink" href="#dynamic-shape-round" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="python.builtin.html"><span class="doc">python.builtin</span></a></p>
+<p>Tags: <a class="reference internal" href="python.builtin.html"><span class="doc">python.builtin</span></a>, <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a></p>
 <p>Support Level: NOT_SUPPORTED_YET</p>
 </div>
 <p>Original source code:</p>
@@ -4727,7 +4728,7 @@ document.write(`
 <h2>list_contains<a class="headerlink" href="#list-contains" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a>, <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="python.assert.html"><span class="doc">python.assert</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="python.assert.html"><span class="doc">python.assert</span></a>, <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -4984,19 +4985,15 @@ document.write(`
   <div class="sidebar-heading">PyTorch Libraries</div>
   <ul style="list-style-type: none; padding: 0; padding-bottom: 80px;">
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/audio/stable/" style="color: var(--pst-color-text-muted)">torchaudio</a></li>
-  
    <li><a class="nav-link nav-external" href="https://pytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
-  
-   <li><a class="nav-link nav-external" href="https://pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
   
    <li><a class="nav-link nav-external" href="https://pytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/serve/" style="color: var(--pst-color-text-muted)">torchserve</a></li>
+   <li><a class="nav-link nav-external" href="https://pytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/data" style="color: var(--pst-color-text-muted)">torchdata</a></li>
+   <li><a class="nav-link nav-external" href="https://pytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/data" style="color: var(--pst-color-text-muted)">torchvision</a></li>
+   <li><a class="nav-link nav-external" href="https://pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
   
    <li><a class="nav-link nav-external" href="https://pytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
   
