@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dd872e )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git85df746 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4802,7 +4802,7 @@ to TorchScript, leaving calls to Python functions in place. This way you can inc
 check the correctness of the model as you go.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.is_scripting">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_scripting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dd872e6d53560933d8d7fc11357617746d37168/torch/_jit_internal.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_scripting" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_scripting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/85df746892d9b0e87e7a5dfa78ef81a84aec6de0/torch/_jit_internal.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_scripting" title="Permalink to this definition">#</a></dt>
 <dd><p>Function that returns True when in compilation and False otherwise. This
 is useful especially with the &#64;unused decorator to leave code in your
 model that is not yet TorchScript compatible.
@@ -4829,7 +4829,7 @@ model that is not yet TorchScript compatible.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.is_tracing">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_tracing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dd872e6d53560933d8d7fc11357617746d37168/torch/jit/_trace.py#L1327"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_tracing" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_tracing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/85df746892d9b0e87e7a5dfa78ef81a84aec6de0/torch/jit/_trace.py#L1327"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_tracing" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a boolean value.</p>
 <p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> in tracing (if a function is called during the
 tracing of code with <code class="docutils literal notranslate"><span class="pre">torch.jit.trace</span></code>) and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
@@ -4975,7 +4975,6 @@ to the resulting <code class="xref py py-class docutils literal notranslate"><sp
   </div>
 </div>
 
-
 <div class="prev-next-area">
     <a class="left-prev"
        href="jit_builtin_functions.html"
@@ -5010,7 +5009,8 @@ to the resulting <code class="xref py py-class docutils literal notranslate"><sp
   <p class="theme-version">
     Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
   </p>
-</div></div>
+</div>
+</div>
   
 </div>
                 </footer>

@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dd872e )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git85df746 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4029,7 +4029,7 @@ document.write(`
                   
   <div class="section" id="tensor-attributes">
 <span id="tensor-attributes-doc"></span><h1>Tensor Attributes<a class="headerlink" href="#tensor-attributes" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 21, 2018 | Last Updated On: Apr 09, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 21, 2018 | Last Updated On: Jun 25, 2025</p>
 <p>Each <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> has a <a class="reference internal" href="#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a>, <a class="reference internal" href="#torch.device" title="torch.device"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.device</span></code></a>, and <a class="reference internal" href="#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>.</p>
 <div class="section" id="torch-dtype">
 <span id="dtype-doc"></span><h2>torch.dtype<a class="headerlink" href="#torch-dtype" title="Permalink to this heading">#</a></h2>
@@ -4221,8 +4221,15 @@ the current device for the device type, even after <a class="reference internal"
 a <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> constructed with device <code class="docutils literal notranslate"><span class="pre">'cuda'</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">'cuda:X'</span></code> where X is
 the result of <a class="reference internal" href="generated/torch.cuda.current_device.html#torch.cuda.current_device" title="torch.cuda.current_device"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.cuda.current_device()</span></code></a>.</p>
 <p>A <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>’s device can be accessed via the <a class="reference internal" href="generated/torch.Tensor.device.html#torch.Tensor.device" title="torch.Tensor.device"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Tensor.device</span></code></a> property.</p>
-<p>A <a class="reference internal" href="#torch.device" title="torch.device"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.device</span></code></a> can be constructed via a string or via a string and device ordinal</p>
-<p>Via a string:</p>
+<p>A <a class="reference internal" href="#torch.device" title="torch.device"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.device</span></code></a> can be constructed using:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A device string, which is a string representation of the device type and optionally the device ordinal.</p></li>
+<li><p>A device type and a device ordinal.</p></li>
+<li><p>A device ordinal, where the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> type will be used.</p></li>
+</ul>
+</div></blockquote>
+<p>Via a device string:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda:0&#39;</span><span class="p">)</span>
 <span class="go">device(type=&#39;cuda&#39;, index=0)</span>
 
@@ -4232,11 +4239,11 @@ the result of <a class="reference internal" href="generated/torch.cuda.current_d
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;mps&#39;</span><span class="p">)</span>
 <span class="go">device(type=&#39;mps&#39;)</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>  <span class="c1"># current cuda device</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>  <span class="c1"># implicit index is the &quot;current device index&quot;</span>
 <span class="go">device(type=&#39;cuda&#39;)</span>
 </pre></div>
 </div>
-<p>Via a string and device ordinal:</p>
+<p>Via a device type and a device ordinal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="go">device(type=&#39;cuda&#39;, index=0)</span>
 
@@ -4245,6 +4252,23 @@ the result of <a class="reference internal" href="generated/torch.cuda.current_d
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="go">device(type=&#39;cpu&#39;, index=0)</span>
+</pre></div>
+</div>
+<p>Via a device ordinal:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method will raise a RuntimeError if no accelerator is currently detected.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># the current accelerator is cuda</span>
+<span class="go">device(type=&#39;cuda&#39;, index=0)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># the current accelerator is xpu</span>
+<span class="go">device(type=&#39;xpu&#39;, index=1)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># no current accelerator detected</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">RuntimeError</span>: <span class="n">Cannot access accelerator device when none is available.</span>
 </pre></div>
 </div>
 <p>The device object can also be used as a context manager to change the default
@@ -4281,22 +4305,11 @@ This allows for fast prototyping of code.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For legacy reasons, a device can be constructed via a single device ordinal, which is treated
-as the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> type.
-This matches <a class="reference internal" href="generated/torch.Tensor.get_device.html#torch.Tensor.get_device" title="torch.Tensor.get_device"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tensor.get_device()</span></code></a>, which returns an ordinal for device
-tensors and is not supported for cpu tensors.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="go">device(type=&#39;cuda&#39;, index=1)</span>
-</pre></div>
-</div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
 <p>Methods which take a device will generally accept a (properly formatted) string
-or (legacy) integer device ordinal, i.e. the following are all equivalent:</p>
+or an integer device ordinal, i.e. the following are all equivalent:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda:1&#39;</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda:1&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># legacy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># equivalent to &#39;cuda:1&#39; if the current accelerator is cuda</span>
 </pre></div>
 </div>
 </div>
@@ -4422,7 +4435,6 @@ Otherwise output strides will follow <code class="docutils literal notranslate">
   </div>
 </div>
 
-
 <div class="prev-next-area">
     <a class="left-prev"
        href="generated/torch.Tensor.zero_.html"
@@ -4457,7 +4469,8 @@ Otherwise output strides will follow <code class="docutils literal notranslate">
   <p class="theme-version">
     Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
   </p>
-</div></div>
+</div>
+</div>
   
 </div>
                 </footer>
@@ -4739,8 +4752,8 @@ Otherwise output strides will follow <code class="docutils literal notranslate">
            "@id": "/tensor_attributes.html"
          },
          "datePublished": "Apr 21, 2018",
-         "dateModified": "Apr 09, 2025",
-         "articleBody": "Tensor Attributes# Created On: Apr 21, 2018 | Last Updated On: Apr 09, 2025 Each torch.Tensor has a torch.dtype, torch.device, and torch.layout. torch.dtype# class torch.dtype# A torch.dtype is an object that represents the data type of a torch.Tensor. PyTorch has several different data types: Data type dtype Legacy Constructors 32-bit floating point torch.float32 or torch.float torch.*.FloatTensor 64-bit floating point torch.float64 or torch.double torch.*.DoubleTensor 32-bit complex torch.complex32 or torch.chalf 64-bit complex torch.complex64 or torch.cfloat 128-bit complex torch.complex128 or torch.cdouble 16-bit floating point 1 torch.float16 or torch.half torch.*.HalfTensor 16-bit floating point 2 torch.bfloat16 torch.*.BFloat16Tensor 8-bit integer (unsigned) torch.uint8 torch.*.ByteTensor 8-bit integer (signed) torch.int8 torch.*.CharTensor 16-bit integer (signed) torch.int16 or torch.short torch.*.ShortTensor 32-bit integer (signed) torch.int32 or torch.int torch.*.IntTensor 64-bit integer (signed) torch.int64 or torch.long torch.*.LongTensor Boolean torch.bool torch.*.BoolTensor 1 Sometimes referred to as binary16: uses 1 sign, 5 exponent, and 10 significand bits. Useful when precision is important. 2 Sometimes referred to as Brain Floating Point: use 1 sign, 8 exponent and 7 significand bits. Useful when range is important, since it has the same number of exponent bits as float32 To find out if a torch.dtype is a floating point data type, the property is_floating_point can be used, which returns True if the data type is a floating point data type. To find out if a torch.dtype is a complex data type, the property is_complex can be used, which returns True if the data type is a complex data type. When the dtypes of inputs to an arithmetic operation (add, sub, div, mul) differ, we promote by finding the minimum dtype that satisfies the following rules: If the type of a scalar operand is of a higher category than tensor operands (where complex &gt; floating &gt; integral &gt; boolean), we promote to a type with sufficient size to hold all scalar operands of that category. If a zero-dimension tensor operand has a higher category than dimensioned operands, we promote to a type with sufficient size and category to hold all zero-dim tensor operands of that category. If there are no higher-category zero-dim operands, we promote to a type with sufficient size and category to hold all dimensioned operands. A floating point scalar operand has dtype torch.get_default_dtype() and an integral non-boolean scalar operand has dtype torch.int64. Unlike numpy, we do not inspect values when determining the minimum dtypes of an operand. Quantized and complex types are not yet supported. Promotion Examples: &gt;&gt;&gt; float_tensor = torch.ones(1, dtype=torch.float) &gt;&gt;&gt; double_tensor = torch.ones(1, dtype=torch.double) &gt;&gt;&gt; complex_float_tensor = torch.ones(1, dtype=torch.complex64) &gt;&gt;&gt; complex_double_tensor = torch.ones(1, dtype=torch.complex128) &gt;&gt;&gt; int_tensor = torch.one..."
+         "dateModified": "Jun 25, 2025",
+         "articleBody": "Tensor Attributes# Created On: Apr 21, 2018 | Last Updated On: Jun 25, 2025 Each torch.Tensor has a torch.dtype, torch.device, and torch.layout. torch.dtype# class torch.dtype# A torch.dtype is an object that represents the data type of a torch.Tensor. PyTorch has several different data types: Data type dtype Legacy Constructors 32-bit floating point torch.float32 or torch.float torch.*.FloatTensor 64-bit floating point torch.float64 or torch.double torch.*.DoubleTensor 32-bit complex torch.complex32 or torch.chalf 64-bit complex torch.complex64 or torch.cfloat 128-bit complex torch.complex128 or torch.cdouble 16-bit floating point 1 torch.float16 or torch.half torch.*.HalfTensor 16-bit floating point 2 torch.bfloat16 torch.*.BFloat16Tensor 8-bit integer (unsigned) torch.uint8 torch.*.ByteTensor 8-bit integer (signed) torch.int8 torch.*.CharTensor 16-bit integer (signed) torch.int16 or torch.short torch.*.ShortTensor 32-bit integer (signed) torch.int32 or torch.int torch.*.IntTensor 64-bit integer (signed) torch.int64 or torch.long torch.*.LongTensor Boolean torch.bool torch.*.BoolTensor 1 Sometimes referred to as binary16: uses 1 sign, 5 exponent, and 10 significand bits. Useful when precision is important. 2 Sometimes referred to as Brain Floating Point: use 1 sign, 8 exponent and 7 significand bits. Useful when range is important, since it has the same number of exponent bits as float32 To find out if a torch.dtype is a floating point data type, the property is_floating_point can be used, which returns True if the data type is a floating point data type. To find out if a torch.dtype is a complex data type, the property is_complex can be used, which returns True if the data type is a complex data type. When the dtypes of inputs to an arithmetic operation (add, sub, div, mul) differ, we promote by finding the minimum dtype that satisfies the following rules: If the type of a scalar operand is of a higher category than tensor operands (where complex &gt; floating &gt; integral &gt; boolean), we promote to a type with sufficient size to hold all scalar operands of that category. If a zero-dimension tensor operand has a higher category than dimensioned operands, we promote to a type with sufficient size and category to hold all zero-dim tensor operands of that category. If there are no higher-category zero-dim operands, we promote to a type with sufficient size and category to hold all dimensioned operands. A floating point scalar operand has dtype torch.get_default_dtype() and an integral non-boolean scalar operand has dtype torch.int64. Unlike numpy, we do not inspect values when determining the minimum dtypes of an operand. Quantized and complex types are not yet supported. Promotion Examples: &gt;&gt;&gt; float_tensor = torch.ones(1, dtype=torch.float) &gt;&gt;&gt; double_tensor = torch.ones(1, dtype=torch.double) &gt;&gt;&gt; complex_float_tensor = torch.ones(1, dtype=torch.complex64) &gt;&gt;&gt; complex_double_tensor = torch.ones(1, dtype=torch.complex128) &gt;&gt;&gt; int_tensor = torch.one..."
        }
    </script>
 

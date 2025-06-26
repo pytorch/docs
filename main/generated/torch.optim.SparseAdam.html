@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git3dd872e )');
+   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+git85df746 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4040,7 +4040,7 @@ document.write(`
 <h1>SparseAdam<a class="headerlink" href="#sparseadam" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.optim.SparseAdam">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.</span></span><span class="sig-name descname"><span class="pre">SparseAdam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">betas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.9,</span> <span class="pre">0.999)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dd872e6d53560933d8d7fc11357617746d37168/torch/optim/sparse_adam.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.</span></span><span class="sig-name descname"><span class="pre">SparseAdam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">betas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.9,</span> <span class="pre">0.999)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/85df746892d9b0e87e7a5dfa78ef81a84aec6de0/torch/optim/sparse_adam.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam" title="Permalink to this definition">#</a></dt>
 <dd><p>SparseAdam implements a masked version of the Adam algorithm
 suitable for sparse gradients. Currently, due to implementation constraints (explained
 below), SparseAdam is only intended for a narrow subset of use cases, specifically
@@ -4099,7 +4099,7 @@ params, instead of minimizing (default: False)</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.SparseAdam.add_param_group">
-<span class="sig-name descname"><span class="pre">add_param_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dd872e6d53560933d8d7fc11357617746d37168/torch/optim/optimizer.py#L1066"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.add_param_group" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_param_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/85df746892d9b0e87e7a5dfa78ef81a84aec6de0/torch/optim/optimizer.py#L1066"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.add_param_group" title="Permalink to this definition">#</a></dt>
 <dd><p>Add a param group to the <a class="reference internal" href="../optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> s <cite>param_groups</cite>.</p>
 <p>This can be useful when fine tuning a pre-trained network as frozen layers can be made
 trainable and added to the <a class="reference internal" href="../optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> as training progresses.</p>
@@ -4113,7 +4113,7 @@ specific optimization options.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.SparseAdam.load_state_dict">
-<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dd872e6d53560933d8d7fc11357617746d37168/torch/optim/optimizer.py#L865"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.load_state_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/85df746892d9b0e87e7a5dfa78ef81a84aec6de0/torch/optim/optimizer.py#L865"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.load_state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Load the optimizer state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4166,7 +4166,7 @@ the optimizer <code class="docutils literal notranslate"><span class="pre">param
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.SparseAdam.register_load_state_dict_post_hook">
-<span class="sig-name descname"><span class="pre">register_load_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dd872e6d53560933d8d7fc11357617746d37168/torch/optim/optimizer.py#L829"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.register_load_state_dict_post_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_load_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/85df746892d9b0e87e7a5dfa78ef81a84aec6de0/torch/optim/optimizer.py#L829"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.register_load_state_dict_post_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a load_state_dict post-hook which will be called after
 <a class="reference internal" href="torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict" title="torch.optim.Optimizer.load_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> is called. It should have the
 following signature:</p>
@@ -4200,7 +4200,7 @@ post-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.SparseAdam.register_load_state_dict_pre_hook">
-<span class="sig-name descname"><span class="pre">register_load_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dd872e6d53560933d8d7fc11357617746d37168/torch/optim/optimizer.py#L790"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.register_load_state_dict_pre_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_load_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/85df746892d9b0e87e7a5dfa78ef81a84aec6de0/torch/optim/optimizer.py#L790"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.register_load_state_dict_pre_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a load_state_dict pre-hook which will be called before
 <a class="reference internal" href="torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict" title="torch.optim.Optimizer.load_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> is called. It should have the
 following signature:</p>
@@ -4237,7 +4237,7 @@ pre-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.SparseAdam.register_state_dict_post_hook">
-<span class="sig-name descname"><span class="pre">register_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dd872e6d53560933d8d7fc11357617746d37168/torch/optim/optimizer.py#L632"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.register_state_dict_post_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/85df746892d9b0e87e7a5dfa78ef81a84aec6de0/torch/optim/optimizer.py#L632"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.register_state_dict_post_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a state dict post-hook which will be called after <a class="reference internal" href="torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict" title="torch.optim.Optimizer.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> is called.</p>
 <p>It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">state_dict</span> <span class="ow">or</span> <span class="kc">None</span>
@@ -4269,7 +4269,7 @@ post-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.SparseAdam.register_state_dict_pre_hook">
-<span class="sig-name descname"><span class="pre">register_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dd872e6d53560933d8d7fc11357617746d37168/torch/optim/optimizer.py#L600"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.register_state_dict_pre_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/85df746892d9b0e87e7a5dfa78ef81a84aec6de0/torch/optim/optimizer.py#L600"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.register_state_dict_pre_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a state dict pre-hook which will be called before <a class="reference internal" href="torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict" title="torch.optim.Optimizer.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> is called.</p>
 <p>It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
@@ -4301,7 +4301,7 @@ pre-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.SparseAdam.register_step_post_hook">
-<span class="sig-name descname"><span class="pre">register_step_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dd872e6d53560933d8d7fc11357617746d37168/torch/optim/optimizer.py#L579"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.register_step_post_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_step_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/85df746892d9b0e87e7a5dfa78ef81a84aec6de0/torch/optim/optimizer.py#L579"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.register_step_post_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register an optimizer step post hook which will be called after optimizer step.</p>
 <p>It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
@@ -4324,7 +4324,7 @@ pre-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.SparseAdam.register_step_pre_hook">
-<span class="sig-name descname"><span class="pre">register_step_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dd872e6d53560933d8d7fc11357617746d37168/torch/optim/optimizer.py#L556"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.register_step_pre_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_step_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/85df746892d9b0e87e7a5dfa78ef81a84aec6de0/torch/optim/optimizer.py#L556"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.register_step_pre_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register an optimizer step pre hook which will be called before optimizer step.</p>
 <p>It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">modified</span> <span class="n">args</span> <span class="ow">and</span> <span class="n">kwargs</span>
@@ -4349,7 +4349,7 @@ values are returned as a tuple containing the new_args and new_kwargs.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.SparseAdam.state_dict">
-<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dd872e6d53560933d8d7fc11357617746d37168/torch/optim/optimizer.py#L666"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.state_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/85df746892d9b0e87e7a5dfa78ef81a84aec6de0/torch/optim/optimizer.py#L666"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the state of the optimizer as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
 <p>It contains two entries:</p>
 <ul class="simple">
@@ -4412,7 +4412,7 @@ match state WITHOUT additional verification.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.SparseAdam.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">closure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dd872e6d53560933d8d7fc11357617746d37168/torch/optim/sparse_adam.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.step" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">closure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/85df746892d9b0e87e7a5dfa78ef81a84aec6de0/torch/optim/sparse_adam.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.step" title="Permalink to this definition">#</a></dt>
 <dd><p>Perform a single optimization step.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4424,7 +4424,7 @@ and returns the loss.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.SparseAdam.zero_grad">
-<span class="sig-name descname"><span class="pre">zero_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">set_to_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3dd872e6d53560933d8d7fc11357617746d37168/torch/optim/optimizer.py#L996"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.zero_grad" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">zero_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">set_to_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/85df746892d9b0e87e7a5dfa78ef81a84aec6de0/torch/optim/optimizer.py#L996"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.SparseAdam.zero_grad" title="Permalink to this definition">#</a></dt>
 <dd><p>Reset the gradients of all optimized <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> s.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4487,7 +4487,6 @@ the step altogether).</p>
   </div>
 </div>
 
-
 <div class="prev-next-area">
     <a class="left-prev"
        href="torch.optim.AdamW.html"
@@ -4522,7 +4521,8 @@ the step altogether).</p>
   <p class="theme-version">
     Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
   </p>
-</div></div>
+</div>
+</div>
   
 </div>
                 </footer>
