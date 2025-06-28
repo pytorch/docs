@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite3977e8 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git61712e6 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3154,6 +3154,7 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler.config.html">torch.compiler.config</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_fine_grain_apis.html">TorchDynamo APIs for fine-grained tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.compiler_backward.html"><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has different autograd semantics</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../logging.html">torch._logging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="torch._logging.set_logs.html">torch._logging.set_logs</a></li>
@@ -4047,6 +4048,11 @@ document.write(`
 <p>This function is differentiable, so gradients will flow back from the
 result of this operation to <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code>. To create a tensor without an
 autograd relationship to <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> see <a class="reference internal" href="torch.Tensor.detach.html#torch.Tensor.detach" title="torch.Tensor.detach"><code class="xref py py-meth docutils literal notranslate"><span class="pre">detach()</span></code></a>.</p>
+<p>In addition, when <code class="docutils literal notranslate"><span class="pre">torch.preserve_format</span></code> is used:
+If the input tensor is dense (i.e., non-overlapping strided),
+its memory format (including strides) is retained.
+Otherwise (e.g., a non-dense view like a stepped slice),
+the output is converted to the dense (contiguous) format.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4389,7 +4395,7 @@ returned tensor. Default: <code class="docutils literal notranslate"><span class
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.clone# torch.clone(input, *, memory_format=torch.preserve_format) → Tensor# Returns a copy of input. Note This function is differentiable, so gradients will flow back from the result of this operation to input. To create a tensor without an autograd relationship to input see detach(). Parameters input (Tensor) – the input tensor. Keyword Arguments memory_format (torch.memory_format, optional) – the desired memory format of returned tensor. Default: torch.preserve_format."
+         "articleBody": "torch.clone# torch.clone(input, *, memory_format=torch.preserve_format) → Tensor# Returns a copy of input. Note This function is differentiable, so gradients will flow back from the result of this operation to input. To create a tensor without an autograd relationship to input see detach(). In addition, when torch.preserve_format is used: If the input tensor is dense (i.e., non-overlapping strided), its memory format (including strides) is retained. Otherwise (e.g., a non-dense view like a stepped slice), the output is converted to the dense (contiguous) format. Parameters input (Tensor) – the input tensor. Keyword Arguments memory_format (torch.memory_format, optional) – the desired memory format of returned tensor. Default: torch.preserve_format."
        }
    </script>
 

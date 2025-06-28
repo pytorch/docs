@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.8.0a0+gite3977e8 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git61712e6 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3154,6 +3154,7 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler.config.html">torch.compiler.config</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_fine_grain_apis.html">TorchDynamo APIs for fine-grained tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.compiler_backward.html"><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has different autograd semantics</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../logging.html">torch._logging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="torch._logging.set_logs.html">torch._logging.set_logs</a></li>
@@ -4040,7 +4041,7 @@ document.write(`
 <h1>torch.chain_matmul<a class="headerlink" href="#torch-chain-matmul" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.chain_matmul">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">chain_matmul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">matrices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e3977e843de6c9c43be00ee8c67c533debfc0dc9/torch/functional.py#L2024"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.chain_matmul" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">chain_matmul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">matrices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/61712e6f2ba58cce354a742d918934ec7293ee43/torch/functional.py#L2024"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.chain_matmul" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the matrix product of the <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></span> 2-D tensors. This product is efficiently computed
 using the matrix chain order algorithm which selects the order in which incurs the lowest cost in terms
 of arithmetic operations (<a class="reference external" href="https://mitpress.mit.edu/books/introduction-algorithms-third-edition">[CLRS]</a>). Note that since this is a function to compute the product, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></span>
