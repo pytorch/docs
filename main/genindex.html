@@ -112,7 +112,7 @@ window.addEventListener("load", () => mermaid.run());
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git836bb19 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git11f7e2f )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2342,6 +2342,8 @@ document.write(`
 </li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_saver.AsyncCheckpointerType">AsyncCheckpointerType (class in torch.distributed.checkpoint.state_dict_saver)</a>
 </li>
+      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_saver.AsyncSaveResponse">AsyncSaveResponse (class in torch.distributed.checkpoint.state_dict_saver)</a>
+</li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.AsyncStager">AsyncStager (class in torch.distributed.checkpoint.staging)</a>
 </li>
       <li><a href="generated/torch.atan.html#torch.atan">atan() (in module torch)</a>
@@ -3052,9 +3054,13 @@ document.write(`
 </li>
       <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousTimeout.close">close (torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousTimeout property)</a>
 </li>
-      <li><a href="package.html#torch.package.PackageExporter.close">close() (torch.package.PackageExporter method)</a>
+      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.AsyncStager.close">close() (torch.distributed.checkpoint.staging.AsyncStager method)</a>
 
       <ul>
+        <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.DefaultStager.close">(torch.distributed.checkpoint.staging.DefaultStager method)</a>
+</li>
+        <li><a href="package.html#torch.package.PackageExporter.close">(torch.package.PackageExporter method)</a>
+</li>
         <li><a href="tensorboard.html#torch.utils.tensorboard.writer.SummaryWriter.close">(torch.utils.tensorboard.writer.SummaryWriter method)</a>
 </li>
       </ul></li>
@@ -3210,14 +3216,14 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig.configs">configs (torch.ao.quantization.backend_config.BackendConfig property)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="elastic/metrics.html#torch.distributed.elastic.metrics.configure">configure() (in module torch.distributed.elastic.metrics)</a>
 
       <ul>
         <li><a href="elastic/timer.html#torch.distributed.elastic.timer.configure">(in module torch.distributed.elastic.timer)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="rpc.html#torch.distributed.rpc.PyRRef.confirmed_by_owner">confirmed_by_owner() (torch.distributed.rpc.PyRRef method)</a>
 </li>
       <li><a href="generated/torch.conj.html#torch.conj">conj() (in module torch)</a>
@@ -3827,6 +3833,8 @@ document.write(`
       <li><a href="elastic/multiprocessing.html#torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs">DefaultLogsSpecs (class in torch.distributed.elastic.multiprocessing.api)</a>
 </li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.DefaultSavePlanner">DefaultSavePlanner (class in torch.distributed.checkpoint)</a>
+</li>
+      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.DefaultStager">DefaultStager (class in torch.distributed.checkpoint.staging)</a>
 </li>
       <li><a href="generated/torch.mtia.DeferredMtiaCallError.html#torch.mtia.DeferredMtiaCallError">DeferredMtiaCallError</a>
 </li>
@@ -12679,7 +12687,11 @@ document.write(`
 </li>
         <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.BlockingAsyncStager.stage">(torch.distributed.checkpoint.staging.BlockingAsyncStager method)</a>
 </li>
+        <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.DefaultStager.stage">(torch.distributed.checkpoint.staging.DefaultStager method)</a>
+</li>
       </ul></li>
+      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.StagingOptions">StagingOptions (class in torch.distributed.checkpoint.staging)</a>
+</li>
       <li><a href="generated/torch.ao.quantization.fx.custom_config.StandaloneModuleConfigEntry.html#torch.ao.quantization.fx.custom_config.StandaloneModuleConfigEntry">StandaloneModuleConfigEntry (class in torch.ao.quantization.fx.custom_config)</a>
 </li>
       <li><a href="generated/torch.mps.profiler.start.html#torch.mps.profiler.start">start() (in module torch.mps.profiler)</a>
@@ -13208,6 +13220,8 @@ document.write(`
 
       <ul>
         <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.BlockingAsyncStager.synchronize_staging">(torch.distributed.checkpoint.staging.BlockingAsyncStager method)</a>
+</li>
+        <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.DefaultStager.synchronize_staging">(torch.distributed.checkpoint.staging.DefaultStager method)</a>
 </li>
       </ul></li>
   </ul></td>
