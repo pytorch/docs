@@ -5,6 +5,11 @@
     "url": "https://docs.pytorch.org/docs/main/"
   },
   {
+    "name": "v2.8.0 (release candidate)",
+    "version": "2.8",
+    "url": "https://docs.pytorch.org/docs/2.8/"
+  },
+  {
     "name": "v2.7.0 (stable)",
     "version": "2.7",
     "url": "https://docs.pytorch.org/docs/2.7/",
