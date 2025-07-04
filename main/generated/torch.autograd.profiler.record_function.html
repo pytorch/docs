@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git9620994 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c42afe )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3079,8 +3079,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4041,7 +4041,7 @@ document.write(`
 <h1>record_function<a class="headerlink" href="#record-function" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.profiler.record_function">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler.</span></span><span class="sig-name descname"><span class="pre">record_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9620994067b18e846a097d1e99af85ec2426ef0a/torch/autograd/profiler.py#L729"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.record_function" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler.</span></span><span class="sig-name descname"><span class="pre">record_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c42afe1964496e1b02be1442470f254e35eb199/torch/autograd/profiler.py#L730"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.record_function" title="Permalink to this definition">#</a></dt>
 <dd><p>Context manager/function decorator that adds a label to a code block/function when running autograd profiler.
 Label will only appear if CPU activity tracing is enabled.</p>
 <p>It is useful when tracing the code profile.</p>
@@ -4057,11 +4057,12 @@ Label will only appear if CPU activity tracing is enabled.</p>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">profile</span><span class="p">()</span> <span class="k">as</span> <span class="n">prof</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
-<span class="gp">... </span>    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">record_function</span><span class="p">(</span><span class="s2">&quot;label-z&quot;</span><span class="p">):</span> <span class="c1"># label the block</span>
-<span class="gp">... </span>        <span class="n">z</span> <span class="o">=</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">3</span>
+<span class="gp">... </span>    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="gp">... </span>    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">record_function</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="s2">&quot;label-z&quot;</span>
+<span class="gp">... </span>    <span class="p">):</span>  <span class="c1"># label the block</span>
+<span class="gp">... </span>        <span class="n">z</span> <span class="o">=</span> <span class="n">y</span><span class="o">**</span><span class="mi">3</span>
 <span class="gp">... </span>    <span class="n">y</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-<span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># NOTE: some columns were removed for brevity</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">prof</span><span class="o">.</span><span class="n">key_averages</span><span class="p">()</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">sort_by</span><span class="o">=</span><span class="s2">&quot;self_cpu_time_total&quot;</span><span class="p">))</span>
 <span class="go">-----------------------------------  ---------------  ---------------  ---------------</span>
@@ -4410,7 +4411,7 @@ Label will only appear if CPU activity tracing is enabled.</p>
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "record_function# class torch.autograd.profiler.record_function(name, args=None)[source]# Context manager/function decorator that adds a label to a code block/function when running autograd profiler. Label will only appear if CPU activity tracing is enabled. It is useful when tracing the code profile. Parameters name (str) – Label assigned to the block of code. node_id (int) – ID of node, for distributed profiling. Unset in cases. (non-distributed) – Example &gt;&gt;&gt; x = torch.randn((1, 1), requires_grad=True) &gt;&gt;&gt; with torch.autograd.profiler.profile() as prof: ... y = x ** 2 ... with torch.autograd.profiler.record_function(&#34;label-z&#34;): # label the block ... z = y ** 3 ... y.backward() ... &gt;&gt;&gt; # NOTE: some columns were removed for brevity &gt;&gt;&gt; print(prof.key_averages().table(sort_by=&#34;self_cpu_time_total&#34;)) ----------------------------------- --------------- --------------- --------------- Name Self CPU total % CPU time avg Number of Calls ----------------------------------- --------------- --------------- --------------- pow 60.77% 47.470us 3 mul 21.73% 25.465us 2 PowBackward0 12.03% 121.891us 1 torch::autograd::AccumulateGrad 2.70% 6.324us 1 label-z 2.13% 12.421us 1 torch::autograd::GraphRoot 0.64% 1.503us 1 ----------------------------------- --------------- --------------- --------------- Self CPU time total: 234.344us CUDA time total: 0.000us"
+         "articleBody": "record_function# class torch.autograd.profiler.record_function(name, args=None)[source]# Context manager/function decorator that adds a label to a code block/function when running autograd profiler. Label will only appear if CPU activity tracing is enabled. It is useful when tracing the code profile. Parameters name (str) – Label assigned to the block of code. node_id (int) – ID of node, for distributed profiling. Unset in cases. (non-distributed) – Example &gt;&gt;&gt; x = torch.randn((1, 1), requires_grad=True) &gt;&gt;&gt; with torch.autograd.profiler.profile() as prof: ... y = x**2 ... with torch.autograd.profiler.record_function( ... &#34;label-z&#34; ... ): # label the block ... z = y**3 ... y.backward() &gt;&gt;&gt; # NOTE: some columns were removed for brevity &gt;&gt;&gt; print(prof.key_averages().table(sort_by=&#34;self_cpu_time_total&#34;)) ----------------------------------- --------------- --------------- --------------- Name Self CPU total % CPU time avg Number of Calls ----------------------------------- --------------- --------------- --------------- pow 60.77% 47.470us 3 mul 21.73% 25.465us 2 PowBackward0 12.03% 121.891us 1 torch::autograd::AccumulateGrad 2.70% 6.324us 1 label-z 2.13% 12.421us 1 torch::autograd::GraphRoot 0.64% 1.503us 1 ----------------------------------- --------------- --------------- --------------- Self CPU time total: 234.344us CUDA time total: 0.000us"
        }
    </script>
 
