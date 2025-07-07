@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git3e56a9c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git2022588 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4052,7 +4052,7 @@ document.write(`
 <h1>torch.compiler.skip_guard_on_all_nn_modules_unsafe<a class="headerlink" href="#torch-compiler-skip-guard-on-all-nn-modules-unsafe" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.skip_guard_on_all_nn_modules_unsafe">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">skip_guard_on_all_nn_modules_unsafe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">guard_entries</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3e56a9cdfb98a9b06568ee54e3157c800d98a17e/torch/compiler/__init__.py#L542"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.skip_guard_on_all_nn_modules_unsafe" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">skip_guard_on_all_nn_modules_unsafe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">guard_entries</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2022588295295fa1fdee7a500adad3bd0c28b9d6/torch/compiler/__init__.py#L542"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.skip_guard_on_all_nn_modules_unsafe" title="Permalink to this definition">#</a></dt>
 <dd><p>A common function to skip guards on all nn modules, both user defined as
 well inbuilt nn modules (like torch.nn.Linear). This is unsafe to use by
 default. But for majority of torch.compile users, the model code does not
