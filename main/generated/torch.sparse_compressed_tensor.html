@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git86251ef )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git752f202 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3129,7 +3129,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_fake_tensor.html">Fake tensor</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../distributed.html">torch.distributed</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../distributed._dist2.html">Experimental Object Oriented Distributed API - torch.distributed._dist2</a></li>
+
+
+
+
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.html">torch.distributed.tensor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../distributed.elastic.html">torch.distributed.elastic</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4096,7 +4103,7 @@ column) starts. Each successive number in the tensor
 subtracted by the number before it denotes the number of
 elements or blocks in a given compressed dimension.</p></li>
 <li><p><strong>plain_indices</strong> (<em>array_like</em>) – Plain dimension (column or row)
-co-ordinates of each element or block in values. (B+1)-dimensional
+coordinates of each element or block in values. (B+1)-dimensional
 tensor with the same length as values.</p></li>
 <li><p><strong>values</strong> (<em>array_list</em>) – Initial values for the tensor. Can be a list,
 tuple, NumPy <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>, scalar, and other types.  that
@@ -4481,7 +4488,7 @@ initially False.</p></li>
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.sparse_compressed_tensor# torch.sparse_compressed_tensor(compressed_indices, plain_indices, values, size=None, *, dtype=None, layout=None, device=None, pin_memory=False, requires_grad=False, check_invariants=None) → Tensor# Constructs a sparse tensor in Compressed Sparse format - CSR, CSC, BSR, or BSC - with specified values at the given compressed_indices and plain_indices. Sparse matrix multiplication operations in Compressed Sparse format are typically faster than that for sparse tensors in COO format. Make you have a look at the note on the data type of the indices. Note If the device argument is not specified the device of the given values and indices tensor(s) must match. If, however, the argument is specified the input Tensors will be converted to the given device and in turn determine the device of the constructed sparse tensor. Parameters compressed_indices (array_like) – (B+1)-dimensional array of size (*batchsize, compressed_dim_size + 1). The last element of each batch is the number of non-zero elements or blocks. This tensor encodes the index in values and plain_indices depending on where the given compressed dimension (row or column) starts. Each successive number in the tensor subtracted by the number before it denotes the number of elements or blocks in a given compressed dimension. plain_indices (array_like) – Plain dimension (column or row) co-ordinates of each element or block in values. (B+1)-dimensional tensor with the same length as values. values (array_list) – Initial values for the tensor. Can be a list, tuple, NumPy ndarray, scalar, and other types. that represents a (1+K)-dimensional (for CSR and CSC layouts) or (1+2+K)-dimensional tensor (for BSR and BSC layouts) where K is the number of dense dimensions. size (list, tuple, torch.Size, optional) – Size of the sparse tensor: (*batchsize, nrows * blocksize[0], ncols * blocksize[1], *densesize) where blocksize[0] == blocksize[1] == 1 for CSR and CSC formats. If not provided, the size will be inferred as the minimum size big enough to hold all non-zero elements or blocks. Keyword Arguments dtype (torch.dtype, optional) – the desired data type of returned tensor. Default: if None, infers data type from values. layout (torch.layout, required) – the desired layout of returned tensor: torch.sparse_csr, torch.sparse_csc, torch.sparse_bsr, or torch.sparse_bsc. device (torch.device, optional) – the desired device of returned tensor. Default: if None, uses the current device for the default tensor type (see torch.set_default_device()). device will be the CPU for CPU tensor types and the current CUDA device for CUDA tensor types. pin_memory (bool, optional) – If set, returned tensor would be allocated in the pinned memory. Works only for CPU tensors. Default: False. requires_grad (bool, optional) – If autograd should record operations on the returned tensor. Default: False. check_invariants (bool, optional) – If sparse tensor invariants are checked. Default: as returned by..."
+         "articleBody": "torch.sparse_compressed_tensor# torch.sparse_compressed_tensor(compressed_indices, plain_indices, values, size=None, *, dtype=None, layout=None, device=None, pin_memory=False, requires_grad=False, check_invariants=None) → Tensor# Constructs a sparse tensor in Compressed Sparse format - CSR, CSC, BSR, or BSC - with specified values at the given compressed_indices and plain_indices. Sparse matrix multiplication operations in Compressed Sparse format are typically faster than that for sparse tensors in COO format. Make you have a look at the note on the data type of the indices. Note If the device argument is not specified the device of the given values and indices tensor(s) must match. If, however, the argument is specified the input Tensors will be converted to the given device and in turn determine the device of the constructed sparse tensor. Parameters compressed_indices (array_like) – (B+1)-dimensional array of size (*batchsize, compressed_dim_size + 1). The last element of each batch is the number of non-zero elements or blocks. This tensor encodes the index in values and plain_indices depending on where the given compressed dimension (row or column) starts. Each successive number in the tensor subtracted by the number before it denotes the number of elements or blocks in a given compressed dimension. plain_indices (array_like) – Plain dimension (column or row) coordinates of each element or block in values. (B+1)-dimensional tensor with the same length as values. values (array_list) – Initial values for the tensor. Can be a list, tuple, NumPy ndarray, scalar, and other types. that represents a (1+K)-dimensional (for CSR and CSC layouts) or (1+2+K)-dimensional tensor (for BSR and BSC layouts) where K is the number of dense dimensions. size (list, tuple, torch.Size, optional) – Size of the sparse tensor: (*batchsize, nrows * blocksize[0], ncols * blocksize[1], *densesize) where blocksize[0] == blocksize[1] == 1 for CSR and CSC formats. If not provided, the size will be inferred as the minimum size big enough to hold all non-zero elements or blocks. Keyword Arguments dtype (torch.dtype, optional) – the desired data type of returned tensor. Default: if None, infers data type from values. layout (torch.layout, required) – the desired layout of returned tensor: torch.sparse_csr, torch.sparse_csc, torch.sparse_bsr, or torch.sparse_bsc. device (torch.device, optional) – the desired device of returned tensor. Default: if None, uses the current device for the default tensor type (see torch.set_default_device()). device will be the CPU for CPU tensor types and the current CUDA device for CUDA tensor types. pin_memory (bool, optional) – If set, returned tensor would be allocated in the pinned memory. Works only for CPU tensors. Default: False. requires_grad (bool, optional) – If autograd should record operations on the returned tensor. Default: False. check_invariants (bool, optional) – If sparse tensor invariants are checked. Default: as returned by ..."
        }
    </script>
 

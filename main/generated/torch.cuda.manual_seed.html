@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git86251ef )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git752f202 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3129,7 +3129,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_fake_tensor.html">Fake tensor</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../distributed.html">torch.distributed</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../distributed._dist2.html">Experimental Object Oriented Distributed API - torch.distributed._dist2</a></li>
+
+
+
+
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.html">torch.distributed.tensor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../distributed.elastic.html">torch.distributed.elastic</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4069,7 +4076,7 @@ document.write(`
 <h1>torch.cuda.manual_seed<a class="headerlink" href="#torch-cuda-manual-seed" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.manual_seed">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">manual_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/86251eff4069c468efebdb481dd18fe8d42856f0/torch/cuda/random.py#L92"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.manual_seed" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">manual_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/752f202ef3445d2e28e2abeb6feed56eee9da5a9/torch/cuda/random.py#L92"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.manual_seed" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the seed for generating random numbers for the current GPU.</p>
 <p>It’s safe to call this function if CUDA is not available; in that
 case, it is silently ignored.</p>

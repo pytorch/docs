@@ -112,7 +112,7 @@ window.addEventListener("load", () => mermaid.run());
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git86251ef )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git752f202 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1706,6 +1706,8 @@ document.write(`
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.abort">abort() (torch.distributed.ProcessGroup method)</a>
+</li>
       <li><a href="generated/torch.abs.html#torch.abs">abs() (in module torch)</a>
 
       <ul>
@@ -2014,6 +2016,12 @@ document.write(`
         <li><a href="generated/torch.Tensor.allclose.html#torch.Tensor.allclose">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.allgather">allgather() (torch.distributed.ProcessGroup method)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.allgather_coalesced">allgather_coalesced() (torch.distributed.ProcessGroup method)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.allgather_into_tensor_coalesced">allgather_into_tensor_coalesced() (torch.distributed.ProcessGroup method)</a>
+</li>
       <li><a href="generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool.allocator">allocator (torch.cuda.memory.MemPool property)</a>
 </li>
       <li><a href="backends.html#torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction">allow_bf16_reduced_precision_reduction (in module torch.backends.cuda.matmul)</a>
@@ -2032,7 +2040,15 @@ document.write(`
         <li><a href="backends.html#torch.backends.cudnn.allow_tf32">(in module torch.backends.cudnn)</a>
 </li>
       </ul></li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.allreduce">allreduce() (torch.distributed.ProcessGroup method)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.allreduce_coalesced">allreduce_coalesced() (torch.distributed.ProcessGroup method)</a>
+</li>
       <li><a href="ddp_comm_hooks.html#torch.distributed.algorithms.ddp_comm_hooks.default_hooks.allreduce_hook">allreduce_hook() (in module torch.distributed.algorithms.ddp_comm_hooks.default_hooks)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.alltoall">alltoall() (torch.distributed.ProcessGroup method)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.alltoall_base">alltoall_base() (torch.distributed.ProcessGroup method)</a>
 </li>
       <li><a href="generated/torch.nn.functional.alpha_dropout.html#torch.nn.functional.alpha_dropout">alpha_dropout() (in module torch.nn.functional)</a>
 </li>
@@ -2058,6 +2074,8 @@ document.write(`
       </ul></li>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.and_masks">and_masks() (in module torch.nn.attention.flex_attention)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.angle.html#torch.angle">angle() (in module torch)</a>
 
       <ul>
@@ -2072,8 +2090,6 @@ document.write(`
         <li><a href="generated/torch.Tensor.any.html#torch.Tensor.any">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="torch.compiler_aot_inductor.html#torch._inductor.aoti_compile_and_package">aoti_compile_and_package() (in module torch._inductor)</a>
 </li>
       <li><a href="torch.compiler_aot_inductor.html#torch._inductor.aoti_load_package">aoti_load_package() (in module torch._inductor)</a>
@@ -2483,7 +2499,11 @@ document.write(`
       <li><a href="generated/torch.Tensor.baddbmm_.html#torch.Tensor.baddbmm_">baddbmm_() (torch.Tensor method)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.barrier">barrier() (in module torch.distributed)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.barrier">(torch.distributed.ProcessGroup method)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.signal.windows.bartlett.html#torch.signal.windows.bartlett">bartlett() (in module torch.signal.windows)</a>
 </li>
       <li><a href="generated/torch.bartlett_window.html#torch.bartlett_window">bartlett_window() (in module torch)</a>
@@ -2594,10 +2614,10 @@ document.write(`
         <li><a href="generated/torch.Tensor.bincount.html#torch.Tensor.bincount">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.bind_symbols">bind_symbols() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributions.html#torch.distributions.binomial.Binomial">Binomial (class in torch.distributions.binomial)</a>
 </li>
       <li><a href="generated/torch.bitwise_and.html#torch.bitwise_and">bitwise_and() (in module torch)</a>
@@ -2692,10 +2712,16 @@ document.write(`
       </ul></li>
       <li><a href="storage.html#torch.BoolStorage">BoolStorage (class in torch)</a>
 </li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.bound_device_id">bound_device_id (torch.distributed.ProcessGroup property)</a>
+</li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.bound_sympy">bound_sympy() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
-      <li><a href="distributed.html#torch.distributed.Work.boxed">boxed() (torch.distributed.Work method)</a>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.boxed">boxed() (torch.distributed.ProcessGroup method)</a>
+
+      <ul>
+        <li><a href="distributed.html#torch.distributed.Work.boxed">(torch.distributed.Work method)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.boxed_run">boxed_run() (torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
 
       <ul>
@@ -2708,6 +2734,8 @@ document.write(`
 
       <ul>
         <li><a href="distributed.html#torch.distributed.broadcast">(in module torch.distributed)</a>
+</li>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.broadcast">(torch.distributed.ProcessGroup method)</a>
 </li>
       </ul></li>
       <li><a href="generated/torch.cuda.comm.broadcast_coalesced.html#torch.cuda.comm.broadcast_coalesced">broadcast_coalesced() (in module torch.cuda.comm)</a>
@@ -3246,14 +3274,14 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig.configs">configs (torch.ao.quantization.backend_config.BackendConfig property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="elastic/metrics.html#torch.distributed.elastic.metrics.configure">configure() (in module torch.distributed.elastic.metrics)</a>
 
       <ul>
         <li><a href="elastic/timer.html#torch.distributed.elastic.timer.configure">(in module torch.distributed.elastic.timer)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="rpc.html#torch.distributed.rpc.PyRRef.confirmed_by_owner">confirmed_by_owner() (torch.distributed.rpc.PyRRef method)</a>
 </li>
       <li><a href="generated/torch.conj.html#torch.conj">conj() (in module torch)</a>
@@ -3728,6 +3756,12 @@ document.write(`
         <li><a href="generated/torch.mtia.current_stream.html#torch.mtia.current_stream">(in module torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.current_stream.html#torch.xpu.current_stream">(in module torch.xpu)</a>
+</li>
+      </ul></li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.CUSTOM">CUSTOM (torch.distributed.ProcessGroup attribute)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.BackendType.CUSTOM">(torch.distributed.ProcessGroup.BackendType attribute)</a>
 </li>
       </ul></li>
       <li><a href="amp.html#torch.amp.custom_bwd">custom_bwd() (in module torch.amp)</a>
@@ -5292,6 +5326,8 @@ document.write(`
 </li>
         <li><a href="distributed.html#torch.distributed.gather">(in module torch.distributed)</a>
 </li>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.gather">(torch.distributed.ProcessGroup method)</a>
+</li>
         <li><a href="generated/torch.Tensor.gather.html#torch.Tensor.gather">(torch.Tensor method)</a>
 </li>
       </ul></li>
@@ -5765,6 +5801,12 @@ document.write(`
 </li>
       <li><a href="generated/torch.nn.utils.prune.global_unstructured.html#torch.nn.utils.prune.global_unstructured">global_unstructured() (in module torch.nn.utils.prune)</a>
 </li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.GLOO">GLOO (torch.distributed.ProcessGroup attribute)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.BackendType.GLOO">(torch.distributed.ProcessGroup.BackendType attribute)</a>
+</li>
+      </ul></li>
       <li><a href="generated/torch.nn.GLU.html#torch.nn.GLU">GLU (class in torch.nn)</a>
 </li>
       <li><a href="generated/torch.nn.functional.glu.html#torch.nn.functional.glu">glu() (in module torch.nn.functional)</a>
@@ -5850,6 +5892,10 @@ document.write(`
       <li><a href="distributions.html#torch.distributions.constraints.greater_than_eq">greater_than_eq (in module torch.distributions.constraints)</a>
 </li>
       <li><a href="generated/torch.nn.functional.grid_sample.html#torch.nn.functional.grid_sample">grid_sample() (in module torch.nn.functional)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.group_desc">group_desc (torch.distributed.ProcessGroup property)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.group_name">group_name (torch.distributed.ProcessGroup property)</a>
 </li>
       <li><a href="generated/torch.nn.functional.group_norm.html#torch.nn.functional.group_norm">group_norm() (in module torch.nn.functional)</a>
 </li>
@@ -8473,6 +8519,8 @@ document.write(`
 </li>
         <li><a href="distributed.html#module-torch.distributed">torch.distributed</a>
 </li>
+        <li><a href="distributed._dist2.html#module-torch.distributed._dist2">torch.distributed._dist2</a>
+</li>
         <li><a href="distributed.html#module-torch.distributed.algorithms">torch.distributed.algorithms</a>
 </li>
         <li><a href="distributed.html#module-torch.distributed.algorithms.ddp_comm_hooks">torch.distributed.algorithms.ddp_comm_hooks</a>
@@ -9759,7 +9807,11 @@ document.write(`
       <li><a href="module_tracker.html#torch.utils.module_tracker.ModuleTracker">ModuleTracker (class in torch.utils.module_tracker)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.monitored_barrier">monitored_barrier() (in module torch.distributed)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.monitored_barrier">(torch.distributed.ProcessGroup method)</a>
 </li>
+      </ul></li>
       <li><a href="export.html#torch.export.passes.move_to_device_pass">move_to_device_pass() (in module torch.export.passes)</a>
 </li>
       <li><a href="generated/torch.moveaxis.html#torch.moveaxis">moveaxis() (in module torch)</a>
@@ -9778,6 +9830,12 @@ document.write(`
 </li>
       <li><a href="generated/torch.ao.quantization.observer.MovingAveragePerChannelMinMaxObserver.html#torch.ao.quantization.observer.MovingAveragePerChannelMinMaxObserver">MovingAveragePerChannelMinMaxObserver (class in torch.ao.quantization.observer)</a>
 </li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.MPI">MPI (torch.distributed.ProcessGroup attribute)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.BackendType.MPI">(torch.distributed.ProcessGroup.BackendType attribute)</a>
+</li>
+      </ul></li>
       <li><a href="storage.html#torch.UntypedStorage.mps">mps() (torch.UntypedStorage method)</a>
 </li>
       <li><a href="generated/torch.nn.functional.mse_loss.html#torch.nn.functional.mse_loss">mse_loss() (in module torch.nn.functional)</a>
@@ -9895,6 +9953,8 @@ document.write(`
 </li>
         <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend.name">(torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend property)</a>
 </li>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.BackendType.name">(torch.distributed.ProcessGroup.BackendType property)</a>
+</li>
         <li><a href="rpc.html#torch.distributed.rpc.WorkerInfo.name">(torch.distributed.rpc.WorkerInfo property)</a>
 </li>
         <li><a href="monitor.html#torch.monitor.Aggregation.name">(torch.monitor.Aggregation property)</a>
@@ -9911,7 +9971,11 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="generated/torch.autograd.graph.Node.name.html#torch.autograd.graph.Node.name">name() (torch.autograd.graph.Node method)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.name">(torch.distributed.ProcessGroup method)</a>
 </li>
+      </ul></li>
       <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.named_buffers">named_buffers() (torch.distributed.fsdp.FullyShardedDataParallel method)</a>
 
       <ul>
@@ -10006,6 +10070,12 @@ document.write(`
         <li><a href="storage.html#torch.UntypedStorage.nbytes">(torch.UntypedStorage method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.NCCL">NCCL (torch.distributed.ProcessGroup attribute)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.BackendType.NCCL">(torch.distributed.ProcessGroup.BackendType attribute)</a>
+</li>
+      </ul></li>
       <li><a href="generated/torch.Tensor.ndim.html#torch.Tensor.ndim">ndim (torch.Tensor attribute)</a>
 </li>
       <li><a href="generated/torch.Tensor.ndimension.html#torch.Tensor.ndimension">ndimension() (torch.Tensor method)</a>
@@ -10028,6 +10098,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.neg.html#torch.Tensor.neg">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.Tensor.neg_.html#torch.Tensor.neg_">neg_() (torch.Tensor method)</a>
 </li>
       <li><a href="generated/torch.negative.html#torch.negative">negative() (in module torch)</a>
@@ -10036,8 +10108,6 @@ document.write(`
         <li><a href="generated/torch.Tensor.negative.html#torch.Tensor.negative">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.Tensor.negative_.html#torch.Tensor.negative_">negative_() (torch.Tensor method)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.negative_binomial.NegativeBinomial">NegativeBinomial (class in torch.distributions.negative_binomial)</a>
@@ -10059,7 +10129,11 @@ document.write(`
       <li><a href="generated/torch.Tensor.new_full.html#torch.Tensor.new_full">new_full() (torch.Tensor method)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.new_group">new_group() (in module torch.distributed)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed._dist2.new_group">(in module torch.distributed._dist2)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.Tensor.new_ones.html#torch.Tensor.new_ones">new_ones() (torch.Tensor method)</a>
 </li>
       <li><a href="generated/torch.Tensor.new_tensor.html#torch.Tensor.new_tensor">new_tensor() (torch.Tensor method)</a>
@@ -10498,14 +10572,14 @@ document.write(`
       </ul></li>
       <li><a href="distributed.html#torch.distributed.TCPStore.port">port (torch.distributed.TCPStore property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.positive.html#torch.positive">positive() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.positive.html#torch.Tensor.positive">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributions.html#torch.distributions.transforms.PositiveDefiniteTransform">PositiveDefiniteTransform (class in torch.distributions.transforms)</a>
 </li>
       <li><a href="distributed.algorithms.join.html#torch.distributed.algorithms.JoinHook.post_hook">post_hook() (torch.distributed.algorithms.JoinHook method)</a>
@@ -10637,6 +10711,12 @@ document.write(`
       <li><a href="fx.html#torch.fx.Graph.process_outputs">process_outputs() (torch.fx.Graph method)</a>
 </li>
       <li><a href="elastic/errors.html#torch.distributed.elastic.multiprocessing.errors.ProcessFailure">ProcessFailure (class in torch.distributed.elastic.multiprocessing.errors)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup">ProcessGroup (class in torch.distributed)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.BackendType">ProcessGroup.BackendType (class in torch.distributed)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroupFactory">ProcessGroupFactory (class in torch.distributed._dist2)</a>
 </li>
       <li><a href="generated/torch.prod.html#torch.prod">prod() (in module torch)</a>
 
@@ -10878,6 +10958,8 @@ document.write(`
         <li><a href="profiler.html#torch.profiler.itt.range_push">(in module torch.profiler.itt)</a>
 </li>
       </ul></li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.rank">rank() (torch.distributed.ProcessGroup method)</a>
+</li>
       <li><a href="distributions.html#torch.distributions.inverse_gamma.InverseGamma.rate">rate (torch.distributions.inverse_gamma.InverseGamma property)</a>
 </li>
       <li><a href="generated/torch.ravel.html#torch.ravel">ravel() (in module torch)</a>
@@ -10965,13 +11047,23 @@ document.write(`
       <li><a href="generated/torch.optim.lr_scheduler.SequentialLR.html#torch.optim.lr_scheduler.SequentialLR.recursive_undo">recursive_undo() (torch.optim.lr_scheduler.SequentialLR method)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.recv">recv() (in module torch.distributed)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.recv">(torch.distributed.ProcessGroup method)</a>
+</li>
+      </ul></li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.recv_anysource">recv_anysource() (torch.distributed.ProcessGroup method)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.recv_object_list">recv_object_list() (in module torch.distributed)</a>
 </li>
       <li><a href="distributed.tensor.html#torch.distributed.tensor.DTensor.redistribute">redistribute() (torch.distributed.tensor.DTensor method)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.reduce">reduce() (in module torch.distributed)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.reduce">(torch.distributed.ProcessGroup method)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.cuda.comm.reduce_add.html#torch.cuda.comm.reduce_add">reduce_add() (in module torch.cuda.comm)</a>
 </li>
       <li><a href="generated/torch.cuda.comm.reduce_add_coalesced.html#torch.cuda.comm.reduce_add_coalesced">reduce_add_coalesced() (in module torch.cuda.comm)</a>
@@ -10983,8 +11075,14 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="distributed.html#torch.distributed.reduce_scatter">reduce_scatter() (in module torch.distributed)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.reduce_scatter">(torch.distributed.ProcessGroup method)</a>
 </li>
+      </ul></li>
       <li><a href="distributed.html#torch.distributed.reduce_scatter_tensor">reduce_scatter_tensor() (in module torch.distributed)</a>
+</li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.reduce_scatter_tensor_coalesced">reduce_scatter_tensor_coalesced() (torch.distributed.ProcessGroup method)</a>
 </li>
       <li><a href="generated/torch.optim.lr_scheduler.ReduceLROnPlateau.html#torch.optim.lr_scheduler.ReduceLROnPlateau">ReduceLROnPlateau (class in torch.optim.lr_scheduler)</a>
 </li>
@@ -11006,8 +11104,12 @@ document.write(`
 </li>
       <li><a href="library.html#torch.library.register_autograd">register_autograd() (in module torch.library)</a>
 </li>
-      <li><a href="distributed.html#torch.distributed.Backend.register_backend">register_backend() (torch.distributed.Backend class method)</a>
+      <li><a href="distributed._dist2.html#torch.distributed._dist2.register_backend">register_backend() (in module torch.distributed._dist2)</a>
+
+      <ul>
+        <li><a href="distributed.html#torch.distributed.Backend.register_backend">(torch.distributed.Backend class method)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.register_backward_hook">register_backward_hook() (torch.jit.ScriptModule method)</a>
 
       <ul>
@@ -11286,6 +11388,8 @@ document.write(`
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_state_dict_pre_hook">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_step_post_hook">register_step_post_hook() (torch.optim.Adadelta method)</a>
 
       <ul>
@@ -11318,8 +11422,6 @@ document.write(`
         <li><a href="generated/torch.optim.SparseAdam.html#torch.optim.SparseAdam.register_step_post_hook">(torch.optim.SparseAdam method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_step_pre_hook">register_step_pre_hook() (torch.optim.Adadelta method)</a>
 
       <ul>
@@ -11925,6 +12027,8 @@ document.write(`
 </li>
         <li><a href="distributed.html#torch.distributed.scatter">(in module torch.distributed)</a>
 </li>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.scatter">(torch.distributed.ProcessGroup method)</a>
+</li>
         <li><a href="generated/torch.Tensor.scatter.html#torch.Tensor.scatter">(torch.Tensor method)</a>
 </li>
       </ul></li>
@@ -12027,7 +12131,11 @@ document.write(`
       <li><a href="generated/torch.nn.functional.selu.html#torch.nn.functional.selu">selu() (in module torch.nn.functional)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.send">send() (in module torch.distributed)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.send">(torch.distributed.ProcessGroup method)</a>
 </li>
+      </ul></li>
       <li><a href="distributed.html#torch.distributed.send_object_list">send_object_list() (in module torch.distributed)</a>
 </li>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.seq_lengths">seq_lengths (torch.nn.attention.flex_attention.BlockMask attribute)</a>
@@ -12429,6 +12537,8 @@ document.write(`
       <ul>
         <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousHandler.shutdown">(torch.distributed.elastic.rendezvous.RendezvousHandler method)</a>
 </li>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.shutdown">(torch.distributed.ProcessGroup method)</a>
+</li>
       </ul></li>
       <li><a href="generated/torch.ao.nn.quantized.Sigmoid.html#torch.ao.nn.quantized.Sigmoid">Sigmoid (class in torch.ao.nn.quantized)</a>
 
@@ -12504,9 +12614,11 @@ document.write(`
 </li>
       <li><a href="backends.html#torch.backends.cuda.cufft_plan_cache.size">size (in module torch.backends.cuda.cufft_plan_cache)</a>
 </li>
-      <li><a href="generated/torch.Tensor.size.html#torch.Tensor.size">size() (torch.Tensor method)</a>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.size">size() (torch.distributed.ProcessGroup method)</a>
 
       <ul>
+        <li><a href="generated/torch.Tensor.size.html#torch.Tensor.size">(torch.Tensor method)</a>
+</li>
         <li><a href="storage.html#torch.TypedStorage.size">(torch.TypedStorage method)</a>
 </li>
         <li><a href="storage.html#torch.UntypedStorage.size">(torch.UntypedStorage method)</a>
@@ -12530,6 +12642,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.slice_scatter.html#torch.Tensor.slice_scatter">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.slogdet.html#torch.slogdet">slogdet() (in module torch)</a>
 
       <ul>
@@ -12538,8 +12652,6 @@ document.write(`
         <li><a href="generated/torch.Tensor.slogdet.html#torch.Tensor.slogdet">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.smm.html#torch.smm">smm() (in module torch)</a>
 
       <ul>
@@ -14951,6 +15063,13 @@ document.write(`
 
       <ul>
         <li><a href="distributed.html#module-torch.distributed">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.distributed._dist2
+
+      <ul>
+        <li><a href="distributed._dist2.html#module-torch.distributed._dist2">module</a>
 </li>
       </ul></li>
       <li>
@@ -19510,14 +19629,30 @@ document.write(`
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.UCC">UCC (torch.distributed.ProcessGroup attribute)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.BackendType.UCC">(torch.distributed.ProcessGroup.BackendType attribute)</a>
+</li>
+      </ul></li>
       <li><a href="generated/torch.unbind.html#torch.unbind">unbind() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.unbind.html#torch.Tensor.unbind">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="distributed.html#torch.distributed.Work.unbox">unbox() (torch.distributed.Work static method)</a>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.unbox">unbox() (torch.distributed.ProcessGroup static method)</a>
+
+      <ul>
+        <li><a href="distributed.html#torch.distributed.Work.unbox">(torch.distributed.Work static method)</a>
 </li>
+      </ul></li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.UNDEFINED">UNDEFINED (torch.distributed.ProcessGroup attribute)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.BackendType.UNDEFINED">(torch.distributed.ProcessGroup.BackendType attribute)</a>
+</li>
+      </ul></li>
       <li><a href="distributed.html#torch.distributed.PrefixStore.underlying_store">underlying_store (torch.distributed.PrefixStore property)</a>
 </li>
       <li><a href="generated/torch.nn.Unflatten.html#torch.nn.Unflatten">Unflatten (class in torch.nn)</a>
@@ -19578,12 +19713,12 @@ document.write(`
 </li>
       <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.unshard">unshard() (torch.distributed.fsdp.FSDPModule method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.UnshardHandle">UnshardHandle (class in torch.distributed.fsdp)</a>
 </li>
       <li><a href="generated/torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence.unsorted_indices">unsorted_indices (torch.nn.utils.rnn.PackedSequence attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.unsqueeze.html#torch.unsqueeze">unsqueeze() (in module torch)</a>
 
       <ul>
@@ -19666,8 +19801,12 @@ document.write(`
         <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.StorageWriter.validate_checkpoint_id">(torch.distributed.checkpoint.StorageWriter class method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.jit.Attribute.html#torch.jit.Attribute.value">value (torch.jit.Attribute attribute)</a>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.BackendType.value">value (torch.distributed.ProcessGroup.BackendType property)</a>
+
+      <ul>
+        <li><a href="generated/torch.jit.Attribute.html#torch.jit.Attribute.value">(torch.jit.Attribute attribute)</a>
 </li>
+      </ul></li>
       <li><a href="futures.html#torch.futures.Future.value">value() (torch.futures.Future method)</a>
 </li>
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.values">values() (torch.autograd.profiler_util.StringTable method)</a>
@@ -19974,6 +20113,12 @@ document.write(`
 </li>
       <li><a href="nn.init.html#torch.nn.init.xavier_uniform_">xavier_uniform_() (in module torch.nn.init)</a>
 </li>
+      <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.XCCL">XCCL (torch.distributed.ProcessGroup attribute)</a>
+
+      <ul>
+        <li><a href="distributed._dist2.html#torch.distributed.ProcessGroup.BackendType.XCCL">(torch.distributed.ProcessGroup.BackendType attribute)</a>
+</li>
+      </ul></li>
       <li><a href="special.html#torch.special.xlog1py">xlog1py() (in module torch.special)</a>
 </li>
       <li><a href="generated/torch.xlogy.html#torch.xlogy">xlogy() (in module torch)</a>

@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git86251ef )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git752f202 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3129,7 +3129,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_fake_tensor.html">Fake tensor</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../distributed.html">torch.distributed</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../distributed._dist2.html">Experimental Object Oriented Distributed API - torch.distributed._dist2</a></li>
+
+
+
+
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.html">torch.distributed.tensor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../distributed.elastic.html">torch.distributed.elastic</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4093,7 +4100,7 @@ values and row_indices depending on where the given column
 starts. Each successive number in the tensor subtracted by the
 number before it denotes the number of elements in a given
 column.</p></li>
-<li><p><strong>row_indices</strong> (<em>array_like</em>) – Row co-ordinates of each element in
+<li><p><strong>row_indices</strong> (<em>array_like</em>) – Row coordinates of each element in
 values. (B+1)-dimensional tensor with the same length as
 values.</p></li>
 <li><p><strong>values</strong> (<em>array_list</em>) – Initial values for the tensor. Can be a list,
@@ -4472,7 +4479,7 @@ initially False.</p></li>
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.sparse_csc_tensor# torch.sparse_csc_tensor(ccol_indices, row_indices, values, size=None, *, dtype=None, device=None, pin_memory=False, requires_grad=False, check_invariants=None) → Tensor# Constructs a sparse tensor in CSC (Compressed Sparse Column) with specified values at the given ccol_indices and row_indices. Sparse matrix multiplication operations in CSC format are typically faster than that for sparse tensors in COO format. Make you have a look at the note on the data type of the indices. Note If the device argument is not specified the device of the given values and indices tensor(s) must match. If, however, the argument is specified the input Tensors will be converted to the given device and in turn determine the device of the constructed sparse tensor. Parameters ccol_indices (array_like) – (B+1)-dimensional array of size (*batchsize, ncols + 1). The last element of each batch is the number of non-zeros. This tensor encodes the index in values and row_indices depending on where the given column starts. Each successive number in the tensor subtracted by the number before it denotes the number of elements in a given column. row_indices (array_like) – Row co-ordinates of each element in values. (B+1)-dimensional tensor with the same length as values. values (array_list) – Initial values for the tensor. Can be a list, tuple, NumPy ndarray, scalar, and other types that represents a (1+K)-dimensional tensor where K is the number of dense dimensions. size (list, tuple, torch.Size, optional) – Size of the sparse tensor: (*batchsize, nrows, ncols, *densesize). If not provided, the size will be inferred as the minimum size big enough to hold all non-zero elements. Keyword Arguments dtype (torch.dtype, optional) – the desired data type of returned tensor. Default: if None, infers data type from values. device (torch.device, optional) – the desired device of returned tensor. Default: if None, uses the current device for the default tensor type (see torch.set_default_device()). device will be the CPU for CPU tensor types and the current CUDA device for CUDA tensor types. pin_memory (bool, optional) – If set, returned tensor would be allocated in the pinned memory. Works only for CPU tensors. Default: False. requires_grad (bool, optional) – If autograd should record operations on the returned tensor. Default: False. check_invariants (bool, optional) – If sparse tensor invariants are checked. Default: as returned by torch.sparse.check_sparse_tensor_invariants.is_enabled(), initially False. Example: &gt;&gt;&gt; ccol_indices = [0, 2, 4] &gt;&gt;&gt; row_indices = [0, 1, 0, 1] &gt;&gt;&gt; values = [1, 2, 3, 4] &gt;&gt;&gt; torch.sparse_csc_tensor(torch.tensor(ccol_indices, dtype=torch.int64), ... torch.tensor(row_indices, dtype=torch.int64), ... torch.tensor(values), dtype=torch.double) tensor(ccol_indices=tensor([0, 2, 4]), row_indices=tensor([0, 1, 0, 1]), values=tensor([1., 2., 3., 4.]), size=(2, 2), nnz=4, dtype=torch.float64, layout=torch.sparse_csc)"
+         "articleBody": "torch.sparse_csc_tensor# torch.sparse_csc_tensor(ccol_indices, row_indices, values, size=None, *, dtype=None, device=None, pin_memory=False, requires_grad=False, check_invariants=None) → Tensor# Constructs a sparse tensor in CSC (Compressed Sparse Column) with specified values at the given ccol_indices and row_indices. Sparse matrix multiplication operations in CSC format are typically faster than that for sparse tensors in COO format. Make you have a look at the note on the data type of the indices. Note If the device argument is not specified the device of the given values and indices tensor(s) must match. If, however, the argument is specified the input Tensors will be converted to the given device and in turn determine the device of the constructed sparse tensor. Parameters ccol_indices (array_like) – (B+1)-dimensional array of size (*batchsize, ncols + 1). The last element of each batch is the number of non-zeros. This tensor encodes the index in values and row_indices depending on where the given column starts. Each successive number in the tensor subtracted by the number before it denotes the number of elements in a given column. row_indices (array_like) – Row coordinates of each element in values. (B+1)-dimensional tensor with the same length as values. values (array_list) – Initial values for the tensor. Can be a list, tuple, NumPy ndarray, scalar, and other types that represents a (1+K)-dimensional tensor where K is the number of dense dimensions. size (list, tuple, torch.Size, optional) – Size of the sparse tensor: (*batchsize, nrows, ncols, *densesize). If not provided, the size will be inferred as the minimum size big enough to hold all non-zero elements. Keyword Arguments dtype (torch.dtype, optional) – the desired data type of returned tensor. Default: if None, infers data type from values. device (torch.device, optional) – the desired device of returned tensor. Default: if None, uses the current device for the default tensor type (see torch.set_default_device()). device will be the CPU for CPU tensor types and the current CUDA device for CUDA tensor types. pin_memory (bool, optional) – If set, returned tensor would be allocated in the pinned memory. Works only for CPU tensors. Default: False. requires_grad (bool, optional) – If autograd should record operations on the returned tensor. Default: False. check_invariants (bool, optional) – If sparse tensor invariants are checked. Default: as returned by torch.sparse.check_sparse_tensor_invariants.is_enabled(), initially False. Example: &gt;&gt;&gt; ccol_indices = [0, 2, 4] &gt;&gt;&gt; row_indices = [0, 1, 0, 1] &gt;&gt;&gt; values = [1, 2, 3, 4] &gt;&gt;&gt; torch.sparse_csc_tensor(torch.tensor(ccol_indices, dtype=torch.int64), ... torch.tensor(row_indices, dtype=torch.int64), ... torch.tensor(values), dtype=torch.double) tensor(ccol_indices=tensor([0, 2, 4]), row_indices=tensor([0, 1, 0, 1]), values=tensor([1., 2., 3., 4.]), size=(2, 2), nnz=4, dtype=torch.float64, layout=torch.sparse_csc)"
        }
    </script>
 

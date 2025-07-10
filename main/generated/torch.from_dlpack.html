@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git86251ef )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git752f202 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3129,7 +3129,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_fake_tensor.html">Fake tensor</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../distributed.html">torch.distributed</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../distributed._dist2.html">Experimental Object Oriented Distributed API - torch.distributed._dist2</a></li>
+
+
+
+
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.html">torch.distributed.tensor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../distributed.elastic.html">torch.distributed.elastic</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4069,7 +4076,7 @@ document.write(`
 <h1>torch.from_dlpack<a class="headerlink" href="#torch-from-dlpack" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.from_dlpack">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">from_dlpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ext_tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/86251eff4069c468efebdb481dd18fe8d42856f0/torch/utils/dlpack.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.from_dlpack" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">from_dlpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ext_tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/752f202ef3445d2e28e2abeb6feed56eee9da5a9/torch/utils/dlpack.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.from_dlpack" title="Permalink to this definition">#</a></dt>
 <dd><p>Converts a tensor from an external library into a <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>.</p>
 <p>The returned PyTorch tensor will share the memory with the input tensor
 (which may have come from another library). Note that in-place operations
