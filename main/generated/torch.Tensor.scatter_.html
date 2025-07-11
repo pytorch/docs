@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git752f202 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7599beb )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -881,6 +881,46 @@ document.write(`
 
     observer.observe(document.body, { childList: true, subtree: true });
 
+    // Prevent scroll jump when focusing and typing in search inputs
+    function setupSearchInputHandlers(input) {
+      if (input.hasAttribute('data-scroll-fixed')) return;
+      input.setAttribute('data-scroll-fixed', 'true');
+
+      // Create a fixed position for this input
+      let fixedScrollPos = null;
+
+      // Capture scroll position on focus
+      input.addEventListener('focus', function() {
+        fixedScrollPos = window.scrollY;
+      });
+
+      // Prevent scroll jumps during typing
+      ['input', 'keydown', 'keyup'].forEach(eventType => {
+        input.addEventListener(eventType, function(e) {
+          if (fixedScrollPos !== null) {
+            requestAnimationFrame(() => {
+              window.scrollTo(0, fixedScrollPos);
+            });
+          }
+        });
+      });
+
+      // Release fixed position on blur
+      input.addEventListener('blur', function() {
+        fixedScrollPos = null;
+      });
+    }
+
+    // Apply to all search inputs
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+
+    // Observer for dynamically added search inputs
+    const searchObserver = new MutationObserver(function() {
+      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    });
+
+    searchObserver.observe(document.body, { childList: true, subtree: true });
+
     // Watch for mobile menu creation
     const mobileMenuObserver = new MutationObserver(function(mutations) {
       for (const mutation of mutations) {
@@ -1314,6 +1354,46 @@ document.write(`
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
+
+    // Prevent scroll jump when focusing and typing in search inputs
+    function setupSearchInputHandlers(input) {
+      if (input.hasAttribute('data-scroll-fixed')) return;
+      input.setAttribute('data-scroll-fixed', 'true');
+
+      // Create a fixed position for this input
+      let fixedScrollPos = null;
+
+      // Capture scroll position on focus
+      input.addEventListener('focus', function() {
+        fixedScrollPos = window.scrollY;
+      });
+
+      // Prevent scroll jumps during typing
+      ['input', 'keydown', 'keyup'].forEach(eventType => {
+        input.addEventListener(eventType, function(e) {
+          if (fixedScrollPos !== null) {
+            requestAnimationFrame(() => {
+              window.scrollTo(0, fixedScrollPos);
+            });
+          }
+        });
+      });
+
+      // Release fixed position on blur
+      input.addEventListener('blur', function() {
+        fixedScrollPos = null;
+      });
+    }
+
+    // Apply to all search inputs
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+
+    // Observer for dynamically added search inputs
+    const searchObserver = new MutationObserver(function() {
+      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    });
+
+    searchObserver.observe(document.body, { childList: true, subtree: true });
 
     // Watch for mobile menu creation
     const mobileMenuObserver = new MutationObserver(function(mutations) {
@@ -3135,6 +3215,8 @@ document.write(`
 
 
 
+
+
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.html">torch.distributed.tensor</a></li>
@@ -4088,11 +4170,12 @@ the corresponding value in <code class="xref py py-attr docutils literal notrans
 </pre></div>
 </div>
 <p>This is the reverse operation of the manner described in <a class="reference internal" href="torch.Tensor.gather.html#torch.Tensor.gather" title="torch.Tensor.gather"><code class="xref py py-meth docutils literal notranslate"><span class="pre">gather()</span></code></a>.</p>
-<p><code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">index</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">src</span></code> (if it is a Tensor) should all have
-the same number of dimensions. It is also required that
+<p>It is also required that
 <code class="docutils literal notranslate"><span class="pre">index.size(d)</span> <span class="pre">&lt;=</span> <span class="pre">src.size(d)</span></code> for all dimensions <code class="docutils literal notranslate"><span class="pre">d</span></code>, and that
 <code class="docutils literal notranslate"><span class="pre">index.size(d)</span> <span class="pre">&lt;=</span> <span class="pre">self.size(d)</span></code> for all dimensions <code class="docutils literal notranslate"><span class="pre">d</span> <span class="pre">!=</span> <span class="pre">dim</span></code>.
-Note that <code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> do not broadcast.</p>
+Note that <code class="docutils literal notranslate"><span class="pre">input</span></code> and <code class="docutils literal notranslate"><span class="pre">index</span></code> do not broadcast against each other for NPUs,
+so when running on NPUs, <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">index</span></code> must have the same number of dimensions.
+Standard broadcasting occurs in all other cases.</p>
 <p>Moreover, as for <a class="reference internal" href="torch.Tensor.gather.html#torch.Tensor.gather" title="torch.Tensor.gather"><code class="xref py py-meth docutils literal notranslate"><span class="pre">gather()</span></code></a>, the values of <code class="xref py py-attr docutils literal notranslate"><span class="pre">index</span></code> must be
 between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">self.size(dim)</span> <span class="pre">-</span> <span class="pre">1</span></code> inclusive.</p>
 <div class="admonition warning">
@@ -4533,7 +4616,7 @@ returns <code class="docutils literal notranslate"><span class="pre">self</span>
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.Tensor.scatter_# Tensor.scatter_(dim, index, src, *, reduce=None) → Tensor# Writes all values from the tensor src into self at the indices specified in the index tensor. For each value in src, its output index is specified by its index in src for dimension != dim and by the corresponding value in index for dimension = dim. For a 3-D tensor, self is updated as: self[index[i][j][k]][j][k] = src[i][j][k] # if dim == 0 self[i][index[i][j][k]][k] = src[i][j][k] # if dim == 1 self[i][j][index[i][j][k]] = src[i][j][k] # if dim == 2 This is the reverse operation of the manner described in gather(). self, index and src (if it is a Tensor) should all have the same number of dimensions. It is also required that index.size(d) &lt;= src.size(d) for all dimensions d, and that index.size(d) &lt;= self.size(d) for all dimensions d != dim. Note that index and src do not broadcast. Moreover, as for gather(), the values of index must be between 0 and self.size(dim) - 1 inclusive. Warning When indices are not unique, the behavior is non-deterministic (one of the values from src will be picked arbitrarily) and the gradient will be incorrect (it will be propagated to all locations in the source that correspond to the same index)! Note The backward pass is implemented only for src.shape == index.shape. Additionally accepts an optional reduce argument that allows specification of an optional reduction operation, which is applied to all values in the tensor src into self at the indices specified in the index. For each value in src, the reduction operation is applied to an index in self which is specified by its index in src for dimension != dim and by the corresponding value in index for dimension = dim. Given a 3-D tensor and reduction using the multiplication operation, self is updated as: self[index[i][j][k]][j][k] *= src[i][j][k] # if dim == 0 self[i][index[i][j][k]][k] *= src[i][j][k] # if dim == 1 self[i][j][index[i][j][k]] *= src[i][j][k] # if dim == 2 Reducing with the addition operation is the same as using scatter_add_(). Warning The reduce argument with Tensor src is deprecated and will be removed in a future PyTorch release. Please use scatter_reduce_() instead for more reduction options. Parameters dim (int) – the axis along which to index index (LongTensor) – the indices of elements to scatter, can be either empty or of the same dimensionality as src. When empty, the operation returns self unchanged. src (Tensor) – the source element(s) to scatter. Keyword Arguments reduce (str, optional) – reduction operation to apply, can be either &#39;add&#39; or &#39;multiply&#39;. Example: &gt;&gt;&gt; src = torch.arange(1, 11).reshape((2, 5)) &gt;&gt;&gt; src tensor([[ 1, 2, 3, 4, 5], [ 6, 7, 8, 9, 10]]) &gt;&gt;&gt; index = torch.tensor([[0, 1, 2, 0]]) &gt;&gt;&gt; torch.zeros(3, 5, dtype=src.dtype).scatter_(0, index, src) tensor([[1, 0, 0, 4, 0], [0, 2, 0, 0, 0], [0, 0, 3, 0, 0]]) &gt;&gt;&gt; index = torch.tensor([[0, 1, 2], [0, 1, 4]]) &gt;&gt;&gt; torch.zeros(3, 5, dtype=src.dtype).scatter_(1, index, src) tensor([[1, 2, 3, 0, 0..."
+         "articleBody": "torch.Tensor.scatter_# Tensor.scatter_(dim, index, src, *, reduce=None) → Tensor# Writes all values from the tensor src into self at the indices specified in the index tensor. For each value in src, its output index is specified by its index in src for dimension != dim and by the corresponding value in index for dimension = dim. For a 3-D tensor, self is updated as: self[index[i][j][k]][j][k] = src[i][j][k] # if dim == 0 self[i][index[i][j][k]][k] = src[i][j][k] # if dim == 1 self[i][j][index[i][j][k]] = src[i][j][k] # if dim == 2 This is the reverse operation of the manner described in gather(). It is also required that index.size(d) &lt;= src.size(d) for all dimensions d, and that index.size(d) &lt;= self.size(d) for all dimensions d != dim. Note that input and index do not broadcast against each other for NPUs, so when running on NPUs, input and index must have the same number of dimensions. Standard broadcasting occurs in all other cases. Moreover, as for gather(), the values of index must be between 0 and self.size(dim) - 1 inclusive. Warning When indices are not unique, the behavior is non-deterministic (one of the values from src will be picked arbitrarily) and the gradient will be incorrect (it will be propagated to all locations in the source that correspond to the same index)! Note The backward pass is implemented only for src.shape == index.shape. Additionally accepts an optional reduce argument that allows specification of an optional reduction operation, which is applied to all values in the tensor src into self at the indices specified in the index. For each value in src, the reduction operation is applied to an index in self which is specified by its index in src for dimension != dim and by the corresponding value in index for dimension = dim. Given a 3-D tensor and reduction using the multiplication operation, self is updated as: self[index[i][j][k]][j][k] *= src[i][j][k] # if dim == 0 self[i][index[i][j][k]][k] *= src[i][j][k] # if dim == 1 self[i][j][index[i][j][k]] *= src[i][j][k] # if dim == 2 Reducing with the addition operation is the same as using scatter_add_(). Warning The reduce argument with Tensor src is deprecated and will be removed in a future PyTorch release. Please use scatter_reduce_() instead for more reduction options. Parameters dim (int) – the axis along which to index index (LongTensor) – the indices of elements to scatter, can be either empty or of the same dimensionality as src. When empty, the operation returns self unchanged. src (Tensor) – the source element(s) to scatter. Keyword Arguments reduce (str, optional) – reduction operation to apply, can be either &#39;add&#39; or &#39;multiply&#39;. Example: &gt;&gt;&gt; src = torch.arange(1, 11).reshape((2, 5)) &gt;&gt;&gt; src tensor([[ 1, 2, 3, 4, 5], [ 6, 7, 8, 9, 10]]) &gt;&gt;&gt; index = torch.tensor([[0, 1, 2, 0]]) &gt;&gt;&gt; torch.zeros(3, 5, dtype=src.dtype).scatter_(0, index, src) tensor([[1, 0, 0, 4, 0], [0, 2, 0, 0, 0], [0, 0, 3, 0, 0]]) &gt;&gt;&gt; index = torch.tensor([[0, 1, 2], [0, 1, 4]]) &gt;&gt;&gt; torch.z..."
        }
    </script>
 

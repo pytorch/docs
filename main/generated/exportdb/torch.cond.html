@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git752f202 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7599beb )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -881,6 +881,46 @@ document.write(`
 
     observer.observe(document.body, { childList: true, subtree: true });
 
+    // Prevent scroll jump when focusing and typing in search inputs
+    function setupSearchInputHandlers(input) {
+      if (input.hasAttribute('data-scroll-fixed')) return;
+      input.setAttribute('data-scroll-fixed', 'true');
+
+      // Create a fixed position for this input
+      let fixedScrollPos = null;
+
+      // Capture scroll position on focus
+      input.addEventListener('focus', function() {
+        fixedScrollPos = window.scrollY;
+      });
+
+      // Prevent scroll jumps during typing
+      ['input', 'keydown', 'keyup'].forEach(eventType => {
+        input.addEventListener(eventType, function(e) {
+          if (fixedScrollPos !== null) {
+            requestAnimationFrame(() => {
+              window.scrollTo(0, fixedScrollPos);
+            });
+          }
+        });
+      });
+
+      // Release fixed position on blur
+      input.addEventListener('blur', function() {
+        fixedScrollPos = null;
+      });
+    }
+
+    // Apply to all search inputs
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+
+    // Observer for dynamically added search inputs
+    const searchObserver = new MutationObserver(function() {
+      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    });
+
+    searchObserver.observe(document.body, { childList: true, subtree: true });
+
     // Watch for mobile menu creation
     const mobileMenuObserver = new MutationObserver(function(mutations) {
       for (const mutation of mutations) {
@@ -1314,6 +1354,46 @@ document.write(`
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
+
+    // Prevent scroll jump when focusing and typing in search inputs
+    function setupSearchInputHandlers(input) {
+      if (input.hasAttribute('data-scroll-fixed')) return;
+      input.setAttribute('data-scroll-fixed', 'true');
+
+      // Create a fixed position for this input
+      let fixedScrollPos = null;
+
+      // Capture scroll position on focus
+      input.addEventListener('focus', function() {
+        fixedScrollPos = window.scrollY;
+      });
+
+      // Prevent scroll jumps during typing
+      ['input', 'keydown', 'keyup'].forEach(eventType => {
+        input.addEventListener(eventType, function(e) {
+          if (fixedScrollPos !== null) {
+            requestAnimationFrame(() => {
+              window.scrollTo(0, fixedScrollPos);
+            });
+          }
+        });
+      });
+
+      // Release fixed position on blur
+      input.addEventListener('blur', function() {
+        fixedScrollPos = null;
+      });
+    }
+
+    // Apply to all search inputs
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+
+    // Observer for dynamically added search inputs
+    const searchObserver = new MutationObserver(function() {
+      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    });
+
+    searchObserver.observe(document.body, { childList: true, subtree: true });
 
     // Watch for mobile menu creation
     const mobileMenuObserver = new MutationObserver(function(mutations) {
@@ -3135,6 +3215,8 @@ document.write(`
 
 
 
+
+
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../distributed.tensor.html">torch.distributed.tensor</a></li>
@@ -4333,7 +4415,7 @@ document.write(`
 <h2>cond_closed_over_variable<a class="headerlink" href="#cond-closed-over-variable" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="python.closure.html"><span class="doc">python.closure</span></a></p>
+<p>Tags: <a class="reference internal" href="python.closure.html"><span class="doc">python.closure</span></a>, <a class="reference internal" href="#"><span class="doc">torch.cond</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>

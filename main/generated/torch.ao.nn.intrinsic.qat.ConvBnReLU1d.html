@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git752f202 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7599beb )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -881,6 +881,46 @@ document.write(`
 
     observer.observe(document.body, { childList: true, subtree: true });
 
+    // Prevent scroll jump when focusing and typing in search inputs
+    function setupSearchInputHandlers(input) {
+      if (input.hasAttribute('data-scroll-fixed')) return;
+      input.setAttribute('data-scroll-fixed', 'true');
+
+      // Create a fixed position for this input
+      let fixedScrollPos = null;
+
+      // Capture scroll position on focus
+      input.addEventListener('focus', function() {
+        fixedScrollPos = window.scrollY;
+      });
+
+      // Prevent scroll jumps during typing
+      ['input', 'keydown', 'keyup'].forEach(eventType => {
+        input.addEventListener(eventType, function(e) {
+          if (fixedScrollPos !== null) {
+            requestAnimationFrame(() => {
+              window.scrollTo(0, fixedScrollPos);
+            });
+          }
+        });
+      });
+
+      // Release fixed position on blur
+      input.addEventListener('blur', function() {
+        fixedScrollPos = null;
+      });
+    }
+
+    // Apply to all search inputs
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+
+    // Observer for dynamically added search inputs
+    const searchObserver = new MutationObserver(function() {
+      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    });
+
+    searchObserver.observe(document.body, { childList: true, subtree: true });
+
     // Watch for mobile menu creation
     const mobileMenuObserver = new MutationObserver(function(mutations) {
       for (const mutation of mutations) {
@@ -1314,6 +1354,46 @@ document.write(`
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
+
+    // Prevent scroll jump when focusing and typing in search inputs
+    function setupSearchInputHandlers(input) {
+      if (input.hasAttribute('data-scroll-fixed')) return;
+      input.setAttribute('data-scroll-fixed', 'true');
+
+      // Create a fixed position for this input
+      let fixedScrollPos = null;
+
+      // Capture scroll position on focus
+      input.addEventListener('focus', function() {
+        fixedScrollPos = window.scrollY;
+      });
+
+      // Prevent scroll jumps during typing
+      ['input', 'keydown', 'keyup'].forEach(eventType => {
+        input.addEventListener(eventType, function(e) {
+          if (fixedScrollPos !== null) {
+            requestAnimationFrame(() => {
+              window.scrollTo(0, fixedScrollPos);
+            });
+          }
+        });
+      });
+
+      // Release fixed position on blur
+      input.addEventListener('blur', function() {
+        fixedScrollPos = null;
+      });
+    }
+
+    // Apply to all search inputs
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+
+    // Observer for dynamically added search inputs
+    const searchObserver = new MutationObserver(function() {
+      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    });
+
+    searchObserver.observe(document.body, { childList: true, subtree: true });
 
     // Watch for mobile menu creation
     const mobileMenuObserver = new MutationObserver(function(mutations) {
@@ -3135,6 +3215,8 @@ document.write(`
 
 
 
+
+
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.html">torch.distributed.tensor</a></li>
@@ -4087,7 +4169,7 @@ document.write(`
 <h1>ConvBnReLU1d<a class="headerlink" href="#convbnrelu1d" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.nn.intrinsic.qat.ConvBnReLU1d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.intrinsic.qat.</span></span><span class="sig-name descname"><span class="pre">ConvBnReLU1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zeros'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freeze_bn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qconfig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/752f202ef3445d2e28e2abeb6feed56eee9da5a9/torch/ao/nn/intrinsic/qat/modules/conv_fused.py#L512"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.intrinsic.qat.ConvBnReLU1d" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.intrinsic.qat.</span></span><span class="sig-name descname"><span class="pre">ConvBnReLU1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zeros'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freeze_bn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qconfig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/ao/nn/intrinsic/qat/modules/conv_fused.py#L512"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.intrinsic.qat.ConvBnReLU1d" title="Permalink to this definition">#</a></dt>
 <dd><p>A ConvBnReLU1d module is a module fused from Conv1d, BatchNorm1d and ReLU,
 attached with FakeQuantize modules for weight,
 used in quantization aware training.</p>

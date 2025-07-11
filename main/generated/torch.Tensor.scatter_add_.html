@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git752f202 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7599beb )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -881,6 +881,46 @@ document.write(`
 
     observer.observe(document.body, { childList: true, subtree: true });
 
+    // Prevent scroll jump when focusing and typing in search inputs
+    function setupSearchInputHandlers(input) {
+      if (input.hasAttribute('data-scroll-fixed')) return;
+      input.setAttribute('data-scroll-fixed', 'true');
+
+      // Create a fixed position for this input
+      let fixedScrollPos = null;
+
+      // Capture scroll position on focus
+      input.addEventListener('focus', function() {
+        fixedScrollPos = window.scrollY;
+      });
+
+      // Prevent scroll jumps during typing
+      ['input', 'keydown', 'keyup'].forEach(eventType => {
+        input.addEventListener(eventType, function(e) {
+          if (fixedScrollPos !== null) {
+            requestAnimationFrame(() => {
+              window.scrollTo(0, fixedScrollPos);
+            });
+          }
+        });
+      });
+
+      // Release fixed position on blur
+      input.addEventListener('blur', function() {
+        fixedScrollPos = null;
+      });
+    }
+
+    // Apply to all search inputs
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+
+    // Observer for dynamically added search inputs
+    const searchObserver = new MutationObserver(function() {
+      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    });
+
+    searchObserver.observe(document.body, { childList: true, subtree: true });
+
     // Watch for mobile menu creation
     const mobileMenuObserver = new MutationObserver(function(mutations) {
       for (const mutation of mutations) {
@@ -1314,6 +1354,46 @@ document.write(`
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
+
+    // Prevent scroll jump when focusing and typing in search inputs
+    function setupSearchInputHandlers(input) {
+      if (input.hasAttribute('data-scroll-fixed')) return;
+      input.setAttribute('data-scroll-fixed', 'true');
+
+      // Create a fixed position for this input
+      let fixedScrollPos = null;
+
+      // Capture scroll position on focus
+      input.addEventListener('focus', function() {
+        fixedScrollPos = window.scrollY;
+      });
+
+      // Prevent scroll jumps during typing
+      ['input', 'keydown', 'keyup'].forEach(eventType => {
+        input.addEventListener(eventType, function(e) {
+          if (fixedScrollPos !== null) {
+            requestAnimationFrame(() => {
+              window.scrollTo(0, fixedScrollPos);
+            });
+          }
+        });
+      });
+
+      // Release fixed position on blur
+      input.addEventListener('blur', function() {
+        fixedScrollPos = null;
+      });
+    }
+
+    // Apply to all search inputs
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+
+    // Observer for dynamically added search inputs
+    const searchObserver = new MutationObserver(function() {
+      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    });
+
+    searchObserver.observe(document.body, { childList: true, subtree: true });
 
     // Watch for mobile menu creation
     const mobileMenuObserver = new MutationObserver(function(mutations) {
@@ -3135,6 +3215,8 @@ document.write(`
 
 
 
+
+
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.html">torch.distributed.tensor</a></li>
@@ -4092,7 +4174,9 @@ for <code class="docutils literal notranslate"><span class="pre">dimension</span
 <p><code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">index</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">src</span></code> should have same number of
 dimensions. It is also required that <code class="docutils literal notranslate"><span class="pre">index.size(d)</span> <span class="pre">&lt;=</span> <span class="pre">src.size(d)</span></code> for all
 dimensions <code class="docutils literal notranslate"><span class="pre">d</span></code>, and that <code class="docutils literal notranslate"><span class="pre">index.size(d)</span> <span class="pre">&lt;=</span> <span class="pre">self.size(d)</span></code> for all dimensions
-<code class="docutils literal notranslate"><span class="pre">d</span> <span class="pre">!=</span> <span class="pre">dim</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> do not broadcast.</p>
+<code class="docutils literal notranslate"><span class="pre">d</span> <span class="pre">!=</span> <span class="pre">dim</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> do not broadcast.
+When <code class="xref py py-attr docutils literal notranslate"><span class="pre">index</span></code> is empty, we always return the original tensor
+without further error checking.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This operation may behave nondeterministically when given tensors on a CUDA device. See <a class="reference internal" href="../notes/randomness.html"><span class="doc">Reproducibility</span></a> for more information.</p>
@@ -4458,7 +4542,7 @@ operation returns <code class="docutils literal notranslate"><span class="pre">s
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.Tensor.scatter_add_# Tensor.scatter_add_(dim, index, src) → Tensor# Adds all values from the tensor src into self at the indices specified in the index tensor in a similar fashion as scatter_(). For each value in src, it is added to an index in self which is specified by its index in src for dimension != dim and by the corresponding value in index for dimension = dim. For a 3-D tensor, self is updated as: self[index[i][j][k]][j][k] += src[i][j][k] # if dim == 0 self[i][index[i][j][k]][k] += src[i][j][k] # if dim == 1 self[i][j][index[i][j][k]] += src[i][j][k] # if dim == 2 self, index and src should have same number of dimensions. It is also required that index.size(d) &lt;= src.size(d) for all dimensions d, and that index.size(d) &lt;= self.size(d) for all dimensions d != dim. Note that index and src do not broadcast. Note This operation may behave nondeterministically when given tensors on a CUDA device. See Reproducibility for more information. Note The backward pass is implemented only for src.shape == index.shape. Parameters dim (int) – the axis along which to index index (LongTensor) – the indices of elements to scatter and add, can be either empty or of the same dimensionality as src. When empty, the operation returns self unchanged. src (Tensor) – the source elements to scatter and add Example: &gt;&gt;&gt; src = torch.ones((2, 5)) &gt;&gt;&gt; index = torch.tensor([[0, 1, 2, 0, 0]]) &gt;&gt;&gt; torch.zeros(3, 5, dtype=src.dtype).scatter_add_(0, index, src) tensor([[1., 0., 0., 1., 1.], [0., 1., 0., 0., 0.], [0., 0., 1., 0., 0.]]) &gt;&gt;&gt; index = torch.tensor([[0, 1, 2, 0, 0], [0, 1, 2, 2, 2]]) &gt;&gt;&gt; torch.zeros(3, 5, dtype=src.dtype).scatter_add_(0, index, src) tensor([[2., 0., 0., 1., 1.], [0., 2., 0., 0., 0.], [0., 0., 2., 1., 1.]])"
+         "articleBody": "torch.Tensor.scatter_add_# Tensor.scatter_add_(dim, index, src) → Tensor# Adds all values from the tensor src into self at the indices specified in the index tensor in a similar fashion as scatter_(). For each value in src, it is added to an index in self which is specified by its index in src for dimension != dim and by the corresponding value in index for dimension = dim. For a 3-D tensor, self is updated as: self[index[i][j][k]][j][k] += src[i][j][k] # if dim == 0 self[i][index[i][j][k]][k] += src[i][j][k] # if dim == 1 self[i][j][index[i][j][k]] += src[i][j][k] # if dim == 2 self, index and src should have same number of dimensions. It is also required that index.size(d) &lt;= src.size(d) for all dimensions d, and that index.size(d) &lt;= self.size(d) for all dimensions d != dim. Note that index and src do not broadcast. When index is empty, we always return the original tensor without further error checking. Note This operation may behave nondeterministically when given tensors on a CUDA device. See Reproducibility for more information. Note The backward pass is implemented only for src.shape == index.shape. Parameters dim (int) – the axis along which to index index (LongTensor) – the indices of elements to scatter and add, can be either empty or of the same dimensionality as src. When empty, the operation returns self unchanged. src (Tensor) – the source elements to scatter and add Example: &gt;&gt;&gt; src = torch.ones((2, 5)) &gt;&gt;&gt; index = torch.tensor([[0, 1, 2, 0, 0]]) &gt;&gt;&gt; torch.zeros(3, 5, dtype=src.dtype).scatter_add_(0, index, src) tensor([[1., 0., 0., 1., 1.], [0., 1., 0., 0., 0.], [0., 0., 1., 0., 0.]]) &gt;&gt;&gt; index = torch.tensor([[0, 1, 2, 0, 0], [0, 1, 2, 2, 2]]) &gt;&gt;&gt; torch.zeros(3, 5, dtype=src.dtype).scatter_add_(0, index, src) tensor([[2., 0., 0., 1., 1.], [0., 2., 0., 0., 0.], [0., 0., 2., 1., 1.]])"
        }
    </script>
 

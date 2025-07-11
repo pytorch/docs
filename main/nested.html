@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git752f202 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7599beb )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -881,6 +881,46 @@ document.write(`
 
     observer.observe(document.body, { childList: true, subtree: true });
 
+    // Prevent scroll jump when focusing and typing in search inputs
+    function setupSearchInputHandlers(input) {
+      if (input.hasAttribute('data-scroll-fixed')) return;
+      input.setAttribute('data-scroll-fixed', 'true');
+
+      // Create a fixed position for this input
+      let fixedScrollPos = null;
+
+      // Capture scroll position on focus
+      input.addEventListener('focus', function() {
+        fixedScrollPos = window.scrollY;
+      });
+
+      // Prevent scroll jumps during typing
+      ['input', 'keydown', 'keyup'].forEach(eventType => {
+        input.addEventListener(eventType, function(e) {
+          if (fixedScrollPos !== null) {
+            requestAnimationFrame(() => {
+              window.scrollTo(0, fixedScrollPos);
+            });
+          }
+        });
+      });
+
+      // Release fixed position on blur
+      input.addEventListener('blur', function() {
+        fixedScrollPos = null;
+      });
+    }
+
+    // Apply to all search inputs
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+
+    // Observer for dynamically added search inputs
+    const searchObserver = new MutationObserver(function() {
+      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    });
+
+    searchObserver.observe(document.body, { childList: true, subtree: true });
+
     // Watch for mobile menu creation
     const mobileMenuObserver = new MutationObserver(function(mutations) {
       for (const mutation of mutations) {
@@ -1314,6 +1354,46 @@ document.write(`
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
+
+    // Prevent scroll jump when focusing and typing in search inputs
+    function setupSearchInputHandlers(input) {
+      if (input.hasAttribute('data-scroll-fixed')) return;
+      input.setAttribute('data-scroll-fixed', 'true');
+
+      // Create a fixed position for this input
+      let fixedScrollPos = null;
+
+      // Capture scroll position on focus
+      input.addEventListener('focus', function() {
+        fixedScrollPos = window.scrollY;
+      });
+
+      // Prevent scroll jumps during typing
+      ['input', 'keydown', 'keyup'].forEach(eventType => {
+        input.addEventListener(eventType, function(e) {
+          if (fixedScrollPos !== null) {
+            requestAnimationFrame(() => {
+              window.scrollTo(0, fixedScrollPos);
+            });
+          }
+        });
+      });
+
+      // Release fixed position on blur
+      input.addEventListener('blur', function() {
+        fixedScrollPos = null;
+      });
+    }
+
+    // Apply to all search inputs
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+
+    // Observer for dynamically added search inputs
+    const searchObserver = new MutationObserver(function() {
+      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    });
+
+    searchObserver.observe(document.body, { childList: true, subtree: true });
 
     // Watch for mobile menu creation
     const mobileMenuObserver = new MutationObserver(function(mutations) {
@@ -3135,6 +3215,8 @@ document.write(`
 
 
 
+
+
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.tensor.html">torch.distributed.tensor</a></li>
@@ -4505,7 +4587,7 @@ intermediate.</p></li>
 <span id="construction-and-conversion"></span><h2>Detailed Docs for Construction and Conversion Functions<a class="headerlink" href="#detailed-docs-for-construction-and-conversion-functions" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nested.nested_tensor">
-<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">nested_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_list</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/752f202ef3445d2e28e2abeb6feed56eee9da5a9/torch/nested/__init__.py#L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.nested_tensor" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">nested_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_list</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/nested/__init__.py#L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.nested_tensor" title="Permalink to this definition">#</a></dt>
 <dd><p>Constructs a nested tensor with no autograd history (also known as a “leaf tensor”, see
 <a class="reference internal" href="notes/autograd.html#autograd-mechanics"><span class="std std-ref">Autograd mechanics</span></a>) from <code class="xref py py-attr docutils literal notranslate"><span class="pre">tensor_list</span></code> a list of tensors.</p>
 <dl class="field-list simple">
@@ -4545,7 +4627,7 @@ the pinned memory. Works only for CPU tensors. Default: <code class="docutils li
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nested.nested_tensor_from_jagged">
-<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">nested_tensor_from_jagged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offsets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jagged_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_seqlen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_seqlen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/752f202ef3445d2e28e2abeb6feed56eee9da5a9/torch/nested/__init__.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.nested_tensor_from_jagged" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">nested_tensor_from_jagged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offsets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jagged_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_seqlen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_seqlen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/nested/__init__.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.nested_tensor_from_jagged" title="Permalink to this definition">#</a></dt>
 <dd><p>Constructs a jagged layout nested tensor from the given jagged components. The jagged layout
 consists of a required values buffer with the jagged dimension packed into a single dimension.
 The offsets / lengths metadata determines how this dimension is split into batch elements
@@ -4575,8 +4657,8 @@ with the offsets / lengths metadata used to distinguish batch elements.</p></li>
 <li><p><strong>offsets</strong> (optional <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>) – Offsets into the jagged dimension of shape B + 1.</p></li>
 <li><p><strong>lengths</strong> (optional <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>) – Lengths of the batch elements of shape B.</p></li>
 <li><p><strong>jagged_dim</strong> (<em>optional python:int</em>) – Indicates which dimension in values is the packed jagged
-dimension. If None, this is set to dim=1 (i.e. the dimension immediately following
-the batch dimension). Default: None</p></li>
+dimension. Must be &gt;= 1 as the batch dimension (dim=0) cannot be ragged.
+If None, this is set to dim=1 (i.e. the dimension immediately following the batch dimension). Default: None</p></li>
 <li><p><strong>min_seqlen</strong> (<em>optional python:int</em>) – If set, uses the specified value as the cached minimum sequence
 length for the returned nested tensor. This can be a useful alternative to computing
 this value on-demand, possibly avoiding a GPU -&gt; CPU sync. Default: None</p></li>
@@ -4621,7 +4703,7 @@ this value on-demand, possibly avoiding a GPU -&gt; CPU sync. Default: None</p><
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nested.as_nested_tensor">
-<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">as_nested_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/752f202ef3445d2e28e2abeb6feed56eee9da5a9/torch/nested/__init__.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.as_nested_tensor" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">as_nested_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/nested/__init__.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.as_nested_tensor" title="Permalink to this definition">#</a></dt>
 <dd><p>Constructs a nested tensor preserving autograd history from a tensor or a list / tuple of
 tensors.</p>
 <p>If a nested tensor is passed, it will be returned directly unless the device / dtype / layout
@@ -4726,7 +4808,7 @@ else, will infer by taking the max size of each nested sub-tensor along each dim
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nested.masked_select">
-<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">masked_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/752f202ef3445d2e28e2abeb6feed56eee9da5a9/torch/nested/__init__.py#L468"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.masked_select" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">masked_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/nested/__init__.py#L470"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.masked_select" title="Permalink to this definition">#</a></dt>
 <dd><p>Constructs a nested tensor given a strided tensor input and a strided mask, the resulting jagged layout nested tensor
 will have values retain values where the mask is equal to True. The dimensionality of the mask is preserved and is
 represented with the offsets, this is unlike <a class="reference internal" href="#torch.nested.masked_select" title="torch.nested.masked_select"><code class="xref py py-func docutils literal notranslate"><span class="pre">masked_select()</span></code></a> where the output is collapsed to a 1D tensor.</p>
@@ -4762,7 +4844,7 @@ mask (<a class="reference internal" href="tensors.html#torch.Tensor" title="torc
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nested.narrow">
-<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">narrow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.strided</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/752f202ef3445d2e28e2abeb6feed56eee9da5a9/torch/nested/__init__.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.narrow" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">narrow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.strided</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/nested/__init__.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.narrow" title="Permalink to this definition">#</a></dt>
 <dd><p>Constructs a nested tensor (which might be a view) from <code class="xref py py-attr docutils literal notranslate"><span class="pre">tensor</span></code>, a strided tensor. This follows
 similar semantics to torch.Tensor.narrow, where in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>-th dimension the new nested tensor
 shows only the elements in the interval <cite>[start, start+length)</cite>. As nested representations

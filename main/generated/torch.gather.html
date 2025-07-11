@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git752f202 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7599beb )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -881,6 +881,46 @@ document.write(`
 
     observer.observe(document.body, { childList: true, subtree: true });
 
+    // Prevent scroll jump when focusing and typing in search inputs
+    function setupSearchInputHandlers(input) {
+      if (input.hasAttribute('data-scroll-fixed')) return;
+      input.setAttribute('data-scroll-fixed', 'true');
+
+      // Create a fixed position for this input
+      let fixedScrollPos = null;
+
+      // Capture scroll position on focus
+      input.addEventListener('focus', function() {
+        fixedScrollPos = window.scrollY;
+      });
+
+      // Prevent scroll jumps during typing
+      ['input', 'keydown', 'keyup'].forEach(eventType => {
+        input.addEventListener(eventType, function(e) {
+          if (fixedScrollPos !== null) {
+            requestAnimationFrame(() => {
+              window.scrollTo(0, fixedScrollPos);
+            });
+          }
+        });
+      });
+
+      // Release fixed position on blur
+      input.addEventListener('blur', function() {
+        fixedScrollPos = null;
+      });
+    }
+
+    // Apply to all search inputs
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+
+    // Observer for dynamically added search inputs
+    const searchObserver = new MutationObserver(function() {
+      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    });
+
+    searchObserver.observe(document.body, { childList: true, subtree: true });
+
     // Watch for mobile menu creation
     const mobileMenuObserver = new MutationObserver(function(mutations) {
       for (const mutation of mutations) {
@@ -1314,6 +1354,46 @@ document.write(`
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
+
+    // Prevent scroll jump when focusing and typing in search inputs
+    function setupSearchInputHandlers(input) {
+      if (input.hasAttribute('data-scroll-fixed')) return;
+      input.setAttribute('data-scroll-fixed', 'true');
+
+      // Create a fixed position for this input
+      let fixedScrollPos = null;
+
+      // Capture scroll position on focus
+      input.addEventListener('focus', function() {
+        fixedScrollPos = window.scrollY;
+      });
+
+      // Prevent scroll jumps during typing
+      ['input', 'keydown', 'keyup'].forEach(eventType => {
+        input.addEventListener(eventType, function(e) {
+          if (fixedScrollPos !== null) {
+            requestAnimationFrame(() => {
+              window.scrollTo(0, fixedScrollPos);
+            });
+          }
+        });
+      });
+
+      // Release fixed position on blur
+      input.addEventListener('blur', function() {
+        fixedScrollPos = null;
+      });
+    }
+
+    // Apply to all search inputs
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+
+    // Observer for dynamically added search inputs
+    const searchObserver = new MutationObserver(function() {
+      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    });
+
+    searchObserver.observe(document.body, { childList: true, subtree: true });
 
     // Watch for mobile menu creation
     const mobileMenuObserver = new MutationObserver(function(mutations) {
@@ -3135,6 +3215,8 @@ document.write(`
 
 
 
+
+
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.html">torch.distributed.tensor</a></li>
@@ -4087,7 +4169,9 @@ document.write(`
 <p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">index</span></code> must have the same number of dimensions.
 It is also required that <code class="docutils literal notranslate"><span class="pre">index.size(d)</span> <span class="pre">&lt;=</span> <span class="pre">input.size(d)</span></code> for all
 dimensions <code class="docutils literal notranslate"><span class="pre">d</span> <span class="pre">!=</span> <span class="pre">dim</span></code>.  <code class="xref py py-attr docutils literal notranslate"><span class="pre">out</span></code> will have the same shape as <code class="xref py py-attr docutils literal notranslate"><span class="pre">index</span></code>.
-Note that <code class="docutils literal notranslate"><span class="pre">input</span></code> and <code class="docutils literal notranslate"><span class="pre">index</span></code> do not broadcast against each other.</p>
+Note that <code class="docutils literal notranslate"><span class="pre">input</span></code> and <code class="docutils literal notranslate"><span class="pre">index</span></code> do not broadcast against each other.
+When <code class="xref py py-attr docutils literal notranslate"><span class="pre">index</span></code> is empty, we always return an empty output with the same shape
+without further error checking.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -4442,7 +4526,7 @@ Note that <code class="docutils literal notranslate"><span class="pre">input</sp
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.gather# torch.gather(input, dim, index, *, sparse_grad=False, out=None) → Tensor# Gathers values along an axis specified by dim. For a 3-D tensor the output is specified by: out[i][j][k] = input[index[i][j][k]][j][k] # if dim == 0 out[i][j][k] = input[i][index[i][j][k]][k] # if dim == 1 out[i][j][k] = input[i][j][index[i][j][k]] # if dim == 2 input and index must have the same number of dimensions. It is also required that index.size(d) &lt;= input.size(d) for all dimensions d != dim. out will have the same shape as index. Note that input and index do not broadcast against each other. Parameters input (Tensor) – the source tensor dim (int) – the axis along which to index index (LongTensor) – the indices of elements to gather Keyword Arguments sparse_grad (bool, optional) – If True, gradient w.r.t. input will be a sparse tensor. out (Tensor, optional) – the destination tensor Example: &gt;&gt;&gt; t = torch.tensor([[1, 2], [3, 4]]) &gt;&gt;&gt; torch.gather(t, 1, torch.tensor([[0, 0], [1, 0]])) tensor([[ 1, 1], [ 4, 3]])"
+         "articleBody": "torch.gather# torch.gather(input, dim, index, *, sparse_grad=False, out=None) → Tensor# Gathers values along an axis specified by dim. For a 3-D tensor the output is specified by: out[i][j][k] = input[index[i][j][k]][j][k] # if dim == 0 out[i][j][k] = input[i][index[i][j][k]][k] # if dim == 1 out[i][j][k] = input[i][j][index[i][j][k]] # if dim == 2 input and index must have the same number of dimensions. It is also required that index.size(d) &lt;= input.size(d) for all dimensions d != dim. out will have the same shape as index. Note that input and index do not broadcast against each other. When index is empty, we always return an empty output with the same shape without further error checking. Parameters input (Tensor) – the source tensor dim (int) – the axis along which to index index (LongTensor) – the indices of elements to gather Keyword Arguments sparse_grad (bool, optional) – If True, gradient w.r.t. input will be a sparse tensor. out (Tensor, optional) – the destination tensor Example: &gt;&gt;&gt; t = torch.tensor([[1, 2], [3, 4]]) &gt;&gt;&gt; torch.gather(t, 1, torch.tensor([[0, 0], [1, 0]])) tensor([[ 1, 1], [ 4, 3]])"
        }
    </script>
 
