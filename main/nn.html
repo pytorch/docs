@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7599beb )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7444deb )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1611,6 +1611,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.slice_scatter.html">torch.slice_scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.scatter_add.html">torch.scatter_add</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.scatter_reduce.html">torch.scatter_reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.segment_reduce.html">torch.segment_reduce</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.split.html">torch.split</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.squeeze.html">torch.squeeze</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.stack.html">torch.stack</a></li>
@@ -3790,13 +3791,6 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.GRUCell.html">GRUCell</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="quantization-backend-configuration.html">Quantization Backend Configuration</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="quantization-accuracy-debugging.html">Quantization Accuracy Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.ns._numeric_suite.html">torch.ao.ns._numeric_suite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.ns._numeric_suite_fx.html">torch.ao.ns._numeric_suite_fx</a></li>
-
-</ul>
-</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -5234,7 +5228,7 @@ floating point precision. PyTorch supports both per tensor and per channel asymm
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.normalization.RMSNorm.html#torch.nn.modules.normalization.RMSNorm" title="torch.nn.modules.normalization.RMSNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.modules.normalization.RMSNorm</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.RMSNorm.html#torch.nn.RMSNorm" title="torch.nn.modules.normalization.RMSNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.modules.normalization.RMSNorm</span></code></a></p></td>
 <td><p>Applies Root Mean Square Layer Normalization over a mini-batch of inputs.</p></td>
 </tr>
 </tbody>

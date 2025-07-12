@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7599beb )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7444deb )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1611,6 +1611,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.slice_scatter.html">torch.slice_scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.scatter_add.html">torch.scatter_add</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.scatter_reduce.html">torch.scatter_reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.segment_reduce.html">torch.segment_reduce</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.split.html">torch.split</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.squeeze.html">torch.squeeze</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.stack.html">torch.stack</a></li>
@@ -3790,13 +3791,6 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.GRUCell.html">GRUCell</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="../quantization-backend-configuration.html">Quantization Backend Configuration</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../quantization-accuracy-debugging.html">Quantization Accuracy Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../torch.ao.ns._numeric_suite.html">torch.ao.ns._numeric_suite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.ao.ns._numeric_suite_fx.html">torch.ao.ns._numeric_suite_fx</a></li>
-
-</ul>
-</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4158,7 +4152,7 @@ document.write(`
 <h1>torch.nn.attention.sdpa_kernel<a class="headerlink" href="#torch-nn-attention-sdpa-kernel" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.sdpa_kernel">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.</span></span><span class="sig-name descname"><span class="pre">sdpa_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backends</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/nn/attention/__init__.py#L105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.sdpa_kernel" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.</span></span><span class="sig-name descname"><span class="pre">sdpa_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backends</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/nn/attention/__init__.py#L105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.sdpa_kernel" title="Permalink to this definition">#</a></dt>
 <dd><p>Context manager to select which backend to use for scaled dot product attention.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>

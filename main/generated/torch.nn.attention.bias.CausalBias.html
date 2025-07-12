@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7599beb )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7444deb )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1611,6 +1611,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.slice_scatter.html">torch.slice_scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.scatter_add.html">torch.scatter_add</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.scatter_reduce.html">torch.scatter_reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.segment_reduce.html">torch.segment_reduce</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.split.html">torch.split</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.squeeze.html">torch.squeeze</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.stack.html">torch.stack</a></li>
@@ -3790,13 +3791,6 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.GRUCell.html">GRUCell</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="../quantization-backend-configuration.html">Quantization Backend Configuration</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../quantization-accuracy-debugging.html">Quantization Accuracy Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../torch.ao.ns._numeric_suite.html">torch.ao.ns._numeric_suite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.ao.ns._numeric_suite_fx.html">torch.ao.ns._numeric_suite_fx</a></li>
-
-</ul>
-</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4169,7 +4163,7 @@ document.write(`
 <h1>torch.nn.attention.bias.CausalBias<a class="headerlink" href="#torch-nn-attention-bias-causalbias" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.attention.bias.CausalBias">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.bias.</span></span><span class="sig-name descname"><span class="pre">CausalBias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_len_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_len_kv</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/nn/attention/bias.py#L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.bias.CausalBias" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.bias.</span></span><span class="sig-name descname"><span class="pre">CausalBias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_len_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_len_kv</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/nn/attention/bias.py#L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.bias.CausalBias" title="Permalink to this definition">#</a></dt>
 <dd><p>A bias representing causal attention patterns. For an overview of the bias structure, see the <a class="reference internal" href="torch.nn.attention.bias.CausalVariant.html#torch.nn.attention.bias.CausalVariant" title="torch.nn.attention.bias.CausalVariant"><code class="xref py py-class docutils literal notranslate"><span class="pre">CausalVariant</span></code></a> enum.</p>
 <p>This class is used for defining causal (triangular) attention biases. For construing the bias, there exist
 two factory functions: <a class="reference internal" href="torch.nn.attention.bias.causal_upper_left.html#torch.nn.attention.bias.causal_upper_left" title="torch.nn.attention.bias.causal_upper_left"><code class="xref py py-func docutils literal notranslate"><span class="pre">causal_upper_left()</span></code></a> and <a class="reference internal" href="torch.nn.attention.bias.causal_lower_right.html#torch.nn.attention.bias.causal_lower_right" title="torch.nn.attention.bias.causal_lower_right"><code class="xref py py-func docutils literal notranslate"><span class="pre">causal_lower_right()</span></code></a>.</p>

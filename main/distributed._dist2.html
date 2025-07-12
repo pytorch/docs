@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7599beb )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7444deb )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1611,6 +1611,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.slice_scatter.html">torch.slice_scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.scatter_add.html">torch.scatter_add</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.scatter_reduce.html">torch.scatter_reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.segment_reduce.html">torch.segment_reduce</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.split.html">torch.split</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.squeeze.html">torch.squeeze</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.stack.html">torch.stack</a></li>
@@ -3790,13 +3791,6 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.nn.quantized.dynamic.GRUCell.html">GRUCell</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="quantization-backend-configuration.html">Quantization Backend Configuration</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="quantization-accuracy-debugging.html">Quantization Accuracy Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.ns._numeric_suite.html">torch.ao.ns._numeric_suite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.ao.ns._numeric_suite_fx.html">torch.ao.ns._numeric_suite_fx</a></li>
-
-</ul>
-</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4156,34 +4150,476 @@ document.write(`
                   
   <span class="target" id="module-torch.distributed._dist2"></span><div class="section" id="experimental-object-oriented-distributed-api-torch-distributed-dist2">
 <h1>Experimental Object Oriented Distributed API - torch.distributed._dist2<a class="headerlink" href="#experimental-object-oriented-distributed-api-torch-distributed-dist2" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 09, 2025 | Last Updated On: Jul 09, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 09, 2025 | Last Updated On: Jul 12, 2025</p>
 <p>This is an experimental new API for PyTorch Distributed. This is actively in development and subject to change or deletion entirely.</p>
 <p>This is intended as a proving ground for more flexible and object oriented distributed APIs.</p>
 </div>
 <dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._dist2.</span></span><span class="sig-name descname"><span class="pre">ProcessGroup</span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<p>A ProcessGroup is a communication primitive that allows for
+collective operations across a group of processes.</p>
+<p>This is a base class that provides the interface for all
+ProcessGroups. It is not meant to be used directly, but rather
+extended by subclasses.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.BackendType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BackendType</span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.BackendType" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<p>The type of the backend used for the process group.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>UNDEFINED</p>
+<p>GLOO</p>
+<p>NCCL</p>
+<p>XCCL</p>
+<p>UCC</p>
+<p>MPI</p>
+<p>CUSTOM</p>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.BackendType.CUSTOM">
+<span class="sig-name descname"><span class="pre">CUSTOM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.CUSTOM:</span> <span class="pre">6&gt;</span></em><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.BackendType.CUSTOM" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.BackendType.GLOO">
+<span class="sig-name descname"><span class="pre">GLOO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.GLOO:</span> <span class="pre">1&gt;</span></em><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.BackendType.GLOO" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.BackendType.MPI">
+<span class="sig-name descname"><span class="pre">MPI</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.MPI:</span> <span class="pre">4&gt;</span></em><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.BackendType.MPI" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.BackendType.NCCL">
+<span class="sig-name descname"><span class="pre">NCCL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.NCCL:</span> <span class="pre">2&gt;</span></em><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.BackendType.NCCL" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.BackendType.UCC">
+<span class="sig-name descname"><span class="pre">UCC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.UCC:</span> <span class="pre">3&gt;</span></em><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.BackendType.UCC" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.BackendType.UNDEFINED">
+<span class="sig-name descname"><span class="pre">UNDEFINED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.UNDEFINED:</span> <span class="pre">0&gt;</span></em><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.BackendType.UNDEFINED" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.BackendType.XCCL">
+<span class="sig-name descname"><span class="pre">XCCL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.XCCL:</span> <span class="pre">5&gt;</span></em><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.BackendType.XCCL" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.BackendType.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.BackendType.name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.BackendType.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.BackendType.value" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.CUSTOM">
+<span class="sig-name descname"><span class="pre">CUSTOM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.CUSTOM:</span> <span class="pre">6&gt;</span></em><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.CUSTOM" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.GLOO">
+<span class="sig-name descname"><span class="pre">GLOO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.GLOO:</span> <span class="pre">1&gt;</span></em><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.GLOO" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.MPI">
+<span class="sig-name descname"><span class="pre">MPI</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.MPI:</span> <span class="pre">4&gt;</span></em><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.MPI" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.NCCL">
+<span class="sig-name descname"><span class="pre">NCCL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.NCCL:</span> <span class="pre">2&gt;</span></em><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.NCCL" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.UCC">
+<span class="sig-name descname"><span class="pre">UCC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.UCC:</span> <span class="pre">3&gt;</span></em><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.UCC" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.UNDEFINED">
+<span class="sig-name descname"><span class="pre">UNDEFINED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.UNDEFINED:</span> <span class="pre">0&gt;</span></em><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.UNDEFINED" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.XCCL">
+<span class="sig-name descname"><span class="pre">XCCL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.XCCL:</span> <span class="pre">5&gt;</span></em><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.XCCL" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.abort">
+<span class="sig-name descname"><span class="pre">abort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.abort" title="Permalink to this definition">#</a></dt>
+<dd><p>abort all operations and connections if supported by the backend</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.allgather">
+<span class="sig-name descname"><span class="pre">allgather</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.allgather" title="Permalink to this definition">#</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>allgather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[list[torch.Tensor]], input_tensors: list[torch.Tensor], opts: torch._C._distributed_c10d.AllgatherOptions = &lt;torch._C._distributed_c10d.AllgatherOptions object at 0x7f661c9bd4b0&gt;) -&gt; c10d::Work</p></li>
+</ol>
+<p>Allgathers the input tensors from all processes across the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_gather" title="torch.distributed.all_gather"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_gather()</span></code></a> for more details.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>allgather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[torch.Tensor], input_tensor: torch.Tensor, timeout: Optional[datetime.timedelta] = None) -&gt; c10d::Work</p></li>
+</ol>
+<p>Allgathers the input tensors from all processes across the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_gather" title="torch.distributed.all_gather"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_gather()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.allgather_coalesced">
+<span class="sig-name descname"><span class="pre">allgather_coalesced</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">torch._C._distributed_c10d.ProcessGroup,</span> <span class="pre">output_lists:</span> <span class="pre">list[list[torch.Tensor]],</span> <span class="pre">input_list:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">opts:</span> <span class="pre">torch._C._distributed_c10d.AllgatherOptions</span> <span class="pre">=</span> <span class="pre">&lt;torch._C._distributed_c10d.AllgatherOptions</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f661c9bd3f0&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.allgather_coalesced" title="Permalink to this definition">#</a></dt>
+<dd><p>Allgathers the input tensors from all processes across the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_gather" title="torch.distributed.all_gather"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_gather()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.allgather_into_tensor_coalesced">
+<span class="sig-name descname"><span class="pre">allgather_into_tensor_coalesced</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">torch._C._distributed_c10d.ProcessGroup,</span> <span class="pre">outputs:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">inputs:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">opts:</span> <span class="pre">torch._C._distributed_c10d.AllgatherOptions</span> <span class="pre">=</span> <span class="pre">&lt;torch._C._distributed_c10d.AllgatherOptions</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f661c9bd630&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.allgather_into_tensor_coalesced" title="Permalink to this definition">#</a></dt>
+<dd><p>Allgathers the input tensors from all processes across the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_gather" title="torch.distributed.all_gather"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_gather()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.allreduce">
+<span class="sig-name descname"><span class="pre">allreduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.allreduce" title="Permalink to this definition">#</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>allreduce(self: torch._C._distributed_c10d.ProcessGroup, tensors: list[torch.Tensor], opts: torch._C._distributed_c10d.AllreduceOptions = &lt;torch._C._distributed_c10d.AllreduceOptions object at 0x7f661c9baeb0&gt;) -&gt; c10d::Work</p></li>
+</ol>
+<p>Allreduces the provided tensors across all processes in the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_reduce" title="torch.distributed.all_reduce"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_reduce()</span></code></a> for more details.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>allreduce(self: torch._C._distributed_c10d.ProcessGroup, tensors: list[torch.Tensor], op: torch._C._distributed_c10d.ReduceOp = &lt;RedOpType.SUM: 0&gt;, timeout: Optional[datetime.timedelta] = None) -&gt; c10d::Work</p></li>
+</ol>
+<p>Allreduces the provided tensors across all processes in the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_reduce" title="torch.distributed.all_reduce"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_reduce()</span></code></a> for more details.</p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>allreduce(self: torch._C._distributed_c10d.ProcessGroup, tensor: torch.Tensor, op: torch._C._distributed_c10d.ReduceOp = &lt;RedOpType.SUM: 0&gt;, timeout: Optional[datetime.timedelta] = None) -&gt; c10d::Work</p></li>
+</ol>
+<p>Allreduces the provided tensors across all processes in the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_reduce" title="torch.distributed.all_reduce"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_reduce()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.allreduce_coalesced">
+<span class="sig-name descname"><span class="pre">allreduce_coalesced</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">torch._C._distributed_c10d.ProcessGroup,</span> <span class="pre">tensors:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">opts:</span> <span class="pre">torch._C._distributed_c10d.AllreduceCoalescedOptions</span> <span class="pre">=</span> <span class="pre">&lt;torch._C._distributed_c10d.AllreduceCoalescedOptions</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f661cfc0170&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.allreduce_coalesced" title="Permalink to this definition">#</a></dt>
+<dd><p>Allreduces the provided tensors across all processes in the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_reduce" title="torch.distributed.all_reduce"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_reduce()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.alltoall">
+<span class="sig-name descname"><span class="pre">alltoall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">torch._C._distributed_c10d.ProcessGroup,</span> <span class="pre">output_tensors:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">input_tensors:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">opts:</span> <span class="pre">torch._C._distributed_c10d.AllToAllOptions</span> <span class="pre">=</span> <span class="pre">&lt;torch._C._distributed_c10d.AllToAllOptions</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f661c9bdeb0&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.alltoall" title="Permalink to this definition">#</a></dt>
+<dd><p>Alltoalls the input tensors from all processes across the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_to_all" title="torch.distributed.all_to_all"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_to_all()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.alltoall_base">
+<span class="sig-name descname"><span class="pre">alltoall_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.alltoall_base" title="Permalink to this definition">#</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>alltoall_base(self: torch._C._distributed_c10d.ProcessGroup, output: torch.Tensor, input: torch.Tensor, output_split_sizes: list[int], input_split_sizes: list[int], opts: torch._C._distributed_c10d.AllToAllOptions = &lt;torch._C._distributed_c10d.AllToAllOptions object at 0x7f661c9bdbf0&gt;) -&gt; c10d::Work</p></li>
+</ol>
+<p>Alltoalls the input tensors from all processes across the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_to_all" title="torch.distributed.all_to_all"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_to_all()</span></code></a> for more details.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>alltoall_base(self: torch._C._distributed_c10d.ProcessGroup, output: torch.Tensor, input: torch.Tensor, output_split_sizes: list[int], input_split_sizes: list[int], timeout: Optional[datetime.timedelta] = None) -&gt; c10d::Work</p></li>
+</ol>
+<p>Alltoalls the input tensors from all processes across the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_to_all" title="torch.distributed.all_to_all"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_to_all()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.barrier">
+<span class="sig-name descname"><span class="pre">barrier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.barrier" title="Permalink to this definition">#</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>barrier(self: torch._C._distributed_c10d.ProcessGroup, opts: torch._C._distributed_c10d.BarrierOptions = &lt;torch._C._distributed_c10d.BarrierOptions object at 0x7f661cea8130&gt;) -&gt; c10d::Work</p></li>
+</ol>
+<dl>
+<dt>Blocks until all processes in the group enter the call, and</dt><dd><p>then all leave the call together.</p>
+<p>See <a class="reference internal" href="distributed.html#torch.distributed.barrier" title="torch.distributed.barrier"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.barrier()</span></code></a> for more details.</p>
+</dd>
+</dl>
+<ol class="arabic simple" start="2">
+<li><p>barrier(self: torch._C._distributed_c10d.ProcessGroup, timeout: Optional[datetime.timedelta] = None) -&gt; c10d::Work</p></li>
+</ol>
+<dl>
+<dt>Blocks until all processes in the group enter the call, and</dt><dd><p>then all leave the call together.</p>
+<p>See <a class="reference internal" href="distributed.html#torch.distributed.barrier" title="torch.distributed.barrier"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.barrier()</span></code></a> for more details.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.bound_device_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bound_device_id</span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.bound_device_id" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.boxed">
+<span class="sig-name descname"><span class="pre">boxed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><span class="pre">object</span></a></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.boxed" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.broadcast">
+<span class="sig-name descname"><span class="pre">broadcast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.broadcast" title="Permalink to this definition">#</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>broadcast(self: torch._C._distributed_c10d.ProcessGroup, tensors: list[torch.Tensor], opts: torch._C._distributed_c10d.BroadcastOptions = &lt;torch._C._distributed_c10d.BroadcastOptions object at 0x7f661c9a9230&gt;) -&gt; c10d::Work</p></li>
+</ol>
+<p>Broadcasts the tensor to all processes in the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.broadcast" title="torch.distributed.broadcast"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.broadcast()</span></code></a> for more details.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>broadcast(self: torch._C._distributed_c10d.ProcessGroup, tensor: torch.Tensor, root: int, timeout: Optional[datetime.timedelta] = None) -&gt; c10d::Work</p></li>
+</ol>
+<p>Broadcasts the tensor to all processes in the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.broadcast" title="torch.distributed.broadcast"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.broadcast()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.gather">
+<span class="sig-name descname"><span class="pre">gather</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.gather" title="Permalink to this definition">#</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>gather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[list[torch.Tensor]], input_tensors: list[torch.Tensor], opts: torch._C._distributed_c10d.GatherOptions = &lt;torch._C._distributed_c10d.GatherOptions object at 0x7f661c9bd5f0&gt;) -&gt; c10d::Work</p></li>
+</ol>
+<p>Gathers the input tensors from all processes across the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.gather" title="torch.distributed.gather"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.gather()</span></code></a> for more details.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>gather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[torch.Tensor], input_tensor: torch.Tensor, root: int, timeout: Optional[datetime.timedelta] = None) -&gt; c10d::Work</p></li>
+</ol>
+<p>Gathers the input tensors from all processes across the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.gather" title="torch.distributed.gather"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.gather()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.group_desc">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">group_desc</span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.group_desc" title="Permalink to this definition">#</a></dt>
+<dd><p>Gets this process group description</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.group_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">group_name</span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.group_name" title="Permalink to this definition">#</a></dt>
+<dd><p>(Gets this process group name. It’s cluster unique)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.monitored_barrier">
+<span class="sig-name descname"><span class="pre">monitored_barrier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.13)"><span class="pre">datetime.timedelta</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait_all_ranks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.monitored_barrier" title="Permalink to this definition">#</a></dt>
+<dd><dl>
+<dt>Blocks until all processes in the group enter the call, and</dt><dd><p>then all leave the call together.</p>
+<p>See <a class="reference internal" href="distributed.html#torch.distributed.monitored_barrier" title="torch.distributed.monitored_barrier"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.monitored_barrier()</span></code></a> for more details.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.name" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the name of this process group.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.rank">
+<span class="sig-name descname"><span class="pre">rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.rank" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the rank of this process group.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.recv">
+<span class="sig-name descname"><span class="pre">recv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">torch.Tensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srcRank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.recv" title="Permalink to this definition">#</a></dt>
+<dd><p>Receives the tensor from the specified rank.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.recv" title="torch.distributed.recv"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.recv()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.recv_anysource">
+<span class="sig-name descname"><span class="pre">recv_anysource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">torch.Tensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.recv_anysource" title="Permalink to this definition">#</a></dt>
+<dd><p>Receives the tensor from any source.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.recv" title="torch.distributed.recv"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.recv()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.reduce">
+<span class="sig-name descname"><span class="pre">reduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.reduce" title="Permalink to this definition">#</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>reduce(self: torch._C._distributed_c10d.ProcessGroup, tensors: list[torch.Tensor], opts: torch._C._distributed_c10d.ReduceOptions = &lt;torch._C._distributed_c10d.ReduceOptions object at 0x7f661c9b0370&gt;) -&gt; c10d::Work</p></li>
+</ol>
+<p>Reduces the provided tensors across all processes in the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.reduce" title="torch.distributed.reduce"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.reduce()</span></code></a> for more details.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>reduce(self: torch._C._distributed_c10d.ProcessGroup, tensor: torch.Tensor, root: int, op: torch._C._distributed_c10d.ReduceOp = &lt;RedOpType.SUM: 0&gt;, timeout: Optional[datetime.timedelta] = None) -&gt; c10d::Work</p></li>
+</ol>
+<p>Reduces the provided tensors across all processes in the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.reduce" title="torch.distributed.reduce"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.reduce()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.reduce_scatter">
+<span class="sig-name descname"><span class="pre">reduce_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.reduce_scatter" title="Permalink to this definition">#</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>reduce_scatter(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[torch.Tensor], input_tensors: list[list[torch.Tensor]], opts: torch._C._distributed_c10d.ReduceScatterOptions = &lt;torch._C._distributed_c10d.ReduceScatterOptions object at 0x7f661ceeb9b0&gt;) -&gt; c10d::Work</p></li>
+</ol>
+<p>Reduces and scatters the input tensors from all processes across the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.reduce_scatter" title="torch.distributed.reduce_scatter"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.reduce_scatter()</span></code></a> for more details.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>reduce_scatter(self: torch._C._distributed_c10d.ProcessGroup, output: torch.Tensor, input: list[torch.Tensor], op: torch._C._distributed_c10d.ReduceOp = &lt;RedOpType.SUM: 0&gt;, timeout: Optional[datetime.timedelta] = None) -&gt; c10d::Work</p></li>
+</ol>
+<p>Reduces and scatters the input tensors from all processes across the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.reduce_scatter" title="torch.distributed.reduce_scatter"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.reduce_scatter()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.reduce_scatter_tensor_coalesced">
+<span class="sig-name descname"><span class="pre">reduce_scatter_tensor_coalesced</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">torch._C._distributed_c10d.ProcessGroup,</span> <span class="pre">outputs:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">inputs:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">opts:</span> <span class="pre">torch._C._distributed_c10d.ReduceScatterOptions</span> <span class="pre">=</span> <span class="pre">&lt;torch._C._distributed_c10d.ReduceScatterOptions</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f661c9bd230&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.reduce_scatter_tensor_coalesced" title="Permalink to this definition">#</a></dt>
+<dd><p>Reduces and scatters the input tensors from all processes across the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.reduce_scatter" title="torch.distributed.reduce_scatter"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.reduce_scatter()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.scatter">
+<span class="sig-name descname"><span class="pre">scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.scatter" title="Permalink to this definition">#</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>scatter(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[torch.Tensor], input_tensors: list[list[torch.Tensor]], opts: torch._C._distributed_c10d.ScatterOptions = &lt;torch._C._distributed_c10d.ScatterOptions object at 0x7f661cea81b0&gt;) -&gt; c10d::Work</p></li>
+</ol>
+<p>Scatters the input tensors from all processes across the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.scatter" title="torch.distributed.scatter"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.scatter()</span></code></a> for more details.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>scatter(self: torch._C._distributed_c10d.ProcessGroup, output_tensor: torch.Tensor, input_tensors: list[torch.Tensor], root: int, timeout: Optional[datetime.timedelta] = None) -&gt; c10d::Work</p></li>
+</ol>
+<p>Scatters the input tensors from all processes across the process group.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.scatter" title="torch.distributed.scatter"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.scatter()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">torch.Tensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dstRank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.send" title="Permalink to this definition">#</a></dt>
+<dd><p>Sends the tensor to the specified rank.</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.send" title="torch.distributed.send"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.send()</span></code></a> for more details.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.set_timeout">
+<span class="sig-name descname"><span class="pre">set_timeout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.13)"><span class="pre">datetime.timedelta</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.set_timeout" title="Permalink to this definition">#</a></dt>
+<dd><p>Sets the default timeout for all future operations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.shutdown">
+<span class="sig-name descname"><span class="pre">shutdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.shutdown" title="Permalink to this definition">#</a></dt>
+<dd><p>shutdown the process group</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.size">
+<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.size" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the size of this process group.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroup.unbox">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><span class="pre">object</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></span><a class="headerlink" href="#torch.distributed._dist2.ProcessGroup.unbox" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed._dist2.ProcessGroupFactory">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._dist2.</span></span><span class="sig-name descname"><span class="pre">ProcessGroupFactory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/distributed/_dist2.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._dist2.ProcessGroupFactory" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed._dist2.</span></span><span class="sig-name descname"><span class="pre">ProcessGroupFactory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/distributed/_dist2.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._dist2.ProcessGroupFactory" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Protocol" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></a></p>
 <p>Protocol for process group factories.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._dist2.current_process_group">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._dist2.</span></span><span class="sig-name descname"><span class="pre">current_process_group</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/distributed/_dist2.py#L147"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._dist2.current_process_group" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._dist2.</span></span><span class="sig-name descname"><span class="pre">current_process_group</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/distributed/_dist2.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._dist2.current_process_group" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the current process group. Thread local method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The current process group.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="#torch.distributed.ProcessGroup" title="torch.distributed.distributed_c10d.ProcessGroup"><em>ProcessGroup</em></a></p>
+<dd class="field-even"><p><a class="reference internal" href="#torch.distributed._dist2.ProcessGroup" title="torch.distributed.distributed_c10d.ProcessGroup"><em>ProcessGroup</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._dist2.new_group">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._dist2.</span></span><span class="sig-name descname"><span class="pre">new_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pg_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/distributed/_dist2.py#L116"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._dist2.new_group" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._dist2.</span></span><span class="sig-name descname"><span class="pre">new_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pg_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/distributed/_dist2.py#L127"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._dist2.new_group" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a new process group with the given backend and options. This group is
 independent and will not be globally registered and thus not usable via the
 standard torch.distributed.* APIs.</p>
@@ -4200,18 +4636,18 @@ standard torch.distributed.* APIs.</p>
 <dd class="field-even"><p>A new process group.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#torch.distributed.ProcessGroup" title="torch.distributed.distributed_c10d.ProcessGroup"><em>ProcessGroup</em></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.distributed._dist2.ProcessGroup" title="torch.distributed.distributed_c10d.ProcessGroup"><em>ProcessGroup</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._dist2.process_group">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._dist2.</span></span><span class="sig-name descname"><span class="pre">process_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/distributed/_dist2.py#L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._dist2.process_group" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._dist2.</span></span><span class="sig-name descname"><span class="pre">process_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/distributed/_dist2.py#L168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._dist2.process_group" title="Permalink to this definition">#</a></dt>
 <dd><p>Context manager for process groups. Thread local method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>pg</strong> (<a class="reference internal" href="#torch.distributed.ProcessGroup" title="torch.distributed.distributed_c10d.ProcessGroup"><em>ProcessGroup</em></a>) – The process group to use.</p>
+<dd class="field-odd"><p><strong>pg</strong> (<a class="reference internal" href="#torch.distributed._dist2.ProcessGroup" title="torch.distributed.distributed_c10d.ProcessGroup"><em>ProcessGroup</em></a>) – The process group to use.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.13)"><em>Generator</em></a>[None, None, None]</p>
@@ -4221,7 +4657,7 @@ standard torch.distributed.* APIs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed._dist2.register_backend">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed._dist2.</span></span><span class="sig-name descname"><span class="pre">register_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/distributed/_dist2.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._dist2.register_backend" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed._dist2.</span></span><span class="sig-name descname"><span class="pre">register_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/distributed/_dist2.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed._dist2.register_backend" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a new process group backend.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4231,419 +4667,6 @@ standard torch.distributed.* APIs.</p>
 </ul>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.</span></span><span class="sig-name descname"><span class="pre">ProcessGroup</span></span><a class="headerlink" href="#torch.distributed.ProcessGroup" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
-<p>A ProcessGroup is a communication primitive that allows for
-collective operations across a group of processes.</p>
-<p>This is a base class that provides the interface for all
-ProcessGroups. It is not meant to be used directly, but rather
-extended by subclasses.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.BackendType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BackendType</span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.BackendType" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
-<p>The type of the backend used for the process group.</p>
-<p>Members:</p>
-<blockquote>
-<div><p>UNDEFINED</p>
-<p>GLOO</p>
-<p>NCCL</p>
-<p>XCCL</p>
-<p>UCC</p>
-<p>MPI</p>
-<p>CUSTOM</p>
-</div></blockquote>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.BackendType.CUSTOM">
-<span class="sig-name descname"><span class="pre">CUSTOM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.CUSTOM:</span> <span class="pre">6&gt;</span></em><a class="headerlink" href="#torch.distributed.ProcessGroup.BackendType.CUSTOM" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.BackendType.GLOO">
-<span class="sig-name descname"><span class="pre">GLOO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.GLOO:</span> <span class="pre">1&gt;</span></em><a class="headerlink" href="#torch.distributed.ProcessGroup.BackendType.GLOO" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.BackendType.MPI">
-<span class="sig-name descname"><span class="pre">MPI</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.MPI:</span> <span class="pre">4&gt;</span></em><a class="headerlink" href="#torch.distributed.ProcessGroup.BackendType.MPI" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.BackendType.NCCL">
-<span class="sig-name descname"><span class="pre">NCCL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.NCCL:</span> <span class="pre">2&gt;</span></em><a class="headerlink" href="#torch.distributed.ProcessGroup.BackendType.NCCL" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.BackendType.UCC">
-<span class="sig-name descname"><span class="pre">UCC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.UCC:</span> <span class="pre">3&gt;</span></em><a class="headerlink" href="#torch.distributed.ProcessGroup.BackendType.UCC" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.BackendType.UNDEFINED">
-<span class="sig-name descname"><span class="pre">UNDEFINED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.UNDEFINED:</span> <span class="pre">0&gt;</span></em><a class="headerlink" href="#torch.distributed.ProcessGroup.BackendType.UNDEFINED" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.BackendType.XCCL">
-<span class="sig-name descname"><span class="pre">XCCL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.XCCL:</span> <span class="pre">5&gt;</span></em><a class="headerlink" href="#torch.distributed.ProcessGroup.BackendType.XCCL" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.BackendType.name">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.BackendType.name" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.BackendType.value">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.BackendType.value" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.CUSTOM">
-<span class="sig-name descname"><span class="pre">CUSTOM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.CUSTOM:</span> <span class="pre">6&gt;</span></em><a class="headerlink" href="#torch.distributed.ProcessGroup.CUSTOM" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.GLOO">
-<span class="sig-name descname"><span class="pre">GLOO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.GLOO:</span> <span class="pre">1&gt;</span></em><a class="headerlink" href="#torch.distributed.ProcessGroup.GLOO" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.MPI">
-<span class="sig-name descname"><span class="pre">MPI</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.MPI:</span> <span class="pre">4&gt;</span></em><a class="headerlink" href="#torch.distributed.ProcessGroup.MPI" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.NCCL">
-<span class="sig-name descname"><span class="pre">NCCL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.NCCL:</span> <span class="pre">2&gt;</span></em><a class="headerlink" href="#torch.distributed.ProcessGroup.NCCL" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.UCC">
-<span class="sig-name descname"><span class="pre">UCC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.UCC:</span> <span class="pre">3&gt;</span></em><a class="headerlink" href="#torch.distributed.ProcessGroup.UCC" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.UNDEFINED">
-<span class="sig-name descname"><span class="pre">UNDEFINED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.UNDEFINED:</span> <span class="pre">0&gt;</span></em><a class="headerlink" href="#torch.distributed.ProcessGroup.UNDEFINED" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.XCCL">
-<span class="sig-name descname"><span class="pre">XCCL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;BackendType.XCCL:</span> <span class="pre">5&gt;</span></em><a class="headerlink" href="#torch.distributed.ProcessGroup.XCCL" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.abort">
-<span class="sig-name descname"><span class="pre">abort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.abort" title="Permalink to this definition">#</a></dt>
-<dd><p>abort all operations and connections if supported by the backend</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.allgather">
-<span class="sig-name descname"><span class="pre">allgather</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.ProcessGroup.allgather" title="Permalink to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>allgather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[list[torch.Tensor]], input_tensors: list[torch.Tensor], opts: torch._C._distributed_c10d.AllgatherOptions = &lt;torch._C._distributed_c10d.AllgatherOptions object at 0x7f7976e3e670&gt;) -&gt; c10d::Work</p></li>
-</ol>
-<p>Allgathers the input tensors from all processes across the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_gather" title="torch.distributed.all_gather"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_gather()</span></code></a> for more details.</p>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li><p>allgather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[torch.Tensor], input_tensor: torch.Tensor) -&gt; c10d::Work</p></li>
-</ol>
-<p>Allgathers the input tensors from all processes across the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_gather" title="torch.distributed.all_gather"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_gather()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.allgather_coalesced">
-<span class="sig-name descname"><span class="pre">allgather_coalesced</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">torch._C._distributed_c10d.ProcessGroup,</span> <span class="pre">output_lists:</span> <span class="pre">list[list[torch.Tensor]],</span> <span class="pre">input_list:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">opts:</span> <span class="pre">torch._C._distributed_c10d.AllgatherOptions</span> <span class="pre">=</span> <span class="pre">&lt;torch._C._distributed_c10d.AllgatherOptions</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f7976e3e570&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.allgather_coalesced" title="Permalink to this definition">#</a></dt>
-<dd><p>Allgathers the input tensors from all processes across the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_gather" title="torch.distributed.all_gather"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_gather()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.allgather_into_tensor_coalesced">
-<span class="sig-name descname"><span class="pre">allgather_into_tensor_coalesced</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">torch._C._distributed_c10d.ProcessGroup,</span> <span class="pre">outputs:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">inputs:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">opts:</span> <span class="pre">torch._C._distributed_c10d.AllgatherOptions</span> <span class="pre">=</span> <span class="pre">&lt;torch._C._distributed_c10d.AllgatherOptions</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f79773bb2b0&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.allgather_into_tensor_coalesced" title="Permalink to this definition">#</a></dt>
-<dd><p>Allgathers the input tensors from all processes across the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_gather" title="torch.distributed.all_gather"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_gather()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.allreduce">
-<span class="sig-name descname"><span class="pre">allreduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.ProcessGroup.allreduce" title="Permalink to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>allreduce(self: torch._C._distributed_c10d.ProcessGroup, tensors: list[torch.Tensor], opts: torch._C._distributed_c10d.AllreduceOptions = &lt;torch._C._distributed_c10d.AllreduceOptions object at 0x7f7977453170&gt;) -&gt; c10d::Work</p></li>
-</ol>
-<p>Allreduces the provided tensors across all processes in the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_reduce" title="torch.distributed.all_reduce"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_reduce()</span></code></a> for more details.</p>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li><p>allreduce(self: torch._C._distributed_c10d.ProcessGroup, tensors: list[torch.Tensor], op: torch._C._distributed_c10d.ReduceOp = &lt;RedOpType.SUM: 0&gt;) -&gt; c10d::Work</p></li>
-</ol>
-<p>Allreduces the provided tensors across all processes in the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_reduce" title="torch.distributed.all_reduce"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_reduce()</span></code></a> for more details.</p>
-</div></blockquote>
-<ol class="arabic simple" start="3">
-<li><p>allreduce(self: torch._C._distributed_c10d.ProcessGroup, tensor: torch.Tensor, op: torch._C._distributed_c10d.ReduceOp = &lt;RedOpType.SUM: 0&gt;) -&gt; c10d::Work</p></li>
-</ol>
-<p>Allreduces the provided tensors across all processes in the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_reduce" title="torch.distributed.all_reduce"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_reduce()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.allreduce_coalesced">
-<span class="sig-name descname"><span class="pre">allreduce_coalesced</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">torch._C._distributed_c10d.ProcessGroup,</span> <span class="pre">tensors:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">opts:</span> <span class="pre">torch._C._distributed_c10d.AllreduceCoalescedOptions</span> <span class="pre">=</span> <span class="pre">&lt;torch._C._distributed_c10d.AllreduceCoalescedOptions</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f7976e2eb30&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.allreduce_coalesced" title="Permalink to this definition">#</a></dt>
-<dd><p>Allreduces the provided tensors across all processes in the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_reduce" title="torch.distributed.all_reduce"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_reduce()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.alltoall">
-<span class="sig-name descname"><span class="pre">alltoall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">torch._C._distributed_c10d.ProcessGroup,</span> <span class="pre">output_tensors:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">input_tensors:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">opts:</span> <span class="pre">torch._C._distributed_c10d.AllToAllOptions</span> <span class="pre">=</span> <span class="pre">&lt;torch._C._distributed_c10d.AllToAllOptions</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f7976e3f1b0&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.alltoall" title="Permalink to this definition">#</a></dt>
-<dd><p>Alltoalls the input tensors from all processes across the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_to_all" title="torch.distributed.all_to_all"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_to_all()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.alltoall_base">
-<span class="sig-name descname"><span class="pre">alltoall_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">torch._C._distributed_c10d.ProcessGroup,</span> <span class="pre">output:</span> <span class="pre">torch.Tensor,</span> <span class="pre">input:</span> <span class="pre">torch.Tensor,</span> <span class="pre">output_split_sizes:</span> <span class="pre">list[int],</span> <span class="pre">input_split_sizes:</span> <span class="pre">list[int],</span> <span class="pre">opts:</span> <span class="pre">torch._C._distributed_c10d.AllToAllOptions</span> <span class="pre">=</span> <span class="pre">&lt;torch._C._distributed_c10d.AllToAllOptions</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f7976e3ef30&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.alltoall_base" title="Permalink to this definition">#</a></dt>
-<dd><p>Alltoalls the input tensors from all processes across the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.all_to_all" title="torch.distributed.all_to_all"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.all_to_all()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.barrier">
-<span class="sig-name descname"><span class="pre">barrier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts:</span> <span class="pre">torch._C._distributed_c10d.BarrierOptions</span> <span class="pre">=</span> <span class="pre">&lt;torch._C._distributed_c10d.BarrierOptions</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f7976e3f3f0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.barrier" title="Permalink to this definition">#</a></dt>
-<dd><dl>
-<dt>Blocks until all processes in the group enter the call, and</dt><dd><p>then all leave the call together.</p>
-<p>See <a class="reference internal" href="distributed.html#torch.distributed.barrier" title="torch.distributed.barrier"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.barrier()</span></code></a> for more details.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.bound_device_id">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bound_device_id</span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.bound_device_id" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.boxed">
-<span class="sig-name descname"><span class="pre">boxed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><span class="pre">object</span></a></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.boxed" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.broadcast">
-<span class="sig-name descname"><span class="pre">broadcast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.ProcessGroup.broadcast" title="Permalink to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>broadcast(self: torch._C._distributed_c10d.ProcessGroup, tensors: list[torch.Tensor], opts: torch._C._distributed_c10d.BroadcastOptions = &lt;torch._C._distributed_c10d.BroadcastOptions object at 0x7f7976e3be30&gt;) -&gt; c10d::Work</p></li>
-</ol>
-<p>Broadcasts the tensor to all processes in the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.broadcast" title="torch.distributed.broadcast"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.broadcast()</span></code></a> for more details.</p>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li><p>broadcast(self: torch._C._distributed_c10d.ProcessGroup, tensor: torch.Tensor, root: int) -&gt; c10d::Work</p></li>
-</ol>
-<p>Broadcasts the tensor to all processes in the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.broadcast" title="torch.distributed.broadcast"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.broadcast()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.gather">
-<span class="sig-name descname"><span class="pre">gather</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.ProcessGroup.gather" title="Permalink to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>gather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[list[torch.Tensor]], input_tensors: list[torch.Tensor], opts: torch._C._distributed_c10d.GatherOptions = &lt;torch._C._distributed_c10d.GatherOptions object at 0x7f7976e3e7f0&gt;) -&gt; c10d::Work</p></li>
-</ol>
-<p>Gathers the input tensors from all processes across the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.gather" title="torch.distributed.gather"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.gather()</span></code></a> for more details.</p>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li><p>gather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[torch.Tensor], input_tensor: torch.Tensor, root: int) -&gt; c10d::Work</p></li>
-</ol>
-<p>Gathers the input tensors from all processes across the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.gather" title="torch.distributed.gather"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.gather()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.group_desc">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">group_desc</span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.group_desc" title="Permalink to this definition">#</a></dt>
-<dd><p>Gets this process group description</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.group_name">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">group_name</span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.group_name" title="Permalink to this definition">#</a></dt>
-<dd><p>(Gets this process group name. It’s cluster unique)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.monitored_barrier">
-<span class="sig-name descname"><span class="pre">monitored_barrier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.13)"><span class="pre">datetime.timedelta</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.timedelta(days=-1,</span> <span class="pre">seconds=86399,</span> <span class="pre">microseconds=999000)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait_all_ranks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.monitored_barrier" title="Permalink to this definition">#</a></dt>
-<dd><dl>
-<dt>Blocks until all processes in the group enter the call, and</dt><dd><p>then all leave the call together.</p>
-<p>See <a class="reference internal" href="distributed.html#torch.distributed.monitored_barrier" title="torch.distributed.monitored_barrier"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.monitored_barrier()</span></code></a> for more details.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.name">
-<span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.name" title="Permalink to this definition">#</a></dt>
-<dd><p>Get the name of this process group.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.rank">
-<span class="sig-name descname"><span class="pre">rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.rank" title="Permalink to this definition">#</a></dt>
-<dd><p>Get the rank of this process group.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.recv">
-<span class="sig-name descname"><span class="pre">recv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">torch.Tensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srcRank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.recv" title="Permalink to this definition">#</a></dt>
-<dd><p>Receives the tensor from the specified rank.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.recv" title="torch.distributed.recv"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.recv()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.recv_anysource">
-<span class="sig-name descname"><span class="pre">recv_anysource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">torch.Tensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.recv_anysource" title="Permalink to this definition">#</a></dt>
-<dd><p>Receives the tensor from any source.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.recv" title="torch.distributed.recv"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.recv()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.reduce">
-<span class="sig-name descname"><span class="pre">reduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.ProcessGroup.reduce" title="Permalink to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>reduce(self: torch._C._distributed_c10d.ProcessGroup, tensors: list[torch.Tensor], opts: torch._C._distributed_c10d.ReduceOptions = &lt;torch._C._distributed_c10d.ReduceOptions object at 0x7f7976e2e870&gt;) -&gt; c10d::Work</p></li>
-</ol>
-<p>Reduces the provided tensors across all processes in the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.reduce" title="torch.distributed.reduce"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.reduce()</span></code></a> for more details.</p>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li><p>reduce(self: torch._C._distributed_c10d.ProcessGroup, tensor: torch.Tensor, root: int, op: torch._C._distributed_c10d.ReduceOp = &lt;RedOpType.SUM: 0&gt;) -&gt; c10d::Work</p></li>
-</ol>
-<p>Reduces the provided tensors across all processes in the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.reduce" title="torch.distributed.reduce"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.reduce()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.reduce_scatter">
-<span class="sig-name descname"><span class="pre">reduce_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.ProcessGroup.reduce_scatter" title="Permalink to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>reduce_scatter(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[torch.Tensor], input_tensors: list[list[torch.Tensor]], opts: torch._C._distributed_c10d.ReduceScatterOptions = &lt;torch._C._distributed_c10d.ReduceScatterOptions object at 0x7f7976e3edb0&gt;) -&gt; c10d::Work</p></li>
-</ol>
-<p>Reduces and scatters the input tensors from all processes across the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.reduce_scatter" title="torch.distributed.reduce_scatter"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.reduce_scatter()</span></code></a> for more details.</p>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li><p>reduce_scatter(self: torch._C._distributed_c10d.ProcessGroup, output: torch.Tensor, input: list[torch.Tensor], op: torch._C._distributed_c10d.ReduceOp = &lt;RedOpType.SUM: 0&gt;) -&gt; c10d::Work</p></li>
-</ol>
-<p>Reduces and scatters the input tensors from all processes across the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.reduce_scatter" title="torch.distributed.reduce_scatter"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.reduce_scatter()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.reduce_scatter_tensor_coalesced">
-<span class="sig-name descname"><span class="pre">reduce_scatter_tensor_coalesced</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">torch._C._distributed_c10d.ProcessGroup,</span> <span class="pre">outputs:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">inputs:</span> <span class="pre">list[torch.Tensor],</span> <span class="pre">opts:</span> <span class="pre">torch._C._distributed_c10d.ReduceScatterOptions</span> <span class="pre">=</span> <span class="pre">&lt;torch._C._distributed_c10d.ReduceScatterOptions</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f7976e3e330&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.reduce_scatter_tensor_coalesced" title="Permalink to this definition">#</a></dt>
-<dd><p>Reduces and scatters the input tensors from all processes across the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.reduce_scatter" title="torch.distributed.reduce_scatter"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.reduce_scatter()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.scatter">
-<span class="sig-name descname"><span class="pre">scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.ProcessGroup.scatter" title="Permalink to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>scatter(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[torch.Tensor], input_tensors: list[list[torch.Tensor]], opts: torch._C._distributed_c10d.ScatterOptions = &lt;torch._C._distributed_c10d.ScatterOptions object at 0x7f7976e3ebf0&gt;) -&gt; c10d::Work</p></li>
-</ol>
-<p>Scatters the input tensors from all processes across the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.scatter" title="torch.distributed.scatter"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.scatter()</span></code></a> for more details.</p>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li><p>scatter(self: torch._C._distributed_c10d.ProcessGroup, output_tensor: torch.Tensor, input_tensors: list[torch.Tensor], root: int) -&gt; c10d::Work</p></li>
-</ol>
-<p>Scatters the input tensors from all processes across the process group.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.scatter" title="torch.distributed.scatter"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.scatter()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.send">
-<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">torch.Tensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dstRank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">c10d::Work</span></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.send" title="Permalink to this definition">#</a></dt>
-<dd><p>Sends the tensor to the specified rank.</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="distributed.html#torch.distributed.send" title="torch.distributed.send"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.send()</span></code></a> for more details.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.shutdown">
-<span class="sig-name descname"><span class="pre">shutdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.shutdown" title="Permalink to this definition">#</a></dt>
-<dd><p>shutdown the process group</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.size">
-<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.size" title="Permalink to this definition">#</a></dt>
-<dd><p>Get the size of this process group.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.distributed.ProcessGroup.unbox">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><span class="pre">object</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch._C._distributed_c10d.ProcessGroup</span></span></span><a class="headerlink" href="#torch.distributed.ProcessGroup.unbox" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 
@@ -4770,61 +4793,62 @@ extended by subclasses.</p>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Experimental Object Oriented Distributed API - torch.distributed._dist2</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup"><code class="docutils literal notranslate"><span class="pre">ProcessGroup</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.BackendType"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.BackendType.CUSTOM"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.CUSTOM</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.BackendType.GLOO"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.GLOO</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.BackendType.MPI"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.MPI</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.BackendType.NCCL"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.NCCL</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.BackendType.UCC"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.UCC</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.BackendType.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.UNDEFINED</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.BackendType.XCCL"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.XCCL</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.BackendType.name"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.name</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.BackendType.value"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.value</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.CUSTOM"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.CUSTOM</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.GLOO"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.GLOO</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.MPI"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.MPI</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.NCCL"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.NCCL</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.UCC"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.UCC</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.UNDEFINED</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.XCCL"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.XCCL</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.abort"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.abort()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.allgather"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.allgather()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.allgather_coalesced"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.allgather_coalesced()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.allgather_into_tensor_coalesced"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.allgather_into_tensor_coalesced()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.allreduce"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.allreduce()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.allreduce_coalesced"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.allreduce_coalesced()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.alltoall"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.alltoall()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.alltoall_base"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.alltoall_base()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.barrier"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.barrier()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.bound_device_id"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.bound_device_id</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.boxed"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.boxed()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.broadcast"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.broadcast()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.gather"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.gather()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.group_desc"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.group_desc</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.group_name"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.group_name</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.monitored_barrier"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.monitored_barrier()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.name"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.name()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.rank"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.rank()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.recv"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.recv()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.recv_anysource"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.recv_anysource()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.reduce"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.reduce()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.reduce_scatter"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.reduce_scatter()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.reduce_scatter_tensor_coalesced"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.reduce_scatter_tensor_coalesced()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.scatter"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.scatter()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.send"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.send()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.set_timeout"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.set_timeout()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.shutdown"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.shutdown()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.size"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.size()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroup.unbox"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.unbox()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.ProcessGroupFactory"><code class="docutils literal notranslate"><span class="pre">ProcessGroupFactory</span></code></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.current_process_group"><code class="docutils literal notranslate"><span class="pre">current_process_group()</span></code></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.new_group"><code class="docutils literal notranslate"><span class="pre">new_group()</span></code></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.process_group"><code class="docutils literal notranslate"><span class="pre">process_group()</span></code></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed._dist2.register_backend"><code class="docutils literal notranslate"><span class="pre">register_backend()</span></code></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup"><code class="docutils literal notranslate"><span class="pre">ProcessGroup</span></code></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.BackendType"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType</span></code></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.BackendType.CUSTOM"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.CUSTOM</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.BackendType.GLOO"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.GLOO</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.BackendType.MPI"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.MPI</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.BackendType.NCCL"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.NCCL</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.BackendType.UCC"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.UCC</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.BackendType.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.UNDEFINED</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.BackendType.XCCL"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.XCCL</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.BackendType.name"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.name</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.BackendType.value"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.BackendType.value</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.CUSTOM"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.CUSTOM</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.GLOO"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.GLOO</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.MPI"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.MPI</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.NCCL"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.NCCL</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.UCC"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.UCC</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.UNDEFINED</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.XCCL"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.XCCL</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.abort"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.abort()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.allgather"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.allgather()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.allgather_coalesced"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.allgather_coalesced()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.allgather_into_tensor_coalesced"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.allgather_into_tensor_coalesced()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.allreduce"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.allreduce()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.allreduce_coalesced"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.allreduce_coalesced()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.alltoall"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.alltoall()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.alltoall_base"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.alltoall_base()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.barrier"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.barrier()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.bound_device_id"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.bound_device_id</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.boxed"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.boxed()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.broadcast"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.broadcast()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.gather"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.gather()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.group_desc"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.group_desc</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.group_name"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.group_name</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.monitored_barrier"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.monitored_barrier()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.name"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.name()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.rank"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.rank()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.recv"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.recv()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.recv_anysource"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.recv_anysource()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.reduce"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.reduce()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.reduce_scatter"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.reduce_scatter()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.reduce_scatter_tensor_coalesced"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.reduce_scatter_tensor_coalesced()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.scatter"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.scatter()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.send"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.send()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.shutdown"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.shutdown()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.size"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.size()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.distributed.ProcessGroup.unbox"><code class="docutils literal notranslate"><span class="pre">ProcessGroup.unbox()</span></code></a></li>
-</ul>
-</li>
 </ul>
 
   </nav></div>
@@ -5046,8 +5070,8 @@ extended by subclasses.</p>
            "@id": "/distributed._dist2.html"
          },
          "datePublished": "Jul 09, 2025",
-         "dateModified": "Jul 09, 2025",
-         "articleBody": "Experimental Object Oriented Distributed API - torch.distributed._dist2# Created On: Jul 09, 2025 | Last Updated On: Jul 09, 2025 This is an experimental new API for PyTorch Distributed. This is actively in development and subject to change or deletion entirely. This is intended as a proving ground for more flexible and object oriented distributed APIs. class torch.distributed._dist2.ProcessGroupFactory(*args, **kwargs)[source]# Bases: Protocol Protocol for process group factories. torch.distributed._dist2.current_process_group()[source]# Get the current process group. Thread local method. Returns The current process group. Return type ProcessGroup torch.distributed._dist2.new_group(backend, timeout, device, pg_options)[source]# Create a new process group with the given backend and options. This group is independent and will not be globally registered and thus not usable via the standard torch.distributed.* APIs. Parameters backend (str) – The backend to use for the process group. timeout (timedelta) – The timeout for collective operations. device (Union[str, device]) – The device to use for the process group. pg_options (Options) – The options to use for the process group. Returns A new process group. Return type ProcessGroup torch.distributed._dist2.process_group(pg)[source]# Context manager for process groups. Thread local method. Parameters pg (ProcessGroup) – The process group to use. Return type Generator[None, None, None] torch.distributed._dist2.register_backend(name, func)[source]# Register a new process group backend. Parameters name (str) – The name of the backend. func (ProcessGroupFactory) – The function to create the process group. class torch.distributed.ProcessGroup# Bases: pybind11_object A ProcessGroup is a communication primitive that allows for collective operations across a group of processes. This is a base class that provides the interface for all ProcessGroups. It is not meant to be used directly, but rather extended by subclasses. class BackendType# Bases: pybind11_object The type of the backend used for the process group. Members: UNDEFINED GLOO NCCL XCCL UCC MPI CUSTOM CUSTOM = &lt;BackendType.CUSTOM: 6&gt;# GLOO = &lt;BackendType.GLOO: 1&gt;# MPI = &lt;BackendType.MPI: 4&gt;# NCCL = &lt;BackendType.NCCL: 2&gt;# UCC = &lt;BackendType.UCC: 3&gt;# UNDEFINED = &lt;BackendType.UNDEFINED: 0&gt;# XCCL = &lt;BackendType.XCCL: 5&gt;# property name# property value# CUSTOM = &lt;BackendType.CUSTOM: 6&gt;# GLOO = &lt;BackendType.GLOO: 1&gt;# MPI = &lt;BackendType.MPI: 4&gt;# NCCL = &lt;BackendType.NCCL: 2&gt;# UCC = &lt;BackendType.UCC: 3&gt;# UNDEFINED = &lt;BackendType.UNDEFINED: 0&gt;# XCCL = &lt;BackendType.XCCL: 5&gt;# abort(self: torch._C._distributed_c10d.ProcessGroup) → None# abort all operations and connections if supported by the backend allgather(*args, **kwargs)# Overloaded function. allgather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[list[torch.Tensor]], input_tensors: list[torch.Tensor], opts: torch._C._distributed_c10d.AllgatherOptions = &lt;torch._C._distributed_c10d.Allg..."
+         "dateModified": "Jul 12, 2025",
+         "articleBody": "Experimental Object Oriented Distributed API - torch.distributed._dist2# Created On: Jul 09, 2025 | Last Updated On: Jul 12, 2025 This is an experimental new API for PyTorch Distributed. This is actively in development and subject to change or deletion entirely. This is intended as a proving ground for more flexible and object oriented distributed APIs. class torch.distributed._dist2.ProcessGroup# Bases: pybind11_object A ProcessGroup is a communication primitive that allows for collective operations across a group of processes. This is a base class that provides the interface for all ProcessGroups. It is not meant to be used directly, but rather extended by subclasses. class BackendType# Bases: pybind11_object The type of the backend used for the process group. Members: UNDEFINED GLOO NCCL XCCL UCC MPI CUSTOM CUSTOM = &lt;BackendType.CUSTOM: 6&gt;# GLOO = &lt;BackendType.GLOO: 1&gt;# MPI = &lt;BackendType.MPI: 4&gt;# NCCL = &lt;BackendType.NCCL: 2&gt;# UCC = &lt;BackendType.UCC: 3&gt;# UNDEFINED = &lt;BackendType.UNDEFINED: 0&gt;# XCCL = &lt;BackendType.XCCL: 5&gt;# property name# property value# CUSTOM = &lt;BackendType.CUSTOM: 6&gt;# GLOO = &lt;BackendType.GLOO: 1&gt;# MPI = &lt;BackendType.MPI: 4&gt;# NCCL = &lt;BackendType.NCCL: 2&gt;# UCC = &lt;BackendType.UCC: 3&gt;# UNDEFINED = &lt;BackendType.UNDEFINED: 0&gt;# XCCL = &lt;BackendType.XCCL: 5&gt;# abort(self: torch._C._distributed_c10d.ProcessGroup) → None# abort all operations and connections if supported by the backend allgather(*args, **kwargs)# Overloaded function. allgather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[list[torch.Tensor]], input_tensors: list[torch.Tensor], opts: torch._C._distributed_c10d.AllgatherOptions = &lt;torch._C._distributed_c10d.AllgatherOptions object at 0x7f661c9bd4b0&gt;) -&gt; c10d::Work Allgathers the input tensors from all processes across the process group. See torch.distributed.all_gather() for more details. allgather(self: torch._C._distributed_c10d.ProcessGroup, output_tensors: list[torch.Tensor], input_tensor: torch.Tensor, timeout: Optional[datetime.timedelta] = None) -&gt; c10d::Work Allgathers the input tensors from all processes across the process group. See torch.distributed.all_gather() for more details. allgather_coalesced(self: torch._C._distributed_c10d.ProcessGroup, output_lists: list[list[torch.Tensor]], input_list: list[torch.Tensor], opts: torch._C._distributed_c10d.AllgatherOptions = &lt;torch._C._distributed_c10d.AllgatherOptions object at 0x7f661c9bd3f0&gt;) → c10d::Work# Allgathers the input tensors from all processes across the process group. See torch.distributed.all_gather() for more details. allgather_into_tensor_coalesced(self: torch._C._distributed_c10d.ProcessGroup, outputs: list[torch.Tensor], inputs: list[torch.Tensor], opts: torch._C._distributed_c10d.AllgatherOptions = &lt;torch._C._distributed_c10d.AllgatherOptions object at 0x7f661c9bd630&gt;) → c10d::Work# Allgathers the input tensors from all processes across the process group. See torch.distributed.all_gather() for more details. allreduce(*args, ..."
        }
    </script>
 

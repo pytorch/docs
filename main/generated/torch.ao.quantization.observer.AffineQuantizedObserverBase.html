@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7599beb )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7444deb )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1611,6 +1611,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.slice_scatter.html">torch.slice_scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.scatter_add.html">torch.scatter_add</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.scatter_reduce.html">torch.scatter_reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.segment_reduce.html">torch.segment_reduce</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.split.html">torch.split</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.squeeze.html">torch.squeeze</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.stack.html">torch.stack</a></li>
@@ -3790,13 +3791,6 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.GRUCell.html">GRUCell</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="../quantization-backend-configuration.html">Quantization Backend Configuration</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../quantization-accuracy-debugging.html">Quantization Accuracy Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../torch.ao.ns._numeric_suite.html">torch.ao.ns._numeric_suite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.ao.ns._numeric_suite_fx.html">torch.ao.ns._numeric_suite_fx</a></li>
-
-</ul>
-</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4169,7 +4163,7 @@ document.write(`
 <h1>AffineQuantizedObserverBase<a class="headerlink" href="#affinequantizedobserverbase" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.AffineQuantizedObserverBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.observer.</span></span><span class="sig-name descname"><span class="pre">AffineQuantizedObserverBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preserve_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ZeroPointDomain.INT</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/ao/quantization/observer.py#L1808"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.observer.</span></span><span class="sig-name descname"><span class="pre">AffineQuantizedObserverBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preserve_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ZeroPointDomain.INT</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/ao/quantization/observer.py#L1808"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase" title="Permalink to this definition">#</a></dt>
 <dd><p>Observer module for affine quantization (<a class="github reference external" href="https://github.com/pytorch/ao/tree/main/torchao/quantization#affine-quantization">pytorch/ao</a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4183,7 +4177,7 @@ Current supported granularity type are <cite>PerTensor</cite> and <cite>PerAxis<
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.AffineQuantizedObserverBase.calculate_qparams">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculate_qparams</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/ao/quantization/observer.py#L1858"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.calculate_qparams" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculate_qparams</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/ao/quantization/observer.py#L1858"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.calculate_qparams" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculate quantization parameter based on the stats attached to the observer module
 and returns a tuple of scale and zero_point Tensor</p>
 <dl class="field-list simple">
@@ -4195,7 +4189,7 @@ and returns a tuple of scale and zero_point Tensor</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.AffineQuantizedObserverBase.convert">
-<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer_node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/ao/quantization/observer.py#L1864"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.convert" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer_node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/ao/quantization/observer.py#L1864"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.convert" title="Permalink to this definition">#</a></dt>
 <dd><p>Converts the observer node in the graph into its quantized representation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4209,7 +4203,7 @@ and returns a tuple of scale and zero_point Tensor</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.AffineQuantizedObserverBase.forward">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/ao/quantization/observer.py#L1852"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.forward" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/ao/quantization/observer.py#L1852"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.forward" title="Permalink to this definition">#</a></dt>
 <dd><p>forward function should take the input tensor
 and updates internal stats and return the original input Tensor</p>
 <dl class="field-list simple">
@@ -4221,7 +4215,7 @@ and updates internal stats and return the original input Tensor</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.AffineQuantizedObserverBase.with_args">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">with_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/ao/quantization/observer.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.with_args" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">with_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/ao/quantization/observer.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.with_args" title="Permalink to this definition">#</a></dt>
 <dd><p>Wrapper that allows creation of class factories.</p>
 <p>This can be useful when there is a need to create classes with the same
 constructor arguments, but different instances. Can be used in conjunction with

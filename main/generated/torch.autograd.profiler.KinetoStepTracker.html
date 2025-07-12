@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7599beb )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7444deb )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1611,6 +1611,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.slice_scatter.html">torch.slice_scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.scatter_add.html">torch.scatter_add</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.scatter_reduce.html">torch.scatter_reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.segment_reduce.html">torch.segment_reduce</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.split.html">torch.split</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.squeeze.html">torch.squeeze</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.stack.html">torch.stack</a></li>
@@ -3790,13 +3791,6 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.nn.quantized.dynamic.GRUCell.html">GRUCell</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="../quantization-backend-configuration.html">Quantization Backend Configuration</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../quantization-accuracy-debugging.html">Quantization Accuracy Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../torch.ao.ns._numeric_suite.html">torch.ao.ns._numeric_suite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.ao.ns._numeric_suite_fx.html">torch.ao.ns._numeric_suite_fx</a></li>
-
-</ul>
-</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4158,7 +4152,7 @@ document.write(`
 <h1>KinetoStepTracker<a class="headerlink" href="#kinetosteptracker" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler.</span></span><span class="sig-name descname"><span class="pre">KinetoStepTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/autograd/profiler.py#L1133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler.</span></span><span class="sig-name descname"><span class="pre">KinetoStepTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/autograd/profiler.py#L1133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker" title="Permalink to this definition">#</a></dt>
 <dd><p>Provides an abstraction for incrementing the step count globally.</p>
 <p>Previously, we only had one place to mark that a step() has occurred
 in the program via pytorch profiler step(). We will now add step hooks
@@ -4193,7 +4187,7 @@ We only call the kineto step() function when global count increments.</p>
 for now. The result could be incorrect increments of the step count.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker.current_step">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">current_step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/autograd/profiler.py#L1216"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.current_step" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">current_step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/autograd/profiler.py#L1216"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.current_step" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the latest step for any requester</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4204,7 +4198,7 @@ for now. The result could be incorrect increments of the step count.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker.erase_step_count">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">erase_step_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/autograd/profiler.py#L1185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.erase_step_count" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">erase_step_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/autograd/profiler.py#L1185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.erase_step_count" title="Permalink to this definition">#</a></dt>
 <dd><p>Remove a given requester.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4215,7 +4209,7 @@ for now. The result could be incorrect increments of the step count.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker.increment_step">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">increment_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/autograd/profiler.py#L1192"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.increment_step" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">increment_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/autograd/profiler.py#L1192"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.increment_step" title="Permalink to this definition">#</a></dt>
 <dd><p>Increments the step count for the requester.</p>
 <p>Additionally if the max over all step counts has incremented then
 trigger the _kineto_step() returns global step count</p>
@@ -4228,7 +4222,7 @@ trigger the _kineto_step() returns global step count</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker.init_step_count">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_step_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7599bebead35dd21bad3d3e85f62f400ad2c3139/torch/autograd/profiler.py#L1178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.init_step_count" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_step_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/autograd/profiler.py#L1178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.init_step_count" title="Permalink to this definition">#</a></dt>
 <dd><p>Initialize for a given requester.</p>
 <dl class="field-list simple">
 </dl>
