@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7444deb )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git5aee022 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4163,7 +4163,7 @@ document.write(`
 <h1>FakeQuantize<a class="headerlink" href="#fakequantize" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.fake_quantize.FakeQuantize">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fake_quantize.</span></span><span class="sig-name descname"><span class="pre">FakeQuantize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer=&lt;class</span> <span class="pre">'torch.ao.quantization.observer.MovingAverageMinMaxObserver'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_min=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_max=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_dynamic=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**observer_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7444debaca7de16b2cf71d0cd82dc8998c3a73c4/torch/ao/quantization/fake_quantize.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fake_quantize.FakeQuantize" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fake_quantize.</span></span><span class="sig-name descname"><span class="pre">FakeQuantize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer=&lt;class</span> <span class="pre">'torch.ao.quantization.observer.MovingAverageMinMaxObserver'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_min=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_max=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_dynamic=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**observer_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5aee022d8b2bc9d31ddaf877315ffb8ad9d62985/torch/ao/quantization/fake_quantize.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fake_quantize.FakeQuantize" title="Permalink to this definition">#</a></dt>
 <dd><p>Simulate the quantize and dequantize operations in training time.</p>
 <p>The output of this module is given by:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_out</span> <span class="o">=</span> <span class="p">(</span>
