@@ -1,6 +1,0 @@
-﻿torch.accelerator.memory.memory\_stats
-======================================
-
-.. currentmodule:: torch.accelerator.memory
-
-.. autofunction:: memory_stats
