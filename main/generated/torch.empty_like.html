@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git1f57e0e )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7e433d5 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3188,8 +3188,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4164,6 +4164,11 @@ document.write(`
 nondeterministic behavior from using the data as an input to an operation.
 Floating point and complex tensors are filled with NaN, and integer tensors
 are filled with the maximum value.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">torch.preserve_format</span></code> is used:
+If the input tensor is dense (i.e., non-overlapping strided),
+its memory format (including strides) is retained.
+Otherwise (e.g., a non-dense view like a stepped slice),
+the output is converted to the dense format.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4337,17 +4342,19 @@ returned Tensor. Default: <code class="docutils literal notranslate"><span class
   <div class="sidebar-heading">PyTorch Libraries</div>
   <ul style="list-style-type: none; padding: 0; padding-bottom: 80px;">
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchft" style="color: var(--pst-color-text-muted)">torchft</a></li>
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
   
   </ul>
 </div>
@@ -4523,7 +4530,7 @@ returned Tensor. Default: <code class="docutils literal notranslate"><span class
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.empty_like# torch.empty_like(input, *, dtype=None, layout=None, device=None, requires_grad=False, memory_format=torch.preserve_format) → Tensor# Returns an uninitialized tensor with the same size as input. torch.empty_like(input) is equivalent to torch.empty(input.size(), dtype=input.dtype, layout=input.layout, device=input.device). Note If torch.use_deterministic_algorithms() and torch.utils.deterministic.fill_uninitialized_memory are both set to True, the output tensor is initialized to prevent any possible nondeterministic behavior from using the data as an input to an operation. Floating point and complex tensors are filled with NaN, and integer tensors are filled with the maximum value. Parameters input (Tensor) – the size of input will determine size of the output tensor. Keyword Arguments dtype (torch.dtype, optional) – the desired data type of returned Tensor. Default: if None, defaults to the dtype of input. layout (torch.layout, optional) – the desired layout of returned tensor. Default: if None, defaults to the layout of input. device (torch.device, optional) – the desired device of returned tensor. Default: if None, defaults to the device of input. requires_grad (bool, optional) – If autograd should record operations on the returned tensor. Default: False. memory_format (torch.memory_format, optional) – the desired memory format of returned Tensor. Default: torch.preserve_format. Example: &gt;&gt;&gt; a=torch.empty((2,3), dtype=torch.int32, device = &#39;cuda&#39;) &gt;&gt;&gt; torch.empty_like(a) tensor([[0, 0, 0], [0, 0, 0]], device=&#39;cuda:0&#39;, dtype=torch.int32)"
+         "articleBody": "torch.empty_like# torch.empty_like(input, *, dtype=None, layout=None, device=None, requires_grad=False, memory_format=torch.preserve_format) → Tensor# Returns an uninitialized tensor with the same size as input. torch.empty_like(input) is equivalent to torch.empty(input.size(), dtype=input.dtype, layout=input.layout, device=input.device). Note If torch.use_deterministic_algorithms() and torch.utils.deterministic.fill_uninitialized_memory are both set to True, the output tensor is initialized to prevent any possible nondeterministic behavior from using the data as an input to an operation. Floating point and complex tensors are filled with NaN, and integer tensors are filled with the maximum value. When torch.preserve_format is used: If the input tensor is dense (i.e., non-overlapping strided), its memory format (including strides) is retained. Otherwise (e.g., a non-dense view like a stepped slice), the output is converted to the dense format. Parameters input (Tensor) – the size of input will determine size of the output tensor. Keyword Arguments dtype (torch.dtype, optional) – the desired data type of returned Tensor. Default: if None, defaults to the dtype of input. layout (torch.layout, optional) – the desired layout of returned tensor. Default: if None, defaults to the layout of input. device (torch.device, optional) – the desired device of returned tensor. Default: if None, defaults to the device of input. requires_grad (bool, optional) – If autograd should record operations on the returned tensor. Default: False. memory_format (torch.memory_format, optional) – the desired memory format of returned Tensor. Default: torch.preserve_format. Example: &gt;&gt;&gt; a=torch.empty((2,3), dtype=torch.int32, device = &#39;cuda&#39;) &gt;&gt;&gt; torch.empty_like(a) tensor([[0, 0, 0], [0, 0, 0]], device=&#39;cuda:0&#39;, dtype=torch.int32)"
        }
    </script>
 

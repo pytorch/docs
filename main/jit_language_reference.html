@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git1f57e0e )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7e433d5 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3188,8 +3188,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4914,7 +4914,7 @@ to TorchScript, leaving calls to Python functions in place. This way you can inc
 check the correctness of the model as you go.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.is_scripting">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_scripting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1f57e0e04da9d334e238cec346f7ae3667bed9d1/torch/_jit_internal.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_scripting" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_scripting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7e433d5f423248914c5e9838d3ea145db7964923/torch/_jit_internal.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_scripting" title="Permalink to this definition">#</a></dt>
 <dd><p>Function that returns True when in compilation and False otherwise. This
 is useful especially with the &#64;unused decorator to leave code in your
 model that is not yet TorchScript compatible.
@@ -4941,7 +4941,7 @@ model that is not yet TorchScript compatible.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.is_tracing">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_tracing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1f57e0e04da9d334e238cec346f7ae3667bed9d1/torch/jit/_trace.py#L1226"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_tracing" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">is_tracing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7e433d5f423248914c5e9838d3ea145db7964923/torch/jit/_trace.py#L1226"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.is_tracing" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a boolean value.</p>
 <p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> in tracing (if a function is called during the
 tracing of code with <code class="docutils literal notranslate"><span class="pre">torch.jit.trace</span></code>) and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
@@ -5257,17 +5257,19 @@ to the resulting <code class="xref py py-class docutils literal notranslate"><sp
   <div class="sidebar-heading">PyTorch Libraries</div>
   <ul style="list-style-type: none; padding: 0; padding-bottom: 80px;">
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchft" style="color: var(--pst-color-text-muted)">torchft</a></li>
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
   
-   <li><a class="nav-link nav-external" href="https://pytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+  
+   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
   
   </ul>
 </div>
