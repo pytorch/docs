@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7e433d5 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git651b4a6 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3188,8 +3188,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3517,7 +3517,6 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_verification.html">torch.onnx.verification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="onnx_dynamo_onnxruntime_backend.html">ONNX Backend for TorchDynamo</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="onnx_torchscript.html">TorchScript-based ONNX Exporter</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.onnx.JitScalarType.html">JitScalarType</a></li>
 </ul>
@@ -4150,88 +4149,17 @@ document.write(`
                   
   <div class="section" id="torchscript-unsupported-pytorch-constructs">
 <span id="jit-unsupported"></span><h1>TorchScript Unsupported PyTorch Constructs<a class="headerlink" href="#torchscript-unsupported-pytorch-constructs" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 26, 2025 | Last Updated On: Jun 26, 2025</p>
-<div class="section" id="torch-and-tensor-unsupported-attributes">
-<h2>Torch and Tensor Unsupported Attributes<a class="headerlink" href="#torch-and-tensor-unsupported-attributes" title="Permalink to this heading">#</a></h2>
-<p>TorchScript supports most methods defined on <code class="docutils literal notranslate"><span class="pre">torch</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>, but we do not have full coverage.
-Here are specific known ops and categories of ops which have diverging behavior between
-Python and TorchScript. If you encounter something else that is not supported please
-file a GitHub issue. Deprecated ops are not listed below.</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 26, 2025 | Last Updated On: Jul 15, 2025</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>TorchScript is deprecated, please use
+<a class="reference external" href="https://docs.pytorch.org/docs/stable/export.html">torch.export</a> instead.</p>
+</div>
 <span class="target" id="module-torch.jit.unsupported_tensor_ops"></span><div class="section" id="unsupported-tensor-methods">
-<h3>Unsupported Tensor Methods<a class="headerlink" href="#unsupported-tensor-methods" title="Permalink to this heading">#</a></h3>
+<h2>Unsupported Tensor Methods<a class="headerlink" href="#unsupported-tensor-methods" title="Permalink to this heading">#</a></h2>
 </div>
 <div class="section" id="unsupported-tensor-properties">
-<h3>Unsupported Tensor Properties<a class="headerlink" href="#unsupported-tensor-properties" title="Permalink to this heading">#</a></h3>
-</div>
-<div class="section" id="functions-not-correctly-bound-on-torch">
-<h3>Functions Not Correctly Bound on Torch<a class="headerlink" href="#functions-not-correctly-bound-on-torch" title="Permalink to this heading">#</a></h3>
-<p>The following functions will fail if used in TorchScript, either because they
-are not bound on <code class="docutils literal notranslate"><span class="pre">torch</span></code> or because Python expects a different schema than
-TorchScript.</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="generated/torch.tensordot.html#torch.tensordot" title="torch.tensordot"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.tensordot()</span></code></a></p></li>
-<li><p><a class="reference internal" href="nn.init.html#torch.nn.init.calculate_gain" title="torch.nn.init.calculate_gain"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nn.init.calculate_gain()</span></code></a></p></li>
-<li><p><a class="reference internal" href="nn.init.html#torch.nn.init.eye_" title="torch.nn.init.eye_"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nn.init.eye_()</span></code></a></p></li>
-<li><p><a class="reference internal" href="nn.init.html#torch.nn.init.dirac_" title="torch.nn.init.dirac_"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nn.init.dirac_()</span></code></a></p></li>
-<li><p><a class="reference internal" href="nn.init.html#torch.nn.init.kaiming_normal_" title="torch.nn.init.kaiming_normal_"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nn.init.kaiming_normal_()</span></code></a></p></li>
-<li><p><a class="reference internal" href="nn.init.html#torch.nn.init.orthogonal_" title="torch.nn.init.orthogonal_"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nn.init.orthogonal_()</span></code></a></p></li>
-<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nn.init.sparse()</span></code></p></li>
-</ul>
-</div>
-<div class="section" id="ops-with-divergent-schemas-between-torch-python">
-<h3>Ops With Divergent Schemas Between Torch &amp; Python<a class="headerlink" href="#ops-with-divergent-schemas-between-torch-python" title="Permalink to this heading">#</a></h3>
-<p>The following categories of ops have divergent schemas:</p>
-<p>Functions which construct tensors from non-tensor inputs do not support the <code class="docutils literal notranslate"><span class="pre">requires_grad</span></code>
-argument, except for <code class="docutils literal notranslate"><span class="pre">torch.tensor</span></code>. This covers the following ops:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="generated/torch.norm.html#torch.norm" title="torch.norm"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.norm()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.bartlett_window.html#torch.bartlett_window" title="torch.bartlett_window"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.bartlett_window()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.blackman_window.html#torch.blackman_window" title="torch.blackman_window"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.blackman_window()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.empty.html#torch.empty" title="torch.empty"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.empty()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.empty_like.html#torch.empty_like" title="torch.empty_like"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.empty_like()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.empty_strided.html#torch.empty_strided" title="torch.empty_strided"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.empty_strided()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.eye.html#torch.eye" title="torch.eye"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.eye()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.full.html#torch.full" title="torch.full"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.full()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.full_like.html#torch.full_like" title="torch.full_like"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.full_like()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.hamming_window.html#torch.hamming_window" title="torch.hamming_window"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.hamming_window()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.hann_window.html#torch.hann_window" title="torch.hann_window"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.hann_window()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.linspace.html#torch.linspace" title="torch.linspace"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.linspace()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.logspace.html#torch.logspace" title="torch.logspace"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.logspace()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.normal.html#torch.normal" title="torch.normal"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.normal()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.ones.html#torch.ones" title="torch.ones"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.ones()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.rand.html#torch.rand" title="torch.rand"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.rand()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.rand_like.html#torch.rand_like" title="torch.rand_like"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.rand_like()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.randint_like.html#torch.randint_like" title="torch.randint_like"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.randint_like()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.randn.html#torch.randn" title="torch.randn"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.randn()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.randn_like.html#torch.randn_like" title="torch.randn_like"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.randn_like()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.randperm.html#torch.randperm" title="torch.randperm"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.randperm()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.tril_indices.html#torch.tril_indices" title="torch.tril_indices"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.tril_indices()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.triu_indices.html#torch.triu_indices" title="torch.triu_indices"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.triu_indices()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.vander.html#torch.vander" title="torch.vander"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vander()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.zeros.html#torch.zeros" title="torch.zeros"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.zeros()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.zeros_like.html#torch.zeros_like" title="torch.zeros_like"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.zeros_like()</span></code></a></p></li>
-</ul>
-<p>The following functions require <code class="docutils literal notranslate"><span class="pre">dtype</span></code>, <code class="docutils literal notranslate"><span class="pre">layout</span></code>, <code class="docutils literal notranslate"><span class="pre">device</span></code> as parameters in TorchScript,
-but these parameters are optional in Python.</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="generated/torch.randint.html#torch.randint" title="torch.randint"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.randint()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.sparse_coo_tensor.html#torch.sparse_coo_tensor" title="torch.sparse_coo_tensor"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.sparse_coo_tensor()</span></code></a></p></li>
-<li><p><a class="reference internal" href="generated/torch.Tensor.to.html#torch.Tensor.to" title="torch.Tensor.to"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Tensor.to()</span></code></a></p></li>
-</ul>
-</div>
-</div>
-<div class="section" id="pytorch-unsupported-modules-and-classes">
-<h2>PyTorch Unsupported Modules and Classes<a class="headerlink" href="#pytorch-unsupported-modules-and-classes" title="Permalink to this heading">#</a></h2>
-<p>TorchScript cannot currently compile a number of other commonly used PyTorch
-constructs. Below are listed the modules that TorchScript does not support, and
-an incomplete list of PyTorch classes that are not supported. For unsupported modules
-we suggest using <a class="reference internal" href="generated/torch.jit.trace.html#torch.jit.trace" title="torch.jit.trace"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.jit.trace()</span></code></a>.</p>
-<ul class="simple">
-<li><p><p id="torch.nn.RNN"/><a class="reference internal" href="generated/torch.nn.RNN.html#torch.nn.RNN" title="torch.nn.RNN"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.RNN</span></code></a></p></li>
-<li><p><p id="torch.nn.AdaptiveLogSoftmaxWithLoss"/><a class="reference internal" href="generated/torch.nn.AdaptiveLogSoftmaxWithLoss.html#torch.nn.AdaptiveLogSoftmaxWithLoss" title="torch.nn.AdaptiveLogSoftmaxWithLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.AdaptiveLogSoftmaxWithLoss</span></code></a></p></li>
-<li><p><a class="reference internal" href="autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.Function</span></code></a></p></li>
-<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.enable_grad</span></code></p></li>
-</ul>
+<h2>Unsupported Tensor Properties<a class="headerlink" href="#unsupported-tensor-properties" title="Permalink to this heading">#</a></h2>
 </div>
 </div>
 
@@ -4357,14 +4285,8 @@ we suggest using <a class="reference internal" href="generated/torch.jit.trace.h
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch-and-tensor-unsupported-attributes">Torch and Tensor Unsupported Attributes</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupported-tensor-methods">Unsupported Tensor Methods</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupported-tensor-properties">Unsupported Tensor Properties</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-not-correctly-bound-on-torch">Functions Not Correctly Bound on Torch</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ops-with-divergent-schemas-between-torch-python">Ops With Divergent Schemas Between Torch &amp; Python</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pytorch-unsupported-modules-and-classes">PyTorch Unsupported Modules and Classes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupported-tensor-methods">Unsupported Tensor Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupported-tensor-properties">Unsupported Tensor Properties</a></li>
 </ul>
   </nav></div>
     
@@ -4587,8 +4509,8 @@ we suggest using <a class="reference internal" href="generated/torch.jit.trace.h
            "@id": "/jit_unsupported.html"
          },
          "datePublished": "Jun 26, 2025",
-         "dateModified": "Jun 26, 2025",
-         "articleBody": "TorchScript Unsupported PyTorch Constructs# Created On: Jun 26, 2025 | Last Updated On: Jun 26, 2025 Torch and Tensor Unsupported Attributes# TorchScript supports most methods defined on torch and torch.Tensor, but we do not have full coverage. Here are specific known ops and categories of ops which have diverging behavior between Python and TorchScript. If you encounter something else that is not supported please file a GitHub issue. Deprecated ops are not listed below. Unsupported Tensor Methods# Unsupported Tensor Properties# Functions Not Correctly Bound on Torch# The following functions will fail if used in TorchScript, either because they are not bound on torch or because Python expects a different schema than TorchScript. torch.tensordot() torch.nn.init.calculate_gain() torch.nn.init.eye_() torch.nn.init.dirac_() torch.nn.init.kaiming_normal_() torch.nn.init.orthogonal_() torch.nn.init.sparse() Ops With Divergent Schemas Between Torch &amp; Python# The following categories of ops have divergent schemas: Functions which construct tensors from non-tensor inputs do not support the requires_grad argument, except for torch.tensor. This covers the following ops: torch.norm() torch.bartlett_window() torch.blackman_window() torch.empty() torch.empty_like() torch.empty_strided() torch.eye() torch.full() torch.full_like() torch.hamming_window() torch.hann_window() torch.linspace() torch.logspace() torch.normal() torch.ones() torch.rand() torch.rand_like() torch.randint_like() torch.randn() torch.randn_like() torch.randperm() torch.tril_indices() torch.triu_indices() torch.vander() torch.zeros() torch.zeros_like() The following functions require dtype, layout, device as parameters in TorchScript, but these parameters are optional in Python. torch.randint() torch.sparse_coo_tensor() torch.Tensor.to() PyTorch Unsupported Modules and Classes# TorchScript cannot currently compile a number of other commonly used PyTorch constructs. Below are listed the modules that TorchScript does not support, and an incomplete list of PyTorch classes that are not supported. For unsupported modules we suggest using torch.jit.trace(). torch.nn.RNN torch.nn.AdaptiveLogSoftmaxWithLoss torch.autograd.Function torch.autograd.enable_grad"
+         "dateModified": "Jul 15, 2025",
+         "articleBody": "TorchScript Unsupported PyTorch Constructs# Created On: Jun 26, 2025 | Last Updated On: Jul 15, 2025 Warning TorchScript is deprecated, please use torch.export instead. Unsupported Tensor Methods# Unsupported Tensor Properties#"
        }
    </script>
 

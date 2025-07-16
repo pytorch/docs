@@ -104,7 +104,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7e433d5 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git651b4a6 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1612,27 +1612,12 @@ document.write(`
                   
   <div class="section" id="c">
 <h1>C++<a class="headerlink" href="#c" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 14, 2020 | Last Updated On: Apr 16, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 14, 2020 | Last Updated On: Jul 15, 2025</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you are looking for the PyTorch C++ API docs, directly go <a class="reference external" href="https://pytorch.org/cppdocs/">here</a>.</p>
 </div>
 <p>PyTorch provides several features for working with C++, and it’s best to choose from them based on your needs. At a high level, the following support is available:</p>
-<div class="section" id="torchscript-c-api">
-<h2>TorchScript C++ API<a class="headerlink" href="#torchscript-c-api" title="Permalink to this heading">#</a></h2>
-<p><a class="reference external" href="https://pytorch.org/docs/stable/jit.html">TorchScript</a> allows PyTorch models defined in Python to be serialized and then loaded and run in C++ capturing the model code via compilation or tracing its execution. You can learn more in the <a class="reference external" href="https://pytorch.org/tutorials/advanced/cpp_export.html">Loading a TorchScript Model in C++ tutorial</a>. This means you can define your models in Python as much as possible, but subsequently export them via TorchScript for doing no-Python execution in production or embedded environments. The TorchScript C++ API is used to interact with these models and the TorchScript execution engine, including:</p>
-<ul class="simple">
-<li><p>Loading serialized TorchScript models saved from Python</p></li>
-<li><p>Doing simple model modifications if needed (e.g. pulling out submodules)</p></li>
-<li><p>Constructing the input and doing preprocessing using C++ Tensor API</p></li>
-</ul>
-</div>
-<div class="section" id="extending-pytorch-and-torchscript-with-c-extensions">
-<h2>Extending PyTorch and TorchScript with C++ Extensions<a class="headerlink" href="#extending-pytorch-and-torchscript-with-c-extensions" title="Permalink to this heading">#</a></h2>
-<p>TorchScript can be augmented with user-supplied code through custom operators and custom classes.
-Once registered with TorchScript, these operators and classes can be invoked in TorchScript code run from
-Python or from C++ as part of a serialized TorchScript model. The <a class="reference external" href="https://pytorch.org/tutorials/advanced/torch_script_custom_ops.html">Extending TorchScript with Custom C++ Operators</a> tutorial walks through interfacing TorchScript with OpenCV. In addition to wrapping a function call with a custom operator, C++ classes and structs can be bound into TorchScript through a pybind11-like interface which is explained in the <a class="reference external" href="https://pytorch.org/tutorials/advanced/torch_script_custom_classes.html">Extending TorchScript with Custom C++ Classes</a> tutorial.</p>
-</div>
 <div class="section" id="tensor-and-autograd-in-c">
 <h2>Tensor and Autograd in C++<a class="headerlink" href="#tensor-and-autograd-in-c" title="Permalink to this heading">#</a></h2>
 <p>Most of the tensor and autograd operations in PyTorch Python API are also available in the C++ API. These include:</p>
@@ -1644,9 +1629,7 @@ Python or from C++ as part of a serialized TorchScript model. The <a class="refe
 </div>
 <div class="section" id="authoring-models-in-c">
 <h2>Authoring Models in C++<a class="headerlink" href="#authoring-models-in-c" title="Permalink to this heading">#</a></h2>
-<p>The “author in TorchScript, infer in C++” workflow requires model authoring to be done in TorchScript.
-However, there might be cases where the model has to be authored in C++ (e.g. in workflows where a Python
-component is undesirable). To serve such use cases, we provide the full capability of authoring and training a neural net model purely in C++, with familiar components such as <code class="docutils literal notranslate"><span class="pre">torch::nn</span></code> / <code class="docutils literal notranslate"><span class="pre">torch::nn::functional</span></code> / <code class="docutils literal notranslate"><span class="pre">torch::optim</span></code> that closely resemble the Python API.</p>
+<p>We provide the full capability of authoring and training a neural net model purely in C++, with familiar components such as <code class="docutils literal notranslate"><span class="pre">torch::nn</span></code> / <code class="docutils literal notranslate"><span class="pre">torch::nn::functional</span></code> / <code class="docutils literal notranslate"><span class="pre">torch::optim</span></code> that closely resemble the Python API.</p>
 <ul class="simple">
 <li><p>For an overview of the PyTorch C++ model authoring and training API, please see: <a class="reference external" href="https://pytorch.org/cppdocs/frontend.html">https://pytorch.org/cppdocs/frontend.html</a></p></li>
 <li><p>For a detailed tutorial on how to use the API, please see: <a class="reference external" href="https://pytorch.org/tutorials/advanced/cpp_frontend.html">https://pytorch.org/tutorials/advanced/cpp_frontend.html</a></p></li>
@@ -1745,8 +1728,6 @@ component is undesirable). To serve such use cases, we provide the full capabili
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torchscript-c-api">TorchScript C++ API</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extending-pytorch-and-torchscript-with-c-extensions">Extending PyTorch and TorchScript with C++ Extensions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tensor-and-autograd-in-c">Tensor and Autograd in C++</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authoring-models-in-c">Authoring Models in C++</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#packaging-for-c">Packaging for C++</a></li>
@@ -1972,8 +1953,8 @@ component is undesirable). To serve such use cases, we provide the full capabili
            "@id": "/cpp_index.html"
          },
          "datePublished": "May 14, 2020",
-         "dateModified": "Apr 16, 2025",
-         "articleBody": "C++# Created On: May 14, 2020 | Last Updated On: Apr 16, 2025 Note If you are looking for the PyTorch C++ API docs, directly go here. PyTorch provides several features for working with C++, and it’s best to choose from them based on your needs. At a high level, the following support is available: TorchScript C++ API# TorchScript allows PyTorch models defined in Python to be serialized and then loaded and run in C++ capturing the model code via compilation or tracing its execution. You can learn more in the Loading a TorchScript Model in C++ tutorial. This means you can define your models in Python as much as possible, but subsequently export them via TorchScript for doing no-Python execution in production or embedded environments. The TorchScript C++ API is used to interact with these models and the TorchScript execution engine, including: Loading serialized TorchScript models saved from Python Doing simple model modifications if needed (e.g. pulling out submodules) Constructing the input and doing preprocessing using C++ Tensor API Extending PyTorch and TorchScript with C++ Extensions# TorchScript can be augmented with user-supplied code through custom operators and custom classes. Once registered with TorchScript, these operators and classes can be invoked in TorchScript code run from Python or from C++ as part of a serialized TorchScript model. The Extending TorchScript with Custom C++ Operators tutorial walks through interfacing TorchScript with OpenCV. In addition to wrapping a function call with a custom operator, C++ classes and structs can be bound into TorchScript through a pybind11-like interface which is explained in the Extending TorchScript with Custom C++ Classes tutorial. Tensor and Autograd in C++# Most of the tensor and autograd operations in PyTorch Python API are also available in the C++ API. These include: torch::Tensor methods such as add / reshape / clone. For the full list of methods available, please see: https://pytorch.org/cppdocs/api/classat_1_1_tensor.html C++ tensor indexing API that looks and behaves the same as the Python API. For details on its usage, please see: https://pytorch.org/cppdocs/notes/tensor_indexing.html The tensor autograd APIs and the torch::autograd package that are crucial for building dynamic neural networks in C++ frontend. For more details, please see: https://pytorch.org/tutorials/advanced/cpp_autograd.html Authoring Models in C++# The “author in TorchScript, infer in C++” workflow requires model authoring to be done in TorchScript. However, there might be cases where the model has to be authored in C++ (e.g. in workflows where a Python component is undesirable). To serve such use cases, we provide the full capability of authoring and training a neural net model purely in C++, with familiar components such as torch::nn / torch::nn::functional / torch::optim that closely resemble the Python API. For an overview of the PyTorch C++ model authoring and training API, please see: https://pytorch...."
+         "dateModified": "Jul 15, 2025",
+         "articleBody": "C++# Created On: May 14, 2020 | Last Updated On: Jul 15, 2025 Note If you are looking for the PyTorch C++ API docs, directly go here. PyTorch provides several features for working with C++, and it’s best to choose from them based on your needs. At a high level, the following support is available: Tensor and Autograd in C++# Most of the tensor and autograd operations in PyTorch Python API are also available in the C++ API. These include: torch::Tensor methods such as add / reshape / clone. For the full list of methods available, please see: https://pytorch.org/cppdocs/api/classat_1_1_tensor.html C++ tensor indexing API that looks and behaves the same as the Python API. For details on its usage, please see: https://pytorch.org/cppdocs/notes/tensor_indexing.html The tensor autograd APIs and the torch::autograd package that are crucial for building dynamic neural networks in C++ frontend. For more details, please see: https://pytorch.org/tutorials/advanced/cpp_autograd.html Authoring Models in C++# We provide the full capability of authoring and training a neural net model purely in C++, with familiar components such as torch::nn / torch::nn::functional / torch::optim that closely resemble the Python API. For an overview of the PyTorch C++ model authoring and training API, please see: https://pytorch.org/cppdocs/frontend.html For a detailed tutorial on how to use the API, please see: https://pytorch.org/tutorials/advanced/cpp_frontend.html Docs for components such as torch::nn / torch::nn::functional / torch::optim can be found at: https://pytorch.org/cppdocs/api/library_root.html Packaging for C++# For guidance on how to install and link with libtorch (the library that contains all of the above C++ APIs), please see: https://pytorch.org/cppdocs/installing.html. Note that on Linux there are two types of libtorch binaries provided: one compiled with GCC pre-cxx11 ABI and the other with GCC cxx11 ABI, and you should make the selection based on the GCC ABI your system is using."
        }
    </script>
 

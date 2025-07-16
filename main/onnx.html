@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7e433d5 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git651b4a6 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3188,8 +3188,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3517,7 +3517,6 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_verification.html">torch.onnx.verification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="onnx_dynamo_onnxruntime_backend.html">ONNX Backend for TorchDynamo</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="onnx_torchscript.html">TorchScript-based ONNX Exporter</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.onnx.JitScalarType.html">JitScalarType</a></li>
 </ul>
@@ -4141,7 +4140,7 @@ document.write(`
                   
   <div class="section" id="torch-onnx">
 <h1>torch.onnx<a class="headerlink" href="#torch-onnx" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 10, 2025 | Last Updated On: Jun 28, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 10, 2025 | Last Updated On: Jul 15, 2025</p>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
 <p><a class="reference external" href="https://onnx.ai/">Open Neural Network eXchange (ONNX)</a> is an open standard
@@ -4565,8 +4564,8 @@ for tracking purposes -->
            "@id": "/onnx.html"
          },
          "datePublished": "Jun 10, 2025",
-         "dateModified": "Jun 28, 2025",
-         "articleBody": "torch.onnx# Created On: Jun 10, 2025 | Last Updated On: Jun 28, 2025 Overview# Open Neural Network eXchange (ONNX) is an open standard format for representing machine learning models. The torch.onnx module captures the computation graph from a native PyTorch torch.nn.Module model and converts it into an ONNX graph. The exported model can be consumed by any of the many runtimes that support ONNX, including Microsoft’s ONNX Runtime. There are two flavors of ONNX exporter API that you can use, as listed below. Both can be called through function torch.onnx.export(). Next example shows how to export a simple model. import torch class MyModel(torch.nn.Module): def __init__(self): super(MyModel, self).__init__() self.conv1 = torch.nn.Conv2d(1, 128, 5) def forward(self, x): return torch.relu(self.conv1(x)) input_tensor = torch.rand((1, 1, 128, 128), dtype=torch.float32) model = MyModel() torch.onnx.export( model, # model to export (input_tensor,), # inputs of the model, &#34;my_model.onnx&#34;, # filename of the ONNX model input_names=[&#34;input&#34;], # Rename inputs for the ONNX model dynamo=True # True or False to select the exporter to use ) Next sections introduce the two versions of the exporter. TorchDynamo-based ONNX Exporter# The TorchDynamo-based ONNX exporter is the newest (and Beta) exporter for PyTorch 2.1 and newer TorchDynamo engine is leveraged to hook into Python’s frame evaluation API and dynamically rewrite its bytecode into an FX Graph. The resulting FX Graph is then polished before it is finally translated into an ONNX graph. The main advantage of this approach is that the FX graph is captured using bytecode analysis that preserves the dynamic nature of the model instead of using traditional static tracing techniques. Learn more about the TorchDynamo-based ONNX Exporter TorchScript-based ONNX Exporter# The TorchScript-based ONNX exporter is available since PyTorch 1.2.0 TorchScript is leveraged to trace (through torch.jit.trace()) the model and capture a static computation graph. As a consequence, the resulting graph has a couple limitations: It does not record any control-flow, like if-statements or loops; Does not handle nuances between training and eval mode; Does not truly handle dynamic inputs As an attempt to support the static tracing limitations, the exporter also supports TorchScript scripting (through torch.jit.script()), which adds support for data-dependent control-flow, for example. However, TorchScript itself is a subset of the Python language, so not all features in Python are supported, such as in-place operations. Learn more about the TorchScript-based ONNX Exporter Contributing / Developing# The ONNX exporter is a community project and we welcome contributions. We follow the PyTorch guidelines for contributions, but you might also be interested in reading our development wiki."
+         "dateModified": "Jul 15, 2025",
+         "articleBody": "torch.onnx# Created On: Jun 10, 2025 | Last Updated On: Jul 15, 2025 Overview# Open Neural Network eXchange (ONNX) is an open standard format for representing machine learning models. The torch.onnx module captures the computation graph from a native PyTorch torch.nn.Module model and converts it into an ONNX graph. The exported model can be consumed by any of the many runtimes that support ONNX, including Microsoft’s ONNX Runtime. There are two flavors of ONNX exporter API that you can use, as listed below. Both can be called through function torch.onnx.export(). Next example shows how to export a simple model. import torch class MyModel(torch.nn.Module): def __init__(self): super(MyModel, self).__init__() self.conv1 = torch.nn.Conv2d(1, 128, 5) def forward(self, x): return torch.relu(self.conv1(x)) input_tensor = torch.rand((1, 1, 128, 128), dtype=torch.float32) model = MyModel() torch.onnx.export( model, # model to export (input_tensor,), # inputs of the model, &#34;my_model.onnx&#34;, # filename of the ONNX model input_names=[&#34;input&#34;], # Rename inputs for the ONNX model dynamo=True # True or False to select the exporter to use ) Next sections introduce the two versions of the exporter. TorchDynamo-based ONNX Exporter# The TorchDynamo-based ONNX exporter is the newest (and Beta) exporter for PyTorch 2.1 and newer TorchDynamo engine is leveraged to hook into Python’s frame evaluation API and dynamically rewrite its bytecode into an FX Graph. The resulting FX Graph is then polished before it is finally translated into an ONNX graph. The main advantage of this approach is that the FX graph is captured using bytecode analysis that preserves the dynamic nature of the model instead of using traditional static tracing techniques. Learn more about the TorchDynamo-based ONNX Exporter TorchScript-based ONNX Exporter# The TorchScript-based ONNX exporter is available since PyTorch 1.2.0 TorchScript is leveraged to trace (through torch.jit.trace()) the model and capture a static computation graph. As a consequence, the resulting graph has a couple limitations: It does not record any control-flow, like if-statements or loops; Does not handle nuances between training and eval mode; Does not truly handle dynamic inputs As an attempt to support the static tracing limitations, the exporter also supports TorchScript scripting (through torch.jit.script()), which adds support for data-dependent control-flow, for example. However, TorchScript itself is a subset of the Python language, so not all features in Python are supported, such as in-place operations. Learn more about the TorchScript-based ONNX Exporter Contributing / Developing# The ONNX exporter is a community project and we welcome contributions. We follow the PyTorch guidelines for contributions, but you might also be interested in reading our development wiki."
        }
    </script>
 

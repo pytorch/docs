@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7e433d5 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git651b4a6 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3188,8 +3188,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3517,7 +3517,6 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_verification.html">torch.onnx.verification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="onnx_dynamo_onnxruntime_backend.html">ONNX Backend for TorchDynamo</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="onnx_torchscript.html">TorchScript-based ONNX Exporter</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.onnx.JitScalarType.html">JitScalarType</a></li>
 </ul>
@@ -4150,19 +4149,14 @@ document.write(`
                   
   <div class="section" id="torchscript-builtins">
 <span id="builtin-functions"></span><h1>TorchScript Builtins<a class="headerlink" href="#torchscript-builtins" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Aug 09, 2019 | Last Updated On: Mar 30, 2021</p>
-<p>This is a full reference of functions and Tensor methods accessible in TorchScript</p>
-<div class="contents local topic" id="contents">
-<ul class="simple">
-<li><p><a class="reference internal" href="#supported-tensor-methods" id="id5">Supported Tensor Methods</a></p></li>
-<li><p><a class="reference internal" href="#supported-pytorch-functions" id="id6">Supported PyTorch Functions</a></p></li>
-<li><p><a class="reference internal" href="#torchscript-builtin-functions" id="id7">TorchScript Builtin Functions</a></p></li>
-<li><p><a class="reference internal" href="#python-built-in-functions" id="id8">Python Built-in Functions</a></p></li>
-<li><p><a class="reference internal" href="#math-module" id="id9"><code class="docutils literal notranslate"><span class="pre">math</span></code> Module</a></p></li>
-</ul>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Aug 09, 2019 | Last Updated On: Jul 15, 2025</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>TorchScript is deprecated, please use
+<a class="reference external" href="https://docs.pytorch.org/docs/stable/export.html">torch.export</a> instead.</p>
 </div>
 <span class="target" id="module-torch.jit.supported_ops"></span><div class="section" id="supported-tensor-methods">
-<span id="id1"></span><h2><a class="toc-backref" href="#id5">Supported Tensor Methods</a><a class="headerlink" href="#supported-tensor-methods" title="Permalink to this heading">#</a></h2>
+<span id="id1"></span><h2>Supported Tensor Methods<a class="headerlink" href="#supported-tensor-methods" title="Permalink to this heading">#</a></h2>
 <div class="codeblock-height-limiter highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="o">.</span><span class="fm">__and__</span><span class="p">(</span><span class="n">other</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">Tensor</span><span class="o">.</span><span class="fm">__and__</span><span class="p">(</span><span class="n">other</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
@@ -7475,7 +7469,7 @@ document.write(`
 </div>
 </div>
 <div class="section" id="supported-pytorch-functions">
-<span id="id2"></span><h2><a class="toc-backref" href="#id6">Supported PyTorch Functions</a><a class="headerlink" href="#supported-pytorch-functions" title="Permalink to this heading">#</a></h2>
+<span id="id2"></span><h2>Supported PyTorch Functions<a class="headerlink" href="#supported-pytorch-functions" title="Permalink to this heading">#</a></h2>
 <div class="codeblock-height-limiter highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">adaptive_avg_pool2d</span><span class="p">(</span><span class="nb">input</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                                         <span class="n">output_size</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
@@ -17054,7 +17048,7 @@ document.write(`
 </div>
 </div>
 <div class="section" id="torchscript-builtin-functions">
-<span id="id3"></span><h2><a class="toc-backref" href="#id7">TorchScript Builtin Functions</a><a class="headerlink" href="#torchscript-builtin-functions" title="Permalink to this heading">#</a></h2>
+<span id="id3"></span><h2>TorchScript Builtin Functions<a class="headerlink" href="#torchscript-builtin-functions" title="Permalink to this heading">#</a></h2>
 <div class="codeblock-height-limiter highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]</span>
 
 <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span><span class="n">inputs</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">tVal</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">tVal</span><span class="p">]</span>
@@ -17514,7 +17508,7 @@ document.write(`
 </div>
 </div>
 <div class="section" id="python-built-in-functions">
-<span id="python-builtin-functions"></span><h2><a class="toc-backref" href="#id8">Python Built-in Functions</a><a class="headerlink" href="#python-built-in-functions" title="Permalink to this heading">#</a></h2>
+<span id="python-builtin-functions"></span><h2>Python Built-in Functions<a class="headerlink" href="#python-built-in-functions" title="Permalink to this heading">#</a></h2>
 <p>The functions in the following table are supported but do not have a static schema</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
@@ -17546,15 +17540,15 @@ document.write(`
 <td><p>Can only be used as an iterator in a for loop</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#zip" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zip</span></code></a></p></td>
-<td><p>Arguments must be iterable. See <a class="reference internal" href="jit_language_reference.html#jit-iterables"><span class="std std-ref">Iterables</span></a> for details.</p></td>
+<td><p>Arguments must be iterable.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#enumerate" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enumerate</span></code></a></p></td>
-<td><p>Arguments must be iterable. See <a class="reference internal" href="jit_language_reference.html#jit-iterables"><span class="std std-ref">Iterables</span></a> for details.</p></td>
+<td><p>Arguments must be iterable.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The following functions will use the corresponding magic method on <a class="reference internal" href="jit_language_reference.html#torchscript-classes"><span class="std std-ref">TorchScript Classes</span></a></p>
+<p>The following functions will use the corresponding magic method on TorchScript classes</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
 <col style="width: 50%" />
@@ -17777,7 +17771,7 @@ document.write(`
 </div>
 </div>
 <div class="section" id="math-module">
-<span id="id4"></span><h2><a class="toc-backref" href="#id9"><code class="docutils literal notranslate"><span class="pre">math</span></code> Module</a><a class="headerlink" href="#math-module" title="Permalink to this heading">#</a></h2>
+<span id="id4"></span><h2><code class="docutils literal notranslate"><span class="pre">math</span></code> Module<a class="headerlink" href="#math-module" title="Permalink to this heading">#</a></h2>
 <div class="codeblock-height-limiter highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aten</span><span class="p">::</span><span class="n">ceil</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="nb">int</span> <span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 
 <span class="n">aten</span><span class="p">::</span><span class="n">ceil</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="nb">float</span> <span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
@@ -18441,8 +18435,8 @@ document.write(`
            "@id": "/jit_builtin_functions.html"
          },
          "datePublished": "Aug 09, 2019",
-         "dateModified": "Mar 30, 2021",
-         "articleBody": "TorchScript Builtins# Created On: Aug 09, 2019 | Last Updated On: Mar 30, 2021 This is a full reference of functions and Tensor methods accessible in TorchScript Supported Tensor Methods Supported PyTorch Functions TorchScript Builtin Functions Python Built-in Functions math Module Supported Tensor Methods# Tensor.__and__(other : number) -&gt; Tensor Tensor.__and__(other : Tensor) -&gt; Tensor Tensor.__iand__(other : Tensor) -&gt; Tensor Tensor.__iand__(other : number) -&gt; Tensor Tensor.__ilshift__(other : Tensor) -&gt; Tensor Tensor.__ilshift__(other : number) -&gt; Tensor Tensor.__ior__(other : Tensor) -&gt; Tensor Tensor.__ior__(other : number) -&gt; Tensor Tensor.__irshift__(other : Tensor) -&gt; Tensor Tensor.__irshift__(other : number) -&gt; Tensor Tensor.__ixor__(other : Tensor) -&gt; Tensor Tensor.__ixor__(other : number) -&gt; Tensor Tensor.__lshift__(other : Tensor) -&gt; Tensor Tensor.__lshift__(other : number) -&gt; Tensor Tensor.__lshift__(other : number, out : Tensor) -&gt; Tensor Tensor.__lshift__(other : Tensor, out : Tensor) -&gt; Tensor Tensor.__or__(other : Tensor) -&gt; Tensor Tensor.__or__(other : number) -&gt; Tensor Tensor.__rshift__(other : Tensor) -&gt; Tensor Tensor.__rshift__(other : number) -&gt; Tensor Tensor.__rshift__(other : number, out : Tensor) -&gt; Tensor Tensor.__rshift__(other : Tensor, out : Tensor) -&gt; Tensor Tensor.__xor__(other : Tensor) -&gt; Tensor Tensor.__xor__(other : number) -&gt; Tensor Tensor.abs() -&gt; Tensor Tensor.abs(out : Tensor) -&gt; Tensor Tensor.abs_() -&gt; Tensor Tensor.absolute() -&gt; Tensor Tensor.absolute(out : Tensor) -&gt; Tensor Tensor.absolute_() -&gt; Tensor Tensor.acos() -&gt; Tensor Tensor.acos(out : Tensor) -&gt; Tensor Tensor.acos_() -&gt; Tensor Tensor.acosh() -&gt; Tensor Tensor.acosh(out : Tensor) -&gt; Tensor Tensor.acosh_() -&gt; Tensor Tensor.add(other : Tensor, alpha : number=1) -&gt; Tensor Tensor.add(other : number, alpha : number=1) -&gt; Tensor Tensor.add(other : Tensor, alpha : number=1, out : Tensor) -&gt; Tensor Tensor.add(other : number, alpha : number=1, out : Tensor) -&gt; Tensor Tensor.add_(other : Tensor, alpha : number=1) -&gt; Tensor Tensor.add_(other : number, alpha : number=1) -&gt; Tensor Tensor.addbmm(batch1 : Tensor, batch2 : Tensor, beta : number=1, alpha : number=1) -&gt; Tensor Tensor.addbmm(batch1 : Tensor, batch2 : Tensor, beta : number=1, alpha : number=1, out : Tensor) -&gt; Tensor Tensor.addbmm_(batch1 : Tensor, batch2 : Tensor, beta : number=1, alpha : number=1) -&gt; Tensor Tensor.addcdiv(tensor1 : Tensor, tensor2 : Tensor, value : number=1) -&gt; Tensor Tensor.addcdiv(tensor1 : Tensor, tensor2 : Tensor, value : number=1, out : Tensor) -&gt; Tensor Tensor.addcdiv_(tensor1 : Tensor, tensor2 : Tensor, value : number=1) -&gt; Tensor Tensor.addcmul(tensor1 : Tensor, tensor2 : Tensor, value : number=1) -&gt; Tensor Tensor.addcmul(tensor1 : Tensor, tensor2 : Tensor, value : number=1, out : Tensor) -&gt; Tensor Tensor.addcmul_(tensor1 : Tensor, tensor2 : Tensor, value : number=1) -&gt; Tensor Tensor.addmm(mat1 : Tensor, mat2 : Tensor, beta : number=1, alpha : number=1) -&gt; Tensor Tensor.a..."
+         "dateModified": "Jul 15, 2025",
+         "articleBody": "TorchScript Builtins# Created On: Aug 09, 2019 | Last Updated On: Jul 15, 2025 Warning TorchScript is deprecated, please use torch.export instead. Supported Tensor Methods# Tensor.__and__(other : number) -&gt; Tensor Tensor.__and__(other : Tensor) -&gt; Tensor Tensor.__iand__(other : Tensor) -&gt; Tensor Tensor.__iand__(other : number) -&gt; Tensor Tensor.__ilshift__(other : Tensor) -&gt; Tensor Tensor.__ilshift__(other : number) -&gt; Tensor Tensor.__ior__(other : Tensor) -&gt; Tensor Tensor.__ior__(other : number) -&gt; Tensor Tensor.__irshift__(other : Tensor) -&gt; Tensor Tensor.__irshift__(other : number) -&gt; Tensor Tensor.__ixor__(other : Tensor) -&gt; Tensor Tensor.__ixor__(other : number) -&gt; Tensor Tensor.__lshift__(other : Tensor) -&gt; Tensor Tensor.__lshift__(other : number) -&gt; Tensor Tensor.__lshift__(other : number, out : Tensor) -&gt; Tensor Tensor.__lshift__(other : Tensor, out : Tensor) -&gt; Tensor Tensor.__or__(other : Tensor) -&gt; Tensor Tensor.__or__(other : number) -&gt; Tensor Tensor.__rshift__(other : Tensor) -&gt; Tensor Tensor.__rshift__(other : number) -&gt; Tensor Tensor.__rshift__(other : number, out : Tensor) -&gt; Tensor Tensor.__rshift__(other : Tensor, out : Tensor) -&gt; Tensor Tensor.__xor__(other : Tensor) -&gt; Tensor Tensor.__xor__(other : number) -&gt; Tensor Tensor.abs() -&gt; Tensor Tensor.abs(out : Tensor) -&gt; Tensor Tensor.abs_() -&gt; Tensor Tensor.absolute() -&gt; Tensor Tensor.absolute(out : Tensor) -&gt; Tensor Tensor.absolute_() -&gt; Tensor Tensor.acos() -&gt; Tensor Tensor.acos(out : Tensor) -&gt; Tensor Tensor.acos_() -&gt; Tensor Tensor.acosh() -&gt; Tensor Tensor.acosh(out : Tensor) -&gt; Tensor Tensor.acosh_() -&gt; Tensor Tensor.add(other : Tensor, alpha : number=1) -&gt; Tensor Tensor.add(other : number, alpha : number=1) -&gt; Tensor Tensor.add(other : Tensor, alpha : number=1, out : Tensor) -&gt; Tensor Tensor.add(other : number, alpha : number=1, out : Tensor) -&gt; Tensor Tensor.add_(other : Tensor, alpha : number=1) -&gt; Tensor Tensor.add_(other : number, alpha : number=1) -&gt; Tensor Tensor.addbmm(batch1 : Tensor, batch2 : Tensor, beta : number=1, alpha : number=1) -&gt; Tensor Tensor.addbmm(batch1 : Tensor, batch2 : Tensor, beta : number=1, alpha : number=1, out : Tensor) -&gt; Tensor Tensor.addbmm_(batch1 : Tensor, batch2 : Tensor, beta : number=1, alpha : number=1) -&gt; Tensor Tensor.addcdiv(tensor1 : Tensor, tensor2 : Tensor, value : number=1) -&gt; Tensor Tensor.addcdiv(tensor1 : Tensor, tensor2 : Tensor, value : number=1, out : Tensor) -&gt; Tensor Tensor.addcdiv_(tensor1 : Tensor, tensor2 : Tensor, value : number=1) -&gt; Tensor Tensor.addcmul(tensor1 : Tensor, tensor2 : Tensor, value : number=1) -&gt; Tensor Tensor.addcmul(tensor1 : Tensor, tensor2 : Tensor, value : number=1, out : Tensor) -&gt; Tensor Tensor.addcmul_(tensor1 : Tensor, tensor2 : Tensor, value : number=1) -&gt; Tensor Tensor.addmm(mat1 : Tensor, mat2 : Tensor, beta : number=1, alpha : number=1) -&gt; Tensor Tensor.addmm(mat1 : Tensor, mat2 : Tensor, beta : number=1, alpha : number=1, out : Tensor) -&gt; Tensor Tensor.addmm(mat1 : Tensor, mat2 : Tensor,..."
        }
    </script>
 
