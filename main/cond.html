@@ -62,8 +62,8 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/cond.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Dynamo Overview" href="torch.compiler_dynamo_overview.html" />
-    <link rel="prev" title="torch.mutation" href="generated/exportdb/torch.mutation.html" />
+    <link rel="next" title="ExportDB" href="generated/exportdb/index.html" />
+    <link rel="prev" title="Draft Export" href="export/draft_export.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git651b4a6 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git82a1ee1 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3172,20 +3172,11 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="export.html">torch.export</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="export.programming_model.html">torch.export Programming Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="export.ir_spec.html">torch.export IR Specification</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="draft_export.html">Draft Export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="logging.html">torch._logging</a></li>
-<li class="toctree-l4"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
-</ul>
-</details></li>
-</ul>
-</details></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/programming_model.html">torch.export Programming Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/ir_spec.html">torch.export IR Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/pt2_archive.html">PT2 Archive Spec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/draft_export.html">Draft Export</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
@@ -3203,11 +3194,18 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.mutation.html">torch.mutation</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Control Flow - Cond</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="logging.html">torch._logging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch._logging.set_logs.html">torch._logging.set_logs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="distributed.html">torch.distributed</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3401,9 +3399,11 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="jit.html">torch.jit</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="jit_builtin_functions.html">torch.jit.supported_ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jit_language_reference.html">TorchScript Language Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jit_language_reference_v2.html">TorchScript Language Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jit_python_reference.html">Python Language Reference Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jit_unsupported.html">TorchScript Unsupported PyTorch Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jit_builtin_functions.html">torch.jit.supported_ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.script.html">torch.jit.script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.trace.html">torch.jit.trace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.script_if_tracing.html">torch.jit.script_if_tracing</a></li>
@@ -3426,8 +3426,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.isinstance.html">torch.jit.isinstance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.Attribute.html">Attribute</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.annotate.html">torch.jit.annotate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jit_python_reference.html">Python Language Reference Coverage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jit_unsupported.html">TorchScript Unsupported PyTorch Constructs</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="linalg.html">torch.linalg</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4311,7 +4309,7 @@ and branch functions becomes two sub-graph attributes of the top level graph mod
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._higher_order_ops.cond.cond">
-<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.cond.</span></span><span class="sig-name descname"><span class="pre">cond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">false_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/_higher_order_ops/cond.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.cond.cond" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.cond.</span></span><span class="sig-name descname"><span class="pre">cond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">false_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/_higher_order_ops/cond.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.cond.cond" title="Permalink to this definition">#</a></dt>
 <dd><p>Conditionally applies <cite>true_fn</cite> or <cite>false_fn</cite>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4432,20 +4430,20 @@ are allowed in a branch)</p></li>
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="generated/exportdb/torch.mutation.html"
+       href="export/draft_export.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.mutation</p>
+        <p class="prev-next-title">Draft Export</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.compiler_dynamo_overview.html"
+       href="generated/exportdb/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Dynamo Overview</p>
+        <p class="prev-next-title">ExportDB</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -4476,20 +4474,20 @@ are allowed in a branch)</p></li>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="generated/exportdb/torch.mutation.html"
+       href="export/draft_export.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.mutation</p>
+        <p class="prev-next-title">Draft Export</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.compiler_dynamo_overview.html"
+       href="generated/exportdb/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Dynamo Overview</p>
+        <p class="prev-next-title">ExportDB</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

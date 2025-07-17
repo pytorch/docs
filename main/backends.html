@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git651b4a6 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git82a1ee1 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3172,20 +3172,11 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">torch.backends</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="export.html">torch.export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="export.programming_model.html">torch.export Programming Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="export.ir_spec.html">torch.export IR Specification</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="draft_export.html">Draft Export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="logging.html">torch._logging</a></li>
-<li class="toctree-l4"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
-</ul>
-</details></li>
-</ul>
-</details></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/programming_model.html">torch.export Programming Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/ir_spec.html">torch.export IR Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/pt2_archive.html">PT2 Archive Spec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/draft_export.html">Draft Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
@@ -3203,11 +3194,18 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.mutation.html">torch.mutation</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="logging.html">torch._logging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch._logging.set_logs.html">torch._logging.set_logs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="distributed.html">torch.distributed</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3401,9 +3399,11 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="jit.html">torch.jit</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="jit_builtin_functions.html">torch.jit.supported_ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jit_language_reference.html">TorchScript Language Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jit_language_reference_v2.html">TorchScript Language Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jit_python_reference.html">Python Language Reference Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jit_unsupported.html">TorchScript Unsupported PyTorch Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jit_builtin_functions.html">torch.jit.supported_ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.script.html">torch.jit.script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.trace.html">torch.jit.trace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.script_if_tracing.html">torch.jit.script_if_tracing</a></li>
@@ -3426,8 +3426,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.isinstance.html">torch.jit.isinstance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.Attribute.html">Attribute</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.annotate.html">torch.jit.annotate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jit_python_reference.html">Python Language Reference Coverage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jit_unsupported.html">TorchScript Unsupported PyTorch Constructs</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="linalg.html">torch.linalg</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4140,7 +4138,7 @@ document.write(`
                   
   <div class="section" id="module-torch.backends">
 <span id="torch-backends"></span><h1>torch.backends<a class="headerlink" href="#module-torch.backends" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 16, 2020 | Last Updated On: Jun 12, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Sep 16, 2020 | Last Updated On: Jul 16, 2025</p>
 <p><code class="docutils literal notranslate"><span class="pre">torch.backends</span></code> controls the behavior of various backends that PyTorch supports.</p>
 <p>These backends include:</p>
 <ul class="simple">
@@ -4161,7 +4159,7 @@ document.write(`
 <span id="torch-backends-cpu"></span><h2>torch.backends.cpu<a class="headerlink" href="#module-torch.backends.cpu" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cpu.get_cpu_capability">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cpu.</span></span><span class="sig-name descname"><span class="pre">get_cpu_capability</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cpu/__init__.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cpu.get_cpu_capability" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cpu.</span></span><span class="sig-name descname"><span class="pre">get_cpu_capability</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cpu/__init__.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cpu.get_cpu_capability" title="Permalink to this definition">#</a></dt>
 <dd><p>Return cpu capability as a string value.</p>
 <p>Possible values:
 - “DEFAULT”
@@ -4183,7 +4181,7 @@ document.write(`
 <span id="torch-backends-cuda"></span><h2>torch.backends.cuda<a class="headerlink" href="#module-torch.backends.cuda" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.is_built">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">is_built</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.is_built" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">is_built</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.is_built" title="Permalink to this definition">#</a></dt>
 <dd><p>Return whether PyTorch is built with CUDA support.</p>
 <p>Note that this doesn’t necessarily mean CUDA is available; just that if this PyTorch
 binary were run on a machine with working CUDA drivers and devices, we would be able to use it.</p>
@@ -4193,7 +4191,7 @@ binary were run on a machine with working CUDA drivers and devices, we would be 
 <dt class="sig sig-object py" id="torch.backends.cuda.matmul.allow_tf32">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.matmul.</span></span><span class="sig-name descname"><span class="pre">allow_tf32</span></span><a class="headerlink" href="#torch.backends.cuda.matmul.allow_tf32" title="Permalink to this definition">#</a></dt>
 <dd><p>A <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls whether TensorFloat-32 tensor cores may be used in matrix
-multiplications on Ampere or newer GPUs. See <a class="reference internal" href="notes/cuda.html#tf32-on-ampere"><span class="std std-ref">TensorFloat-32 (TF32) on Ampere (and later) devices</span></a>.</p>
+multiplications on Ampere or newer GPUs. allow_tf32 is going to be deprecated. See <a class="reference internal" href="notes/cuda.html#tf32-on-ampere"><span class="std std-ref">TensorFloat-32 (TF32) on Ampere (and later) devices</span></a>.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -4235,7 +4233,7 @@ Query a specific device <cite>i</cite>’s cache via <cite>torch.backends.cuda.c
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.preferred_blas_library">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">preferred_blas_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L235"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.preferred_blas_library" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">preferred_blas_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L235"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.preferred_blas_library" title="Permalink to this definition">#</a></dt>
 <dd><p>Override the library PyTorch uses for BLAS operations. Choose between cuBLAS, cuBLASLt, and CK [ROCm-only].</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4268,7 +4266,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.preferred_rocm_fa_library">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">preferred_rocm_fa_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L290"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.preferred_rocm_fa_library" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">preferred_rocm_fa_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L290"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.preferred_rocm_fa_library" title="Permalink to this definition">#</a></dt>
 <dd><p>[ROCm-only]
 Override the backend PyTorch uses in ROCm environments for Flash Attention. Choose between AOTriton and CK</p>
 <div class="admonition warning">
@@ -4298,7 +4296,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.preferred_linalg_library">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">preferred_linalg_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L164"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.preferred_linalg_library" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">preferred_linalg_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L164"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.preferred_linalg_library" title="Permalink to this definition">#</a></dt>
 <dd><p>Override the heuristic PyTorch uses to choose between cuSOLVER and MAGMA for CUDA linear algebra operations.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4353,7 +4351,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.flash_sdp_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">flash_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L335"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.flash_sdp_enabled" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">flash_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L335"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.flash_sdp_enabled" title="Permalink to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -4363,7 +4361,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.enable_mem_efficient_sdp">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_mem_efficient_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L362"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_mem_efficient_sdp" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_mem_efficient_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L362"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_mem_efficient_sdp" title="Permalink to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -4375,7 +4373,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.mem_efficient_sdp_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">mem_efficient_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L353"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.mem_efficient_sdp_enabled" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">mem_efficient_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L353"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.mem_efficient_sdp_enabled" title="Permalink to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -4385,7 +4383,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.enable_flash_sdp">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_flash_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L344"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_flash_sdp" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_flash_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L344"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_flash_sdp" title="Permalink to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -4397,7 +4395,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.math_sdp_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">math_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.math_sdp_enabled" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">math_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.math_sdp_enabled" title="Permalink to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -4407,7 +4405,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.enable_math_sdp">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_math_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L380"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_math_sdp" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_math_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L380"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_math_sdp" title="Permalink to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -4419,7 +4417,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.fp16_bf16_reduction_math_sdp_allowed">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">fp16_bf16_reduction_math_sdp_allowed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L398"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.fp16_bf16_reduction_math_sdp_allowed" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">fp16_bf16_reduction_math_sdp_allowed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L398"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.fp16_bf16_reduction_math_sdp_allowed" title="Permalink to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -4429,7 +4427,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">allow_fp16_bf16_reduction_math_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L389"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">allow_fp16_bf16_reduction_math_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L389"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp" title="Permalink to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -4441,7 +4439,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.cudnn_sdp_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">cudnn_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.cudnn_sdp_enabled" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">cudnn_sdp_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.cudnn_sdp_enabled" title="Permalink to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -4451,7 +4449,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.enable_cudnn_sdp">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_cudnn_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L489"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_cudnn_sdp" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">enable_cudnn_sdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L489"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.enable_cudnn_sdp" title="Permalink to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -4463,7 +4461,7 @@ for your application’s inputs.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.is_flash_attention_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">is_flash_attention_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L407"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.is_flash_attention_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">is_flash_attention_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L407"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.is_flash_attention_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if PyTorch was built with FlashAttention for scaled_dot_product_attention.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -4482,7 +4480,7 @@ in non-CUDA environments.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.can_use_flash_attention">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">can_use_flash_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L420"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.can_use_flash_attention" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">can_use_flash_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L420"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.can_use_flash_attention" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if FlashAttention can be utilized in scaled_dot_product_attention.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4510,7 +4508,7 @@ in non-CUDA environments.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.can_use_efficient_attention">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">can_use_efficient_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.can_use_efficient_attention" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">can_use_efficient_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.can_use_efficient_attention" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if efficient_attention can be utilized in scaled_dot_product_attention.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4538,7 +4536,7 @@ in non-CUDA environments.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.can_use_cudnn_attention">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">can_use_cudnn_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L460"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.can_use_cudnn_attention" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">can_use_cudnn_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L460"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.can_use_cudnn_attention" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if cudnn_attention can be utilized in scaled_dot_product_attention.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4566,7 +4564,7 @@ in non-CUDA environments.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cuda.sdp_kernel">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">sdp_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable_flash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_math</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_mem_efficient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_cudnn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cuda/__init__.py#L498"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.sdp_kernel" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">sdp_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable_flash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_math</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_mem_efficient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_cudnn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cuda/__init__.py#L498"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.sdp_kernel" title="Permalink to this definition">#</a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This flag is beta and subject to change.</p>
@@ -4582,13 +4580,13 @@ Upon exiting the context manager, the previous state of the flags will be restor
 <span id="torch-backends-cudnn"></span><h2>torch.backends.cudnn<a class="headerlink" href="#module-torch.backends.cudnn" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cudnn.version">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cudnn.</span></span><span class="sig-name descname"><span class="pre">version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cudnn/__init__.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cudnn.version" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cudnn.</span></span><span class="sig-name descname"><span class="pre">version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cudnn/__init__.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cudnn.version" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the version of cuDNN.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cudnn.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cudnn.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cudnn/__init__.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cudnn.is_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cudnn.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cudnn/__init__.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cudnn.is_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a bool indicating if CUDNN is currently available.</p>
 </dd></dl>
 
@@ -4602,7 +4600,7 @@ Upon exiting the context manager, the previous state of the flags will be restor
 <dt class="sig sig-object py" id="torch.backends.cudnn.allow_tf32">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cudnn.</span></span><span class="sig-name descname"><span class="pre">allow_tf32</span></span><a class="headerlink" href="#torch.backends.cudnn.allow_tf32" title="Permalink to this definition">#</a></dt>
 <dd><p>A <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls where TensorFloat-32 tensor cores may be used in cuDNN
-convolutions on Ampere or newer GPUs. See <a class="reference internal" href="notes/cuda.html#tf32-on-ampere"><span class="std std-ref">TensorFloat-32 (TF32) on Ampere (and later) devices</span></a>.</p>
+convolutions on Ampere or newer GPUs. allow_tf32 is going to be deprecated. See <a class="reference internal" href="notes/cuda.html#tf32-on-ampere"><span class="std std-ref">TensorFloat-32 (TF32) on Ampere (and later) devices</span></a>.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -4634,7 +4632,7 @@ cuDNN v8 API.</p>
 <span id="torch-backends-cusparselt"></span><h2>torch.backends.cusparselt<a class="headerlink" href="#module-torch.backends.cusparselt" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cusparselt.version">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cusparselt.</span></span><span class="sig-name descname"><span class="pre">version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cusparselt/__init__.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cusparselt.version" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cusparselt.</span></span><span class="sig-name descname"><span class="pre">version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cusparselt/__init__.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cusparselt.version" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the version of cuSPARSELt</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4645,7 +4643,7 @@ cuDNN v8 API.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.cusparselt.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.cusparselt.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/cusparselt/__init__.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cusparselt.is_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cusparselt.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/cusparselt/__init__.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cusparselt.is_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a bool indicating if cuSPARSELt is currently available.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4659,7 +4657,7 @@ cuDNN v8 API.</p>
 <span id="torch-backends-mha"></span><h2>torch.backends.mha<a class="headerlink" href="#module-torch.backends.mha" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.mha.get_fastpath_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.mha.</span></span><span class="sig-name descname"><span class="pre">get_fastpath_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/mha/__init__.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mha.get_fastpath_enabled" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.mha.</span></span><span class="sig-name descname"><span class="pre">get_fastpath_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/mha/__init__.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mha.get_fastpath_enabled" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns whether fast path for TransformerEncoder and MultiHeadAttention
 is enabled, or <code class="docutils literal notranslate"><span class="pre">True</span></code> if jit is scripting.</p>
 <div class="admonition note">
@@ -4676,7 +4674,7 @@ is enabled, or <code class="docutils literal notranslate"><span class="pre">True
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.mha.set_fastpath_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.mha.</span></span><span class="sig-name descname"><span class="pre">set_fastpath_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/mha/__init__.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mha.set_fastpath_enabled" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.mha.</span></span><span class="sig-name descname"><span class="pre">set_fastpath_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/mha/__init__.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mha.set_fastpath_enabled" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets whether fast path is enabled</p>
 <dl class="field-list simple">
 </dl>
@@ -4687,7 +4685,7 @@ is enabled, or <code class="docutils literal notranslate"><span class="pre">True
 <span id="torch-backends-mps"></span><h2>torch.backends.mps<a class="headerlink" href="#module-torch.backends.mps" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.mps.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.mps.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/mps/__init__.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mps.is_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.mps.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/mps/__init__.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mps.is_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a bool indicating if MPS is currently available.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4698,7 +4696,7 @@ is enabled, or <code class="docutils literal notranslate"><span class="pre">True
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.mps.is_built">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.mps.</span></span><span class="sig-name descname"><span class="pre">is_built</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/mps/__init__.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mps.is_built" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.mps.</span></span><span class="sig-name descname"><span class="pre">is_built</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/mps/__init__.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mps.is_built" title="Permalink to this definition">#</a></dt>
 <dd><p>Return whether PyTorch is built with MPS support.</p>
 <p>Note that this doesn’t necessarily mean MPS is available; just that
 if this PyTorch binary were run a machine with working MPS drivers
@@ -4715,13 +4713,13 @@ and devices, we would be able to use it.</p>
 <span id="torch-backends-mkl"></span><h2>torch.backends.mkl<a class="headerlink" href="#module-torch.backends.mkl" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.mkl.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.mkl.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/mkl/__init__.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkl.is_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.mkl.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/mkl/__init__.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkl.is_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Return whether PyTorch is built with MKL support.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.backends.mkl.verbose">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.backends.mkl.</span></span><span class="sig-name descname"><span class="pre">verbose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/mkl/__init__.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkl.verbose" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.backends.mkl.</span></span><span class="sig-name descname"><span class="pre">verbose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/mkl/__init__.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkl.verbose" title="Permalink to this definition">#</a></dt>
 <dd><p>On-demand oneMKL verbosing functionality.</p>
 <p>To make it easier to debug performance issues, oneMKL can dump verbose
 messages containing execution information like duration while executing
@@ -4754,12 +4752,12 @@ inference only.</p>
 <span id="torch-backends-mkldnn"></span><h2>torch.backends.mkldnn<a class="headerlink" href="#module-torch.backends.mkldnn" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.mkldnn.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.mkldnn.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/mkldnn/__init__.py#L110"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkldnn.is_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.mkldnn.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/mkldnn/__init__.py#L110"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkldnn.is_available" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.backends.mkldnn.verbose">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.backends.mkldnn.</span></span><span class="sig-name descname"><span class="pre">verbose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/mkldnn/__init__.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkldnn.verbose" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.backends.mkldnn.</span></span><span class="sig-name descname"><span class="pre">verbose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/mkldnn/__init__.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.mkldnn.verbose" title="Permalink to this definition">#</a></dt>
 <dd><p>On-demand oneDNN (former MKL-DNN) verbosing functionality.</p>
 <p>To make it easier to debug performance issues, oneDNN can dump verbose
 messages containing information like kernel size, input data size and
@@ -4793,19 +4791,19 @@ will be dumped out for the second inference only.</p>
 <span id="torch-backends-nnpack"></span><h2>torch.backends.nnpack<a class="headerlink" href="#module-torch.backends.nnpack" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.nnpack.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.nnpack.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/nnpack/__init__.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.nnpack.is_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.nnpack.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/nnpack/__init__.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.nnpack.is_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Return whether PyTorch is built with NNPACK support.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.nnpack.flags">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.nnpack.</span></span><span class="sig-name descname"><span class="pre">flags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/nnpack/__init__.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.nnpack.flags" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.nnpack.</span></span><span class="sig-name descname"><span class="pre">flags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/nnpack/__init__.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.nnpack.flags" title="Permalink to this definition">#</a></dt>
 <dd><p>Context manager for setting if nnpack is enabled globally</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.nnpack.set_flags">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.nnpack.</span></span><span class="sig-name descname"><span class="pre">set_flags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/nnpack/__init__.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.nnpack.set_flags" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.nnpack.</span></span><span class="sig-name descname"><span class="pre">set_flags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/nnpack/__init__.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.nnpack.set_flags" title="Permalink to this definition">#</a></dt>
 <dd><p>Set if nnpack is enabled globally</p>
 </dd></dl>
 
@@ -4814,7 +4812,7 @@ will be dumped out for the second inference only.</p>
 <span id="torch-backends-openmp"></span><h2>torch.backends.openmp<a class="headerlink" href="#module-torch.backends.openmp" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.openmp.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.openmp.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/openmp/__init__.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.openmp.is_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.openmp.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/openmp/__init__.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.openmp.is_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Return whether PyTorch is built with OpenMP support.</p>
 </dd></dl>
 
@@ -4823,7 +4821,7 @@ will be dumped out for the second inference only.</p>
 <span id="torch-backends-opt-einsum"></span><h2>torch.backends.opt_einsum<a class="headerlink" href="#module-torch.backends.opt_einsum" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.opt_einsum.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.opt_einsum.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/opt_einsum/__init__.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.opt_einsum.is_available" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.opt_einsum.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/opt_einsum/__init__.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.opt_einsum.is_available" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a bool indicating if opt_einsum is currently available.</p>
 <p>You must install opt-einsum in order for torch to automatically optimize einsum. To
 make opt-einsum available, you can install it along with torch: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">torch[opt-einsum]</span></code>
@@ -4839,7 +4837,7 @@ was installed and properly imported by torch.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.backends.opt_einsum.get_opt_einsum">
-<span class="sig-prename descclassname"><span class="pre">torch.backends.opt_einsum.</span></span><span class="sig-name descname"><span class="pre">get_opt_einsum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/backends/opt_einsum/__init__.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.opt_einsum.get_opt_einsum" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.backends.opt_einsum.</span></span><span class="sig-name descname"><span class="pre">get_opt_einsum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/backends/opt_einsum/__init__.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.opt_einsum.get_opt_einsum" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the opt_einsum package if opt_einsum is currently available, else None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -5305,8 +5303,8 @@ inputs as it tries all possible paths. See more details in opt_einsum’s docs
            "@id": "/backends.html"
          },
          "datePublished": "Sep 16, 2020",
-         "dateModified": "Jun 12, 2025",
-         "articleBody": "torch.backends# Created On: Sep 16, 2020 | Last Updated On: Jun 12, 2025 torch.backends controls the behavior of various backends that PyTorch supports. These backends include: torch.backends.cpu torch.backends.cuda torch.backends.cudnn torch.backends.cusparselt torch.backends.mha torch.backends.mps torch.backends.mkl torch.backends.mkldnn torch.backends.nnpack torch.backends.openmp torch.backends.opt_einsum torch.backends.xeon torch.backends.cpu# torch.backends.cpu.get_cpu_capability()[source]# Return cpu capability as a string value. Possible values: - “DEFAULT” - “VSX” - “Z VECTOR” - “NO AVX” - “AVX2” - “AVX512” - “SVE256” Return type str torch.backends.cuda# torch.backends.cuda.is_built()[source]# Return whether PyTorch is built with CUDA support. Note that this doesn’t necessarily mean CUDA is available; just that if this PyTorch binary were run on a machine with working CUDA drivers and devices, we would be able to use it. torch.backends.cuda.matmul.allow_tf32# A bool that controls whether TensorFloat-32 tensor cores may be used in matrix multiplications on Ampere or newer GPUs. See TensorFloat-32 (TF32) on Ampere (and later) devices. torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction# A bool that controls whether reduced precision reductions (e.g., with fp16 accumulation type) are allowed with fp16 GEMMs. torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction# A bool that controls whether reduced precision reductions are allowed with bf16 GEMMs. torch.backends.cuda.cufft_plan_cache# cufft_plan_cache contains the cuFFT plan caches for each CUDA device. Query a specific device i’s cache via torch.backends.cuda.cufft_plan_cache[i]. torch.backends.cuda.cufft_plan_cache.size# A readonly int that shows the number of plans currently in a cuFFT plan cache. torch.backends.cuda.cufft_plan_cache.max_size# A int that controls the capacity of a cuFFT plan cache. torch.backends.cuda.cufft_plan_cache.clear()# Clears a cuFFT plan cache. torch.backends.cuda.preferred_blas_library(backend=None)[source]# Override the library PyTorch uses for BLAS operations. Choose between cuBLAS, cuBLASLt, and CK [ROCm-only]. Warning This flag is experimental and subject to change. When PyTorch runs a CUDA BLAS operation it defaults to cuBLAS even if both cuBLAS and cuBLASLt are available. For PyTorch built for ROCm, hipBLAS, hipBLASLt, and CK may offer different performance. This flag (a str) allows overriding which BLAS library to use. If “cublas” is set then cuBLAS will be used wherever possible. If “cublaslt” is set then cuBLASLt will be used wherever possible. If “ck” is set then CK will be used wherever possible. If “default” (the default) is set then heuristics will be used to pick between the other options. When no input is given, this function returns the currently preferred library. User may use the environment variable TORCH_BLAS_PREFER_CUBLASLT=1 to set the preferred library to cuBLASLt globally. This flag only sets the initial value..."
+         "dateModified": "Jul 16, 2025",
+         "articleBody": "torch.backends# Created On: Sep 16, 2020 | Last Updated On: Jul 16, 2025 torch.backends controls the behavior of various backends that PyTorch supports. These backends include: torch.backends.cpu torch.backends.cuda torch.backends.cudnn torch.backends.cusparselt torch.backends.mha torch.backends.mps torch.backends.mkl torch.backends.mkldnn torch.backends.nnpack torch.backends.openmp torch.backends.opt_einsum torch.backends.xeon torch.backends.cpu# torch.backends.cpu.get_cpu_capability()[source]# Return cpu capability as a string value. Possible values: - “DEFAULT” - “VSX” - “Z VECTOR” - “NO AVX” - “AVX2” - “AVX512” - “SVE256” Return type str torch.backends.cuda# torch.backends.cuda.is_built()[source]# Return whether PyTorch is built with CUDA support. Note that this doesn’t necessarily mean CUDA is available; just that if this PyTorch binary were run on a machine with working CUDA drivers and devices, we would be able to use it. torch.backends.cuda.matmul.allow_tf32# A bool that controls whether TensorFloat-32 tensor cores may be used in matrix multiplications on Ampere or newer GPUs. allow_tf32 is going to be deprecated. See TensorFloat-32 (TF32) on Ampere (and later) devices. torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction# A bool that controls whether reduced precision reductions (e.g., with fp16 accumulation type) are allowed with fp16 GEMMs. torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction# A bool that controls whether reduced precision reductions are allowed with bf16 GEMMs. torch.backends.cuda.cufft_plan_cache# cufft_plan_cache contains the cuFFT plan caches for each CUDA device. Query a specific device i’s cache via torch.backends.cuda.cufft_plan_cache[i]. torch.backends.cuda.cufft_plan_cache.size# A readonly int that shows the number of plans currently in a cuFFT plan cache. torch.backends.cuda.cufft_plan_cache.max_size# A int that controls the capacity of a cuFFT plan cache. torch.backends.cuda.cufft_plan_cache.clear()# Clears a cuFFT plan cache. torch.backends.cuda.preferred_blas_library(backend=None)[source]# Override the library PyTorch uses for BLAS operations. Choose between cuBLAS, cuBLASLt, and CK [ROCm-only]. Warning This flag is experimental and subject to change. When PyTorch runs a CUDA BLAS operation it defaults to cuBLAS even if both cuBLAS and cuBLASLt are available. For PyTorch built for ROCm, hipBLAS, hipBLASLt, and CK may offer different performance. This flag (a str) allows overriding which BLAS library to use. If “cublas” is set then cuBLAS will be used wherever possible. If “cublaslt” is set then cuBLASLt will be used wherever possible. If “ck” is set then CK will be used wherever possible. If “default” (the default) is set then heuristics will be used to pick between the other options. When no input is given, this function returns the currently preferred library. User may use the environment variable TORCH_BLAS_PREFER_CUBLASLT=1 to set the preferred library to cuBLASLt globally...."
        }
    </script>
 

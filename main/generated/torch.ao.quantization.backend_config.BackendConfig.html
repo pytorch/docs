@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git651b4a6 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git82a1ee1 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3172,20 +3172,11 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../backends.html">torch.backends</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../export.html">torch.export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../export.programming_model.html">torch.export Programming Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../export.ir_spec.html">torch.export IR Specification</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../draft_export.html">Draft Export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_fake_tensor.html">Fake tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="../logging.html">torch._logging</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
-</ul>
-</details></li>
-</ul>
-</details></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../export/programming_model.html">torch.export Programming Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../export/ir_spec.html">torch.export IR Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../export/pt2_archive.html">PT2 Archive Spec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../export/draft_export.html">Draft Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
@@ -3203,11 +3194,18 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.mutation.html">torch.mutation</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../logging.html">torch._logging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="torch._logging.set_logs.html">torch._logging.set_logs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_fake_tensor.html">Fake tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../distributed.html">torch.distributed</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3401,9 +3399,11 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../jit.html">torch.jit</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../jit_builtin_functions.html">torch.jit.supported_ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../jit_language_reference.html">TorchScript Language Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../jit_language_reference_v2.html">TorchScript Language Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../jit_python_reference.html">Python Language Reference Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../jit_unsupported.html">TorchScript Unsupported PyTorch Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../jit_builtin_functions.html">torch.jit.supported_ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.jit.script.html">torch.jit.script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.jit.trace.html">torch.jit.trace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.jit.script_if_tracing.html">torch.jit.script_if_tracing</a></li>
@@ -3426,8 +3426,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.jit.isinstance.html">torch.jit.isinstance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.jit.Attribute.html">Attribute</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.jit.annotate.html">torch.jit.annotate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../jit_python_reference.html">Python Language Reference Coverage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../jit_unsupported.html">TorchScript Unsupported PyTorch Constructs</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../linalg.html">torch.linalg</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4162,7 +4160,7 @@ document.write(`
 <h1>BackendConfig<a class="headerlink" href="#backendconfig" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.backend_config.</span></span><span class="sig-name descname"><span class="pre">BackendConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/ao/quantization/backend_config/backend_config.py#L289"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.backend_config.</span></span><span class="sig-name descname"><span class="pre">BackendConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/ao/quantization/backend_config/backend_config.py#L289"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig" title="Permalink to this definition">#</a></dt>
 <dd><p>Config that defines the set of patterns that can be quantized on a given backend, and how reference
 quantized models can be produced from these patterns.</p>
 <p>A pattern in this context refers to a module, a functional, an operator, or a directed acyclic graph
@@ -4215,7 +4213,7 @@ of the above. Each pattern supported on the target backend can be individually c
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendConfig.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend_config_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/ao/quantization/backend_config/backend_config.py#L404"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.from_dict" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend_config_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/ao/quantization/backend_config/backend_config.py#L404"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.from_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a <code class="docutils literal notranslate"><span class="pre">BackendConfig</span></code> from a dictionary with the following items:</p>
 <blockquote>
 <div><p>“name”: the name of the target backend</p>
@@ -4230,7 +4228,7 @@ of the above. Each pattern supported on the target backend can be individually c
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendConfig.set_backend_pattern_config">
-<span class="sig-name descname"><span class="pre">set_backend_pattern_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/ao/quantization/backend_config/backend_config.py#L374"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.set_backend_pattern_config" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_backend_pattern_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/ao/quantization/backend_config/backend_config.py#L374"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.set_backend_pattern_config" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the config for an pattern that can be run on the target backend.
 This overrides any existing config for the given pattern.</p>
 <dl class="field-list simple">
@@ -4242,7 +4240,7 @@ This overrides any existing config for the given pattern.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendConfig.set_backend_pattern_configs">
-<span class="sig-name descname"><span class="pre">set_backend_pattern_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/ao/quantization/backend_config/backend_config.py#L386"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.set_backend_pattern_configs" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_backend_pattern_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/ao/quantization/backend_config/backend_config.py#L386"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.set_backend_pattern_configs" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the configs for patterns that can be run on the target backend.
 This overrides any existing config for a given pattern if it was previously registered already.</p>
 <dl class="field-list simple">
@@ -4254,7 +4252,7 @@ This overrides any existing config for a given pattern if it was previously regi
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendConfig.set_name">
-<span class="sig-name descname"><span class="pre">set_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/ao/quantization/backend_config/backend_config.py#L367"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.set_name" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/ao/quantization/backend_config/backend_config.py#L367"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.set_name" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the name of the target backend.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4265,7 +4263,7 @@ This overrides any existing config for a given pattern if it was previously regi
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendConfig.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/ao/quantization/backend_config/backend_config.py#L426"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.to_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/ao/quantization/backend_config/backend_config.py#L426"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendConfig.to_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert this <code class="docutils literal notranslate"><span class="pre">BackendConfig</span></code> to a dictionary with the items described in
 <a class="reference internal" href="#torch.ao.quantization.backend_config.BackendConfig.from_dict" title="torch.ao.quantization.backend_config.BackendConfig.from_dict"><code class="xref py py-func docutils literal notranslate"><span class="pre">from_dict()</span></code></a>.</p>
 <dl class="field-list simple">

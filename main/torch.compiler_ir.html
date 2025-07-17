@@ -62,8 +62,8 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/torch.compiler_ir.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ExportDB" href="generated/exportdb/index.html" />
-    <link rel="prev" title="Writing Graph Transformations on ATen IR" href="torch.compiler_transformations.html" />
+    <link rel="next" title="Dynamic Shapes" href="torch.compiler_dynamic_shapes.html" />
+    <link rel="prev" title="AOTInductor Minifier" href="torch.compiler_aot_inductor_minifier.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git651b4a6 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git82a1ee1 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3172,20 +3172,11 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="export.html">torch.export</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="export.programming_model.html">torch.export Programming Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="export.ir_spec.html">torch.export IR Specification</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="draft_export.html">Draft Export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="logging.html">torch._logging</a></li>
-<li class="toctree-l4"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
-</ul>
-</details></li>
-</ul>
-</details></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">IRs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/programming_model.html">torch.export Programming Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/ir_spec.html">torch.export IR Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/pt2_archive.html">PT2 Archive Spec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/draft_export.html">Draft Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
@@ -3203,11 +3194,18 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.mutation.html">torch.mutation</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="logging.html">torch._logging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch._logging.set_logs.html">torch._logging.set_logs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">IRs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="distributed.html">torch.distributed</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3401,9 +3399,11 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="jit.html">torch.jit</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="jit_builtin_functions.html">torch.jit.supported_ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jit_language_reference.html">TorchScript Language Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jit_language_reference_v2.html">TorchScript Language Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jit_python_reference.html">Python Language Reference Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jit_unsupported.html">TorchScript Unsupported PyTorch Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jit_builtin_functions.html">torch.jit.supported_ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.script.html">torch.jit.script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.trace.html">torch.jit.trace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.script_if_tracing.html">torch.jit.script_if_tracing</a></li>
@@ -3426,8 +3426,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.isinstance.html">torch.jit.isinstance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.Attribute.html">Attribute</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.annotate.html">torch.jit.annotate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jit_python_reference.html">Python Language Reference Coverage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jit_unsupported.html">TorchScript Unsupported PyTorch Constructs</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="linalg.html">torch.linalg</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4148,8 +4146,8 @@ document.write(`
                 <article class="bd-article">
                   
   <div class="section" id="irs">
-<h1>IRs<a class="headerlink" href="#irs" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 13, 2022 | Last Updated On: Jun 10, 2025</p>
+<span id="torch-compiler-ir"></span><h1>IRs<a class="headerlink" href="#irs" title="Permalink to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 13, 2022 | Last Updated On: Jul 16, 2025</p>
 <p>PyTorch 2.0 offers two set of IRs for backends to interface with: Core Aten IR and Prims IR.</p>
 <div class="section" id="core-aten-ir">
 <h2>Core Aten IR<a class="headerlink" href="#core-aten-ir" title="Permalink to this heading">#</a></h2>
@@ -5181,20 +5179,20 @@ This opset is designed to interface with compiler backends.</p>
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.compiler_transformations.html"
+       href="torch.compiler_aot_inductor_minifier.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Writing Graph Transformations on ATen IR</p>
+        <p class="prev-next-title">AOTInductor Minifier</p>
       </div>
     </a>
     <a class="right-next"
-       href="generated/exportdb/index.html"
+       href="torch.compiler_dynamic_shapes.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">ExportDB</p>
+        <p class="prev-next-title">Dynamic Shapes</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -5225,20 +5223,20 @@ This opset is designed to interface with compiler backends.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.compiler_transformations.html"
+       href="torch.compiler_aot_inductor_minifier.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Writing Graph Transformations on ATen IR</p>
+        <p class="prev-next-title">AOTInductor Minifier</p>
       </div>
     </a>
     <a class="right-next"
-       href="generated/exportdb/index.html"
+       href="torch.compiler_dynamic_shapes.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">ExportDB</p>
+        <p class="prev-next-title">Dynamic Shapes</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -5484,8 +5482,8 @@ This opset is designed to interface with compiler backends.</p>
            "@id": "/torch.compiler_ir.html"
          },
          "datePublished": "Dec 13, 2022",
-         "dateModified": "Jun 10, 2025",
-         "articleBody": "IRs# Created On: Dec 13, 2022 | Last Updated On: Jun 10, 2025 PyTorch 2.0 offers two set of IRs for backends to interface with: Core Aten IR and Prims IR. Core Aten IR# Core aten ops is the core subset of aten operators that can be used to compose other operators. Core aten IR is fully functional, and there is no inplace or _out variants in this opset. In contrast to Prims IR, core aten ops reuses the existing aten ops in “native_functions.yaml”, and it doesn’t further decompose ops into explicit type promotion and broadcasting ops. This opset is designed to serve as the functional IR to interface with backends. Warning This opset is still under active development, more ops will be added in the future. Operator Schema aten._adaptive_avg_pool2d _adaptive_avg_pool2d(Tensor self, SymInt[2] output_size) -&gt; Tensor aten._adaptive_avg_pool2d_backward _adaptive_avg_pool2d_backward(Tensor grad_output, Tensor self) -&gt; Tensor aten._adaptive_avg_pool3d _adaptive_avg_pool3d(Tensor self, SymInt[3] output_size) -&gt; Tensor aten._cdist_forward _cdist_forward(Tensor x1, Tensor x2, float p, int? compute_mode) -&gt; Tensor aten._embedding_bag _embedding_bag(Tensor weight, Tensor indices, Tensor offsets, bool scale_grad_by_freq=False, int mode=0, bool sparse=False, Tensor? per_sample_weights=None, bool include_last_offset=False, int padding_idx=-1) -&gt; (Tensor, Tensor, Tensor, Tensor) aten._fft_r2c _fft_r2c(Tensor self, int[] dim, int normalization, bool onesided) -&gt; Tensor aten._local_scalar_dense _local_scalar_dense(Tensor self) -&gt; Scalar aten._log_softmax _log_softmax(Tensor self, int dim, bool half_to_float) -&gt; Tensor aten._native_batch_norm_legit _native_batch_norm_legit(Tensor input, Tensor? weight, Tensor? bias, Tensor(a!) running_mean, Tensor(b!) running_var, bool training, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor) aten._native_batch_norm_legit.no_stats _native_batch_norm_legit.no_stats(Tensor input, Tensor? weight, Tensor? bias, bool training, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor) aten._native_batch_norm_legit_no_training _native_batch_norm_legit_no_training(Tensor input, Tensor? weight, Tensor? bias, Tensor running_mean, Tensor running_var, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor) aten._pdist_forward _pdist_forward(Tensor self, float p=2) -&gt; Tensor aten._softmax _softmax(Tensor self, int dim, bool half_to_float) -&gt; Tensor aten._to_copy _to_copy(Tensor self, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool non_blocking=False, MemoryFormat? memory_format=None) -&gt; Tensor aten.abs abs(Tensor self) -&gt; Tensor aten.acos acos(Tensor self) -&gt; Tensor aten.acosh acosh(Tensor self) -&gt; Tensor aten.adaptive_avg_pool1d adaptive_avg_pool1d(Tensor self, int[1] output_size) -&gt; Tensor aten.add.Scalar add.Scalar(Tensor self, Scalar other, Scalar alpha=1) -&gt; Tensor aten.add.Tensor add.Tensor(Tensor self, Tensor other, *, Scalar alpha=1) -&gt; Tensor aten.addmm addmm(Tensor self, Tensor mat1, ..."
+         "dateModified": "Jul 16, 2025",
+         "articleBody": "IRs# Created On: Dec 13, 2022 | Last Updated On: Jul 16, 2025 PyTorch 2.0 offers two set of IRs for backends to interface with: Core Aten IR and Prims IR. Core Aten IR# Core aten ops is the core subset of aten operators that can be used to compose other operators. Core aten IR is fully functional, and there is no inplace or _out variants in this opset. In contrast to Prims IR, core aten ops reuses the existing aten ops in “native_functions.yaml”, and it doesn’t further decompose ops into explicit type promotion and broadcasting ops. This opset is designed to serve as the functional IR to interface with backends. Warning This opset is still under active development, more ops will be added in the future. Operator Schema aten._adaptive_avg_pool2d _adaptive_avg_pool2d(Tensor self, SymInt[2] output_size) -&gt; Tensor aten._adaptive_avg_pool2d_backward _adaptive_avg_pool2d_backward(Tensor grad_output, Tensor self) -&gt; Tensor aten._adaptive_avg_pool3d _adaptive_avg_pool3d(Tensor self, SymInt[3] output_size) -&gt; Tensor aten._cdist_forward _cdist_forward(Tensor x1, Tensor x2, float p, int? compute_mode) -&gt; Tensor aten._embedding_bag _embedding_bag(Tensor weight, Tensor indices, Tensor offsets, bool scale_grad_by_freq=False, int mode=0, bool sparse=False, Tensor? per_sample_weights=None, bool include_last_offset=False, int padding_idx=-1) -&gt; (Tensor, Tensor, Tensor, Tensor) aten._fft_r2c _fft_r2c(Tensor self, int[] dim, int normalization, bool onesided) -&gt; Tensor aten._local_scalar_dense _local_scalar_dense(Tensor self) -&gt; Scalar aten._log_softmax _log_softmax(Tensor self, int dim, bool half_to_float) -&gt; Tensor aten._native_batch_norm_legit _native_batch_norm_legit(Tensor input, Tensor? weight, Tensor? bias, Tensor(a!) running_mean, Tensor(b!) running_var, bool training, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor) aten._native_batch_norm_legit.no_stats _native_batch_norm_legit.no_stats(Tensor input, Tensor? weight, Tensor? bias, bool training, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor) aten._native_batch_norm_legit_no_training _native_batch_norm_legit_no_training(Tensor input, Tensor? weight, Tensor? bias, Tensor running_mean, Tensor running_var, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor) aten._pdist_forward _pdist_forward(Tensor self, float p=2) -&gt; Tensor aten._softmax _softmax(Tensor self, int dim, bool half_to_float) -&gt; Tensor aten._to_copy _to_copy(Tensor self, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool non_blocking=False, MemoryFormat? memory_format=None) -&gt; Tensor aten.abs abs(Tensor self) -&gt; Tensor aten.acos acos(Tensor self) -&gt; Tensor aten.acosh acosh(Tensor self) -&gt; Tensor aten.adaptive_avg_pool1d adaptive_avg_pool1d(Tensor self, int[1] output_size) -&gt; Tensor aten.add.Scalar add.Scalar(Tensor self, Scalar other, Scalar alpha=1) -&gt; Tensor aten.add.Tensor add.Tensor(Tensor self, Tensor other, *, Scalar alpha=1) -&gt; Tensor aten.addmm addmm(Tensor self, Tensor mat1, ..."
        }
    </script>
 

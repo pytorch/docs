@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="torch._logging" href="logging.html" />
-    <link rel="prev" title="Dynamic Shapes" href="torch.compiler_dynamic_shapes.html" />
+    <link rel="prev" title="torch.mutation" href="generated/exportdb/torch.mutation.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -106,7 +106,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git651b4a6 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git82a1ee1 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3172,20 +3172,11 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="export.html">torch.export</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="export.programming_model.html">torch.export Programming Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="export.ir_spec.html">torch.export IR Specification</a></li>
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="draft_export.html">Draft Export</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
-<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="logging.html">torch._logging</a></li>
-<li class="toctree-l4"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
-</ul>
-</details></li>
-</ul>
-</details></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/programming_model.html">torch.export Programming Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/ir_spec.html">torch.export IR Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/pt2_archive.html">PT2 Archive Spec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/draft_export.html">Draft Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
@@ -3203,11 +3194,18 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.mutation.html">torch.mutation</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="logging.html">torch._logging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch._logging.set_logs.html">torch._logging.set_logs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="distributed.html">torch.distributed</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3401,9 +3399,11 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="jit.html">torch.jit</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="jit_builtin_functions.html">torch.jit.supported_ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jit_language_reference.html">TorchScript Language Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jit_language_reference_v2.html">TorchScript Language Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jit_python_reference.html">Python Language Reference Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jit_unsupported.html">TorchScript Unsupported PyTorch Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jit_builtin_functions.html">torch.jit.supported_ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.script.html">torch.jit.script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.trace.html">torch.jit.trace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.script_if_tracing.html">torch.jit.script_if_tracing</a></li>
@@ -3426,8 +3426,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.isinstance.html">torch.jit.isinstance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.Attribute.html">Attribute</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.jit.annotate.html">torch.jit.annotate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jit_python_reference.html">Python Language Reference Coverage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jit_unsupported.html">TorchScript Unsupported PyTorch Constructs</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="linalg.html">torch.linalg</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4067,8 +4065,6 @@ document.write(`
 
 
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -4081,10 +4077,7 @@ document.write(`
     <li class="breadcrumb-item"><a href="pytorch-api.html" class="nav-link">Python API</a></li>
     
     
-    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
-    
-    
-    <li class="breadcrumb-item"><a href="draft_export.html" class="nav-link">Draft Export</a></li>
+    <li class="breadcrumb-item"><a href="export.html" class="nav-link">torch.export</a></li>
     
     <li class="breadcrumb-item active" aria-current="page">AOTInductor:...</li>
   </ul>
@@ -4139,15 +4132,9 @@ document.write(`
           <meta itemprop="position" content="2">
         </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="draft_export.html">
-          <meta itemprop="name" content="Draft Export">
-          <meta itemprop="position" content="3">
-        </div>
-      
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models">
-        <meta itemprop="position" content="4">
+        <meta itemprop="position" content="3">
       </div>
    </div>
 
@@ -4159,8 +4146,8 @@ document.write(`
                 <article class="bd-article">
                   
   <div class="section" id="aotinductor-ahead-of-time-compilation-for-torch-export-ed-models">
-<h1>AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models<a class="headerlink" href="#aotinductor-ahead-of-time-compilation-for-torch-export-ed-models" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 13, 2025 | Last Updated On: Jun 18, 2025</p>
+<span id="torch-compiler-aot-inductor"></span><h1>AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models<a class="headerlink" href="#aotinductor-ahead-of-time-compilation-for-torch-export-ed-models" title="Permalink to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 13, 2025 | Last Updated On: Jul 16, 2025</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>AOTInductor and its related features are in prototype status and are
@@ -4183,7 +4170,7 @@ guarantees and a strict specification on the IR captured, which AOTInductor
 relies on.</p>
 <p>We will then use <a class="reference internal" href="#torch._inductor.aoti_compile_and_package" title="torch._inductor.aoti_compile_and_package"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch._inductor.aoti_compile_and_package()</span></code></a> to compile the
 exported program using TorchInductor, and save the compiled artifacts into one
-package.</p>
+package. The package is in the format of a <a class="reference internal" href="export/pt2_archive.html#export-pt2-archive"><span class="std std-ref">PT2 Archive Spec</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you have a CUDA-enabled device on your machine and you installed PyTorch with CUDA support,
@@ -4352,7 +4339,7 @@ Result<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._inductor.aoti_compile_and_package">
-<span class="sig-prename descclassname"><span class="pre">torch._inductor.</span></span><span class="sig-name descname"><span class="pre">aoti_compile_and_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exported_program</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_deprecated_unused_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_deprecated_unused_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inductor_configs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/_inductor/__init__.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._inductor.aoti_compile_and_package" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._inductor.</span></span><span class="sig-name descname"><span class="pre">aoti_compile_and_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exported_program</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_deprecated_unused_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_deprecated_unused_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inductor_configs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/_inductor/__init__.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._inductor.aoti_compile_and_package" title="Permalink to this definition">#</a></dt>
 <dd><p>Compiles the exported program with AOTInductor, and packages it into a .pt2
 artifact specified by the input package_path. To load the package, you can
 call <code class="docutils literal notranslate"><span class="pre">torch._inductor.aoti_load_package(package_path)</span></code>.</p>
@@ -4402,7 +4389,7 @@ the following:</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._inductor.aoti_load_package">
-<span class="sig-prename descclassname"><span class="pre">torch._inductor.</span></span><span class="sig-name descname"><span class="pre">aoti_load_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_single_threaded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/651b4a68f2a60d55d266e40776709247ef347d68/torch/_inductor/__init__.py#L239"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._inductor.aoti_load_package" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._inductor.</span></span><span class="sig-name descname"><span class="pre">aoti_load_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_single_threaded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/_inductor/__init__.py#L239"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._inductor.aoti_load_package" title="Permalink to this definition">#</a></dt>
 <dd><p>Loads the model from the PT2 package.</p>
 <p>If multiple models were packaged into the PT2, this will load the default
 model. To load a specific model, you can directly call the load API</p>
@@ -4477,12 +4464,12 @@ load the package to <cite>cuda:1</cite>, for example.</p></li>
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.compiler_dynamic_shapes.html"
+       href="generated/exportdb/torch.mutation.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Dynamic Shapes</p>
+        <p class="prev-next-title">torch.mutation</p>
       </div>
     </a>
     <a class="right-next"
@@ -4521,12 +4508,12 @@ load the package to <cite>cuda:1</cite>, for example.</p></li>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.compiler_dynamic_shapes.html"
+       href="generated/exportdb/torch.mutation.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Dynamic Shapes</p>
+        <p class="prev-next-title">torch.mutation</p>
       </div>
     </a>
     <a class="right-next"
@@ -4787,8 +4774,8 @@ load the package to <cite>cuda:1</cite>, for example.</p></li>
            "@id": "/torch.compiler_aot_inductor.html"
          },
          "datePublished": "Jun 13, 2025",
-         "dateModified": "Jun 18, 2025",
-         "articleBody": "AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models# Created On: Jun 13, 2025 | Last Updated On: Jun 18, 2025 Warning AOTInductor and its related features are in prototype status and are subject to backwards compatibility breaking changes. AOTInductor is a specialized version of TorchInductor, designed to process exported PyTorch models, optimize them, and produce shared libraries as well as other relevant artifacts. These compiled artifacts are specifically crafted for deployment in non-Python environments, which are frequently employed for inference deployments on the server side. In this tutorial, you will gain insight into the process of taking a PyTorch model, exporting it, compiling it into an artifact, and conducting model predictions using C++. Model Compilation# To compile a model using AOTInductor, we first need to use torch.export.export() to capture a given PyTorch model into a computational graph. torch.export provides soundness guarantees and a strict specification on the IR captured, which AOTInductor relies on. We will then use torch._inductor.aoti_compile_and_package() to compile the exported program using TorchInductor, and save the compiled artifacts into one package. Note If you have a CUDA-enabled device on your machine and you installed PyTorch with CUDA support, the following code will compile the model into a shared library for CUDA execution. Otherwise, the compiled artifact will run on CPU. For better performance during CPU inference, it is suggested to enable freezing by setting export TORCHINDUCTOR_FREEZING=1 before running the Python script below. The same behavior works in an environment with Intel® GPU as well. import os import torch class Model(torch.nn.Module): def __init__(self): super().__init__() self.fc1 = torch.nn.Linear(10, 16) self.relu = torch.nn.ReLU() self.fc2 = torch.nn.Linear(16, 1) self.sigmoid = torch.nn.Sigmoid() def forward(self, x): x = self.fc1(x) x = self.relu(x) x = self.fc2(x) x = self.sigmoid(x) return x with torch.no_grad(): device = &#34;cuda&#34; if torch.cuda.is_available() else &#34;cpu&#34; model = Model().to(device=device) example_inputs=(torch.randn(8, 10, device=device),) batch_dim = torch.export.Dim(&#34;batch&#34;, min=1, max=1024) # [Optional] Specify the first dimension of the input x as dynamic. exported = torch.export.export(model, example_inputs, dynamic_shapes={&#34;x&#34;: {0: batch_dim}}) # [Note] In this example we directly feed the exported module to aoti_compile_and_package. # Depending on your use case, e.g. if your training platform and inference platform # are different, you may choose to save the exported model using torch.export.save and # then load it back using torch.export.load on your inference platform to run AOT compilation. output_path = torch._inductor.aoti_compile_and_package( exported, # [Optional] Specify the generated shared library path. If not specified, # the generated artifact is stored in your system temp directory. package_path=os.path.join(os.getcwd(), &#34;model.pt..."
+         "dateModified": "Jul 16, 2025",
+         "articleBody": "AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models# Created On: Jun 13, 2025 | Last Updated On: Jul 16, 2025 Warning AOTInductor and its related features are in prototype status and are subject to backwards compatibility breaking changes. AOTInductor is a specialized version of TorchInductor, designed to process exported PyTorch models, optimize them, and produce shared libraries as well as other relevant artifacts. These compiled artifacts are specifically crafted for deployment in non-Python environments, which are frequently employed for inference deployments on the server side. In this tutorial, you will gain insight into the process of taking a PyTorch model, exporting it, compiling it into an artifact, and conducting model predictions using C++. Model Compilation# To compile a model using AOTInductor, we first need to use torch.export.export() to capture a given PyTorch model into a computational graph. torch.export provides soundness guarantees and a strict specification on the IR captured, which AOTInductor relies on. We will then use torch._inductor.aoti_compile_and_package() to compile the exported program using TorchInductor, and save the compiled artifacts into one package. The package is in the format of a PT2 Archive Spec. Note If you have a CUDA-enabled device on your machine and you installed PyTorch with CUDA support, the following code will compile the model into a shared library for CUDA execution. Otherwise, the compiled artifact will run on CPU. For better performance during CPU inference, it is suggested to enable freezing by setting export TORCHINDUCTOR_FREEZING=1 before running the Python script below. The same behavior works in an environment with Intel® GPU as well. import os import torch class Model(torch.nn.Module): def __init__(self): super().__init__() self.fc1 = torch.nn.Linear(10, 16) self.relu = torch.nn.ReLU() self.fc2 = torch.nn.Linear(16, 1) self.sigmoid = torch.nn.Sigmoid() def forward(self, x): x = self.fc1(x) x = self.relu(x) x = self.fc2(x) x = self.sigmoid(x) return x with torch.no_grad(): device = &#34;cuda&#34; if torch.cuda.is_available() else &#34;cpu&#34; model = Model().to(device=device) example_inputs=(torch.randn(8, 10, device=device),) batch_dim = torch.export.Dim(&#34;batch&#34;, min=1, max=1024) # [Optional] Specify the first dimension of the input x as dynamic. exported = torch.export.export(model, example_inputs, dynamic_shapes={&#34;x&#34;: {0: batch_dim}}) # [Note] In this example we directly feed the exported module to aoti_compile_and_package. # Depending on your use case, e.g. if your training platform and inference platform # are different, you may choose to save the exported model using torch.export.save and # then load it back using torch.export.load on your inference platform to run AOT compilation. output_path = torch._inductor.aoti_compile_and_package( exported, # [Optional] Specify the generated shared library path. If not specified, # the generated artifact is stored in your system temp directo..."
        }
    </script>
 
