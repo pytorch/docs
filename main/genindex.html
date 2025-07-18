@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
@@ -112,7 +113,7 @@ window.addEventListener("load", () => mermaid.run());
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git82a1ee1 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7b72e5b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -699,292 +700,267 @@ document.write(`
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Define the search callback
-    const myWebSearchStartingCallback = (gname, query) => {
-      if (typeof dataLayer !== 'undefined' && query) {
-        window.dataLayer = window.dataLayer || [];
-        dataLayer.push({
-          'event': 'google_search',
-          'search_term': query,
-          'event_category': 'Search',
-          'event_label': 'Google Search'
-        });
-        console.log('GA event sent via callback: google_search - ' + query);
-      }
-      return '';
-    };
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
 
-    // Set up the GCSE search callbacks
-    window.__gcse || (window.__gcse = {});
-    window.__gcse.searchCallbacks = {
-      web: {
-        starting: myWebSearchStartingCallback,
-      },
-    };
-    if (window.location.pathname.includes('/search.html')) {
-      document.body.classList.add('search-page');
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
     }
 
-    // Function to reinitialize Google CSE
-    function reinitializeGoogleSearch() {
-      if (window.__gcse) {
-        // Force Google CSE to reinitialize
-        if (window.__gcse.initializationCallback) {
-          window.__gcse.initializationCallback();
-        }
-      }
-    }
+    // Update tooltip
+    updateTooltip(toggle.checked);
 
-    // Function to handle search toggle
-    function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
-      if (!toggle || !sphinxSearch || !googleSearch) return;
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
 
-      // Check if the URL contains /stable/ or /tutorials/
-      const currentUrl = window.location.href;
-      const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
-
-      // Check if there's a saved preference, otherwise use the URL-based default
-      const savedPreference = localStorage.getItem('searchPreference');
-      if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
-        toggle.checked = true;
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
         sphinxSearch.style.display = 'none';
         googleSearch.style.display = 'block';
-        // Save the preference if it wasn't already saved
-        if (savedPreference === null) {
-          localStorage.setItem('searchPreference', 'google');
-        }
-        // Ensure Google search is properly initialized
+        localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
       } else {
-        toggle.checked = false;
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
       }
 
-      // Update tooltip based on initial state
-      const tooltipElement = document.querySelector('.search-toggle-container');
-      if (tooltipElement) {
-        tooltipElement.setAttribute('data-bs-title', toggle.checked ? 'Google Search On' : 'Google Search Off');
-        // Reinitialize tooltip if Bootstrap's tooltip is already initialized
-        if (bootstrap && bootstrap.Tooltip) {
-          const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-          if (tooltipInstance) tooltipInstance.dispose();
-          new bootstrap.Tooltip(tooltipElement);
-        }
-      }
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
 
-      // Add a data attribute to track if this toggle has been initialized
-      if (toggle.hasAttribute('data-initialized')) {
-        return; // Skip adding another event listener if already initialized
-      }
-      toggle.setAttribute('data-initialized', 'true');
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
 
-      toggle.addEventListener('change', function() {
-        if (this.checked) {
-          sphinxSearch.style.display = 'none';
-          googleSearch.style.display = 'block';
-          localStorage.setItem('searchPreference', 'google');
-          // Reinitialize Google search when switching to it
-          reinitializeGoogleSearch();
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search On');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Google'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Google');
-          } else {
-            console.log('GA not available: Cannot track Google search switch');
-          }
-        } else {
-          sphinxSearch.style.display = 'block';
-          googleSearch.style.display = 'none';
-          localStorage.setItem('searchPreference', 'sphinx');
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search Off');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Sphinx'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Sphinx');
-          } else {
-            console.log('GA not available: Cannot track Sphinx search switch');
-          }
-        }
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
 
-        // Also update mobile search if it exists
-        updateMobileSearch(false); // Pass false to prevent triggering another event
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
       });
     }
+  }
 
-
-    // Function to update mobile search based on current toggle state
-    function updateMobileSearch() {
-      const toggle = document.getElementById('search-toggle');
-      if (!toggle) return;
-
-      // Find mobile search container
-      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-      if (mobileSearchContainer) {
-        const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
-        const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
-
-        if (mobileSphinxSearch && mobileGoogleSearch) {
-          if (toggle.checked) {
-            mobileSphinxSearch.style.display = 'none';
-            mobileGoogleSearch.style.display = 'block';
-            // Reinitialize Google search in mobile view
-            reinitializeGoogleSearch();
-          } else {
-            mobileSphinxSearch.style.display = 'block';
-            mobileGoogleSearch.style.display = 'none';
-          }
-        }
-      }
-    }
-
-    // Initialize desktop search toggle
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
     const toggle = document.getElementById('search-toggle');
-    const sphinxSearch = document.getElementById('sphinx-search');
-    const googleSearch = document.getElementById('google-search');
-    handleSearchToggle(toggle, sphinxSearch, googleSearch);
+    if (!toggle) return;
 
-    // Set placeholder text for Google search input
-    const observer = new MutationObserver(function(mutations, obs) {
-      const searchInputs = document.querySelectorAll('.gsc-input input');
-      searchInputs.forEach(input => {
-      if (input) {
-        input.setAttribute('placeholder', 'Search the docs ...');
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
 
-        if (!input.hasAttribute('data-tracking-added')) {
-          input.setAttribute('data-tracking-added', 'true');
-        }
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
       }
-      });
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
     });
 
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Prevent scroll jump when focusing and typing in search inputs
-    function setupSearchInputHandlers(input) {
-      if (input.hasAttribute('data-scroll-fixed')) return;
-      input.setAttribute('data-scroll-fixed', 'true');
-
-      // Create a fixed position for this input
-      let fixedScrollPos = null;
-
-      // Capture scroll position on focus
-      input.addEventListener('focus', function() {
-        fixedScrollPos = window.scrollY;
-      });
-
-      // Prevent scroll jumps during typing
-      ['input', 'keydown', 'keyup'].forEach(eventType => {
-        input.addEventListener(eventType, function(e) {
-          if (fixedScrollPos !== null) {
-            requestAnimationFrame(() => {
-              window.scrollTo(0, fixedScrollPos);
-            });
-          }
-        });
-      });
-
-      // Release fixed position on blur
-      input.addEventListener('blur', function() {
-        fixedScrollPos = null;
-      });
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
     }
 
-    // Apply to all search inputs
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
-
-    // Observer for dynamically added search inputs
-    const searchObserver = new MutationObserver(function() {
-      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
     });
 
-    searchObserver.observe(document.body, { childList: true, subtree: true });
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
 
-    // Watch for mobile menu creation
-    const mobileMenuObserver = new MutationObserver(function(mutations) {
-      for (const mutation of mutations) {
-        const mobileSearchInputs = document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input');
-      mobileSearchInputs.forEach(input => {
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
         if (input) {
           input.setAttribute('placeholder', 'Search the docs ...');
           input.style.paddingLeft = '36px';
-          }
-        });
-        if (mutation.addedNodes.length) {
-          // Check if the mobile search container was added
-          const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-          if (mobileSearchContainer) {
-            // Clone the toggle for mobile if needed
-            const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
-            if (mobileToggle) {
-              // Sync mobile toggle with desktop toggle
-              mobileToggle.checked = toggle.checked;
+        }
+      });
 
-              // Update mobile search display
-              updateMobileSearch();
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
 
-              // Add event listener to mobile toggle
-              mobileToggle.addEventListener('change', function() {
-                // Sync desktop toggle with mobile toggle
-                toggle.checked = this.checked;
-                // Trigger change event on desktop toggle to update both
-                toggle.dispatchEvent(new Event('change'));
-              });
-            }
-          }
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
         }
       }
-    });
-
-    mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
-
-    // Ensure Google CSE is properly loaded
-    if (window.__gcse) {
-      window.__gcse.callback = function() {
-        // This will run after Google CSE is fully loaded
-        if (toggle && toggle.checked) {
-          // If Google search is active, make sure it's properly initialized
-          reinitializeGoogleSearch();
-        }
-      };
-    } else {
-      // If Google CSE hasn't loaded yet, set up a callback
-      window.__gcse = {
-        callback: function() {
-          if (toggle && toggle.checked) {
-            reinitializeGoogleSearch();
-          }
-        }
-      };
     }
   });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
 </script>
 </div>
       
@@ -1171,292 +1147,267 @@ document.write(`
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Define the search callback
-    const myWebSearchStartingCallback = (gname, query) => {
-      if (typeof dataLayer !== 'undefined' && query) {
-        window.dataLayer = window.dataLayer || [];
-        dataLayer.push({
-          'event': 'google_search',
-          'search_term': query,
-          'event_category': 'Search',
-          'event_label': 'Google Search'
-        });
-        console.log('GA event sent via callback: google_search - ' + query);
-      }
-      return '';
-    };
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
 
-    // Set up the GCSE search callbacks
-    window.__gcse || (window.__gcse = {});
-    window.__gcse.searchCallbacks = {
-      web: {
-        starting: myWebSearchStartingCallback,
-      },
-    };
-    if (window.location.pathname.includes('/search.html')) {
-      document.body.classList.add('search-page');
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
     }
 
-    // Function to reinitialize Google CSE
-    function reinitializeGoogleSearch() {
-      if (window.__gcse) {
-        // Force Google CSE to reinitialize
-        if (window.__gcse.initializationCallback) {
-          window.__gcse.initializationCallback();
-        }
-      }
-    }
+    // Update tooltip
+    updateTooltip(toggle.checked);
 
-    // Function to handle search toggle
-    function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
-      if (!toggle || !sphinxSearch || !googleSearch) return;
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
 
-      // Check if the URL contains /stable/ or /tutorials/
-      const currentUrl = window.location.href;
-      const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
-
-      // Check if there's a saved preference, otherwise use the URL-based default
-      const savedPreference = localStorage.getItem('searchPreference');
-      if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
-        toggle.checked = true;
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
         sphinxSearch.style.display = 'none';
         googleSearch.style.display = 'block';
-        // Save the preference if it wasn't already saved
-        if (savedPreference === null) {
-          localStorage.setItem('searchPreference', 'google');
-        }
-        // Ensure Google search is properly initialized
+        localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
       } else {
-        toggle.checked = false;
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
       }
 
-      // Update tooltip based on initial state
-      const tooltipElement = document.querySelector('.search-toggle-container');
-      if (tooltipElement) {
-        tooltipElement.setAttribute('data-bs-title', toggle.checked ? 'Google Search On' : 'Google Search Off');
-        // Reinitialize tooltip if Bootstrap's tooltip is already initialized
-        if (bootstrap && bootstrap.Tooltip) {
-          const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-          if (tooltipInstance) tooltipInstance.dispose();
-          new bootstrap.Tooltip(tooltipElement);
-        }
-      }
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
 
-      // Add a data attribute to track if this toggle has been initialized
-      if (toggle.hasAttribute('data-initialized')) {
-        return; // Skip adding another event listener if already initialized
-      }
-      toggle.setAttribute('data-initialized', 'true');
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
 
-      toggle.addEventListener('change', function() {
-        if (this.checked) {
-          sphinxSearch.style.display = 'none';
-          googleSearch.style.display = 'block';
-          localStorage.setItem('searchPreference', 'google');
-          // Reinitialize Google search when switching to it
-          reinitializeGoogleSearch();
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search On');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Google'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Google');
-          } else {
-            console.log('GA not available: Cannot track Google search switch');
-          }
-        } else {
-          sphinxSearch.style.display = 'block';
-          googleSearch.style.display = 'none';
-          localStorage.setItem('searchPreference', 'sphinx');
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search Off');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Sphinx'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Sphinx');
-          } else {
-            console.log('GA not available: Cannot track Sphinx search switch');
-          }
-        }
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
 
-        // Also update mobile search if it exists
-        updateMobileSearch(false); // Pass false to prevent triggering another event
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
       });
     }
+  }
 
-
-    // Function to update mobile search based on current toggle state
-    function updateMobileSearch() {
-      const toggle = document.getElementById('search-toggle');
-      if (!toggle) return;
-
-      // Find mobile search container
-      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-      if (mobileSearchContainer) {
-        const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
-        const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
-
-        if (mobileSphinxSearch && mobileGoogleSearch) {
-          if (toggle.checked) {
-            mobileSphinxSearch.style.display = 'none';
-            mobileGoogleSearch.style.display = 'block';
-            // Reinitialize Google search in mobile view
-            reinitializeGoogleSearch();
-          } else {
-            mobileSphinxSearch.style.display = 'block';
-            mobileGoogleSearch.style.display = 'none';
-          }
-        }
-      }
-    }
-
-    // Initialize desktop search toggle
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
     const toggle = document.getElementById('search-toggle');
-    const sphinxSearch = document.getElementById('sphinx-search');
-    const googleSearch = document.getElementById('google-search');
-    handleSearchToggle(toggle, sphinxSearch, googleSearch);
+    if (!toggle) return;
 
-    // Set placeholder text for Google search input
-    const observer = new MutationObserver(function(mutations, obs) {
-      const searchInputs = document.querySelectorAll('.gsc-input input');
-      searchInputs.forEach(input => {
-      if (input) {
-        input.setAttribute('placeholder', 'Search the docs ...');
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
 
-        if (!input.hasAttribute('data-tracking-added')) {
-          input.setAttribute('data-tracking-added', 'true');
-        }
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
       }
-      });
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
     });
 
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Prevent scroll jump when focusing and typing in search inputs
-    function setupSearchInputHandlers(input) {
-      if (input.hasAttribute('data-scroll-fixed')) return;
-      input.setAttribute('data-scroll-fixed', 'true');
-
-      // Create a fixed position for this input
-      let fixedScrollPos = null;
-
-      // Capture scroll position on focus
-      input.addEventListener('focus', function() {
-        fixedScrollPos = window.scrollY;
-      });
-
-      // Prevent scroll jumps during typing
-      ['input', 'keydown', 'keyup'].forEach(eventType => {
-        input.addEventListener(eventType, function(e) {
-          if (fixedScrollPos !== null) {
-            requestAnimationFrame(() => {
-              window.scrollTo(0, fixedScrollPos);
-            });
-          }
-        });
-      });
-
-      // Release fixed position on blur
-      input.addEventListener('blur', function() {
-        fixedScrollPos = null;
-      });
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
     }
 
-    // Apply to all search inputs
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
-
-    // Observer for dynamically added search inputs
-    const searchObserver = new MutationObserver(function() {
-      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
     });
 
-    searchObserver.observe(document.body, { childList: true, subtree: true });
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
 
-    // Watch for mobile menu creation
-    const mobileMenuObserver = new MutationObserver(function(mutations) {
-      for (const mutation of mutations) {
-        const mobileSearchInputs = document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input');
-      mobileSearchInputs.forEach(input => {
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
         if (input) {
           input.setAttribute('placeholder', 'Search the docs ...');
           input.style.paddingLeft = '36px';
-          }
-        });
-        if (mutation.addedNodes.length) {
-          // Check if the mobile search container was added
-          const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-          if (mobileSearchContainer) {
-            // Clone the toggle for mobile if needed
-            const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
-            if (mobileToggle) {
-              // Sync mobile toggle with desktop toggle
-              mobileToggle.checked = toggle.checked;
+        }
+      });
 
-              // Update mobile search display
-              updateMobileSearch();
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
 
-              // Add event listener to mobile toggle
-              mobileToggle.addEventListener('change', function() {
-                // Sync desktop toggle with mobile toggle
-                toggle.checked = this.checked;
-                // Trigger change event on desktop toggle to update both
-                toggle.dispatchEvent(new Event('change'));
-              });
-            }
-          }
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
         }
       }
-    });
-
-    mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
-
-    // Ensure Google CSE is properly loaded
-    if (window.__gcse) {
-      window.__gcse.callback = function() {
-        // This will run after Google CSE is fully loaded
-        if (toggle && toggle.checked) {
-          // If Google search is active, make sure it's properly initialized
-          reinitializeGoogleSearch();
-        }
-      };
-    } else {
-      // If Google CSE hasn't loaded yet, set up a callback
-      window.__gcse = {
-        callback: function() {
-          if (toggle && toggle.checked) {
-            reinitializeGoogleSearch();
-          }
-        }
-      };
     }
   });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
 </script>
 </div>
         
@@ -1838,7 +1789,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.optim.AdamW.html#torch.optim.AdamW">AdamW (class in torch.optim)</a>
 </li>
-      <li><a href="export.html#torch.export.unflatten.FlatArgsAdapter.adapt">adapt() (torch.export.unflatten.FlatArgsAdapter method)</a>
+      <li><a href="export/api_reference.html#torch.export.unflatten.FlatArgsAdapter.adapt">adapt() (torch.export.unflatten.FlatArgsAdapter method)</a>
 </li>
       <li><a href="benchmark_utils.html#torch.utils.benchmark.Timer.adaptive_autorange">adaptive_autorange() (torch.utils.benchmark.Timer method)</a>
 </li>
@@ -1879,7 +1830,7 @@ document.write(`
 </li>
         <li><a href="distributed.html#torch.distributed.Store.add">(torch.distributed.Store method)</a>
 </li>
-        <li><a href="export.html#torch.export.dynamic_shapes.AdditionalInputs.add">(torch.export.dynamic_shapes.AdditionalInputs method)</a>
+        <li><a href="export/api_reference.html#torch.export.dynamic_shapes.AdditionalInputs.add">(torch.export.dynamic_shapes.AdditionalInputs method)</a>
 </li>
         <li><a href="generated/torch.fx.experimental.symbolic_shapes.DimConstraints.html#torch.fx.experimental.symbolic_shapes.DimConstraints.add">(torch.fx.experimental.symbolic_shapes.DimConstraints method)</a>
 </li>
@@ -2008,7 +1959,7 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.Tensor.addcmul_.html#torch.Tensor.addcmul_">addcmul_() (torch.Tensor method)</a>
 </li>
-      <li><a href="export.html#torch.export.dynamic_shapes.AdditionalInputs">AdditionalInputs (class in torch.export.dynamic_shapes)</a>
+      <li><a href="export/api_reference.html#torch.export.dynamic_shapes.AdditionalInputs">AdditionalInputs (class in torch.export.dynamic_shapes)</a>
 </li>
       <li><a href="generated/torch.addmm.html#torch.addmm">addmm() (in module torch)</a>
 
@@ -2286,10 +2237,10 @@ document.write(`
 </li>
       <li><a href="generated/torch.are_deterministic_algorithms_enabled.html#torch.are_deterministic_algorithms_enabled">are_deterministic_algorithms_enabled() (in module torch)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.InputSpec.arg">arg (torch.export.graph_signature.InputSpec attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.InputSpec.arg">arg (torch.export.graph_signature.InputSpec attribute)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.graph_signature.OutputSpec.arg">(torch.export.graph_signature.OutputSpec attribute)</a>
+        <li><a href="export/api_reference.html#torch.export.graph_signature.OutputSpec.arg">(torch.export.graph_signature.OutputSpec attribute)</a>
 </li>
       </ul></li>
       <li><a href="distributions.html#torch.distributions.bernoulli.Bernoulli.arg_constraints">arg_constraints (torch.distributions.bernoulli.Bernoulli attribute)</a>
@@ -2452,7 +2403,7 @@ document.write(`
 </li>
       <li><a href="testing.html#torch.testing.assert_close">assert_close() (in module torch.testing)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.assertion_dep_token">assertion_dep_token (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.assertion_dep_token">assertion_dep_token (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
       <li><a href="generated/torch.compiler.assume_constant_result.html#torch.compiler.assume_constant_result">assume_constant_result() (in module torch.compiler)</a>
 </li>
@@ -2562,7 +2513,7 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.function.NestedIOFunction.backward_extended">backward_extended() (torch.autograd.function.NestedIOFunction method)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.backward_signature">backward_signature (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.backward_signature">backward_signature (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
       <li><a href="generated/torch.autograd.function.BackwardCFunction.html#torch.autograd.function.BackwardCFunction">BackwardCFunction (class in torch.autograd.function)</a>
 </li>
@@ -2836,15 +2787,15 @@ document.write(`
 </li>
       <li><a href="generated/torch.nn.parameter.Buffer.html#torch.nn.parameter.Buffer">Buffer (class in torch.nn.parameter)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.InputKind.BUFFER">BUFFER (torch.export.graph_signature.InputKind attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.InputKind.BUFFER">BUFFER (torch.export.graph_signature.InputKind attribute)</a>
 </li>
       <li><a href="ddp_comm_hooks.html#torch.distributed.GradBucket.buffer">buffer() (in module torch.distributed.GradBucket)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.OutputKind.BUFFER_MUTATION">BUFFER_MUTATION (torch.export.graph_signature.OutputKind attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.OutputKind.BUFFER_MUTATION">BUFFER_MUTATION (torch.export.graph_signature.OutputKind attribute)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.buffers">buffers (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.buffers">buffers (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
-      <li><a href="export.html#torch.export.ExportedProgram.buffers">buffers() (torch.export.ExportedProgram method)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.buffers">buffers() (torch.export.ExportedProgram method)</a>
 
       <ul>
         <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.buffers">(torch.jit.ScriptModule method)</a>
@@ -2854,7 +2805,7 @@ document.write(`
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.buffers">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.buffers_to_mutate">buffers_to_mutate (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.buffers_to_mutate">buffers_to_mutate (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
       <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.api.RendezvousStoreInfo.build">build() (torch.distributed.elastic.rendezvous.api.RendezvousStoreInfo static method)</a>
 </li>
@@ -2930,7 +2881,7 @@ document.write(`
         <li><a href="fx.html#torch.fx.Transformer.call_module">(torch.fx.Transformer method)</a>
 </li>
       </ul></li>
-      <li><a href="export.html#torch.export.ExportedProgram.call_spec">call_spec (torch.export.ExportedProgram property)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.call_spec">call_spec (torch.export.ExportedProgram property)</a>
 </li>
       <li><a href="benchmark_utils.html#torch.utils.benchmark.CallgrindStats">CallgrindStats (class in torch.utils.benchmark)</a>
 </li>
@@ -3138,7 +3089,7 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.Tensor.clamp_.html#torch.Tensor.clamp_">clamp_() (torch.Tensor method)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.CustomObjArgument.class_fqn">class_fqn (torch.export.graph_signature.CustomObjArgument attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.CustomObjArgument.class_fqn">class_fqn (torch.export.graph_signature.CustomObjArgument attribute)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.cleanup">cleanup() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
@@ -3388,9 +3339,9 @@ document.write(`
 </li>
       <li><a href="nn.init.html#torch.nn.init.constant_">constant_() (in module torch.nn.init)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.InputKind.CONSTANT_TENSOR">CONSTANT_TENSOR (torch.export.graph_signature.InputKind attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.InputKind.CONSTANT_TENSOR">CONSTANT_TENSOR (torch.export.graph_signature.InputKind attribute)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ConstantArgument">ConstantArgument (class in torch.export.graph_signature)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ConstantArgument">ConstantArgument (class in torch.export.graph_signature)</a>
 </li>
       <li><a href="generated/torch.optim.lr_scheduler.ConstantLR.html#torch.optim.lr_scheduler.ConstantLR">ConstantLR (class in torch.optim.lr_scheduler)</a>
 </li>
@@ -3400,7 +3351,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.nn.ConstantPad3d.html#torch.nn.ConstantPad3d">ConstantPad3d (class in torch.nn)</a>
 </li>
-      <li><a href="export.html#torch.export.ExportedProgram.constants">constants (torch.export.ExportedProgram property)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.constants">constants (torch.export.ExportedProgram property)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.constrain_range.html#torch.fx.experimental.symbolic_shapes.constrain_range">constrain_range() (in module torch.fx.experimental.symbolic_shapes)</a>
 </li>
@@ -3553,7 +3504,7 @@ document.write(`
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.copy">copy() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.decomp_utils.CustomDecompTable.copy">(torch.export.decomp_utils.CustomDecompTable method)</a>
+        <li><a href="export/api_reference.html#torch.export.decomp_utils.CustomDecompTable.copy">(torch.export.decomp_utils.CustomDecompTable method)</a>
 </li>
         <li><a href="generated/torch.nn.ParameterDict.html#torch.nn.ParameterDict.copy">(torch.nn.ParameterDict method)</a>
 </li>
@@ -3866,15 +3817,15 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.ao.quantization.CUSTOM_KEY.html#torch.ao.quantization.CUSTOM_KEY">CUSTOM_KEY (in module torch.ao.quantization)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.InputKind.CUSTOM_OBJ">CUSTOM_OBJ (torch.export.graph_signature.InputKind attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.InputKind.CUSTOM_OBJ">CUSTOM_OBJ (torch.export.graph_signature.InputKind attribute)</a>
 </li>
       <li><a href="library.html#torch.library.custom_op">custom_op() (in module torch.library)</a>
 </li>
-      <li><a href="export.html#torch.export.decomp_utils.CustomDecompTable">CustomDecompTable (class in torch.export.decomp_utils)</a>
+      <li><a href="export/api_reference.html#torch.export.decomp_utils.CustomDecompTable">CustomDecompTable (class in torch.export.decomp_utils)</a>
 </li>
       <li><a href="generated/torch.nn.utils.prune.CustomFromMask.html#torch.nn.utils.prune.CustomFromMask">CustomFromMask (class in torch.nn.utils.prune)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.CustomObjArgument">CustomObjArgument (class in torch.export.graph_signature)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.CustomObjArgument">CustomObjArgument (class in torch.export.graph_signature)</a>
 </li>
       <li><a href="library.html#torch._library.custom_ops.CustomOpDef">CustomOpDef (class in torch._library.custom_ops)</a>
 </li>
@@ -3926,7 +3877,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.ao.quantization.qconfig.default_debug_qconfig.html#torch.ao.quantization.qconfig.default_debug_qconfig">default_debug_qconfig (in module torch.ao.quantization.qconfig)</a>
 </li>
-      <li><a href="export.html#torch.export.exported_program.default_decompositions">default_decompositions() (in module torch.export.exported_program)</a>
+      <li><a href="export/api_reference.html#torch.export.exported_program.default_decompositions">default_decompositions() (in module torch.export.exported_program)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.qconfig.default_dynamic_qconfig.html#torch.ao.quantization.qconfig.default_dynamic_qconfig">default_dynamic_qconfig (in module torch.ao.quantization.qconfig)</a>
 </li>
@@ -4140,7 +4091,7 @@ document.write(`
         <li><a href="generated/torch.Tensor.diagonal_scatter.html#torch.Tensor.diagonal_scatter">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="export.html#torch.export.ExportedProgram.dialect">dialect (torch.export.ExportedProgram property)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.dialect">dialect (torch.export.ExportedProgram property)</a>
 </li>
       <li><a href="generated/torch.diff.html#torch.diff">diff() (in module torch)</a>
 
@@ -4158,7 +4109,7 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.Tensor.digamma_.html#torch.Tensor.digamma_">digamma_() (torch.Tensor method)</a>
 </li>
-      <li><a href="export.html#torch.export.dynamic_shapes.Dim">Dim (class in torch.export.dynamic_shapes)</a>
+      <li><a href="export/api_reference.html#torch.export.dynamic_shapes.Dim">Dim (class in torch.export.dynamic_shapes)</a>
 </li>
       <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.Shard.dim">dim (torch.distributed.tensor.placement_types.Shard attribute)</a>
 </li>
@@ -4258,7 +4209,7 @@ document.write(`
 </li>
       <li><a href="hub.html#torch.hub.download_url_to_file">download_url_to_file() (in module torch.hub)</a>
 </li>
-      <li><a href="export.html#torch.export.draft_export">draft_export() (in module torch.export)</a>
+      <li><a href="export/api_reference.html#torch.export.draft_export">draft_export() (in module torch.export)</a>
 </li>
       <li><a href="generated/torch.quasirandom.SobolEngine.html#torch.quasirandom.SobolEngine.draw">draw() (torch.quasirandom.SobolEngine method)</a>
 </li>
@@ -4342,10 +4293,10 @@ document.write(`
 </li>
       <li><a href="generated/torch.autograd.profiler_util.Kernel.html#torch.autograd.profiler_util.Kernel.duration">duration (torch.autograd.profiler_util.Kernel attribute)</a>
 </li>
-      <li><a href="export.html#torch.export.dynamic_shapes.AdditionalInputs.dynamic_shapes">dynamic_shapes() (torch.export.dynamic_shapes.AdditionalInputs method)</a>
+      <li><a href="export/api_reference.html#torch.export.dynamic_shapes.AdditionalInputs.dynamic_shapes">dynamic_shapes() (torch.export.dynamic_shapes.AdditionalInputs method)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.dynamic_shapes.ShapesCollection.dynamic_shapes">(torch.export.dynamic_shapes.ShapesCollection method)</a>
+        <li><a href="export/api_reference.html#torch.export.dynamic_shapes.ShapesCollection.dynamic_shapes">(torch.export.dynamic_shapes.ShapesCollection method)</a>
 </li>
       </ul></li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.format_utils.DynamicMetaLoadPlanner">DynamicMetaLoadPlanner (class in torch.distributed.checkpoint.format_utils)</a>
@@ -4430,9 +4381,11 @@ document.write(`
         <li><a href="distributed.tensor.html#torch.distributed.tensor.empty">(in module torch.distributed.tensor)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.cuda.memory.empty_cache.html#torch.cuda.memory.empty_cache">empty_cache() (in module torch.cuda.memory)</a>
+      <li><a href="generated/torch.accelerator.memory.empty_cache.html#torch.accelerator.memory.empty_cache">empty_cache() (in module torch.accelerator.memory)</a>
 
       <ul>
+        <li><a href="generated/torch.cuda.memory.empty_cache.html#torch.cuda.memory.empty_cache">(in module torch.cuda.memory)</a>
+</li>
         <li><a href="generated/torch.mps.empty_cache.html#torch.mps.empty_cache">(in module torch.mps)</a>
 </li>
         <li><a href="generated/torch.mtia.empty_cache.html#torch.mtia.empty_cache">(in module torch.mtia)</a>
@@ -4679,7 +4632,7 @@ document.write(`
 </li>
       <li><a href="elastic/events.html#torch.distributed.elastic.events.api.EventSource">EventSource (class in torch.distributed.elastic.events.api)</a>
 </li>
-      <li><a href="export.html#torch.export.ExportedProgram.example_inputs">example_inputs (torch.export.ExportedProgram property)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.example_inputs">example_inputs (torch.export.ExportedProgram property)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.Work.exception">exception() (torch.distributed.Work method)</a>
 </li>
@@ -4811,7 +4764,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.optim.lr_scheduler.ExponentialLR.html#torch.optim.lr_scheduler.ExponentialLR">ExponentialLR (class in torch.optim.lr_scheduler)</a>
 </li>
-      <li><a href="export.html#torch.export.export">export() (in module torch.export)</a>
+      <li><a href="export/api_reference.html#torch.export.export">export() (in module torch.export)</a>
 
       <ul>
         <li><a href="onnx_dynamo.html#torch.onnx.export">(in module torch.onnx)</a>
@@ -4827,11 +4780,11 @@ document.write(`
 </li>
       <li><a href="profiler.html#torch.profiler._KinetoProfile.export_stacks">export_stacks() (torch.profiler._KinetoProfile method)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportBackwardSignature">ExportBackwardSignature (class in torch.export.graph_signature)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportBackwardSignature">ExportBackwardSignature (class in torch.export.graph_signature)</a>
 </li>
-      <li><a href="export.html#torch.export.ExportedProgram">ExportedProgram (class in torch.export)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram">ExportedProgram (class in torch.export)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature">ExportGraphSignature (class in torch.export.graph_signature)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature">ExportGraphSignature (class in torch.export.graph_signature)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.transforms.ExpTransform">ExpTransform (class in torch.distributions.transforms)</a>
 </li>
@@ -4881,7 +4834,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.fake_quantize_per_tensor_affine.html#torch.fake_quantize_per_tensor_affine">fake_quantize_per_tensor_affine() (in module torch)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.CustomObjArgument.fake_val">fake_val (torch.export.graph_signature.CustomObjArgument attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.CustomObjArgument.fake_val">fake_val (torch.export.graph_signature.CustomObjArgument attribute)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.fake_quantize.FakeQuantize.html#torch.ao.quantization.fake_quantize.FakeQuantize">FakeQuantize (class in torch.ao.quantization.fake_quantize)</a>
 </li>
@@ -4979,7 +4932,7 @@ document.write(`
 </li>
       <li><a href="backends.html#torch.backends.cuda.flash_sdp_enabled">flash_sdp_enabled() (in module torch.backends.cuda)</a>
 </li>
-      <li><a href="export.html#torch.export.unflatten.FlatArgsAdapter">FlatArgsAdapter (class in torch.export.unflatten)</a>
+      <li><a href="export/api_reference.html#torch.export.unflatten.FlatArgsAdapter">FlatArgsAdapter (class in torch.export.unflatten)</a>
 </li>
       <li><a href="generated/torch.nn.Flatten.html#torch.nn.Flatten">Flatten (class in torch.nn)</a>
 </li>
@@ -5761,7 +5714,7 @@ document.write(`
       </ul></li>
       <li><a href="package.html#torch.package.PackageExporter.get_rdeps">get_rdeps() (torch.package.PackageExporter method)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.get_replace_hook">get_replace_hook() (torch.export.graph_signature.ExportGraphSignature method)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.get_replace_hook">get_replace_hook() (torch.export.graph_signature.ExportGraphSignature method)</a>
 </li>
       <li><a href="cuda.tunable.html#torch.cuda.tunable.get_results">get_results() (in module torch.cuda.tunable)</a>
 </li>
@@ -5887,17 +5840,17 @@ document.write(`
 </li>
       <li><a href="generated/torch.gradient.html#torch.gradient">gradient() (in module torch)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.OutputKind.GRADIENT_TO_PARAMETER">GRADIENT_TO_PARAMETER (torch.export.graph_signature.OutputKind attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.OutputKind.GRADIENT_TO_PARAMETER">GRADIENT_TO_PARAMETER (torch.export.graph_signature.OutputKind attribute)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.OutputKind.GRADIENT_TO_USER_INPUT">GRADIENT_TO_USER_INPUT (torch.export.graph_signature.OutputKind attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.OutputKind.GRADIENT_TO_USER_INPUT">GRADIENT_TO_USER_INPUT (torch.export.graph_signature.OutputKind attribute)</a>
 </li>
       <li><a href="autograd.html#torch.autograd.graph.GradientEdge">GradientEdge (class in torch.autograd.graph)</a>
 </li>
       <li><a href="ddp_comm_hooks.html#torch.distributed.GradBucket.gradients">gradients() (in module torch.distributed.GradBucket)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportBackwardSignature.gradients_to_parameters">gradients_to_parameters (torch.export.graph_signature.ExportBackwardSignature attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportBackwardSignature.gradients_to_parameters">gradients_to_parameters (torch.export.graph_signature.ExportBackwardSignature attribute)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportBackwardSignature.gradients_to_user_inputs">gradients_to_user_inputs (torch.export.graph_signature.ExportBackwardSignature attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportBackwardSignature.gradients_to_user_inputs">gradients_to_user_inputs (torch.export.graph_signature.ExportBackwardSignature attribute)</a>
 </li>
       <li><a href="amp.html#torch.cpu.amp.GradScaler">GradScaler (class in torch.cpu.amp)</a>
 
@@ -5911,7 +5864,7 @@ document.write(`
 </li>
       <li><a href="fx.html#torch.fx.Graph">Graph (class in torch.fx)</a>
 </li>
-      <li><a href="export.html#torch.export.ExportedProgram.graph">graph (torch.export.ExportedProgram property)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.graph">graph (torch.export.ExportedProgram property)</a>
 
       <ul>
         <li><a href="fx.html#torch.fx.GraphModule.graph">(torch.fx.GraphModule property)</a>
@@ -5921,11 +5874,11 @@ document.write(`
       </ul></li>
       <li><a href="fx.html#torch.fx.Graph.graph_copy">graph_copy() (torch.fx.Graph method)</a>
 </li>
-      <li><a href="export.html#torch.export.ExportedProgram.graph_module">graph_module (torch.export.ExportedProgram property)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.graph_module">graph_module (torch.export.ExportedProgram property)</a>
 </li>
       <li><a href="generated/torch.cuda.graph_pool_handle.html#torch.cuda.graph_pool_handle">graph_pool_handle() (in module torch.cuda)</a>
 </li>
-      <li><a href="export.html#torch.export.ExportedProgram.graph_signature">graph_signature (torch.export.ExportedProgram property)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.graph_signature">graph_signature (torch.export.ExportedProgram property)</a>
 </li>
       <li><a href="onnx_verification.html#torch.onnx.verification.GraphInfo">GraphInfo (class in torch.onnx.verification)</a>
 </li>
@@ -6485,21 +6438,21 @@ document.write(`
 </li>
       <li><a href="generated/torch.ao.quantization.backend_config.ObservationType.html#torch.ao.quantization.backend_config.ObservationType.INPUT_OUTPUT_NOT_OBSERVED">INPUT_OUTPUT_NOT_OBSERVED (torch.ao.quantization.backend_config.ObservationType attribute)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.input_specs">input_specs (torch.export.graph_signature.ExportGraphSignature attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.input_specs">input_specs (torch.export.graph_signature.ExportGraphSignature attribute)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.input_tokens">input_tokens (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.input_tokens">input_tokens (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.InputKind">InputKind (class in torch.export.graph_signature)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.InputKind">InputKind (class in torch.export.graph_signature)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.inputs_to_buffers">inputs_to_buffers (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.inputs_to_buffers">inputs_to_buffers (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.inputs_to_lifted_custom_objs">inputs_to_lifted_custom_objs (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.inputs_to_lifted_custom_objs">inputs_to_lifted_custom_objs (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.inputs_to_lifted_tensor_constants">inputs_to_lifted_tensor_constants (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.inputs_to_lifted_tensor_constants">inputs_to_lifted_tensor_constants (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.inputs_to_parameters">inputs_to_parameters (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.inputs_to_parameters">inputs_to_parameters (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.InputSpec">InputSpec (class in torch.export.graph_signature)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.InputSpec">InputSpec (class in torch.export.graph_signature)</a>
 </li>
       <li><a href="generated/torch.nn.ModuleList.html#torch.nn.ModuleList.insert">insert() (torch.nn.ModuleList method)</a>
 
@@ -6559,9 +6512,9 @@ document.write(`
 </li>
       <li><a href="fx.html#torch.fx.Interpreter">Interpreter (class in torch.fx)</a>
 </li>
-      <li><a href="export.html#torch.export.unflatten.InterpreterModule">InterpreterModule (class in torch.export.unflatten)</a>
+      <li><a href="export/api_reference.html#torch.export.unflatten.InterpreterModule">InterpreterModule (class in torch.export.unflatten)</a>
 </li>
-      <li><a href="export.html#torch.export.unflatten.InterpreterModuleDispatcher">InterpreterModuleDispatcher (class in torch.export.unflatten)</a>
+      <li><a href="export/api_reference.html#torch.export.unflatten.InterpreterModuleDispatcher">InterpreterModuleDispatcher (class in torch.export.unflatten)</a>
 </li>
       <li><a href="generated/torch.autograd.profiler_util.Interval.html#torch.autograd.profiler_util.Interval">Interval (class in torch.autograd.profiler_util)</a>
 </li>
@@ -6894,7 +6847,7 @@ document.write(`
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.items">items() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.decomp_utils.CustomDecompTable.items">(torch.export.decomp_utils.CustomDecompTable method)</a>
+        <li><a href="export/api_reference.html#torch.export.decomp_utils.CustomDecompTable.items">(torch.export.decomp_utils.CustomDecompTable method)</a>
 </li>
         <li><a href="generated/torch.nn.ModuleDict.html#torch.nn.ModuleDict.items">(torch.nn.ModuleDict method)</a>
 </li>
@@ -6998,7 +6951,7 @@ document.write(`
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.keys">keys() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.decomp_utils.CustomDecompTable.keys">(torch.export.decomp_utils.CustomDecompTable method)</a>
+        <li><a href="export/api_reference.html#torch.export.decomp_utils.CustomDecompTable.keys">(torch.export.decomp_utils.CustomDecompTable method)</a>
 </li>
         <li><a href="fx.html#torch.fx.Tracer.keys">(torch.fx.Tracer method)</a>
 </li>
@@ -7009,10 +6962,10 @@ document.write(`
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="export.html#torch.export.graph_signature.InputSpec.kind">kind (torch.export.graph_signature.InputSpec attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.InputSpec.kind">kind (torch.export.graph_signature.InputSpec attribute)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.graph_signature.OutputSpec.kind">(torch.export.graph_signature.OutputSpec attribute)</a>
+        <li><a href="export/api_reference.html#torch.export.graph_signature.OutputSpec.kind">(torch.export.graph_signature.OutputSpec attribute)</a>
 </li>
       </ul></li>
       <li><a href="generated/torch.autograd.profiler.KinetoStepTracker.html#torch.autograd.profiler.KinetoStepTracker">KinetoStepTracker (class in torch.autograd.profiler)</a>
@@ -7183,9 +7136,9 @@ document.write(`
 </li>
       <li><a href="distributed.html#torch.distributed.TCPStore.libuvBackend">libuvBackend (torch.distributed.TCPStore property)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.lifted_custom_objs">lifted_custom_objs (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.lifted_custom_objs">lifted_custom_objs (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.lifted_tensor_constants">lifted_tensor_constants (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.lifted_tensor_constants">lifted_tensor_constants (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
       <li><a href="generated/torch.ao.nn.qat.Linear.html#torch.ao.nn.qat.Linear">Linear (class in torch.ao.nn.qat)</a>
 
@@ -7238,7 +7191,7 @@ document.write(`
       <ul>
         <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_loader.load">(in module torch.distributed.checkpoint.state_dict_loader)</a>
 </li>
-        <li><a href="export.html#torch.export.load">(in module torch.export)</a>
+        <li><a href="export/api_reference.html#torch.export.load">(in module torch.export)</a>
 </li>
         <li><a href="hub.html#torch.hub.load">(in module torch.hub)</a>
 </li>
@@ -7259,7 +7212,7 @@ document.write(`
 </li>
       <li><a href="package.html#torch.package.PackageImporter.load_pickle">load_pickle() (torch.package.PackageImporter method)</a>
 </li>
-      <li><a href="export.html#torch.export.pt2_archive._package.load_pt2">load_pt2() (in module torch.export.pt2_archive._package)</a>
+      <li><a href="export/api_reference.html#torch.export.pt2_archive._package.load_pt2">load_pt2() (in module torch.export.pt2_archive._package)</a>
 </li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_loader.load_state_dict">load_state_dict() (in module torch.distributed.checkpoint.state_dict_loader)</a>
 
@@ -7633,9 +7586,9 @@ document.write(`
 </li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.DefaultLoadPlanner.lookup_tensor">lookup_tensor() (torch.distributed.checkpoint.DefaultLoadPlanner method)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportBackwardSignature.loss_output">loss_output (torch.export.graph_signature.ExportBackwardSignature attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportBackwardSignature.loss_output">loss_output (torch.export.graph_signature.ExportBackwardSignature attribute)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.OutputKind.LOSS_OUTPUT">LOSS_OUTPUT (torch.export.graph_signature.OutputKind attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.OutputKind.LOSS_OUTPUT">LOSS_OUTPUT (torch.export.graph_signature.OutputKind attribute)</a>
 </li>
       <li><a href="distributed.tensor.parallel.html#torch.distributed.tensor.parallel.loss_parallel">loss_parallel() (in module torch.distributed.tensor.parallel)</a>
 </li>
@@ -7801,7 +7754,7 @@ document.write(`
         <li><a href="generated/torch.Tensor.masked_select.html#torch.Tensor.masked_select">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="export.html#torch.export.decomp_utils.CustomDecompTable.materialize">materialize() (torch.export.decomp_utils.CustomDecompTable method)</a>
+      <li><a href="export/api_reference.html#torch.export.decomp_utils.CustomDecompTable.materialize">materialize() (torch.export.decomp_utils.CustomDecompTable method)</a>
 </li>
       <li><a href="backends.html#torch.backends.cuda.math_sdp_enabled">math_sdp_enabled() (in module torch.backends.cuda)</a>
 </li>
@@ -7839,17 +7792,21 @@ document.write(`
         <li><a href="generated/torch.Tensor.max.html#torch.Tensor.max">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.cuda.memory.max_memory_allocated.html#torch.cuda.memory.max_memory_allocated">max_memory_allocated() (in module torch.cuda.memory)</a>
+      <li><a href="generated/torch.accelerator.memory.max_memory_allocated.html#torch.accelerator.memory.max_memory_allocated">max_memory_allocated() (in module torch.accelerator.memory)</a>
 
       <ul>
+        <li><a href="generated/torch.cuda.memory.max_memory_allocated.html#torch.cuda.memory.max_memory_allocated">(in module torch.cuda.memory)</a>
+</li>
         <li><a href="generated/torch.xpu.memory.max_memory_allocated.html#torch.xpu.memory.max_memory_allocated">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
       <li><a href="generated/torch.cuda.memory.max_memory_cached.html#torch.cuda.memory.max_memory_cached">max_memory_cached() (in module torch.cuda.memory)</a>
 </li>
-      <li><a href="generated/torch.cuda.memory.max_memory_reserved.html#torch.cuda.memory.max_memory_reserved">max_memory_reserved() (in module torch.cuda.memory)</a>
+      <li><a href="generated/torch.accelerator.memory.max_memory_reserved.html#torch.accelerator.memory.max_memory_reserved">max_memory_reserved() (in module torch.accelerator.memory)</a>
 
       <ul>
+        <li><a href="generated/torch.cuda.memory.max_memory_reserved.html#torch.cuda.memory.max_memory_reserved">(in module torch.cuda.memory)</a>
+</li>
         <li><a href="generated/torch.xpu.memory.max_memory_reserved.html#torch.xpu.memory.max_memory_reserved">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
@@ -7987,9 +7944,11 @@ document.write(`
         <li><a href="generated/torch.xpu.memory.mem_get_info.html#torch.xpu.memory.mem_get_info">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.cuda.memory.memory_allocated.html#torch.cuda.memory.memory_allocated">memory_allocated() (in module torch.cuda.memory)</a>
+      <li><a href="generated/torch.accelerator.memory.memory_allocated.html#torch.accelerator.memory.memory_allocated">memory_allocated() (in module torch.accelerator.memory)</a>
 
       <ul>
+        <li><a href="generated/torch.cuda.memory.memory_allocated.html#torch.cuda.memory.memory_allocated">(in module torch.cuda.memory)</a>
+</li>
         <li><a href="generated/torch.xpu.memory.memory_allocated.html#torch.xpu.memory.memory_allocated">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
@@ -7997,17 +7956,21 @@ document.write(`
 </li>
       <li><a href="tensor_attributes.html#torch.memory_format">memory_format (class in torch)</a>
 </li>
-      <li><a href="generated/torch.cuda.memory.memory_reserved.html#torch.cuda.memory.memory_reserved">memory_reserved() (in module torch.cuda.memory)</a>
+      <li><a href="generated/torch.accelerator.memory.memory_reserved.html#torch.accelerator.memory.memory_reserved">memory_reserved() (in module torch.accelerator.memory)</a>
 
       <ul>
+        <li><a href="generated/torch.cuda.memory.memory_reserved.html#torch.cuda.memory.memory_reserved">(in module torch.cuda.memory)</a>
+</li>
         <li><a href="generated/torch.xpu.memory.memory_reserved.html#torch.xpu.memory.memory_reserved">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
       <li><a href="generated/torch.cuda.memory.memory_snapshot.html#torch.cuda.memory.memory_snapshot">memory_snapshot() (in module torch.cuda.memory)</a>
 </li>
-      <li><a href="generated/torch.cuda.memory.memory_stats.html#torch.cuda.memory.memory_stats">memory_stats() (in module torch.cuda.memory)</a>
+      <li><a href="generated/torch.accelerator.memory.memory_stats.html#torch.accelerator.memory.memory_stats">memory_stats() (in module torch.accelerator.memory)</a>
 
       <ul>
+        <li><a href="generated/torch.cuda.memory.memory_stats.html#torch.cuda.memory.memory_stats">(in module torch.cuda.memory)</a>
+</li>
         <li><a href="generated/torch.mtia.memory_stats.html#torch.mtia.memory_stats">(in module torch.mtia)</a>
 </li>
         <li><a href="generated/torch.mtia.memory.memory_stats.html#torch.mtia.memory.memory_stats">(in module torch.mtia.memory)</a>
@@ -8186,6 +8149,8 @@ document.write(`
         <li><a href="logging.html#module-torch._logging">torch._logging</a>
 </li>
         <li><a href="accelerator.html#module-torch.accelerator">torch.accelerator</a>
+</li>
+        <li><a href="accelerator.html#module-torch.accelerator.memory">torch.accelerator.memory</a>
 </li>
         <li><a href="amp.html#module-torch.amp">torch.amp</a>
 </li>
@@ -8993,29 +8958,29 @@ document.write(`
 </li>
         <li><a href="distributions.html#module-torch.distributions.wishart">torch.distributions.wishart</a>
 </li>
-        <li><a href="export.html#module-torch.export">torch.export</a>
+        <li><a href="export/api_reference.html#module-torch.export">torch.export</a>
 </li>
-        <li><a href="export.html#module-torch.export.custom_obj">torch.export.custom_obj</a>
+        <li><a href="export/api_reference.html#module-torch.export.custom_obj">torch.export.custom_obj</a>
 </li>
-        <li><a href="export.html#module-torch.export.custom_ops">torch.export.custom_ops</a>
+        <li><a href="export/api_reference.html#module-torch.export.custom_ops">torch.export.custom_ops</a>
 </li>
-        <li><a href="export.html#module-torch.export.decomp_utils">torch.export.decomp_utils</a>
+        <li><a href="export/api_reference.html#module-torch.export.decomp_utils">torch.export.decomp_utils</a>
 </li>
-        <li><a href="export.html#module-torch.export.dynamic_shapes">torch.export.dynamic_shapes</a>
+        <li><a href="export/api_reference.html#module-torch.export.dynamic_shapes">torch.export.dynamic_shapes</a>
 </li>
-        <li><a href="export.html#module-torch.export.experimental">torch.export.experimental</a>
+        <li><a href="export/api_reference.html#module-torch.export.experimental">torch.export.experimental</a>
 </li>
-        <li><a href="export.html#module-torch.export.exported_program">torch.export.exported_program</a>
+        <li><a href="export/api_reference.html#module-torch.export.exported_program">torch.export.exported_program</a>
 </li>
-        <li><a href="export.html#module-torch.export.graph_signature">torch.export.graph_signature</a>
+        <li><a href="export/api_reference.html#module-torch.export.graph_signature">torch.export.graph_signature</a>
 </li>
-        <li><a href="export.html#module-torch.export.passes">torch.export.passes</a>
+        <li><a href="export/api_reference.html#module-torch.export.passes">torch.export.passes</a>
 </li>
-        <li><a href="export.html#module-torch.export.pt2_archive">torch.export.pt2_archive</a>
+        <li><a href="export/api_reference.html#module-torch.export.pt2_archive">torch.export.pt2_archive</a>
 </li>
-        <li><a href="export.html#module-torch.export.pt2_archive.constants">torch.export.pt2_archive.constants</a>
+        <li><a href="export/api_reference.html#module-torch.export.pt2_archive.constants">torch.export.pt2_archive.constants</a>
 </li>
-        <li><a href="export.html#module-torch.export.unflatten">torch.export.unflatten</a>
+        <li><a href="export/api_reference.html#module-torch.export.unflatten">torch.export.unflatten</a>
 </li>
         <li><a href="fft.html#module-torch.fft">torch.fft</a>
 </li>
@@ -9858,15 +9823,15 @@ document.write(`
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.module">module (torch.distributed.fsdp.FullyShardedDataParallel property)</a>
 </li>
-      <li><a href="export.html#torch.export.ExportedProgram.module">module() (torch.export.ExportedProgram method)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.module">module() (torch.export.ExportedProgram method)</a>
 </li>
-      <li><a href="export.html#torch.export.ExportedProgram.module_call_graph">module_call_graph (torch.export.ExportedProgram property)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.module_call_graph">module_call_graph (torch.export.ExportedProgram property)</a>
 </li>
       <li><a href="generated/torch.Tensor.module_load.html#torch.Tensor.module_load">module_load() (torch.Tensor method)</a>
 </li>
-      <li><a href="export.html#torch.export.exported_program.ModuleCallEntry">ModuleCallEntry (class in torch.export.exported_program)</a>
+      <li><a href="export/api_reference.html#torch.export.exported_program.ModuleCallEntry">ModuleCallEntry (class in torch.export.exported_program)</a>
 </li>
-      <li><a href="export.html#torch.export.exported_program.ModuleCallSignature">ModuleCallSignature (class in torch.export.exported_program)</a>
+      <li><a href="export/api_reference.html#torch.export.exported_program.ModuleCallSignature">ModuleCallSignature (class in torch.export.exported_program)</a>
 </li>
       <li><a href="generated/torch.nn.ModuleDict.html#torch.nn.ModuleDict">ModuleDict (class in torch.nn)</a>
 </li>
@@ -9888,7 +9853,7 @@ document.write(`
         <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.monitored_barrier">(torch.distributed._dist2.ProcessGroup method)</a>
 </li>
       </ul></li>
-      <li><a href="export.html#torch.export.passes.move_to_device_pass">move_to_device_pass() (in module torch.export.passes)</a>
+      <li><a href="export/api_reference.html#torch.export.passes.move_to_device_pass">move_to_device_pass() (in module torch.export.passes)</a>
 </li>
       <li><a href="generated/torch.moveaxis.html#torch.moveaxis">moveaxis() (in module torch)</a>
 
@@ -10029,19 +9994,19 @@ document.write(`
 </li>
         <li><a href="rpc.html#torch.distributed.rpc.WorkerInfo.name">(torch.distributed.rpc.WorkerInfo property)</a>
 </li>
-        <li><a href="export.html#torch.export.graph_signature.ConstantArgument.name">(torch.export.graph_signature.ConstantArgument attribute)</a>
+        <li><a href="export/api_reference.html#torch.export.graph_signature.ConstantArgument.name">(torch.export.graph_signature.ConstantArgument attribute)</a>
 </li>
-        <li><a href="export.html#torch.export.graph_signature.CustomObjArgument.name">(torch.export.graph_signature.CustomObjArgument attribute)</a>
+        <li><a href="export/api_reference.html#torch.export.graph_signature.CustomObjArgument.name">(torch.export.graph_signature.CustomObjArgument attribute)</a>
 </li>
-        <li><a href="export.html#torch.export.graph_signature.SymBoolArgument.name">(torch.export.graph_signature.SymBoolArgument attribute)</a>
+        <li><a href="export/api_reference.html#torch.export.graph_signature.SymBoolArgument.name">(torch.export.graph_signature.SymBoolArgument attribute)</a>
 </li>
-        <li><a href="export.html#torch.export.graph_signature.SymFloatArgument.name">(torch.export.graph_signature.SymFloatArgument attribute)</a>
+        <li><a href="export/api_reference.html#torch.export.graph_signature.SymFloatArgument.name">(torch.export.graph_signature.SymFloatArgument attribute)</a>
 </li>
-        <li><a href="export.html#torch.export.graph_signature.SymIntArgument.name">(torch.export.graph_signature.SymIntArgument attribute)</a>
+        <li><a href="export/api_reference.html#torch.export.graph_signature.SymIntArgument.name">(torch.export.graph_signature.SymIntArgument attribute)</a>
 </li>
-        <li><a href="export.html#torch.export.graph_signature.TensorArgument.name">(torch.export.graph_signature.TensorArgument attribute)</a>
+        <li><a href="export/api_reference.html#torch.export.graph_signature.TensorArgument.name">(torch.export.graph_signature.TensorArgument attribute)</a>
 </li>
-        <li><a href="export.html#torch.export.graph_signature.TokenArgument.name">(torch.export.graph_signature.TokenArgument attribute)</a>
+        <li><a href="export/api_reference.html#torch.export.graph_signature.TokenArgument.name">(torch.export.graph_signature.TokenArgument attribute)</a>
 </li>
         <li><a href="monitor.html#torch.monitor.Aggregation.name">(torch.monitor.Aggregation property)</a>
 </li>
@@ -10065,7 +10030,7 @@ document.write(`
       <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.named_buffers">named_buffers() (torch.distributed.fsdp.FullyShardedDataParallel method)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.ExportedProgram.named_buffers">(torch.export.ExportedProgram method)</a>
+        <li><a href="export/api_reference.html#torch.export.ExportedProgram.named_buffers">(torch.export.ExportedProgram method)</a>
 </li>
         <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.named_buffers">(torch.jit.ScriptModule method)</a>
 </li>
@@ -10093,7 +10058,7 @@ document.write(`
       <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.named_parameters">named_parameters() (torch.distributed.fsdp.FullyShardedDataParallel method)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.ExportedProgram.named_parameters">(torch.export.ExportedProgram method)</a>
+        <li><a href="export/api_reference.html#torch.export.ExportedProgram.named_parameters">(torch.export.ExportedProgram method)</a>
 </li>
         <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.named_parameters">(torch.jit.ScriptModule method)</a>
 </li>
@@ -10262,7 +10227,7 @@ document.write(`
 </li>
       <li><a href="fx.html#torch.fx.Graph.nodes">nodes (torch.fx.Graph property)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.non_persistent_buffers">non_persistent_buffers (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.non_persistent_buffers">non_persistent_buffers (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
       <li><a href="generated/torch.nonzero.html#torch.nonzero">nonzero() (in module torch)</a>
 
@@ -10434,15 +10399,15 @@ document.write(`
 </li>
       <li><a href="generated/torch.ao.quantization.backend_config.ObservationType.html#torch.ao.quantization.backend_config.ObservationType.OUTPUT_SHARE_OBSERVER_WITH_INPUT">OUTPUT_SHARE_OBSERVER_WITH_INPUT (torch.ao.quantization.backend_config.ObservationType attribute)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.output_specs">output_specs (torch.export.graph_signature.ExportGraphSignature attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.output_specs">output_specs (torch.export.graph_signature.ExportGraphSignature attribute)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.output_tokens">output_tokens (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.output_tokens">output_tokens (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.backend_config.ObservationType.html#torch.ao.quantization.backend_config.ObservationType.OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT">OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT (torch.ao.quantization.backend_config.ObservationType attribute)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.OutputKind">OutputKind (class in torch.export.graph_signature)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.OutputKind">OutputKind (class in torch.export.graph_signature)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.OutputSpec">OutputSpec (class in torch.export.graph_signature)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.OutputSpec">OutputSpec (class in torch.export.graph_signature)</a>
 </li>
       <li><a href="rpc.html#torch.distributed.rpc.PyRRef.owner">owner() (torch.distributed.rpc.PyRRef method)</a>
 </li>
@@ -10460,7 +10425,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.nn.utils.rnn.pack_sequence.html#torch.nn.utils.rnn.pack_sequence">pack_sequence() (in module torch.nn.utils.rnn)</a>
 </li>
-      <li><a href="export.html#torch.export.pt2_archive._package.package_pt2">package_pt2() (in module torch.export.pt2_archive._package)</a>
+      <li><a href="export/api_reference.html#torch.export.pt2_archive._package.package_pt2">package_pt2() (in module torch.export.pt2_archive._package)</a>
 </li>
       <li><a href="package.html#torch.package.PackageExporter">PackageExporter (class in torch.package)</a>
 </li>
@@ -10504,18 +10469,18 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.nn.parameter.Parameter.html#torch.nn.parameter.Parameter">Parameter (class in torch.nn.parameter)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.InputKind.PARAMETER">PARAMETER (torch.export.graph_signature.InputKind attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.InputKind.PARAMETER">PARAMETER (torch.export.graph_signature.InputKind attribute)</a>
 </li>
       <li><a href="generated/torch.nn.ParameterDict.html#torch.nn.ParameterDict">ParameterDict (class in torch.nn)</a>
 </li>
       <li><a href="generated/torch.nn.ParameterList.html#torch.nn.ParameterList">ParameterList (class in torch.nn)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.parameters">parameters (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.parameters">parameters (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
       <li><a href="ddp_comm_hooks.html#torch.distributed.GradBucket.parameters">parameters() (in module torch.distributed.GradBucket)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.ExportedProgram.parameters">(torch.export.ExportedProgram method)</a>
+        <li><a href="export/api_reference.html#torch.export.ExportedProgram.parameters">(torch.export.ExportedProgram method)</a>
 </li>
         <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.parameters">(torch.jit.ScriptModule method)</a>
 </li>
@@ -10566,7 +10531,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.ao.quantization.observer.PerRow.html#torch.ao.quantization.observer.PerRow">PerRow (class in torch.ao.quantization.observer)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.InputSpec.persistent">persistent (torch.export.graph_signature.InputSpec attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.InputSpec.persistent">persistent (torch.export.graph_signature.InputSpec attribute)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.observer.PerTensor.html#torch.ao.quantization.observer.PerTensor">PerTensor (class in torch.ao.quantization.observer)</a>
 </li>
@@ -10653,7 +10618,7 @@ document.write(`
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.pop">pop() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.decomp_utils.CustomDecompTable.pop">(torch.export.decomp_utils.CustomDecompTable method)</a>
+        <li><a href="export/api_reference.html#torch.export.decomp_utils.CustomDecompTable.pop">(torch.export.decomp_utils.CustomDecompTable method)</a>
 </li>
         <li><a href="generated/torch.nn.ModuleDict.html#torch.nn.ModuleDict.pop">(torch.nn.ModuleDict method)</a>
 </li>
@@ -11034,7 +10999,7 @@ document.write(`
         <li><a href="generated/torch.cuda.nvtx.range.html#torch.cuda.nvtx.range">(in module torch.cuda.nvtx)</a>
 </li>
       </ul></li>
-      <li><a href="export.html#torch.export.ExportedProgram.range_constraints">range_constraints (torch.export.ExportedProgram property)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.range_constraints">range_constraints (torch.export.ExportedProgram property)</a>
 </li>
       <li><a href="generated/torch.cuda.nvtx.range_pop.html#torch.cuda.nvtx.range_pop">range_pop() (in module torch.cuda.nvtx)</a>
 
@@ -11178,7 +11143,7 @@ document.write(`
 </li>
       <li><a href="distributed.html#torch.distributed.ReduceOp">ReduceOp (class in torch.distributed)</a>
 </li>
-      <li><a href="export.html#torch.export.dynamic_shapes.refine_dynamic_shapes_from_suggested_fixes">refine_dynamic_shapes_from_suggested_fixes() (in module torch.export.dynamic_shapes)</a>
+      <li><a href="export/api_reference.html#torch.export.dynamic_shapes.refine_dynamic_shapes_from_suggested_fixes">refine_dynamic_shapes_from_suggested_fixes() (in module torch.export.dynamic_shapes)</a>
 </li>
       <li><a href="named_tensor.html#torch.Tensor.refine_names">refine_names() (torch.Tensor method)</a>
 </li>
@@ -11224,7 +11189,7 @@ document.write(`
       </ul></li>
       <li><a href="onnx_torchscript.html#torch.onnx.register_custom_op_symbolic">register_custom_op_symbolic() (in module torch.onnx)</a>
 </li>
-      <li><a href="export.html#torch.export.register_dataclass">register_dataclass() (in module torch.export)</a>
+      <li><a href="export/api_reference.html#torch.export.register_dataclass">register_dataclass() (in module torch.export)</a>
 </li>
       <li><a href="monitor.html#torch.monitor.register_event_handler">register_event_handler() (in module torch.monitor)</a>
 </li>
@@ -11682,7 +11647,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.func.replace_all_batch_norm_modules_.html#torch.func.replace_all_batch_norm_modules_">replace_all_batch_norm_modules_() (in module torch.func)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.replace_all_uses">replace_all_uses() (torch.export.graph_signature.ExportGraphSignature method)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.replace_all_uses">replace_all_uses() (torch.export.graph_signature.ExportGraphSignature method)</a>
 </li>
       <li><a href="fx.html#torch.fx.Node.replace_all_uses_with">replace_all_uses_with() (torch.fx.Node method)</a>
 </li>
@@ -11728,9 +11693,11 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.cuda.memory.reset_accumulated_host_memory_stats.html#torch.cuda.memory.reset_accumulated_host_memory_stats">reset_accumulated_host_memory_stats() (in module torch.cuda.memory)</a>
 </li>
-      <li><a href="generated/torch.cuda.memory.reset_accumulated_memory_stats.html#torch.cuda.memory.reset_accumulated_memory_stats">reset_accumulated_memory_stats() (in module torch.cuda.memory)</a>
+      <li><a href="generated/torch.accelerator.memory.reset_accumulated_memory_stats.html#torch.accelerator.memory.reset_accumulated_memory_stats">reset_accumulated_memory_stats() (in module torch.accelerator.memory)</a>
 
       <ul>
+        <li><a href="generated/torch.cuda.memory.reset_accumulated_memory_stats.html#torch.cuda.memory.reset_accumulated_memory_stats">(in module torch.cuda.memory)</a>
+</li>
         <li><a href="generated/torch.xpu.memory.reset_accumulated_memory_stats.html#torch.xpu.memory.reset_accumulated_memory_stats">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
@@ -11752,9 +11719,11 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.cuda.memory.reset_peak_host_memory_stats.html#torch.cuda.memory.reset_peak_host_memory_stats">reset_peak_host_memory_stats() (in module torch.cuda.memory)</a>
 </li>
-      <li><a href="generated/torch.cuda.memory.reset_peak_memory_stats.html#torch.cuda.memory.reset_peak_memory_stats">reset_peak_memory_stats() (in module torch.cuda.memory)</a>
+      <li><a href="generated/torch.accelerator.memory.reset_peak_memory_stats.html#torch.accelerator.memory.reset_peak_memory_stats">reset_peak_memory_stats() (in module torch.accelerator.memory)</a>
 
       <ul>
+        <li><a href="generated/torch.cuda.memory.reset_peak_memory_stats.html#torch.cuda.memory.reset_peak_memory_stats">(in module torch.cuda.memory)</a>
+</li>
         <li><a href="generated/torch.xpu.memory.reset_peak_memory_stats.html#torch.xpu.memory.reset_peak_memory_stats">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
@@ -11962,7 +11931,7 @@ document.write(`
         <li><a href="fx.html#torch.fx.Interpreter.run">(torch.fx.Interpreter method)</a>
 </li>
       </ul></li>
-      <li><a href="export.html#torch.export.ExportedProgram.run_decompositions">run_decompositions() (torch.export.ExportedProgram method)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.run_decompositions">run_decompositions() (torch.export.ExportedProgram method)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run_node">run_node() (torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
 
@@ -12027,7 +11996,7 @@ document.write(`
       <ul>
         <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_saver.save">(in module torch.distributed.checkpoint.state_dict_saver)</a>
 </li>
-        <li><a href="export.html#torch.export.save">(in module torch.export)</a>
+        <li><a href="export/api_reference.html#torch.export.save">(in module torch.export)</a>
 </li>
         <li><a href="generated/torch.jit.save.html#torch.jit.save">(in module torch.jit)</a>
 </li>
@@ -12166,7 +12135,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule">ScriptModule (class in torch.jit)</a>
 </li>
-      <li><a href="export.html#torch.export.custom_obj.ScriptObjectMeta">ScriptObjectMeta (class in torch.export.custom_obj)</a>
+      <li><a href="export/api_reference.html#torch.export.custom_obj.ScriptObjectMeta">ScriptObjectMeta (class in torch.export.custom_obj)</a>
 </li>
       <li><a href="backends.html#torch.backends.cuda.sdp_kernel">sdp_kernel() (in module torch.backends.cuda)</a>
 </li>
@@ -12574,7 +12543,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnvSettings.html#torch.fx.experimental.symbolic_shapes.ShapeEnvSettings">ShapeEnvSettings (class in torch.fx.experimental.symbolic_shapes)</a>
 </li>
-      <li><a href="export.html#torch.export.dynamic_shapes.ShapesCollection">ShapesCollection (class in torch.export.dynamic_shapes)</a>
+      <li><a href="export/api_reference.html#torch.export.dynamic_shapes.ShapesCollection">ShapesCollection (class in torch.export.dynamic_shapes)</a>
 </li>
       <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.Shard">Shard (class in torch.distributed.tensor.placement_types)</a>
 </li>
@@ -12946,7 +12915,7 @@ document.write(`
 </li>
       <li><a href="monitor.html#torch.monitor.Stat">Stat (class in torch.monitor)</a>
 </li>
-      <li><a href="export.html#torch.export.ExportedProgram.state_dict">state_dict (torch.export.ExportedProgram property)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.state_dict">state_dict (torch.export.ExportedProgram property)</a>
 </li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.stateful.Stateful.state_dict">state_dict() (torch.distributed.checkpoint.stateful.Stateful method)</a>
 
@@ -13410,15 +13379,15 @@ document.write(`
 </li>
       <li><a href="torch.html#torch.SymBool">SymBool (class in torch)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.SymBoolArgument">SymBoolArgument (class in torch.export.graph_signature)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.SymBoolArgument">SymBoolArgument (class in torch.export.graph_signature)</a>
 </li>
       <li><a href="torch.html#torch.SymFloat">SymFloat (class in torch)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.SymFloatArgument">SymFloatArgument (class in torch.export.graph_signature)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.SymFloatArgument">SymFloatArgument (class in torch.export.graph_signature)</a>
 </li>
       <li><a href="torch.html#torch.SymInt">SymInt (class in torch)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.SymIntArgument">SymIntArgument (class in torch.export.graph_signature)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.SymIntArgument">SymIntArgument (class in torch.export.graph_signature)</a>
 </li>
       <li><a href="generated/torch.nn.SyncBatchNorm.html#torch.nn.SyncBatchNorm">SyncBatchNorm (class in torch.nn)</a>
 </li>
@@ -13524,10 +13493,10 @@ document.write(`
 </li>
       <li><a href="distributions.html#torch.distributions.transforms.TanhTransform">TanhTransform (class in torch.distributions.transforms)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.InputSpec.target">target (torch.export.graph_signature.InputSpec attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.InputSpec.target">target (torch.export.graph_signature.InputSpec attribute)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.graph_signature.OutputSpec.target">(torch.export.graph_signature.OutputSpec attribute)</a>
+        <li><a href="export/api_reference.html#torch.export.graph_signature.OutputSpec.target">(torch.export.graph_signature.OutputSpec attribute)</a>
 </li>
       </ul></li>
       <li><a href="distributed.html#torch.distributed.TCPStore">TCPStore (class in torch.distributed)</a>
@@ -13544,7 +13513,7 @@ document.write(`
 </li>
       <li><a href="generated/torch.tensor.html#torch.tensor">tensor() (in module torch)</a>
 </li>
-      <li><a href="export.html#torch.export.ExportedProgram.tensor_constants">tensor_constants (torch.export.ExportedProgram property)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.tensor_constants">tensor_constants (torch.export.ExportedProgram property)</a>
 </li>
       <li><a href="generated/torch.tensor_split.html#torch.tensor_split">tensor_split() (in module torch)</a>
 
@@ -13554,7 +13523,7 @@ document.write(`
       </ul></li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.planner.WriteItem.tensor_storage_size">tensor_storage_size() (torch.distributed.checkpoint.planner.WriteItem method)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.TensorArgument">TensorArgument (class in torch.export.graph_signature)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.TensorArgument">TensorArgument (class in torch.export.graph_signature)</a>
 </li>
       <li><a href="profiler.html#torch.profiler.tensorboard_trace_handler">tensorboard_trace_handler() (in module torch.profiler)</a>
 </li>
@@ -13680,13 +13649,13 @@ document.write(`
 </li>
       <li><a href="profiler.html#torch.profiler._KinetoProfile.toggle_collection_dynamic">toggle_collection_dynamic() (torch.profiler._KinetoProfile method)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.InputKind.TOKEN">TOKEN (torch.export.graph_signature.InputKind attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.InputKind.TOKEN">TOKEN (torch.export.graph_signature.InputKind attribute)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.graph_signature.OutputKind.TOKEN">(torch.export.graph_signature.OutputKind attribute)</a>
+        <li><a href="export/api_reference.html#torch.export.graph_signature.OutputKind.TOKEN">(torch.export.graph_signature.OutputKind attribute)</a>
 </li>
       </ul></li>
-      <li><a href="export.html#torch.export.graph_signature.TokenArgument">TokenArgument (class in torch.export.graph_signature)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.TokenArgument">TokenArgument (class in torch.export.graph_signature)</a>
 </li>
       <li><a href="generated/torch.Tensor.tolist.html#torch.Tensor.tolist">tolist() (torch.Tensor method)</a>
 
@@ -13735,6 +13704,13 @@ document.write(`
 
       <ul>
         <li><a href="accelerator.html#module-torch.accelerator">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.accelerator.memory
+
+      <ul>
+        <li><a href="accelerator.html#module-torch.accelerator.memory">module</a>
 </li>
       </ul></li>
       <li>
@@ -16562,21 +16538,21 @@ document.write(`
     torch.export
 
       <ul>
-        <li><a href="export.html#module-torch.export">module</a>
+        <li><a href="export/api_reference.html#module-torch.export">module</a>
 </li>
       </ul></li>
       <li>
     torch.export.custom_obj
 
       <ul>
-        <li><a href="export.html#module-torch.export.custom_obj">module</a>
+        <li><a href="export/api_reference.html#module-torch.export.custom_obj">module</a>
 </li>
       </ul></li>
       <li>
     torch.export.custom_ops
 
       <ul>
-        <li><a href="export.html#module-torch.export.custom_ops">module</a>
+        <li><a href="export/api_reference.html#module-torch.export.custom_ops">module</a>
 </li>
       </ul></li>
   </ul></td>
@@ -16585,63 +16561,63 @@ document.write(`
     torch.export.decomp_utils
 
       <ul>
-        <li><a href="export.html#module-torch.export.decomp_utils">module</a>
+        <li><a href="export/api_reference.html#module-torch.export.decomp_utils">module</a>
 </li>
       </ul></li>
       <li>
     torch.export.dynamic_shapes
 
       <ul>
-        <li><a href="export.html#module-torch.export.dynamic_shapes">module</a>
+        <li><a href="export/api_reference.html#module-torch.export.dynamic_shapes">module</a>
 </li>
       </ul></li>
       <li>
     torch.export.experimental
 
       <ul>
-        <li><a href="export.html#module-torch.export.experimental">module</a>
+        <li><a href="export/api_reference.html#module-torch.export.experimental">module</a>
 </li>
       </ul></li>
       <li>
     torch.export.exported_program
 
       <ul>
-        <li><a href="export.html#module-torch.export.exported_program">module</a>
+        <li><a href="export/api_reference.html#module-torch.export.exported_program">module</a>
 </li>
       </ul></li>
       <li>
     torch.export.graph_signature
 
       <ul>
-        <li><a href="export.html#module-torch.export.graph_signature">module</a>
+        <li><a href="export/api_reference.html#module-torch.export.graph_signature">module</a>
 </li>
       </ul></li>
       <li>
     torch.export.passes
 
       <ul>
-        <li><a href="export.html#module-torch.export.passes">module</a>
+        <li><a href="export/api_reference.html#module-torch.export.passes">module</a>
 </li>
       </ul></li>
       <li>
     torch.export.pt2_archive
 
       <ul>
-        <li><a href="export.html#module-torch.export.pt2_archive">module</a>
+        <li><a href="export/api_reference.html#module-torch.export.pt2_archive">module</a>
 </li>
       </ul></li>
       <li>
     torch.export.pt2_archive.constants
 
       <ul>
-        <li><a href="export.html#module-torch.export.pt2_archive.constants">module</a>
+        <li><a href="export/api_reference.html#module-torch.export.pt2_archive.constants">module</a>
 </li>
       </ul></li>
       <li>
     torch.export.unflatten
 
       <ul>
-        <li><a href="export.html#module-torch.export.unflatten">module</a>
+        <li><a href="export/api_reference.html#module-torch.export.unflatten">module</a>
 </li>
       </ul></li>
       <li>
@@ -19760,7 +19736,7 @@ document.write(`
       <li><a href="generated/torch.unflatten.html#torch.unflatten">unflatten() (in module torch)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.unflatten.unflatten">(in module torch.export.unflatten)</a>
+        <li><a href="export/api_reference.html#torch.export.unflatten.unflatten">(in module torch.export.unflatten)</a>
 </li>
         <li><a href="generated/torch.Tensor.unflatten.html#torch.Tensor.unflatten">(torch.Tensor method)</a>
 </li>
@@ -19842,7 +19818,7 @@ document.write(`
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.update">update() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.decomp_utils.CustomDecompTable.update">(torch.export.decomp_utils.CustomDecompTable method)</a>
+        <li><a href="export/api_reference.html#torch.export.decomp_utils.CustomDecompTable.update">(torch.export.decomp_utils.CustomDecompTable method)</a>
 </li>
         <li><a href="generated/torch.nn.ModuleDict.html#torch.nn.ModuleDict.update">(torch.nn.ModuleDict method)</a>
 </li>
@@ -19885,17 +19861,17 @@ document.write(`
 </li>
       <li><a href="cuda.html#torch.cuda.use_mem_pool">use_mem_pool (class in torch.cuda)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.InputKind.USER_INPUT">USER_INPUT (torch.export.graph_signature.InputKind attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.InputKind.USER_INPUT">USER_INPUT (torch.export.graph_signature.InputKind attribute)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.OutputKind.USER_INPUT_MUTATION">USER_INPUT_MUTATION (torch.export.graph_signature.OutputKind attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.OutputKind.USER_INPUT_MUTATION">USER_INPUT_MUTATION (torch.export.graph_signature.OutputKind attribute)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.user_inputs">user_inputs (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.user_inputs">user_inputs (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.user_inputs_to_mutate">user_inputs_to_mutate (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.user_inputs_to_mutate">user_inputs_to_mutate (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.OutputKind.USER_OUTPUT">USER_OUTPUT (torch.export.graph_signature.OutputKind attribute)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.OutputKind.USER_OUTPUT">USER_OUTPUT (torch.export.graph_signature.OutputKind attribute)</a>
 </li>
-      <li><a href="export.html#torch.export.graph_signature.ExportGraphSignature.user_outputs">user_outputs (torch.export.graph_signature.ExportGraphSignature property)</a>
+      <li><a href="export/api_reference.html#torch.export.graph_signature.ExportGraphSignature.user_outputs">user_outputs (torch.export.graph_signature.ExportGraphSignature property)</a>
 </li>
       <li><a href="generated/torch.cuda.utilization.html#torch.cuda.utilization">utilization() (in module torch.cuda)</a>
 </li>
@@ -19905,7 +19881,7 @@ document.write(`
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="export.html#torch.export.ExportedProgram.validate">validate() (torch.export.ExportedProgram method)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.validate">validate() (torch.export.ExportedProgram method)</a>
 </li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.format_utils.BroadcastingTorchSaveReader.validate_checkpoint_id">validate_checkpoint_id() (torch.distributed.checkpoint.format_utils.BroadcastingTorchSaveReader class method)</a>
 
@@ -19918,7 +19894,7 @@ document.write(`
       <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.BackendType.value">value (torch.distributed._dist2.ProcessGroup.BackendType property)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.graph_signature.ConstantArgument.value">(torch.export.graph_signature.ConstantArgument attribute)</a>
+        <li><a href="export/api_reference.html#torch.export.graph_signature.ConstantArgument.value">(torch.export.graph_signature.ConstantArgument attribute)</a>
 </li>
         <li><a href="generated/torch.jit.Attribute.html#torch.jit.Attribute.value">(torch.jit.Attribute attribute)</a>
 </li>
@@ -20045,14 +20021,14 @@ document.write(`
 </li>
       <li><a href="onnx_verification.html#torch.onnx.verification.VerificationOptions">VerificationOptions (class in torch.onnx.verification)</a>
 </li>
-      <li><a href="export.html#torch.export.ExportedProgram.verifier">verifier (torch.export.ExportedProgram property)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.verifier">verifier (torch.export.ExportedProgram property)</a>
 </li>
-      <li><a href="export.html#torch.export.ExportedProgram.verifiers">verifiers (torch.export.ExportedProgram property)</a>
+      <li><a href="export/api_reference.html#torch.export.ExportedProgram.verifiers">verifiers (torch.export.ExportedProgram property)</a>
 </li>
       <li><a href="onnx_verification.html#torch.onnx.verification.verify">verify() (in module torch.onnx.verification)</a>
 
       <ul>
-        <li><a href="export.html#torch.export.dynamic_shapes.AdditionalInputs.verify">(torch.export.dynamic_shapes.AdditionalInputs method)</a>
+        <li><a href="export/api_reference.html#torch.export.dynamic_shapes.AdditionalInputs.verify">(torch.export.dynamic_shapes.AdditionalInputs method)</a>
 </li>
       </ul></li>
       <li><a href="onnx_verification.html#torch.onnx.verification.verify_aten_graph">verify_aten_graph() (in module torch.onnx.verification)</a>

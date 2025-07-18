@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
@@ -106,7 +107,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git82a1ee1 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7b72e5b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -693,292 +694,267 @@ document.write(`
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Define the search callback
-    const myWebSearchStartingCallback = (gname, query) => {
-      if (typeof dataLayer !== 'undefined' && query) {
-        window.dataLayer = window.dataLayer || [];
-        dataLayer.push({
-          'event': 'google_search',
-          'search_term': query,
-          'event_category': 'Search',
-          'event_label': 'Google Search'
-        });
-        console.log('GA event sent via callback: google_search - ' + query);
-      }
-      return '';
-    };
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
 
-    // Set up the GCSE search callbacks
-    window.__gcse || (window.__gcse = {});
-    window.__gcse.searchCallbacks = {
-      web: {
-        starting: myWebSearchStartingCallback,
-      },
-    };
-    if (window.location.pathname.includes('/search.html')) {
-      document.body.classList.add('search-page');
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
     }
 
-    // Function to reinitialize Google CSE
-    function reinitializeGoogleSearch() {
-      if (window.__gcse) {
-        // Force Google CSE to reinitialize
-        if (window.__gcse.initializationCallback) {
-          window.__gcse.initializationCallback();
-        }
-      }
-    }
+    // Update tooltip
+    updateTooltip(toggle.checked);
 
-    // Function to handle search toggle
-    function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
-      if (!toggle || !sphinxSearch || !googleSearch) return;
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
 
-      // Check if the URL contains /stable/ or /tutorials/
-      const currentUrl = window.location.href;
-      const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
-
-      // Check if there's a saved preference, otherwise use the URL-based default
-      const savedPreference = localStorage.getItem('searchPreference');
-      if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
-        toggle.checked = true;
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
         sphinxSearch.style.display = 'none';
         googleSearch.style.display = 'block';
-        // Save the preference if it wasn't already saved
-        if (savedPreference === null) {
-          localStorage.setItem('searchPreference', 'google');
-        }
-        // Ensure Google search is properly initialized
+        localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
       } else {
-        toggle.checked = false;
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
       }
 
-      // Update tooltip based on initial state
-      const tooltipElement = document.querySelector('.search-toggle-container');
-      if (tooltipElement) {
-        tooltipElement.setAttribute('data-bs-title', toggle.checked ? 'Google Search On' : 'Google Search Off');
-        // Reinitialize tooltip if Bootstrap's tooltip is already initialized
-        if (bootstrap && bootstrap.Tooltip) {
-          const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-          if (tooltipInstance) tooltipInstance.dispose();
-          new bootstrap.Tooltip(tooltipElement);
-        }
-      }
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
 
-      // Add a data attribute to track if this toggle has been initialized
-      if (toggle.hasAttribute('data-initialized')) {
-        return; // Skip adding another event listener if already initialized
-      }
-      toggle.setAttribute('data-initialized', 'true');
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
 
-      toggle.addEventListener('change', function() {
-        if (this.checked) {
-          sphinxSearch.style.display = 'none';
-          googleSearch.style.display = 'block';
-          localStorage.setItem('searchPreference', 'google');
-          // Reinitialize Google search when switching to it
-          reinitializeGoogleSearch();
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search On');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Google'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Google');
-          } else {
-            console.log('GA not available: Cannot track Google search switch');
-          }
-        } else {
-          sphinxSearch.style.display = 'block';
-          googleSearch.style.display = 'none';
-          localStorage.setItem('searchPreference', 'sphinx');
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search Off');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Sphinx'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Sphinx');
-          } else {
-            console.log('GA not available: Cannot track Sphinx search switch');
-          }
-        }
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
 
-        // Also update mobile search if it exists
-        updateMobileSearch(false); // Pass false to prevent triggering another event
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
       });
     }
+  }
 
-
-    // Function to update mobile search based on current toggle state
-    function updateMobileSearch() {
-      const toggle = document.getElementById('search-toggle');
-      if (!toggle) return;
-
-      // Find mobile search container
-      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-      if (mobileSearchContainer) {
-        const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
-        const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
-
-        if (mobileSphinxSearch && mobileGoogleSearch) {
-          if (toggle.checked) {
-            mobileSphinxSearch.style.display = 'none';
-            mobileGoogleSearch.style.display = 'block';
-            // Reinitialize Google search in mobile view
-            reinitializeGoogleSearch();
-          } else {
-            mobileSphinxSearch.style.display = 'block';
-            mobileGoogleSearch.style.display = 'none';
-          }
-        }
-      }
-    }
-
-    // Initialize desktop search toggle
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
     const toggle = document.getElementById('search-toggle');
-    const sphinxSearch = document.getElementById('sphinx-search');
-    const googleSearch = document.getElementById('google-search');
-    handleSearchToggle(toggle, sphinxSearch, googleSearch);
+    if (!toggle) return;
 
-    // Set placeholder text for Google search input
-    const observer = new MutationObserver(function(mutations, obs) {
-      const searchInputs = document.querySelectorAll('.gsc-input input');
-      searchInputs.forEach(input => {
-      if (input) {
-        input.setAttribute('placeholder', 'Search the docs ...');
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
 
-        if (!input.hasAttribute('data-tracking-added')) {
-          input.setAttribute('data-tracking-added', 'true');
-        }
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
       }
-      });
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
     });
 
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Prevent scroll jump when focusing and typing in search inputs
-    function setupSearchInputHandlers(input) {
-      if (input.hasAttribute('data-scroll-fixed')) return;
-      input.setAttribute('data-scroll-fixed', 'true');
-
-      // Create a fixed position for this input
-      let fixedScrollPos = null;
-
-      // Capture scroll position on focus
-      input.addEventListener('focus', function() {
-        fixedScrollPos = window.scrollY;
-      });
-
-      // Prevent scroll jumps during typing
-      ['input', 'keydown', 'keyup'].forEach(eventType => {
-        input.addEventListener(eventType, function(e) {
-          if (fixedScrollPos !== null) {
-            requestAnimationFrame(() => {
-              window.scrollTo(0, fixedScrollPos);
-            });
-          }
-        });
-      });
-
-      // Release fixed position on blur
-      input.addEventListener('blur', function() {
-        fixedScrollPos = null;
-      });
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
     }
 
-    // Apply to all search inputs
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
-
-    // Observer for dynamically added search inputs
-    const searchObserver = new MutationObserver(function() {
-      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
     });
 
-    searchObserver.observe(document.body, { childList: true, subtree: true });
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
 
-    // Watch for mobile menu creation
-    const mobileMenuObserver = new MutationObserver(function(mutations) {
-      for (const mutation of mutations) {
-        const mobileSearchInputs = document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input');
-      mobileSearchInputs.forEach(input => {
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
         if (input) {
           input.setAttribute('placeholder', 'Search the docs ...');
           input.style.paddingLeft = '36px';
-          }
-        });
-        if (mutation.addedNodes.length) {
-          // Check if the mobile search container was added
-          const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-          if (mobileSearchContainer) {
-            // Clone the toggle for mobile if needed
-            const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
-            if (mobileToggle) {
-              // Sync mobile toggle with desktop toggle
-              mobileToggle.checked = toggle.checked;
+        }
+      });
 
-              // Update mobile search display
-              updateMobileSearch();
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
 
-              // Add event listener to mobile toggle
-              mobileToggle.addEventListener('change', function() {
-                // Sync desktop toggle with mobile toggle
-                toggle.checked = this.checked;
-                // Trigger change event on desktop toggle to update both
-                toggle.dispatchEvent(new Event('change'));
-              });
-            }
-          }
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
         }
       }
-    });
-
-    mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
-
-    // Ensure Google CSE is properly loaded
-    if (window.__gcse) {
-      window.__gcse.callback = function() {
-        // This will run after Google CSE is fully loaded
-        if (toggle && toggle.checked) {
-          // If Google search is active, make sure it's properly initialized
-          reinitializeGoogleSearch();
-        }
-      };
-    } else {
-      // If Google CSE hasn't loaded yet, set up a callback
-      window.__gcse = {
-        callback: function() {
-          if (toggle && toggle.checked) {
-            reinitializeGoogleSearch();
-          }
-        }
-      };
     }
   });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
 </script>
 </div>
       
@@ -1167,292 +1143,267 @@ document.write(`
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Define the search callback
-    const myWebSearchStartingCallback = (gname, query) => {
-      if (typeof dataLayer !== 'undefined' && query) {
-        window.dataLayer = window.dataLayer || [];
-        dataLayer.push({
-          'event': 'google_search',
-          'search_term': query,
-          'event_category': 'Search',
-          'event_label': 'Google Search'
-        });
-        console.log('GA event sent via callback: google_search - ' + query);
-      }
-      return '';
-    };
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
 
-    // Set up the GCSE search callbacks
-    window.__gcse || (window.__gcse = {});
-    window.__gcse.searchCallbacks = {
-      web: {
-        starting: myWebSearchStartingCallback,
-      },
-    };
-    if (window.location.pathname.includes('/search.html')) {
-      document.body.classList.add('search-page');
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
     }
 
-    // Function to reinitialize Google CSE
-    function reinitializeGoogleSearch() {
-      if (window.__gcse) {
-        // Force Google CSE to reinitialize
-        if (window.__gcse.initializationCallback) {
-          window.__gcse.initializationCallback();
-        }
-      }
-    }
+    // Update tooltip
+    updateTooltip(toggle.checked);
 
-    // Function to handle search toggle
-    function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
-      if (!toggle || !sphinxSearch || !googleSearch) return;
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
 
-      // Check if the URL contains /stable/ or /tutorials/
-      const currentUrl = window.location.href;
-      const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
-
-      // Check if there's a saved preference, otherwise use the URL-based default
-      const savedPreference = localStorage.getItem('searchPreference');
-      if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
-        toggle.checked = true;
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
         sphinxSearch.style.display = 'none';
         googleSearch.style.display = 'block';
-        // Save the preference if it wasn't already saved
-        if (savedPreference === null) {
-          localStorage.setItem('searchPreference', 'google');
-        }
-        // Ensure Google search is properly initialized
+        localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
       } else {
-        toggle.checked = false;
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
       }
 
-      // Update tooltip based on initial state
-      const tooltipElement = document.querySelector('.search-toggle-container');
-      if (tooltipElement) {
-        tooltipElement.setAttribute('data-bs-title', toggle.checked ? 'Google Search On' : 'Google Search Off');
-        // Reinitialize tooltip if Bootstrap's tooltip is already initialized
-        if (bootstrap && bootstrap.Tooltip) {
-          const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-          if (tooltipInstance) tooltipInstance.dispose();
-          new bootstrap.Tooltip(tooltipElement);
-        }
-      }
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
 
-      // Add a data attribute to track if this toggle has been initialized
-      if (toggle.hasAttribute('data-initialized')) {
-        return; // Skip adding another event listener if already initialized
-      }
-      toggle.setAttribute('data-initialized', 'true');
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
 
-      toggle.addEventListener('change', function() {
-        if (this.checked) {
-          sphinxSearch.style.display = 'none';
-          googleSearch.style.display = 'block';
-          localStorage.setItem('searchPreference', 'google');
-          // Reinitialize Google search when switching to it
-          reinitializeGoogleSearch();
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search On');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Google'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Google');
-          } else {
-            console.log('GA not available: Cannot track Google search switch');
-          }
-        } else {
-          sphinxSearch.style.display = 'block';
-          googleSearch.style.display = 'none';
-          localStorage.setItem('searchPreference', 'sphinx');
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search Off');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Sphinx'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Sphinx');
-          } else {
-            console.log('GA not available: Cannot track Sphinx search switch');
-          }
-        }
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
 
-        // Also update mobile search if it exists
-        updateMobileSearch(false); // Pass false to prevent triggering another event
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
       });
     }
+  }
 
-
-    // Function to update mobile search based on current toggle state
-    function updateMobileSearch() {
-      const toggle = document.getElementById('search-toggle');
-      if (!toggle) return;
-
-      // Find mobile search container
-      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-      if (mobileSearchContainer) {
-        const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
-        const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
-
-        if (mobileSphinxSearch && mobileGoogleSearch) {
-          if (toggle.checked) {
-            mobileSphinxSearch.style.display = 'none';
-            mobileGoogleSearch.style.display = 'block';
-            // Reinitialize Google search in mobile view
-            reinitializeGoogleSearch();
-          } else {
-            mobileSphinxSearch.style.display = 'block';
-            mobileGoogleSearch.style.display = 'none';
-          }
-        }
-      }
-    }
-
-    // Initialize desktop search toggle
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
     const toggle = document.getElementById('search-toggle');
-    const sphinxSearch = document.getElementById('sphinx-search');
-    const googleSearch = document.getElementById('google-search');
-    handleSearchToggle(toggle, sphinxSearch, googleSearch);
+    if (!toggle) return;
 
-    // Set placeholder text for Google search input
-    const observer = new MutationObserver(function(mutations, obs) {
-      const searchInputs = document.querySelectorAll('.gsc-input input');
-      searchInputs.forEach(input => {
-      if (input) {
-        input.setAttribute('placeholder', 'Search the docs ...');
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
 
-        if (!input.hasAttribute('data-tracking-added')) {
-          input.setAttribute('data-tracking-added', 'true');
-        }
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
       }
-      });
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
     });
 
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Prevent scroll jump when focusing and typing in search inputs
-    function setupSearchInputHandlers(input) {
-      if (input.hasAttribute('data-scroll-fixed')) return;
-      input.setAttribute('data-scroll-fixed', 'true');
-
-      // Create a fixed position for this input
-      let fixedScrollPos = null;
-
-      // Capture scroll position on focus
-      input.addEventListener('focus', function() {
-        fixedScrollPos = window.scrollY;
-      });
-
-      // Prevent scroll jumps during typing
-      ['input', 'keydown', 'keyup'].forEach(eventType => {
-        input.addEventListener(eventType, function(e) {
-          if (fixedScrollPos !== null) {
-            requestAnimationFrame(() => {
-              window.scrollTo(0, fixedScrollPos);
-            });
-          }
-        });
-      });
-
-      // Release fixed position on blur
-      input.addEventListener('blur', function() {
-        fixedScrollPos = null;
-      });
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
     }
 
-    // Apply to all search inputs
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
-
-    // Observer for dynamically added search inputs
-    const searchObserver = new MutationObserver(function() {
-      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
     });
 
-    searchObserver.observe(document.body, { childList: true, subtree: true });
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
 
-    // Watch for mobile menu creation
-    const mobileMenuObserver = new MutationObserver(function(mutations) {
-      for (const mutation of mutations) {
-        const mobileSearchInputs = document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input');
-      mobileSearchInputs.forEach(input => {
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
         if (input) {
           input.setAttribute('placeholder', 'Search the docs ...');
           input.style.paddingLeft = '36px';
-          }
-        });
-        if (mutation.addedNodes.length) {
-          // Check if the mobile search container was added
-          const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-          if (mobileSearchContainer) {
-            // Clone the toggle for mobile if needed
-            const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
-            if (mobileToggle) {
-              // Sync mobile toggle with desktop toggle
-              mobileToggle.checked = toggle.checked;
+        }
+      });
 
-              // Update mobile search display
-              updateMobileSearch();
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
 
-              // Add event listener to mobile toggle
-              mobileToggle.addEventListener('change', function() {
-                // Sync desktop toggle with mobile toggle
-                toggle.checked = this.checked;
-                // Trigger change event on desktop toggle to update both
-                toggle.dispatchEvent(new Event('change'));
-              });
-            }
-          }
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
         }
       }
-    });
-
-    mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
-
-    // Ensure Google CSE is properly loaded
-    if (window.__gcse) {
-      window.__gcse.callback = function() {
-        // This will run after Google CSE is fully loaded
-        if (toggle && toggle.checked) {
-          // If Google search is active, make sure it's properly initialized
-          reinitializeGoogleSearch();
-        }
-      };
-    } else {
-      // If Google CSE hasn't loaded yet, set up a callback
-      window.__gcse = {
-        callback: function() {
-          if (toggle && toggle.checked) {
-            reinitializeGoogleSearch();
-          }
-        }
-      };
     }
   });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
 </script>
 </div>
         
@@ -2956,6 +2907,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.current_stream.html">torch.accelerator.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.device_index.html">device_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_allocated.html">torch.accelerator.memory.memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_reserved.html">torch.accelerator.memory.memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_stats.html">torch.accelerator.memory.memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.reset_accumulated_memory_stats.html">torch.accelerator.memory.reset_accumulated_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.reset_peak_memory_stats.html">torch.accelerator.memory.reset_peak_memory_stats</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cpu.html">torch.cpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3172,6 +3131,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="export.html">torch.export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="export/api_reference.html">torch.export API Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/programming_model.html">torch.export Programming Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/pt2_archive.html">PT2 Archive Spec</a></li>
@@ -4138,7 +4098,7 @@ document.write(`
                   
   <div class="section" id="module-torch.accelerator">
 <span id="torch-accelerator"></span><h1>torch.accelerator<a class="headerlink" href="#module-torch.accelerator" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 27, 2024 | Last Updated On: Jun 25, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 27, 2024 | Last Updated On: Jul 11, 2025</p>
 <p>This package introduces support for the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> in python.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <colgroup>
@@ -4181,6 +4141,42 @@ document.write(`
 </tr>
 </tbody>
 </table>
+</div>
+<span class="target" id="module-torch.accelerator.memory"></span><div class="section" id="memory-management">
+<h2>Memory management<a class="headerlink" href="#memory-management" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><p id="torch.accelerator.memory.empty_cache"/><a class="reference internal" href="generated/torch.accelerator.memory.empty_cache.html#torch.accelerator.memory.empty_cache" title="torch.accelerator.memory.empty_cache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_cache</span></code></a></p></td>
+<td><p>Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other application.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.accelerator.memory.max_memory_allocated"/><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_allocated.html#torch.accelerator.memory.max_memory_allocated" title="torch.accelerator.memory.max_memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_allocated</span></code></a></p></td>
+<td><p>Return the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> maximum device memory occupied by tensors in bytes for a given device index.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.accelerator.memory.max_memory_reserved"/><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_reserved.html#torch.accelerator.memory.max_memory_reserved" title="torch.accelerator.memory.max_memory_reserved"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_reserved</span></code></a></p></td>
+<td><p>Return the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> maximum device memory managed by the caching allocator in bytes for a given device index.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.accelerator.memory.memory_allocated"/><a class="reference internal" href="generated/torch.accelerator.memory.memory_allocated.html#torch.accelerator.memory.memory_allocated" title="torch.accelerator.memory.memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_allocated</span></code></a></p></td>
+<td><p>Return the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> device memory occupied by tensors in bytes for a given device index.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.accelerator.memory.memory_reserved"/><a class="reference internal" href="generated/torch.accelerator.memory.memory_reserved.html#torch.accelerator.memory.memory_reserved" title="torch.accelerator.memory.memory_reserved"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_reserved</span></code></a></p></td>
+<td><p>Return the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> device memory managed by the caching allocator in bytes for a given device index.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.accelerator.memory.memory_stats"/><a class="reference internal" href="generated/torch.accelerator.memory.memory_stats.html#torch.accelerator.memory.memory_stats" title="torch.accelerator.memory.memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_stats</span></code></a></p></td>
+<td><p>Return a dictionary of accelerator device memory allocator statistics for a given device index.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.accelerator.memory.reset_accumulated_memory_stats"/><a class="reference internal" href="generated/torch.accelerator.memory.reset_accumulated_memory_stats.html#torch.accelerator.memory.reset_accumulated_memory_stats" title="torch.accelerator.memory.reset_accumulated_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_accumulated_memory_stats</span></code></a></p></td>
+<td><p>Reset the &quot;accumulated&quot; (historical) stats tracked by the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> memory allocator for a given device index.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.accelerator.memory.reset_peak_memory_stats"/><a class="reference internal" href="generated/torch.accelerator.memory.reset_peak_memory_stats.html#torch.accelerator.memory.reset_peak_memory_stats" title="torch.accelerator.memory.reset_peak_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_peak_memory_stats</span></code></a></p></td>
+<td><p>Reset the &quot;peak&quot; stats tracked by the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> memory allocator for a given device index.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 
@@ -4297,6 +4293,18 @@ document.write(`
               
                 <div class="bd-sidebar-secondary bd-toc">
 <div class="sidebar-secondary-items sidebar-secondary__inner">
+    
+       <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-management">Memory management</a></li>
+</ul>
+  </nav></div>
     
        <div class="sidebar-secondary-item">
 
@@ -4517,8 +4525,8 @@ document.write(`
            "@id": "/accelerator.html"
          },
          "datePublished": "Oct 27, 2024",
-         "dateModified": "Jun 25, 2025",
-         "articleBody": "torch.accelerator# Created On: Oct 27, 2024 | Last Updated On: Jun 25, 2025 This package introduces support for the current accelerator in python. device_count Return the number of current accelerator available. is_available Check if the current accelerator is available at runtime: it was build, all the required drivers are available and at least one device is visible. current_accelerator Return the device of the accelerator available at compilation time. set_device_index Set the current device index to a given device. set_device_idx (Deprecated) Set the current device index to a given device. current_device_index Return the index of a currently selected device for the current accelerator. current_device_idx (Deprecated) Return the index of a currently selected device for the current accelerator. set_stream Set the current stream to a given stream. current_stream Return the currently selected stream for a given device. synchronize Wait for all kernels in all streams on the given device to complete. device_index Context manager to set the current device index for the current accelerator."
+         "dateModified": "Jul 11, 2025",
+         "articleBody": "torch.accelerator# Created On: Oct 27, 2024 | Last Updated On: Jul 11, 2025 This package introduces support for the current accelerator in python. device_count Return the number of current accelerator available. is_available Check if the current accelerator is available at runtime: it was build, all the required drivers are available and at least one device is visible. current_accelerator Return the device of the accelerator available at compilation time. set_device_index Set the current device index to a given device. set_device_idx (Deprecated) Set the current device index to a given device. current_device_index Return the index of a currently selected device for the current accelerator. current_device_idx (Deprecated) Return the index of a currently selected device for the current accelerator. set_stream Set the current stream to a given stream. current_stream Return the currently selected stream for a given device. synchronize Wait for all kernels in all streams on the given device to complete. device_index Context manager to set the current device index for the current accelerator. Memory management# empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other application. max_memory_allocated Return the current accelerator maximum device memory occupied by tensors in bytes for a given device index. max_memory_reserved Return the current accelerator maximum device memory managed by the caching allocator in bytes for a given device index. memory_allocated Return the current accelerator device memory occupied by tensors in bytes for a given device index. memory_reserved Return the current accelerator device memory managed by the caching allocator in bytes for a given device index. memory_stats Return a dictionary of accelerator device memory allocator statistics for a given device index. reset_accumulated_memory_stats Reset the &#34;accumulated&#34; (historical) stats tracked by the current accelerator memory allocator for a given device index. reset_peak_memory_stats Reset the &#34;peak&#34; stats tracked by the current accelerator memory allocator for a given device index."
        }
    </script>
 

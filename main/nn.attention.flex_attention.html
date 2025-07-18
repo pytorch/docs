@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
@@ -106,7 +107,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git82a1ee1 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7b72e5b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -693,292 +694,267 @@ document.write(`
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Define the search callback
-    const myWebSearchStartingCallback = (gname, query) => {
-      if (typeof dataLayer !== 'undefined' && query) {
-        window.dataLayer = window.dataLayer || [];
-        dataLayer.push({
-          'event': 'google_search',
-          'search_term': query,
-          'event_category': 'Search',
-          'event_label': 'Google Search'
-        });
-        console.log('GA event sent via callback: google_search - ' + query);
-      }
-      return '';
-    };
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
 
-    // Set up the GCSE search callbacks
-    window.__gcse || (window.__gcse = {});
-    window.__gcse.searchCallbacks = {
-      web: {
-        starting: myWebSearchStartingCallback,
-      },
-    };
-    if (window.location.pathname.includes('/search.html')) {
-      document.body.classList.add('search-page');
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
     }
 
-    // Function to reinitialize Google CSE
-    function reinitializeGoogleSearch() {
-      if (window.__gcse) {
-        // Force Google CSE to reinitialize
-        if (window.__gcse.initializationCallback) {
-          window.__gcse.initializationCallback();
-        }
-      }
-    }
+    // Update tooltip
+    updateTooltip(toggle.checked);
 
-    // Function to handle search toggle
-    function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
-      if (!toggle || !sphinxSearch || !googleSearch) return;
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
 
-      // Check if the URL contains /stable/ or /tutorials/
-      const currentUrl = window.location.href;
-      const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
-
-      // Check if there's a saved preference, otherwise use the URL-based default
-      const savedPreference = localStorage.getItem('searchPreference');
-      if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
-        toggle.checked = true;
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
         sphinxSearch.style.display = 'none';
         googleSearch.style.display = 'block';
-        // Save the preference if it wasn't already saved
-        if (savedPreference === null) {
-          localStorage.setItem('searchPreference', 'google');
-        }
-        // Ensure Google search is properly initialized
+        localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
       } else {
-        toggle.checked = false;
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
       }
 
-      // Update tooltip based on initial state
-      const tooltipElement = document.querySelector('.search-toggle-container');
-      if (tooltipElement) {
-        tooltipElement.setAttribute('data-bs-title', toggle.checked ? 'Google Search On' : 'Google Search Off');
-        // Reinitialize tooltip if Bootstrap's tooltip is already initialized
-        if (bootstrap && bootstrap.Tooltip) {
-          const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-          if (tooltipInstance) tooltipInstance.dispose();
-          new bootstrap.Tooltip(tooltipElement);
-        }
-      }
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
 
-      // Add a data attribute to track if this toggle has been initialized
-      if (toggle.hasAttribute('data-initialized')) {
-        return; // Skip adding another event listener if already initialized
-      }
-      toggle.setAttribute('data-initialized', 'true');
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
 
-      toggle.addEventListener('change', function() {
-        if (this.checked) {
-          sphinxSearch.style.display = 'none';
-          googleSearch.style.display = 'block';
-          localStorage.setItem('searchPreference', 'google');
-          // Reinitialize Google search when switching to it
-          reinitializeGoogleSearch();
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search On');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Google'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Google');
-          } else {
-            console.log('GA not available: Cannot track Google search switch');
-          }
-        } else {
-          sphinxSearch.style.display = 'block';
-          googleSearch.style.display = 'none';
-          localStorage.setItem('searchPreference', 'sphinx');
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search Off');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Sphinx'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Sphinx');
-          } else {
-            console.log('GA not available: Cannot track Sphinx search switch');
-          }
-        }
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
 
-        // Also update mobile search if it exists
-        updateMobileSearch(false); // Pass false to prevent triggering another event
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
       });
     }
+  }
 
-
-    // Function to update mobile search based on current toggle state
-    function updateMobileSearch() {
-      const toggle = document.getElementById('search-toggle');
-      if (!toggle) return;
-
-      // Find mobile search container
-      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-      if (mobileSearchContainer) {
-        const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
-        const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
-
-        if (mobileSphinxSearch && mobileGoogleSearch) {
-          if (toggle.checked) {
-            mobileSphinxSearch.style.display = 'none';
-            mobileGoogleSearch.style.display = 'block';
-            // Reinitialize Google search in mobile view
-            reinitializeGoogleSearch();
-          } else {
-            mobileSphinxSearch.style.display = 'block';
-            mobileGoogleSearch.style.display = 'none';
-          }
-        }
-      }
-    }
-
-    // Initialize desktop search toggle
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
     const toggle = document.getElementById('search-toggle');
-    const sphinxSearch = document.getElementById('sphinx-search');
-    const googleSearch = document.getElementById('google-search');
-    handleSearchToggle(toggle, sphinxSearch, googleSearch);
+    if (!toggle) return;
 
-    // Set placeholder text for Google search input
-    const observer = new MutationObserver(function(mutations, obs) {
-      const searchInputs = document.querySelectorAll('.gsc-input input');
-      searchInputs.forEach(input => {
-      if (input) {
-        input.setAttribute('placeholder', 'Search the docs ...');
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
 
-        if (!input.hasAttribute('data-tracking-added')) {
-          input.setAttribute('data-tracking-added', 'true');
-        }
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
       }
-      });
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
     });
 
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Prevent scroll jump when focusing and typing in search inputs
-    function setupSearchInputHandlers(input) {
-      if (input.hasAttribute('data-scroll-fixed')) return;
-      input.setAttribute('data-scroll-fixed', 'true');
-
-      // Create a fixed position for this input
-      let fixedScrollPos = null;
-
-      // Capture scroll position on focus
-      input.addEventListener('focus', function() {
-        fixedScrollPos = window.scrollY;
-      });
-
-      // Prevent scroll jumps during typing
-      ['input', 'keydown', 'keyup'].forEach(eventType => {
-        input.addEventListener(eventType, function(e) {
-          if (fixedScrollPos !== null) {
-            requestAnimationFrame(() => {
-              window.scrollTo(0, fixedScrollPos);
-            });
-          }
-        });
-      });
-
-      // Release fixed position on blur
-      input.addEventListener('blur', function() {
-        fixedScrollPos = null;
-      });
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
     }
 
-    // Apply to all search inputs
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
-
-    // Observer for dynamically added search inputs
-    const searchObserver = new MutationObserver(function() {
-      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
     });
 
-    searchObserver.observe(document.body, { childList: true, subtree: true });
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
 
-    // Watch for mobile menu creation
-    const mobileMenuObserver = new MutationObserver(function(mutations) {
-      for (const mutation of mutations) {
-        const mobileSearchInputs = document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input');
-      mobileSearchInputs.forEach(input => {
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
         if (input) {
           input.setAttribute('placeholder', 'Search the docs ...');
           input.style.paddingLeft = '36px';
-          }
-        });
-        if (mutation.addedNodes.length) {
-          // Check if the mobile search container was added
-          const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-          if (mobileSearchContainer) {
-            // Clone the toggle for mobile if needed
-            const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
-            if (mobileToggle) {
-              // Sync mobile toggle with desktop toggle
-              mobileToggle.checked = toggle.checked;
+        }
+      });
 
-              // Update mobile search display
-              updateMobileSearch();
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
 
-              // Add event listener to mobile toggle
-              mobileToggle.addEventListener('change', function() {
-                // Sync desktop toggle with mobile toggle
-                toggle.checked = this.checked;
-                // Trigger change event on desktop toggle to update both
-                toggle.dispatchEvent(new Event('change'));
-              });
-            }
-          }
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
         }
       }
-    });
-
-    mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
-
-    // Ensure Google CSE is properly loaded
-    if (window.__gcse) {
-      window.__gcse.callback = function() {
-        // This will run after Google CSE is fully loaded
-        if (toggle && toggle.checked) {
-          // If Google search is active, make sure it's properly initialized
-          reinitializeGoogleSearch();
-        }
-      };
-    } else {
-      // If Google CSE hasn't loaded yet, set up a callback
-      window.__gcse = {
-        callback: function() {
-          if (toggle && toggle.checked) {
-            reinitializeGoogleSearch();
-          }
-        }
-      };
     }
   });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
 </script>
 </div>
       
@@ -1167,292 +1143,267 @@ document.write(`
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Define the search callback
-    const myWebSearchStartingCallback = (gname, query) => {
-      if (typeof dataLayer !== 'undefined' && query) {
-        window.dataLayer = window.dataLayer || [];
-        dataLayer.push({
-          'event': 'google_search',
-          'search_term': query,
-          'event_category': 'Search',
-          'event_label': 'Google Search'
-        });
-        console.log('GA event sent via callback: google_search - ' + query);
-      }
-      return '';
-    };
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
 
-    // Set up the GCSE search callbacks
-    window.__gcse || (window.__gcse = {});
-    window.__gcse.searchCallbacks = {
-      web: {
-        starting: myWebSearchStartingCallback,
-      },
-    };
-    if (window.location.pathname.includes('/search.html')) {
-      document.body.classList.add('search-page');
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
     }
 
-    // Function to reinitialize Google CSE
-    function reinitializeGoogleSearch() {
-      if (window.__gcse) {
-        // Force Google CSE to reinitialize
-        if (window.__gcse.initializationCallback) {
-          window.__gcse.initializationCallback();
-        }
-      }
-    }
+    // Update tooltip
+    updateTooltip(toggle.checked);
 
-    // Function to handle search toggle
-    function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
-      if (!toggle || !sphinxSearch || !googleSearch) return;
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
 
-      // Check if the URL contains /stable/ or /tutorials/
-      const currentUrl = window.location.href;
-      const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
-
-      // Check if there's a saved preference, otherwise use the URL-based default
-      const savedPreference = localStorage.getItem('searchPreference');
-      if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
-        toggle.checked = true;
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
         sphinxSearch.style.display = 'none';
         googleSearch.style.display = 'block';
-        // Save the preference if it wasn't already saved
-        if (savedPreference === null) {
-          localStorage.setItem('searchPreference', 'google');
-        }
-        // Ensure Google search is properly initialized
+        localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
       } else {
-        toggle.checked = false;
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
       }
 
-      // Update tooltip based on initial state
-      const tooltipElement = document.querySelector('.search-toggle-container');
-      if (tooltipElement) {
-        tooltipElement.setAttribute('data-bs-title', toggle.checked ? 'Google Search On' : 'Google Search Off');
-        // Reinitialize tooltip if Bootstrap's tooltip is already initialized
-        if (bootstrap && bootstrap.Tooltip) {
-          const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-          if (tooltipInstance) tooltipInstance.dispose();
-          new bootstrap.Tooltip(tooltipElement);
-        }
-      }
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
 
-      // Add a data attribute to track if this toggle has been initialized
-      if (toggle.hasAttribute('data-initialized')) {
-        return; // Skip adding another event listener if already initialized
-      }
-      toggle.setAttribute('data-initialized', 'true');
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
 
-      toggle.addEventListener('change', function() {
-        if (this.checked) {
-          sphinxSearch.style.display = 'none';
-          googleSearch.style.display = 'block';
-          localStorage.setItem('searchPreference', 'google');
-          // Reinitialize Google search when switching to it
-          reinitializeGoogleSearch();
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search On');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Google'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Google');
-          } else {
-            console.log('GA not available: Cannot track Google search switch');
-          }
-        } else {
-          sphinxSearch.style.display = 'block';
-          googleSearch.style.display = 'none';
-          localStorage.setItem('searchPreference', 'sphinx');
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search Off');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Sphinx'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Sphinx');
-          } else {
-            console.log('GA not available: Cannot track Sphinx search switch');
-          }
-        }
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
 
-        // Also update mobile search if it exists
-        updateMobileSearch(false); // Pass false to prevent triggering another event
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
       });
     }
+  }
 
-
-    // Function to update mobile search based on current toggle state
-    function updateMobileSearch() {
-      const toggle = document.getElementById('search-toggle');
-      if (!toggle) return;
-
-      // Find mobile search container
-      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-      if (mobileSearchContainer) {
-        const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
-        const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
-
-        if (mobileSphinxSearch && mobileGoogleSearch) {
-          if (toggle.checked) {
-            mobileSphinxSearch.style.display = 'none';
-            mobileGoogleSearch.style.display = 'block';
-            // Reinitialize Google search in mobile view
-            reinitializeGoogleSearch();
-          } else {
-            mobileSphinxSearch.style.display = 'block';
-            mobileGoogleSearch.style.display = 'none';
-          }
-        }
-      }
-    }
-
-    // Initialize desktop search toggle
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
     const toggle = document.getElementById('search-toggle');
-    const sphinxSearch = document.getElementById('sphinx-search');
-    const googleSearch = document.getElementById('google-search');
-    handleSearchToggle(toggle, sphinxSearch, googleSearch);
+    if (!toggle) return;
 
-    // Set placeholder text for Google search input
-    const observer = new MutationObserver(function(mutations, obs) {
-      const searchInputs = document.querySelectorAll('.gsc-input input');
-      searchInputs.forEach(input => {
-      if (input) {
-        input.setAttribute('placeholder', 'Search the docs ...');
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
 
-        if (!input.hasAttribute('data-tracking-added')) {
-          input.setAttribute('data-tracking-added', 'true');
-        }
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
       }
-      });
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
     });
 
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Prevent scroll jump when focusing and typing in search inputs
-    function setupSearchInputHandlers(input) {
-      if (input.hasAttribute('data-scroll-fixed')) return;
-      input.setAttribute('data-scroll-fixed', 'true');
-
-      // Create a fixed position for this input
-      let fixedScrollPos = null;
-
-      // Capture scroll position on focus
-      input.addEventListener('focus', function() {
-        fixedScrollPos = window.scrollY;
-      });
-
-      // Prevent scroll jumps during typing
-      ['input', 'keydown', 'keyup'].forEach(eventType => {
-        input.addEventListener(eventType, function(e) {
-          if (fixedScrollPos !== null) {
-            requestAnimationFrame(() => {
-              window.scrollTo(0, fixedScrollPos);
-            });
-          }
-        });
-      });
-
-      // Release fixed position on blur
-      input.addEventListener('blur', function() {
-        fixedScrollPos = null;
-      });
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
     }
 
-    // Apply to all search inputs
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
-
-    // Observer for dynamically added search inputs
-    const searchObserver = new MutationObserver(function() {
-      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
     });
 
-    searchObserver.observe(document.body, { childList: true, subtree: true });
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
 
-    // Watch for mobile menu creation
-    const mobileMenuObserver = new MutationObserver(function(mutations) {
-      for (const mutation of mutations) {
-        const mobileSearchInputs = document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input');
-      mobileSearchInputs.forEach(input => {
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
         if (input) {
           input.setAttribute('placeholder', 'Search the docs ...');
           input.style.paddingLeft = '36px';
-          }
-        });
-        if (mutation.addedNodes.length) {
-          // Check if the mobile search container was added
-          const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-          if (mobileSearchContainer) {
-            // Clone the toggle for mobile if needed
-            const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
-            if (mobileToggle) {
-              // Sync mobile toggle with desktop toggle
-              mobileToggle.checked = toggle.checked;
+        }
+      });
 
-              // Update mobile search display
-              updateMobileSearch();
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
 
-              // Add event listener to mobile toggle
-              mobileToggle.addEventListener('change', function() {
-                // Sync desktop toggle with mobile toggle
-                toggle.checked = this.checked;
-                // Trigger change event on desktop toggle to update both
-                toggle.dispatchEvent(new Event('change'));
-              });
-            }
-          }
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
         }
       }
-    });
-
-    mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
-
-    // Ensure Google CSE is properly loaded
-    if (window.__gcse) {
-      window.__gcse.callback = function() {
-        // This will run after Google CSE is fully loaded
-        if (toggle && toggle.checked) {
-          // If Google search is active, make sure it's properly initialized
-          reinitializeGoogleSearch();
-        }
-      };
-    } else {
-      // If Google CSE hasn't loaded yet, set up a callback
-      window.__gcse = {
-        callback: function() {
-          if (toggle && toggle.checked) {
-            reinitializeGoogleSearch();
-          }
-        }
-      };
     }
   });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
 </script>
 </div>
         
@@ -2956,6 +2907,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.current_stream.html">torch.accelerator.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.device_index.html">device_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_allocated.html">torch.accelerator.memory.memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_reserved.html">torch.accelerator.memory.memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_stats.html">torch.accelerator.memory.memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.reset_accumulated_memory_stats.html">torch.accelerator.memory.reset_accumulated_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.reset_peak_memory_stats.html">torch.accelerator.memory.reset_peak_memory_stats</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cpu.html">torch.cpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3172,6 +3131,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="export.html">torch.export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="export/api_reference.html">torch.export API Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/programming_model.html">torch.export Programming Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/pt2_archive.html">PT2 Archive Spec</a></li>
@@ -4150,7 +4110,7 @@ document.write(`
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 16, 2024 | Last Updated On: Jun 14, 2025</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.flex_attention">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">flex_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_gqa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_lse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L1368"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.flex_attention" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">flex_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_gqa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_lse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L1368"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.flex_attention" title="Permalink to this definition">#</a></dt>
 <dd><p>This function implements scaled dot product attention with an arbitrary attention score modification function.</p>
 <p>This function computes the scaled dot product attention between query, key, and value tensors with a user-defined
 attention score modification function. The attention score modification function will be applied after the attention
@@ -4230,7 +4190,7 @@ Read more about feature classification at: <a class="reference external" href="h
 <h2>BlockMask Utilities<a class="headerlink" href="#blockmask-utilities" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.create_block_mask">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">create_block_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask_mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KV_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cuda'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BLOCK_SIZE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_compile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L966"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.create_block_mask" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">create_block_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask_mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KV_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cuda'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BLOCK_SIZE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_compile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L966"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.create_block_mask" title="Permalink to this definition">#</a></dt>
 <dd><p>This function creates a block mask tuple from a mask_mod function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4273,7 +4233,7 @@ or masked out (False).</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.create_mask">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">create_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KV_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cuda'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L917"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.create_mask" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">create_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KV_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cuda'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L917"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.create_mask" title="Permalink to this definition">#</a></dt>
 <dd><p>This function creates a mask tensor from a mod_fn function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4297,7 +4257,7 @@ or masked out (False).</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.create_nested_block_mask">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">create_nested_block_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask_mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_nt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_nt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BLOCK_SIZE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_compile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L1144"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.create_nested_block_mask" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">create_nested_block_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask_mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_nt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_nt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BLOCK_SIZE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_compile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L1144"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.create_nested_block_mask" title="Permalink to this definition">#</a></dt>
 <dd><p>This function creates a nested tensor compatible block mask tuple from a mask_mod
 function. The returned BlockMask will be on the device specified by the input nested tensor.</p>
 <dl class="field-list simple">
@@ -4369,7 +4329,7 @@ provided it is used for both query and key/value.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.and_masks">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">and_masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">mask_mods</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L861"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.and_masks" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">and_masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">mask_mods</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L861"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.and_masks" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a mask_mod that’s the intersection of provided mask_mods</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4380,7 +4340,7 @@ provided it is used for both query and key/value.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.or_masks">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">or_masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">mask_mods</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L847"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.or_masks" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">or_masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">mask_mods</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L847"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.or_masks" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a mask_mod that’s the union of provided mask_mods</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4391,7 +4351,7 @@ provided it is used for both query and key/value.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.noop_mask">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">noop_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_kv</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L262"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.noop_mask" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">noop_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_kv</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L262"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.noop_mask" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a noop mask_mod</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4405,7 +4365,7 @@ provided it is used for both query and key/value.</p></li>
 <h2>BlockMask<a class="headerlink" href="#blockmask" title="Permalink to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">BlockMask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seq_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_q_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_q_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BLOCK_SIZE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_mod</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L334"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">BlockMask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seq_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_q_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_q_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BLOCK_SIZE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_mod</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L334"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask" title="Permalink to this definition">#</a></dt>
 <dd><p>BlockMask is our format for representing a block-sparse attention mask.
 It is somewhat of a cross in-between BCSR and a non-sparse format.</p>
 <p><strong>Basics</strong></p>
@@ -4457,7 +4417,7 @@ the backwards pass. These are autogenerated from 2.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.as_tuple">
-<span class="sig-name descname"><span class="pre">as_tuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L518"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.as_tuple" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">as_tuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L518"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.as_tuple" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a tuple of the attributes of the BlockMask.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4468,7 +4428,7 @@ the backwards pass. These are autogenerated from 2.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.from_kv_blocks">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_kv_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kv_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_num_blocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BLOCK_SIZE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_lengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_q_blocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L444"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.from_kv_blocks" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_kv_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kv_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_num_blocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BLOCK_SIZE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_lengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_q_blocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L444"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.from_kv_blocks" title="Permalink to this definition">#</a></dt>
 <dd><p>Creates a BlockMask instance from key-value block information.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4533,7 +4493,7 @@ the backwards pass. These are autogenerated from 2.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.numel">
-<span class="sig-name descname"><span class="pre">numel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L670"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.numel" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">numel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L670"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.numel" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the number of elements (not accounting for sparsity) in the mask.</p>
 </dd></dl>
 
@@ -4559,7 +4519,7 @@ the backwards pass. These are autogenerated from 2.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.sparsity">
-<span class="sig-name descname"><span class="pre">sparsity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L679"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.sparsity" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">sparsity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L679"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.sparsity" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes the percentage of blocks that are sparse (i.e. not computed)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4570,7 +4530,7 @@ the backwards pass. These are autogenerated from 2.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.to">
-<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L766"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.to" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L766"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.to" title="Permalink to this definition">#</a></dt>
 <dd><p>Moves the BlockMask to the specified device.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4596,7 +4556,7 @@ current device placement.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.to_dense">
-<span class="sig-name descname"><span class="pre">to_dense</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L690"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.to_dense" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_dense</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L690"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.to_dense" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a dense block that is equivalent to the block mask.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4607,7 +4567,7 @@ current device placement.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.to_string">
-<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(20,</span> <span class="pre">20)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/nn/attention/flex_attention.py#L700"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.to_string" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(20,</span> <span class="pre">20)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/nn/attention/flex_attention.py#L700"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.to_string" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a string representation of the block mask. Quite nifty.</p>
 <p>If grid_size is -1, prints out an uncompressed version. Warning, it can be quite big!</p>
 </dd></dl>

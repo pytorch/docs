@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
@@ -106,7 +107,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git82a1ee1 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7b72e5b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -693,292 +694,267 @@ document.write(`
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Define the search callback
-    const myWebSearchStartingCallback = (gname, query) => {
-      if (typeof dataLayer !== 'undefined' && query) {
-        window.dataLayer = window.dataLayer || [];
-        dataLayer.push({
-          'event': 'google_search',
-          'search_term': query,
-          'event_category': 'Search',
-          'event_label': 'Google Search'
-        });
-        console.log('GA event sent via callback: google_search - ' + query);
-      }
-      return '';
-    };
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
 
-    // Set up the GCSE search callbacks
-    window.__gcse || (window.__gcse = {});
-    window.__gcse.searchCallbacks = {
-      web: {
-        starting: myWebSearchStartingCallback,
-      },
-    };
-    if (window.location.pathname.includes('/search.html')) {
-      document.body.classList.add('search-page');
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
     }
 
-    // Function to reinitialize Google CSE
-    function reinitializeGoogleSearch() {
-      if (window.__gcse) {
-        // Force Google CSE to reinitialize
-        if (window.__gcse.initializationCallback) {
-          window.__gcse.initializationCallback();
-        }
-      }
-    }
+    // Update tooltip
+    updateTooltip(toggle.checked);
 
-    // Function to handle search toggle
-    function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
-      if (!toggle || !sphinxSearch || !googleSearch) return;
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
 
-      // Check if the URL contains /stable/ or /tutorials/
-      const currentUrl = window.location.href;
-      const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
-
-      // Check if there's a saved preference, otherwise use the URL-based default
-      const savedPreference = localStorage.getItem('searchPreference');
-      if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
-        toggle.checked = true;
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
         sphinxSearch.style.display = 'none';
         googleSearch.style.display = 'block';
-        // Save the preference if it wasn't already saved
-        if (savedPreference === null) {
-          localStorage.setItem('searchPreference', 'google');
-        }
-        // Ensure Google search is properly initialized
+        localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
       } else {
-        toggle.checked = false;
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
       }
 
-      // Update tooltip based on initial state
-      const tooltipElement = document.querySelector('.search-toggle-container');
-      if (tooltipElement) {
-        tooltipElement.setAttribute('data-bs-title', toggle.checked ? 'Google Search On' : 'Google Search Off');
-        // Reinitialize tooltip if Bootstrap's tooltip is already initialized
-        if (bootstrap && bootstrap.Tooltip) {
-          const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-          if (tooltipInstance) tooltipInstance.dispose();
-          new bootstrap.Tooltip(tooltipElement);
-        }
-      }
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
 
-      // Add a data attribute to track if this toggle has been initialized
-      if (toggle.hasAttribute('data-initialized')) {
-        return; // Skip adding another event listener if already initialized
-      }
-      toggle.setAttribute('data-initialized', 'true');
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
 
-      toggle.addEventListener('change', function() {
-        if (this.checked) {
-          sphinxSearch.style.display = 'none';
-          googleSearch.style.display = 'block';
-          localStorage.setItem('searchPreference', 'google');
-          // Reinitialize Google search when switching to it
-          reinitializeGoogleSearch();
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search On');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Google'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Google');
-          } else {
-            console.log('GA not available: Cannot track Google search switch');
-          }
-        } else {
-          sphinxSearch.style.display = 'block';
-          googleSearch.style.display = 'none';
-          localStorage.setItem('searchPreference', 'sphinx');
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search Off');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Sphinx'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Sphinx');
-          } else {
-            console.log('GA not available: Cannot track Sphinx search switch');
-          }
-        }
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
 
-        // Also update mobile search if it exists
-        updateMobileSearch(false); // Pass false to prevent triggering another event
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
       });
     }
+  }
 
-
-    // Function to update mobile search based on current toggle state
-    function updateMobileSearch() {
-      const toggle = document.getElementById('search-toggle');
-      if (!toggle) return;
-
-      // Find mobile search container
-      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-      if (mobileSearchContainer) {
-        const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
-        const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
-
-        if (mobileSphinxSearch && mobileGoogleSearch) {
-          if (toggle.checked) {
-            mobileSphinxSearch.style.display = 'none';
-            mobileGoogleSearch.style.display = 'block';
-            // Reinitialize Google search in mobile view
-            reinitializeGoogleSearch();
-          } else {
-            mobileSphinxSearch.style.display = 'block';
-            mobileGoogleSearch.style.display = 'none';
-          }
-        }
-      }
-    }
-
-    // Initialize desktop search toggle
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
     const toggle = document.getElementById('search-toggle');
-    const sphinxSearch = document.getElementById('sphinx-search');
-    const googleSearch = document.getElementById('google-search');
-    handleSearchToggle(toggle, sphinxSearch, googleSearch);
+    if (!toggle) return;
 
-    // Set placeholder text for Google search input
-    const observer = new MutationObserver(function(mutations, obs) {
-      const searchInputs = document.querySelectorAll('.gsc-input input');
-      searchInputs.forEach(input => {
-      if (input) {
-        input.setAttribute('placeholder', 'Search the docs ...');
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
 
-        if (!input.hasAttribute('data-tracking-added')) {
-          input.setAttribute('data-tracking-added', 'true');
-        }
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
       }
-      });
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
     });
 
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Prevent scroll jump when focusing and typing in search inputs
-    function setupSearchInputHandlers(input) {
-      if (input.hasAttribute('data-scroll-fixed')) return;
-      input.setAttribute('data-scroll-fixed', 'true');
-
-      // Create a fixed position for this input
-      let fixedScrollPos = null;
-
-      // Capture scroll position on focus
-      input.addEventListener('focus', function() {
-        fixedScrollPos = window.scrollY;
-      });
-
-      // Prevent scroll jumps during typing
-      ['input', 'keydown', 'keyup'].forEach(eventType => {
-        input.addEventListener(eventType, function(e) {
-          if (fixedScrollPos !== null) {
-            requestAnimationFrame(() => {
-              window.scrollTo(0, fixedScrollPos);
-            });
-          }
-        });
-      });
-
-      // Release fixed position on blur
-      input.addEventListener('blur', function() {
-        fixedScrollPos = null;
-      });
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
     }
 
-    // Apply to all search inputs
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
-
-    // Observer for dynamically added search inputs
-    const searchObserver = new MutationObserver(function() {
-      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
     });
 
-    searchObserver.observe(document.body, { childList: true, subtree: true });
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
 
-    // Watch for mobile menu creation
-    const mobileMenuObserver = new MutationObserver(function(mutations) {
-      for (const mutation of mutations) {
-        const mobileSearchInputs = document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input');
-      mobileSearchInputs.forEach(input => {
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
         if (input) {
           input.setAttribute('placeholder', 'Search the docs ...');
           input.style.paddingLeft = '36px';
-          }
-        });
-        if (mutation.addedNodes.length) {
-          // Check if the mobile search container was added
-          const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-          if (mobileSearchContainer) {
-            // Clone the toggle for mobile if needed
-            const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
-            if (mobileToggle) {
-              // Sync mobile toggle with desktop toggle
-              mobileToggle.checked = toggle.checked;
+        }
+      });
 
-              // Update mobile search display
-              updateMobileSearch();
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
 
-              // Add event listener to mobile toggle
-              mobileToggle.addEventListener('change', function() {
-                // Sync desktop toggle with mobile toggle
-                toggle.checked = this.checked;
-                // Trigger change event on desktop toggle to update both
-                toggle.dispatchEvent(new Event('change'));
-              });
-            }
-          }
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
         }
       }
-    });
-
-    mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
-
-    // Ensure Google CSE is properly loaded
-    if (window.__gcse) {
-      window.__gcse.callback = function() {
-        // This will run after Google CSE is fully loaded
-        if (toggle && toggle.checked) {
-          // If Google search is active, make sure it's properly initialized
-          reinitializeGoogleSearch();
-        }
-      };
-    } else {
-      // If Google CSE hasn't loaded yet, set up a callback
-      window.__gcse = {
-        callback: function() {
-          if (toggle && toggle.checked) {
-            reinitializeGoogleSearch();
-          }
-        }
-      };
     }
   });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
 </script>
 </div>
       
@@ -1167,292 +1143,267 @@ document.write(`
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Define the search callback
-    const myWebSearchStartingCallback = (gname, query) => {
-      if (typeof dataLayer !== 'undefined' && query) {
-        window.dataLayer = window.dataLayer || [];
-        dataLayer.push({
-          'event': 'google_search',
-          'search_term': query,
-          'event_category': 'Search',
-          'event_label': 'Google Search'
-        });
-        console.log('GA event sent via callback: google_search - ' + query);
-      }
-      return '';
-    };
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
 
-    // Set up the GCSE search callbacks
-    window.__gcse || (window.__gcse = {});
-    window.__gcse.searchCallbacks = {
-      web: {
-        starting: myWebSearchStartingCallback,
-      },
-    };
-    if (window.location.pathname.includes('/search.html')) {
-      document.body.classList.add('search-page');
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
     }
 
-    // Function to reinitialize Google CSE
-    function reinitializeGoogleSearch() {
-      if (window.__gcse) {
-        // Force Google CSE to reinitialize
-        if (window.__gcse.initializationCallback) {
-          window.__gcse.initializationCallback();
-        }
-      }
-    }
+    // Update tooltip
+    updateTooltip(toggle.checked);
 
-    // Function to handle search toggle
-    function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
-      if (!toggle || !sphinxSearch || !googleSearch) return;
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
 
-      // Check if the URL contains /stable/ or /tutorials/
-      const currentUrl = window.location.href;
-      const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
-
-      // Check if there's a saved preference, otherwise use the URL-based default
-      const savedPreference = localStorage.getItem('searchPreference');
-      if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
-        toggle.checked = true;
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
         sphinxSearch.style.display = 'none';
         googleSearch.style.display = 'block';
-        // Save the preference if it wasn't already saved
-        if (savedPreference === null) {
-          localStorage.setItem('searchPreference', 'google');
-        }
-        // Ensure Google search is properly initialized
+        localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
       } else {
-        toggle.checked = false;
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
       }
 
-      // Update tooltip based on initial state
-      const tooltipElement = document.querySelector('.search-toggle-container');
-      if (tooltipElement) {
-        tooltipElement.setAttribute('data-bs-title', toggle.checked ? 'Google Search On' : 'Google Search Off');
-        // Reinitialize tooltip if Bootstrap's tooltip is already initialized
-        if (bootstrap && bootstrap.Tooltip) {
-          const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-          if (tooltipInstance) tooltipInstance.dispose();
-          new bootstrap.Tooltip(tooltipElement);
-        }
-      }
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
 
-      // Add a data attribute to track if this toggle has been initialized
-      if (toggle.hasAttribute('data-initialized')) {
-        return; // Skip adding another event listener if already initialized
-      }
-      toggle.setAttribute('data-initialized', 'true');
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
 
-      toggle.addEventListener('change', function() {
-        if (this.checked) {
-          sphinxSearch.style.display = 'none';
-          googleSearch.style.display = 'block';
-          localStorage.setItem('searchPreference', 'google');
-          // Reinitialize Google search when switching to it
-          reinitializeGoogleSearch();
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search On');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Google'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Google');
-          } else {
-            console.log('GA not available: Cannot track Google search switch');
-          }
-        } else {
-          sphinxSearch.style.display = 'block';
-          googleSearch.style.display = 'none';
-          localStorage.setItem('searchPreference', 'sphinx');
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search Off');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Sphinx'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Sphinx');
-          } else {
-            console.log('GA not available: Cannot track Sphinx search switch');
-          }
-        }
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
 
-        // Also update mobile search if it exists
-        updateMobileSearch(false); // Pass false to prevent triggering another event
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
       });
     }
+  }
 
-
-    // Function to update mobile search based on current toggle state
-    function updateMobileSearch() {
-      const toggle = document.getElementById('search-toggle');
-      if (!toggle) return;
-
-      // Find mobile search container
-      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-      if (mobileSearchContainer) {
-        const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
-        const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
-
-        if (mobileSphinxSearch && mobileGoogleSearch) {
-          if (toggle.checked) {
-            mobileSphinxSearch.style.display = 'none';
-            mobileGoogleSearch.style.display = 'block';
-            // Reinitialize Google search in mobile view
-            reinitializeGoogleSearch();
-          } else {
-            mobileSphinxSearch.style.display = 'block';
-            mobileGoogleSearch.style.display = 'none';
-          }
-        }
-      }
-    }
-
-    // Initialize desktop search toggle
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
     const toggle = document.getElementById('search-toggle');
-    const sphinxSearch = document.getElementById('sphinx-search');
-    const googleSearch = document.getElementById('google-search');
-    handleSearchToggle(toggle, sphinxSearch, googleSearch);
+    if (!toggle) return;
 
-    // Set placeholder text for Google search input
-    const observer = new MutationObserver(function(mutations, obs) {
-      const searchInputs = document.querySelectorAll('.gsc-input input');
-      searchInputs.forEach(input => {
-      if (input) {
-        input.setAttribute('placeholder', 'Search the docs ...');
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
 
-        if (!input.hasAttribute('data-tracking-added')) {
-          input.setAttribute('data-tracking-added', 'true');
-        }
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
       }
-      });
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
     });
 
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Prevent scroll jump when focusing and typing in search inputs
-    function setupSearchInputHandlers(input) {
-      if (input.hasAttribute('data-scroll-fixed')) return;
-      input.setAttribute('data-scroll-fixed', 'true');
-
-      // Create a fixed position for this input
-      let fixedScrollPos = null;
-
-      // Capture scroll position on focus
-      input.addEventListener('focus', function() {
-        fixedScrollPos = window.scrollY;
-      });
-
-      // Prevent scroll jumps during typing
-      ['input', 'keydown', 'keyup'].forEach(eventType => {
-        input.addEventListener(eventType, function(e) {
-          if (fixedScrollPos !== null) {
-            requestAnimationFrame(() => {
-              window.scrollTo(0, fixedScrollPos);
-            });
-          }
-        });
-      });
-
-      // Release fixed position on blur
-      input.addEventListener('blur', function() {
-        fixedScrollPos = null;
-      });
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
     }
 
-    // Apply to all search inputs
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
-
-    // Observer for dynamically added search inputs
-    const searchObserver = new MutationObserver(function() {
-      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
     });
 
-    searchObserver.observe(document.body, { childList: true, subtree: true });
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
 
-    // Watch for mobile menu creation
-    const mobileMenuObserver = new MutationObserver(function(mutations) {
-      for (const mutation of mutations) {
-        const mobileSearchInputs = document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input');
-      mobileSearchInputs.forEach(input => {
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
         if (input) {
           input.setAttribute('placeholder', 'Search the docs ...');
           input.style.paddingLeft = '36px';
-          }
-        });
-        if (mutation.addedNodes.length) {
-          // Check if the mobile search container was added
-          const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-          if (mobileSearchContainer) {
-            // Clone the toggle for mobile if needed
-            const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
-            if (mobileToggle) {
-              // Sync mobile toggle with desktop toggle
-              mobileToggle.checked = toggle.checked;
+        }
+      });
 
-              // Update mobile search display
-              updateMobileSearch();
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
 
-              // Add event listener to mobile toggle
-              mobileToggle.addEventListener('change', function() {
-                // Sync desktop toggle with mobile toggle
-                toggle.checked = this.checked;
-                // Trigger change event on desktop toggle to update both
-                toggle.dispatchEvent(new Event('change'));
-              });
-            }
-          }
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
         }
       }
-    });
-
-    mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
-
-    // Ensure Google CSE is properly loaded
-    if (window.__gcse) {
-      window.__gcse.callback = function() {
-        // This will run after Google CSE is fully loaded
-        if (toggle && toggle.checked) {
-          // If Google search is active, make sure it's properly initialized
-          reinitializeGoogleSearch();
-        }
-      };
-    } else {
-      // If Google CSE hasn't loaded yet, set up a callback
-      window.__gcse = {
-        callback: function() {
-          if (toggle && toggle.checked) {
-            reinitializeGoogleSearch();
-          }
-        }
-      };
     }
   });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
 </script>
 </div>
         
@@ -2956,6 +2907,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.current_stream.html">torch.accelerator.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.device_index.html">device_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_allocated.html">torch.accelerator.memory.memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_reserved.html">torch.accelerator.memory.memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_stats.html">torch.accelerator.memory.memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.reset_accumulated_memory_stats.html">torch.accelerator.memory.reset_accumulated_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.reset_peak_memory_stats.html">torch.accelerator.memory.reset_peak_memory_stats</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cpu.html">torch.cpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3172,6 +3131,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="export.html">torch.export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="export/api_reference.html">torch.export API Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/programming_model.html">torch.export Programming Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/pt2_archive.html">PT2 Archive Spec</a></li>
@@ -4507,7 +4467,7 @@ type(s).</p>
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.DataLoader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">DataLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_sampler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collate_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_init_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiprocessing_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persistent_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_memory_device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/dataloader.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.DataLoader" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">DataLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_sampler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collate_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_init_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiprocessing_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persistent_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_memory_device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/dataloader.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.DataLoader" title="Permalink to this definition">#</a></dt>
 <dd><p>Data loader combines a dataset and a sampler, and provides an iterable over the given dataset.</p>
 <p>The <a class="reference internal" href="#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> supports both map-style and
 iterable-style datasets with single- or multi-process loading, customizing
@@ -4610,7 +4570,7 @@ distribution being fed to the trainer in cases with imbalanced data.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.Dataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">Dataset</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/dataset.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.Dataset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">Dataset</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/dataset.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.Dataset" title="Permalink to this definition">#</a></dt>
 <dd><p>An abstract class representing a <a class="reference internal" href="#torch.utils.data.Dataset" title="torch.utils.data.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>.</p>
 <p>All datasets that represent a map from keys to data samples should subclass
 it. All subclasses should overwrite <code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code>, supporting fetching a
@@ -4631,7 +4591,7 @@ dataset with non-integral indices/keys, a custom sampler must be provided.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.IterableDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">IterableDataset</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/dataset.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.IterableDataset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">IterableDataset</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/dataset.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.IterableDataset" title="Permalink to this definition">#</a></dt>
 <dd><p>An iterable Dataset.</p>
 <p>All datasets that represent an iterable of data samples should subclass it.
 Such form of datasets is particularly useful when data come from a stream.</p>
@@ -4733,7 +4693,7 @@ dataset’s <code class="xref py py-meth docutils literal notranslate"><span cla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.TensorDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">TensorDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/dataset.py#L189"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.TensorDataset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">TensorDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/dataset.py#L189"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.TensorDataset" title="Permalink to this definition">#</a></dt>
 <dd><p>Dataset wrapping tensors.</p>
 <p>Each sample will be retrieved by indexing tensors along the first dimension.</p>
 <dl class="field-list simple">
@@ -4745,7 +4705,7 @@ dataset’s <code class="xref py py-meth docutils literal notranslate"><span cla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.StackDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">StackDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/dataset.py#L213"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.StackDataset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">StackDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/dataset.py#L213"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.StackDataset" title="Permalink to this definition">#</a></dt>
 <dd><p>Dataset as a stacking of multiple datasets.</p>
 <p>This class is useful to assemble different parts of complex input data, given as datasets.</p>
 <p class="rubric">Example</p>
@@ -4769,7 +4729,7 @@ dataset’s <code class="xref py py-meth docutils literal notranslate"><span cla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.ConcatDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">ConcatDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasets</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/dataset.py#L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.ConcatDataset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">ConcatDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasets</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/dataset.py#L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.ConcatDataset" title="Permalink to this definition">#</a></dt>
 <dd><p>Dataset as a concatenation of multiple datasets.</p>
 <p>This class is useful to assemble different existing datasets.</p>
 <dl class="field-list simple">
@@ -4781,7 +4741,7 @@ dataset’s <code class="xref py py-meth docutils literal notranslate"><span cla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.ChainDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">ChainDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasets</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/dataset.py#L357"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.ChainDataset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">ChainDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasets</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/dataset.py#L357"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.ChainDataset" title="Permalink to this definition">#</a></dt>
 <dd><p>Dataset for chaining multiple <a class="reference internal" href="#torch.utils.data.IterableDataset" title="torch.utils.data.IterableDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterableDataset</span></code></a> s.</p>
 <p>This class is useful to assemble different existing dataset streams. The
 chaining operation is done on-the-fly, so concatenating large-scale
@@ -4795,7 +4755,7 @@ datasets with this class will be efficient.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.Subset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">Subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/dataset.py#L389"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.Subset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">Subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/dataset.py#L389"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.Subset" title="Permalink to this definition">#</a></dt>
 <dd><p>Subset of a dataset at specified indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4809,7 +4769,7 @@ datasets with this class will be efficient.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.data._utils.collate.collate">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.data._utils.collate.</span></span><span class="sig-name descname"><span class="pre">collate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collate_fn_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/_utils/collate.py#L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data._utils.collate.collate" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.data._utils.collate.</span></span><span class="sig-name descname"><span class="pre">collate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collate_fn_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/_utils/collate.py#L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data._utils.collate.collate" title="Permalink to this definition">#</a></dt>
 <dd><p>General collate function that handles collection type of element within each batch.</p>
 <p>The function also opens function registry to deal with specific element types. <cite>default_collate_fn_map</cite>
 provides default collate functions for tensors, numpy arrays, numbers and strings.</p>
@@ -4844,7 +4804,7 @@ for the dictionary of collate functions as <cite>collate_fn_map</cite>.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.data.default_collate">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">default_collate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/_utils/collate.py#L337"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.default_collate" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">default_collate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/_utils/collate.py#L337"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.default_collate" title="Permalink to this definition">#</a></dt>
 <dd><p>Take in a batch of data and put the elements within the batch into a tensor with an additional outer dimension - batch size.</p>
 <p>The exact output type can be a <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>, a <cite>Sequence</cite> of <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>, a
 Collection of <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>, or left unchanged, depending on the input type.
@@ -4910,7 +4870,7 @@ default_collate([V2_1, V2_2, …]), …]</cite></p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.data.default_convert">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">default_convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/_utils/collate.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.default_convert" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">default_convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/_utils/collate.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.default_convert" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert each NumPy array element into a <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.</p>
 <p>If the input is a <cite>Sequence</cite>, <cite>Collection</cite>, or <cite>Mapping</cite>, it tries to convert each element inside to a <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.
 If the input is not an NumPy array, it is left unchanged.
@@ -4945,7 +4905,7 @@ of <a class="reference internal" href="#torch.utils.data.default_collate" title=
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.data.get_worker_info">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">get_worker_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/_utils/worker.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.get_worker_info" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">get_worker_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/_utils/worker.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.get_worker_info" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the information about the current
 <a class="reference internal" href="#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> iterator worker process.</p>
 <p>When called in a worker, this returns an object guaranteed to have the
@@ -4979,7 +4939,7 @@ code.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.data.random_split">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">random_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator=&lt;torch._C.Generator</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/dataset.py#L422"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.random_split" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">random_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator=&lt;torch._C.Generator</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/dataset.py#L422"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.random_split" title="Permalink to this definition">#</a></dt>
 <dd><p>Randomly split a dataset into non-overlapping new datasets of given lengths.</p>
 <p>If a list of fractions that sum up to 1 is given,
 the lengths will be computed automatically as
@@ -5011,7 +4971,7 @@ until there are no remainders left.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.Sampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">Sampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/sampler.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.Sampler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">Sampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/sampler.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.Sampler" title="Permalink to this definition">#</a></dt>
 <dd><p>Base class for all Samplers.</p>
 <p>Every Sampler subclass has to provide an <code class="xref py py-meth docutils literal notranslate"><span class="pre">__iter__()</span></code> method, providing a
 way to iterate over indices or lists of indices (batches) of dataset elements,
@@ -5058,7 +5018,7 @@ calculation involving the length of a <a class="reference internal" href="#torch
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.SequentialSampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">SequentialSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_source</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/sampler.py#L110"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.SequentialSampler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">SequentialSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_source</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/sampler.py#L110"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.SequentialSampler" title="Permalink to this definition">#</a></dt>
 <dd><p>Samples elements sequentially, always in the same order.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -5069,7 +5029,7 @@ calculation involving the length of a <a class="reference internal" href="#torch
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.RandomSampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">RandomSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/sampler.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.RandomSampler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">RandomSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/sampler.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.RandomSampler" title="Permalink to this definition">#</a></dt>
 <dd><p>Samples elements randomly. If without replacement, then sample from a shuffled dataset.</p>
 <p>If with replacement, then user can specify <code class="xref py py-attr docutils literal notranslate"><span class="pre">num_samples</span></code> to draw.</p>
 <dl class="field-list simple">
@@ -5086,7 +5046,7 @@ calculation involving the length of a <a class="reference internal" href="#torch
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.SubsetRandomSampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">SubsetRandomSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/sampler.py#L204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.SubsetRandomSampler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">SubsetRandomSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/sampler.py#L204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.SubsetRandomSampler" title="Permalink to this definition">#</a></dt>
 <dd><p>Samples elements randomly from a given list of indices, without replacement.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -5100,7 +5060,7 @@ calculation involving the length of a <a class="reference internal" href="#torch
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.WeightedRandomSampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">WeightedRandomSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/sampler.py#L226"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.WeightedRandomSampler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">WeightedRandomSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/sampler.py#L226"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.WeightedRandomSampler" title="Permalink to this definition">#</a></dt>
 <dd><p>Samples elements from <code class="docutils literal notranslate"><span class="pre">[0,..,len(weights)-1]</span></code> with given probabilities (weights).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -5125,7 +5085,7 @@ sample index is drawn for a row, it cannot be drawn again for that row.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.BatchSampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">BatchSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sampler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_last</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/sampler.py#L291"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.BatchSampler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.</span></span><span class="sig-name descname"><span class="pre">BatchSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sampler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_last</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/sampler.py#L291"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.BatchSampler" title="Permalink to this definition">#</a></dt>
 <dd><p>Wraps another sampler to yield a mini-batch of indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -5148,7 +5108,7 @@ its size would be less than <code class="docutils literal notranslate"><span cla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.data.distributed.DistributedSampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.distributed.</span></span><span class="sig-name descname"><span class="pre">DistributedSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_replicas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/utils/data/distributed.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.distributed.DistributedSampler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.data.distributed.</span></span><span class="sig-name descname"><span class="pre">DistributedSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_replicas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/utils/data/distributed.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.data.distributed.DistributedSampler" title="Permalink to this definition">#</a></dt>
 <dd><p>Sampler that restricts data loading to a subset of the dataset.</p>
 <p>It is especially useful in conjunction with
 <a class="reference internal" href="generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel" title="torch.nn.parallel.DistributedDataParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.parallel.DistributedDataParallel</span></code></a>. In such a case, each

@@ -729,7 +729,7 @@ constrain_as_size_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -802,7 +802,7 @@ constrain_as_value_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -1422,7 +1422,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 

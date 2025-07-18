@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
@@ -106,7 +107,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git82a1ee1 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7b72e5b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -693,292 +694,267 @@ document.write(`
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Define the search callback
-    const myWebSearchStartingCallback = (gname, query) => {
-      if (typeof dataLayer !== 'undefined' && query) {
-        window.dataLayer = window.dataLayer || [];
-        dataLayer.push({
-          'event': 'google_search',
-          'search_term': query,
-          'event_category': 'Search',
-          'event_label': 'Google Search'
-        });
-        console.log('GA event sent via callback: google_search - ' + query);
-      }
-      return '';
-    };
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
 
-    // Set up the GCSE search callbacks
-    window.__gcse || (window.__gcse = {});
-    window.__gcse.searchCallbacks = {
-      web: {
-        starting: myWebSearchStartingCallback,
-      },
-    };
-    if (window.location.pathname.includes('/search.html')) {
-      document.body.classList.add('search-page');
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
     }
 
-    // Function to reinitialize Google CSE
-    function reinitializeGoogleSearch() {
-      if (window.__gcse) {
-        // Force Google CSE to reinitialize
-        if (window.__gcse.initializationCallback) {
-          window.__gcse.initializationCallback();
-        }
-      }
-    }
+    // Update tooltip
+    updateTooltip(toggle.checked);
 
-    // Function to handle search toggle
-    function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
-      if (!toggle || !sphinxSearch || !googleSearch) return;
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
 
-      // Check if the URL contains /stable/ or /tutorials/
-      const currentUrl = window.location.href;
-      const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
-
-      // Check if there's a saved preference, otherwise use the URL-based default
-      const savedPreference = localStorage.getItem('searchPreference');
-      if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
-        toggle.checked = true;
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
         sphinxSearch.style.display = 'none';
         googleSearch.style.display = 'block';
-        // Save the preference if it wasn't already saved
-        if (savedPreference === null) {
-          localStorage.setItem('searchPreference', 'google');
-        }
-        // Ensure Google search is properly initialized
+        localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
       } else {
-        toggle.checked = false;
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
       }
 
-      // Update tooltip based on initial state
-      const tooltipElement = document.querySelector('.search-toggle-container');
-      if (tooltipElement) {
-        tooltipElement.setAttribute('data-bs-title', toggle.checked ? 'Google Search On' : 'Google Search Off');
-        // Reinitialize tooltip if Bootstrap's tooltip is already initialized
-        if (bootstrap && bootstrap.Tooltip) {
-          const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-          if (tooltipInstance) tooltipInstance.dispose();
-          new bootstrap.Tooltip(tooltipElement);
-        }
-      }
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
 
-      // Add a data attribute to track if this toggle has been initialized
-      if (toggle.hasAttribute('data-initialized')) {
-        return; // Skip adding another event listener if already initialized
-      }
-      toggle.setAttribute('data-initialized', 'true');
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
 
-      toggle.addEventListener('change', function() {
-        if (this.checked) {
-          sphinxSearch.style.display = 'none';
-          googleSearch.style.display = 'block';
-          localStorage.setItem('searchPreference', 'google');
-          // Reinitialize Google search when switching to it
-          reinitializeGoogleSearch();
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search On');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Google'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Google');
-          } else {
-            console.log('GA not available: Cannot track Google search switch');
-          }
-        } else {
-          sphinxSearch.style.display = 'block';
-          googleSearch.style.display = 'none';
-          localStorage.setItem('searchPreference', 'sphinx');
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search Off');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Sphinx'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Sphinx');
-          } else {
-            console.log('GA not available: Cannot track Sphinx search switch');
-          }
-        }
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
 
-        // Also update mobile search if it exists
-        updateMobileSearch(false); // Pass false to prevent triggering another event
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
       });
     }
+  }
 
-
-    // Function to update mobile search based on current toggle state
-    function updateMobileSearch() {
-      const toggle = document.getElementById('search-toggle');
-      if (!toggle) return;
-
-      // Find mobile search container
-      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-      if (mobileSearchContainer) {
-        const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
-        const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
-
-        if (mobileSphinxSearch && mobileGoogleSearch) {
-          if (toggle.checked) {
-            mobileSphinxSearch.style.display = 'none';
-            mobileGoogleSearch.style.display = 'block';
-            // Reinitialize Google search in mobile view
-            reinitializeGoogleSearch();
-          } else {
-            mobileSphinxSearch.style.display = 'block';
-            mobileGoogleSearch.style.display = 'none';
-          }
-        }
-      }
-    }
-
-    // Initialize desktop search toggle
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
     const toggle = document.getElementById('search-toggle');
-    const sphinxSearch = document.getElementById('sphinx-search');
-    const googleSearch = document.getElementById('google-search');
-    handleSearchToggle(toggle, sphinxSearch, googleSearch);
+    if (!toggle) return;
 
-    // Set placeholder text for Google search input
-    const observer = new MutationObserver(function(mutations, obs) {
-      const searchInputs = document.querySelectorAll('.gsc-input input');
-      searchInputs.forEach(input => {
-      if (input) {
-        input.setAttribute('placeholder', 'Search the docs ...');
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
 
-        if (!input.hasAttribute('data-tracking-added')) {
-          input.setAttribute('data-tracking-added', 'true');
-        }
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
       }
-      });
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
     });
 
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Prevent scroll jump when focusing and typing in search inputs
-    function setupSearchInputHandlers(input) {
-      if (input.hasAttribute('data-scroll-fixed')) return;
-      input.setAttribute('data-scroll-fixed', 'true');
-
-      // Create a fixed position for this input
-      let fixedScrollPos = null;
-
-      // Capture scroll position on focus
-      input.addEventListener('focus', function() {
-        fixedScrollPos = window.scrollY;
-      });
-
-      // Prevent scroll jumps during typing
-      ['input', 'keydown', 'keyup'].forEach(eventType => {
-        input.addEventListener(eventType, function(e) {
-          if (fixedScrollPos !== null) {
-            requestAnimationFrame(() => {
-              window.scrollTo(0, fixedScrollPos);
-            });
-          }
-        });
-      });
-
-      // Release fixed position on blur
-      input.addEventListener('blur', function() {
-        fixedScrollPos = null;
-      });
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
     }
 
-    // Apply to all search inputs
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
-
-    // Observer for dynamically added search inputs
-    const searchObserver = new MutationObserver(function() {
-      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
     });
 
-    searchObserver.observe(document.body, { childList: true, subtree: true });
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
 
-    // Watch for mobile menu creation
-    const mobileMenuObserver = new MutationObserver(function(mutations) {
-      for (const mutation of mutations) {
-        const mobileSearchInputs = document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input');
-      mobileSearchInputs.forEach(input => {
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
         if (input) {
           input.setAttribute('placeholder', 'Search the docs ...');
           input.style.paddingLeft = '36px';
-          }
-        });
-        if (mutation.addedNodes.length) {
-          // Check if the mobile search container was added
-          const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-          if (mobileSearchContainer) {
-            // Clone the toggle for mobile if needed
-            const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
-            if (mobileToggle) {
-              // Sync mobile toggle with desktop toggle
-              mobileToggle.checked = toggle.checked;
+        }
+      });
 
-              // Update mobile search display
-              updateMobileSearch();
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
 
-              // Add event listener to mobile toggle
-              mobileToggle.addEventListener('change', function() {
-                // Sync desktop toggle with mobile toggle
-                toggle.checked = this.checked;
-                // Trigger change event on desktop toggle to update both
-                toggle.dispatchEvent(new Event('change'));
-              });
-            }
-          }
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
         }
       }
-    });
-
-    mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
-
-    // Ensure Google CSE is properly loaded
-    if (window.__gcse) {
-      window.__gcse.callback = function() {
-        // This will run after Google CSE is fully loaded
-        if (toggle && toggle.checked) {
-          // If Google search is active, make sure it's properly initialized
-          reinitializeGoogleSearch();
-        }
-      };
-    } else {
-      // If Google CSE hasn't loaded yet, set up a callback
-      window.__gcse = {
-        callback: function() {
-          if (toggle && toggle.checked) {
-            reinitializeGoogleSearch();
-          }
-        }
-      };
     }
   });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
 </script>
 </div>
       
@@ -1167,292 +1143,267 @@ document.write(`
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Define the search callback
-    const myWebSearchStartingCallback = (gname, query) => {
-      if (typeof dataLayer !== 'undefined' && query) {
-        window.dataLayer = window.dataLayer || [];
-        dataLayer.push({
-          'event': 'google_search',
-          'search_term': query,
-          'event_category': 'Search',
-          'event_label': 'Google Search'
-        });
-        console.log('GA event sent via callback: google_search - ' + query);
-      }
-      return '';
-    };
+  // Define the search callback
+  const myWebSearchStartingCallback = (gname, query) => {
+    if (typeof dataLayer !== 'undefined' && query) {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'google_search',
+        'search_term': query,
+        'event_category': 'Search',
+        'event_label': 'Google Search'
+      });
+    }
+    return '';
+  };
 
-    // Set up the GCSE search callbacks
-    window.__gcse || (window.__gcse = {});
-    window.__gcse.searchCallbacks = {
-      web: {
-        starting: myWebSearchStartingCallback,
-      },
-    };
-    if (window.location.pathname.includes('/search.html')) {
-      document.body.classList.add('search-page');
+  // Set up the GCSE search callbacks
+  window.__gcse || (window.__gcse = {});
+  window.__gcse.searchCallbacks = {
+    web: { starting: myWebSearchStartingCallback }
+  };
+
+  if (window.location.pathname.includes('/search.html')) {
+    document.body.classList.add('search-page');
+  }
+
+  // Function to reinitialize Google CSE
+  function reinitializeGoogleSearch() {
+    if (window.__gcse && window.__gcse.initializationCallback) {
+      window.__gcse.initializationCallback();
+    }
+  }
+
+  // Function to handle search toggle
+  function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
+    if (!toggle || !sphinxSearch || !googleSearch) return;
+
+    // Check if the URL contains /stable/ or /tutorials/
+    const currentUrl = window.location.href;
+    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    const savedPreference = localStorage.getItem('searchPreference');
+
+    // Set initial state
+    if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
+      toggle.checked = true;
+      sphinxSearch.style.display = 'none';
+      googleSearch.style.display = 'block';
+      if (savedPreference === null) {
+        localStorage.setItem('searchPreference', 'google');
+      }
+      reinitializeGoogleSearch();
+    } else {
+      toggle.checked = false;
+      sphinxSearch.style.display = 'block';
+      googleSearch.style.display = 'none';
     }
 
-    // Function to reinitialize Google CSE
-    function reinitializeGoogleSearch() {
-      if (window.__gcse) {
-        // Force Google CSE to reinitialize
-        if (window.__gcse.initializationCallback) {
-          window.__gcse.initializationCallback();
-        }
-      }
-    }
+    // Update tooltip
+    updateTooltip(toggle.checked);
 
-    // Function to handle search toggle
-    function handleSearchToggle(toggle, sphinxSearch, googleSearch) {
-      if (!toggle || !sphinxSearch || !googleSearch) return;
+    // Skip if already initialized
+    if (toggle.hasAttribute('data-initialized')) return;
+    toggle.setAttribute('data-initialized', 'true');
 
-      // Check if the URL contains /stable/ or /tutorials/
-      const currentUrl = window.location.href;
-      const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
-
-      // Check if there's a saved preference, otherwise use the URL-based default
-      const savedPreference = localStorage.getItem('searchPreference');
-      if (savedPreference === 'google' || (savedPreference === null && shouldDefaultToGoogle)) {
-        toggle.checked = true;
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
         sphinxSearch.style.display = 'none';
         googleSearch.style.display = 'block';
-        // Save the preference if it wasn't already saved
-        if (savedPreference === null) {
-          localStorage.setItem('searchPreference', 'google');
-        }
-        // Ensure Google search is properly initialized
+        localStorage.setItem('searchPreference', 'google');
         reinitializeGoogleSearch();
+        trackSearchEngineSwitch('Google');
       } else {
-        toggle.checked = false;
         sphinxSearch.style.display = 'block';
         googleSearch.style.display = 'none';
+        localStorage.setItem('searchPreference', 'sphinx');
+        trackSearchEngineSwitch('Sphinx');
       }
 
-      // Update tooltip based on initial state
-      const tooltipElement = document.querySelector('.search-toggle-container');
-      if (tooltipElement) {
-        tooltipElement.setAttribute('data-bs-title', toggle.checked ? 'Google Search On' : 'Google Search Off');
-        // Reinitialize tooltip if Bootstrap's tooltip is already initialized
-        if (bootstrap && bootstrap.Tooltip) {
-          const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-          if (tooltipInstance) tooltipInstance.dispose();
-          new bootstrap.Tooltip(tooltipElement);
-        }
-      }
+      updateTooltip(this.checked);
+      updateMobileSearch();
+    });
+  }
 
-      // Add a data attribute to track if this toggle has been initialized
-      if (toggle.hasAttribute('data-initialized')) {
-        return; // Skip adding another event listener if already initialized
-      }
-      toggle.setAttribute('data-initialized', 'true');
+  // Update tooltip based on toggle state
+  function updateTooltip(isChecked) {
+    const tooltipElement = document.querySelector('.search-toggle-container');
+    if (!tooltipElement) return;
 
-      toggle.addEventListener('change', function() {
-        if (this.checked) {
-          sphinxSearch.style.display = 'none';
-          googleSearch.style.display = 'block';
-          localStorage.setItem('searchPreference', 'google');
-          // Reinitialize Google search when switching to it
-          reinitializeGoogleSearch();
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search On');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Google'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Google');
-          } else {
-            console.log('GA not available: Cannot track Google search switch');
-          }
-        } else {
-          sphinxSearch.style.display = 'block';
-          googleSearch.style.display = 'none';
-          localStorage.setItem('searchPreference', 'sphinx');
-          const tooltipElement = document.querySelector('.search-toggle-container');
-          if (tooltipElement) {
-            tooltipElement.setAttribute('data-bs-title', 'Google Search Off');
-            // Refresh tooltip
-            if (bootstrap && bootstrap.Tooltip) {
-              const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
-              if (tooltipInstance) tooltipInstance.dispose();
-              new bootstrap.Tooltip(tooltipElement);
-            }
-          }
-          if (typeof dataLayer !== 'undefined') {
-            window.dataLayer = window.dataLayer || [];
-            dataLayer.push({
-              'event': 'search_engine_switch',
-              'event_category': 'Search',
-              'event_label': 'Sphinx'
-            });
-            console.log('GA event sent via dataLayer: search_engine_switch - Sphinx');
-          } else {
-            console.log('GA not available: Cannot track Sphinx search switch');
-          }
-        }
+    tooltipElement.setAttribute('data-bs-title', isChecked ? 'Google Search On' : 'Google Search Off');
 
-        // Also update mobile search if it exists
-        updateMobileSearch(false); // Pass false to prevent triggering another event
+    if (bootstrap && bootstrap.Tooltip) {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipElement);
+      if (tooltipInstance) tooltipInstance.dispose();
+      new bootstrap.Tooltip(tooltipElement);
+    }
+  }
+
+  // Track search engine switch
+  function trackSearchEngineSwitch(engine) {
+    if (typeof dataLayer !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event': 'search_engine_switch',
+        'event_category': 'Search',
+        'event_label': engine
       });
     }
+  }
 
-
-    // Function to update mobile search based on current toggle state
-    function updateMobileSearch() {
-      const toggle = document.getElementById('search-toggle');
-      if (!toggle) return;
-
-      // Find mobile search container
-      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-      if (mobileSearchContainer) {
-        const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
-        const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
-
-        if (mobileSphinxSearch && mobileGoogleSearch) {
-          if (toggle.checked) {
-            mobileSphinxSearch.style.display = 'none';
-            mobileGoogleSearch.style.display = 'block';
-            // Reinitialize Google search in mobile view
-            reinitializeGoogleSearch();
-          } else {
-            mobileSphinxSearch.style.display = 'block';
-            mobileGoogleSearch.style.display = 'none';
-          }
-        }
-      }
-    }
-
-    // Initialize desktop search toggle
+  // Function to update mobile search based on current toggle state
+  function updateMobileSearch() {
     const toggle = document.getElementById('search-toggle');
-    const sphinxSearch = document.getElementById('sphinx-search');
-    const googleSearch = document.getElementById('google-search');
-    handleSearchToggle(toggle, sphinxSearch, googleSearch);
+    if (!toggle) return;
 
-    // Set placeholder text for Google search input
-    const observer = new MutationObserver(function(mutations, obs) {
-      const searchInputs = document.querySelectorAll('.gsc-input input');
-      searchInputs.forEach(input => {
-      if (input) {
-        input.setAttribute('placeholder', 'Search the docs ...');
+    const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+    if (!mobileSearchContainer) return;
 
-        if (!input.hasAttribute('data-tracking-added')) {
-          input.setAttribute('data-tracking-added', 'true');
-        }
+    const mobileSphinxSearch = mobileSearchContainer.querySelector('#sphinx-search');
+    const mobileGoogleSearch = mobileSearchContainer.querySelector('#google-search');
+
+    if (mobileSphinxSearch && mobileGoogleSearch) {
+      mobileSphinxSearch.style.display = toggle.checked ? 'none' : 'block';
+      mobileGoogleSearch.style.display = toggle.checked ? 'block' : 'none';
+
+      if (toggle.checked) {
+        reinitializeGoogleSearch();
       }
-      });
+    }
+  }
+
+  // Initialize desktop search toggle
+  const toggle = document.getElementById('search-toggle');
+  const sphinxSearch = document.getElementById('sphinx-search');
+  const googleSearch = document.getElementById('google-search');
+  handleSearchToggle(toggle, sphinxSearch, googleSearch);
+
+  // Set placeholder text for Google search input
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll('.gsc-input input').forEach(input => {
+      if (input && !input.hasAttribute('data-placeholder-set')) {
+        input.setAttribute('placeholder', 'Search the docs ...');
+        input.setAttribute('data-placeholder-set', 'true');
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Fix for scroll jump issue - improved approach
+  function setupSearchInputHandlers(input) {
+    if (input.hasAttribute('data-scroll-fixed')) return;
+    input.setAttribute('data-scroll-fixed', 'true');
+
+    let lastScrollPosition = 0;
+    let isTyping = false;
+    let scrollTimeout;
+
+    // Save position before typing starts
+    input.addEventListener('keydown', () => {
+      lastScrollPosition = window.scrollY;
+      isTyping = true;
+
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
     });
 
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Prevent scroll jump when focusing and typing in search inputs
-    function setupSearchInputHandlers(input) {
-      if (input.hasAttribute('data-scroll-fixed')) return;
-      input.setAttribute('data-scroll-fixed', 'true');
-
-      // Create a fixed position for this input
-      let fixedScrollPos = null;
-
-      // Capture scroll position on focus
-      input.addEventListener('focus', function() {
-        fixedScrollPos = window.scrollY;
-      });
-
-      // Prevent scroll jumps during typing
-      ['input', 'keydown', 'keyup'].forEach(eventType => {
-        input.addEventListener(eventType, function(e) {
-          if (fixedScrollPos !== null) {
-            requestAnimationFrame(() => {
-              window.scrollTo(0, fixedScrollPos);
-            });
-          }
-        });
-      });
-
-      // Release fixed position on blur
-      input.addEventListener('blur', function() {
-        fixedScrollPos = null;
-      });
+    // Only maintain scroll position during typing
+    function maintainScroll() {
+      if (document.activeElement === input && isTyping) {
+        window.scrollTo(0, lastScrollPosition);
+        requestAnimationFrame(maintainScroll);
+      }
     }
 
-    // Apply to all search inputs
-    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
-
-    // Observer for dynamically added search inputs
-    const searchObserver = new MutationObserver(function() {
-      document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+    input.addEventListener('focus', () => {
+      // Just store initial position but don't force it
+      lastScrollPosition = window.scrollY;
     });
 
-    searchObserver.observe(document.body, { childList: true, subtree: true });
+    input.addEventListener('input', () => {
+      isTyping = true;
+      window.scrollTo(0, lastScrollPosition);
 
-    // Watch for mobile menu creation
-    const mobileMenuObserver = new MutationObserver(function(mutations) {
-      for (const mutation of mutations) {
-        const mobileSearchInputs = document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input');
-      mobileSearchInputs.forEach(input => {
+      // Reset typing state after a short delay
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 100);
+
+      requestAnimationFrame(maintainScroll);
+    });
+  }
+
+  // Apply to all search inputs and observe for new ones
+  function applyToSearchInputs() {
+    document.querySelectorAll('.search-container input, .gsc-input input').forEach(setupSearchInputHandlers);
+  }
+
+  applyToSearchInputs();
+
+  const searchObserver = new MutationObserver(applyToSearchInputs);
+  searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Watch for mobile menu creation
+  const mobileMenuObserver = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      if (!mutation.addedNodes.length) continue;
+
+      // Style mobile search inputs
+      document.querySelectorAll('.sidebar-header-items__end .navbar-item .search-container-wrapper .gsc-input input').forEach(input => {
         if (input) {
           input.setAttribute('placeholder', 'Search the docs ...');
           input.style.paddingLeft = '36px';
-          }
-        });
-        if (mutation.addedNodes.length) {
-          // Check if the mobile search container was added
-          const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
-          if (mobileSearchContainer) {
-            // Clone the toggle for mobile if needed
-            const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
-            if (mobileToggle) {
-              // Sync mobile toggle with desktop toggle
-              mobileToggle.checked = toggle.checked;
+        }
+      });
 
-              // Update mobile search display
-              updateMobileSearch();
+      // Check for mobile search container
+      const mobileSearchContainer = document.querySelector('.sidebar-header-items__end .navbar-item .search-container-wrapper');
+      if (!mobileSearchContainer) continue;
 
-              // Add event listener to mobile toggle
-              mobileToggle.addEventListener('change', function() {
-                // Sync desktop toggle with mobile toggle
-                toggle.checked = this.checked;
-                // Trigger change event on desktop toggle to update both
-                toggle.dispatchEvent(new Event('change'));
-              });
-            }
-          }
+      const mobileToggle = mobileSearchContainer.querySelector('#search-toggle');
+      if (mobileToggle && toggle) {
+        // Sync mobile toggle with desktop toggle
+        mobileToggle.checked = toggle.checked;
+        updateMobileSearch();
+
+        // Add event listener to mobile toggle if not already added
+        if (!mobileToggle.hasAttribute('data-initialized')) {
+          mobileToggle.setAttribute('data-initialized', 'true');
+          mobileToggle.addEventListener('change', function() {
+            // Sync desktop toggle with mobile toggle
+            toggle.checked = this.checked;
+            // Trigger change event on desktop toggle to update both
+            toggle.dispatchEvent(new Event('change'));
+          });
         }
       }
-    });
-
-    mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
-
-    // Ensure Google CSE is properly loaded
-    if (window.__gcse) {
-      window.__gcse.callback = function() {
-        // This will run after Google CSE is fully loaded
-        if (toggle && toggle.checked) {
-          // If Google search is active, make sure it's properly initialized
-          reinitializeGoogleSearch();
-        }
-      };
-    } else {
-      // If Google CSE hasn't loaded yet, set up a callback
-      window.__gcse = {
-        callback: function() {
-          if (toggle && toggle.checked) {
-            reinitializeGoogleSearch();
-          }
-        }
-      };
     }
   });
+
+  mobileMenuObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Ensure Google CSE is properly loaded
+  if (window.__gcse) {
+    window.__gcse.callback = function() {
+      // This will run after Google CSE is fully loaded
+      if (toggle && toggle.checked) {
+        reinitializeGoogleSearch();
+      }
+    };
+  } else {
+    window.__gcse = {
+      callback: function() {
+        if (toggle && toggle.checked) {
+          reinitializeGoogleSearch();
+        }
+      }
+    };
+  }
+});
 </script>
 </div>
         
@@ -2956,6 +2907,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.current_stream.html">torch.accelerator.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.device_index.html">device_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_allocated.html">torch.accelerator.memory.memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_reserved.html">torch.accelerator.memory.memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_stats.html">torch.accelerator.memory.memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.reset_accumulated_memory_stats.html">torch.accelerator.memory.reset_accumulated_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.reset_peak_memory_stats.html">torch.accelerator.memory.reset_peak_memory_stats</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cpu.html">torch.cpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3172,6 +3131,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="export.html">torch.export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="export/api_reference.html">torch.export API Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/programming_model.html">torch.export Programming Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/pt2_archive.html">PT2 Archive Spec</a></li>
@@ -4141,7 +4101,7 @@ document.write(`
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 02, 2022 | Last Updated On: Jun 11, 2025</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">FullyShardedDataParallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sharding_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpu_offload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_wrap_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backward_prefetch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">BackwardPrefetch.BACKWARD_PRE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixed_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignored_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_init_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sync_module_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forward_prefetch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_all_gathers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_orig_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignored_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">FullyShardedDataParallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sharding_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpu_offload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_wrap_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backward_prefetch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">BackwardPrefetch.BACKWARD_PRE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixed_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignored_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_init_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sync_module_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forward_prefetch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_all_gathers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_orig_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignored_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel" title="Permalink to this definition">#</a></dt>
 <dd><p>A wrapper for sharding module parameters across data parallel workers.</p>
 <p>This is inspired by <a class="reference external" href="https://arxiv.org/abs/2004.13336">Xu et al.</a> as
 well as the ZeRO Stage 3 from <a class="reference external" href="https://www.deepspeed.ai/">DeepSpeed</a>.
@@ -4400,7 +4360,7 @@ device_mesh instead of process_group. For more DeviceMesh info, please visit:
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.apply">
-<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L573"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.apply" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L573"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.apply" title="Permalink to this definition">#</a></dt>
 <dd><p>Apply <code class="docutils literal notranslate"><span class="pre">fn</span></code> recursively to every submodule (as returned by <code class="docutils literal notranslate"><span class="pre">.children()</span></code>) as well as self.</p>
 <p>Typical use includes initializing the parameters of a model (see also <a class="reference internal" href="nn.init.html#nn-init-doc"><span class="std std-ref">torch.nn.init</span></a>).</p>
 <p>Compared to <code class="docutils literal notranslate"><span class="pre">torch.nn.Module.apply</span></code>, this version additionally gathers
@@ -4421,7 +4381,7 @@ within another <code class="docutils literal notranslate"><span class="pre">summ
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.check_is_root">
-<span class="sig-name descname"><span class="pre">check_is_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L546"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.check_is_root" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">check_is_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L546"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.check_is_root" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if this instance is a root FSDP module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4432,7 +4392,7 @@ within another <code class="docutils literal notranslate"><span class="pre">summ
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.clip_grad_norm_">
-<span class="sig-name descname"><span class="pre">clip_grad_norm_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1066"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.clip_grad_norm_" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">clip_grad_norm_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1066"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.clip_grad_norm_" title="Permalink to this definition">#</a></dt>
 <dd><p>Clip the gradient norm of all parameters.</p>
 <p>The norm is computed over all parameters’ gradients as viewed as a single vector, and the
 gradients are modified in-place.</p>
@@ -4473,7 +4433,7 @@ collective communications.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.flatten_sharded_optim_state_dict">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">flatten_sharded_optim_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sharded_optim_state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1553"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.flatten_sharded_optim_state_dict" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">flatten_sharded_optim_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sharded_optim_state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1553"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.flatten_sharded_optim_state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Flatten a sharded optimizer state-dict.</p>
 <p>The API is similar to <a class="reference internal" href="#torch.distributed.fsdp.FullyShardedDataParallel.shard_full_optim_state_dict" title="torch.distributed.fsdp.FullyShardedDataParallel.shard_full_optim_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">shard_full_optim_state_dict()</span></code></a>. The only
 difference is that the input <code class="docutils literal notranslate"><span class="pre">sharded_optim_state_dict</span></code> should be
@@ -4501,7 +4461,7 @@ parameters.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L832"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L832"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Run the forward pass for the wrapped module, inserting FSDP-specific pre- and post-forward sharding logic.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4512,7 +4472,7 @@ parameters.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.fsdp_modules">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fsdp_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L550"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.fsdp_modules" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fsdp_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L550"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.fsdp_modules" title="Permalink to this definition">#</a></dt>
 <dd><p>Return all nested FSDP instances.</p>
 <p>This possibly includes <code class="docutils literal notranslate"><span class="pre">module</span></code> itself and only includes FSDP root modules if <code class="docutils literal notranslate"><span class="pre">root_only=True</span></code>.</p>
 <dl class="field-list simple">
@@ -4536,7 +4496,7 @@ the input <code class="docutils literal notranslate"><span class="pre">module</s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.full_optim_state_dict">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">full_optim_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank0_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1364"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.full_optim_state_dict" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">full_optim_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank0_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1364"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.full_optim_state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the full optimizer state-dict.</p>
 <p>Consolidates the full optimizer state on rank 0 and returns it
 as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> following the convention of
@@ -4589,7 +4549,7 @@ then nonzero ranks return an empty <a class="reference external" href="https://d
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.get_state_dict_type">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_state_dict_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L751"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.get_state_dict_type" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_state_dict_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L751"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.get_state_dict_type" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the state_dict_type and the corresponding configurations for the FSDP modules rooted at <code class="docutils literal notranslate"><span class="pre">module</span></code>.</p>
 <p>The target module does not have to be an FSDP module.</p>
 <dl class="field-list simple">
@@ -4617,7 +4577,7 @@ state_dict / optim_state_dict configs that are currently set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.named_buffers">
-<span class="sig-name descname"><span class="pre">named_buffers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L971"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.named_buffers" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">named_buffers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L971"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.named_buffers" title="Permalink to this definition">#</a></dt>
 <dd><p>Return an iterator over module buffers, yielding both the name of the buffer and the buffer itself.</p>
 <p>Intercepts buffer names and removes all occurrences of the FSDP-specific flattened buffer prefix
 when inside the <a class="reference internal" href="#torch.distributed.fsdp.FullyShardedDataParallel.summon_full_params" title="torch.distributed.fsdp.FullyShardedDataParallel.summon_full_params"><code class="xref py py-meth docutils literal notranslate"><span class="pre">summon_full_params()</span></code></a> context manager.</p>
@@ -4630,7 +4590,7 @@ when inside the <a class="reference internal" href="#torch.distributed.fsdp.Full
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.named_parameters">
-<span class="sig-name descname"><span class="pre">named_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L989"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.named_parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">named_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L989"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.named_parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>Return an iterator over module parameters, yielding both the name of the parameter and the parameter itself.</p>
 <p>Intercepts parameter names and removes all occurrences of the FSDP-specific flattened parameter prefix
 when inside the <a class="reference internal" href="#torch.distributed.fsdp.FullyShardedDataParallel.summon_full_params" title="torch.distributed.fsdp.FullyShardedDataParallel.summon_full_params"><code class="xref py py-meth docutils literal notranslate"><span class="pre">summon_full_params()</span></code></a> context manager.</p>
@@ -4643,7 +4603,7 @@ when inside the <a class="reference internal" href="#torch.distributed.fsdp.Full
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.no_sync">
-<span class="sig-name descname"><span class="pre">no_sync</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1027"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.no_sync" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">no_sync</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1027"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.no_sync" title="Permalink to this definition">#</a></dt>
 <dd><p>Disable gradient synchronizations across FSDP instances.</p>
 <p>Within this context, gradients will be accumulated in module
 variables, which will later be synchronized in the first
@@ -4671,7 +4631,7 @@ will only be offloaded right after the eventual sync.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.optim_state_dict">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">optim_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_state_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1801"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.optim_state_dict" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">optim_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_state_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1801"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.optim_state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Transform the state-dict of an optimizer corresponding to a sharded model.</p>
 <p>The given state-dict can be transformed to one of three types:
 1) full optimizer state_dict, 2) sharded optimizer state_dict, 3) local optimizer state_dict.</p>
@@ -4745,7 +4705,7 @@ Default: <code class="docutils literal notranslate"><span class="pre">None</span
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.optim_state_dict_to_load">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">optim_state_dict_to_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_named_optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_directly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1897"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.optim_state_dict_to_load" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">optim_state_dict_to_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_named_optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_directly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1897"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.optim_state_dict_to_load" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert an optimizer state-dict so that it can be loaded into the optimizer associated with the FSDP model.</p>
 <p>Given a <code class="docutils literal notranslate"><span class="pre">optim_state_dict</span></code> that is transformed through
 <a class="reference internal" href="#torch.distributed.fsdp.FullyShardedDataParallel.optim_state_dict" title="torch.distributed.fsdp.FullyShardedDataParallel.optim_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">optim_state_dict()</span></code></a>, it gets converted to the flattened optimizer
@@ -4816,7 +4776,7 @@ Default: <code class="docutils literal notranslate"><span class="pre">None</span
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.register_comm_hook">
-<span class="sig-name descname"><span class="pre">register_comm_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1987"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.register_comm_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_comm_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1987"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.register_comm_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a communication hook.</p>
 <p>This is an enhancement that provides a flexible hook to users where they can specify how FSDP aggregates
 gradients across multiple workers.
@@ -4862,7 +4822,7 @@ Callables with signature 2 are expected to handle gradient communication for sha
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.rekey_optim_state_dict">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rekey_optim_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optim_state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_state_key_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1676"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.rekey_optim_state_dict" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rekey_optim_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optim_state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_state_key_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1676"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.rekey_optim_state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Re-keys the optimizer state dict <code class="docutils literal notranslate"><span class="pre">optim_state_dict</span></code> to use the key type <code class="docutils literal notranslate"><span class="pre">optim_state_key_type</span></code>.</p>
 <p>This can be used to achieve compatibility between optimizer state dicts from models with FSDP
 instances and ones without.</p>
@@ -4899,7 +4859,7 @@ parameter keys specified by <code class="docutils literal notranslate"><span cla
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.scatter_full_optim_state_dict">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scatter_full_optim_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full_optim_state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1592"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.scatter_full_optim_state_dict" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scatter_full_optim_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full_optim_state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1592"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.scatter_full_optim_state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Scatter the full optimizer state dict from rank 0 to all other ranks.</p>
 <p>Returns the sharded optimizer state dict on each rank.
 The return value is the same as <a class="reference internal" href="#torch.distributed.fsdp.FullyShardedDataParallel.shard_full_optim_state_dict" title="torch.distributed.fsdp.FullyShardedDataParallel.shard_full_optim_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">shard_full_optim_state_dict()</span></code></a>, and on rank
@@ -4964,7 +4924,7 @@ restricted to only include this rank’s part of the optimizer state.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.set_state_dict_type">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_state_dict_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_dict_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_dict_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_state_dict_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L630"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.set_state_dict_type" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_state_dict_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_dict_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_dict_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_state_dict_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L630"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.set_state_dict_type" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the <code class="docutils literal notranslate"><span class="pre">state_dict_type</span></code> of all the descendant FSDP modules of the target module.</p>
 <p>Also takes (optional) configuration for the model’s and optimizer’s state dict.
 The target module does not have to be a FSDP module. If the target
@@ -5018,7 +4978,7 @@ configuration for the module.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.shard_full_optim_state_dict">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shard_full_optim_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full_optim_state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1474"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.shard_full_optim_state_dict" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shard_full_optim_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full_optim_state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1474"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.shard_full_optim_state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Shard a full optimizer state-dict.</p>
 <p>Remaps the state in <code class="docutils literal notranslate"><span class="pre">full_optim_state_dict</span></code> to flattened parameters instead of unflattened
 parameters and restricts to only this rank’s part of the optimizer state.
@@ -5081,7 +5041,7 @@ restricted to only include this rank’s part of the optimizer state.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.sharded_optim_state_dict">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sharded_optim_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.sharded_optim_state_dict" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sharded_optim_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.sharded_optim_state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the optimizer state-dict in its sharded form.</p>
 <p>The API is similar to <a class="reference internal" href="#torch.distributed.fsdp.FullyShardedDataParallel.full_optim_state_dict" title="torch.distributed.fsdp.FullyShardedDataParallel.full_optim_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">full_optim_state_dict()</span></code></a> but this API chunks
 all non-zero-dimension states to <code class="xref py py-class docutils literal notranslate"><span class="pre">ShardedTensor</span></code> to save memory.
@@ -5102,7 +5062,7 @@ cannot be directly used by the regular <code class="docutils literal notranslate
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.state_dict_type">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state_dict_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_dict_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_dict_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_state_dict_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L787"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.state_dict_type" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state_dict_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_dict_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_dict_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_state_dict_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L787"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.state_dict_type" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the <code class="docutils literal notranslate"><span class="pre">state_dict_type</span></code> of all the descendant FSDP modules of the target module.</p>
 <p>This context manager has the same functions as <a class="reference internal" href="#torch.distributed.fsdp.FullyShardedDataParallel.set_state_dict_type" title="torch.distributed.fsdp.FullyShardedDataParallel.set_state_dict_type"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_state_dict_type()</span></code></a>. Read the document of
 <a class="reference internal" href="#torch.distributed.fsdp.FullyShardedDataParallel.set_state_dict_type" title="torch.distributed.fsdp.FullyShardedDataParallel.set_state_dict_type"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_state_dict_type()</span></code></a> for the detail.</p>
@@ -5134,7 +5094,7 @@ configuration for the target <code class="docutils literal notranslate"><span cl
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullyShardedDataParallel.summon_full_params">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">summon_full_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">writeback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank0_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_grads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/fully_sharded_data_parallel.py#L859"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.summon_full_params" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">summon_full_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">writeback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank0_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_grads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/fully_sharded_data_parallel.py#L859"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullyShardedDataParallel.summon_full_params" title="Permalink to this definition">#</a></dt>
 <dd><p>Expose full params for FSDP instances with this context manager.</p>
 <p>Can be useful <em>after</em> forward/backward for a model to get
 the params for additional processing or checking. It can take a non-FSDP
@@ -5224,7 +5184,7 @@ constructor and <code class="docutils literal notranslate"><span class="pre">off
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.BackwardPrefetch">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">BackwardPrefetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/api.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.BackwardPrefetch" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">BackwardPrefetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/api.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.BackwardPrefetch" title="Permalink to this definition">#</a></dt>
 <dd><p>This configures explicit backward prefetching, which improves throughput by
 enabling communication and computation overlap in the backward pass at the
 cost of slightly increased memory usage.</p>
@@ -5256,7 +5216,7 @@ prefetching values correspond to different issue orders.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.ShardingStrategy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">ShardingStrategy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/api.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.ShardingStrategy" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">ShardingStrategy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/api.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.ShardingStrategy" title="Permalink to this definition">#</a></dt>
 <dd><p>This specifies the sharding strategy to be used for distributed training by
 <a class="reference internal" href="#torch.distributed.fsdp.FullyShardedDataParallel" title="torch.distributed.fsdp.FullyShardedDataParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">FullyShardedDataParallel</span></code></a>.</p>
 <ul class="simple">
@@ -5291,7 +5251,7 @@ all-gathers in the pre-backward.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.MixedPrecision">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">MixedPrecision</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_dtype=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce_dtype=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_dtype=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_low_precision_grads=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cast_forward_inputs=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cast_root_forward_inputs=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_module_classes_to_ignore=(&lt;class</span> <span class="pre">'torch.nn.modules.batchnorm._BatchNorm'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/api.py#L112"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.MixedPrecision" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">MixedPrecision</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_dtype=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce_dtype=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_dtype=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_low_precision_grads=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cast_forward_inputs=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cast_root_forward_inputs=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_module_classes_to_ignore=(&lt;class</span> <span class="pre">'torch.nn.modules.batchnorm._BatchNorm'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/api.py#L112"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.MixedPrecision" title="Permalink to this definition">#</a></dt>
 <dd><p>This configures FSDP-native mixed precision training.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
@@ -5415,7 +5375,7 @@ ones.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.CPUOffload">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">CPUOffload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/api.py#L230"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.CPUOffload" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">CPUOffload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/api.py#L230"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.CPUOffload" title="Permalink to this definition">#</a></dt>
 <dd><p>This configures CPU offloading.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
@@ -5429,7 +5389,7 @@ runs on CPU.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.StateDictConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">StateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/api.py#L276"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.StateDictConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">StateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/api.py#L276"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.StateDictConfig" title="Permalink to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">StateDictConfig</span></code> is the base class for all <code class="docutils literal notranslate"><span class="pre">state_dict</span></code> configuration
 classes. Users should instantiate a child class (e.g.
 <code class="docutils literal notranslate"><span class="pre">FullStateDictConfig</span></code>) in order to configure settings for the
@@ -5445,7 +5405,7 @@ values to CPU, and if <code class="docutils literal notranslate"><span class="pr
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullStateDictConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">FullStateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank0_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/api.py#L293"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullStateDictConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">FullStateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank0_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/api.py#L293"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullStateDictConfig" title="Permalink to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">FullStateDictConfig</span></code> is a config class meant to be used with
 <code class="docutils literal notranslate"><span class="pre">StateDictType.FULL_STATE_DICT</span></code>. We recommend enabling both
 <code class="docutils literal notranslate"><span class="pre">offload_to_cpu=True</span></code> and <code class="docutils literal notranslate"><span class="pre">rank0_only=True</span></code> when saving full state
@@ -5486,7 +5446,7 @@ ranks save the full state dict. (Default: <code class="docutils literal notransl
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.ShardedStateDictConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">ShardedStateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_use_dtensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/api.py#L340"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.ShardedStateDictConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">ShardedStateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_use_dtensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/api.py#L340"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.ShardedStateDictConfig" title="Permalink to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">ShardedStateDictConfig</span></code> is a config class meant to be used with
 <code class="docutils literal notranslate"><span class="pre">StateDictType.SHARDED_STATE_DICT</span></code>.</p>
 <dl class="field-list simple">
@@ -5506,14 +5466,14 @@ manually modify <code class="docutils literal notranslate"><span class="pre">_us
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.LocalStateDictConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">LocalStateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/api.py#L335"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.LocalStateDictConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">LocalStateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/api.py#L335"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.LocalStateDictConfig" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.OptimStateDictConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">OptimStateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/api.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.OptimStateDictConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">OptimStateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/api.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.OptimStateDictConfig" title="Permalink to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">OptimStateDictConfig</span></code> is the base class for all <code class="docutils literal notranslate"><span class="pre">optim_state_dict</span></code>
 configuration classes.  Users should instantiate a child class (e.g.
 <code class="docutils literal notranslate"><span class="pre">FullOptimStateDictConfig</span></code>) in order to configure settings for the
@@ -5530,7 +5490,7 @@ enabled). (Default: <code class="docutils literal notranslate"><span class="pre"
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.FullOptimStateDictConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">FullOptimStateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank0_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/api.py#L377"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullOptimStateDictConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">FullOptimStateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank0_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/api.py#L377"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.FullOptimStateDictConfig" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><p><strong>rank0_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, then only rank 0 saves the full state
@@ -5542,7 +5502,7 @@ ranks save the full state dict. (Default: <code class="docutils literal notransl
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.ShardedOptimStateDictConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">ShardedOptimStateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_use_dtensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/api.py#L394"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.ShardedOptimStateDictConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">ShardedOptimStateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_use_dtensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/api.py#L394"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.ShardedOptimStateDictConfig" title="Permalink to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">ShardedOptimStateDictConfig</span></code> is a config class meant to be used with
 <code class="docutils literal notranslate"><span class="pre">StateDictType.SHARDED_STATE_DICT</span></code>.</p>
 <dl class="field-list simple">
@@ -5562,14 +5522,14 @@ manually modify <code class="docutils literal notranslate"><span class="pre">_us
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.LocalOptimStateDictConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">LocalOptimStateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/api.py#L389"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.LocalOptimStateDictConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">LocalOptimStateDictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offload_to_cpu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/api.py#L389"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.LocalOptimStateDictConfig" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.fsdp.StateDictSettings">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">StateDictSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.distributed.fsdp.api.StateDictType</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_dict_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.distributed.fsdp.StateDictConfig" title="torch.distributed.fsdp.api.StateDictConfig"><span class="pre">torch.distributed.fsdp.api.StateDictConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_state_dict_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.distributed.fsdp.OptimStateDictConfig" title="torch.distributed.fsdp.api.OptimStateDictConfig"><span class="pre">torch.distributed.fsdp.api.OptimStateDictConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/82a1ee1135b054d371d10081883b848ac7b7419f/torch/distributed/fsdp/api.py#L413"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.StateDictSettings" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.fsdp.</span></span><span class="sig-name descname"><span class="pre">StateDictSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.distributed.fsdp.api.StateDictType</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_dict_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.distributed.fsdp.StateDictConfig" title="torch.distributed.fsdp.api.StateDictConfig"><span class="pre">torch.distributed.fsdp.api.StateDictConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">optim_state_dict_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.distributed.fsdp.OptimStateDictConfig" title="torch.distributed.fsdp.api.OptimStateDictConfig"><span class="pre">torch.distributed.fsdp.api.OptimStateDictConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/distributed/fsdp/api.py#L413"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.fsdp.StateDictSettings" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
