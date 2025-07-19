@@ -73,6 +73,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="../_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -107,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7b72e5b )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitd42c409 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3139,8 +3142,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4109,7 +4112,7 @@ document.write(`
 <h1>EqualityConstraint<a class="headerlink" href="#equalityconstraint" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.EqualityConstraint">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">EqualityConstraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">warn_only</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_pairs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">derived_equalities</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phantom_symbols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relaxed_sources</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b72e5b3ad989d02802909b64f322b2b7b69913b/torch/fx/experimental/symbolic_shapes.py#L1881"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.EqualityConstraint" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">EqualityConstraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">warn_only</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_pairs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">derived_equalities</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phantom_symbols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relaxed_sources</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d42c40976727fed4c9908d4194f26917d0a3da66/torch/fx/experimental/symbolic_shapes.py#L1881"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.EqualityConstraint" title="Permalink to this definition">#</a></dt>
 <dd><p>Represent and decide various kinds of equality constraints between input sources.</p>
 <p>A “source pair” is a pair of input sources for dynamic dimensions that
 are specified equal. We represent <cite>source_pairs</cite> in a union-find forest
