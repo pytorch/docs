@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitd42c409 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita1cfe7f )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3528,6 +3528,33 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.lr_scheduler.CosineAnnealingWarmRestarts.html">CosineAnnealingWarmRestarts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
+</ul>
+</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="complex_numbers.html">Complex Numbers</a></li>
@@ -4101,7 +4128,7 @@ document.write(`
                   
   <div class="section" id="module-torch.optim">
 <span id="torch-optim"></span><h1>torch.optim<a class="headerlink" href="#module-torch.optim" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 13, 2025 | Last Updated On: Jul 18, 2025</p>
 <p><a class="reference internal" href="#module-torch.optim" title="torch.optim"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.optim</span></code></a> is a package implementing various optimization algorithms.</p>
 <p>Most commonly used methods are already supported, and the interface is general
 enough, so that more sophisticated ones can also be easily integrated in the
@@ -4218,7 +4245,7 @@ compute the loss, and return it.</p>
 <span id="optimizer-algorithms"></span><h2>Base class<a class="headerlink" href="#base-class" title="Permalink to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.optim.Optimizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d42c40976727fed4c9908d4194f26917d0a3da66/torch/optim/optimizer.py#L338"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a1cfe7f1df3ddf72f1cf361cef96c69fc4a91a2b/torch/optim/optimizer.py#L338"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer" title="Permalink to this definition">#</a></dt>
 <dd><p>Base class for all optimizers.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4967,13 +4994,13 @@ We train the model for a total of 300 epochs and start to collect EMA averages i
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.swa_utils.get_ema_multi_avg_fn">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">get_ema_multi_avg_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d42c40976727fed4c9908d4194f26917d0a3da66/torch/optim/swa_utils.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">get_ema_multi_avg_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a1cfe7f1df3ddf72f1cf361cef96c69fc4a91a2b/torch/optim/swa_utils.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the function applying exponential moving average (EMA) across multiple params.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.swa_utils.update_bn">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">update_bn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d42c40976727fed4c9908d4194f26917d0a3da66/torch/optim/swa_utils.py#L315"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.update_bn" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">update_bn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a1cfe7f1df3ddf72f1cf361cef96c69fc4a91a2b/torch/optim/swa_utils.py#L315"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.update_bn" title="Permalink to this definition">#</a></dt>
 <dd><p>Update BatchNorm running_mean, running_var buffers in the model.</p>
 <p>It performs one pass over data in <cite>loader</cite> to estimate the activation
 statistics for BatchNorm layers in the model.</p>
@@ -5007,7 +5034,9 @@ element of the list or tuple corresponding to the data batch.</p>
 
 <!-- This module needs to be documented. Adding here in the meantime
 for tracking purposes -->
-<span class="target" id="module-torch.optim.adadelta"></span><span class="target" id="module-torch.optim.adagrad"></span><span class="target" id="module-torch.optim.adam"></span><span class="target" id="module-torch.optim.adamax"></span><span class="target" id="module-torch.optim.adamw"></span><span class="target" id="module-torch.optim.asgd"></span><span class="target" id="module-torch.optim.lbfgs"></span><span class="target" id="module-torch.optim.lr_scheduler"></span><span class="target" id="module-torch.optim.nadam"></span><span class="target" id="module-torch.optim.optimizer"></span><span class="target" id="module-torch.optim.radam"></span><span class="target" id="module-torch.optim.rmsprop"></span><span class="target" id="module-torch.optim.rprop"></span><span class="target" id="module-torch.optim.sgd"></span><span class="target" id="module-torch.optim.sparse_adam"></span><span class="target" id="module-torch.optim.swa_utils"></span></div>
+<span class="target" id="module-torch.optim.lr_scheduler"></span><span class="target" id="module-torch.optim.optimizer"></span><span class="target" id="module-torch.optim.swa_utils"></span><div class="toctree-wrapper compound">
+</div>
+</div>
 </div>
 </div>
 
@@ -5385,8 +5414,8 @@ for tracking purposes -->
            "@id": "/optim.html"
          },
          "datePublished": "Jun 13, 2025",
-         "dateModified": "Jun 13, 2025",
-         "articleBody": "torch.optim# Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025 torch.optim is a package implementing various optimization algorithms. Most commonly used methods are already supported, and the interface is general enough, so that more sophisticated ones can also be easily integrated in the future. How to use an optimizer# To use torch.optim you have to construct an optimizer object that will hold the current state and will update the parameters based on the computed gradients. Constructing it# To construct an Optimizer you have to give it an iterable containing the parameters (all should be Parameter s) or named parameters (tuples of (str, Parameter)) to optimize. Then, you can specify optimizer-specific options such as the learning rate, weight decay, etc. Example: optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9) optimizer = optim.Adam([var1, var2], lr=0.0001) Named parameters example: optimizer = optim.SGD(model.named_parameters(), lr=0.01, momentum=0.9) optimizer = optim.Adam([(&#39;layer0&#39;, var1), (&#39;layer1&#39;, var2)], lr=0.0001) Per-parameter options# Optimizer s also support specifying per-parameter options. To do this, instead of passing an iterable of Variable s, pass in an iterable of dict s. Each of them will define a separate parameter group, and should contain a params key, containing a list of parameters belonging to it. Other keys should match the keyword arguments accepted by the optimizers, and will be used as optimization options for this group. For example, this is very useful when one wants to specify per-layer learning rates: optim.SGD([ {&#39;params&#39;: model.base.parameters(), &#39;lr&#39;: 1e-2}, {&#39;params&#39;: model.classifier.parameters()} ], lr=1e-3, momentum=0.9) optim.SGD([ {&#39;params&#39;: model.base.named_parameters(), &#39;lr&#39;: 1e-2}, {&#39;params&#39;: model.classifier.named_parameters()} ], lr=1e-3, momentum=0.9) This means that model.base’s parameters will use a learning rate of 1e-2, whereas model.classifier’s parameters will stick to the default learning rate of 1e-3. Finally a momentum of 0.9 will be used for all parameters. Note You can still pass options as keyword arguments. They will be used as defaults, in the groups that didn’t override them. This is useful when you only want to vary a single option, while keeping all others consistent between parameter groups. Also consider the following example related to the distinct penalization of parameters. Remember that parameters() returns an iterable that contains all learnable parameters, including biases and other parameters that may prefer distinct penalization. To address this, one can specify individual penalization weights for each parameter group: bias_params = [p for name, p in self.named_parameters() if &#39;bias&#39; in name] others = [p for name, p in self.named_parameters() if &#39;bias&#39; not in name] optim.SGD([ {&#39;params&#39;: others}, {&#39;params&#39;: bias_params, &#39;weight_decay&#39;: 0} ], weight_decay=1e-2, lr=1e-2) In this manner, bias terms are isolated from non-bias terms, and a weight_d..."
+         "dateModified": "Jul 18, 2025",
+         "articleBody": "torch.optim# Created On: Jun 13, 2025 | Last Updated On: Jul 18, 2025 torch.optim is a package implementing various optimization algorithms. Most commonly used methods are already supported, and the interface is general enough, so that more sophisticated ones can also be easily integrated in the future. How to use an optimizer# To use torch.optim you have to construct an optimizer object that will hold the current state and will update the parameters based on the computed gradients. Constructing it# To construct an Optimizer you have to give it an iterable containing the parameters (all should be Parameter s) or named parameters (tuples of (str, Parameter)) to optimize. Then, you can specify optimizer-specific options such as the learning rate, weight decay, etc. Example: optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9) optimizer = optim.Adam([var1, var2], lr=0.0001) Named parameters example: optimizer = optim.SGD(model.named_parameters(), lr=0.01, momentum=0.9) optimizer = optim.Adam([(&#39;layer0&#39;, var1), (&#39;layer1&#39;, var2)], lr=0.0001) Per-parameter options# Optimizer s also support specifying per-parameter options. To do this, instead of passing an iterable of Variable s, pass in an iterable of dict s. Each of them will define a separate parameter group, and should contain a params key, containing a list of parameters belonging to it. Other keys should match the keyword arguments accepted by the optimizers, and will be used as optimization options for this group. For example, this is very useful when one wants to specify per-layer learning rates: optim.SGD([ {&#39;params&#39;: model.base.parameters(), &#39;lr&#39;: 1e-2}, {&#39;params&#39;: model.classifier.parameters()} ], lr=1e-3, momentum=0.9) optim.SGD([ {&#39;params&#39;: model.base.named_parameters(), &#39;lr&#39;: 1e-2}, {&#39;params&#39;: model.classifier.named_parameters()} ], lr=1e-3, momentum=0.9) This means that model.base’s parameters will use a learning rate of 1e-2, whereas model.classifier’s parameters will stick to the default learning rate of 1e-3. Finally a momentum of 0.9 will be used for all parameters. Note You can still pass options as keyword arguments. They will be used as defaults, in the groups that didn’t override them. This is useful when you only want to vary a single option, while keeping all others consistent between parameter groups. Also consider the following example related to the distinct penalization of parameters. Remember that parameters() returns an iterable that contains all learnable parameters, including biases and other parameters that may prefer distinct penalization. To address this, one can specify individual penalization weights for each parameter group: bias_params = [p for name, p in self.named_parameters() if &#39;bias&#39; in name] others = [p for name, p in self.named_parameters() if &#39;bias&#39; not in name] optim.SGD([ {&#39;params&#39;: others}, {&#39;params&#39;: bias_params, &#39;weight_decay&#39;: 0} ], weight_decay=1e-2, lr=1e-2) In this manner, bias terms are isolated from non-bias terms, and a weight_d..."
        }
    </script>
 

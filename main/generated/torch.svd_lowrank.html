@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitd42c409 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita1cfe7f )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3528,6 +3528,33 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.optim.lr_scheduler.CosineAnnealingWarmRestarts.html">CosineAnnealingWarmRestarts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.optim.swa_utils.SWALR.html">SWALR</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adam.Adam.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adamax.Adamax.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adamw.AdamW.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.asgd.ASGD.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.nadam.NAdam.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.radam.RAdam.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.rprop.Rprop.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.sgd.SGD.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
+</ul>
+</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../complex_numbers.html">Complex Numbers</a></li>
@@ -4112,7 +4139,7 @@ document.write(`
 <h1>torch.svd_lowrank<a class="headerlink" href="#torch-svd-lowrank" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.svd_lowrank">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">svd_lowrank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">niter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d42c40976727fed4c9908d4194f26917d0a3da66/torch/_lowrank.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.svd_lowrank" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">svd_lowrank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">niter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a1cfe7f1df3ddf72f1cf361cef96c69fc4a91a2b/torch/_lowrank.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.svd_lowrank" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the singular value decomposition <code class="docutils literal notranslate"><span class="pre">(U,</span> <span class="pre">S,</span> <span class="pre">V)</span></code> of a matrix,
 batches of matrices, or a sparse matrix <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span></span> such that
 <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>≈</mo><mi>U</mi><mi mathvariant="normal">diag</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>S</mi><mo stretchy="false">)</mo><msup><mi>V</mi><mtext>H</mtext></msup></mrow><annotation encoding="application/x-tex">A \approx U \operatorname{diag}(S) V^{\text{H}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0913em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mord mathrm" style="margin-right:0.01389em;">diag</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mclose">)</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">H</span></span></span></span></span></span></span></span></span></span></span></span></span></span>. In case <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span></span> is given, then

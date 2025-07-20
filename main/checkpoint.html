@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitd42c409 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita1cfe7f )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3528,6 +3528,33 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.lr_scheduler.CosineAnnealingWarmRestarts.html">CosineAnnealingWarmRestarts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
+</ul>
+</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="complex_numbers.html">Complex Numbers</a></li>
@@ -4134,7 +4161,7 @@ output compared to non-checkpointed passes is never guaranteed.</p>
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.checkpoint.checkpoint">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.checkpoint.</span></span><span class="sig-name descname"><span class="pre">checkpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_reentrant=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_fn=&lt;function</span> <span class="pre">noop_context_fn&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">determinism_check='default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d42c40976727fed4c9908d4194f26917d0a3da66/torch/utils/checkpoint.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.checkpoint.checkpoint" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.checkpoint.</span></span><span class="sig-name descname"><span class="pre">checkpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_reentrant=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_fn=&lt;function</span> <span class="pre">noop_context_fn&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">determinism_check='default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a1cfe7f1df3ddf72f1cf361cef96c69fc4a91a2b/torch/utils/checkpoint.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.checkpoint.checkpoint" title="Permalink to this definition">#</a></dt>
 <dd><p>Checkpoint a model or part of the model.</p>
 <p>Activation checkpointing is a technique that trades compute for memory.
 Instead of keeping tensors needed for backward alive until they are used in
@@ -4246,7 +4273,7 @@ as well as the recomputation. This argument is only supported if
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.checkpoint.checkpoint_sequential">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.checkpoint.</span></span><span class="sig-name descname"><span class="pre">checkpoint_sequential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">functions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_reentrant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d42c40976727fed4c9908d4194f26917d0a3da66/torch/utils/checkpoint.py#L503"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.checkpoint.checkpoint_sequential" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.checkpoint.</span></span><span class="sig-name descname"><span class="pre">checkpoint_sequential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">functions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_reentrant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a1cfe7f1df3ddf72f1cf361cef96c69fc4a91a2b/torch/utils/checkpoint.py#L503"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.checkpoint.checkpoint_sequential" title="Permalink to this definition">#</a></dt>
 <dd><p>Checkpoint a sequential model to save memory.</p>
 <p>Sequential models execute a list of modules/functions in order
 (sequentially). Therefore, we can divide such a model in various segments
@@ -4296,7 +4323,7 @@ the checkpointed function.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.checkpoint.set_checkpoint_debug_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.checkpoint.</span></span><span class="sig-name descname"><span class="pre">set_checkpoint_debug_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d42c40976727fed4c9908d4194f26917d0a3da66/torch/utils/checkpoint.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.checkpoint.set_checkpoint_debug_enabled" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.checkpoint.</span></span><span class="sig-name descname"><span class="pre">set_checkpoint_debug_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a1cfe7f1df3ddf72f1cf361cef96c69fc4a91a2b/torch/utils/checkpoint.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.checkpoint.set_checkpoint_debug_enabled" title="Permalink to this definition">#</a></dt>
 <dd><p>Context manager that sets whether checkpoint should print additional debug
 information when running. See the <code class="docutils literal notranslate"><span class="pre">debug</span></code> flag for
 <a class="reference internal" href="#torch.utils.checkpoint.checkpoint" title="torch.utils.checkpoint.checkpoint"><code class="xref py py-func docutils literal notranslate"><span class="pre">checkpoint()</span></code></a> for more information. Note that
@@ -4312,7 +4339,7 @@ Default is ‘None’.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.checkpoint.CheckpointPolicy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.checkpoint.</span></span><span class="sig-name descname"><span class="pre">CheckpointPolicy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d42c40976727fed4c9908d4194f26917d0a3da66/torch/utils/checkpoint.py#L1243"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.checkpoint.CheckpointPolicy" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.checkpoint.</span></span><span class="sig-name descname"><span class="pre">CheckpointPolicy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a1cfe7f1df3ddf72f1cf361cef96c69fc4a91a2b/torch/utils/checkpoint.py#L1243"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.checkpoint.CheckpointPolicy" title="Permalink to this definition">#</a></dt>
 <dd><p>Enum for specifying the policy for checkpointing during backpropagation.</p>
 <p>The following policies are supported:</p>
 <ul class="simple">
@@ -4336,7 +4363,7 @@ gradient computation.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.checkpoint.SelectiveCheckpointContext">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.checkpoint.</span></span><span class="sig-name descname"><span class="pre">SelectiveCheckpointContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_recompute</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d42c40976727fed4c9908d4194f26917d0a3da66/torch/utils/checkpoint.py#L1217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.checkpoint.SelectiveCheckpointContext" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.checkpoint.</span></span><span class="sig-name descname"><span class="pre">SelectiveCheckpointContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_recompute</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a1cfe7f1df3ddf72f1cf361cef96c69fc4a91a2b/torch/utils/checkpoint.py#L1217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.checkpoint.SelectiveCheckpointContext" title="Permalink to this definition">#</a></dt>
 <dd><p>Context passed to policy function during selective checkpointing.</p>
 <p>This class is used to pass relevant metadata to the policy function during
 selective checkpointing. The metadata includes whether the current invocation
@@ -4359,7 +4386,7 @@ of the policy function is during recomputation or not.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.checkpoint.create_selective_checkpoint_contexts">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.checkpoint.</span></span><span class="sig-name descname"><span class="pre">create_selective_checkpoint_contexts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">policy_fn_or_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_cache_entry_mutation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d42c40976727fed4c9908d4194f26917d0a3da66/torch/utils/checkpoint.py#L1357"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.checkpoint.create_selective_checkpoint_contexts" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.checkpoint.</span></span><span class="sig-name descname"><span class="pre">create_selective_checkpoint_contexts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">policy_fn_or_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_cache_entry_mutation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a1cfe7f1df3ddf72f1cf361cef96c69fc4a91a2b/torch/utils/checkpoint.py#L1357"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.checkpoint.create_selective_checkpoint_contexts" title="Permalink to this definition">#</a></dt>
 <dd><p>Helper to avoid recomputing certain ops during activation checkpointing.</p>
 <p>Use this with <cite>torch.utils.checkpoint.checkpoint</cite> to control which
 operations are recomputed during the backward pass.</p>
