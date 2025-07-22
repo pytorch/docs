@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git2cdafab )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git350d6af )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3142,8 +3142,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4150,7 +4150,7 @@ document.write(`
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the input tensor.</p></li>
-<li><p><strong>other</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em> or </em><em>Number</em>) – </p></li>
+<li><p><strong>other</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em> or </em><em>Number</em>) – the tensor or number to multiply input by.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments</dt>
@@ -4326,19 +4326,19 @@ document.write(`
   <div class="sidebar-heading">PyTorch Libraries</div>
   <ul style="list-style-type: none; padding: 0; padding-bottom: 80px;">
   
-   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/ao" style="color: var(--pst-color-text-muted)">torchao</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchrec" style="color: var(--pst-color-text-muted)">torchrec</a></li>
   
    <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchft" style="color: var(--pst-color-text-muted)">torchft</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/torchcodec" style="color: var(--pst-color-text-muted)">TorchCodec</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/vision" style="color: var(--pst-color-text-muted)">torchvision</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/executorch" style="color: var(--pst-color-text-muted)">ExecuTorch</a></li>
   
-   <li><a class="nav-link nav-external" href="https://docs.ppytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
+   <li><a class="nav-link nav-external" href="https://docs.pytorch.org/xla" style="color: var(--pst-color-text-muted)">PyTorch on XLA Devices</a></li>
   
   </ul>
 </div>
@@ -4514,7 +4514,7 @@ document.write(`
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.mul# torch.mul(input, other, *, out=None) → Tensor# Multiplies input by other. outi=inputi×otheri\text{out}_i = \text{input}_i \times \text{other}_i outi​=inputi​×otheri​Supports broadcasting to a common shape, type promotion, and integer, float, and complex inputs. Parameters input (Tensor) – the input tensor. other (Tensor or Number) – Keyword Arguments out (Tensor, optional) – the output tensor. Examples: &gt;&gt;&gt; a = torch.randn(3) &gt;&gt;&gt; a tensor([ 0.2015, -0.4255, 2.6087]) &gt;&gt;&gt; torch.mul(a, 100) tensor([ 20.1494, -42.5491, 260.8663]) &gt;&gt;&gt; b = torch.randn(4, 1) &gt;&gt;&gt; b tensor([[ 1.1207], [-0.3137], [ 0.0700], [ 0.8378]]) &gt;&gt;&gt; c = torch.randn(1, 4) &gt;&gt;&gt; c tensor([[ 0.5146, 0.1216, -0.5244, 2.2382]]) &gt;&gt;&gt; torch.mul(b, c) tensor([[ 0.5767, 0.1363, -0.5877, 2.5083], [-0.1614, -0.0382, 0.1645, -0.7021], [ 0.0360, 0.0085, -0.0367, 0.1567], [ 0.4312, 0.1019, -0.4394, 1.8753]])"
+         "articleBody": "torch.mul# torch.mul(input, other, *, out=None) → Tensor# Multiplies input by other. outi=inputi×otheri\text{out}_i = \text{input}_i \times \text{other}_i outi​=inputi​×otheri​Supports broadcasting to a common shape, type promotion, and integer, float, and complex inputs. Parameters input (Tensor) – the input tensor. other (Tensor or Number) – the tensor or number to multiply input by. Keyword Arguments out (Tensor, optional) – the output tensor. Examples: &gt;&gt;&gt; a = torch.randn(3) &gt;&gt;&gt; a tensor([ 0.2015, -0.4255, 2.6087]) &gt;&gt;&gt; torch.mul(a, 100) tensor([ 20.1494, -42.5491, 260.8663]) &gt;&gt;&gt; b = torch.randn(4, 1) &gt;&gt;&gt; b tensor([[ 1.1207], [-0.3137], [ 0.0700], [ 0.8378]]) &gt;&gt;&gt; c = torch.randn(1, 4) &gt;&gt;&gt; c tensor([[ 0.5146, 0.1216, -0.5244, 2.2382]]) &gt;&gt;&gt; torch.mul(b, c) tensor([[ 0.5767, 0.1363, -0.5877, 2.5083], [-0.1614, -0.0382, 0.1645, -0.7021], [ 0.0360, 0.0085, -0.0367, 0.1567], [ 0.4312, 0.1019, -0.4394, 1.8753]])"
        }
    </script>
 
