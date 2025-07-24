@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitd3f9107 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7001d6f )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1752,6 +1752,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.var.html">torch.var</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.var_mean.html">torch.var_mean</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.count_nonzero.html">torch.count_nonzero</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.hash_tensor.html">torch.hash_tensor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.allclose.html">torch.allclose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.argsort.html">torch.argsort</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.eq.html">torch.eq</a></li>
@@ -3134,8 +3135,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4120,7 +4121,7 @@ document.write(`
                   
   <div class="section" id="module-torch">
 <span id="torch"></span><h1>torch<a class="headerlink" href="#module-torch" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 23, 2016 | Last Updated On: Jul 11, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 23, 2016 | Last Updated On: Jul 23, 2025</p>
 <p>The torch package contains data structures for multi-dimensional
 tensors and defines mathematical operations over these tensors.
 Additionally, it provides many utilities for efficient serialization of
@@ -5178,6 +5179,9 @@ work if you send work to another thread using the <code class="docutils literal 
 <tr class="row-odd"><td><p><p id="torch.count_nonzero"/><a class="reference internal" href="generated/torch.count_nonzero.html#torch.count_nonzero" title="torch.count_nonzero"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count_nonzero</span></code></a></p></td>
 <td><p>Counts the number of non-zero values in the tensor <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> along the given <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>.</p></td>
 </tr>
+<tr class="row-even"><td><p><p id="torch.hash_tensor"/><a class="reference internal" href="generated/torch.hash_tensor.html#torch.hash_tensor" title="torch.hash_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hash_tensor</span></code></a></p></td>
+<td><p>Returns a hash of all elements in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> tensor.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -5883,13 +5887,13 @@ Forward-mode AD is not supported.</p>
 <h2>Symbolic Numbers<a class="headerlink" href="#symbolic-numbers" title="Permalink to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.SymInt">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">SymInt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d3f9107d682d2fb554d09f1f14e81850de793e7a/torch/__init__.py#L425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymInt" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">SymInt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/__init__.py#L410"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymInt" title="Permalink to this definition">#</a></dt>
 <dd><p>Like an int (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations
 in the symbolic shape workflow.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.SymInt.as_integer_ratio">
-<span class="sig-name descname"><span class="pre">as_integer_ratio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d3f9107d682d2fb554d09f1f14e81850de793e7a/torch/__init__.py#L607"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymInt.as_integer_ratio" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">as_integer_ratio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/__init__.py#L592"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymInt.as_integer_ratio" title="Permalink to this definition">#</a></dt>
 <dd><p>Represent this int as an exact integer ratio</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -5902,13 +5906,13 @@ in the symbolic shape workflow.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.SymFloat">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">SymFloat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d3f9107d682d2fb554d09f1f14e81850de793e7a/torch/__init__.py#L622"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">SymFloat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/__init__.py#L607"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat" title="Permalink to this definition">#</a></dt>
 <dd><p>Like a float (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations
 in the symbolic shape workflow.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.SymFloat.as_integer_ratio">
-<span class="sig-name descname"><span class="pre">as_integer_ratio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d3f9107d682d2fb554d09f1f14e81850de793e7a/torch/__init__.py#L719"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.as_integer_ratio" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">as_integer_ratio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/__init__.py#L704"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.as_integer_ratio" title="Permalink to this definition">#</a></dt>
 <dd><p>Represent this float as an exact integer ratio</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -5919,7 +5923,7 @@ in the symbolic shape workflow.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.SymFloat.conjugate">
-<span class="sig-name descname"><span class="pre">conjugate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d3f9107d682d2fb554d09f1f14e81850de793e7a/torch/__init__.py#L732"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.conjugate" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">conjugate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/__init__.py#L717"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.conjugate" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the complex conjugate of the float.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -5930,7 +5934,7 @@ in the symbolic shape workflow.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.SymFloat.hex">
-<span class="sig-name descname"><span class="pre">hex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d3f9107d682d2fb554d09f1f14e81850de793e7a/torch/__init__.py#L736"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.hex" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">hex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/__init__.py#L721"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.hex" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the hexadecimal representation of the float.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -5941,7 +5945,7 @@ in the symbolic shape workflow.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.SymFloat.is_integer">
-<span class="sig-name descname"><span class="pre">is_integer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d3f9107d682d2fb554d09f1f14e81850de793e7a/torch/__init__.py#L715"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.is_integer" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_integer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/__init__.py#L700"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymFloat.is_integer" title="Permalink to this definition">#</a></dt>
 <dd><p>Return True if the float is an integer.</p>
 </dd></dl>
 
@@ -5949,7 +5953,7 @@ in the symbolic shape workflow.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.SymBool">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">SymBool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d3f9107d682d2fb554d09f1f14e81850de793e7a/torch/__init__.py#L741"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymBool" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">SymBool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/__init__.py#L726"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.SymBool" title="Permalink to this definition">#</a></dt>
 <dd><p>Like a bool (including magic methods), but redirects all operations on the
 wrapped node. This is used in particular to symbolically record operations
 in the symbolic shape workflow.</p>
@@ -6473,8 +6477,8 @@ generated/exportdb/index</p>
            "@id": "/torch.html"
          },
          "datePublished": "Dec 23, 2016",
-         "dateModified": "Jul 11, 2025",
-         "articleBody": "torch# Created On: Dec 23, 2016 | Last Updated On: Jul 11, 2025 The torch package contains data structures for multi-dimensional tensors and defines mathematical operations over these tensors. Additionally, it provides many utilities for efficient serialization of Tensors and arbitrary types, and other useful utilities. It has a CUDA counterpart, that enables you to run your tensor computations on an NVIDIA GPU with compute capability &gt;= 3.0. Tensors# is_tensor Returns True if obj is a PyTorch tensor. is_storage Returns True if obj is a PyTorch storage object. is_complex Returns True if the data type of input is a complex data type i.e., one of torch.complex64, and torch.complex128. is_conj Returns True if the input is a conjugated tensor, i.e. its conjugate bit is set to True. is_floating_point Returns True if the data type of input is a floating point data type i.e., one of torch.float64, torch.float32, torch.float16, and torch.bfloat16. is_nonzero Returns True if the input is a single element tensor which is not equal to zero after type conversions. set_default_dtype Sets the default floating point dtype to d. get_default_dtype Get the current default floating point torch.dtype. set_default_device Sets the default torch.Tensor to be allocated on device. get_default_device Gets the default torch.Tensor to be allocated on device set_default_tensor_type numel Returns the total number of elements in the input tensor. set_printoptions Set options for printing. set_flush_denormal Disables denormal floating numbers on CPU. Creation Ops# Note Random sampling creation ops are listed under Random sampling and include: torch.rand() torch.rand_like() torch.randn() torch.randn_like() torch.randint() torch.randint_like() torch.randperm() You may also use torch.empty() with the In-place random sampling methods to create torch.Tensor s with values sampled from a broader range of distributions. tensor Constructs a tensor with no autograd history (also known as a &#34;leaf tensor&#34;, see Autograd mechanics) by copying data. sparse_coo_tensor Constructs a sparse tensor in COO(rdinate) format with specified values at the given indices. sparse_csr_tensor Constructs a sparse tensor in CSR (Compressed Sparse Row) with specified values at the given crow_indices and col_indices. sparse_csc_tensor Constructs a sparse tensor in CSC (Compressed Sparse Column) with specified values at the given ccol_indices and row_indices. sparse_bsr_tensor Constructs a sparse tensor in BSR (Block Compressed Sparse Row)) with specified 2-dimensional blocks at the given crow_indices and col_indices. sparse_bsc_tensor Constructs a sparse tensor in BSC (Block Compressed Sparse Column)) with specified 2-dimensional blocks at the given ccol_indices and row_indices. asarray Converts obj to a tensor. as_tensor Converts data into a tensor, sharing data and preserving autograd history if possible. as_strided Create a view of an existing torch.Tensor input with specified size, stride and storage_offs..."
+         "dateModified": "Jul 23, 2025",
+         "articleBody": "torch# Created On: Dec 23, 2016 | Last Updated On: Jul 23, 2025 The torch package contains data structures for multi-dimensional tensors and defines mathematical operations over these tensors. Additionally, it provides many utilities for efficient serialization of Tensors and arbitrary types, and other useful utilities. It has a CUDA counterpart, that enables you to run your tensor computations on an NVIDIA GPU with compute capability &gt;= 3.0. Tensors# is_tensor Returns True if obj is a PyTorch tensor. is_storage Returns True if obj is a PyTorch storage object. is_complex Returns True if the data type of input is a complex data type i.e., one of torch.complex64, and torch.complex128. is_conj Returns True if the input is a conjugated tensor, i.e. its conjugate bit is set to True. is_floating_point Returns True if the data type of input is a floating point data type i.e., one of torch.float64, torch.float32, torch.float16, and torch.bfloat16. is_nonzero Returns True if the input is a single element tensor which is not equal to zero after type conversions. set_default_dtype Sets the default floating point dtype to d. get_default_dtype Get the current default floating point torch.dtype. set_default_device Sets the default torch.Tensor to be allocated on device. get_default_device Gets the default torch.Tensor to be allocated on device set_default_tensor_type numel Returns the total number of elements in the input tensor. set_printoptions Set options for printing. set_flush_denormal Disables denormal floating numbers on CPU. Creation Ops# Note Random sampling creation ops are listed under Random sampling and include: torch.rand() torch.rand_like() torch.randn() torch.randn_like() torch.randint() torch.randint_like() torch.randperm() You may also use torch.empty() with the In-place random sampling methods to create torch.Tensor s with values sampled from a broader range of distributions. tensor Constructs a tensor with no autograd history (also known as a &#34;leaf tensor&#34;, see Autograd mechanics) by copying data. sparse_coo_tensor Constructs a sparse tensor in COO(rdinate) format with specified values at the given indices. sparse_csr_tensor Constructs a sparse tensor in CSR (Compressed Sparse Row) with specified values at the given crow_indices and col_indices. sparse_csc_tensor Constructs a sparse tensor in CSC (Compressed Sparse Column) with specified values at the given ccol_indices and row_indices. sparse_bsr_tensor Constructs a sparse tensor in BSR (Block Compressed Sparse Row)) with specified 2-dimensional blocks at the given crow_indices and col_indices. sparse_bsc_tensor Constructs a sparse tensor in BSC (Block Compressed Sparse Column)) with specified 2-dimensional blocks at the given ccol_indices and row_indices. asarray Converts obj to a tensor. as_tensor Converts data into a tensor, sharing data and preserving autograd history if possible. as_strided Create a view of an existing torch.Tensor input with specified size, stride and storage_offs..."
        }
    </script>
 

@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitd3f9107 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7001d6f )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1752,6 +1752,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.var.html">torch.var</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.var_mean.html">torch.var_mean</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.count_nonzero.html">torch.count_nonzero</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.hash_tensor.html">torch.hash_tensor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.allclose.html">torch.allclose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.argsort.html">torch.argsort</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.eq.html">torch.eq</a></li>
@@ -3134,8 +3135,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4131,7 +4132,7 @@ document.write(`
 <h1>torch.mps.get_rng_state<a class="headerlink" href="#torch-mps-get-rng-state" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.mps.get_rng_state">
-<span class="sig-prename descclassname"><span class="pre">torch.mps.</span></span><span class="sig-name descname"><span class="pre">get_rng_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mps'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d3f9107d682d2fb554d09f1f14e81850de793e7a/torch/mps/__init__.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mps.get_rng_state" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.mps.</span></span><span class="sig-name descname"><span class="pre">get_rng_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mps'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/mps/__init__.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mps.get_rng_state" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the random number generator state as a ByteTensor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
