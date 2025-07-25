@@ -63,8 +63,8 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.onnx.JitScalarType.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="torch.optim" href="../optim.html" />
-    <link rel="prev" title="TorchScript-based ONNX Exporter" href="../onnx_torchscript.html" />
+    <link rel="next" title="torch.export-based ONNX Exporter" href="../onnx_export.html" />
+    <link rel="prev" title="torch.onnx" href="../onnx.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7001d6f )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita53db90 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3135,8 +3135,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3463,18 +3463,10 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../onnx.html">torch.onnx</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 has-children"><a class="reference internal" href="../onnx_dynamo.html">TorchDynamo-based ONNX Exporter</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../onnx_dynamo_memory_usage.html">Understanding TorchDynamo-based ONNX Exporter Memory Usage</a></li>
-
-
-</ul>
-</details></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">JitScalarType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../onnx_export.html">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_verification.html">torch.onnx.verification</a></li>
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="../onnx_torchscript.html">TorchScript-based ONNX Exporter</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">JitScalarType</a></li>
-</ul>
-</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../optim.html">torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4048,8 +4040,6 @@ document.write(`
 
 
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -4062,10 +4052,7 @@ document.write(`
     <li class="breadcrumb-item"><a href="../pytorch-api.html" class="nav-link">Python API</a></li>
     
     
-    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
-    
-    
-    <li class="breadcrumb-item"><a href="../onnx_torchscript.html" class="nav-link">TorchScript-based ONNX Exporter</a></li>
+    <li class="breadcrumb-item"><a href="../onnx.html" class="nav-link">torch.onnx</a></li>
     
     <li class="breadcrumb-item active" aria-current="page">JitScalarType</li>
   </ul>
@@ -4120,15 +4107,9 @@ document.write(`
           <meta itemprop="position" content="2">
         </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../onnx_torchscript.html">
-          <meta itemprop="name" content="TorchScript-based ONNX Exporter">
-          <meta itemprop="position" content="3">
-        </div>
-      
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="JitScalarType">
-        <meta itemprop="position" content="4">
+        <meta itemprop="position" content="3">
       </div>
    </div>
 
@@ -4161,7 +4142,7 @@ document.write(`
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.JitScalarType.dtype">
-<span class="sig-name descname"><span class="pre">dtype</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/onnx/_type_utils.py#L253"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.dtype" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">dtype</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_type_utils.py#L253"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.dtype" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert a JitScalarType to a torch dtype.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4172,7 +4153,7 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.JitScalarType.from_dtype">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/onnx/_type_utils.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.from_dtype" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_type_utils.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.from_dtype" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert a torch dtype to JitScalarType.</p>
 <dl class="simple">
 <dt>Note: DO NOT USE this API when <cite>dtype</cite> comes from a <cite>torch._C.Value.type()</cite> calls.</dt><dd><p>A “RuntimeError: INTERNAL ASSERT FAILED at “../aten/src/ATen/core/jit_type_base.h” can
@@ -4188,7 +4169,7 @@ Instead use <cite>from_value</cite> API which is safer.</p>
 <dd class="field-even"><p>JitScalarType</p>
 </dd>
 <dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><a class="reference internal" href="../onnx_dynamo.html#torch.onnx.OnnxExporterError" title="torch.onnx.OnnxExporterError"><strong>OnnxExporterError</strong></a> – if dtype is not a valid torch.dtype or if it is None.</p>
+<dd class="field-odd"><p><a class="reference internal" href="../onnx_export.html#torch.onnx.OnnxExporterError" title="torch.onnx.OnnxExporterError"><strong>OnnxExporterError</strong></a> – if dtype is not a valid torch.dtype or if it is None.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#torch.onnx.JitScalarType" title="torch.onnx.JitScalarType">JitScalarType</a></p>
@@ -4198,7 +4179,7 @@ Instead use <cite>from_value</cite> API which is safer.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.JitScalarType.from_onnx_type">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_onnx_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onnx_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/onnx/_type_utils.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.from_onnx_type" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_onnx_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onnx_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_type_utils.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.from_onnx_type" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert a ONNX data type to JitScalarType.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4208,7 +4189,7 @@ Instead use <cite>from_value</cite> API which is safer.</p>
 <dd class="field-even"><p>JitScalarType</p>
 </dd>
 <dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><a class="reference internal" href="../onnx_dynamo.html#torch.onnx.OnnxExporterError" title="torch.onnx.OnnxExporterError"><strong>OnnxExporterError</strong></a> – if dtype is not a valid torch.dtype or if it is None.</p>
+<dd class="field-odd"><p><a class="reference internal" href="../onnx_export.html#torch.onnx.OnnxExporterError" title="torch.onnx.OnnxExporterError"><strong>OnnxExporterError</strong></a> – if dtype is not a valid torch.dtype or if it is None.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#torch.onnx.JitScalarType" title="torch.onnx.JitScalarType">JitScalarType</a></p>
@@ -4218,7 +4199,7 @@ Instead use <cite>from_value</cite> API which is safer.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.JitScalarType.from_value">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/onnx/_type_utils.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.from_value" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_type_utils.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.from_value" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a JitScalarType from an value’s scalar type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4232,7 +4213,7 @@ Instead use <cite>from_value</cite> API which is safer.</p>
 </dd>
 <dt class="field-odd">Raises</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><a class="reference internal" href="../onnx_dynamo.html#torch.onnx.OnnxExporterError" title="torch.onnx.OnnxExporterError"><strong>OnnxExporterError</strong></a> – if value does not have a valid scalar type and default is None.</p></li>
+<li><p><a class="reference internal" href="../onnx_export.html#torch.onnx.OnnxExporterError" title="torch.onnx.OnnxExporterError"><strong>OnnxExporterError</strong></a> – if value does not have a valid scalar type and default is None.</p></li>
 <li><p><strong>SymbolicValueError</strong> – when value.type()’s info are empty and default is None</p></li>
 </ul>
 </dd>
@@ -4244,7 +4225,7 @@ Instead use <cite>from_value</cite> API which is safer.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.JitScalarType.onnx_compatible">
-<span class="sig-name descname"><span class="pre">onnx_compatible</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/onnx/_type_utils.py#L265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.onnx_compatible" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">onnx_compatible</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_type_utils.py#L265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.onnx_compatible" title="Permalink to this definition">#</a></dt>
 <dd><p>Return whether this JitScalarType is compatible with ONNX.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4255,7 +4236,7 @@ Instead use <cite>from_value</cite> API which is safer.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.JitScalarType.onnx_type">
-<span class="sig-name descname"><span class="pre">onnx_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/onnx/_type_utils.py#L257"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.onnx_type" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">onnx_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_type_utils.py#L257"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.onnx_type" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert a JitScalarType to an ONNX data type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4266,7 +4247,7 @@ Instead use <cite>from_value</cite> API which is safer.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.JitScalarType.scalar_name">
-<span class="sig-name descname"><span class="pre">scalar_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/onnx/_type_utils.py#L245"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.scalar_name" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">scalar_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_type_utils.py#L245"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.scalar_name" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert a JitScalarType to a JIT scalar type name.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4277,7 +4258,7 @@ Instead use <cite>from_value</cite> API which is safer.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.JitScalarType.torch_name">
-<span class="sig-name descname"><span class="pre">torch_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/onnx/_type_utils.py#L249"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.torch_name" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">torch_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_type_utils.py#L249"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.JitScalarType.torch_name" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert a JitScalarType to a torch type name.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4333,20 +4314,20 @@ Instead use <cite>from_value</cite> API which is safer.</p>
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../onnx_torchscript.html"
+       href="../onnx.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">TorchScript-based ONNX Exporter</p>
+        <p class="prev-next-title">torch.onnx</p>
       </div>
     </a>
     <a class="right-next"
-       href="../optim.html"
+       href="../onnx_export.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.optim</p>
+        <p class="prev-next-title">torch.export-based ONNX Exporter</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -4377,20 +4358,20 @@ Instead use <cite>from_value</cite> API which is safer.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../onnx_torchscript.html"
+       href="../onnx.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">TorchScript-based ONNX Exporter</p>
+        <p class="prev-next-title">torch.onnx</p>
       </div>
     </a>
     <a class="right-next"
-       href="../optim.html"
+       href="../onnx_export.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.optim</p>
+        <p class="prev-next-title">torch.export-based ONNX Exporter</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

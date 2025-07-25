@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7001d6f )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita53db90 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3135,8 +3135,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3463,18 +3463,10 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../onnx.html">torch.onnx</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../onnx_dynamo.html">TorchDynamo-based ONNX Exporter</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../onnx_dynamo_memory_usage.html">Understanding TorchDynamo-based ONNX Exporter Memory Usage</a></li>
-
-
-</ul>
-</details></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.onnx.JitScalarType.html">JitScalarType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../onnx_export.html">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_verification.html">torch.onnx.verification</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../onnx_torchscript.html">TorchScript-based ONNX Exporter</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="torch.onnx.JitScalarType.html">JitScalarType</a></li>
-</ul>
-</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../optim.html">torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4132,7 +4124,7 @@ document.write(`
 <h1>torch.mps.profiler.is_metal_capture_enabled<a class="headerlink" href="#torch-mps-profiler-is-metal-capture-enabled" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.mps.profiler.is_metal_capture_enabled">
-<span class="sig-prename descclassname"><span class="pre">torch.mps.profiler.</span></span><span class="sig-name descname"><span class="pre">is_metal_capture_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/mps/profiler.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mps.profiler.is_metal_capture_enabled" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.mps.profiler.</span></span><span class="sig-name descname"><span class="pre">is_metal_capture_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/mps/profiler.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mps.profiler.is_metal_capture_enabled" title="Permalink to this definition">#</a></dt>
 <dd><p>Checks if <cite>metal_capture</cite> context manager is usable
 To enable metal capture, set MTL_CAPTURE_ENABLED envvar</p>
 <dl class="field-list simple">

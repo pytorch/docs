@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TorchScript-based ONNX Exporter &#8212; PyTorch main documentation</title>
+    <title>torch.export-based ONNX Exporter &#8212; PyTorch main documentation</title>
   
   
   
@@ -53,22 +53,22 @@
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/design-tabs.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'onnx_torchscript';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'onnx_export';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://docs.pytorch.org/docs/pytorch-versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/onnx_torchscript.html" />
+    <link rel="canonical" href="https://docs.pytorch.org/docs/stable/onnx_export.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="JitScalarType" href="generated/torch.onnx.JitScalarType.html" />
-    <link rel="prev" title="torch.onnx.verification" href="onnx_verification.html" />
+    <link rel="next" title="torch.onnx.ops" href="onnx_ops.html" />
+    <link rel="prev" title="JitScalarType" href="generated/torch.onnx.JitScalarType.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/onnx_torchscript.html" crossorigin="anonymous">
+<link rel="canonical" href="/onnx_export.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7001d6f )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita53db90 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3135,8 +3135,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3463,18 +3463,10 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="onnx.html">torch.onnx</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 has-children"><a class="reference internal" href="onnx_dynamo.html">TorchDynamo-based ONNX Exporter</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="onnx_dynamo_memory_usage.html">Understanding TorchDynamo-based ONNX Exporter Memory Usage</a></li>
-
-
-</ul>
-</details></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.onnx.JitScalarType.html">JitScalarType</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_verification.html">torch.onnx.verification</a></li>
-<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">TorchScript-based ONNX Exporter</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.onnx.JitScalarType.html">JitScalarType</a></li>
-</ul>
-</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="optim.html">torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4062,7 +4054,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="onnx.html" class="nav-link">torch.onnx</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">TorchScript-...</li>
+    <li class="breadcrumb-item active" aria-current="page">torch.export...</li>
   </ul>
 </nav>
 </div>
@@ -4116,7 +4108,7 @@ document.write(`
         </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <meta itemprop="name" content="TorchScript-based ONNX Exporter">
+        <meta itemprop="name" content="torch.export-based ONNX Exporter">
         <meta itemprop="position" content="3">
       </div>
    </div>
@@ -4128,657 +4120,225 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="torchscript-based-onnx-exporter">
-<h1>TorchScript-based ONNX Exporter<a class="headerlink" href="#torchscript-based-onnx-exporter" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Aug 31, 2017 | Last Updated On: Jul 01, 2025</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>To export an ONNX model using TorchDynamo instead of TorchScript, please see <a class="reference internal" href="onnx_dynamo.html"><span class="doc">Learn more about the TorchDynamo-based ONNX Exporter</span></a></p>
-</div>
+  <div class="section" id="torch-export-based-onnx-exporter">
+<h1>torch.export-based ONNX Exporter<a class="headerlink" href="#torch-export-based-onnx-exporter" title="Permalink to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 10, 2025 | Last Updated On: Jul 24, 2025</p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#example-alexnet-from-pytorch-to-onnx" id="id3">Example: AlexNet from PyTorch to ONNX</a></p></li>
-<li><p><a class="reference internal" href="#tracing-vs-scripting" id="id4">Tracing vs Scripting</a></p></li>
-<li><p><a class="reference internal" href="#avoiding-pitfalls" id="id5">Avoiding Pitfalls</a></p>
-<ul>
-<li><p><a class="reference internal" href="#avoid-numpy-and-built-in-python-types" id="id6">Avoid NumPy and built-in Python types</a></p></li>
-<li><p><a class="reference internal" href="#avoid-tensor-data" id="id7">Avoid Tensor.data</a></p></li>
-<li><p><a class="reference internal" href="#avoid-in-place-operations-when-using-tensor-shape-in-tracing-mode" id="id8">Avoid in-place operations when using tensor.shape in tracing mode</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#limitations" id="id9">Limitations</a></p>
-<ul>
-<li><p><a class="reference internal" href="#types" id="id10">Types</a></p></li>
-<li><p><a class="reference internal" href="#differences-in-operator-implementations" id="id11">Differences in Operator Implementations</a></p></li>
-<li><p><a class="reference internal" href="#unsupported-tensor-indexing-patterns" id="id12">Unsupported Tensor Indexing Patterns</a></p>
-<ul>
-<li><p><a class="reference internal" href="#reads-gets" id="id13">Reads / Gets</a></p></li>
-<li><p><a class="reference internal" href="#writes-sets" id="id14">Writes / Sets</a></p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#adding-support-for-operators" id="id15">Adding support for operators</a></p>
-<ul>
-<li><p><a class="reference internal" href="#onnx-exporter-internals" id="id16">ONNX exporter internals</a></p></li>
-<li><p><a class="reference internal" href="#aten-operators" id="id17">ATen operators</a></p>
-<ul>
-<li><p><a class="reference internal" href="#list-of-supported-operators" id="id18">List of supported operators</a></p></li>
-<li><p><a class="reference internal" href="#adding-support-for-an-aten-or-quantized-operator" id="id19">Adding support for an aten or quantized operator</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#torch-autograd-functions" id="id20">torch.autograd.Functions</a></p>
-<ul>
-<li><p><a class="reference internal" href="#static-symbolic-method" id="id21">Static Symbolic Method</a></p></li>
-<li><p><a class="reference internal" href="#inline-autograd-function" id="id22">Inline Autograd Function</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#custom-operators" id="id23">Custom operators</a></p>
-<ul>
-<li><p><a class="reference internal" href="#onnx-script-functions" id="id24">ONNX-script functions</a></p></li>
-<li><p><a class="reference internal" href="#c-operators" id="id25">C++ Operators</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#discovering-all-unconvertible-aten-ops-at-once" id="id26">Discovering all unconvertible ATen ops at once</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#frequently-asked-questions" id="id27">Frequently Asked Questions</a></p></li>
-<li><p><a class="reference internal" href="#module-torch.onnx" id="id28">Python API</a></p>
-<ul>
-<li><p><a class="reference internal" href="#functions" id="id29">Functions</a></p></li>
-<li><p><a class="reference internal" href="#classes" id="id30">Classes</a></p></li>
-</ul>
-</li>
+<li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p></li>
+<li><p><a class="reference internal" href="#dependencies" id="id2">Dependencies</a></p></li>
+<li><p><a class="reference internal" href="#a-simple-example" id="id3">A simple example</a></p></li>
+<li><p><a class="reference internal" href="#inspecting-the-onnx-model-using-gui" id="id4">Inspecting the ONNX model using GUI</a></p></li>
+<li><p><a class="reference internal" href="#when-the-conversion-fails" id="id5">When the conversion fails</a></p></li>
+<li><p><a class="reference internal" href="#metadata" id="id6">Metadata</a></p></li>
+<li><p><a class="reference internal" href="#api-reference" id="id7">API Reference</a></p></li>
 </ul>
 </div>
-<div class="section" id="example-alexnet-from-pytorch-to-onnx">
-<h2><a class="toc-backref" href="#id3">Example: AlexNet from PyTorch to ONNX</a><a class="headerlink" href="#example-alexnet-from-pytorch-to-onnx" title="Permalink to this heading">#</a></h2>
-<p>Here is a simple script which exports a pretrained AlexNet to an ONNX file named <code class="docutils literal notranslate"><span class="pre">alexnet.onnx</span></code>.
-The call to <code class="docutils literal notranslate"><span class="pre">torch.onnx.export</span></code> runs the model once to trace its execution and then exports the
-traced model to the specified file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torchvision</span>
-
-<span class="n">dummy_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">alexnet</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
-
-<span class="c1"># Providing input and output names sets the display names for values</span>
-<span class="c1"># within the model&#39;s graph. Setting these does not change the semantics</span>
-<span class="c1"># of the graph; it is only for readability.</span>
-<span class="c1">#</span>
-<span class="c1"># The inputs to the network consist of the flat list of inputs (i.e.</span>
-<span class="c1"># the values you would pass to the forward() method) followed by the</span>
-<span class="c1"># flat list of parameters. You can partially specify names, i.e. provide</span>
-<span class="c1"># a list here shorter than the number of inputs to the model, and we will</span>
-<span class="c1"># only set that subset of names, starting from the beginning.</span>
-<span class="n">input_names</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;actual_input_1&quot;</span> <span class="p">]</span> <span class="o">+</span> <span class="p">[</span> <span class="s2">&quot;learned_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="p">]</span>
-<span class="n">output_names</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;output1&quot;</span> <span class="p">]</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dummy_input</span><span class="p">,</span> <span class="s2">&quot;alexnet.onnx&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">input_names</span><span class="o">=</span><span class="n">input_names</span><span class="p">,</span> <span class="n">output_names</span><span class="o">=</span><span class="n">output_names</span><span class="p">)</span>
-</pre></div>
+<div class="section" id="overview">
+<h2><a class="toc-backref" href="#id1">Overview</a><a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p><a class="reference internal" href="export.html#torch-export"><span class="std std-ref">torch.export</span></a> engine is leveraged to produce a traced graph representing only the Tensor computation of the function in an
+Ahead-of-Time (AOT) fashion. The resulting traced graph (1) produces normalized operators in the functional
+ATen operator set (as well as any user-specified custom operators), (2) has eliminated all Python control
+flow and data structures (with certain exceptions), and (3) records the set of shape constraints needed to
+show that this normalization and control-flow elimination is sound for future inputs, before it is finally
+translated into an ONNX graph.</p>
+<p>In addition, during the export process, memory usage is significantly reduced.</p>
 </div>
-<p>The resulting <code class="docutils literal notranslate"><span class="pre">alexnet.onnx</span></code> file contains a binary <a class="reference external" href="https://developers.google.com/protocol-buffers/">protocol buffer</a>
-which contains both the network structure and parameters of the model you exported
-(in this case, AlexNet).  The argument <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code> causes the
-exporter to print out a human-readable representation of the model:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># These are the inputs and parameters to the network, which have taken on</span>
-<span class="c1"># the names we specified earlier.</span>
-<span class="n">graph</span><span class="p">(</span><span class="o">%</span><span class="n">actual_input_1</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span>
-      <span class="o">%</span><span class="n">learned_0</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
-      <span class="o">%</span><span class="n">learned_1</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
-      <span class="o">%</span><span class="n">learned_2</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-      <span class="o">%</span><span class="n">learned_3</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">192</span><span class="p">)</span>
-      <span class="c1"># ---- omitted for brevity ----</span>
-      <span class="o">%</span><span class="n">learned_14</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">4096</span><span class="p">)</span>
-      <span class="o">%</span><span class="n">learned_15</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span> <span class="p">{</span>
-  <span class="c1"># Every statement consists of some output tensors (and their types),</span>
-  <span class="c1"># the operator to be run (with its attributes, e.g., kernels, strides,</span>
-  <span class="c1"># etc.), its input tensors (%actual_input_1, %learned_0, %learned_1)</span>
-  <span class="o">%</span><span class="mi">17</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">55</span><span class="p">)</span> <span class="o">=</span> <span class="n">onnx</span><span class="p">::</span><span class="n">Conv</span><span class="p">[</span><span class="n">dilations</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">group</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel_shape</span><span class="o">=</span><span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> <span class="n">pads</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">strides</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]](</span><span class="o">%</span><span class="n">actual_input_1</span><span class="p">,</span> <span class="o">%</span><span class="n">learned_0</span><span class="p">,</span> <span class="o">%</span><span class="n">learned_1</span><span class="p">),</span> <span class="n">scope</span><span class="p">:</span> <span class="n">AlexNet</span><span class="o">/</span><span class="n">Sequential</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">/</span><span class="n">Conv2d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-  <span class="o">%</span><span class="mi">18</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">55</span><span class="p">)</span> <span class="o">=</span> <span class="n">onnx</span><span class="p">::</span><span class="n">Relu</span><span class="p">(</span><span class="o">%</span><span class="mi">17</span><span class="p">),</span> <span class="n">scope</span><span class="p">:</span> <span class="n">AlexNet</span><span class="o">/</span><span class="n">Sequential</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">/</span><span class="n">ReLU</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-  <span class="o">%</span><span class="mi">19</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">27</span><span class="p">)</span> <span class="o">=</span> <span class="n">onnx</span><span class="p">::</span><span class="n">MaxPool</span><span class="p">[</span><span class="n">kernel_shape</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">pads</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">strides</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]](</span><span class="o">%</span><span class="mi">18</span><span class="p">),</span> <span class="n">scope</span><span class="p">:</span> <span class="n">AlexNet</span><span class="o">/</span><span class="n">Sequential</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">/</span><span class="n">MaxPool2d</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-  <span class="c1"># ---- omitted for brevity ----</span>
-  <span class="o">%</span><span class="mi">29</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">=</span> <span class="n">onnx</span><span class="p">::</span><span class="n">MaxPool</span><span class="p">[</span><span class="n">kernel_shape</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">pads</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">strides</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]](</span><span class="o">%</span><span class="mi">28</span><span class="p">),</span> <span class="n">scope</span><span class="p">:</span> <span class="n">AlexNet</span><span class="o">/</span><span class="n">Sequential</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">/</span><span class="n">MaxPool2d</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span>
-  <span class="c1"># Dynamic means that the shape is not known. This may be because of a</span>
-  <span class="c1"># limitation of our implementation (which we would like to fix in a</span>
-  <span class="c1"># future release) or shapes which are truly dynamic.</span>
-  <span class="o">%</span><span class="mi">30</span> <span class="p">:</span> <span class="n">Dynamic</span> <span class="o">=</span> <span class="n">onnx</span><span class="p">::</span><span class="n">Shape</span><span class="p">(</span><span class="o">%</span><span class="mi">29</span><span class="p">),</span> <span class="n">scope</span><span class="p">:</span> <span class="n">AlexNet</span>
-  <span class="o">%</span><span class="mi">31</span> <span class="p">:</span> <span class="n">Dynamic</span> <span class="o">=</span> <span class="n">onnx</span><span class="p">::</span><span class="n">Slice</span><span class="p">[</span><span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ends</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">starts</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]](</span><span class="o">%</span><span class="mi">30</span><span class="p">),</span> <span class="n">scope</span><span class="p">:</span> <span class="n">AlexNet</span>
-  <span class="o">%</span><span class="mi">32</span> <span class="p">:</span> <span class="n">Long</span><span class="p">()</span> <span class="o">=</span> <span class="n">onnx</span><span class="p">::</span><span class="n">Squeeze</span><span class="p">[</span><span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]](</span><span class="o">%</span><span class="mi">31</span><span class="p">),</span> <span class="n">scope</span><span class="p">:</span> <span class="n">AlexNet</span>
-  <span class="o">%</span><span class="mi">33</span> <span class="p">:</span> <span class="n">Long</span><span class="p">()</span> <span class="o">=</span> <span class="n">onnx</span><span class="p">::</span><span class="n">Constant</span><span class="p">[</span><span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="mi">9216</span><span class="p">}](),</span> <span class="n">scope</span><span class="p">:</span> <span class="n">AlexNet</span>
-  <span class="c1"># ---- omitted for brevity ----</span>
-  <span class="o">%</span><span class="n">output1</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">=</span> <span class="n">onnx</span><span class="p">::</span><span class="n">Gemm</span><span class="p">[</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">broadcast</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">transB</span><span class="o">=</span><span class="mi">1</span><span class="p">](</span><span class="o">%</span><span class="mi">45</span><span class="p">,</span> <span class="o">%</span><span class="n">learned_14</span><span class="p">,</span> <span class="o">%</span><span class="n">learned_15</span><span class="p">),</span> <span class="n">scope</span><span class="p">:</span> <span class="n">AlexNet</span><span class="o">/</span><span class="n">Sequential</span><span class="p">[</span><span class="n">classifier</span><span class="p">]</span><span class="o">/</span><span class="n">Linear</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
-  <span class="k">return</span> <span class="p">(</span><span class="o">%</span><span class="n">output1</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>You can also verify the output using the <a class="reference external" href="https://github.com/onnx/onnx/">ONNX</a> library,
-which you can install using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">onnx</span>
-</pre></div>
-</div>
-<p>Then, you can run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">onnx</span>
-
-<span class="c1"># Load the ONNX model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">onnx</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;alexnet.onnx&quot;</span><span class="p">)</span>
-
-<span class="c1"># Check that the model is well formed</span>
-<span class="n">onnx</span><span class="o">.</span><span class="n">checker</span><span class="o">.</span><span class="n">check_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-
-<span class="c1"># Print a human readable representation of the graph</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">onnx</span><span class="o">.</span><span class="n">helper</span><span class="o">.</span><span class="n">printable_graph</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">graph</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>You can also run the exported model with one of the many
-<a class="reference external" href="https://onnx.ai/supported-tools.html#deployModel">runtimes that support ONNX</a>.
-For example after installing <a class="reference external" href="https://www.onnxruntime.ai">ONNX Runtime</a>, you can
-load and run the model:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">onnxruntime</span> <span class="k">as</span> <span class="nn">ort</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="n">ort_session</span> <span class="o">=</span> <span class="n">ort</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="s2">&quot;alexnet.onnx&quot;</span><span class="p">)</span>
-
-<span class="n">outputs</span> <span class="o">=</span> <span class="n">ort_session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-    <span class="kc">None</span><span class="p">,</span>
-    <span class="p">{</span><span class="s2">&quot;actual_input_1&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)},</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="tracing-vs-scripting">
-<span id="id1"></span><h2><a class="toc-backref" href="#id4">Tracing vs Scripting</a><a class="headerlink" href="#tracing-vs-scripting" title="Permalink to this heading">#</a></h2>
-<p>Internally, <a class="reference internal" href="onnx_dynamo.html#torch.onnx.export" title="torch.onnx.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.onnx.export()</span></code></a> requires a <a class="reference internal" href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.jit.ScriptModule</span></code></a> rather than
-a <a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a>. If the passed-in model is not already a <code class="docutils literal notranslate"><span class="pre">ScriptModule</span></code>,
-<code class="docutils literal notranslate"><span class="pre">export()</span></code> will use <em>tracing</em> to convert it to one:</p>
+<div class="section" id="dependencies">
+<h2><a class="toc-backref" href="#id2">Dependencies</a><a class="headerlink" href="#dependencies" title="Permalink to this heading">#</a></h2>
+<p>The ONNX exporter depends on extra Python packages:</p>
 <ul class="simple">
-<li><p><strong>Tracing</strong>: If <code class="docutils literal notranslate"><span class="pre">torch.onnx.export()</span></code> is called with a Module that is not already a
-<code class="docutils literal notranslate"><span class="pre">ScriptModule</span></code>, it first does the equivalent of <a class="reference internal" href="generated/torch.jit.trace.html#torch.jit.trace" title="torch.jit.trace"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.jit.trace()</span></code></a>, which executes the model
-once with the given <code class="docutils literal notranslate"><span class="pre">args</span></code> and records all operations that happen during that execution. This
-means that if your model is dynamic, e.g., changes behavior depending on input data, the exported
-model will <em>not</em> capture this dynamic behavior.
-We recommend examining the exported model and making sure the operators look
-reasonable. Tracing will unroll loops and if statements, exporting a static graph that is exactly
-the same as the traced run. If you want to export your model with dynamic control flow, you will
-need to use <em>scripting</em>.</p></li>
-<li><p><strong>Scripting</strong>: Compiling a model via scripting preserves dynamic control flow and is valid for inputs
-of different sizes. To use scripting:</p>
+<li><p><a class="reference external" href="https://onnx.ai">ONNX</a></p></li>
+<li><p><a class="reference external" href="https://microsoft.github.io/onnxscript">ONNX Script</a></p></li>
+</ul>
+<p>They can be installed through <a class="reference external" href="https://pypi.org/project/pip/">pip</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>onnx<span class="w"> </span>onnxscript
+</pre></div>
+</div>
+<p><a class="reference external" href="https://onnxruntime.ai">onnxruntime</a> can then be used to execute the model
+on a large variety of processors.</p>
+</div>
+<div class="section" id="a-simple-example">
+<h2><a class="toc-backref" href="#id3">A simple example</a><a class="headerlink" href="#a-simple-example" title="Permalink to this heading">#</a></h2>
+<p>See below a demonstration of exporter API in action with a simple Multilayer Perceptron (MLP) as example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="k">class</span> <span class="nc">MLPModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">fc0</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">fc_combined</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">8</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Combine all inputs</span>
+
+  <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor_x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">input_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">input_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">      </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Forward method that requires all inputs:</span>
+<span class="sd">      - tensor_x: A direct tensor input.</span>
+<span class="sd">      - input_dict: A dictionary containing the tensor under the key &#39;tensor_x&#39;.</span>
+<span class="sd">      - input_list: A list where the first element is the tensor.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="c1"># Extract tensors from inputs</span>
+      <span class="n">dict_tensor</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;tensor_x&#39;</span><span class="p">]</span>
+      <span class="n">list_tensor</span> <span class="o">=</span> <span class="n">input_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+      <span class="c1"># Combine all inputs into a single tensor</span>
+      <span class="n">combined_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">tensor_x</span><span class="p">,</span> <span class="n">dict_tensor</span><span class="p">,</span> <span class="n">list_tensor</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+      <span class="c1"># Process the combined tensor through the layers</span>
+      <span class="n">combined_tensor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_combined</span><span class="p">(</span><span class="n">combined_tensor</span><span class="p">)</span>
+      <span class="n">combined_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">combined_tensor</span><span class="p">)</span>
+      <span class="n">combined_tensor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc0</span><span class="p">(</span><span class="n">combined_tensor</span><span class="p">)</span>
+      <span class="n">combined_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">combined_tensor</span><span class="p">)</span>
+      <span class="n">combined_tensor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">combined_tensor</span><span class="p">)</span>
+      <span class="n">combined_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">combined_tensor</span><span class="p">)</span>
+      <span class="n">combined_tensor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">combined_tensor</span><span class="p">)</span>
+      <span class="n">combined_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">combined_tensor</span><span class="p">)</span>
+      <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="p">(</span><span class="n">combined_tensor</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">output</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">MLPModel</span><span class="p">()</span>
+
+<span class="c1"># Example inputs</span>
+<span class="n">tensor_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">((</span><span class="mi">97</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">dict_input</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tensor_x&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">((</span><span class="mi">97</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)}</span>
+<span class="n">list_input</span> <span class="o">=</span> <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">((</span><span class="mi">97</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)]</span>
+
+<span class="c1"># The input_names and output_names are used to identify the inputs and outputs of the ONNX model</span>
+<span class="n">input_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tensor_input&#39;</span><span class="p">,</span> <span class="s1">&#39;tensor_x&#39;</span><span class="p">,</span> <span class="s1">&#39;list_input_index_0&#39;</span><span class="p">]</span>
+<span class="n">output_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">]</span>
+
+<span class="c1"># Exporting the model with all required inputs</span>
+<span class="n">onnx_program</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,(</span><span class="n">tensor_input</span><span class="p">,</span> <span class="n">dict_input</span><span class="p">,</span> <span class="n">list_input</span><span class="p">),</span> <span class="n">dynamic_shapes</span><span class="o">=</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;batch_size&quot;</span><span class="p">},{</span><span class="s2">&quot;tensor_x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;batch_size&quot;</span><span class="p">}},[{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;batch_size&quot;</span><span class="p">}]),</span> <span class="n">input_names</span><span class="o">=</span><span class="n">input_names</span><span class="p">,</span> <span class="n">output_names</span><span class="o">=</span><span class="n">output_names</span><span class="p">,</span> <span class="n">dynamo</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+
+<span class="c1"># Check the exported ONNX model is dynamic</span>
+<span class="k">assert</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="s2">&quot;batch_size&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="s2">&quot;batch_size&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="s2">&quot;batch_size&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As the code above shows, all you need is to provide <a class="reference internal" href="#torch.onnx.export" title="torch.onnx.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.onnx.export()</span></code></a> with an instance of the model and its input.
+The exporter will then return an instance of <a class="reference internal" href="#torch.onnx.ONNXProgram" title="torch.onnx.ONNXProgram"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.onnx.ONNXProgram</span></code></a> that contains the exported ONNX graph along with extra information.</p>
+<p>The in-memory model available through <code class="docutils literal notranslate"><span class="pre">onnx_program.model_proto</span></code> is an <code class="docutils literal notranslate"><span class="pre">onnx.ModelProto</span></code> object in compliance with the <a class="reference external" href="https://github.com/onnx/onnx/blob/main/docs/IR.md">ONNX IR spec</a>.
+The ONNX model may then be serialized into a <a class="reference external" href="https://protobuf.dev/">Protobuf file</a> using the <a class="reference internal" href="#torch.onnx.ONNXProgram.save" title="torch.onnx.ONNXProgram.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.onnx.ONNXProgram.save()</span></code></a> API.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>  <span class="n">onnx_program</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;mlp.onnx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="inspecting-the-onnx-model-using-gui">
+<h2><a class="toc-backref" href="#id4">Inspecting the ONNX model using GUI</a><a class="headerlink" href="#inspecting-the-onnx-model-using-gui" title="Permalink to this heading">#</a></h2>
+<p>You can view the exported model using <a class="reference external" href="https://netron.app/">Netron</a>.</p>
+<a class="reference internal image-reference" href="_images/onnx_dynamo_mlp_model.png"><img alt="MLP model as viewed using Netron" class="align-center" src="_images/onnx_dynamo_mlp_model.png" style="width: 30%;" /></a>
+</div>
+<div class="section" id="when-the-conversion-fails">
+<h2><a class="toc-backref" href="#id5">When the conversion fails</a><a class="headerlink" href="#when-the-conversion-fails" title="Permalink to this heading">#</a></h2>
+<p>Function <a class="reference internal" href="#torch.onnx.export" title="torch.onnx.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.onnx.export()</span></code></a> should be called a second time with
+parameter <code class="docutils literal notranslate"><span class="pre">report=True</span></code>. A markdown report is generated to help the user
+to resolve the issue.</p>
+</div>
+<div class="section" id="metadata">
+<h2><a class="toc-backref" href="#id6">Metadata</a><a class="headerlink" href="#metadata" title="Permalink to this heading">#</a></h2>
+<p>During ONNX export, each ONNX node is annotated with metadata that helps trace its origin and context from the original PyTorch model. This metadata is useful for debugging, model inspection, and understanding the mapping between PyTorch and ONNX graphs.</p>
+<p>The following metadata fields are added to each ONNX node:</p>
 <ul>
-<li><p>Use <a class="reference internal" href="generated/torch.jit.script.html#torch.jit.script" title="torch.jit.script"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.jit.script()</span></code></a> to produce a <code class="docutils literal notranslate"><span class="pre">ScriptModule</span></code>.</p></li>
-<li><p>Call <code class="docutils literal notranslate"><span class="pre">torch.onnx.export()</span></code> with the <code class="docutils literal notranslate"><span class="pre">ScriptModule</span></code> as the model. The <code class="docutils literal notranslate"><span class="pre">args</span></code> are still required,
-but they will be used internally only to produce example outputs, so that the types and shapes of the
-outputs can be captured. No tracing will be performed.</p></li>
+<li><p><strong>namespace</strong></p>
+<p>A string representing the hierarchical namespace of the node, consisting of a stack trace of modules/methods.</p>
+<p><em>Example:</em>
+<code class="docutils literal notranslate"><span class="pre">__main__.SimpleAddModel/add:</span> <span class="pre">aten.add.Tensor</span></code></p>
+</li>
+<li><p><strong>pkg.torch.onnx.class_hierarchy</strong></p>
+<p>A list of class names representing the hierarchy of modules leading to this node.</p>
+<p><em>Example:</em>
+<code class="docutils literal notranslate"><span class="pre">['__main__.SimpleAddModel',</span> <span class="pre">'aten.add.Tensor']</span></code></p>
+</li>
+<li><p><strong>pkg.torch.onnx.fx_node</strong></p>
+<p>The string representation of the original FX node, including its name, number of consumers, the targeted torch op, arguments, and keyword arguments.</p>
+<p><em>Example:</em>
+<code class="docutils literal notranslate"><span class="pre">%cat</span> <span class="pre">:</span> <span class="pre">[num_users=1]</span> <span class="pre">=</span> <span class="pre">call_function[target=torch.ops.aten.cat.default](args</span> <span class="pre">=</span> <span class="pre">([%tensor_x,</span> <span class="pre">%input_dict_tensor_x,</span> <span class="pre">%input_list_0],</span> <span class="pre">1),</span> <span class="pre">kwargs</span> <span class="pre">=</span> <span class="pre">{})</span></code></p>
+</li>
+<li><p><strong>pkg.torch.onnx.name_scopes</strong></p>
+<p>A list of name scopes (methods) representing the path to this node in the PyTorch model.</p>
+<p><em>Example:</em>
+<code class="docutils literal notranslate"><span class="pre">['',</span> <span class="pre">'add']</span></code></p>
+</li>
+<li><p><strong>pkg.torch.onnx.stack_trace</strong></p>
+<p>The stack trace from the original code where this node was created, if available.</p>
+<p><em>Example:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">File</span> <span class="s2">&quot;simpleadd.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="n">forward</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>These metadata fields are stored in the metadata_props attribute of each ONNX node and can be inspected using Netron or programmatically.</p>
+<p>The overall ONNX graph has the following <code class="docutils literal notranslate"><span class="pre">metadata_props</span></code>:</p>
+<ul>
+<li><p><strong>pkg.torch.export.ExportedProgram.graph_signature</strong></p>
+<p>This property contains a string representation of the graph_signature from the original PyTorch ExportedProgram. The graph signature describes the structure of the model’s inputs and outputs and how they map to the ONNX graph. The inputs are defined as <code class="docutils literal notranslate"><span class="pre">InputSpec</span></code> objects, which include the kind of input (e.g., <code class="docutils literal notranslate"><span class="pre">InputKind.PARAMETER</span></code> for parameters, <code class="docutils literal notranslate"><span class="pre">InputKind.USER_INPUT</span></code> for user-defined inputs), the argument name, the target (which can be a specific node in the model), and whether the input is persistent. The outputs are defined as <code class="docutils literal notranslate"><span class="pre">OutputSpec</span></code> objects, which specify the kind of output (e.g., <code class="docutils literal notranslate"><span class="pre">OutputKind.USER_OUTPUT</span></code>) and the argument name.</p>
+<p>To read more about the graph signature, please see the <a class="reference internal" href="export.html"><span class="doc">torch.export</span></a> for more information.</p>
+</li>
+<li><p><strong>pkg.torch.export.ExportedProgram.range_constraints</strong></p>
+<p>This property contains a string representation of any range constraints that were present in the original PyTorch ExportedProgram. Range constraints specify valid ranges for symbolic shapes or values in the model, which can be important for models that use dynamic shapes or symbolic dimensions.</p>
+<p><em>Example:</em>
+<code class="docutils literal notranslate"><span class="pre">s0:</span> <span class="pre">VR[2,</span> <span class="pre">int_oo]</span></code>, which indicates that the size of the input tensor must be at least 2.</p>
+<p>To read more about range constraints, please see the <a class="reference internal" href="export.html"><span class="doc">torch.export</span></a> for more information.</p>
+</li>
+</ul>
+<p>Each input value in the ONNX graph may have the following metadata property:</p>
+<ul>
+<li><p><strong>pkg.torch.export.graph_signature.InputSpec.kind</strong></p>
+<p>The kind of input, as defined by PyTorch’s InputKind enum.</p>
+<p><em>Example values:</em></p>
+<ul class="simple">
+<li><p>“USER_INPUT”: A user-provided input to the model.</p></li>
+<li><p>“PARAMETER”: A model parameter (e.g., weight).</p></li>
+<li><p>“BUFFER”: A model buffer (e.g., running mean in BatchNorm).</p></li>
+<li><p>“CONSTANT_TENSOR”: A constant tensor argument.</p></li>
+<li><p>“CUSTOM_OBJ”: A custom object input.</p></li>
+<li><p>“TOKEN”: A token input.</p></li>
+</ul>
+</li>
+<li><p><strong>pkg.torch.export.graph_signature.InputSpec.persistent</strong></p>
+<p>Indicates whether the input is persistent (i.e., should be saved as part of the model’s state).</p>
+<p><em>Example values:</em></p>
+<ul class="simple">
+<li><p>“True”</p></li>
+<li><p>“False”</p></li>
 </ul>
 </li>
 </ul>
-<p>See <a class="reference external" href="https://pytorch.org/tutorials/beginner/Intro_to_TorchScript_tutorial.html">Introduction to TorchScript</a>
-and <a class="reference external" href="jit.html">TorchScript</a> for more details, including how to compose tracing and scripting to suit the
-particular requirements of different models.</p>
-</div>
-<div class="section" id="avoiding-pitfalls">
-<h2><a class="toc-backref" href="#id5">Avoiding Pitfalls</a><a class="headerlink" href="#avoiding-pitfalls" title="Permalink to this heading">#</a></h2>
-<div class="section" id="avoid-numpy-and-built-in-python-types">
-<h3><a class="toc-backref" href="#id6">Avoid NumPy and built-in Python types</a><a class="headerlink" href="#avoid-numpy-and-built-in-python-types" title="Permalink to this heading">#</a></h3>
-<p>PyTorch models can be written using NumPy or Python types and functions, but
-during <a class="reference internal" href="#tracing-vs-scripting"><span class="std std-ref">tracing</span></a>, any variables of NumPy or Python
-types (rather than torch.Tensor) are converted to constants, which will produce
-the wrong result if those values should change depending on the inputs.</p>
-<p>For example, rather than using numpy functions on numpy.ndarrays:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bad! Will be replaced with constants during tracing.</span>
-<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Use torch operators on torch.Tensors:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Good! Tensor operations will be captured during tracing.</span>
-<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>And rather than use <a class="reference internal" href="generated/torch.Tensor.item.html#torch.Tensor.item" title="torch.Tensor.item"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Tensor.item()</span></code></a> (which converts a Tensor to a Python
-built-in number):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bad! y.item() will be replaced with a constant during tracing.</span>
-<span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Use torch’s support for implicit casting of single-element tensors:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Good! y will be preserved as a variable during tracing.</span>
-<span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="avoid-tensor-data">
-<h3><a class="toc-backref" href="#id7">Avoid Tensor.data</a><a class="headerlink" href="#avoid-tensor-data" title="Permalink to this heading">#</a></h3>
-<p>Using the Tensor.data field can produce an incorrect trace and therefore an incorrect ONNX graph.
-Use <a class="reference internal" href="generated/torch.Tensor.detach.html#torch.Tensor.detach" title="torch.Tensor.detach"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Tensor.detach()</span></code></a> instead. (Work is ongoing to
-<a class="reference external" href="https://github.com/pytorch/pytorch/issues/30987">remove Tensor.data entirely</a>).</p>
-</div>
-<div class="section" id="avoid-in-place-operations-when-using-tensor-shape-in-tracing-mode">
-<h3><a class="toc-backref" href="#id8">Avoid in-place operations when using tensor.shape in tracing mode</a><a class="headerlink" href="#avoid-in-place-operations-when-using-tensor-shape-in-tracing-mode" title="Permalink to this heading">#</a></h3>
-<p>In tracing mode, shapes obtained from <code class="docutils literal notranslate"><span class="pre">tensor.shape</span></code> are traced as tensors,
-and share the same memory. This might cause a mismatch the final output values.
-As a workaround, avoid the use of inplace operations in these scenarios.
-For example, in the model:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">):</span>
-      <span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_length</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
-      <span class="n">real_seq_length</span> <span class="o">=</span> <span class="n">seq_length</span>
-      <span class="n">real_seq_length</span> <span class="o">+=</span> <span class="mi">2</span>
-      <span class="k">return</span> <span class="n">real_seq_length</span> <span class="o">+</span> <span class="n">seq_length</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">real_seq_length</span></code> and <code class="docutils literal notranslate"><span class="pre">seq_length</span></code> share the same memory in tracing mode.
-This could be avoided by rewriting the inplace operation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">real_seq_length</span> <span class="o">=</span> <span class="n">real_seq_length</span> <span class="o">+</span> <span class="mi">2</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="limitations">
-<h2><a class="toc-backref" href="#id9">Limitations</a><a class="headerlink" href="#limitations" title="Permalink to this heading">#</a></h2>
-<div class="section" id="types">
-<h3><a class="toc-backref" href="#id10">Types</a><a class="headerlink" href="#types" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Only <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensors</span></code>, numeric types that can be trivially converted to torch.Tensors (e.g. float, int),
-and tuples and lists of those types are supported as model inputs or outputs. Dict and str inputs and
-outputs are accepted in <a class="reference internal" href="#tracing-vs-scripting"><span class="std std-ref">tracing</span></a> mode, but:</p>
+<p>Each output value in the ONNX graph may have the following metadata property:</p>
 <ul>
-<li><p>Any computation that depends on the value of a dict or a str input <strong>will be replaced with the
-constant value</strong> seen during the one traced execution.</p></li>
-<li><p>Any output that is a dict will be silently replaced with a <strong>flattened sequence of its values
-(keys will be removed)</strong>. E.g. <code class="docutils literal notranslate"><span class="pre">{&quot;foo&quot;:</span> <span class="pre">1,</span> <span class="pre">&quot;bar&quot;:</span> <span class="pre">2}</span></code> becomes <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">2)</span></code>.</p></li>
-<li><p>Any output that is a str will be silently removed.</p></li>
+<li><p><strong>pkg.torch.export.graph_signature.OutputSpec.kind</strong></p>
+<p>The kind of input, as defined by PyTorch’s OutputKind enum.</p>
+<p><em>Example values:</em></p>
+<ul class="simple">
+<li><p>“USER_OUTPUT”: A user-visible output.</p></li>
+<li><p>“LOSS_OUTPUT”: A loss value output.</p></li>
+<li><p>“BUFFER_MUTATION”: Indicates a buffer was mutated.</p></li>
+<li><p>“GRADIENT_TO_PARAMETER”: Gradient output for a parameter.</p></li>
+<li><p>“GRADIENT_TO_USER_INPUT”: Gradient output for a user input.</p></li>
+<li><p>“USER_INPUT_MUTATION”: Indicates a user input was mutated.</p></li>
+<li><p>“TOKEN”: A token output.</p></li>
 </ul>
 </li>
-<li><p>Certain operations involving tuples and lists are not supported in
-<a class="reference internal" href="#tracing-vs-scripting"><span class="std std-ref">scripting</span></a> mode due to limited support in ONNX for nested sequences.
-In particular appending a tuple to a list is not supported. In tracing mode, the nested sequences
-will be flattened automatically during the tracing.</p></li>
+</ul>
+<p>Each initialized value, input, output has the following metadata:</p>
+<ul>
+<li><p><strong>pkg.torch.onnx.original_node_name</strong></p>
+<p>The original name of the node in the PyTorch FX graph that produced this value in the case where the value was renamed. This helps trace initializers back to their source in the original model.</p>
+<p><em>Example:</em>
+<code class="docutils literal notranslate"><span class="pre">fc1.weight</span></code></p>
+</li>
 </ul>
 </div>
-<div class="section" id="differences-in-operator-implementations">
-<h3><a class="toc-backref" href="#id11">Differences in Operator Implementations</a><a class="headerlink" href="#differences-in-operator-implementations" title="Permalink to this heading">#</a></h3>
-<p>Due to differences in implementations of operators, running the exported model on different runtimes
-may produce different results from each other or from PyTorch. Normally these differences are
-numerically small, so this should only be a concern if your application is sensitive to these
-small differences.</p>
-</div>
-<div class="section" id="unsupported-tensor-indexing-patterns">
-<span id="tensor-indexing"></span><h3><a class="toc-backref" href="#id12">Unsupported Tensor Indexing Patterns</a><a class="headerlink" href="#unsupported-tensor-indexing-patterns" title="Permalink to this heading">#</a></h3>
-<p>Tensor indexing patterns that cannot be exported are listed below.
-If you are experiencing issues exporting a model that does not include any of
-the unsupported patterns below, please double check that you are exporting with
-the latest <code class="docutils literal notranslate"><span class="pre">opset_version</span></code>.</p>
-<div class="section" id="reads-gets">
-<h4><a class="toc-backref" href="#id13">Reads / Gets</a><a class="headerlink" href="#reads-gets" title="Permalink to this heading">#</a></h4>
-<p>When indexing into a tensor for reading, the following patterns are not supported:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tensor indices that includes negative values.</span>
-<span class="n">data</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">]]),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])]</span>
-<span class="c1"># Workarounds: use positive index values.</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="writes-sets">
-<h4><a class="toc-backref" href="#id14">Writes / Sets</a><a class="headerlink" href="#writes-sets" title="Permalink to this heading">#</a></h4>
-<p>When indexing into a Tensor for writing, the following patterns are not supported:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Multiple tensor indices if any has rank &gt;= 2</span>
-<span class="n">data</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])]</span> <span class="o">=</span> <span class="n">new_data</span>
-<span class="c1"># Workarounds: use single tensor index with rank &gt;= 2,</span>
-<span class="c1">#              or multiple consecutive tensor indices with rank == 1.</span>
-
-<span class="c1"># Multiple tensor indices that are not consecutive</span>
-<span class="n">data</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="p">:,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])]</span> <span class="o">=</span> <span class="n">new_data</span>
-<span class="c1"># Workarounds: transpose `data` such that tensor indices are consecutive.</span>
-
-<span class="c1"># Tensor indices that includes negative values.</span>
-<span class="n">data</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">]),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])]</span> <span class="o">=</span> <span class="n">new_data</span>
-<span class="c1"># Workarounds: use positive index values.</span>
-
-<span class="c1"># Implicit broadcasting required for new_data.</span>
-<span class="n">data</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_data</span>
-<span class="c1"># Workarounds: expand new_data explicitly.</span>
-<span class="c1"># Example:</span>
-<span class="c1">#   data shape: [3, 4, 5]</span>
-<span class="c1">#   new_data shape: [5]</span>
-<span class="c1">#   expected new_data shape after broadcasting: [2, 2, 2, 5]</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="adding-support-for-operators">
-<h2><a class="toc-backref" href="#id15">Adding support for operators</a><a class="headerlink" href="#adding-support-for-operators" title="Permalink to this heading">#</a></h2>
-<p>When exporting a model that includes unsupported operators, you’ll see an error message like:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RuntimeError: ONNX export failed: Couldn&#39;t export operator foo
-</pre></div>
-</div>
-<p>When that happens, there are a few things you can do:</p>
-<ol class="arabic simple">
-<li><p>Change the model to not use that operator.</p></li>
-<li><p>Create a symbolic function to convert the operator and register it as a custom symbolic function.</p></li>
-<li><p>Contribute to PyTorch to add the same symbolic function to <a class="reference internal" href="#module-torch.onnx" title="torch.onnx"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.onnx</span></code></a> itself.</p></li>
-</ol>
-<p>If you decided to implement a symbolic function (we hope you will contribute it back to PyTorch!), here is how you can get started:</p>
-<div class="section" id="onnx-exporter-internals">
-<h3><a class="toc-backref" href="#id16">ONNX exporter internals</a><a class="headerlink" href="#onnx-exporter-internals" title="Permalink to this heading">#</a></h3>
-<p>A “symbolic function” is a function that decomposes a PyTorch operator into a
-composition of a series of ONNX operators.</p>
-<p>During export, each node (which contains a PyTorch operator) in the TorchScript
-graph is visited by the exporter in topological order.
-Upon visiting a node, the exporter looks for a registered symbolic functions for
-that operator. Symbolic functions are implemented in Python. A symbolic function for
-an op named <code class="docutils literal notranslate"><span class="pre">foo</span></code> would look something like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span>
-  <span class="n">g</span><span class="p">,</span>
-  <span class="n">input_0</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">Value</span><span class="p">,</span>
-  <span class="n">input_1</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">Value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">Value</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">Value</span><span class="p">]]:</span>
-<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  Adds the ONNX operations representing this PyTorch function by updating the</span>
-<span class="sd">  graph g with `g.op()` calls.</span>
-
-<span class="sd">  Args:</span>
-<span class="sd">    g (Graph): graph to write the ONNX representation into.</span>
-<span class="sd">    input_0 (Value): value representing the variables which contain</span>
-<span class="sd">        the first input for this operator.</span>
-<span class="sd">    input_1 (Value): value representing the variables which contain</span>
-<span class="sd">        the second input for this operator.</span>
-
-<span class="sd">  Returns:</span>
-<span class="sd">    A Value or List of Values specifying the ONNX nodes that compute something</span>
-<span class="sd">    equivalent to the original PyTorch operator with the given inputs.</span>
-
-<span class="sd">    None if it cannot be converted to ONNX.</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-  <span class="o">...</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">torch._C</span></code> types are Python wrappers around the types defined in C++ in
-<a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/csrc/jit/ir/ir.h">ir.h</a>.</p>
-<p>The process for adding a symbolic function depends on the type of operator.</p>
-</div>
-<div class="section" id="aten-operators">
-<span id="adding-support-aten"></span><h3><a class="toc-backref" href="#id17">ATen operators</a><a class="headerlink" href="#aten-operators" title="Permalink to this heading">#</a></h3>
-<p><a class="reference external" href="https://pytorch.org/cppdocs/#aten">ATen</a> is PyTorch’s built-in tensor library.
-If the operator is an ATen operator (shows up in the TorchScript graph with the prefix
-<code class="docutils literal notranslate"><span class="pre">aten::</span></code>), make sure it is not supported already.</p>
-<div class="section" id="list-of-supported-operators">
-<h4><a class="toc-backref" href="#id18">List of supported operators</a><a class="headerlink" href="#list-of-supported-operators" title="Permalink to this heading">#</a></h4>
-<p>Visit the auto generated <a class="reference internal" href="onnx_torchscript_supported_aten_ops.html"><span class="doc">list of supported TorchScript operators</span></a>
-for details on which operator are supported in each <code class="docutils literal notranslate"><span class="pre">opset_version</span></code>.</p>
-</div>
-<div class="section" id="adding-support-for-an-aten-or-quantized-operator">
-<h4><a class="toc-backref" href="#id19">Adding support for an aten or quantized operator</a><a class="headerlink" href="#adding-support-for-an-aten-or-quantized-operator" title="Permalink to this heading">#</a></h4>
-<p>If the operator is not in the list above:</p>
-<ul class="simple">
-<li><p>Define the symbolic function in <code class="docutils literal notranslate"><span class="pre">torch/onnx/symbolic_opset&lt;version&gt;.py</span></code>, for example
-<a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/onnx/symbolic_opset9.py">torch/onnx/symbolic_opset9.py</a>.
-Make sure the function has the same name as the ATen function, which may be declared in
-<code class="docutils literal notranslate"><span class="pre">torch/_C/_VariableFunctions.pyi</span></code> or <code class="docutils literal notranslate"><span class="pre">torch/nn/functional.pyi</span></code> (these files are generated at
-build time, so will not appear in your checkout until you build PyTorch).</p></li>
-<li><p>By default, the first arg is the ONNX graph.
-Other arg names must EXACTLY match the names in the <code class="docutils literal notranslate"><span class="pre">.pyi</span></code> file,
-because dispatch is done with keyword arguments.</p></li>
-<li><p>In the symbolic function, if the operator is in the
-<a class="reference external" href="https://github.com/onnx/onnx/blob/master/docs/Operators.md">ONNX standard operator set</a>,
-we only need to create a node to represent the ONNX operator in the graph.
-If not, we can compose several standard operators that have the
-equivalent semantics to the ATen operator.</p></li>
-</ul>
-<p>Here is an example of handling missing symbolic function for the <code class="docutils literal notranslate"><span class="pre">ELU</span></code> operator.</p>
-<p>If we run the following code:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ELU</span><span class="p">(),</span> <span class="c1"># module</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># example input</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">graph</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>We see something like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="p">(</span><span class="o">%</span><span class="bp">self</span> <span class="p">:</span> <span class="n">__torch__</span><span class="o">.</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">activation</span><span class="o">.</span><span class="n">___torch_mangle_0</span><span class="o">.</span><span class="n">ELU</span><span class="p">,</span>
-      <span class="o">%</span><span class="nb">input</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">cpu</span><span class="p">)):</span>
-  <span class="o">%</span><span class="mi">4</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">prim</span><span class="p">::</span><span class="n">Constant</span><span class="p">[</span><span class="n">value</span><span class="o">=</span><span class="mf">1.</span><span class="p">]()</span>
-  <span class="o">%</span><span class="mi">5</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prim</span><span class="p">::</span><span class="n">Constant</span><span class="p">[</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">]()</span>
-  <span class="o">%</span><span class="mi">6</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prim</span><span class="p">::</span><span class="n">Constant</span><span class="p">[</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">]()</span>
-  <span class="o">%</span><span class="mi">7</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">cpu</span><span class="p">)</span> <span class="o">=</span> <span class="n">aten</span><span class="p">::</span><span class="n">elu</span><span class="p">(</span><span class="o">%</span><span class="nb">input</span><span class="p">,</span> <span class="o">%</span><span class="mi">4</span><span class="p">,</span> <span class="o">%</span><span class="mi">5</span><span class="p">,</span> <span class="o">%</span><span class="mi">6</span><span class="p">)</span>
-  <span class="k">return</span> <span class="p">(</span><span class="o">%</span><span class="mi">7</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Since we see <code class="docutils literal notranslate"><span class="pre">aten::elu</span></code> in the graph, we know this is an ATen operator.</p>
-<p>We check the <a class="reference external" href="https://github.com/onnx/onnx/blob/master/docs/Operators.md">ONNX operator list</a>,
-and confirm that <code class="docutils literal notranslate"><span class="pre">Elu</span></code> is standardized in ONNX.</p>
-<p>We find a signature for <code class="docutils literal notranslate"><span class="pre">elu</span></code> in <code class="docutils literal notranslate"><span class="pre">torch/nn/functional.pyi</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">elu</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span> <span class="o">...</span>
-</pre></div>
-</div>
-<p>We add the following lines to <code class="docutils literal notranslate"><span class="pre">symbolic_opset9.py</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">elu</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Value</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Value</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="s2">&quot;Elu&quot;</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">alpha_f</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Now PyTorch is able to export models containing the <code class="docutils literal notranslate"><span class="pre">aten::elu</span></code> operator!</p>
-<p>See the <code class="docutils literal notranslate"><span class="pre">torch/onnx/symbolic_opset*.py</span></code> files for more examples.</p>
-</div>
-</div>
-<div class="section" id="torch-autograd-functions">
-<h3><a class="toc-backref" href="#id20">torch.autograd.Functions</a><a class="headerlink" href="#torch-autograd-functions" title="Permalink to this heading">#</a></h3>
-<p>If the operator is a sub-class of <a class="reference internal" href="autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.Function</span></code></a>, there are three ways
-to export it.</p>
-<div class="section" id="static-symbolic-method">
-<h4><a class="toc-backref" href="#id21">Static Symbolic Method</a><a class="headerlink" href="#static-symbolic-method" title="Permalink to this heading">#</a></h4>
-<p>You can add a static method named <code class="docutils literal notranslate"><span class="pre">symbolic</span></code> to your function class. It should return
-ONNX operators that represent the function’s behavior in ONNX. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyRelu</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="n">ctx</span><span class="o">.</span><span class="n">save_for_backward</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">input</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">symbolic</span><span class="p">(</span><span class="n">g</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Value</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="s2">&quot;Clip&quot;</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="s2">&quot;Constant&quot;</span><span class="p">,</span> <span class="n">value_t</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="inline-autograd-function">
-<h4><a class="toc-backref" href="#id22">Inline Autograd Function</a><a class="headerlink" href="#inline-autograd-function" title="Permalink to this heading">#</a></h4>
-<p>In cases where a static symbolic method is not provided for its subsequent <a class="reference internal" href="autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.Function</span></code></a> or
-where a function to register <code class="docutils literal notranslate"><span class="pre">prim::PythonOp</span></code> as custom symbolic functions is not provided,
-<a class="reference internal" href="onnx_dynamo.html#torch.onnx.export" title="torch.onnx.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.onnx.export()</span></code></a> tries to inline the graph that corresponds to that <a class="reference internal" href="autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.Function</span></code></a> such that
-this function is broken down into individual operators that were used within the function.
-The export should be successful as long as these individual operators are supported. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyLogExp</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="n">ctx</span><span class="o">.</span><span class="n">save_for_backward</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-        <span class="n">h</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">exp</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">h</span><span class="o">.</span><span class="n">log</span><span class="p">()</span><span class="o">.</span><span class="n">log</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>There is no static symbolic method present for this model, yet it is exported as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="p">(</span><span class="o">%</span><span class="nb">input</span> <span class="p">:</span> <span class="n">Float</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">cpu</span><span class="p">)):</span>
-    <span class="o">%</span><span class="mi">1</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">onnx</span><span class="p">::</span><span class="n">Exp</span><span class="p">[](</span><span class="o">%</span><span class="nb">input</span><span class="p">)</span>
-    <span class="o">%</span><span class="mi">2</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">onnx</span><span class="p">::</span><span class="n">Log</span><span class="p">[](</span><span class="o">%</span><span class="mi">1</span><span class="p">)</span>
-    <span class="o">%</span><span class="mi">3</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">onnx</span><span class="p">::</span><span class="n">Log</span><span class="p">[](</span><span class="o">%</span><span class="mi">2</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="o">%</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>If you need to avoid inlining of <a class="reference internal" href="autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.Function</span></code></a>, you should export models with
-<code class="docutils literal notranslate"><span class="pre">operator_export_type</span></code> set to <code class="docutils literal notranslate"><span class="pre">ONNX_FALLTHROUGH</span></code> or <code class="docutils literal notranslate"><span class="pre">ONNX_ATEN_FALLBACK</span></code>.</p>
-</div>
-</div>
-<div class="section" id="custom-operators">
-<h3><a class="toc-backref" href="#id23">Custom operators</a><a class="headerlink" href="#custom-operators" title="Permalink to this heading">#</a></h3>
-<p>You can export your model with custom operators that includes a combination of many standard ONNX ops,
-or are driven by self-defined C++ backend.</p>
-<div class="section" id="onnx-script-functions">
-<h4><a class="toc-backref" href="#id24">ONNX-script functions</a><a class="headerlink" href="#onnx-script-functions" title="Permalink to this heading">#</a></h4>
-<p>If an operator is not a standard ONNX op, but can be composed of multiple existing ONNX ops, you can utilize
-<a class="reference external" href="https://github.com/microsoft/onnx-script">ONNX-script</a> to create an external ONNX function to support the operator.
-You can export it by following this example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">onnxscript</span>
-<span class="c1"># There are three opset version needed to be aligned</span>
-<span class="c1"># This is (1) the opset version in ONNX function</span>
-<span class="kn">from</span> <span class="nn">onnxscript.onnx_opset</span> <span class="kn">import</span> <span class="n">opset15</span> <span class="k">as</span> <span class="n">op</span>
-<span class="n">opset_version</span> <span class="o">=</span> <span class="mi">15</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">SELU</span><span class="p">()</span>
-
-<span class="n">custom_opset</span> <span class="o">=</span> <span class="n">onnxscript</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">Opset</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="s2">&quot;onnx-script&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="nd">@onnxscript</span><span class="o">.</span><span class="n">script</span><span class="p">(</span><span class="n">custom_opset</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">Selu</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.67326</span>  <span class="c1"># auto wrapped as Constants</span>
-    <span class="n">gamma</span> <span class="o">=</span> <span class="mf">1.0507</span>
-    <span class="n">alphaX</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">CastLike</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
-    <span class="n">gammaX</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">CastLike</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
-    <span class="n">neg</span> <span class="o">=</span> <span class="n">gammaX</span> <span class="o">*</span> <span class="p">(</span><span class="n">alphaX</span> <span class="o">*</span> <span class="n">op</span><span class="o">.</span><span class="n">Exp</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">-</span> <span class="n">alphaX</span><span class="p">)</span>
-    <span class="n">pos</span> <span class="o">=</span> <span class="n">gammaX</span> <span class="o">*</span> <span class="n">X</span>
-    <span class="n">zero</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">CastLike</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">op</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="n">X</span> <span class="o">&lt;=</span> <span class="n">zero</span><span class="p">,</span> <span class="n">neg</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
-
-<span class="c1"># setType API provides shape/type to ONNX shape/type inference</span>
-<span class="k">def</span> <span class="nf">custom_selu</span><span class="p">(</span><span class="n">g</span><span class="p">:</span> <span class="n">jit_utils</span><span class="o">.</span><span class="n">GraphContext</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">onnxscript_op</span><span class="p">(</span><span class="n">Selu</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">setType</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">type</span><span class="p">())</span>
-
-<span class="c1"># Register custom symbolic function</span>
-<span class="c1"># There are three opset version needed to be aligned</span>
-<span class="c1"># This is (2) the opset version in registry</span>
-<span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">register_custom_op_symbolic</span><span class="p">(</span>
-    <span class="n">symbolic_name</span><span class="o">=</span><span class="s2">&quot;aten::selu&quot;</span><span class="p">,</span>
-    <span class="n">symbolic_fn</span><span class="o">=</span><span class="n">custom_selu</span><span class="p">,</span>
-    <span class="n">opset_version</span><span class="o">=</span><span class="n">opset_version</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># There are three opset version needed to be aligned</span>
-<span class="c1"># This is (2) the opset version in exporter</span>
-<span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span>
-    <span class="n">model</span><span class="p">,</span>
-    <span class="n">x</span><span class="p">,</span>
-    <span class="s2">&quot;model.onnx&quot;</span><span class="p">,</span>
-    <span class="n">opset_version</span><span class="o">=</span><span class="n">opset_version</span><span class="p">,</span>
-    <span class="c1"># only needed if you want to specify an opset version &gt; 1.</span>
-    <span class="n">custom_opsets</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;onnx-script&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>The example above exports it as a custom operator in the “onnx-script” opset.
-When exporting a custom operator, you can specify the custom domain version using the
-<code class="docutils literal notranslate"><span class="pre">custom_opsets</span></code> dictionary at export. If not specified, the custom opset version defaults to 1.</p>
-<p>NOTE: Be careful to align the opset version mentioned in the above example, and make sure they are consumed in exporter step.
-The example usage of how to write a onnx-script function is a beta version in terms of the active development on onnx-script.
-Please follow the latest <a class="reference external" href="https://github.com/microsoft/onnx-script">ONNX-script</a></p>
-</div>
-<div class="section" id="c-operators">
-<h4><a class="toc-backref" href="#id25">C++ Operators</a><a class="headerlink" href="#c-operators" title="Permalink to this heading">#</a></h4>
-<p>If a model uses a custom operator implemented in C++ as described in
-<a class="reference external" href="https://pytorch.org/tutorials/advanced/torch_script_custom_ops.html">Extending TorchScript with Custom C++ Operators</a>,
-you can export it by following this example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.onnx</span> <span class="kn">import</span> <span class="n">symbolic_helper</span>
-
-
-<span class="c1"># Define custom symbolic function</span>
-<span class="nd">@symbolic_helper</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">symbolic_foo_forward</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">input1</span><span class="p">,</span> <span class="n">input2</span><span class="p">,</span> <span class="n">attr1</span><span class="p">,</span> <span class="n">attr2</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="s2">&quot;custom_domain::Foo&quot;</span><span class="p">,</span> <span class="n">input1</span><span class="p">,</span> <span class="n">input2</span><span class="p">,</span> <span class="n">attr1_f</span><span class="o">=</span><span class="n">attr1</span><span class="p">,</span> <span class="n">attr2_i</span><span class="o">=</span><span class="n">attr2</span><span class="p">)</span>
-
-
-<span class="c1"># Register custom symbolic function</span>
-<span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">register_custom_op_symbolic</span><span class="p">(</span><span class="s2">&quot;custom_ops::foo_forward&quot;</span><span class="p">,</span> <span class="n">symbolic_foo_forward</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
-
-
-<span class="k">class</span> <span class="nc">FooModel</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr1</span><span class="p">,</span> <span class="n">attr2</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">attr1</span> <span class="o">=</span> <span class="n">attr1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">attr2</span> <span class="o">=</span> <span class="n">attr2</span>
-
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input1</span><span class="p">,</span> <span class="n">input2</span><span class="p">):</span>
-        <span class="c1"># Calling custom op</span>
-        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">custom_ops</span><span class="o">.</span><span class="n">foo_forward</span><span class="p">(</span><span class="n">input1</span><span class="p">,</span> <span class="n">input2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr2</span><span class="p">)</span>
-
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">FooModel</span><span class="p">(</span><span class="n">attr1</span><span class="p">,</span> <span class="n">attr2</span><span class="p">)</span>
-<span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span>
-    <span class="n">model</span><span class="p">,</span>
-    <span class="p">(</span><span class="n">example_input1</span><span class="p">,</span> <span class="n">example_input1</span><span class="p">),</span>
-    <span class="s2">&quot;model.onnx&quot;</span><span class="p">,</span>
-    <span class="c1"># only needed if you want to specify an opset version &gt; 1.</span>
-    <span class="n">custom_opsets</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;custom_domain&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>The example above exports it as a custom operator in the “custom_domain” opset.
-When exporting a custom operator, you can specify the custom domain version using the
-<code class="docutils literal notranslate"><span class="pre">custom_opsets</span></code> dictionary at export. If not specified, the custom opset version defaults to 1.</p>
-<p>The runtime that consumes the model needs to support the custom op. See
-<a class="reference external" href="https://caffe2.ai/docs/custom-operators.html">Caffe2 custom ops</a>,
-<a class="reference external" href="https://onnxruntime.ai/docs/reference/operators/add-custom-op.html">ONNX Runtime custom ops</a>,
-or your runtime of choice’s documentation.</p>
-</div>
-</div>
-<div class="section" id="discovering-all-unconvertible-aten-ops-at-once">
-<h3><a class="toc-backref" href="#id26">Discovering all unconvertible ATen ops at once</a><a class="headerlink" href="#discovering-all-unconvertible-aten-ops-at-once" title="Permalink to this heading">#</a></h3>
-<p>When export fails due to an unconvertible ATen op, there may in fact be more
-than one such op but the error message only mentions the first. To discover
-all of the unconvertible ops in one go you can:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># prepare model, args, opset_version</span>
-<span class="o">...</span>
-
-<span class="n">torch_script_graph</span><span class="p">,</span> <span class="n">unconvertible_ops</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unconvertible_ops</span><span class="p">(</span>
-    <span class="n">model</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">opset_version</span><span class="o">=</span><span class="n">opset_version</span>
-<span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">unconvertible_ops</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>The set is approximated because some ops may be removed during the conversion
-process and don’t need to be converted. Some other ops may have partial support
-that will fail conversion with particular inputs, but this should give you a
-general idea of what ops are not supported. Please feel free to open GitHub Issues
-for op support requests.</p>
-</div>
-</div>
-<div class="section" id="frequently-asked-questions">
-<h2><a class="toc-backref" href="#id27">Frequently Asked Questions</a><a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading">#</a></h2>
-<p>Q: I have exported my LSTM model, but its input size seems to be fixed?</p>
-<blockquote>
-<div><p>The tracer records the shapes of the example inputs. If the model should accept
-inputs of dynamic shapes, set <code class="docutils literal notranslate"><span class="pre">dynamic_axes</span></code> when calling <a class="reference internal" href="onnx_dynamo.html#torch.onnx.export" title="torch.onnx.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.onnx.export()</span></code></a>.</p>
-</div></blockquote>
-<p>Q: How to export models containing loops?</p>
-<blockquote>
-<div><p>See <a class="reference internal" href="#id1">Tracing vs Scripting</a>.</p>
-</div></blockquote>
-<p>Q: How to export models with primitive type inputs (e.g. int, float)?</p>
-<blockquote>
-<div><p>Support for primitive numeric type inputs was added in PyTorch 1.9.
-However, the exporter does not support models with str inputs.</p>
-</div></blockquote>
-<p>Q: Does ONNX support implicit scalar datatype casting?</p>
-<blockquote>
-<div><p>The ONNX standard does not, but the exporter will try to handle that part.
-Scalars are exported as constant tensors.
-The exporter will figure out the right data type for scalars. In rare cases when it is unable
-to do so, you will need to manually specify the datatype with e.g. <cite>dtype=torch.float32</cite>.
-If you see any errors, please [create a GitHub issue](<a class="github reference external" href="https://github.com/pytorch/pytorch/issues">pytorch/pytorch#issues</a>).</p>
-</div></blockquote>
-<p>Q: Are lists of Tensors exportable to ONNX?</p>
-<blockquote>
-<div><p>Yes, for <code class="docutils literal notranslate"><span class="pre">opset_version</span></code> &gt;= 11, since ONNX introduced the Sequence type in opset 11.</p>
-</div></blockquote>
-</div>
-<div class="section" id="module-torch.onnx">
-<span id="python-api"></span><h2><a class="toc-backref" href="#id28">Python API</a><a class="headerlink" href="#module-torch.onnx" title="Permalink to this heading">#</a></h2>
-<div class="section" id="functions">
-<h3><a class="toc-backref" href="#id29">Functions</a><a class="headerlink" href="#functions" title="Permalink to this heading">#</a></h3>
+<div class="section" id="api-reference">
+<h2><a class="toc-backref" href="#id7">API Reference</a><a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args=()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_params=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_names=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_names=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opset_version=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_axes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_initializers_as_inputs=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamo=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_data=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_shapes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_translation_table=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verify=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_exported_program=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifacts_dir='.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training=&lt;TrainingMode.EVAL:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator_export_type=&lt;OperatorExportTypes.ONNX:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_constant_folding=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_opsets=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_modules_as_functions=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autograd_inlining=True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/onnx/__init__.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="torch.onnx.export">
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args=()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_params=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_names=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_names=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opset_version=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_axes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_initializers_as_inputs=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamo=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_data=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_shapes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_translation_table=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verify=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_exported_program=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifacts_dir='.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training=&lt;TrainingMode.EVAL:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator_export_type=&lt;OperatorExportTypes.ONNX:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_constant_folding=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_opsets=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_modules_as_functions=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autograd_inlining=True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/__init__.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.export" title="Permalink to this definition">#</a></dt>
 <dd><p>Exports a model into ONNX format.</p>
 <p>Setting <code class="docutils literal notranslate"><span class="pre">dynamo=True</span></code> enables the new ONNX export logic
 which is based on <a class="reference internal" href="export/api_reference.html#torch.export.ExportedProgram" title="torch.export.ExportedProgram"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.export.ExportedProgram</span></code></a> and a more modern
@@ -4982,10 +4542,10 @@ Refer to <a class="github reference external" href="https://github.com/pytorch/p
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><a class="reference internal" href="onnx_dynamo.html#torch.onnx.ONNXProgram" title="torch.onnx.ONNXProgram"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.onnx.ONNXProgram</span></code></a> if dynamo is True, otherwise None.</p>
+<dd class="field-even"><p><a class="reference internal" href="#torch.onnx.ONNXProgram" title="torch.onnx.ONNXProgram"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.onnx.ONNXProgram</span></code></a> if dynamo is True, otherwise None.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="onnx_dynamo.html#torch.onnx.ONNXProgram" title="torch.onnx.ONNXProgram">ONNXProgram</a> | None</p>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.onnx.ONNXProgram" title="torch.onnx.ONNXProgram">ONNXProgram</a> | None</p>
 </dd>
 </dl>
 <div class="versionchanged">
@@ -5000,66 +4560,132 @@ Refer to <a class="github reference external" href="https://github.com/pytorch/p
 </div>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="torch.onnx.register_custom_op_symbolic">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">register_custom_op_symbolic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbolic_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbolic_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opset_version</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/onnx/utils.py#L1785"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.register_custom_op_symbolic" title="Permalink to this definition">#</a></dt>
-<dd><p>Registers a symbolic function for a custom operator.</p>
-<p>When the user registers symbolic for custom/contrib ops,
-it is highly recommended to add shape inference for that operator via setType API,
-otherwise the exported graph may have incorrect shape inference in some extreme cases.
-An example of setType is <cite>test_aten_embedding_2</cite> in <cite>test_operators.py</cite>.</p>
-<p>See “Custom Operators” in the module documentation for an example usage.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.onnx.ONNXProgram">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">ONNXProgram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exported_program</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.onnx.ONNXProgram" title="Permalink to this definition">#</a></dt>
+<dd><p>A class to represent an ONNX program that is callable with torch tensors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – The ONNX model as an ONNX IR model object.</p></li>
+<li><p><strong>exported_program</strong> – The exported program that produced the ONNX model.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.onnx.ONNXProgram.apply_weights">
+<span class="sig-name descname"><span class="pre">apply_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_internal/exporter/_onnx_program.py#L347"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.apply_weights" title="Permalink to this definition">#</a></dt>
+<dd><p>Apply the weights from the specified state dict to the ONNX model.</p>
+<p>Use this method to replace FakeTensors or other weights.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>symbolic_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The name of the custom operator in “&lt;domain&gt;::&lt;op&gt;”
-format.</p></li>
-<li><p><strong>symbolic_fn</strong> (<em>Callable</em>) – A function that takes in the ONNX graph and
-the input arguments to the current operator, and returns new
-operator nodes to add to the graph.</p></li>
-<li><p><strong>opset_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The ONNX opset version in which to register.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a><em>]</em>) – The state dict containing the weights to apply to the ONNX model.</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="torch.onnx.unregister_custom_op_symbolic">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">unregister_custom_op_symbolic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbolic_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opset_version</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/onnx/utils.py#L1815"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.unregister_custom_op_symbolic" title="Permalink to this definition">#</a></dt>
-<dd><p>Unregisters <code class="docutils literal notranslate"><span class="pre">symbolic_name</span></code>.</p>
-<p>See “Custom Operators” in the module documentation for an example usage.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.onnx.ONNXProgram.compute_values">
+<span class="sig-name descname"><span class="pre">compute_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_internal/exporter/_onnx_program.py#L235"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.compute_values" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the values of the specified names in the ONNX model.</p>
+<p>This method is used to compute the values of the specified names in the ONNX model.
+The values are returned as a dictionary mapping names to tensors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>symbolic_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The name of the custom operator in “&lt;domain&gt;::&lt;op&gt;”
-format.</p></li>
-<li><p><strong>opset_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The ONNX opset version in which to unregister.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>value_names</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The names of the values to compute.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary mapping names to tensors.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Sequence[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor">torch.Tensor</a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="torch.onnx.select_model_mode_for_export">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">select_model_mode_for_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/onnx/utils.py#L53"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.select_model_mode_for_export" title="Permalink to this definition">#</a></dt>
-<dd><p>A context manager to temporarily set the training mode of <code class="docutils literal notranslate"><span class="pre">model</span></code>
-to <code class="docutils literal notranslate"><span class="pre">mode</span></code>, resetting it when we exit the with-block.</p>
-<div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 2.7: </span>Please set training mode before exporting the model.</p>
-</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.onnx.ONNXProgram.initialize_inference_session">
+<span class="sig-name descname"><span class="pre">initialize_inference_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initializer=&lt;function</span> <span class="pre">_ort_session_initializer&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_internal/exporter/_onnx_program.py#L369"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.initialize_inference_session" title="Permalink to this definition">#</a></dt>
+<dd><p>Initialize the ONNX Runtime inference session.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> – Same type and meaning as <code class="docutils literal notranslate"><span class="pre">model</span></code> arg to <a class="reference internal" href="onnx_dynamo.html#torch.onnx.export" title="torch.onnx.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">export()</span></code></a>.</p></li>
-<li><p><strong>mode</strong> (<em>TrainingMode</em>) – Same type and meaning as <code class="docutils literal notranslate"><span class="pre">training</span></code> arg to <a class="reference internal" href="onnx_dynamo.html#torch.onnx.export" title="torch.onnx.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">export()</span></code></a>.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>initializer</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><em>bytes</em></a><em>]</em><em>, </em><em>ort.InferenceSession</em><em>]</em>) – The function to initialize the ONNX Runtime inference
+session with the specified model. By default, it uses the
+<code class="xref py py-func docutils literal notranslate"><span class="pre">_ort_session_initializer()</span></code> function.</p>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.onnx.ONNXProgram.model_proto">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">model_proto</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ModelProto</span></em><a class="headerlink" href="#torch.onnx.ONNXProgram.model_proto" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the ONNX <code class="docutils literal notranslate"><span class="pre">ModelProto</span></code> object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.onnx.ONNXProgram.optimize">
+<span class="sig-name descname"><span class="pre">optimize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_internal/exporter/_onnx_program.py#L272"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.optimize" title="Permalink to this definition">#</a></dt>
+<dd><p>Optimize the ONNX model.</p>
+<p>This method optimizes the ONNX model by performing constant folding and
+eliminating redundancies in the graph. The optimization is done in-place.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.onnx.ONNXProgram.release">
+<span class="sig-name descname"><span class="pre">release</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_internal/exporter/_onnx_program.py#L399"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.release" title="Permalink to this definition">#</a></dt>
+<dd><p>Release the inference session.</p>
+<p>You may call this method to release the resources used by the inference session.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.onnx.ONNXProgram.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">destination</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_initializers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_initializers_as_inputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_internal/exporter/_onnx_program.py#L280"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.save" title="Permalink to this definition">#</a></dt>
+<dd><p>Save the ONNX model to the specified destination.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">external_data</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> or the model is larger than 2GB,
+the weights are saved as external data in a separate file.</p>
+<p>Initializer (model weights) serialization behaviors:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">include_initializers=True</span></code>, <code class="docutils literal notranslate"><span class="pre">keep_initializers_as_inputs=False</span></code> (default):
+The initializers are included in the saved model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include_initializers=True</span></code>, <code class="docutils literal notranslate"><span class="pre">keep_initializers_as_inputs=True</span></code>:
+The initializers are included in the saved model and kept as model inputs.
+Choose this option if you want the ability to override the model weights
+during inference.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include_initializers=False</span></code>, <code class="docutils literal notranslate"><span class="pre">keep_initializers_as_inputs=False</span></code>:
+The initializers are not included in the saved model and are not listed
+as model inputs. Choose this option if you want to attach the initializers
+to the ONNX model in a separate, post-processing, step.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include_initializers=False</span></code>, <code class="docutils literal notranslate"><span class="pre">keep_initializers_as_inputs=True</span></code>:
+The initializers are not included in the saved model but are listed as model
+inputs. Choose this option if you want to supply the initializers during
+inference and want to minimize the size of the saved model.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>destination</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><em>os.PathLike</em></a>) – The path to save the ONNX model to.</p></li>
+<li><p><strong>include_initializers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to include the initializers in the saved model.</p></li>
+<li><p><strong>keep_initializers_as_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to keep the initializers as inputs in the saved model.
+If <cite>True</cite>, the initializers are added as inputs to the model which means they can be overwritten.
+by providing the initializers as model inputs.</p></li>
+<li><p><strong>external_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> | </em><em>None</em>) – Whether to save the weights as external data in a separate file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">external_data</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">destination</span></code> is not a file path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">is_in_onnx_export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7001d6fbc9fde3086159ec26d80a927e894b25a0/torch/onnx/__init__.py#L430"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="torch.onnx.is_in_onnx_export">
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">is_in_onnx_export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/__init__.py#L430"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.is_in_onnx_export" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns whether it is in the middle of ONNX export.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -5068,22 +4694,62 @@ to <code class="docutils literal notranslate"><span class="pre">mode</span></cod
 </dl>
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.onnx.OnnxExporterError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">OnnxExporterError</span></span><a class="headerlink" href="#torch.onnx.OnnxExporterError" title="Permalink to this definition">#</a></dt>
+<dd><p>Errors raised by the ONNX exporter. This is the base class for all exporter errors.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.onnx.enable_fake_mode">
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">enable_fake_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a53db90e21fe56ed8287c355d65d0a67e7000112/torch/onnx/_internal/_exporter_legacy.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.enable_fake_mode" title="Permalink to this definition">#</a></dt>
+<dd><p>Enable fake mode for the duration of the context.</p>
+<p>Internally it instantiates a <code class="xref py py-class docutils literal notranslate"><span class="pre">torch._subclasses.fake_tensor.FakeTensorMode</span></code> context manager
+that converts user input and model parameters into <code class="xref py py-class docutils literal notranslate"><span class="pre">torch._subclasses.fake_tensor.FakeTensor</span></code>.</p>
+<p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">torch._subclasses.fake_tensor.FakeTensor</span></code>
+is a <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> with the ability to run PyTorch code without having to
+actually do computation through tensors allocated on a <code class="docutils literal notranslate"><span class="pre">meta</span></code> device. Because
+there is no actual data being allocated on the device, this API allows for
+initializing and exporting large models without the actual memory footprint needed for executing it.</p>
+<p>It is highly recommended to initialize the model in fake mode when exporting models that
+are too large to fit into memory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function does not support torch.onnx.export(…, dynamo=True, optimize=True).
+Please call ONNXProgram.optimize() outside of the function after the model is exported.</p>
 </div>
-<div class="section" id="classes">
-<h3><a class="toc-backref" href="#id30">Classes</a><a class="headerlink" href="#classes" title="Permalink to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><p id="torch.onnx.JitScalarType"/><a class="reference internal" href="generated/torch.onnx.JitScalarType.html#torch.onnx.JitScalarType" title="torch.onnx.JitScalarType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JitScalarType</span></code></a></p></td>
-<td><p>Scalar types defined in torch.</p></td>
-</tr>
-</tbody>
-</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># xdoctest: +REQUIRES(env:TORCH_DOCTEST_ONNX)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">torch</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>  <span class="c1"># Model with a parameter</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="o">...</span>         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<span class="o">...</span>         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">42.0</span><span class="p">))</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="o">...</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">+</span> <span class="n">x</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">enable_fake_mode</span><span class="p">():</span>
+<span class="o">...</span>     <span class="c1"># When initialized in fake mode, the model&#39;s parameters are fake tensors</span>
+<span class="o">...</span>     <span class="c1"># They do not take up memory so we can initialize large models</span>
+<span class="o">...</span>     <span class="n">my_nn_module</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+<span class="o">...</span>     <span class="n">arg1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">my_nn_module</span><span class="p">,</span> <span class="p">(</span><span class="n">arg1</span><span class="p">,),</span> <span class="n">dynamo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c1"># Saving model WITHOUT initializers (only the architecture)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+<span class="o">...</span>     <span class="s2">&quot;my_model_without_initializers.onnx&quot;</span><span class="p">,</span>
+<span class="o">...</span>     <span class="n">include_initializers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="o">...</span>     <span class="n">keep_initializers_as_inputs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="o">...</span> <span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c1"># Saving model WITH initializers after applying concrete weights</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">apply_weights</span><span class="p">({</span><span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">42.0</span><span class="p">)})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;my_model_with_initializers.onnx&quot;</span><span class="p">)</span>
+</pre></div>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This API is experimental and is <em>NOT</em> backward-compatible.</p>
 </div>
+</dd></dl>
+
 </div>
 </div>
 
@@ -5130,20 +4796,20 @@ to <code class="docutils literal notranslate"><span class="pre">mode</span></cod
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="onnx_verification.html"
+       href="generated/torch.onnx.JitScalarType.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.onnx.verification</p>
+        <p class="prev-next-title">JitScalarType</p>
       </div>
     </a>
     <a class="right-next"
-       href="generated/torch.onnx.JitScalarType.html"
+       href="onnx_ops.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">JitScalarType</p>
+        <p class="prev-next-title">torch.onnx.ops</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -5174,20 +4840,20 @@ to <code class="docutils literal notranslate"><span class="pre">mode</span></cod
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="onnx_verification.html"
+       href="generated/torch.onnx.JitScalarType.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.onnx.verification</p>
+        <p class="prev-next-title">JitScalarType</p>
       </div>
     </a>
     <a class="right-next"
-       href="generated/torch.onnx.JitScalarType.html"
+       href="onnx_ops.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">JitScalarType</p>
+        <p class="prev-next-title">torch.onnx.ops</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -5209,53 +4875,27 @@ to <code class="docutils literal notranslate"><span class="pre">mode</span></cod
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-alexnet-from-pytorch-to-onnx">Example: AlexNet from PyTorch to ONNX</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tracing-vs-scripting">Tracing vs Scripting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#avoiding-pitfalls">Avoiding Pitfalls</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#avoid-numpy-and-built-in-python-types">Avoid NumPy and built-in Python types</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#avoid-tensor-data">Avoid Tensor.data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#avoid-in-place-operations-when-using-tensor-shape-in-tracing-mode">Avoid in-place operations when using tensor.shape in tracing mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies">Dependencies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-example">A simple example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-the-onnx-model-using-gui">Inspecting the ONNX model using GUI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-the-conversion-fails">When the conversion fails</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metadata">Metadata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-reference">API Reference</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.export"><code class="docutils literal notranslate"><span class="pre">export()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.ONNXProgram"><code class="docutils literal notranslate"><span class="pre">ONNXProgram</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.ONNXProgram.apply_weights"><code class="docutils literal notranslate"><span class="pre">ONNXProgram.apply_weights()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.ONNXProgram.compute_values"><code class="docutils literal notranslate"><span class="pre">ONNXProgram.compute_values()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.ONNXProgram.initialize_inference_session"><code class="docutils literal notranslate"><span class="pre">ONNXProgram.initialize_inference_session()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.ONNXProgram.model_proto"><code class="docutils literal notranslate"><span class="pre">ONNXProgram.model_proto</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.ONNXProgram.optimize"><code class="docutils literal notranslate"><span class="pre">ONNXProgram.optimize()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.ONNXProgram.release"><code class="docutils literal notranslate"><span class="pre">ONNXProgram.release()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.ONNXProgram.save"><code class="docutils literal notranslate"><span class="pre">ONNXProgram.save()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#types">Types</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#differences-in-operator-implementations">Differences in Operator Implementations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupported-tensor-indexing-patterns">Unsupported Tensor Indexing Patterns</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reads-gets">Reads / Gets</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#writes-sets">Writes / Sets</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-support-for-operators">Adding support for operators</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#onnx-exporter-internals">ONNX exporter internals</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aten-operators">ATen operators</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-supported-operators">List of supported operators</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-support-for-an-aten-or-quantized-operator">Adding support for an aten or quantized operator</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch-autograd-functions">torch.autograd.Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#static-symbolic-method">Static Symbolic Method</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inline-autograd-function">Inline Autograd Function</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-operators">Custom operators</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#onnx-script-functions">ONNX-script functions</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#c-operators">C++ Operators</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discovering-all-unconvertible-aten-ops-at-once">Discovering all unconvertible ATen ops at once</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequently-asked-questions">Frequently Asked Questions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-torch.onnx">Python API</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.register_custom_op_symbolic"><code class="docutils literal notranslate"><span class="pre">register_custom_op_symbolic()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.unregister_custom_op_symbolic"><code class="docutils literal notranslate"><span class="pre">unregister_custom_op_symbolic()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.select_model_mode_for_export"><code class="docutils literal notranslate"><span class="pre">select_model_mode_for_export()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.is_in_onnx_export"><code class="docutils literal notranslate"><span class="pre">is_in_onnx_export()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.OnnxExporterError"><code class="docutils literal notranslate"><span class="pre">OnnxExporterError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.onnx.enable_fake_mode"><code class="docutils literal notranslate"><span class="pre">enable_fake_mode()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -5265,7 +4905,7 @@ to <code class="docutils literal notranslate"><span class="pre">mode</span></cod
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/onnx_torchscript.rst">
+    <a href="https://github.com/pytorch/pytorch/edit/main/docs/source/onnx_export.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -5279,7 +4919,7 @@ to <code class="docutils literal notranslate"><span class="pre">mode</span></cod
     
        <div class="sidebar-secondary-item">
     <div class="tocsection sourcelink">
-      <a href="_sources/onnx_torchscript.rst.txt">
+      <a href="_sources/onnx_export.md.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
       </a>
     </div>
@@ -5468,7 +5108,7 @@ to <code class="docutils literal notranslate"><span class="pre">mode</span></cod
       {
          "@context": "https://schema.org",
          "@type": "Article",
-         "headline": "TorchScript-based ONNX Exporter",
+         "headline": "torch.export-based ONNX Exporter",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
          "author": {
            "@type": "Organization",
@@ -5477,11 +5117,11 @@ to <code class="docutils literal notranslate"><span class="pre">mode</span></cod
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
-           "@id": "/onnx_torchscript.html"
+           "@id": "/onnx_export.html"
          },
-         "datePublished": "Aug 31, 2017",
-         "dateModified": "Jul 01, 2025",
-         "articleBody": "TorchScript-based ONNX Exporter# Created On: Aug 31, 2017 | Last Updated On: Jul 01, 2025 Note To export an ONNX model using TorchDynamo instead of TorchScript, please see Learn more about the TorchDynamo-based ONNX Exporter Example: AlexNet from PyTorch to ONNX Tracing vs Scripting Avoiding Pitfalls Avoid NumPy and built-in Python types Avoid Tensor.data Avoid in-place operations when using tensor.shape in tracing mode Limitations Types Differences in Operator Implementations Unsupported Tensor Indexing Patterns Reads / Gets Writes / Sets Adding support for operators ONNX exporter internals ATen operators List of supported operators Adding support for an aten or quantized operator torch.autograd.Functions Static Symbolic Method Inline Autograd Function Custom operators ONNX-script functions C++ Operators Discovering all unconvertible ATen ops at once Frequently Asked Questions Python API Functions Classes Example: AlexNet from PyTorch to ONNX# Here is a simple script which exports a pretrained AlexNet to an ONNX file named alexnet.onnx. The call to torch.onnx.export runs the model once to trace its execution and then exports the traced model to the specified file: import torch import torchvision dummy_input = torch.randn(10, 3, 224, 224, device=&#34;cuda&#34;) model = torchvision.models.alexnet(pretrained=True).cuda() # Providing input and output names sets the display names for values # within the model&#39;s graph. Setting these does not change the semantics # of the graph; it is only for readability. # # The inputs to the network consist of the flat list of inputs (i.e. # the values you would pass to the forward() method) followed by the # flat list of parameters. You can partially specify names, i.e. provide # a list here shorter than the number of inputs to the model, and we will # only set that subset of names, starting from the beginning. input_names = [ &#34;actual_input_1&#34; ] + [ &#34;learned_%d&#34; % i for i in range(16) ] output_names = [ &#34;output1&#34; ] torch.onnx.export(model, dummy_input, &#34;alexnet.onnx&#34;, verbose=True, input_names=input_names, output_names=output_names) The resulting alexnet.onnx file contains a binary protocol buffer which contains both the network structure and parameters of the model you exported (in this case, AlexNet). The argument verbose=True causes the exporter to print out a human-readable representation of the model: # These are the inputs and parameters to the network, which have taken on # the names we specified earlier. graph(%actual_input_1 : Float(10, 3, 224, 224) %learned_0 : Float(64, 3, 11, 11) %learned_1 : Float(64) %learned_2 : Float(192, 64, 5, 5) %learned_3 : Float(192) # ---- omitted for brevity ---- %learned_14 : Float(1000, 4096) %learned_15 : Float(1000)) { # Every statement consists of some output tensors (and their types), # the operator to be run (with its attributes, e.g., kernels, strides, # etc.), its input tensors (%actual_input_1, %learned_0, %learned_1) %17 : Float(10, 64, 55, 55) = onnx::Conv[dilations=[1..."
+         "datePublished": "Jun 10, 2025",
+         "dateModified": "Jul 24, 2025",
+         "articleBody": "torch.export-based ONNX Exporter# Created On: Jun 10, 2025 | Last Updated On: Jul 24, 2025 Overview Dependencies A simple example Inspecting the ONNX model using GUI When the conversion fails Metadata API Reference Overview# torch.export engine is leveraged to produce a traced graph representing only the Tensor computation of the function in an Ahead-of-Time (AOT) fashion. The resulting traced graph (1) produces normalized operators in the functional ATen operator set (as well as any user-specified custom operators), (2) has eliminated all Python control flow and data structures (with certain exceptions), and (3) records the set of shape constraints needed to show that this normalization and control-flow elimination is sound for future inputs, before it is finally translated into an ONNX graph. In addition, during the export process, memory usage is significantly reduced. Dependencies# The ONNX exporter depends on extra Python packages: ONNX ONNX Script They can be installed through pip: pip install --upgrade onnx onnxscript onnxruntime can then be used to execute the model on a large variety of processors. A simple example# See below a demonstration of exporter API in action with a simple Multilayer Perceptron (MLP) as example: import torch import torch.nn as nn class MLPModel(nn.Module): def __init__(self): super().__init__() self.fc0 = nn.Linear(8, 8, bias=True) self.fc1 = nn.Linear(8, 4, bias=True) self.fc2 = nn.Linear(4, 2, bias=True) self.fc3 = nn.Linear(2, 2, bias=True) self.fc_combined = nn.Linear(8 + 8 + 8, 8, bias=True) # Combine all inputs def forward(self, tensor_x: torch.Tensor, input_dict: dict, input_list: list): &#34;&#34;&#34; Forward method that requires all inputs: - tensor_x: A direct tensor input. - input_dict: A dictionary containing the tensor under the key &#39;tensor_x&#39;. - input_list: A list where the first element is the tensor. &#34;&#34;&#34; # Extract tensors from inputs dict_tensor = input_dict[&#39;tensor_x&#39;] list_tensor = input_list[0] # Combine all inputs into a single tensor combined_tensor = torch.cat([tensor_x, dict_tensor, list_tensor], dim=1) # Process the combined tensor through the layers combined_tensor = self.fc_combined(combined_tensor) combined_tensor = torch.sigmoid(combined_tensor) combined_tensor = self.fc0(combined_tensor) combined_tensor = torch.sigmoid(combined_tensor) combined_tensor = self.fc1(combined_tensor) combined_tensor = torch.sigmoid(combined_tensor) combined_tensor = self.fc2(combined_tensor) combined_tensor = torch.sigmoid(combined_tensor) output = self.fc3(combined_tensor) return output model = MLPModel() # Example inputs tensor_input = torch.rand((97, 8), dtype=torch.float32) dict_input = {&#39;tensor_x&#39;: torch.rand((97, 8), dtype=torch.float32)} list_input = [torch.rand((97, 8), dtype=torch.float32)] # The input_names and output_names are used to identify the inputs and outputs of the ONNX model input_names = [&#39;tensor_input&#39;, &#39;tensor_x&#39;, &#39;list_input_index_0&#39;] output_names = [&#39;output&#39;] # Exporting the model with all..."
        }
    </script>
 
