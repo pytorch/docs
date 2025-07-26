@@ -1,0 +1,6 @@
+﻿torch.functional.chain\_matmul
+==============================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: chain_matmul

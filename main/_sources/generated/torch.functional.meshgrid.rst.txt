@@ -1,0 +1,6 @@
+﻿torch.functional.meshgrid
+=========================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: meshgrid
