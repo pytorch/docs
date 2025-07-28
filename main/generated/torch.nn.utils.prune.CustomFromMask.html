@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitd72ebef )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitf636736 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4325,10 +4325,10 @@ document.write(`
 <h1>CustomFromMask<a class="headerlink" href="#customfrommask" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.utils.prune.CustomFromMask">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.utils.prune.</span></span><span class="sig-name descname"><span class="pre">CustomFromMask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d72ebefe3fa7d3ee0e9c9b399f5c07611e790664/torch/nn/utils/prune.py#L796"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.CustomFromMask" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.utils.prune.</span></span><span class="sig-name descname"><span class="pre">CustomFromMask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f63673626d4c6a574a49f9e0d1131764d46b2bb8/torch/nn/utils/prune.py#L796"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.CustomFromMask" title="Permalink to this definition">#</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.utils.prune.CustomFromMask.apply">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d72ebefe3fa7d3ee0e9c9b399f5c07611e790664/torch/nn/utils/prune.py#L807"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.CustomFromMask.apply" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f63673626d4c6a574a49f9e0d1131764d46b2bb8/torch/nn/utils/prune.py#L807"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.CustomFromMask.apply" title="Permalink to this definition">#</a></dt>
 <dd><p>Add pruning on the fly and reparametrization of a tensor.</p>
 <p>Adds the forward pre-hook that enables pruning on the fly and
 the reparametrization of a tensor in terms of the original tensor
@@ -4346,7 +4346,7 @@ will act.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.utils.prune.CustomFromMask.apply_mask">
-<span class="sig-name descname"><span class="pre">apply_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d72ebefe3fa7d3ee0e9c9b399f5c07611e790664/torch/nn/utils/prune.py#L53"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.CustomFromMask.apply_mask" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">apply_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f63673626d4c6a574a49f9e0d1131764d46b2bb8/torch/nn/utils/prune.py#L53"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.CustomFromMask.apply_mask" title="Permalink to this definition">#</a></dt>
 <dd><p>Simply handles the multiplication between the parameter being pruned and the generated mask.</p>
 <p>Fetches the mask and the original tensor from the module
 and returns the pruned version of the tensor.</p>
@@ -4365,7 +4365,7 @@ and returns the pruned version of the tensor.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.utils.prune.CustomFromMask.prune">
-<span class="sig-name descname"><span class="pre">prune</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importance_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d72ebefe3fa7d3ee0e9c9b399f5c07611e790664/torch/nn/utils/prune.py#L204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.CustomFromMask.prune" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">prune</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importance_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f63673626d4c6a574a49f9e0d1131764d46b2bb8/torch/nn/utils/prune.py#L204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.CustomFromMask.prune" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute and returns a pruned version of input tensor <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
 <p>According to the pruning rule specified in <code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_mask()</span></code>.</p>
 <dl class="field-list simple">
@@ -4392,7 +4392,7 @@ default to a mask of ones.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.utils.prune.CustomFromMask.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d72ebefe3fa7d3ee0e9c9b399f5c07611e790664/torch/nn/utils/prune.py#L234"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.CustomFromMask.remove" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f63673626d4c6a574a49f9e0d1131764d46b2bb8/torch/nn/utils/prune.py#L234"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.prune.CustomFromMask.remove" title="Permalink to this definition">#</a></dt>
 <dd><p>Remove the pruning reparameterization from a module.</p>
 <p>The pruned parameter named <code class="docutils literal notranslate"><span class="pre">name</span></code> remains permanently pruned,
 and the parameter named <code class="docutils literal notranslate"><span class="pre">name+'_orig'</span></code> is removed from the parameter list.
