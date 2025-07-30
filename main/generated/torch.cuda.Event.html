@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitf02b783 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git70d2e9b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3322,6 +3322,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.memory.memory_stats.html">torch.mtia.memory.memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.memory.memory_allocated.html">torch.mtia.memory.memory_allocated</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../meta.html">Meta device</a></li>
@@ -3335,8 +3336,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3443,6 +3444,22 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../compile/programming_model.html">torch.compile Programming Model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../compile/programming_model.dynamo_core_concepts.html">Dynamo Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../compile/programming_model.graph_breaks_index.html">Working with Graph Breaks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../compile/programming_model.fullgraph_true.html">Use <code class="docutils literal notranslate"><span class="pre">fullgraph=True</span></code> to Identify and Eliminate Graph Breaks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../compile/programming_model.common_graph_breaks.html">Common Graph Breaks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../compile/programming_model.dynamo_nonstrict_trace.html">Use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.nonstrict_trace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../compile/programming_model.custom_ops.html">Custom Operators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../compile/programming_model.fullgraph_false.html">Working with <code class="docutils literal notranslate"><span class="pre">fullgraph=False</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../compile/programming_model.non_strict_tracing_model.html">Non-strict Tracing Programming Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../compile/programming_model.recompilation.html">Dealing with Recompilations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../compile/programming_model.observability.html">tlparse / TORCH_TRACE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../compile/programming_model.reporting_issues.html">Reporting Issues</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
@@ -3664,7 +3681,6 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../onnx.html">torch.onnx</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="torch.onnx.JitScalarType.html">JitScalarType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_export.html">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_verification.html">torch.onnx.verification</a></li>
@@ -4325,7 +4341,7 @@ document.write(`
 <h1>Event<a class="headerlink" href="#event" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.Event">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable_timing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/cuda/streams.py#L143"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable_timing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/cuda/streams.py#L143"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event" title="Permalink to this definition">#</a></dt>
 <dd><p>Wrapper around a CUDA event.</p>
 <p>CUDA events are synchronization markers that can be used to monitor the
 device’s progress, to accurately measure timing, and to synchronize CUDA
@@ -4348,7 +4364,7 @@ the event.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.Event.elapsed_time">
-<span class="sig-name descname"><span class="pre">elapsed_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">end_event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/cuda/streams.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event.elapsed_time" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">elapsed_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">end_event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/cuda/streams.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event.elapsed_time" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the time elapsed.</p>
 <p>Time reported in milliseconds after the event was recorded and
 before the end_event was recorded.</p>
@@ -4356,20 +4372,20 @@ before the end_event was recorded.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.Event.from_ipc_handle">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_ipc_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/cuda/streams.py#L178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event.from_ipc_handle" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_ipc_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/cuda/streams.py#L178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event.from_ipc_handle" title="Permalink to this definition">#</a></dt>
 <dd><p>Reconstruct an event from an IPC handle on the given device.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.Event.ipc_handle">
-<span class="sig-name descname"><span class="pre">ipc_handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/cuda/streams.py#L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event.ipc_handle" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">ipc_handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/cuda/streams.py#L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event.ipc_handle" title="Permalink to this definition">#</a></dt>
 <dd><p>Return an IPC handle of this event.</p>
 <p>If not recorded yet, the event will use the current device.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.Event.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/cuda/streams.py#L205"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event.query" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/cuda/streams.py#L205"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event.query" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if all work currently captured by event has completed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -4381,7 +4397,7 @@ completed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.Event.record">
-<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/cuda/streams.py#L183"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event.record" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/cuda/streams.py#L183"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event.record" title="Permalink to this definition">#</a></dt>
 <dd><p>Record the event in a given stream.</p>
 <p>Uses <code class="docutils literal notranslate"><span class="pre">torch.cuda.current_stream()</span></code> if no stream is specified. The
 stream’s device must match the event’s device.</p>
@@ -4389,7 +4405,7 @@ stream’s device must match the event’s device.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.Event.synchronize">
-<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/cuda/streams.py#L222"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event.synchronize" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/cuda/streams.py#L222"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event.synchronize" title="Permalink to this definition">#</a></dt>
 <dd><p>Wait for the event to complete.</p>
 <p>Waits until the completion of all work currently captured in this event.
 This prevents the CPU thread from proceeding until the event completes.</p>
@@ -4406,7 +4422,7 @@ This prevents the CPU thread from proceeding until the event completes.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.Event.wait">
-<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/cuda/streams.py#L193"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event.wait" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/cuda/streams.py#L193"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Event.wait" title="Permalink to this definition">#</a></dt>
 <dd><p>Make all future work submitted to the given stream wait for this event.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">torch.cuda.current_stream()</span></code> if no stream is specified.</p>
 <div class="admonition note">

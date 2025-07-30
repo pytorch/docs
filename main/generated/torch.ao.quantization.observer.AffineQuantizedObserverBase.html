@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitf02b783 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git70d2e9b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3322,6 +3322,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.memory.memory_stats.html">torch.mtia.memory.memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.memory.memory_allocated.html">torch.mtia.memory.memory_allocated</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../meta.html">Meta device</a></li>
@@ -3335,8 +3336,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3443,6 +3444,22 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../compile/programming_model.html">torch.compile Programming Model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../compile/programming_model.dynamo_core_concepts.html">Dynamo Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../compile/programming_model.graph_breaks_index.html">Working with Graph Breaks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../compile/programming_model.fullgraph_true.html">Use <code class="docutils literal notranslate"><span class="pre">fullgraph=True</span></code> to Identify and Eliminate Graph Breaks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../compile/programming_model.common_graph_breaks.html">Common Graph Breaks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../compile/programming_model.dynamo_nonstrict_trace.html">Use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.nonstrict_trace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../compile/programming_model.custom_ops.html">Custom Operators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../compile/programming_model.fullgraph_false.html">Working with <code class="docutils literal notranslate"><span class="pre">fullgraph=False</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../compile/programming_model.non_strict_tracing_model.html">Non-strict Tracing Programming Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../compile/programming_model.recompilation.html">Dealing with Recompilations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../compile/programming_model.observability.html">tlparse / TORCH_TRACE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../compile/programming_model.reporting_issues.html">Reporting Issues</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
@@ -3664,7 +3681,6 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../onnx.html">torch.onnx</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="torch.onnx.JitScalarType.html">JitScalarType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_export.html">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_verification.html">torch.onnx.verification</a></li>
@@ -4336,7 +4352,7 @@ document.write(`
 <h1>AffineQuantizedObserverBase<a class="headerlink" href="#affinequantizedobserverbase" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.AffineQuantizedObserverBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.observer.</span></span><span class="sig-name descname"><span class="pre">AffineQuantizedObserverBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preserve_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ZeroPointDomain.INT</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/ao/quantization/observer.py#L1808"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.observer.</span></span><span class="sig-name descname"><span class="pre">AffineQuantizedObserverBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preserve_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ZeroPointDomain.INT</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/ao/quantization/observer.py#L1808"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase" title="Permalink to this definition">#</a></dt>
 <dd><p>Observer module for affine quantization (<a class="github reference external" href="https://github.com/pytorch/ao/tree/main/torchao/quantization#affine-quantization">pytorch/ao</a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4350,7 +4366,7 @@ Current supported granularity type are <cite>PerTensor</cite> and <cite>PerAxis<
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.AffineQuantizedObserverBase.calculate_qparams">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculate_qparams</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/ao/quantization/observer.py#L1858"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.calculate_qparams" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculate_qparams</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/ao/quantization/observer.py#L1858"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.calculate_qparams" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculate quantization parameter based on the stats attached to the observer module
 and returns a tuple of scale and zero_point Tensor</p>
 <dl class="field-list simple">
@@ -4362,7 +4378,7 @@ and returns a tuple of scale and zero_point Tensor</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.AffineQuantizedObserverBase.convert">
-<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer_node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/ao/quantization/observer.py#L1864"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.convert" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer_node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/ao/quantization/observer.py#L1864"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.convert" title="Permalink to this definition">#</a></dt>
 <dd><p>Converts the observer node in the graph into its quantized representation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4376,7 +4392,7 @@ and returns a tuple of scale and zero_point Tensor</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.AffineQuantizedObserverBase.forward">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/ao/quantization/observer.py#L1852"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.forward" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/ao/quantization/observer.py#L1852"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.forward" title="Permalink to this definition">#</a></dt>
 <dd><p>forward function should take the input tensor
 and updates internal stats and return the original input Tensor</p>
 <dl class="field-list simple">
@@ -4388,7 +4404,7 @@ and updates internal stats and return the original input Tensor</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.observer.AffineQuantizedObserverBase.with_args">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">with_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/ao/quantization/observer.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.with_args" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">with_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/ao/quantization/observer.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.observer.AffineQuantizedObserverBase.with_args" title="Permalink to this definition">#</a></dt>
 <dd><p>Wrapper that allows creation of class factories.</p>
 <p>This can be useful when there is a need to create classes with the same
 constructor arguments, but different instances. Can be used in conjunction with

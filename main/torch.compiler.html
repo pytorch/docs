@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitf02b783 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git70d2e9b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3322,6 +3322,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.memory_stats.html">torch.mtia.memory.memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.memory_allocated.html">torch.mtia.memory.memory_allocated</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
@@ -3335,8 +3336,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3443,6 +3444,22 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="compile/programming_model.html">torch.compile Programming Model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.dynamo_core_concepts.html">Dynamo Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/programming_model.graph_breaks_index.html">Working with Graph Breaks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.fullgraph_true.html">Use <code class="docutils literal notranslate"><span class="pre">fullgraph=True</span></code> to Identify and Eliminate Graph Breaks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.common_graph_breaks.html">Common Graph Breaks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.dynamo_nonstrict_trace.html">Use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.nonstrict_trace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.custom_ops.html">Custom Operators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.fullgraph_false.html">Working with <code class="docutils literal notranslate"><span class="pre">fullgraph=False</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.non_strict_tracing_model.html">Non-strict Tracing Programming Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.recompilation.html">Dealing with Recompilations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.observability.html">tlparse / TORCH_TRACE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.reporting_issues.html">Reporting Issues</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
@@ -3664,7 +3681,6 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="onnx.html">torch.onnx</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.onnx.JitScalarType.html">JitScalarType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_export.html">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_verification.html">torch.onnx.verification</a></li>
@@ -4314,7 +4330,7 @@ document.write(`
                   
   <div class="section" id="torch-compiler">
 <span id="torch-compiler-overview"></span><h1>torch.compiler<a class="headerlink" href="#torch-compiler" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2023 | Last Updated On: Jul 15, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2023 | Last Updated On: Jul 28, 2025</p>
 <p><code class="docutils literal notranslate"><span class="pre">torch.compiler</span></code> is a namespace through which some of the internal compiler
 methods are surfaced for user consumption. The main function and the feature in
 this namespace is <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>.</p>
@@ -4337,6 +4353,8 @@ building block.</p></li>
 which results in capturing the backwards pass “ahead-of-time”. This enables
 acceleration of both forwards and backwards pass using TorchInductor.</p></li>
 </ul>
+<p>To better understand how <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> tracing behavior on your code, or to
+learn more about the internals of <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>, please refer to the <a class="reference internal" href="compile/programming_model.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> programming model</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In some cases, the terms <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>, TorchDynamo, <code class="docutils literal notranslate"><span class="pre">torch.compiler</span></code>
@@ -4419,6 +4437,86 @@ with its optional dependencies.</p>
 <li class="toctree-l1"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">`torch.compile` Programming Model</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="compile/programming_model.html">torch.compile Programming Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compile/programming_model.dynamo_core_concepts.html">Dynamo Core Concepts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.dynamo_core_concepts.html#dynamo-tracing">Dynamo Tracing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.dynamo_core_concepts.html#graph-breaks">Graph Breaks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.dynamo_core_concepts.html#guards">Guards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.dynamo_core_concepts.html#recompilations">Recompilations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.dynamo_core_concepts.html#dynamic-shapes">Dynamic Shapes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="compile/programming_model.graph_breaks_index.html">Working with Graph Breaks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.fullgraph_true.html">Use <code class="docutils literal notranslate"><span class="pre">fullgraph=True</span></code> to Identify and Eliminate Graph Breaks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.fullgraph_true.html#strategy-1-rewrite-the-unsupported-code-to-use-features-supported-by-dynamo">Strategy 1:  Rewrite the unsupported code to use features supported by Dynamo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.fullgraph_true.html#strategy-2-pure-functions-can-always-be-compiled-via-an-escape-hatch">Strategy 2: Pure functions can always be compiled via an escape hatch.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.fullgraph_true.html#strategy-3-don-t-compile-the-code">Strategy 3: Don’t compile the code</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.common_graph_breaks.html">Common Graph Breaks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.common_graph_breaks.html#incorrect-code">Incorrect Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.common_graph_breaks.html#data-dependent-operations">Data-dependent operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.common_graph_breaks.html#printing-and-logging">Printing and logging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.dynamo_nonstrict_trace.html">Use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.nonstrict_trace</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.custom_ops.html">Custom Operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.fullgraph_false.html">Working with <code class="docutils literal notranslate"><span class="pre">fullgraph=False</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.where_to_apply_compile.html">Where to apply torch.compile?</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="compile/programming_model.where_to_apply_compile.html#compile-model-vs-model-compile"><code class="docutils literal notranslate"><span class="pre">compile(model)</span></code> vs <code class="docutils literal notranslate"><span class="pre">model.compile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.compiler_disable.html">Disabling and Suppressing Errors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.nested_graph_breaks.html">Nested Graph Breaks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.skipped_functions.html">Skipped Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="compile/programming_model.skipped_functions.html#graph-break-in-a-loop">Graph Break in a Loop</a></li>
+<li class="toctree-l5"><a class="reference internal" href="compile/programming_model.skipped_functions.html#graph-break-in-a-context-manager">Graph Break in a Context Manager</a></li>
+<li class="toctree-l5"><a class="reference internal" href="compile/programming_model.skipped_functions.html#graph-break-in-a-try-block">Graph Break in a Try Block</a></li>
+<li class="toctree-l5"><a class="reference internal" href="compile/programming_model.skipped_functions.html#hitting-a-recompilation-limit">Hitting a Recompilation Limit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="compile/programming_model.skipped_functions.html#compiler-errors">Compiler Errors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="compile/programming_model.skipped_functions.html#dealing-with-skipped-functions">Dealing with Skipped Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="compile/programming_model.non_strict_tracing_model.html">Non-strict Tracing Programming Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.non_strict_tracing_model.html#pure-functions">Pure Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.non_strict_tracing_model.html#example-1-no-explicit-input-e-g-accesses-global-tensor">Example 1: No explicit input (e.g. accesses global tensor)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.non_strict_tracing_model.html#example-2-side-effect-printing">Example 2: Side effect (printing)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.non_strict_tracing_model.html#example-3-side-effect-input-list-mutation">Example 3: Side effect (input list mutation)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.non_strict_tracing_model.html#no-direct-data-ptr-manipulation">No direct data_ptr manipulation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.non_strict_tracing_model.html#specialization-and-constants">Specialization and Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="compile/programming_model.recompilation.html">Dealing with Recompilations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.recompilation.html#is-dynamic-shapes-enabled">Is Dynamic Shapes Enabled?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.recompilation.html#wrapping-constants-with-tensors">Wrapping Constants with Tensors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.recompilation.html#changing-the-cache-size-limit">Changing the Cache Size Limit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.recompilation.html#graph-breaking-to-reduce-recompilation-costs">Graph Breaking to Reduce Recompilation Costs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="compile/programming_model.observability.html">tlparse / TORCH_TRACE</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.observability.html#torch-logs">TORCH_LOGS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.observability.html#tlparse-vs-torch-logs">tlparse vs. TORCH_LOGS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="compile/programming_model.reporting_issues.html">Reporting Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.reporting_issues.html#ablation">Ablation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.reporting_issues.html#bisecting">Bisecting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.reporting_issues.html#creating-a-reproducer">Creating a reproducer</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -4790,8 +4888,8 @@ with its optional dependencies.</p>
            "@id": "/torch.compiler.html"
          },
          "datePublished": "Jul 28, 2023",
-         "dateModified": "Jul 15, 2025",
-         "articleBody": "torch.compiler# Created On: Jul 28, 2023 | Last Updated On: Jul 15, 2025 torch.compiler is a namespace through which some of the internal compiler methods are surfaced for user consumption. The main function and the feature in this namespace is torch.compile. torch.compile is a PyTorch function introduced in PyTorch 2.x that aims to solve the problem of accurate graph capturing in PyTorch and ultimately enable software engineers to run their PyTorch programs faster. torch.compile is written in Python and it marks the transition of PyTorch from C++ to Python. torch.compile leverages the following underlying technologies: TorchDynamo (torch._dynamo) is an internal API that uses a CPython feature called the Frame Evaluation API to safely capture PyTorch graphs. Methods that are available externally for PyTorch users are surfaced through the torch.compiler namespace. TorchInductor is the default torch.compile deep learning compiler that generates fast code for multiple accelerators and backends. You need to use a backend compiler to make speedups through torch.compile possible. For NVIDIA, AMD and Intel GPUs, it leverages OpenAI Triton as the key building block. AOT Autograd captures not only the user-level code, but also backpropagation, which results in capturing the backwards pass “ahead-of-time”. This enables acceleration of both forwards and backwards pass using TorchInductor. Note In some cases, the terms torch.compile, TorchDynamo, torch.compiler might be used interchangeably in this documentation. As mentioned above, to run your workflows faster, torch.compile through TorchDynamo requires a backend that converts the captured graphs into a fast machine code. Different backends can result in various optimization gains. The default backend is called TorchInductor, also known as inductor, TorchDynamo has a list of supported backends developed by our partners, which can be seen by running torch.compiler.list_backends() each of which with its optional dependencies. Some of the most commonly used backends include: Training &amp; inference backends Backend Description torch.compile(m, backend=&#34;inductor&#34;) Uses the TorchInductor backend. Read more torch.compile(m, backend=&#34;cudagraphs&#34;) CUDA graphs with AOT Autograd. Read more torch.compile(m, backend=&#34;ipex&#34;) Uses IPEX on CPU. Read more Inference-only backends Backend Description torch.compile(m, backend=&#34;tensorrt&#34;) Uses Torch-TensorRT for inference optimizations. Requires import torch_tensorrt in the calling script to register backend. Read more torch.compile(m, backend=&#34;ipex&#34;) Uses IPEX for inference on CPU. Read more torch.compile(m, backend=&#34;tvm&#34;) Uses Apache TVM for inference optimizations. Read more torch.compile(m, backend=&#34;openvino&#34;) Uses OpenVINO for inference optimizations. Read more Read More# Getting Started for PyTorch Users Getting Started torch.compiler API reference torch.compiler.config TorchDynamo APIs for fine-grained tracing torch.compile has different autograd semantics AOTInductor: ..."
+         "dateModified": "Jul 28, 2025",
+         "articleBody": "torch.compiler# Created On: Jul 28, 2023 | Last Updated On: Jul 28, 2025 torch.compiler is a namespace through which some of the internal compiler methods are surfaced for user consumption. The main function and the feature in this namespace is torch.compile. torch.compile is a PyTorch function introduced in PyTorch 2.x that aims to solve the problem of accurate graph capturing in PyTorch and ultimately enable software engineers to run their PyTorch programs faster. torch.compile is written in Python and it marks the transition of PyTorch from C++ to Python. torch.compile leverages the following underlying technologies: TorchDynamo (torch._dynamo) is an internal API that uses a CPython feature called the Frame Evaluation API to safely capture PyTorch graphs. Methods that are available externally for PyTorch users are surfaced through the torch.compiler namespace. TorchInductor is the default torch.compile deep learning compiler that generates fast code for multiple accelerators and backends. You need to use a backend compiler to make speedups through torch.compile possible. For NVIDIA, AMD and Intel GPUs, it leverages OpenAI Triton as the key building block. AOT Autograd captures not only the user-level code, but also backpropagation, which results in capturing the backwards pass “ahead-of-time”. This enables acceleration of both forwards and backwards pass using TorchInductor. To better understand how torch.compile tracing behavior on your code, or to learn more about the internals of torch.compile, please refer to the torch.compile programming model. Note In some cases, the terms torch.compile, TorchDynamo, torch.compiler might be used interchangeably in this documentation. As mentioned above, to run your workflows faster, torch.compile through TorchDynamo requires a backend that converts the captured graphs into a fast machine code. Different backends can result in various optimization gains. The default backend is called TorchInductor, also known as inductor, TorchDynamo has a list of supported backends developed by our partners, which can be seen by running torch.compiler.list_backends() each of which with its optional dependencies. Some of the most commonly used backends include: Training &amp; inference backends Backend Description torch.compile(m, backend=&#34;inductor&#34;) Uses the TorchInductor backend. Read more torch.compile(m, backend=&#34;cudagraphs&#34;) CUDA graphs with AOT Autograd. Read more torch.compile(m, backend=&#34;ipex&#34;) Uses IPEX on CPU. Read more Inference-only backends Backend Description torch.compile(m, backend=&#34;tensorrt&#34;) Uses Torch-TensorRT for inference optimizations. Requires import torch_tensorrt in the calling script to register backend. Read more torch.compile(m, backend=&#34;ipex&#34;) Uses IPEX for inference on CPU. Read more torch.compile(m, backend=&#34;tvm&#34;) Uses Apache TVM for inference optimizations. Read more torch.compile(m, backend=&#34;openvino&#34;) Uses OpenVINO for inference optimizations. Read more Read More# Getting Started for PyTor..."
        }
    </script>
 

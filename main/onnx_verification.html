@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitf02b783 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git70d2e9b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3322,6 +3322,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.memory_stats.html">torch.mtia.memory.memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory.memory_allocated.html">torch.mtia.memory.memory_allocated</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
@@ -3335,8 +3336,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3443,6 +3444,22 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_troubleshooting.html">torch.compile Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_performance_dashboard.html">PyTorch 2.0 Performance Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_provenance.html">TorchInductor and AOTInductor Provenance Tracking</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="compile/programming_model.html">torch.compile Programming Model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.dynamo_core_concepts.html">Dynamo Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/programming_model.graph_breaks_index.html">Working with Graph Breaks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.fullgraph_true.html">Use <code class="docutils literal notranslate"><span class="pre">fullgraph=True</span></code> to Identify and Eliminate Graph Breaks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.common_graph_breaks.html">Common Graph Breaks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.dynamo_nonstrict_trace.html">Use <code class="docutils literal notranslate"><span class="pre">torch._dynamo.nonstrict_trace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.custom_ops.html">Custom Operators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/programming_model.fullgraph_false.html">Working with <code class="docutils literal notranslate"><span class="pre">fullgraph=False</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.non_strict_tracing_model.html">Non-strict Tracing Programming Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.recompilation.html">Dealing with Recompilations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.observability.html">tlparse / TORCH_TRACE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/programming_model.reporting_issues.html">Reporting Issues</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
@@ -3664,7 +3681,6 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="onnx.html">torch.onnx</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.onnx.JitScalarType.html">JitScalarType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_export.html">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.onnx.verification</a></li>
@@ -4327,7 +4343,7 @@ document.write(`
 <p>The ONNX verification module provides a set of tools to verify the correctness of ONNX models.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.verification.verify_onnx_program">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">verify_onnx_program</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onnx_program</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compare_intermediates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/onnx/_internal/exporter/_verification.py#L149"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.verify_onnx_program" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">verify_onnx_program</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onnx_program</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compare_intermediates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/onnx/_internal/exporter/_verification.py#L149"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.verify_onnx_program" title="Permalink to this definition">#</a></dt>
 <dd><p>Verify the ONNX model by comparing the values with the expected values from ExportedProgram.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4374,7 +4390,7 @@ The first tensor is the histogram counts and the second tensor is the bin edges.
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.verification.VerificationInfo.asdict">
-<span class="sig-name descname"><span class="pre">asdict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/onnx/_internal/exporter/_verification.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.VerificationInfo.asdict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">asdict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/onnx/_internal/exporter/_verification.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.VerificationInfo.asdict" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert the VerificationInfo object to a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -4388,7 +4404,7 @@ The first tensor is the histogram counts and the second tensor is the bin edges.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.verification.VerificationInfo.from_tensors">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_tensors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actual</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/onnx/_internal/exporter/_verification.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.VerificationInfo.from_tensors" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_tensors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actual</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/onnx/_internal/exporter/_verification.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.VerificationInfo.from_tensors" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a VerificationInfo object from two tensors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4411,7 +4427,7 @@ The first tensor is the histogram counts and the second tensor is the bin edges.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.verification.verify">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">verify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_kwargs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_constant_folding=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_axes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_names=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_names=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training=&lt;TrainingMode.EVAL:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opset_version=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_initializers_as_inputs=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed_batch_size=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_external_data=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_test_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/onnx/verification.py#L807"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.verify" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">verify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_kwargs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_constant_folding=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_axes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_names=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_names=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training=&lt;TrainingMode.EVAL:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opset_version=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_initializers_as_inputs=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed_batch_size=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_external_data=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_test_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/onnx/verification.py#L807"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.verify" title="Permalink to this definition">#</a></dt>
 <dd><p>Verify model export to ONNX against original PyTorch model.</p>
 <div class="deprecated">
 <p><span class="versionmodified deprecated">Deprecated since version 2.7: </span>Consider using <code class="docutils literal notranslate"><span class="pre">torch.onnx.export(...,</span> <span class="pre">dynamo=True)</span></code> and use the returned
@@ -4454,42 +4470,42 @@ input arguments to test. Currently only <code class="docutils literal notranslat
 <!-- Some deprecated members are not publicly shown -->
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.onnx.verification.check_export_model_diff">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">check_export_model_diff</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/onnx/verification.py#L764"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.check_export_model_diff" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">check_export_model_diff</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/onnx/verification.py#L764"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.check_export_model_diff" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.onnx.verification.GraphInfo">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">GraphInfo</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/onnx/verification.py#L1201"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.GraphInfo" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">GraphInfo</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/onnx/verification.py#L1201"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.GraphInfo" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.onnx.verification.GraphInfoPrettyPrinter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">GraphInfoPrettyPrinter</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/onnx/verification.py#L988"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.GraphInfoPrettyPrinter" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">GraphInfoPrettyPrinter</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/onnx/verification.py#L988"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.GraphInfoPrettyPrinter" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.onnx.verification.OnnxBackend">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">OnnxBackend</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/onnx/verification.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.OnnxBackend" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">OnnxBackend</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/onnx/verification.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.OnnxBackend" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.onnx.verification.OnnxTestCaseRepro">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">OnnxTestCaseRepro</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/onnx/verification.py#L1134"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.OnnxTestCaseRepro" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">OnnxTestCaseRepro</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/onnx/verification.py#L1134"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.OnnxTestCaseRepro" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.onnx.verification.VerificationOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">VerificationOptions</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/onnx/verification.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.VerificationOptions" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">VerificationOptions</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/onnx/verification.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.VerificationOptions" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.verification.find_mismatch">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">find_mismatch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/onnx/verification.py#L1737"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.find_mismatch" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">find_mismatch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/onnx/verification.py#L1737"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.find_mismatch" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.verification.verify_aten_graph">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">verify_aten_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f02b783aae11bf55d42964368af38bfa53f3a416/torch/onnx/verification.py#L901"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.verify_aten_graph" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.verification.</span></span><span class="sig-name descname"><span class="pre">verify_aten_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/70d2e9ba455c3c910f6f95b24171c8eee7bc00bf/torch/onnx/verification.py#L901"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.verification.verify_aten_graph" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </div>
