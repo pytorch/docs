@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git70d2e9b )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3336,8 +3336,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3366,13 +3366,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../distributed.html">torch.distributed</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../distributed._dist2.html">Experimental Object Oriented Distributed API - torch.distributed._dist2</a></li>
-
-
-
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../distributed._dist2.html">Experimental Object Oriented Distributed API</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.html">torch.distributed.tensor</a></li>
@@ -4509,7 +4503,7 @@ from user code:
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([-0.2057,  0.1731, -0.0371])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([ 0.5465, -0.6238, -0.6404])
 </pre></div>
 </div>
 </div>
@@ -4615,9 +4609,9 @@ If it is a third-party C/C++ Python extension, please either wrap it into a PyTo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.5122, 0.0313, 1.4045],
-        [1.3528, 0.1161, 1.3287],
-        [0.6354, 1.3190, 0.4007]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.4082, 0.0723, 0.7921],
+        [2.6406, 0.2658, 0.0559],
+        [0.1706, 2.2360, 1.1556]])
 </pre></div>
 </div>
 </div>
@@ -4690,7 +4684,7 @@ Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especiall
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([9.8080e-08, 1.9805e-02, 1.4604e-04])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([1.6617e-04, 8.9519e-02, 6.2492e-07])
 </pre></div>
 </div>
 </div>

@@ -110,7 +110,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git70d2e9b )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3336,8 +3336,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3366,13 +3366,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="distributed.html">torch.distributed</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="distributed._dist2.html">Experimental Object Oriented Distributed API - torch.distributed._dist2</a></li>
-
-
-
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="distributed._dist2.html">Experimental Object Oriented Distributed API</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.tensor.html">torch.distributed.tensor</a></li>
@@ -4339,7 +4333,7 @@ document.write(`
                   
   <div class="section" id="cudagraph-trees">
 <h1>CUDAGraph Trees<a class="headerlink" href="#cudagraph-trees" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 19, 2023 | Last Updated On: Jun 10, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 19, 2023 | Last Updated On: Jul 30, 2025</p>
 <div class="section" id="background">
 <h2><strong>Background</strong><a class="headerlink" href="#background" title="Permalink to this heading">#</a></h2>
 <div class="section" id="cudagraph">
@@ -4540,6 +4534,7 @@ section for more details.</p></li>
 <a class="reference external" href="https://pytorch.org/docs/stable/torch.compiler_dynamic_shapes.html">dynamic shapes</a>.
 CUDAGraph Trees currently record a CUDAGraph for every unique input tensor shapes.
 Please see <em>Dynamic Shape Support</em> for more details.</p></li>
+<li><p><strong>CUDAGraph-unsafe custom ops</strong>: Some custom ops may include cudagraph unsafe ops, which causes cudagraph to be skipped. Please see <em>CUDAGraph Unsafe Custom Ops</em> for more details.</p></li>
 <li><p><strong>Incompatible operators</strong>: CUDAGraph Trees skip a function if it contain incompatible
 operators. Please replace these operators in a function with supported operators. We
 show an exhaustive list of incompatible operators:</p></li>
@@ -4567,6 +4562,46 @@ show an exhaustive list of incompatible operators:</p></li>
 <span class="n">aten</span><span class="o">.</span><span class="n">_assert_scalar</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="cudagraph-unsafe-custom-ops">
+<h3>CUDAGraph Unsafe Custom Ops<a class="headerlink" href="#cudagraph-unsafe-custom-ops" title="Permalink to this heading">#</a></h3>
+<p>Custom ops are assumed to be safe for CUDAGraph by default. However, some custom ops may include unsupported ops such as cpu ops. Since custom op are treated as black boxes by the compiler, users must explicitly mark these ops as unsafe for CUDAGraph by setting the <code class="docutils literal notranslate"><span class="pre">torch._C.Tag.cudagraph_unsafe</span></code> tag, as demonstrated in the example below. When a function contains cudagraph-unsafe custom ops, it will be skipped by CUDAGraph unless <em>CUDAGraph partition</em> is enabled.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span>
+    <span class="s2">&quot;mylib::modify&quot;</span><span class="p">,</span>
+    <span class="n">mutates_args</span><span class="o">=</span><span class="p">(),</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">Tag</span><span class="o">.</span><span class="n">cudagraph_unsafe</span><span class="p">,),</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">modify</span><span class="p">(</span><span class="n">pic</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">pic1</span> <span class="o">=</span> <span class="n">pic</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">pic1_cpu</span> <span class="o">=</span> <span class="p">(</span><span class="n">pic1</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">pic1_cpu</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span> <span class="o">+</span> <span class="n">pic</span>
+
+<span class="nd">@modify</span><span class="o">.</span><span class="n">register_fake</span>
+<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">pic</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">pic</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cudagraph-partition">
+<h3>CUDAGraph Partition<a class="headerlink" href="#cudagraph-partition" title="Permalink to this heading">#</a></h3>
+<p>As we discussed earlier, CUDAGraph does not support some ops (e.g., cpu ops) which may limit its adoption. CUDAGraph partition is a compiler solution that automatically splits off these ops, reorders ops to reduce the number of partitions, and applies CUDAGraph to each partition individually. Please set <code class="docutils literal notranslate"><span class="pre">torch._inductor.config.graph_partition=True</span></code> to enable CUDAGraph partition.</p>
+<p>Consider the following example where <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are gpu inputs but <code class="docutils literal notranslate"><span class="pre">y_cpu</span></code> is a cpu tensor. Without graph partition, this function must be skipped due to cpu ops. With graph partition, the CPU ops are split off, and the remaining GPU ops are cudagraphified, resulting in two separate separate CUDAGraphs.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">y_cpu</span> <span class="o">=</span> <span class="n">y1</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">@</span> <span class="n">y</span>
+    <span class="k">return</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">y1</span> <span class="o">+</span> <span class="n">z</span> <span class="o">+</span> <span class="n">y_cpu</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Currently, CUDAGraph partition supports splitting off the following types of ops:</p>
+<ul class="simple">
+<li><p><strong>Non-GPU Ops</strong>: Popular examples include computation on cpu tensors.</p></li>
+<li><p><strong>Device Copy Ops</strong>: Data transfers between devices, such as the <code class="docutils literal notranslate"><span class="pre">y1.cpu()</span></code> in the example above.</p></li>
+<li><p><strong>Control Flow Ops</strong>: <a class="reference external" href="https://docs.pytorch.org/docs/stable/cond.html">Control flow ops</a> are split off since they are not yet supported by CUDAGraph.</p></li>
+<li><p><strong>CUDAGraph Unsafe Custom Ops</strong>: Custom ops tagged with <code class="docutils literal notranslate"><span class="pre">torch._C.Tag.cudagraph_unsafe</span></code> are split off. See <em>CUDAGraph Unsafe Custom Ops</em> section for details.</p></li>
+<li><p><strong>Unbacked Symints</strong>: Please refer to <em>Dynamic Shape Support</em> section for more information.</p></li>
+</ul>
 </div>
 <div class="section" id="limitations">
 <h3>Limitations<a class="headerlink" href="#limitations" title="Permalink to this heading">#</a></h3>
@@ -4757,6 +4792,8 @@ tensors of a prior iteration (outside of torch.compile) before you begin the nex
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-shape-support">Dynamic Shape Support</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nccl-support">NCCL Support</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reasons-for-skipping-cudagraph">Reasons for Skipping CUDAGraph</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cudagraph-unsafe-custom-ops">CUDAGraph Unsafe Custom Ops</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cudagraph-partition">CUDAGraph Partition</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparisons">Comparisons</a></li>
 </ul>
@@ -4983,8 +5020,8 @@ tensors of a prior iteration (outside of torch.compile) before you begin the nex
            "@id": "/torch.compiler_cudagraph_trees.html"
          },
          "datePublished": "May 19, 2023",
-         "dateModified": "Jun 10, 2025",
-         "articleBody": "CUDAGraph Trees# Created On: May 19, 2023 | Last Updated On: Jun 10, 2025 Background# CUDAGraph# For a longer background on CUDAGraphs, read accelerating pytorch with CUDAGraphs. CUDA Graphs, which made its debut in CUDA 10, let a series of CUDA kernels to be defined and encapsulated as a single unit, i.e., a graph of operations, rather than a sequence of individually-launched operations. It provides a mechanism to launch multiple GPU operations through a single CPU operation, and hence reduces the launching overheads. CUDA Graphs can give large speedups, especially for models with high CPU overhead or small compute. There are a number of limitations from requiring the same kernels to be run with the same arguments and dependencies, and memory addresses. Control Flow is not possible Kernels which trigger host to device syncs (such as .item()) errors All input arguments to kernels are fixed to what they were recorded CUDA Memory addresses are fixed, however the values of the memory at those addresses can change No Essential CPU ops or CPU side effects PyTorch CUDAGraph Integration# PyTorch provides a convenience wrapper around CUDAGraphs that handles a couple of tricky interactions with PyTorch’s caching allocator. The CachingAllocator uses a separate memory pool for all the new allocations. During CUDAGraph recording, memory is accounted for, allocated, and freed exactly as during eager run. On replay, just the kernels are invoked, and there are no changes to the allocator. Subsequent to initial recording, the allocator does not know which memory is actively being used in user programs. Using a separate memory pool between eager allocations and cudagraph allocations may increase the memory of your program if there is substantial memory allocated to both. Make Graphed Callables# Make Graphed Callables is a PyTorch Abstraction to share a single memory pool over a series of callables. Graphed Callables takes advantage of the fact that on CUDA Graph recording, memory is exactly accounted for by the caching allocator to safely share memory between separate CUDA Graph recordings. In each invocation, outputs are preserved as live memory, preventing one callable from overwriting the live memory of another. Graphed Callables can only be invoked in a single order; memory addresses from the first run are burned into the second, and so forth. TorchDynamo Previous CUDA Graphs Integration# Running with cudagraph_trees=False does not reuse memory across separate graph captures, which can lead to large memory regressions. Even for a model that has no graph breaks, this has issues. The forward and backward are separate graph captures, so the memory pools for forward and backward are not shared. In particular, memory for activations that are saved in the forward cannot be reclaimed in the backward. CUDAGraph Trees Integration# Like Graph Callables, CUDA Graph Trees use a single memory pool across all graph captures. However, instead of requiring a single sequen..."
+         "dateModified": "Jul 30, 2025",
+         "articleBody": "CUDAGraph Trees# Created On: May 19, 2023 | Last Updated On: Jul 30, 2025 Background# CUDAGraph# For a longer background on CUDAGraphs, read accelerating pytorch with CUDAGraphs. CUDA Graphs, which made its debut in CUDA 10, let a series of CUDA kernels to be defined and encapsulated as a single unit, i.e., a graph of operations, rather than a sequence of individually-launched operations. It provides a mechanism to launch multiple GPU operations through a single CPU operation, and hence reduces the launching overheads. CUDA Graphs can give large speedups, especially for models with high CPU overhead or small compute. There are a number of limitations from requiring the same kernels to be run with the same arguments and dependencies, and memory addresses. Control Flow is not possible Kernels which trigger host to device syncs (such as .item()) errors All input arguments to kernels are fixed to what they were recorded CUDA Memory addresses are fixed, however the values of the memory at those addresses can change No Essential CPU ops or CPU side effects PyTorch CUDAGraph Integration# PyTorch provides a convenience wrapper around CUDAGraphs that handles a couple of tricky interactions with PyTorch’s caching allocator. The CachingAllocator uses a separate memory pool for all the new allocations. During CUDAGraph recording, memory is accounted for, allocated, and freed exactly as during eager run. On replay, just the kernels are invoked, and there are no changes to the allocator. Subsequent to initial recording, the allocator does not know which memory is actively being used in user programs. Using a separate memory pool between eager allocations and cudagraph allocations may increase the memory of your program if there is substantial memory allocated to both. Make Graphed Callables# Make Graphed Callables is a PyTorch Abstraction to share a single memory pool over a series of callables. Graphed Callables takes advantage of the fact that on CUDA Graph recording, memory is exactly accounted for by the caching allocator to safely share memory between separate CUDA Graph recordings. In each invocation, outputs are preserved as live memory, preventing one callable from overwriting the live memory of another. Graphed Callables can only be invoked in a single order; memory addresses from the first run are burned into the second, and so forth. TorchDynamo Previous CUDA Graphs Integration# Running with cudagraph_trees=False does not reuse memory across separate graph captures, which can lead to large memory regressions. Even for a model that has no graph breaks, this has issues. The forward and backward are separate graph captures, so the memory pools for forward and backward are not shared. In particular, memory for activations that are saved in the forward cannot be reclaimed in the backward. CUDAGraph Trees Integration# Like Graph Callables, CUDA Graph Trees use a single memory pool across all graph captures. However, instead of requiring a single sequen..."
        }
    </script>
 
