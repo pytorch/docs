@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/exportdb/python.control-flow.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/exportdb/python.control-flow.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4398,7 +4421,7 @@ document.write(`
 <h2>list_unpack<a class="headerlink" href="#list-unpack" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="#"><span class="doc">python.control-flow</span></a>, <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a></p>
+<p>Tags: <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a>, <a class="reference internal" href="#"><span class="doc">python.control-flow</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -4828,21 +4851,17 @@ document.write(`
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4887,18 +4906,20 @@ document.write(`
          "@type": "Article",
          "headline": "python.control-flow",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/exportdb/python.control-flow.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/exportdb/python.control-flow.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "python.control-flow# dynamic_shape_if_guard# Note Tags: python.control-flow, torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeIfGuard(torch.nn.Module): &#34;&#34;&#34; `if` statement with backed dynamic shape predicate will be specialized into one particular branch and generate a guard. However, export will fail if the the dimension is marked as dynamic shape from higher level API. &#34;&#34;&#34; def forward(self, x): if x.shape[0] == 3: return x.cos() return x.sin() example_args = (torch.randn(3, 2, 2),) tags = {&#34;torch.dynamic-shape&#34;, &#34;python.control-flow&#34;} model = DynamicShapeIfGuard() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: &#34;f32[3, 2, 2]&#34;): cos: &#34;f32[3, 2, 2]&#34; = torch.ops.aten.cos.default(x); x = None return (cos,) Graph signature: # inputs x: USER_INPUT # outputs cos: USER_OUTPUT Range constraints: {} list_unpack# Note Tags: python.control-flow, python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ListUnpack(torch.nn.Module): &#34;&#34;&#34; Lists are treated as static construct, therefore unpacking should be erased after tracing. &#34;&#34;&#34; def forward(self, args: list[torch.Tensor]): &#34;&#34;&#34; Lists are treated as static construct, therefore unpacking should be erased after tracing. &#34;&#34;&#34; x, *y = args return x + y[0] example_args = ([torch.randn(3, 2), torch.tensor(4), torch.tensor(5)],) tags = {&#34;python.control-flow&#34;, &#34;python.data-structure&#34;} model = ListUnpack() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, args_0: &#34;f32[3, 2]&#34;, args_1: &#34;i64[]&#34;, args_2: &#34;i64[]&#34;): add: &#34;f32[3, 2]&#34; = torch.ops.aten.add.Tensor(args_0, args_1); args_0 = args_1 = None return (add,) Graph signature: # inputs args_0: USER_INPUT args_1: USER_INPUT args_2: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} static_for_loop# Note Tags: python.control-flow Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class StaticForLoop(torch.nn.Module): &#34;&#34;&#34; A for loop with constant number of iterations should be unrolled in the exported graph. &#34;&#34;&#34; def forward(self, x): # constant ret = [i + x for i in range(10)] return ret example_args = (torch.randn(3, 2),) tags = {&#34;python.control-flow&#34;} model = StaticForLoop() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: &#34;f32[3, 2]&#34;): add: &#34;f32[3, 2]&#34; = torch.ops.aten.add.Tensor(x, 0) add_1: &#34;f32[3, 2]&#34; = torch.ops.aten.add.Tensor(x, 1) add_2: &#34;f32[3, 2]&#34; = torch.ops.aten.add.Tensor(x, 2) add_3: &#34;f32[3, 2]&#34; = torch.ops.aten.add.Tensor(x, 3) add_4: &#34;f32[3, 2]&#34; = torch.ops.aten.add.Tensor(x, 4) add_5: &#34;f32[3, 2]&#34; = torch.ops.aten.add.Tensor(x, 5) add_6: &#34;f32[3, 2]&#34; = torch.ops.aten.add.Tensor(x, 6) add_7: &#34;f32[3, 2]&#34; = torch.ops.aten.add.Tensor(x, 7) add_8: &#34;f32[3, 2]&#34; = torch.ops...."
+         "articleBody": "python.control-flow# dynamic_shape_if_guard# Note Tags: python.control-flow, torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeIfGuard(torch.nn.Module): \&#34;\&#34;\&#34; `if` statement with backed dynamic shape predicate will be specialized into one particular branch and generate a guard. However, export will fail if the the dimension is marked as dynamic shape from higher level API. \&#34;\&#34;\&#34; def forward(self, x): if x.shape[0] == 3: return x.cos() return x.sin() example_args = (torch.randn(3, 2, 2),) tags = {\&#34;torch.dynamic-shape\&#34;, \&#34;python.control-flow\&#34;} model = DynamicShapeIfGuard() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \&#34;f32[3, 2, 2]\&#34;): cos: \&#34;f32[3, 2, 2]\&#34; = torch.ops.aten.cos.default(x); x = None return (cos,) Graph signature: # inputs x: USER_INPUT # outputs cos: USER_OUTPUT Range constraints: {} list_unpack# Note Tags: python.data-structure, python.control-flow Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ListUnpack(torch.nn.Module): \&#34;\&#34;\&#34; Lists are treated as static construct, therefore unpacking should be erased after tracing. \&#34;\&#34;\&#34; def forward(self, args: list[torch.Tensor]): \&#34;\&#34;\&#34; Lists are treated as static construct, therefore unpacking should be erased after tracing. \&#34;\&#34;\&#34; x, *y = args return x + y[0] example_args = ([torch.randn(3, 2), torch.tensor(4), torch.tensor(5)],) tags = {\&#34;python.control-flow\&#34;, \&#34;python.data-structure\&#34;} model = ListUnpack() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, args_0: \&#34;f32[3, 2]\&#34;, args_1: \&#34;i64[]\&#34;, args_2: \&#34;i64[]\&#34;): add: \&#34;f32[3, 2]\&#34; = torch.ops.aten.add.Tensor(args_0, args_1); args_0 = args_1 = None return (add,) Graph signature: # inputs args_0: USER_INPUT args_1: USER_INPUT args_2: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} static_for_loop# Note Tags: python.control-flow Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class StaticForLoop(torch.nn.Module): \&#34;\&#34;\&#34; A for loop with constant number of iterations should be unrolled in the exported graph. \&#34;\&#34;\&#34; def forward(self, x): # constant ret = [i + x for i in range(10)] return ret example_args = (torch.randn(3, 2),) tags = {\&#34;python.control-flow\&#34;} model = StaticForLoop() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \&#34;f32[3, 2]\&#34;): add: \&#34;f32[3, 2]\&#34; = torch.ops.aten.add.Tensor(x, 0) add_1: \&#34;f32[3, 2]\&#34; = torch.ops.aten.add.Tensor(x, 1) add_2: \&#34;f32[3, 2]\&#34; = torch.ops.aten.add.Tensor(x, 2) add_3: \&#34;f32[3, 2]\&#34; = torch.ops.aten.add.Tensor(x, 3) add_4: \&#34;f32[3, 2]\&#34; = torch.ops.aten.add.Tensor(x, 4) add_5: \&#34;f32[3, 2]\&#34; = torch.ops.aten.add.Tensor(x, 5) add_6: \&#34;f32[3, 2]\&#34; = torch.ops.aten.add.Tensor(x, 6) add_7: \&#34;f32[3, 2]\&#34; = torch.ops.aten.add.Tensor(x, 7) add_8: \&#34;f32[3, 2]\&#34; = torch.ops...."
        }
    </script>
 

@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.frombuffer.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.frombuffer.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4669,21 +4692,17 @@ returned tensor. Default: <code class="docutils literal notranslate"><span class
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4728,16 +4747,18 @@ returned tensor. Default: <code class="docutils literal notranslate"><span class
          "@type": "Article",
          "headline": "torch.frombuffer",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.frombuffer.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.frombuffer.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.frombuffer# torch.frombuffer(buffer, *, dtype, count=-1, offset=0, requires_grad=False) → Tensor# Creates a 1-dimensional Tensor from an object that implements the Python buffer protocol. Skips the first offset bytes in the buffer, and interprets the rest of the raw bytes as a 1-dimensional tensor of type dtype with count elements. Note that either of the following must be true: 1. count is a positive non-zero number, and the total number of bytes in the buffer is more than offset plus count times the size (in bytes) of dtype. 2. count is negative, and the length (number of bytes) of the buffer subtracted by the offset is a multiple of the size (in bytes) of dtype. The returned tensor and buffer share the same memory. Modifications to the tensor will be reflected in the buffer and vice versa. The returned tensor is not resizable. Note This function increments the reference count for the object that owns the shared memory. Therefore, such memory will not be deallocated before the returned tensor goes out of scope. Warning This function’s behavior is undefined when passed an object implementing the buffer protocol whose data is not on the CPU. Doing so is likely to cause a segmentation fault. Warning This function does not try to infer the dtype (hence, it is not optional). Passing a different dtype than its source may result in unexpected behavior. Parameters buffer (object) – a Python object that exposes the buffer interface. Keyword Arguments dtype (torch.dtype) – the desired data type of returned tensor. count (int, optional) – the number of desired elements to be read. If negative, all the elements (until the end of the buffer) will be read. Default: -1. offset (int, optional) – the number of bytes to skip at the start of the buffer. Default: 0. requires_grad (bool, optional) – If autograd should record operations on the returned tensor. Default: False. Example: &gt;&gt;&gt; import array &gt;&gt;&gt; a = array.array(&#39;i&#39;, [1, 2, 3]) &gt;&gt;&gt; t = torch.frombuffer(a, dtype=torch.int32) &gt;&gt;&gt; t tensor([ 1, 2, 3]) &gt;&gt;&gt; t[0] = -1 &gt;&gt;&gt; a array([-1, 2, 3]) &gt;&gt;&gt; # Interprets the signed char bytes as 32-bit integers. &gt;&gt;&gt; # Each 4 signed char elements will be interpreted as &gt;&gt;&gt; # 1 signed 32-bit integer. &gt;&gt;&gt; import array &gt;&gt;&gt; a = array.array(&#39;b&#39;, [-1, 0, 0, 0]) &gt;&gt;&gt; torch.frombuffer(a, dtype=torch.int32) tensor([255], dtype=torch.int32)"
        }

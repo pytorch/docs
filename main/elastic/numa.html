@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/elastic/numa.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/elastic/numa.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4336,14 +4359,14 @@ document.write(`
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 25, 2025 | Last Updated On: Jul 25, 2025</p>
 <span class="target" id="module-torch.distributed.numa.binding"></span><dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.numa.binding.AffinityMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.numa.binding.</span></span><span class="sig-name descname"><span class="pre">AffinityMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/distributed/numa/binding.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.numa.binding.AffinityMode" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.numa.binding.</span></span><span class="sig-name descname"><span class="pre">AffinityMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/distributed/numa/binding.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.numa.binding.AffinityMode" title="Permalink to this definition">#</a></dt>
 <dd><p>See behavior description for each affinity mode
 in torch.distributed.run.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.numa.binding.NumaOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.numa.binding.</span></span><span class="sig-name descname"><span class="pre">NumaOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affinity_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.distributed.numa.binding.AffinityMode" title="torch.distributed.numa.binding.AffinityMode"><span class="pre">torch.distributed.numa.binding.AffinityMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_fall_back_if_binding_fails</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/distributed/numa/binding.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.numa.binding.NumaOptions" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.numa.binding.</span></span><span class="sig-name descname"><span class="pre">NumaOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affinity_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.distributed.numa.binding.AffinityMode" title="torch.distributed.numa.binding.AffinityMode"><span class="pre">torch.distributed.numa.binding.AffinityMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_fall_back_if_binding_fails</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/distributed/numa/binding.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.numa.binding.NumaOptions" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -4360,7 +4383,7 @@ mass rollouts of numa binding.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.numa.binding.maybe_wrap_with_numa_bindings">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_wrap_with_numa_bindings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_rank_to_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/distributed/numa/binding.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.numa.binding.maybe_wrap_with_numa_bindings" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_wrap_with_numa_bindings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_rank_to_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/distributed/numa/binding.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.numa.binding.maybe_wrap_with_numa_bindings" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -4665,21 +4688,17 @@ Example: (“numactl”, {“0”: (“–cpunodebind=0”, “–preferred=0”
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4724,17 +4743,19 @@ Example: (“numactl”, {“0”: (“–cpunodebind=0”, “–preferred=0”
          "@type": "Article",
          "headline": "NUMA Binding Utilities",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/elastic/numa.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/elastic/numa.html"
          },
-         "datePublished": "Jul 25, 2025",
-         "dateModified": "Jul 25, 2025",
+        "datePublished": "Jul 25, 2025T00:00:00Z",
+         "dateModified": "Jul 25, 2025T00:00:00Z",
          "articleBody": "NUMA Binding Utilities# Created On: Jul 25, 2025 | Last Updated On: Jul 25, 2025 class torch.distributed.numa.binding.AffinityMode(value)[source]# See behavior description for each affinity mode in torch.distributed.run. class torch.distributed.numa.binding.NumaOptions(affinity_mode: torch.distributed.numa.binding.AffinityMode, should_fall_back_if_binding_fails: bool = False)[source]# affinity_mode: AffinityMode# If true, we will silently return the original command if any of the following occur: - An exception is raised as we compute the wrapped command. - During a dry run of the wrapped command, numactl fails for any reason. You should avoid using this option! It is only intended as a safety mechanism for facilitating mass rollouts of numa binding. torch.distributed.numa.binding.maybe_wrap_with_numa_bindings(*, entrypoint, local_rank_to_args, numa_options)[source]# Parameters entrypoint (str) – The entrypoint to the program, such as might be input to Popen. Example: “python” local_rank_to_args (dict[int, tuple]) – A mapping from local rank to args for the entrypoint. Example: {0: (“trainer.py”,)} numa_options (Optional[NumaOptions]) – See NumaOptions for details. Returns A tuple of (entrypoint, local_rank_to_args), basically transforming the inputs, where the entrypoint and args may now involve numa binding. Example: (“numactl”, {“0”: (“–cpunodebind=0”, “–preferred=0”, “python”, “trainer.py”)}) Return type tuple[str, dict[int, tuple]]"
        }
    </script>

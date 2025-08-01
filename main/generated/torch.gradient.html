@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.gradient.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.gradient.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4713,21 +4736,17 @@ estimation of the boundary (“edge”) values, respectively.</p></li>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4772,18 +4791,20 @@ estimation of the boundary (“edge”) values, respectively.</p></li>
          "@type": "Article",
          "headline": "torch.gradient",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.gradient.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.gradient.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.gradient# torch.gradient(input, *, spacing=1, dim=None, edge_order=1) → List of Tensors# Estimates the gradient of a function g:Rn→Rg : \mathbb{R}^n \rightarrow \mathbb{R}g:Rn→R in one or more dimensions using the second-order accurate central differences method and either first or second order estimates at the boundaries. The gradient of ggg is estimated using samples. By default, when spacing is not specified, the samples are entirely described by input, and the mapping of input coordinates to an output is the same as the tensor’s mapping of indices to values. For example, for a three-dimensional input the function described is g:R3→Rg : \mathbb{R}^3 \rightarrow \mathbb{R}g:R3→R, and g(1,2,3) ==input[1,2,3]g(1, 2, 3)\ == input[1, 2, 3]g(1,2,3) ==input[1,2,3]. When spacing is specified, it modifies the relationship between input and input coordinates. This is detailed in the “Keyword Arguments” section below. The gradient is estimated by estimating each partial derivative of ggg independently. This estimation is accurate if ggg is in C3C^3C3 (it has at least 3 continuous derivatives), and the estimation can be improved by providing closer samples. Mathematically, the value at each interior point of a partial derivative is estimated using Taylor’s theorem with remainder. Letting xxx be an interior point with x−hlx-h_lx−hl​ and x+hrx+h_rx+hr​ be points neighboring it to the left and right respectively, f(x+hr)f(x+h_r)f(x+hr​) and f(x−hl)f(x-h_l)f(x−hl​) can be estimated using: f(x+hr)=f(x)+hrf′(x)+hr2f′′(x)2+hr3f′′′(ξ1)6,ξ1∈(x,x+hr)f(x−hl)=f(x)−hlf′(x)+hl2f′′(x)2−hl3f′′′(ξ2)6,ξ2∈(x,x−hl)\begin{aligned} f(x+h_r) = f(x) + h_r f&#39;(x) + {h_r}^2 \frac{f&#39;&#39;(x)}{2} + {h_r}^3 \frac{f&#39;&#39;&#39;(\xi_1)}{6}, \xi_1 \in (x, x+h_r) \\ f(x-h_l) = f(x) - h_l f&#39;(x) + {h_l}^2 \frac{f&#39;&#39;(x)}{2} - {h_l}^3 \frac{f&#39;&#39;&#39;(\xi_2)}{6}, \xi_2 \in (x, x-h_l) \\ \end{aligned} f(x+hr​)=f(x)+hr​f′(x)+hr​22f′′(x)​+hr​36f′′′(ξ1​)​,ξ1​∈(x,x+hr​)f(x−hl​)=f(x)−hl​f′(x)+hl​22f′′(x)​−hl​36f′′′(ξ2​)​,ξ2​∈(x,x−hl​)​Using the fact that f∈C3f \in C^3f∈C3 and solving the linear system, we derive: f′(x)≈hl2f(x+hr)−hr2f(x−hl)+(hr2−hl2)f(x)hrhl2+hr2hlf&#39;(x) \approx \frac{ {h_l}^2 f(x+h_r) - {h_r}^2 f(x-h_l) + ({h_r}^2-{h_l}^2 ) f(x) }{ {h_r} {h_l}^2 + {h_r}^2 {h_l} } f′(x)≈hr​hl​2+hr​2hl​hl​2f(x+hr​)−hr​2f(x−hl​)+(hr​2−hl​2)f(x)​ Note We estimate the gradient of functions in complex domain g:Cn→Cg : \mathbb{C}^n \rightarrow \mathbb{C}g:Cn→C in the same way. The value of each partial derivative at the boundary points is computed differently. See edge_order below. Parameters input (Tensor) – the tensor that represents the values of the function Keyword Arguments spacing (scalar, list of scalar, list of Tensor, optional) – spacing can be used to modify how the input tensor’s indices relate to sample coordinates. If spacing is a scalar then the indices are multiplied by the scalar to produce the coordinates. For example, if spacing=2 the indices (1, 2, 3) become coordinates (2, 4, 6). If spacing is a..."
+         "articleBody": "torch.gradient# torch.gradient(input, *, spacing=1, dim=None, edge_order=1) → List of Tensors# Estimates the gradient of a function g:Rn→Rg : \\mathbb{R}^n \\rightarrow \\mathbb{R}g:Rn→R in one or more dimensions using the second-order accurate central differences method and either first or second order estimates at the boundaries. The gradient of ggg is estimated using samples. By default, when spacing is not specified, the samples are entirely described by input, and the mapping of input coordinates to an output is the same as the tensor’s mapping of indices to values. For example, for a three-dimensional input the function described is g:R3→Rg : \\mathbb{R}^3 \\rightarrow \\mathbb{R}g:R3→R, and g(1,2,3) ==input[1,2,3]g(1, 2, 3)\\ == input[1, 2, 3]g(1,2,3) ==input[1,2,3]. When spacing is specified, it modifies the relationship between input and input coordinates. This is detailed in the “Keyword Arguments” section below. The gradient is estimated by estimating each partial derivative of ggg independently. This estimation is accurate if ggg is in C3C^3C3 (it has at least 3 continuous derivatives), and the estimation can be improved by providing closer samples. Mathematically, the value at each interior point of a partial derivative is estimated using Taylor’s theorem with remainder. Letting xxx be an interior point with x−hlx-h_lx−hl​ and x+hrx+h_rx+hr​ be points neighboring it to the left and right respectively, f(x+hr)f(x+h_r)f(x+hr​) and f(x−hl)f(x-h_l)f(x−hl​) can be estimated using: f(x+hr)=f(x)+hrf′(x)+hr2f′′(x)2+hr3f′′′(ξ1)6,ξ1∈(x,x+hr)f(x−hl)=f(x)−hlf′(x)+hl2f′′(x)2−hl3f′′′(ξ2)6,ξ2∈(x,x−hl)\\begin{aligned} f(x+h_r) = f(x) + h_r f&#39;(x) + {h_r}^2 \\frac{f&#39;&#39;(x)}{2} + {h_r}^3 \\frac{f&#39;&#39;&#39;(\\xi_1)}{6}, \\xi_1 \\in (x, x+h_r) \\\\ f(x-h_l) = f(x) - h_l f&#39;(x) + {h_l}^2 \\frac{f&#39;&#39;(x)}{2} - {h_l}^3 \\frac{f&#39;&#39;&#39;(\\xi_2)}{6}, \\xi_2 \\in (x, x-h_l) \\\\ \\end{aligned} f(x+hr​)=f(x)+hr​f′(x)+hr​22f′′(x)​+hr​36f′′′(ξ1​)​,ξ1​∈(x,x+hr​)f(x−hl​)=f(x)−hl​f′(x)+hl​22f′′(x)​−hl​36f′′′(ξ2​)​,ξ2​∈(x,x−hl​)​Using the fact that f∈C3f \\in C^3f∈C3 and solving the linear system, we derive: f′(x)≈hl2f(x+hr)−hr2f(x−hl)+(hr2−hl2)f(x)hrhl2+hr2hlf&#39;(x) \\approx \\frac{ {h_l}^2 f(x+h_r) - {h_r}^2 f(x-h_l) + ({h_r}^2-{h_l}^2 ) f(x) }{ {h_r} {h_l}^2 + {h_r}^2 {h_l} } f′(x)≈hr​hl​2+hr​2hl​hl​2f(x+hr​)−hr​2f(x−hl​)+(hr​2−hl​2)f(x)​ Note We estimate the gradient of functions in complex domain g:Cn→Cg : \\mathbb{C}^n \\rightarrow \\mathbb{C}g:Cn→C in the same way. The value of each partial derivative at the boundary points is computed differently. See edge_order below. Parameters input (Tensor) – the tensor that represents the values of the function Keyword Arguments spacing (scalar, list of scalar, list of Tensor, optional) – spacing can be used to modify how the input tensor’s indices relate to sample coordinates. If spacing is a scalar then the indices are multiplied by the scalar to produce the coordinates. For example, if spacing=2 the indices (1, 2, 3) become coordinates (2, 4, 6). If spacing is a..."
        }
    </script>
 

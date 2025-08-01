@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.autograd.profiler.KinetoStepTracker.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.autograd.profiler.KinetoStepTracker.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,7 +4358,7 @@ document.write(`
 <h1>KinetoStepTracker<a class="headerlink" href="#kinetosteptracker" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler.</span></span><span class="sig-name descname"><span class="pre">KinetoStepTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/profiler.py#L1133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler.</span></span><span class="sig-name descname"><span class="pre">KinetoStepTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/profiler.py#L1133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker" title="Permalink to this definition">#</a></dt>
 <dd><p>Provides an abstraction for incrementing the step count globally.</p>
 <p>Previously, we only had one place to mark that a step() has occurred
 in the program via pytorch profiler step(). We will now add step hooks
@@ -4370,7 +4393,7 @@ We only call the kineto step() function when global count increments.</p>
 for now. The result could be incorrect increments of the step count.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker.current_step">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">current_step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/profiler.py#L1216"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.current_step" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">current_step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/profiler.py#L1216"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.current_step" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the latest step for any requester</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4381,7 +4404,7 @@ for now. The result could be incorrect increments of the step count.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker.erase_step_count">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">erase_step_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/profiler.py#L1185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.erase_step_count" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">erase_step_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/profiler.py#L1185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.erase_step_count" title="Permalink to this definition">#</a></dt>
 <dd><p>Remove a given requester.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4392,7 +4415,7 @@ for now. The result could be incorrect increments of the step count.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker.increment_step">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">increment_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/profiler.py#L1192"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.increment_step" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">increment_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/profiler.py#L1192"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.increment_step" title="Permalink to this definition">#</a></dt>
 <dd><p>Increments the step count for the requester.</p>
 <p>Additionally if the max over all step counts has incremented then
 trigger the _kineto_step() returns global step count</p>
@@ -4405,7 +4428,7 @@ trigger the _kineto_step() returns global step count</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker.init_step_count">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_step_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/profiler.py#L1178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.init_step_count" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_step_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/profiler.py#L1178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.init_step_count" title="Permalink to this definition">#</a></dt>
 <dd><p>Initialize for a given requester.</p>
 <dl class="field-list simple">
 </dl>
@@ -4681,21 +4704,17 @@ trigger the _kineto_step() returns global step count</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4740,18 +4759,20 @@ trigger the _kineto_step() returns global step count</p>
          "@type": "Article",
          "headline": "KinetoStepTracker",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.autograd.profiler.KinetoStepTracker.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.autograd.profiler.KinetoStepTracker.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "KinetoStepTracker# class torch.autograd.profiler.KinetoStepTracker[source]# Provides an abstraction for incrementing the step count globally. Previously, we only had one place to mark that a step() has occurred in the program via pytorch profiler step(). We will now add step hooks in the Optimizer class pytorch/pytorch#88446 This could mean programs that already call profiler.step() every iteration can end up double incrementing step count. If a model uses multiple optimizers we can also have double or more counting of the step. We fix this by adding a layer of abstraction before calling step() to the kineto library. The idea is to maintain steps per requester in a dict: { &#34;ProfilerStep&#34;: 100, # triggered by profiler step() call &#34;Optimizer1Step&#34;: 100, # Optimizer 1 or 2 are just examples, could be SGD, Adam etc &#34;Optimizer2Step&#34;: 100, } To figure out the global step count just take the max of dict values (100). If one of the count increments the max will go up. { &#34;ProfilerStep&#34;: 100, &#34;Optimizer1Step&#34;: 101, # Optimizer1 got incremented first say &#34;Optimizer2Step&#34;: 100, } Then global step count is 101 We only call the kineto step() function when global count increments. NOTE: Please do not use the KinetoStepTracker in modules beside the Optimizer for now. The result could be incorrect increments of the step count. classmethod current_step()[source]# Get the latest step for any requester Return type int classmethod erase_step_count(requester)[source]# Remove a given requester. Return type bool classmethod increment_step(requester)[source]# Increments the step count for the requester. Additionally if the max over all step counts has incremented then trigger the _kineto_step() returns global step count Return type int classmethod init_step_count(requester)[source]# Initialize for a given requester."
+         "articleBody": "KinetoStepTracker# class torch.autograd.profiler.KinetoStepTracker[source]# Provides an abstraction for incrementing the step count globally. Previously, we only had one place to mark that a step() has occurred in the program via pytorch profiler step(). We will now add step hooks in the Optimizer class pytorch/pytorch#88446 This could mean programs that already call profiler.step() every iteration can end up double incrementing step count. If a model uses multiple optimizers we can also have double or more counting of the step. We fix this by adding a layer of abstraction before calling step() to the kineto library. The idea is to maintain steps per requester in a dict: { \&#34;ProfilerStep\&#34;: 100, # triggered by profiler step() call \&#34;Optimizer1Step\&#34;: 100, # Optimizer 1 or 2 are just examples, could be SGD, Adam etc \&#34;Optimizer2Step\&#34;: 100, } To figure out the global step count just take the max of dict values (100). If one of the count increments the max will go up. { \&#34;ProfilerStep\&#34;: 100, \&#34;Optimizer1Step\&#34;: 101, # Optimizer1 got incremented first say \&#34;Optimizer2Step\&#34;: 100, } Then global step count is 101 We only call the kineto step() function when global count increments. NOTE: Please do not use the KinetoStepTracker in modules beside the Optimizer for now. The result could be incorrect increments of the step count. classmethod current_step()[source]# Get the latest step for any requester Return type int classmethod erase_step_count(requester)[source]# Remove a given requester. Return type bool classmethod increment_step(requester)[source]# Increments the step count for the requester. Additionally if the max over all step counts has incremented then trigger the _kineto_step() returns global step count Return type int classmethod init_step_count(requester)[source]# Initialize for a given requester."
        }
    </script>
 

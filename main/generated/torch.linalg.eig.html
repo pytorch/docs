@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.linalg.eig.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.linalg.eig.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4695,21 +4718,17 @@ will be given by the columns of <cite>eigenvectors</cite>.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4754,18 +4773,20 @@ will be given by the columns of <cite>eigenvectors</cite>.</p>
          "@type": "Article",
          "headline": "torch.linalg.eig",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.linalg.eig.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.linalg.eig.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.linalg.eig# torch.linalg.eig(A, *, out=None)# Computes the eigenvalue decomposition of a square matrix if it exists. Letting K\mathbb{K}K be R\mathbb{R}R or C\mathbb{C}C, the eigenvalue decomposition of a square matrix A∈Kn×nA \in \mathbb{K}^{n \times n}A∈Kn×n (if it exists) is defined as A=Vdiag⁡(Λ)V−1V∈Cn×n,Λ∈CnA = V \operatorname{diag}(\Lambda) V^{-1}\mathrlap{\qquad V \in \mathbb{C}^{n \times n}, \Lambda \in \mathbb{C}^n}A=Vdiag(Λ)V−1V∈Cn×n,Λ∈CnThis decomposition exists if and only if AAA is diagonalizable. This is the case when all its eigenvalues are different. Supports input of float, double, cfloat and cdouble dtypes. Also supports batches of matrices, and if A is a batch of matrices then the output has the same batch dimensions. The returned eigenvalues are not guaranteed to be in any specific order. Note The eigenvalues and eigenvectors of a real matrix may be complex. Note When inputs are on a CUDA device, this function synchronizes that device with the CPU. Warning This function assumes that A is diagonalizable (for example, when all the eigenvalues are different). If it is not diagonalizable, the returned eigenvalues will be correct but A≠Vdiag⁡(Λ)V−1A \neq V \operatorname{diag}(\Lambda)V^{-1}A=Vdiag(Λ)V−1. Warning The returned eigenvectors are normalized to have norm 1. Even then, the eigenvectors of a matrix are not unique, nor are they continuous with respect to A. Due to this lack of uniqueness, different hardware and software may compute different eigenvectors. This non-uniqueness is caused by the fact that multiplying an eigenvector by by eiϕ,ϕ∈Re^{i \phi}, \phi \in \mathbb{R}eiϕ,ϕ∈R produces another set of valid eigenvectors of the matrix. For this reason, the loss function shall not depend on the phase of the eigenvectors, as this quantity is not well-defined. This is checked when computing the gradients of this function. As such, when inputs are on a CUDA device, the computation of the gradients of this function synchronizes that device with the CPU. Warning Gradients computed using the eigenvectors tensor will only be finite when A has distinct eigenvalues. Furthermore, if the distance between any two eigenvalues is close to zero, the gradient will be numerically unstable, as it depends on the eigenvalues λi\lambda_iλi​ through the computation of 1min⁡i≠jλi−λj\frac{1}{\min_{i \neq j} \lambda_i - \lambda_j}mini=j​λi​−λj​1​. See also torch.linalg.eigvals() computes only the eigenvalues. Unlike torch.linalg.eig(), the gradients of eigvals() are always numerically stable. torch.linalg.eigh() for a (faster) function that computes the eigenvalue decomposition for Hermitian and symmetric matrices. torch.linalg.svd() for a function that computes another type of spectral decomposition that works on matrices of any shape. torch.linalg.qr() for another (much faster) decomposition that works on matrices of any shape. Parameters A (Tensor) – tensor of shape (*, n, n) where * is zero or more batch dimensions consisting of diag..."
+         "articleBody": "torch.linalg.eig# torch.linalg.eig(A, *, out=None)# Computes the eigenvalue decomposition of a square matrix if it exists. Letting K\\mathbb{K}K be R\\mathbb{R}R or C\\mathbb{C}C, the eigenvalue decomposition of a square matrix A∈Kn×nA \\in \\mathbb{K}^{n \\times n}A∈Kn×n (if it exists) is defined as A=Vdiag⁡(Λ)V−1V∈Cn×n,Λ∈CnA = V \\operatorname{diag}(\\Lambda) V^{-1}\\mathrlap{\\qquad V \\in \\mathbb{C}^{n \\times n}, \\Lambda \\in \\mathbb{C}^n}A=Vdiag(Λ)V−1V∈Cn×n,Λ∈CnThis decomposition exists if and only if AAA is diagonalizable. This is the case when all its eigenvalues are different. Supports input of float, double, cfloat and cdouble dtypes. Also supports batches of matrices, and if A is a batch of matrices then the output has the same batch dimensions. The returned eigenvalues are not guaranteed to be in any specific order. Note The eigenvalues and eigenvectors of a real matrix may be complex. Note When inputs are on a CUDA device, this function synchronizes that device with the CPU. Warning This function assumes that A is diagonalizable (for example, when all the eigenvalues are different). If it is not diagonalizable, the returned eigenvalues will be correct but A≠Vdiag⁡(Λ)V−1A \\neq V \\operatorname{diag}(\\Lambda)V^{-1}A=Vdiag(Λ)V−1. Warning The returned eigenvectors are normalized to have norm 1. Even then, the eigenvectors of a matrix are not unique, nor are they continuous with respect to A. Due to this lack of uniqueness, different hardware and software may compute different eigenvectors. This non-uniqueness is caused by the fact that multiplying an eigenvector by by eiϕ,ϕ∈Re^{i \\phi}, \\phi \\in \\mathbb{R}eiϕ,ϕ∈R produces another set of valid eigenvectors of the matrix. For this reason, the loss function shall not depend on the phase of the eigenvectors, as this quantity is not well-defined. This is checked when computing the gradients of this function. As such, when inputs are on a CUDA device, the computation of the gradients of this function synchronizes that device with the CPU. Warning Gradients computed using the eigenvectors tensor will only be finite when A has distinct eigenvalues. Furthermore, if the distance between any two eigenvalues is close to zero, the gradient will be numerically unstable, as it depends on the eigenvalues λi\\lambda_iλi​ through the computation of 1min⁡i≠jλi−λj\\frac{1}{\\min_{i \\neq j} \\lambda_i - \\lambda_j}mini=j​λi​−λj​1​. See also torch.linalg.eigvals() computes only the eigenvalues. Unlike torch.linalg.eig(), the gradients of eigvals() are always numerically stable. torch.linalg.eigh() for a (faster) function that computes the eigenvalue decomposition for Hermitian and symmetric matrices. torch.linalg.svd() for a function that computes another type of spectral decomposition that works on matrices of any shape. torch.linalg.qr() for another (much faster) decomposition that works on matrices of any shape. Parameters A (Tensor) – tensor of shape (*, n, n) where * is zero or more batch dimensions consisting of diag..."
        }
    </script>
 

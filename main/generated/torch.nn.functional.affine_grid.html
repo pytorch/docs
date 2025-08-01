@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.affine_grid.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.nn.functional.affine_grid.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,7 +4358,7 @@ document.write(`
 <h1>torch.nn.functional.affine_grid<a class="headerlink" href="#torch-nn-functional-affine-grid" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.functional.affine_grid">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">affine_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align_corners</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/functional.py#L5115"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.affine_grid" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">affine_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align_corners</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/functional.py#L5111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.affine_grid" title="Permalink to this definition">#</a></dt>
 <dd><p>Generate 2D or 3D flow field (sampling grid), given a batch of affine matrices <code class="xref py py-attr docutils literal notranslate"><span class="pre">theta</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4653,21 +4676,17 @@ along a unit dimension are considered to be at <code class="docutils literal not
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4712,18 +4731,20 @@ along a unit dimension are considered to be at <code class="docutils literal not
          "@type": "Article",
          "headline": "torch.nn.functional.affine_grid",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.nn.functional.affine_grid.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.nn.functional.affine_grid.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.nn.functional.affine_grid# torch.nn.functional.affine_grid(theta, size, align_corners=None)[source]# Generate 2D or 3D flow field (sampling grid), given a batch of affine matrices theta. Note This function is often used in conjunction with grid_sample() to build Spatial Transformer Networks . Parameters theta (Tensor) – input batch of affine matrices with shape (N×2×3N \times 2 \times 3N×2×3) for 2D or (N×3×4N \times 3 \times 4N×3×4) for 3D size (torch.Size) – the target output image size. (N×C×H×WN \times C \times H \times WN×C×H×W for 2D or N×C×D×H×WN \times C \times D \times H \times WN×C×D×H×W for 3D) Example: torch.Size((32, 3, 24, 24)) align_corners (bool, optional) – if True, consider -1 and 1 to refer to the centers of the corner pixels rather than the image corners. Refer to grid_sample() for a more complete description. A grid generated by affine_grid() should be passed to grid_sample() with the same setting for this option. Default: False Returns output Tensor of size (N×H×W×2N \times H \times W \times 2N×H×W×2) Return type output (Tensor) Warning When align_corners = True, the grid positions depend on the pixel size relative to the input image size, and so the locations sampled by grid_sample() will differ for the same input given at different resolutions (that is, after being upsampled or downsampled). The default behavior up to version 1.2.0 was align_corners = True. Since then, the default behavior has been changed to align_corners = False, in order to bring it in line with the default for interpolate(). Warning When align_corners = True, 2D affine transforms on 1D data and 3D affine transforms on 2D data (that is, when one of the spatial dimensions has unit size) are ill-defined, and not an intended use case. This is not a problem when align_corners = False. Up to version 1.2.0, all grid points along a unit dimension were considered arbitrarily to be at -1. From version 1.3.0, under align_corners = True all grid points along a unit dimension are considered to be at 0 (the center of the input image)."
+         "articleBody": "torch.nn.functional.affine_grid# torch.nn.functional.affine_grid(theta, size, align_corners=None)[source]# Generate 2D or 3D flow field (sampling grid), given a batch of affine matrices theta. Note This function is often used in conjunction with grid_sample() to build Spatial Transformer Networks . Parameters theta (Tensor) – input batch of affine matrices with shape (N×2×3N \\times 2 \\times 3N×2×3) for 2D or (N×3×4N \\times 3 \\times 4N×3×4) for 3D size (torch.Size) – the target output image size. (N×C×H×WN \\times C \\times H \\times WN×C×H×W for 2D or N×C×D×H×WN \\times C \\times D \\times H \\times WN×C×D×H×W for 3D) Example: torch.Size((32, 3, 24, 24)) align_corners (bool, optional) – if True, consider -1 and 1 to refer to the centers of the corner pixels rather than the image corners. Refer to grid_sample() for a more complete description. A grid generated by affine_grid() should be passed to grid_sample() with the same setting for this option. Default: False Returns output Tensor of size (N×H×W×2N \\times H \\times W \\times 2N×H×W×2) Return type output (Tensor) Warning When align_corners = True, the grid positions depend on the pixel size relative to the input image size, and so the locations sampled by grid_sample() will differ for the same input given at different resolutions (that is, after being upsampled or downsampled). The default behavior up to version 1.2.0 was align_corners = True. Since then, the default behavior has been changed to align_corners = False, in order to bring it in line with the default for interpolate(). Warning When align_corners = True, 2D affine transforms on 1D data and 3D affine transforms on 2D data (that is, when one of the spatial dimensions has unit size) are ill-defined, and not an intended use case. This is not a problem when align_corners = False. Up to version 1.2.0, all grid points along a unit dimension were considered arbitrarily to be at -1. From version 1.3.0, under align_corners = True all grid points along a unit dimension are considered to be at 0 (the center of the input image)."
        }
    </script>
 

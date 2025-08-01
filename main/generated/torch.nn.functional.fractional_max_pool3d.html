@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.fractional_max_pool3d.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.nn.functional.fractional_max_pool3d.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,7 +4358,7 @@ document.write(`
 <h1>torch.nn.functional.fractional_max_pool3d<a class="headerlink" href="#torch-nn-functional-fractional-max-pool3d" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.functional.fractional_max_pool3d">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">fractional_max_pool3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_random_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/_jit_internal.py#L617"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.fractional_max_pool3d" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">fractional_max_pool3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_random_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/_jit_internal.py#L617"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.fractional_max_pool3d" title="Permalink to this definition">#</a></dt>
 <dd><p>Applies 3D fractional max pooling over an input signal composed of several input planes.</p>
 <p>Fractional MaxPooling is described in detail in the paper <a class="reference external" href="http://arxiv.org/abs/1412.6071">Fractional MaxPooling</a> by Ben Graham</p>
 <p>The max-pooling operation is applied in <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>T</mi><mo>×</mo><mi>k</mi><mi>H</mi><mo>×</mo><mi>k</mi><mi>W</mi></mrow><annotation encoding="application/x-tex">kT \times kH \times kW</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">kW</span></span></span></span></span> regions by a stochastic
@@ -4638,21 +4661,17 @@ Useful to pass to <a class="reference internal" href="torch.nn.functional.max_un
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4697,18 +4716,20 @@ Useful to pass to <a class="reference internal" href="torch.nn.functional.max_un
          "@type": "Article",
          "headline": "torch.nn.functional.fractional_max_pool3d",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.nn.functional.fractional_max_pool3d.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.nn.functional.fractional_max_pool3d.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.nn.functional.fractional_max_pool3d# torch.nn.functional.fractional_max_pool3d(input, kernel_size, output_size=None, output_ratio=None, return_indices=False, _random_samples=None)[source]# Applies 3D fractional max pooling over an input signal composed of several input planes. Fractional MaxPooling is described in detail in the paper Fractional MaxPooling by Ben Graham The max-pooling operation is applied in kT×kH×kWkT \times kH \times kWkT×kH×kW regions by a stochastic step size determined by the target output size. The number of output features is equal to the number of input planes. Parameters kernel_size – the size of the window to take a max over. Can be a single number kkk (for a square kernel of k×k×kk \times k \times kk×k×k) or a tuple (kT, kH, kW) output_size – the target output size of the form oT×oH×oWoT \times oH \times oWoT×oH×oW. Can be a tuple (oT, oH, oW) or a single number oHoHoH for a cubic output oH×oH×oHoH \times oH \times oHoH×oH×oH output_ratio – If one wants to have an output size as a ratio of the input size, this option can be given. This has to be a number or tuple in the range (0, 1) return_indices – if True, will return the indices along with the outputs. Useful to pass to max_unpool3d(). Shape: Input: (N,C,Tin,Hin,Win)(N, C, T_{in}, H_{in}, W_{in})(N,C,Tin​,Hin​,Win​) or (C,Tin,Hin,Win)(C, T_{in}, H_{in}, W_{in})(C,Tin​,Hin​,Win​). Output: (N,C,Tout,Hout,Wout)(N, C, T_{out}, H_{out}, W_{out})(N,C,Tout​,Hout​,Wout​) or (C,Tout,Hout,Wout)(C, T_{out}, H_{out}, W_{out})(C,Tout​,Hout​,Wout​), where (Tout,Hout,Wout)=output_size(T_{out}, H_{out}, W_{out})=\text{output\_size}(Tout​,Hout​,Wout​)=output_size or (Tout,Hout,Wout)=output_ratio×(Tin,Hin,Win)(T_{out}, H_{out}, W_{out})=\text{output\_ratio} \times (T_{in}, H_{in}, W_{in})(Tout​,Hout​,Wout​)=output_ratio×(Tin​,Hin​,Win​) Examples::&gt;&gt;&gt; input = torch.randn(20, 16, 50, 32, 16) &gt;&gt;&gt; # pool of cubic window of size=3, and target output size 13x12x11 &gt;&gt;&gt; F.fractional_max_pool3d(input, 3, output_size=(13, 12, 11)) &gt;&gt;&gt; # pool of cubic window and target output size being half of input size &gt;&gt;&gt; F.fractional_max_pool3d(input, 3, output_ratio=(0.5, 0.5, 0.5))"
+         "articleBody": "torch.nn.functional.fractional_max_pool3d# torch.nn.functional.fractional_max_pool3d(input, kernel_size, output_size=None, output_ratio=None, return_indices=False, _random_samples=None)[source]# Applies 3D fractional max pooling over an input signal composed of several input planes. Fractional MaxPooling is described in detail in the paper Fractional MaxPooling by Ben Graham The max-pooling operation is applied in kT×kH×kWkT \\times kH \\times kWkT×kH×kW regions by a stochastic step size determined by the target output size. The number of output features is equal to the number of input planes. Parameters kernel_size – the size of the window to take a max over. Can be a single number kkk (for a square kernel of k×k×kk \\times k \\times kk×k×k) or a tuple (kT, kH, kW) output_size – the target output size of the form oT×oH×oWoT \\times oH \\times oWoT×oH×oW. Can be a tuple (oT, oH, oW) or a single number oHoHoH for a cubic output oH×oH×oHoH \\times oH \\times oHoH×oH×oH output_ratio – If one wants to have an output size as a ratio of the input size, this option can be given. This has to be a number or tuple in the range (0, 1) return_indices – if True, will return the indices along with the outputs. Useful to pass to max_unpool3d(). Shape: Input: (N,C,Tin,Hin,Win)(N, C, T_{in}, H_{in}, W_{in})(N,C,Tin​,Hin​,Win​) or (C,Tin,Hin,Win)(C, T_{in}, H_{in}, W_{in})(C,Tin​,Hin​,Win​). Output: (N,C,Tout,Hout,Wout)(N, C, T_{out}, H_{out}, W_{out})(N,C,Tout​,Hout​,Wout​) or (C,Tout,Hout,Wout)(C, T_{out}, H_{out}, W_{out})(C,Tout​,Hout​,Wout​), where (Tout,Hout,Wout)=output_size(T_{out}, H_{out}, W_{out})=\\text{output\\_size}(Tout​,Hout​,Wout​)=output_size or (Tout,Hout,Wout)=output_ratio×(Tin,Hin,Win)(T_{out}, H_{out}, W_{out})=\\text{output\\_ratio} \\times (T_{in}, H_{in}, W_{in})(Tout​,Hout​,Wout​)=output_ratio×(Tin​,Hin​,Win​) Examples::&gt;&gt;&gt; input = torch.randn(20, 16, 50, 32, 16) &gt;&gt;&gt; # pool of cubic window of size=3, and target output size 13x12x11 &gt;&gt;&gt; F.fractional_max_pool3d(input, 3, output_size=(13, 12, 11)) &gt;&gt;&gt; # pool of cubic window and target output size being half of input size &gt;&gt;&gt; F.fractional_max_pool3d(input, 3, output_ratio=(0.5, 0.5, 0.5))"
        }
    </script>
 

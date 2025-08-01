@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.set_default_dtype.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.set_default_dtype.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,7 +4358,7 @@ document.write(`
 <h1>torch.set_default_dtype<a class="headerlink" href="#torch-set-default-dtype" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.set_default_dtype">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">set_default_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/__init__.py#L1266"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.set_default_dtype" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">set_default_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/__init__.py#L1266"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.set_default_dtype" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets the default floating point dtype to <code class="xref py py-attr docutils literal notranslate"><span class="pre">d</span></code>. Supports floating point dtype
 as inputs. Other dtypes will cause torch to raise an exception.</p>
 <p>When PyTorch is initialized its default floating point dtype is torch.float32,
@@ -4649,21 +4672,17 @@ Python floats and complex Python numbers.</p></li>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4708,16 +4727,18 @@ Python floats and complex Python numbers.</p></li>
          "@type": "Article",
          "headline": "torch.set_default_dtype",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.set_default_dtype.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.set_default_dtype.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.set_default_dtype# torch.set_default_dtype(d, /)[source]# Sets the default floating point dtype to d. Supports floating point dtype as inputs. Other dtypes will cause torch to raise an exception. When PyTorch is initialized its default floating point dtype is torch.float32, and the intent of set_default_dtype(torch.float64) is to facilitate NumPy-like type inference. The default floating point dtype is used to: Implicitly determine the default complex dtype. When the default floating type is float16, the default complex dtype is complex32. For float32, the default complex dtype is complex64. For float64, it is complex128. For bfloat16, an exception will be raised because there is no corresponding complex type for bfloat16. Infer the dtype for tensors constructed using Python floats or complex Python numbers. See examples below. Determine the result of type promotion between bool and integer tensors and Python floats and complex Python numbers. Parameters d (torch.dtype) – the floating point dtype to make the default. Example &gt;&gt;&gt; # initial default for floating point is torch.float32 &gt;&gt;&gt; # Python floats are interpreted as float32 &gt;&gt;&gt; torch.tensor([1.2, 3]).dtype torch.float32 &gt;&gt;&gt; # initial default for floating point is torch.complex64 &gt;&gt;&gt; # Complex Python numbers are interpreted as complex64 &gt;&gt;&gt; torch.tensor([1.2, 3j]).dtype torch.complex64 &gt;&gt;&gt; torch.set_default_dtype(torch.float64) &gt;&gt;&gt; # Python floats are now interpreted as float64 &gt;&gt;&gt; torch.tensor([1.2, 3]).dtype # a new floating point tensor torch.float64 &gt;&gt;&gt; # Complex Python numbers are now interpreted as complex128 &gt;&gt;&gt; torch.tensor([1.2, 3j]).dtype # a new complex tensor torch.complex128 &gt;&gt;&gt; torch.set_default_dtype(torch.float16) &gt;&gt;&gt; # Python floats are now interpreted as float16 &gt;&gt;&gt; torch.tensor([1.2, 3]).dtype # a new floating point tensor torch.float16 &gt;&gt;&gt; # Complex Python numbers are now interpreted as complex128 &gt;&gt;&gt; torch.tensor([1.2, 3j]).dtype # a new complex tensor torch.complex32"
        }

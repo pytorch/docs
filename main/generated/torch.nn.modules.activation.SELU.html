@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.modules.activation.SELU.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.nn.modules.activation.SELU.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4346,7 +4369,7 @@ document.write(`
 <h1>SELU<a class="headerlink" href="#selu" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.modules.activation.SELU">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.activation.</span></span><span class="sig-name descname"><span class="pre">SELU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/activation.py#L678"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.activation.SELU" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.activation.</span></span><span class="sig-name descname"><span class="pre">SELU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/activation.py#L678"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.activation.SELU" title="Permalink to this definition">#</a></dt>
 <dd><p>Applies the SELU function element-wise.</p>
 <div class="math">
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>SELU</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mtext>scale</mtext><mo>∗</mo><mo stretchy="false">(</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>min</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>α</mi><mo>∗</mo><mo stretchy="false">(</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{SELU}(x) = \text{scale} * (\max(0,x) + \min(0, \alpha * (\exp(x) - 1)))
@@ -4382,7 +4405,7 @@ See <a class="reference internal" href="../nn.init.html#torch.nn.init.calculate_
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.activation.SELU.extra_repr">
-<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/activation.py#L726"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.activation.SELU.extra_repr" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/activation.py#L726"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.activation.SELU.extra_repr" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the extra representation of the module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4393,7 +4416,7 @@ See <a class="reference internal" href="../nn.init.html#torch.nn.init.calculate_
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.activation.SELU.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/activation.py#L720"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.activation.SELU.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/activation.py#L720"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.activation.SELU.forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4670,21 +4693,17 @@ See <a class="reference internal" href="../nn.init.html#torch.nn.init.calculate_
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4729,18 +4748,20 @@ See <a class="reference internal" href="../nn.init.html#torch.nn.init.calculate_
          "@type": "Article",
          "headline": "SELU",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.nn.modules.activation.SELU.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.nn.modules.activation.SELU.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "SELU# class torch.nn.modules.activation.SELU(inplace=False)[source]# Applies the SELU function element-wise. SELU(x)=scale∗(max⁡(0,x)+min⁡(0,α∗(exp⁡(x)−1)))\text{SELU}(x) = \text{scale} * (\max(0,x) + \min(0, \alpha * (\exp(x) - 1))) SELU(x)=scale∗(max(0,x)+min(0,α∗(exp(x)−1)))with α=1.6732632423543772848170429916717\alpha = 1.6732632423543772848170429916717α=1.6732632423543772848170429916717 and scale=1.0507009873554804934193349852946\text{scale} = 1.0507009873554804934193349852946scale=1.0507009873554804934193349852946. Warning When using kaiming_normal or kaiming_normal_ for initialisation, nonlinearity=&#39;linear&#39; should be used instead of nonlinearity=&#39;selu&#39; in order to get Self-Normalizing Neural Networks. See torch.nn.init.calculate_gain() for more information. More details can be found in the paper Self-Normalizing Neural Networks . Parameters inplace (bool, optional) – can optionally do the operation in-place. Default: False Shape: Input: (∗)(*)(∗), where ∗*∗ means any number of dimensions. Output: (∗)(*)(∗), same shape as the input. Examples: &gt;&gt;&gt; m = nn.SELU() &gt;&gt;&gt; input = torch.randn(2) &gt;&gt;&gt; output = m(input) extra_repr()[source]# Return the extra representation of the module. Return type str forward(input)[source]# Runs the forward pass. Return type Tensor"
+         "articleBody": "SELU# class torch.nn.modules.activation.SELU(inplace=False)[source]# Applies the SELU function element-wise. SELU(x)=scale∗(max⁡(0,x)+min⁡(0,α∗(exp⁡(x)−1)))\\text{SELU}(x) = \\text{scale} * (\\max(0,x) + \\min(0, \\alpha * (\\exp(x) - 1))) SELU(x)=scale∗(max(0,x)+min(0,α∗(exp(x)−1)))with α=1.6732632423543772848170429916717\\alpha = 1.6732632423543772848170429916717α=1.6732632423543772848170429916717 and scale=1.0507009873554804934193349852946\\text{scale} = 1.0507009873554804934193349852946scale=1.0507009873554804934193349852946. Warning When using kaiming_normal or kaiming_normal_ for initialisation, nonlinearity=&#39;linear&#39; should be used instead of nonlinearity=&#39;selu&#39; in order to get Self-Normalizing Neural Networks. See torch.nn.init.calculate_gain() for more information. More details can be found in the paper Self-Normalizing Neural Networks . Parameters inplace (bool, optional) – can optionally do the operation in-place. Default: False Shape: Input: (∗)(*)(∗), where ∗*∗ means any number of dimensions. Output: (∗)(*)(∗), same shape as the input. Examples: &gt;&gt;&gt; m = nn.SELU() &gt;&gt;&gt; input = torch.randn(2) &gt;&gt;&gt; output = m(input) extra_repr()[source]# Return the extra representation of the module. Return type str forward(input)[source]# Runs the forward pass. Return type Tensor"
        }
    </script>
 

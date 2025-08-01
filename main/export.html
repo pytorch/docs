@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/export.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/export.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4510,55 +4533,55 @@ Graph signature:
     
 Range constraints: {}
 
-tensor([[[[1.4255, 1.2194, 1.8243,  ..., 1.9213, 1.6232, 1.5154],
-          [1.8770, 1.5348, 1.3521,  ..., 1.6473, 1.6177, 1.6708],
-          [1.3452, 1.4477, 1.7768,  ..., 1.1798, 1.7471, 1.9036],
+tensor([[[[1.6879, 1.4570, 1.8784,  ..., 1.8253, 1.7913, 2.1702],
+          [1.9270, 1.7826, 2.7303,  ..., 2.5059, 2.3343, 1.6767],
+          [2.2985, 2.3215, 1.9544,  ..., 2.2600, 1.5837, 1.1458],
           ...,
-          [1.5156, 1.6485, 1.5827,  ..., 1.8055, 1.5363, 1.7125],
-          [1.4615, 1.5845, 1.4839,  ..., 1.6345, 1.5486, 1.6979],
-          [1.5659, 1.6159, 1.6845,  ..., 1.3611, 1.5785, 1.1280]],
+          [2.2647, 2.4879, 1.8433,  ..., 2.0124, 1.6937, 1.9360],
+          [2.7812, 2.3565, 1.8668,  ..., 2.0647, 2.6392, 1.7050],
+          [2.4834, 2.5392, 2.1284,  ..., 1.7353, 2.0755, 1.2869]],
 
-         [[1.6769, 1.8072, 1.5822,  ..., 1.6150, 1.4476, 1.7261],
-          [1.0217, 2.5072, 1.0983,  ..., 2.1493, 1.8633, 1.3890],
-          [1.5322, 2.2114, 2.4292,  ..., 1.2887, 2.0066, 2.0305],
+         [[1.1902, 1.6733, 2.3160,  ..., 1.8483, 2.1154, 1.3614],
+          [1.5681, 1.6783, 1.8997,  ..., 1.5580, 1.6502, 1.8993],
+          [2.3125, 1.9391, 1.7546,  ..., 1.9200, 1.9359, 2.0515],
           ...,
-          [1.4219, 1.5604, 1.8721,  ..., 2.2779, 2.2479, 1.7501],
-          [1.3958, 1.0347, 1.5667,  ..., 1.9650, 1.7885, 1.7808],
-          [1.6618, 1.4958, 1.5720,  ..., 1.8339, 1.9634, 1.5534]],
+          [1.8168, 2.1549, 1.8727,  ..., 1.7825, 1.7045, 1.9058],
+          [1.6799, 1.9527, 1.3069,  ..., 2.0048, 1.4287, 1.7063],
+          [1.7879, 1.4912, 1.6949,  ..., 1.9049, 2.1139, 1.6563]],
 
-         [[1.7668, 1.4225, 1.9052,  ..., 2.0950, 1.5143, 1.3552],
-          [1.6532, 1.5851, 1.2685,  ..., 1.7860, 1.6931, 2.4310],
-          [1.6890, 1.8190, 1.3370,  ..., 2.4485, 1.4110, 2.0473],
+         [[2.0508, 2.0750, 2.0457,  ..., 2.1574, 1.7099, 1.4896],
+          [1.3770, 1.8893, 1.8955,  ..., 2.0916, 2.1936, 2.1738],
+          [1.7402, 1.5696, 1.2184,  ..., 2.6444, 1.6384, 1.7030],
           ...,
-          [1.2856, 1.5929, 2.1116,  ..., 1.7678, 1.6398, 1.9650],
-          [1.5894, 1.2186, 1.6062,  ..., 1.6806, 1.7079, 1.6721],
-          [2.1428, 2.1013, 2.1726,  ..., 1.5118, 2.1887, 1.7036]],
+          [2.1589, 1.9278, 1.7465,  ..., 1.0029, 1.9217, 1.5666],
+          [2.1551, 1.6387, 1.7562,  ..., 2.1546, 2.0462, 1.7795],
+          [1.8899, 2.0725, 1.4846,  ..., 1.5355, 2.3245, 1.5889]],
 
          ...,
 
-         [[1.7380, 1.8455, 1.7796,  ..., 1.4029, 1.5582, 1.1459],
-          [1.6083, 1.2532, 1.4568,  ..., 1.2730, 1.5897, 1.8864],
-          [1.5761, 1.6933, 1.2050,  ..., 1.7816, 1.7237, 1.3166],
+         [[1.6470, 1.7315, 1.9609,  ..., 2.3485, 1.6484, 1.7538],
+          [1.7372, 1.9058, 1.8155,  ..., 2.7839, 2.0284, 1.7601],
+          [1.7746, 2.4305, 1.7634,  ..., 2.5551, 2.1186, 1.9218],
           ...,
-          [1.6550, 1.3147, 1.7773,  ..., 1.7023, 1.3190, 1.5555],
-          [1.3634, 1.5398, 1.4889,  ..., 2.1802, 1.1683, 1.6534],
-          [1.8120, 1.8548, 1.9051,  ..., 1.1084, 1.5026, 1.6946]],
+          [1.8488, 2.7176, 1.9390,  ..., 2.7190, 2.0116, 1.9515],
+          [1.7384, 1.9664, 1.6096,  ..., 1.7042, 2.1083, 2.4445],
+          [2.0721, 1.9331, 3.0834,  ..., 2.1431, 1.6820, 1.7763]],
 
-         [[1.9930, 1.3316, 1.7390,  ..., 1.7965, 1.8460, 1.5944],
-          [1.8841, 1.9307, 2.6251,  ..., 2.3768, 1.7165, 1.9460],
-          [1.5941, 1.8664, 1.8748,  ..., 2.1977, 1.7297, 1.8198],
+         [[1.9148, 1.4340, 2.4592,  ..., 1.6890, 1.4965, 1.9488],
+          [1.6151, 1.8786, 1.4850,  ..., 1.8324, 1.2676, 1.4630],
+          [1.7600, 2.2552, 1.2982,  ..., 2.2162, 1.9139, 0.8797],
           ...,
-          [1.9689, 1.9326, 1.9705,  ..., 2.7142, 1.7964, 1.6664],
-          [1.5680, 2.3526, 1.9185,  ..., 1.6465, 1.8530, 2.1287],
-          [2.1944, 1.8447, 2.4820,  ..., 3.0243, 1.7948, 1.7282]],
+          [1.5764, 2.3813, 2.0216,  ..., 1.6281, 2.1349, 2.2777],
+          [1.9768, 2.1457, 2.0150,  ..., 1.6752, 1.6513, 2.6189],
+          [1.4050, 2.0217, 2.4621,  ..., 1.2508, 1.4793, 2.6206]],
 
-         [[1.8112, 1.5693, 2.0503,  ..., 1.1875, 1.3650, 1.6348],
-          [1.4078, 1.9905, 2.0777,  ..., 1.4323, 1.9596, 2.0806],
-          [1.8397, 1.3427, 0.9461,  ..., 1.9669, 2.3541, 1.2722],
+         [[1.3815, 1.1156, 1.5721,  ..., 1.0912, 1.4476, 1.2794],
+          [1.6490, 2.0152, 1.5299,  ..., 1.4803, 1.9606, 1.4911],
+          [1.8631, 1.6903, 1.7168,  ..., 2.4050, 1.4124, 1.3105],
           ...,
-          [2.6570, 1.6207, 1.9600,  ..., 1.8600, 1.9420, 1.2556],
-          [1.8258, 1.9981, 1.4643,  ..., 1.4483, 1.7303, 1.2780],
-          [1.7823, 1.6808, 1.4107,  ..., 1.8210, 1.6666, 1.6793]]]],
+          [1.8462, 2.2149, 1.7430,  ..., 1.4067, 1.5331, 1.5384],
+          [2.1850, 1.9931, 1.7105,  ..., 1.2947, 2.1662, 1.4748],
+          [1.7021, 1.3115, 2.0286,  ..., 1.5085, 1.6770, 1.5125]]]],
        grad_fn=&lt;MaxPool2DWithIndicesBackward0&gt;)
 </pre></div>
 </div>
@@ -4766,21 +4789,21 @@ Graph signature:
 Range constraints: {s24: VR[0, int_oo]}
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(tensor([[1.0024, 1.8751, 1.0000,  ..., 1.0000, 1.4354, 1.1624],
-         [1.1920, 1.0000, 1.0000,  ..., 1.0000, 1.1400, 1.2036],
-         [1.5426, 1.0093, 1.0000,  ..., 1.0000, 1.0000, 1.0000],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(tensor([[1.0000, 1.1402, 1.0000,  ..., 1.0000, 1.3881, 1.3718],
+         [1.5871, 1.0000, 1.0000,  ..., 1.0000, 1.7533, 1.0000],
+         [1.0000, 1.1440, 1.4206,  ..., 1.1211, 2.1974, 2.3166],
          ...,
-         [1.3213, 1.0000, 1.0000,  ..., 2.1741, 1.0000, 1.0000],
-         [1.0000, 1.0000, 1.0000,  ..., 1.1645, 1.1792, 1.0000],
-         [1.0000, 1.9844, 1.5155,  ..., 1.0000, 1.0000, 1.0000]],
+         [1.0564, 1.0000, 1.0000,  ..., 1.0000, 1.5266, 1.0000],
+         [1.2624, 1.2088, 1.0000,  ..., 1.0000, 1.0000, 1.0000],
+         [1.0000, 1.1655, 1.0000,  ..., 1.0000, 1.0286, 1.4561]],
         grad_fn=&lt;AddBackward0&gt;),
- tensor([[0.3812, 0.3541, 0.8780,  ..., 0.7681, 0.7615, 0.0047],
-         [0.0000, 0.0000, 0.0000,  ..., 0.2595, 0.2247, 1.0525],
-         [0.0000, 0.4662, 0.0000,  ..., 0.3075, 0.0000, 0.5802],
+ tensor([[0.0742, 0.3236, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+         [0.0000, 0.2337, 0.0000,  ..., 0.0158, 1.3382, 0.0000],
+         [0.8451, 0.0031, 0.0000,  ..., 0.4051, 0.0000, 0.1979],
          ...,
-         [0.0000, 0.3423, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-         [0.0000, 0.0000, 0.2030,  ..., 0.0000, 0.2348, 0.0000],
-         [0.7826, 0.7098, 0.1976,  ..., 0.1931, 0.0000, 0.0000]],
+         [0.0826, 0.0000, 0.0000,  ..., 0.0644, 0.0000, 0.0411],
+         [0.0452, 0.0287, 0.0000,  ..., 0.6818, 0.0211, 0.0000],
+         [0.0000, 0.0000, 0.1247,  ..., 0.0000, 0.0000, 0.2914]],
         grad_fn=&lt;ReluBackward0&gt;))
 </pre></div>
 </div>
@@ -5617,21 +5640,17 @@ have a FakeTensor kernel implementation yet, please file an issue.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -5676,18 +5695,20 @@ have a FakeTensor kernel implementation yet, please file an issue.</p>
          "@type": "Article",
          "headline": "torch.export",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/export.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/export.html"
          },
-         "datePublished": "Jun 12, 2025",
-         "dateModified": "Jul 17, 2025",
-         "articleBody": "torch.export# Created On: Jun 12, 2025 | Last Updated On: Jul 17, 2025 Overview# torch.export.export() takes a torch.nn.Module and produces a traced graph representing only the Tensor computation of the function in an Ahead-of-Time (AOT) fashion, which can subsequently be executed with different outputs or serialized. import torch from torch.export import export, ExportedProgram class Mod(torch.nn.Module): def forward(self, x: torch.Tensor, y: torch.Tensor) -&gt; torch.Tensor: a = torch.sin(x) b = torch.cos(y) return a + b example_args = (torch.randn(10, 10), torch.randn(10, 10)) exported_program: ExportedProgram = export(Mod(), args=example_args) print(exported_program) ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: &#34;f32[10, 10]&#34;, y: &#34;f32[10, 10]&#34;): # File: /tmp/ipykernel_618/2550508656.py:6 in forward, code: a = torch.sin(x) sin: &#34;f32[10, 10]&#34; = torch.ops.aten.sin.default(x); x = None # File: /tmp/ipykernel_618/2550508656.py:7 in forward, code: b = torch.cos(y) cos: &#34;f32[10, 10]&#34; = torch.ops.aten.cos.default(y); y = None # File: /tmp/ipykernel_618/2550508656.py:8 in forward, code: return a + b add: &#34;f32[10, 10]&#34; = torch.ops.aten.add.Tensor(sin, cos); sin = cos = None return (add,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} torch.export produces a clean intermediate representation (IR) with the following invariants. More specifications about the IR can be found here. Soundness: It is guaranteed to be a sound representation of the original program, and maintains the same calling conventions of the original program. Normalized: There are no Python semantics within the graph. Submodules from the original programs are inlined to form one fully flattened computational graph. Graph properties: The graph is purely functional, meaning it does not contain operations with side effects such as mutations or aliasing. It does not mutate any intermediate values, parameters, or buffers. Metadata: The graph contains metadata captured during tracing, such as a stacktrace from user’s code. Under the hood, torch.export leverages the following latest technologies: TorchDynamo (torch._dynamo) is an internal API that uses a CPython feature called the Frame Evaluation API to safely trace PyTorch graphs. This provides a massively improved graph capturing experience, with much fewer rewrites needed in order to fully trace the PyTorch code. AOT Autograd provides a functionalized PyTorch graph and ensures the graph is decomposed/lowered to the ATen operator set. Torch FX (torch.fx) is the underlying representation of the graph, allowing flexible Python-based transformations. Existing frameworks# torch.compile() also utilizes the same PT2 stack as torch.export, but is slightly different: JIT vs. AOT: torch.compile() is a JIT compiler whereas which is not intended to be used to produce compiled artifacts outside of deployment. Partial vs. Full Graph Capture: When torch.compile() runs into..."
+        "datePublished": "Jun 12, 2025T00:00:00Z",
+         "dateModified": "Jul 17, 2025T00:00:00Z",
+         "articleBody": "torch.export# Created On: Jun 12, 2025 | Last Updated On: Jul 17, 2025 Overview# torch.export.export() takes a torch.nn.Module and produces a traced graph representing only the Tensor computation of the function in an Ahead-of-Time (AOT) fashion, which can subsequently be executed with different outputs or serialized. import torch from torch.export import export, ExportedProgram class Mod(torch.nn.Module): def forward(self, x: torch.Tensor, y: torch.Tensor) -&gt; torch.Tensor: a = torch.sin(x) b = torch.cos(y) return a + b example_args = (torch.randn(10, 10), torch.randn(10, 10)) exported_program: ExportedProgram = export(Mod(), args=example_args) print(exported_program) ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \&#34;f32[10, 10]\&#34;, y: \&#34;f32[10, 10]\&#34;): # File: /tmp/ipykernel_618/2550508656.py:6 in forward, code: a = torch.sin(x) sin: \&#34;f32[10, 10]\&#34; = torch.ops.aten.sin.default(x); x = None # File: /tmp/ipykernel_618/2550508656.py:7 in forward, code: b = torch.cos(y) cos: \&#34;f32[10, 10]\&#34; = torch.ops.aten.cos.default(y); y = None # File: /tmp/ipykernel_618/2550508656.py:8 in forward, code: return a + b add: \&#34;f32[10, 10]\&#34; = torch.ops.aten.add.Tensor(sin, cos); sin = cos = None return (add,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} torch.export produces a clean intermediate representation (IR) with the following invariants. More specifications about the IR can be found here. Soundness: It is guaranteed to be a sound representation of the original program, and maintains the same calling conventions of the original program. Normalized: There are no Python semantics within the graph. Submodules from the original programs are inlined to form one fully flattened computational graph. Graph properties: The graph is purely functional, meaning it does not contain operations with side effects such as mutations or aliasing. It does not mutate any intermediate values, parameters, or buffers. Metadata: The graph contains metadata captured during tracing, such as a stacktrace from user’s code. Under the hood, torch.export leverages the following latest technologies: TorchDynamo (torch._dynamo) is an internal API that uses a CPython feature called the Frame Evaluation API to safely trace PyTorch graphs. This provides a massively improved graph capturing experience, with much fewer rewrites needed in order to fully trace the PyTorch code. AOT Autograd provides a functionalized PyTorch graph and ensures the graph is decomposed/lowered to the ATen operator set. Torch FX (torch.fx) is the underlying representation of the graph, allowing flexible Python-based transformations. Existing frameworks# torch.compile() also utilizes the same PT2 stack as torch.export, but is slightly different: JIT vs. AOT: torch.compile() is a JIT compiler whereas which is not intended to be used to produce compiled artifacts outside of deployment. Partial vs. Full Graph Capture: When torch.compile() runs into..."
        }
    </script>
 

@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.TransformerDecoderLayer.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.nn.TransformerDecoderLayer.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,7 +4358,7 @@ document.write(`
 <h1>TransformerDecoderLayer<a class="headerlink" href="#transformerdecoderlayer" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.TransformerDecoderLayer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">TransformerDecoderLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nhead</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_feedforward=2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout=0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation=&lt;function</span> <span class="pre">relu&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_norm_eps=1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_first=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_first=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/transformer.py#L966"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.TransformerDecoderLayer" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">TransformerDecoderLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nhead</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_feedforward=2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout=0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation=&lt;function</span> <span class="pre">relu&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_norm_eps=1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_first=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_first=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/transformer.py#L966"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.TransformerDecoderLayer" title="Permalink to this definition">#</a></dt>
 <dd><p>TransformerDecoderLayer is made up of self-attn, multi-head-attn and feedforward network.</p>
 <p>This TransformerDecoderLayer implements the original architecture described
 in the <a class="reference external" href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a> paper. The
@@ -4385,7 +4408,7 @@ bias. Default: <code class="docutils literal notranslate"><span class="pre">True
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.TransformerDecoderLayer.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tgt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_key_padding_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_key_padding_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_is_causal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_is_causal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/transformer.py#L1067"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.TransformerDecoderLayer.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tgt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_key_padding_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_key_padding_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_is_causal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_is_causal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/transformer.py#L1067"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.TransformerDecoderLayer.forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Pass the inputs (and mask) through the decoder layer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4690,21 +4713,17 @@ forward and backward compatibility.</p></li>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4749,16 +4768,18 @@ forward and backward compatibility.</p></li>
          "@type": "Article",
          "headline": "TransformerDecoderLayer",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.nn.TransformerDecoderLayer.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.nn.TransformerDecoderLayer.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "TransformerDecoderLayer# class torch.nn.TransformerDecoderLayer(d_model, nhead, dim_feedforward=2048, dropout=0.1, activation=&lt;function relu&gt;, layer_norm_eps=1e-05, batch_first=False, norm_first=False, bias=True, device=None, dtype=None)[source]# TransformerDecoderLayer is made up of self-attn, multi-head-attn and feedforward network. This TransformerDecoderLayer implements the original architecture described in the Attention Is All You Need paper. The intent of this layer is as a reference implementation for foundational understanding and thus it contains only limited features relative to newer Transformer architectures. Given the fast pace of innovation in transformer-like architectures, we recommend exploring this tutorial to build efficient layers from building blocks in core or using higher level libraries from the PyTorch Ecosystem. Parameters d_model (int) – the number of expected features in the input (required). nhead (int) – the number of heads in the multiheadattention models (required). dim_feedforward (int) – the dimension of the feedforward network model (default=2048). dropout (float) – the dropout value (default=0.1). activation (Union[str, Callable[[Tensor], Tensor]]) – the activation function of the intermediate layer, can be a string (“relu” or “gelu”) or a unary callable. Default: relu layer_norm_eps (float) – the eps value in layer normalization components (default=1e-5). batch_first (bool) – If True, then the input and output tensors are provided as (batch, seq, feature). Default: False (seq, batch, feature). norm_first (bool) – if True, layer norm is done prior to self attention, multihead attention and feedforward operations, respectively. Otherwise it’s done after. Default: False (after). bias (bool) – If set to False, Linear and LayerNorm layers will not learn an additive bias. Default: True. Examples &gt;&gt;&gt; decoder_layer = nn.TransformerDecoderLayer(d_model=512, nhead=8) &gt;&gt;&gt; memory = torch.rand(10, 32, 512) &gt;&gt;&gt; tgt = torch.rand(20, 32, 512) &gt;&gt;&gt; out = decoder_layer(tgt, memory) Alternatively, when batch_first is True:&gt;&gt;&gt; decoder_layer = nn.TransformerDecoderLayer( ... d_model=512, nhead=8, batch_first=True ... ) &gt;&gt;&gt; memory = torch.rand(32, 10, 512) &gt;&gt;&gt; tgt = torch.rand(32, 20, 512) &gt;&gt;&gt; out = decoder_layer(tgt, memory) forward(tgt, memory, tgt_mask=None, memory_mask=None, tgt_key_padding_mask=None, memory_key_padding_mask=None, tgt_is_causal=False, memory_is_causal=False)[source]# Pass the inputs (and mask) through the decoder layer. Parameters tgt (Tensor) – the sequence to the decoder layer (required). memory (Tensor) – the sequence from the last layer of the encoder (required). tgt_mask (Optional[Tensor]) – the mask for the tgt sequence (optional). memory_mask (Optional[Tensor]) – the mask for the memory sequence (optional). tgt_key_padding_mask (Optional[Tensor]) – the mask for the tgt keys per batch (optional). memory_key_padding_mask (Optional[Tensor]) – the mask for the memory keys per batch (optional). tgt_is_caus..."
        }

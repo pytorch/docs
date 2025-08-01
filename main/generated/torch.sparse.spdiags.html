@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.sparse.spdiags.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.sparse.spdiags.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4688,21 +4711,17 @@ the value in position <cite>k</cite> of the row of <code class="xref py py-attr 
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4747,16 +4766,18 @@ the value in position <cite>k</cite> of the row of <code class="xref py py-attr 
          "@type": "Article",
          "headline": "torch.sparse.spdiags",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.sparse.spdiags.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.sparse.spdiags.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.sparse.spdiags# torch.sparse.spdiags(diagonals, offsets, shape, layout=None) → Tensor# Creates a sparse 2D tensor by placing the values from rows of diagonals along specified diagonals of the output The offsets tensor controls which diagonals are set. If offsets[i] = 0, it is the main diagonal If offsets[i] &lt; 0, it is below the main diagonal If offsets[i] &gt; 0, it is above the main diagonal The number of rows in diagonals must match the length of offsets, and an offset may not be repeated. Parameters diagonals (Tensor) – Matrix storing diagonals row-wise offsets (Tensor) – The diagonals to be set, stored as a vector shape (2-tuple of ints) – The desired shape of the result Keyword Arguments layout (torch.layout, optional) – The desired layout of the returned tensor. torch.sparse_coo, torch.sparse_csc and torch.sparse_csr are supported. Default: torch.sparse_coo Examples: Set the main and first two lower diagonals of a matrix: &gt;&gt;&gt; diags = torch.arange(9).reshape(3, 3) &gt;&gt;&gt; diags tensor([[0, 1, 2], [3, 4, 5], [6, 7, 8]]) &gt;&gt;&gt; s = torch.sparse.spdiags(diags, torch.tensor([0, -1, -2]), (3, 3)) &gt;&gt;&gt; s tensor(indices=tensor([[0, 1, 2, 1, 2, 2], [0, 1, 2, 0, 1, 0]]), values=tensor([0, 1, 2, 3, 4, 6]), size=(3, 3), nnz=6, layout=torch.sparse_coo) &gt;&gt;&gt; s.to_dense() tensor([[0, 0, 0], [3, 1, 0], [6, 4, 2]]) Change the output layout: &gt;&gt;&gt; diags = torch.arange(9).reshape(3, 3) &gt;&gt;&gt; diags tensor([[0, 1, 2],[3, 4, 5], [6, 7, 8]) &gt;&gt;&gt; s = torch.sparse.spdiags(diags, torch.tensor([0, -1, -2]), (3, 3), layout=torch.sparse_csr) &gt;&gt;&gt; s tensor(crow_indices=tensor([0, 1, 3, 6]), col_indices=tensor([0, 0, 1, 0, 1, 2]), values=tensor([0, 3, 1, 6, 4, 2]), size=(3, 3), nnz=6, layout=torch.sparse_csr) &gt;&gt;&gt; s.to_dense() tensor([[0, 0, 0], [3, 1, 0], [6, 4, 2]]) Set partial diagonals of a large output: &gt;&gt;&gt; diags = torch.tensor([[1, 2], [3, 4]]) &gt;&gt;&gt; offsets = torch.tensor([0, -1]) &gt;&gt;&gt; torch.sparse.spdiags(diags, offsets, (5, 5)).to_dense() tensor([[1, 0, 0, 0, 0], [3, 2, 0, 0, 0], [0, 4, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]) Note When setting the values along a given diagonal the index into the diagonal and the index into the row of diagonals is taken as the column index in the output. This has the effect that when setting a diagonal with a positive offset k the first value along that diagonal will be the value in position k of the row of diagonals Specifying a positive offset: &gt;&gt;&gt; diags = torch.tensor([[1, 2, 3], [1, 2, 3], [1, 2, 3]]) &gt;&gt;&gt; torch.sparse.spdiags(diags, torch.tensor([0, 1, 2]), (5, 5)).to_dense() tensor([[1, 2, 3, 0, 0], [0, 2, 3, 0, 0], [0, 0, 3, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]])"
        }

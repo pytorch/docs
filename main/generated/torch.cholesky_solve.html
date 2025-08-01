@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.cholesky_solve.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.cholesky_solve.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4651,21 +4674,17 @@ or upper triangular. Default: <code class="docutils literal notranslate"><span c
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4710,18 +4729,20 @@ or upper triangular. Default: <code class="docutils literal notranslate"><span c
          "@type": "Article",
          "headline": "torch.cholesky_solve",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.cholesky_solve.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.cholesky_solve.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.cholesky_solve# torch.cholesky_solve(B, L, upper=False, *, out=None) → Tensor# Computes the solution of a system of linear equations with complex Hermitian or real symmetric positive-definite lhs given its Cholesky decomposition. Let AAA be a complex Hermitian or real symmetric positive-definite matrix, and LLL its Cholesky decomposition such that: A=LLHA = LL^{\text{H}}A=LLHwhere LHL^{\text{H}}LH is the conjugate transpose when LLL is complex, and the transpose when LLL is real-valued. Returns the solution XXX of the following linear system: AX=BAX = BAX=BSupports inputs of float, double, cfloat and cdouble dtypes. Also supports batches of matrices, and if AAA or BBB is a batch of matrices then the output has the same batch dimensions. Parameters B (Tensor) – right-hand side tensor of shape (*, n, k) where ∗*∗ is zero or more batch dimensions L (Tensor) – tensor of shape (*, n, n) where * is zero or more batch dimensions consisting of lower or upper triangular Cholesky decompositions of symmetric or Hermitian positive-definite matrices. upper (bool, optional) – flag that indicates whether LLL is lower triangular or upper triangular. Default: False. Keyword Arguments out (Tensor, optional) – output tensor. Ignored if None. Default: None. Example: &gt;&gt;&gt; A = torch.randn(3, 3) &gt;&gt;&gt; A = A @ A.T + torch.eye(3) * 1e-3 # Creates a symmetric positive-definite matrix &gt;&gt;&gt; L = torch.linalg.cholesky(A) # Extract Cholesky decomposition &gt;&gt;&gt; B = torch.randn(3, 2) &gt;&gt;&gt; torch.cholesky_solve(B, L) tensor([[ -8.1625, 19.6097], [ -5.8398, 14.2387], [ -4.3771, 10.4173]]) &gt;&gt;&gt; A.inverse() @ B tensor([[ -8.1626, 19.6097], [ -5.8398, 14.2387], [ -4.3771, 10.4173]]) &gt;&gt;&gt; A = torch.randn(3, 2, 2, dtype=torch.complex64) &gt;&gt;&gt; A = A @ A.mH + torch.eye(2) * 1e-3 # Batch of Hermitian positive-definite matrices &gt;&gt;&gt; L = torch.linalg.cholesky(A) &gt;&gt;&gt; B = torch.randn(2, 1, dtype=torch.complex64) &gt;&gt;&gt; X = torch.cholesky_solve(B, L) &gt;&gt;&gt; torch.dist(X, A.inverse() @ B) tensor(1.6881e-5)"
+         "articleBody": "torch.cholesky_solve# torch.cholesky_solve(B, L, upper=False, *, out=None) → Tensor# Computes the solution of a system of linear equations with complex Hermitian or real symmetric positive-definite lhs given its Cholesky decomposition. Let AAA be a complex Hermitian or real symmetric positive-definite matrix, and LLL its Cholesky decomposition such that: A=LLHA = LL^{\\text{H}}A=LLHwhere LHL^{\\text{H}}LH is the conjugate transpose when LLL is complex, and the transpose when LLL is real-valued. Returns the solution XXX of the following linear system: AX=BAX = BAX=BSupports inputs of float, double, cfloat and cdouble dtypes. Also supports batches of matrices, and if AAA or BBB is a batch of matrices then the output has the same batch dimensions. Parameters B (Tensor) – right-hand side tensor of shape (*, n, k) where ∗*∗ is zero or more batch dimensions L (Tensor) – tensor of shape (*, n, n) where * is zero or more batch dimensions consisting of lower or upper triangular Cholesky decompositions of symmetric or Hermitian positive-definite matrices. upper (bool, optional) – flag that indicates whether LLL is lower triangular or upper triangular. Default: False. Keyword Arguments out (Tensor, optional) – output tensor. Ignored if None. Default: None. Example: &gt;&gt;&gt; A = torch.randn(3, 3) &gt;&gt;&gt; A = A @ A.T + torch.eye(3) * 1e-3 # Creates a symmetric positive-definite matrix &gt;&gt;&gt; L = torch.linalg.cholesky(A) # Extract Cholesky decomposition &gt;&gt;&gt; B = torch.randn(3, 2) &gt;&gt;&gt; torch.cholesky_solve(B, L) tensor([[ -8.1625, 19.6097], [ -5.8398, 14.2387], [ -4.3771, 10.4173]]) &gt;&gt;&gt; A.inverse() @ B tensor([[ -8.1626, 19.6097], [ -5.8398, 14.2387], [ -4.3771, 10.4173]]) &gt;&gt;&gt; A = torch.randn(3, 2, 2, dtype=torch.complex64) &gt;&gt;&gt; A = A @ A.mH + torch.eye(2) * 1e-3 # Batch of Hermitian positive-definite matrices &gt;&gt;&gt; L = torch.linalg.cholesky(A) &gt;&gt;&gt; B = torch.randn(2, 1, dtype=torch.complex64) &gt;&gt;&gt; X = torch.cholesky_solve(B, L) &gt;&gt;&gt; torch.dist(X, A.inverse() @ B) tensor(1.6881e-5)"
        }
    </script>
 

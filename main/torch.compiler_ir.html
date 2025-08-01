@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/torch.compiler_ir.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/torch.compiler_ir.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -5599,21 +5622,17 @@ This opset is designed to interface with compiler backends.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -5658,17 +5677,19 @@ This opset is designed to interface with compiler backends.</p>
          "@type": "Article",
          "headline": "IRs",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/torch.compiler_ir.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/torch.compiler_ir.html"
          },
-         "datePublished": "Dec 13, 2022",
-         "dateModified": "Jul 16, 2025",
+        "datePublished": "Dec 13, 2022T00:00:00Z",
+         "dateModified": "Jul 16, 2025T00:00:00Z",
          "articleBody": "IRs# Created On: Dec 13, 2022 | Last Updated On: Jul 16, 2025 PyTorch 2.0 offers two set of IRs for backends to interface with: Core Aten IR and Prims IR. Core Aten IR# Core aten ops is the core subset of aten operators that can be used to compose other operators. Core aten IR is fully functional, and there is no inplace or _out variants in this opset. In contrast to Prims IR, core aten ops reuses the existing aten ops in “native_functions.yaml”, and it doesn’t further decompose ops into explicit type promotion and broadcasting ops. This opset is designed to serve as the functional IR to interface with backends. Warning This opset is still under active development, more ops will be added in the future. Operator Schema aten._adaptive_avg_pool2d _adaptive_avg_pool2d(Tensor self, SymInt[2] output_size) -&gt; Tensor aten._adaptive_avg_pool2d_backward _adaptive_avg_pool2d_backward(Tensor grad_output, Tensor self) -&gt; Tensor aten._adaptive_avg_pool3d _adaptive_avg_pool3d(Tensor self, SymInt[3] output_size) -&gt; Tensor aten._cdist_forward _cdist_forward(Tensor x1, Tensor x2, float p, int? compute_mode) -&gt; Tensor aten._embedding_bag _embedding_bag(Tensor weight, Tensor indices, Tensor offsets, bool scale_grad_by_freq=False, int mode=0, bool sparse=False, Tensor? per_sample_weights=None, bool include_last_offset=False, int padding_idx=-1) -&gt; (Tensor, Tensor, Tensor, Tensor) aten._fft_r2c _fft_r2c(Tensor self, int[] dim, int normalization, bool onesided) -&gt; Tensor aten._local_scalar_dense _local_scalar_dense(Tensor self) -&gt; Scalar aten._log_softmax _log_softmax(Tensor self, int dim, bool half_to_float) -&gt; Tensor aten._native_batch_norm_legit _native_batch_norm_legit(Tensor input, Tensor? weight, Tensor? bias, Tensor(a!) running_mean, Tensor(b!) running_var, bool training, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor) aten._native_batch_norm_legit.no_stats _native_batch_norm_legit.no_stats(Tensor input, Tensor? weight, Tensor? bias, bool training, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor) aten._native_batch_norm_legit_no_training _native_batch_norm_legit_no_training(Tensor input, Tensor? weight, Tensor? bias, Tensor running_mean, Tensor running_var, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor) aten._pdist_forward _pdist_forward(Tensor self, float p=2) -&gt; Tensor aten._softmax _softmax(Tensor self, int dim, bool half_to_float) -&gt; Tensor aten._to_copy _to_copy(Tensor self, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool non_blocking=False, MemoryFormat? memory_format=None) -&gt; Tensor aten.abs abs(Tensor self) -&gt; Tensor aten.acos acos(Tensor self) -&gt; Tensor aten.acosh acosh(Tensor self) -&gt; Tensor aten.adaptive_avg_pool1d adaptive_avg_pool1d(Tensor self, int[1] output_size) -&gt; Tensor aten.add.Scalar add.Scalar(Tensor self, Scalar other, Scalar alpha=1) -&gt; Tensor aten.add.Tensor add.Tensor(Tensor self, Tensor other, *, Scalar alpha=1) -&gt; Tensor aten.addmm addmm(Tensor self, Tensor mat1, ..."
        }
    </script>

@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.linalg.cholesky_ex.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.linalg.cholesky_ex.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4659,21 +4682,17 @@ returned with upper=False.</p></li>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4718,16 +4737,18 @@ returned with upper=False.</p></li>
          "@type": "Article",
          "headline": "torch.linalg.cholesky_ex",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.linalg.cholesky_ex.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.linalg.cholesky_ex.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.linalg.cholesky_ex# torch.linalg.cholesky_ex(A, *, upper=False, check_errors=False, out=None)# Computes the Cholesky decomposition of a complex Hermitian or real symmetric positive-definite matrix. This function skips the (slow) error checking and error message construction of torch.linalg.cholesky(), instead directly returning the LAPACK error codes as part of a named tuple (L, info). This makes this function a faster way to check if a matrix is positive-definite, and it provides an opportunity to handle decomposition errors more gracefully or performantly than torch.linalg.cholesky() does. Supports input of float, double, cfloat and cdouble dtypes. Also supports batches of matrices, and if A is a batch of matrices then the output has the same batch dimensions. If A is not a Hermitian positive-definite matrix, or if it’s a batch of matrices and one or more of them is not a Hermitian positive-definite matrix, then info stores a positive integer for the corresponding matrix. The positive integer indicates the order of the leading minor that is not positive-definite, and the decomposition could not be completed. info filled with zeros indicates that the decomposition was successful. If check_errors=True and info contains positive integers, then a RuntimeError is thrown. Note When the inputs are on a CUDA device, this function synchronizes only when check_errors= True. Warning This function is “experimental” and it may change in a future PyTorch release. See also torch.linalg.cholesky() is a NumPy compatible variant that always checks for errors. Parameters A (Tensor) – the Hermitian n times n matrix or the batch of such matrices of size (*, n, n) where * is one or more batch dimensions. Keyword Arguments upper (bool, optional) – whether to return an upper triangular matrix. The tensor returned with upper=True is the conjugate transpose of the tensor returned with upper=False. check_errors (bool, optional) – controls whether to check the content of infos. Default: False. out (tuple, optional) – tuple of two tensors to write the output to. Ignored if None. Default: None. Examples: &gt;&gt;&gt; A = torch.randn(2, 2, dtype=torch.complex128) &gt;&gt;&gt; A = A @ A.t().conj() # creates a Hermitian positive-definite matrix &gt;&gt;&gt; L, info = torch.linalg.cholesky_ex(A) &gt;&gt;&gt; A tensor([[ 2.3792+0.0000j, -0.9023+0.9831j], [-0.9023-0.9831j, 0.8757+0.0000j]], dtype=torch.complex128) &gt;&gt;&gt; L tensor([[ 1.5425+0.0000j, 0.0000+0.0000j], [-0.5850-0.6374j, 0.3567+0.0000j]], dtype=torch.complex128) &gt;&gt;&gt; info tensor(0, dtype=torch.int32)"
        }

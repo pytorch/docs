@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.grid_sample.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.nn.functional.grid_sample.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,7 +4358,7 @@ document.write(`
 <h1>torch.nn.functional.grid_sample<a class="headerlink" href="#torch-nn-functional-grid-sample" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.functional.grid_sample">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">grid_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bilinear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zeros'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align_corners</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/functional.py#L4956"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.grid_sample" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">grid_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bilinear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zeros'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align_corners</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/functional.py#L4952"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.grid_sample" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute grid sample.</p>
 <p>Given an <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> and a flow-field <code class="xref py py-attr docutils literal notranslate"><span class="pre">grid</span></code>, computes the
 <code class="docutils literal notranslate"><span class="pre">output</span></code> using <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> values and pixel locations from <code class="xref py py-attr docutils literal notranslate"><span class="pre">grid</span></code>.</p>
@@ -4703,21 +4726,17 @@ Clamp the results with <a class="reference internal" href="torch.clamp.html#torc
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4762,18 +4781,20 @@ Clamp the results with <a class="reference internal" href="torch.clamp.html#torc
          "@type": "Article",
          "headline": "torch.nn.functional.grid_sample",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.nn.functional.grid_sample.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.nn.functional.grid_sample.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.nn.functional.grid_sample# torch.nn.functional.grid_sample(input, grid, mode=&#39;bilinear&#39;, padding_mode=&#39;zeros&#39;, align_corners=None)[source]# Compute grid sample. Given an input and a flow-field grid, computes the output using input values and pixel locations from grid. Currently, only spatial (4-D) and volumetric (5-D) input are supported. In the spatial (4-D) case, for input with shape (N,C,Hin,Win)(N, C, H_\text{in}, W_\text{in})(N,C,Hin​,Win​) and grid with shape (N,Hout,Wout,2)(N, H_\text{out}, W_\text{out}, 2)(N,Hout​,Wout​,2), the output will have shape (N,C,Hout,Wout)(N, C, H_\text{out}, W_\text{out})(N,C,Hout​,Wout​). For each output location output[n, :, h, w], the size-2 vector grid[n, h, w] specifies input pixel locations x and y, which are used to interpolate the output value output[n, :, h, w]. In the case of 5D inputs, grid[n, d, h, w] specifies the x, y, z pixel locations for interpolating output[n, :, d, h, w]. mode argument specifies nearest or bilinear interpolation method to sample the input pixels. grid specifies the sampling pixel locations normalized by the input spatial dimensions. Therefore, it should have most values in the range of [-1, 1]. For example, values x = -1, y = -1 is the left-top pixel of input, and values x = 1, y = 1 is the right-bottom pixel of input. If grid has values outside the range of [-1, 1], the corresponding outputs are handled as defined by padding_mode. Options are padding_mode=&#34;zeros&#34;: use 0 for out-of-bound grid locations, padding_mode=&#34;border&#34;: use border values for out-of-bound grid locations, padding_mode=&#34;reflection&#34;: use values at locations reflected by the border for out-of-bound grid locations. For location far away from the border, it will keep being reflected until becoming in bound, e.g., (normalized) pixel location x = -3.5 reflects by border -1 and becomes x&#39; = 1.5, then reflects by border 1 and becomes x&#39;&#39; = -0.5. Note This function is often used in conjunction with affine_grid() to build Spatial Transformer Networks . Note When using the CUDA backend, this operation may induce nondeterministic behaviour in its backward pass that is not easily switched off. Please see the notes on Reproducibility for background. Note NaN values in grid would be interpreted as -1. Parameters input (Tensor) – input of shape (N,C,Hin,Win)(N, C, H_\text{in}, W_\text{in})(N,C,Hin​,Win​) (4-D case) or (N,C,Din,Hin,Win)(N, C, D_\text{in}, H_\text{in}, W_\text{in})(N,C,Din​,Hin​,Win​) (5-D case) grid (Tensor) – flow-field of shape (N,Hout,Wout,2)(N, H_\text{out}, W_\text{out}, 2)(N,Hout​,Wout​,2) (4-D case) or (N,Dout,Hout,Wout,3)(N, D_\text{out}, H_\text{out}, W_\text{out}, 3)(N,Dout​,Hout​,Wout​,3) (5-D case) mode (str) – interpolation mode to calculate output values &#39;bilinear&#39; | &#39;nearest&#39; | &#39;bicubic&#39;. Default: &#39;bilinear&#39; Note: mode=&#39;bicubic&#39; supports only 4-D input. When mode=&#39;bilinear&#39; and the input is 5-D, the interpolation mode used internally will actually be trilinear. However, when the inp..."
+         "articleBody": "torch.nn.functional.grid_sample# torch.nn.functional.grid_sample(input, grid, mode=&#39;bilinear&#39;, padding_mode=&#39;zeros&#39;, align_corners=None)[source]# Compute grid sample. Given an input and a flow-field grid, computes the output using input values and pixel locations from grid. Currently, only spatial (4-D) and volumetric (5-D) input are supported. In the spatial (4-D) case, for input with shape (N,C,Hin,Win)(N, C, H_\\text{in}, W_\\text{in})(N,C,Hin​,Win​) and grid with shape (N,Hout,Wout,2)(N, H_\\text{out}, W_\\text{out}, 2)(N,Hout​,Wout​,2), the output will have shape (N,C,Hout,Wout)(N, C, H_\\text{out}, W_\\text{out})(N,C,Hout​,Wout​). For each output location output[n, :, h, w], the size-2 vector grid[n, h, w] specifies input pixel locations x and y, which are used to interpolate the output value output[n, :, h, w]. In the case of 5D inputs, grid[n, d, h, w] specifies the x, y, z pixel locations for interpolating output[n, :, d, h, w]. mode argument specifies nearest or bilinear interpolation method to sample the input pixels. grid specifies the sampling pixel locations normalized by the input spatial dimensions. Therefore, it should have most values in the range of [-1, 1]. For example, values x = -1, y = -1 is the left-top pixel of input, and values x = 1, y = 1 is the right-bottom pixel of input. If grid has values outside the range of [-1, 1], the corresponding outputs are handled as defined by padding_mode. Options are padding_mode=\&#34;zeros\&#34;: use 0 for out-of-bound grid locations, padding_mode=\&#34;border\&#34;: use border values for out-of-bound grid locations, padding_mode=\&#34;reflection\&#34;: use values at locations reflected by the border for out-of-bound grid locations. For location far away from the border, it will keep being reflected until becoming in bound, e.g., (normalized) pixel location x = -3.5 reflects by border -1 and becomes x&#39; = 1.5, then reflects by border 1 and becomes x&#39;&#39; = -0.5. Note This function is often used in conjunction with affine_grid() to build Spatial Transformer Networks . Note When using the CUDA backend, this operation may induce nondeterministic behaviour in its backward pass that is not easily switched off. Please see the notes on Reproducibility for background. Note NaN values in grid would be interpreted as -1. Parameters input (Tensor) – input of shape (N,C,Hin,Win)(N, C, H_\\text{in}, W_\\text{in})(N,C,Hin​,Win​) (4-D case) or (N,C,Din,Hin,Win)(N, C, D_\\text{in}, H_\\text{in}, W_\\text{in})(N,C,Din​,Hin​,Win​) (5-D case) grid (Tensor) – flow-field of shape (N,Hout,Wout,2)(N, H_\\text{out}, W_\\text{out}, 2)(N,Hout​,Wout​,2) (4-D case) or (N,Dout,Hout,Wout,3)(N, D_\\text{out}, H_\\text{out}, W_\\text{out}, 3)(N,Dout​,Hout​,Wout​,3) (5-D case) mode (str) – interpolation mode to calculate output values &#39;bilinear&#39; | &#39;nearest&#39; | &#39;bicubic&#39;. Default: &#39;bilinear&#39; Note: mode=&#39;bicubic&#39; supports only 4-D input. When mode=&#39;bilinear&#39; and the input is 5-D, the interpolation mode used internally will actually be trilinear. However, when the inp..."
        }
    </script>
 

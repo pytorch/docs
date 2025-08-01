@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.modules.fold.Unfold.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.nn.modules.fold.Unfold.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4346,7 +4369,7 @@ document.write(`
 <h1>Unfold<a class="headerlink" href="#unfold" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.modules.fold.Unfold">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.fold.</span></span><span class="sig-name descname"><span class="pre">Unfold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/fold.py#L174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.fold.Unfold" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.fold.</span></span><span class="sig-name descname"><span class="pre">Unfold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/fold.py#L174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.fold.Unfold" title="Permalink to this definition">#</a></dt>
 <dd><p>Extracts sliding local blocks from a batched input tensor.</p>
 <p>Consider a batched <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> tensor of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mi>C</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, C, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span></span>,
 where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></span> is the batch dimension, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span></span> is the channel dimension,
@@ -4464,7 +4487,7 @@ supported.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.fold.Unfold.extra_repr">
-<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/fold.py#L328"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.fold.Unfold.extra_repr" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/fold.py#L328"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.fold.Unfold.extra_repr" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the extra representation of the module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4475,7 +4498,7 @@ supported.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.fold.Unfold.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/fold.py#L320"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.fold.Unfold.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/fold.py#L320"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.fold.Unfold.forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4752,21 +4775,17 @@ supported.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4811,18 +4830,20 @@ supported.</p>
          "@type": "Article",
          "headline": "Unfold",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.nn.modules.fold.Unfold.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.nn.modules.fold.Unfold.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "Unfold# class torch.nn.modules.fold.Unfold(kernel_size, dilation=1, padding=0, stride=1)[source]# Extracts sliding local blocks from a batched input tensor. Consider a batched input tensor of shape (N,C,∗)(N, C, *)(N,C,∗), where NNN is the batch dimension, CCC is the channel dimension, and ∗*∗ represent arbitrary spatial dimensions. This operation flattens each sliding kernel_size-sized block within the spatial dimensions of input into a column (i.e., last dimension) of a 3-D output tensor of shape (N,C×∏(kernel_size),L)(N, C \times \prod(\text{kernel\_size}), L)(N,C×∏(kernel_size),L), where C×∏(kernel_size)C \times \prod(\text{kernel\_size})C×∏(kernel_size) is the total number of values within each block (a block has ∏(kernel_size)\prod(\text{kernel\_size})∏(kernel_size) spatial locations each containing a CCC-channeled vector), and LLL is the total number of such blocks: L=∏d⌊spatial_size[d]+2×padding[d]−dilation[d]×(kernel_size[d]−1)−1stride[d]+1⌋,L = \prod_d \left\lfloor\frac{\text{spatial\_size}[d] + 2 \times \text{padding}[d] % - \text{dilation}[d] \times (\text{kernel\_size}[d] - 1) - 1}{\text{stride}[d]} + 1\right\rfloor, L=d∏​⌊stride[d]spatial_size[d]+2×padding[d]−dilation[d]×(kernel_size[d]−1)−1​+1⌋,where spatial_size\text{spatial\_size}spatial_size is formed by the spatial dimensions of input (∗*∗ above), and ddd is over all spatial dimensions. Therefore, indexing output at the last dimension (column dimension) gives all values within a certain block. The padding, stride and dilation arguments specify how the sliding blocks are retrieved. stride controls the stride for the sliding blocks. padding controls the amount of implicit zero-paddings on both sides for padding number of points for each dimension before reshaping. dilation controls the spacing between the kernel points; also known as the à trous algorithm. It is harder to describe, but this link has a nice visualization of what dilation does. Parameters kernel_size (int or tuple) – the size of the sliding blocks dilation (int or tuple, optional) – a parameter that controls the stride of elements within the neighborhood. Default: 1 padding (int or tuple, optional) – implicit zero padding to be added on both sides of input. Default: 0 stride (int or tuple, optional) – the stride of the sliding blocks in the input spatial dimensions. Default: 1 If kernel_size, dilation, padding or stride is an int or a tuple of length 1, their values will be replicated across all spatial dimensions. For the case of two input spatial dimensions this operation is sometimes called im2col. Note Fold calculates each combined value in the resulting large tensor by summing all values from all containing blocks. Unfold extracts the values in the local blocks by copying from the large tensor. So, if the blocks overlap, they are not inverses of each other. In general, folding and unfolding operations are related as follows. Consider Fold and Unfold instances created with the same parameters: &gt;&gt;&gt; fold_param..."
+         "articleBody": "Unfold# class torch.nn.modules.fold.Unfold(kernel_size, dilation=1, padding=0, stride=1)[source]# Extracts sliding local blocks from a batched input tensor. Consider a batched input tensor of shape (N,C,∗)(N, C, *)(N,C,∗), where NNN is the batch dimension, CCC is the channel dimension, and ∗*∗ represent arbitrary spatial dimensions. This operation flattens each sliding kernel_size-sized block within the spatial dimensions of input into a column (i.e., last dimension) of a 3-D output tensor of shape (N,C×∏(kernel_size),L)(N, C \\times \\prod(\\text{kernel\\_size}), L)(N,C×∏(kernel_size),L), where C×∏(kernel_size)C \\times \\prod(\\text{kernel\\_size})C×∏(kernel_size) is the total number of values within each block (a block has ∏(kernel_size)\\prod(\\text{kernel\\_size})∏(kernel_size) spatial locations each containing a CCC-channeled vector), and LLL is the total number of such blocks: L=∏d⌊spatial_size[d]+2×padding[d]−dilation[d]×(kernel_size[d]−1)−1stride[d]+1⌋,L = \\prod_d \\left\\lfloor\\frac{\\text{spatial\\_size}[d] + 2 \\times \\text{padding}[d] % - \\text{dilation}[d] \\times (\\text{kernel\\_size}[d] - 1) - 1}{\\text{stride}[d]} + 1\\right\\rfloor, L=d∏​⌊stride[d]spatial_size[d]+2×padding[d]−dilation[d]×(kernel_size[d]−1)−1​+1⌋,where spatial_size\\text{spatial\\_size}spatial_size is formed by the spatial dimensions of input (∗*∗ above), and ddd is over all spatial dimensions. Therefore, indexing output at the last dimension (column dimension) gives all values within a certain block. The padding, stride and dilation arguments specify how the sliding blocks are retrieved. stride controls the stride for the sliding blocks. padding controls the amount of implicit zero-paddings on both sides for padding number of points for each dimension before reshaping. dilation controls the spacing between the kernel points; also known as the à trous algorithm. It is harder to describe, but this link has a nice visualization of what dilation does. Parameters kernel_size (int or tuple) – the size of the sliding blocks dilation (int or tuple, optional) – a parameter that controls the stride of elements within the neighborhood. Default: 1 padding (int or tuple, optional) – implicit zero padding to be added on both sides of input. Default: 0 stride (int or tuple, optional) – the stride of the sliding blocks in the input spatial dimensions. Default: 1 If kernel_size, dilation, padding or stride is an int or a tuple of length 1, their values will be replicated across all spatial dimensions. For the case of two input spatial dimensions this operation is sometimes called im2col. Note Fold calculates each combined value in the resulting large tensor by summing all values from all containing blocks. Unfold extracts the values in the local blocks by copying from the large tensor. So, if the blocks overlap, they are not inverses of each other. In general, folding and unfolding operations are related as follows. Consider Fold and Unfold instances created with the same parameters: &gt;&gt;&gt; fold_param..."
        }
    </script>
 

@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.Tensor.to_sparse.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.Tensor.to_sparse.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4687,21 +4710,17 @@ value between 0 and dimension of <code class="xref py py-attr docutils literal n
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4746,16 +4765,18 @@ value between 0 and dimension of <code class="xref py py-attr docutils literal n
          "@type": "Article",
          "headline": "torch.Tensor.to_sparse",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.Tensor.to_sparse.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.Tensor.to_sparse.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.Tensor.to_sparse# Tensor.to_sparse(sparseDims) → Tensor# Returns a sparse copy of the tensor. PyTorch supports sparse tensors in coordinate format. Parameters sparseDims (int, optional) – the number of sparse dimensions to include in the new sparse tensor Example: &gt;&gt;&gt; d = torch.tensor([[0, 0, 0], [9, 0, 10], [0, 0, 0]]) &gt;&gt;&gt; d tensor([[ 0, 0, 0], [ 9, 0, 10], [ 0, 0, 0]]) &gt;&gt;&gt; d.to_sparse() tensor(indices=tensor([[1, 1], [0, 2]]), values=tensor([ 9, 10]), size=(3, 3), nnz=2, layout=torch.sparse_coo) &gt;&gt;&gt; d.to_sparse(1) tensor(indices=tensor([[1]]), values=tensor([[ 9, 0, 10]]), size=(3, 3), nnz=1, layout=torch.sparse_coo) to_sparse(*, layout=None, blocksize=None, dense_dim=None) → Tensor Returns a sparse tensor with the specified layout and blocksize. If the self is strided, the number of dense dimensions could be specified, and a hybrid sparse tensor will be created, with dense_dim dense dimensions and self.dim() - 2 - dense_dim batch dimension. Note If the self layout and blocksize parameters match with the specified layout and blocksize, return self. Otherwise, return a sparse tensor copy of self. Parameters layout (torch.layout, optional) – The desired sparse layout. One of torch.sparse_coo, torch.sparse_csr, torch.sparse_csc, torch.sparse_bsr, or torch.sparse_bsc. Default: if None, torch.sparse_coo. blocksize (list, tuple, torch.Size, optional) – Block size of the resulting BSR or BSC tensor. For other layouts, specifying the block size that is not None will result in a RuntimeError exception. A block size must be a tuple of length two such that its items evenly divide the two sparse dimensions. dense_dim (int, optional) – Number of dense dimensions of the resulting CSR, CSC, BSR or BSC tensor. This argument should be used only if self is a strided tensor, and must be a value between 0 and dimension of self tensor minus two. Example: &gt;&gt;&gt; x = torch.tensor([[1, 0], [0, 0], [2, 3]]) &gt;&gt;&gt; x.to_sparse(layout=torch.sparse_coo) tensor(indices=tensor([[0, 2, 2], [0, 0, 1]]), values=tensor([1, 2, 3]), size=(3, 2), nnz=3, layout=torch.sparse_coo) &gt;&gt;&gt; x.to_sparse(layout=torch.sparse_bsr, blocksize=(1, 2)) tensor(crow_indices=tensor([0, 1, 1, 2]), col_indices=tensor([0, 0]), values=tensor([[[1, 0]], [[2, 3]]]), size=(3, 2), nnz=2, layout=torch.sparse_bsr) &gt;&gt;&gt; x.to_sparse(layout=torch.sparse_bsr, blocksize=(2, 1)) RuntimeError: Tensor size(-2) 3 needs to be divisible by blocksize[0] 2 &gt;&gt;&gt; x.to_sparse(layout=torch.sparse_csr, blocksize=(3, 1)) RuntimeError: to_sparse for Strided to SparseCsr conversion does not use specified blocksize &gt;&gt;&gt; x = torch.tensor([[[1], [0]], [[0], [0]], [[2], [3]]]) &gt;&gt;&gt; x.to_sparse(layout=torch.sparse_csr, dense_dim=1) tensor(crow_indices=tensor([0, 1, 1, 3]), col_indices=tensor([0, 0, 1]), values=tensor([[1], [2], [3]]), size=(3, 2, 1), nnz=3, layout=torch.sparse_csr)"
        }

@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/torch.compiler_api.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/torch.compiler_api.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4664,21 +4687,17 @@ document.write(`
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4723,18 +4742,20 @@ document.write(`
          "@type": "Article",
          "headline": "torch.compiler API reference",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/torch.compiler_api.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/torch.compiler_api.html"
          },
-         "datePublished": "Jun 02, 2023",
-         "dateModified": "Jun 22, 2025",
-         "articleBody": "torch.compiler API reference# Created On: Jun 02, 2023 | Last Updated On: Jun 22, 2025 For a quick overview of torch.compiler, see torch.compiler. compile See torch.compile() for details on the arguments for this function. reset This function clears all compilation caches and restores the system to its initial state. allow_in_graph Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered. substitute_in_graph Register a polyfill handler for a function, usually a C function from the C extension, to be used in place of the original function when inlining the original function in the graph. assume_constant_result This function is used to mark a function fn as having a constant result. list_backends Return valid strings that can be passed to torch.compile(..., backend=&#34;name&#34;). disable This function provides a decorator to disable compilation on a function. set_stance Set the current stance of the compiler. set_enable_guard_collectives Enables use of collectives during guard evaluation to synchronize behavior across ranks. cudagraph_mark_step_begin Indicates that a new iteration of inference or training is about to begin. is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. is_exporting Indicated whether we&#39;re under exporting. skip_guard_on_inbuilt_nn_modules_unsafe A common function to skip guards on the inbuilt nn modules like torch.nn.Linear. skip_guard_on_all_nn_modules_unsafe A common function to skip guards on all nn modules, both user defined as well inbuilt nn modules (like torch.nn.Linear). keep_tensor_guards_unsafe A common function to keep tensor guards on all tensors. skip_guard_on_globals_unsafe A common function to skip guards on all globals. nested_compile_region Tells ``torch.compile`` that the marked set of operations forms a nested compile region (which is often repeated in the full model) whose code can be compiled once and safely reused."
+        "datePublished": "Jun 02, 2023T00:00:00Z",
+         "dateModified": "Jun 22, 2025T00:00:00Z",
+         "articleBody": "torch.compiler API reference# Created On: Jun 02, 2023 | Last Updated On: Jun 22, 2025 For a quick overview of torch.compiler, see torch.compiler. compile See torch.compile() for details on the arguments for this function. reset This function clears all compilation caches and restores the system to its initial state. allow_in_graph Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered. substitute_in_graph Register a polyfill handler for a function, usually a C function from the C extension, to be used in place of the original function when inlining the original function in the graph. assume_constant_result This function is used to mark a function fn as having a constant result. list_backends Return valid strings that can be passed to torch.compile(..., backend=\&#34;name\&#34;). disable This function provides a decorator to disable compilation on a function. set_stance Set the current stance of the compiler. set_enable_guard_collectives Enables use of collectives during guard evaluation to synchronize behavior across ranks. cudagraph_mark_step_begin Indicates that a new iteration of inference or training is about to begin. is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. is_exporting Indicated whether we&#39;re under exporting. skip_guard_on_inbuilt_nn_modules_unsafe A common function to skip guards on the inbuilt nn modules like torch.nn.Linear. skip_guard_on_all_nn_modules_unsafe A common function to skip guards on all nn modules, both user defined as well inbuilt nn modules (like torch.nn.Linear). keep_tensor_guards_unsafe A common function to keep tensor guards on all tensors. skip_guard_on_globals_unsafe A common function to skip guards on all globals. nested_compile_region Tells ``torch.compile`` that the marked set of operations forms a nested compile region (which is often repeated in the full model) whose code can be compiled once and safely reused."
        }
    </script>
 

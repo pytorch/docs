@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/export/draft_export.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/export/draft_export.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4843,21 +4866,17 @@ original model can be directly traceable with <code class="docutils literal notr
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4902,17 +4921,19 @@ original model can be directly traceable with <code class="docutils literal notr
          "@type": "Article",
          "headline": "Draft Export",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/export/draft_export.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/export/draft_export.html"
          },
-         "datePublished": "Jun 13, 2025",
-         "dateModified": "Jul 16, 2025",
+        "datePublished": "Jun 13, 2025T00:00:00Z",
+         "dateModified": "Jul 16, 2025T00:00:00Z",
          "articleBody": "Draft Export# Created On: Jun 13, 2025 | Last Updated On: Jul 16, 2025 Warning This feature is not meant to be used in production and is designed to be used as a tool for debugging torch.export tracing errors. Draft-export is a new version of export, which is designed to consistently produce a graph, even if there are potential soundness issues, and to generate a report listing out all of the issues export encountered during tracing and providing additional debugging information. For custom operators that don’t have fake kernels, it will also generate a profile which you can register to automatically generate a fake kernel. Have you ever tried to export a model using torch.export.export(), only to encounter a data-dependent issue? You fix it, but then run into a missing fake kernel problem. And after resolving that, you get hit with another data-dependent issue. You wonder to yourself, I wish there was a way I could just get a graph to play around with, and be able to view all the issues in one place so that I can fix them later… draft_export to the rescue! draft_export is a version of export which will always successfully export a graph, even if there are potential soundness issues. These issues will then be compiled into a report for clearer visualization, which can be fixed later on. What sort of errors does it catch?# Draft-export helps to catch and debug the following errors: Guard on data-dependent errors Constraint violation errors Missing fake kernels Incorrectly written fake kernels How does it work?# In normal export, we will convert the sample inputs into FakeTensors and use them to record operations and trace the program into a graph. Input tensor shapes that can change (which are marked through dynamic_shapes), or values within tensors (typically from an .item() call) will be represented as a symbolic shape (SymInt) instead of a concrete integer. However some issues may occur while tracing - we may run into guards that we cannot evaluate, like if we want to check if some item in a tensor is greater than 0 (u0 &gt;= 0). Since the tracer doesn’t know anything about the value of u0, it will throw a data-dependent error. If the model uses a custom operator but a fake kernel hasn’t been defined for it, then we will error with fake_tensor.UnsupportedOperatorException because export doesn’t know how to apply this on FakeTensors. If a custom operator has a fake kernel implemented incorrectly, export will silently produce an incorrect graph that doesn’t match the eager behavior. To fix the above errors, draft-export uses real tensor tracing to guide us on how to proceed when tracing. As we trace the model with fake tensors, for every operation that happens on a fake tensor, draft-export will also run the operator on stored real tensors which come from the example inputs passed to export. This allows us to address the above errors: When we reach a guard that we cannot evaluate, like u0 &gt;= 0, we will use the stored real tensor values to evaluat..."
        }
    </script>

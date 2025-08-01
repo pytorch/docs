@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/torch.compiler_custom_backends.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/torch.compiler_custom_backends.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4872,21 +4895,17 @@ together with the following code:</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4931,18 +4950,20 @@ together with the following code:</p>
          "@type": "Article",
          "headline": "Custom Backends",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/torch.compiler_custom_backends.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/torch.compiler_custom_backends.html"
          },
-         "datePublished": "Jun 10, 2025",
-         "dateModified": "Jun 10, 2025",
-         "articleBody": "Custom Backends# Created On: Jun 10, 2025 | Last Updated On: Jun 10, 2025 Overview# torch.compile provides a straightforward method to enable users to define custom backends. A backend function has the contract (gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]) -&gt; Callable. Backend functions can be called by TorchDynamo, the graph tracing component of torch.compile, after tracing an FX graph and are expected to return a compiled function that is equivalent to the traced FX graph. The returned callable should have the same contract as the forward function of the original torch.fx.GraphModule passed into the backend: (*args: torch.Tensor) -&gt; List[torch.Tensor]. In order for TorchDynamo to call your backend, pass your backend function as the backend kwarg in torch.compile. For example, import torch def my_custom_backend(gm, example_inputs): return gm.forward def f(...): ... f_opt = torch.compile(f, backend=my_custom_backend) @torch.compile(backend=my_custom_backend) def g(...): ... See below for more examples. Registering Custom Backends# You can register your backend using the register_backend decorator, for example, from torch._dynamo import register_backend @register_backend def my_compiler(gm, example_inputs): ... Besides the register_backend decorator, if your backend is in another python package, you could also register your backend through entry points of python package, which provides a way for a package to register a plugin for another one. Hint You can learn more about entry_points in the python packaging documentation. To register your backend through entry_points, you could add your backend function to the torch_dynamo_backends entry point group in the setup.py file of your package like: ... setup( ... &#39;torch_dynamo_backends&#39;: [ &#39;my_compiler = your_module.submodule:my_compiler&#39;, ] ... ) Please replace the my_compiler before = to the name of your backend’s name and replace the part after = to the module and function name of your backend function. The entry point will be added to your python environment after the installation of the package. When you call torch.compile(model, backend=&#34;my_compiler&#34;), PyTorch would first search the backend named my_compiler that has been registered with register_backend. If not found, it will continue to search in all backends registered via entry_points. Registration serves two purposes: You can pass a string containing your backend function’s name to torch.compile instead of the function itself, for example, torch.compile(model, backend=&#34;my_compiler&#34;). It is required for use with the minifier. Any generated code from the minifier must call your code that registers your backend function, typically through an import statement. Custom Backends after AOTAutograd# It is possible to define custom backends that are called by AOTAutograd rather than TorchDynamo. This is useful for 2 main reasons: Users can define backends that support model training, as AOTAutograd can generate the backward graph fo..."
+        "datePublished": "Jun 10, 2025T00:00:00Z",
+         "dateModified": "Jun 10, 2025T00:00:00Z",
+         "articleBody": "Custom Backends# Created On: Jun 10, 2025 | Last Updated On: Jun 10, 2025 Overview# torch.compile provides a straightforward method to enable users to define custom backends. A backend function has the contract (gm: torch.fx.GraphModule, example_inputs: List[torch.Tensor]) -&gt; Callable. Backend functions can be called by TorchDynamo, the graph tracing component of torch.compile, after tracing an FX graph and are expected to return a compiled function that is equivalent to the traced FX graph. The returned callable should have the same contract as the forward function of the original torch.fx.GraphModule passed into the backend: (*args: torch.Tensor) -&gt; List[torch.Tensor]. In order for TorchDynamo to call your backend, pass your backend function as the backend kwarg in torch.compile. For example, import torch def my_custom_backend(gm, example_inputs): return gm.forward def f(...): ... f_opt = torch.compile(f, backend=my_custom_backend) @torch.compile(backend=my_custom_backend) def g(...): ... See below for more examples. Registering Custom Backends# You can register your backend using the register_backend decorator, for example, from torch._dynamo import register_backend @register_backend def my_compiler(gm, example_inputs): ... Besides the register_backend decorator, if your backend is in another python package, you could also register your backend through entry points of python package, which provides a way for a package to register a plugin for another one. Hint You can learn more about entry_points in the python packaging documentation. To register your backend through entry_points, you could add your backend function to the torch_dynamo_backends entry point group in the setup.py file of your package like: ... setup( ... &#39;torch_dynamo_backends&#39;: [ &#39;my_compiler = your_module.submodule:my_compiler&#39;, ] ... ) Please replace the my_compiler before = to the name of your backend’s name and replace the part after = to the module and function name of your backend function. The entry point will be added to your python environment after the installation of the package. When you call torch.compile(model, backend=\&#34;my_compiler\&#34;), PyTorch would first search the backend named my_compiler that has been registered with register_backend. If not found, it will continue to search in all backends registered via entry_points. Registration serves two purposes: You can pass a string containing your backend function’s name to torch.compile instead of the function itself, for example, torch.compile(model, backend=\&#34;my_compiler\&#34;). It is required for use with the minifier. Any generated code from the minifier must call your code that registers your backend function, typically through an import statement. Custom Backends after AOTAutograd# It is possible to define custom backends that are called by AOTAutograd rather than TorchDynamo. This is useful for 2 main reasons: Users can define backends that support model training, as AOTAutograd can generate the backward graph fo..."
        }
    </script>
 

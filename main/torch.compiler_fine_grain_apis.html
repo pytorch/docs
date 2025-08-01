@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/torch.compiler_fine_grain_apis.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/torch.compiler_fine_grain_apis.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4736,21 +4759,17 @@ above example.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4795,17 +4814,19 @@ above example.</p>
          "@type": "Article",
          "headline": "TorchDynamo APIs for fine-grained tracing",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/torch.compiler_fine_grain_apis.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/torch.compiler_fine_grain_apis.html"
          },
-         "datePublished": "Jul 28, 2023",
-         "dateModified": "Jun 16, 2025",
+        "datePublished": "Jul 28, 2023T00:00:00Z",
+         "dateModified": "Jun 16, 2025T00:00:00Z",
          "articleBody": "TorchDynamo APIs for fine-grained tracing# Created On: Jul 28, 2023 | Last Updated On: Jun 16, 2025 Note In this document torch.compiler.compile and torch.compile are used interchangeably. Both versions will work in your code. torch.compile performs TorchDynamo tracing on the whole user model. However, it is possible that a small part of the model code cannot be handled by torch.compiler. In this case, you might want to disable the compiler on that particular portion, while running compilation on the rest of the model. This section describe the existing APIs that use to define parts of your code in which you want to skip compilation and the relevant use cases. The API that you can use to define portions of the code on which you can disable compilation are listed in the following table: TorchDynamo APIs to control fine-grained tracing# API Description When to use? torch.compiler.disable Disables Dynamo on the decorated function as well as recursively invoked functions. Excellent for unblocking a user, if a small portion of the model cannot be handled with torch.compile. torch._dynamo.disallow_in_graph Disallows the marked op in the TorchDynamo graph. TorchDynamo causes graph break, and runs the op in the eager (no compile) mode.nnThis is suitable for the ops, while torch.compiler.disable is suitable for decorating functions. This API is excellent for both debugging and unblocking if a custom op like torch.ops.fbgemm.* is causing issues with the torch.compile function. torch.compile.allow_in_graph The annotated callable goes as is in the TorchDynamo graph. For example, a black-box for TorchDynamo Dynamo.nnNote that AOT Autograd will trace through it, so the allow_in_graph is only a Dynamo-level concept. This API is useful for portions of the model which have known TorchDynamo hard-to-support features, like hooks or autograd.Function. However, each usage of allow_in_graph must be carefully screened (no graph breaks, no closures). torch._dynamo.graph_break Adds a graph break. The code before and after the graph break goes through TorchDynamo. Rarely useful for deployment - If you think you need this, most probably you need either disable or disallow_in_graph. torch.compiler.is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). torch.compiler.is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. It’s stricter than torch.compiler.is_compiling() flag, as it would only be set to True when TorchDynamo is used. torch.compiler.is_exporting Indicates whether a graph is traced via export. It’s stricter than torch.compiler.is_compiling() flag, as it would only be set to True when torch.export is used. torch.compiler.disable# torch.compiler.disable disables compilation on the decorated function frame and all the function frames recursively invoked from the decorated function frame. TorchDynamo intercepts the execution of each Python function frame. So, suppose you have a code structure (ima..."
        }
    </script>

@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/sparse.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/sparse.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -6145,21 +6168,17 @@ As always please kindly try the search function first before opening an issue.</
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -6204,17 +6223,19 @@ As always please kindly try the search function first before opening an issue.</
          "@type": "Article",
          "headline": "torch.sparse",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/sparse.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/sparse.html"
          },
-         "datePublished": "Apr 26, 2017",
-         "dateModified": "Jun 18, 2025",
+        "datePublished": "Apr 26, 2017T00:00:00Z",
+         "dateModified": "Jun 18, 2025T00:00:00Z",
          "articleBody": "torch.sparse# Created On: Apr 26, 2017 | Last Updated On: Jun 18, 2025 Warning The PyTorch API of sparse tensors is in beta and may change in the near future. We highly welcome feature requests, bug reports and general suggestions as GitHub issues. Why and when to use sparsity# By default, PyTorch stores torch.Tensor elements contiguously in physical memory. This leads to efficient implementations of various array processing algorithms that require fast access to elements. Now, some users might decide to represent data such as graph adjacency matrices, pruned weights or points clouds by Tensors whose elements are mostly zero valued. We recognize these are important applications and aim to provide performance optimizations for these use cases via sparse storage formats. Various sparse storage formats such as COO, CSR/CSC, semi-structured, LIL, etc. have been developed over the years. While they differ in exact layouts, they all compress data through efficient representation of zero valued elements. We call the uncompressed values specified in contrast to unspecified, compressed elements. By compressing repeat zeros sparse storage formats aim to save memory and computational resources on various CPUs and GPUs. Especially for high degrees of sparsity or highly structured sparsity this can have significant performance implications. As such sparse storage formats can be seen as a performance optimization. Like many other performance optimization sparse storage formats are not always advantageous. When trying sparse formats for your use case you might find your execution time to increase rather than decrease. Please feel encouraged to open a GitHub issue if you analytically expected to see a stark increase in performance but measured a degradation instead. This helps us prioritize the implementation of efficient kernels and wider performance optimizations. We make it easy to try different sparsity layouts, and convert between them, without being opinionated on what’s best for your particular application. Functionality overview# We want it to be straightforward to construct a sparse Tensor from a given dense Tensor by providing conversion routines for each layout. In the next example we convert a 2D Tensor with default dense (strided) layout to a 2D Tensor backed by the COO memory layout. Only values and indices of non-zero elements are stored in this case. &gt;&gt;&gt; a = torch.tensor([[0, 2.], [3, 0]]) &gt;&gt;&gt; a.to_sparse() tensor(indices=tensor([[0, 1], [1, 0]]), values=tensor([2., 3.]), size=(2, 2), nnz=2, layout=torch.sparse_coo) PyTorch currently supports COO, CSR, CSC, BSR, and BSC. We also have a prototype implementation to support :ref: semi-structured sparsity&lt;sparse-semi-structured-docs&gt;. Please see the references for more details. Note that we provide slight generalizations of these formats. Batching: Devices such as GPUs require batching for optimal performance and thus we support batch dimensions. We currently offer a very simple version of batchin..."
        }
    </script>

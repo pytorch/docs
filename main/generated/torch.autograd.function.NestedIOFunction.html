@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.autograd.function.NestedIOFunction.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.autograd.function.NestedIOFunction.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,12 +4358,12 @@ document.write(`
 <h1>NestedIOFunction<a class="headerlink" href="#nestediofunction" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.function.</span></span><span class="sig-name descname"><span class="pre">NestedIOFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L773"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.function.</span></span><span class="sig-name descname"><span class="pre">NestedIOFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L773"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction" title="Permalink to this definition">#</a></dt>
 <dd><p>This class is here only for backward compatibility reasons.
 Use <a class="reference internal" href="../autograd.html#torch.autograd.Function" title="torch.autograd.function.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">Function</span></code></a> instead of this for any new use case.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.backward">
-<span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">gradients</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L797"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.backward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">gradients</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L797"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.backward" title="Permalink to this definition">#</a></dt>
 <dd><p>Shared backward utility.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4351,7 +4374,7 @@ Use <a class="reference internal" href="../autograd.html#torch.autograd.Function
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.backward_extended">
-<span class="sig-name descname"><span class="pre">backward_extended</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grad_output</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L850"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.backward_extended" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">backward_extended</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grad_output</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L850"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.backward_extended" title="Permalink to this definition">#</a></dt>
 <dd><p>User defined backward.</p>
 <dl class="field-list simple">
 </dl>
@@ -4359,7 +4382,7 @@ Use <a class="reference internal" href="../autograd.html#torch.autograd.Function
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L807"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L807"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Shared forward utility.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4370,7 +4393,7 @@ Use <a class="reference internal" href="../autograd.html#torch.autograd.Function
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.forward_extended">
-<span class="sig-name descname"><span class="pre">forward_extended</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L844"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.forward_extended" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward_extended</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L844"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.forward_extended" title="Permalink to this definition">#</a></dt>
 <dd><p>User defined forward.</p>
 <dl class="field-list simple">
 </dl>
@@ -4378,7 +4401,7 @@ Use <a class="reference internal" href="../autograd.html#torch.autograd.Function
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.jvp">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">jvp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grad_inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L446"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.jvp" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">jvp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grad_inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L446"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.jvp" title="Permalink to this definition">#</a></dt>
 <dd><p>Define a formula for differentiating the operation with forward mode automatic differentiation.</p>
 <p>This function is to be overridden by all subclasses.
 It must accept a context <code class="xref py py-attr docutils literal notranslate"><span class="pre">ctx</span></code> as the first argument, followed by
@@ -4401,7 +4424,7 @@ functions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.mark_dirty">
-<span class="sig-name descname"><span class="pre">mark_dirty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L832"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.mark_dirty" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mark_dirty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L832"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.mark_dirty" title="Permalink to this definition">#</a></dt>
 <dd><p>See <code class="xref py py-meth docutils literal notranslate"><span class="pre">Function.mark_dirty()</span></code>.</p>
 <dl class="field-list simple">
 </dl>
@@ -4409,7 +4432,7 @@ functions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.mark_non_differentiable">
-<span class="sig-name descname"><span class="pre">mark_non_differentiable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L838"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.mark_non_differentiable" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mark_non_differentiable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L838"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.mark_non_differentiable" title="Permalink to this definition">#</a></dt>
 <dd><p>See <code class="xref py py-meth docutils literal notranslate"><span class="pre">Function.mark_non_differentiable()</span></code>.</p>
 <dl class="field-list simple">
 </dl>
@@ -4417,7 +4440,7 @@ functions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.save_for_backward">
-<span class="sig-name descname"><span class="pre">save_for_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L817"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.save_for_backward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_for_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L817"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.save_for_backward" title="Permalink to this definition">#</a></dt>
 <dd><p>See <code class="xref py py-meth docutils literal notranslate"><span class="pre">Function.save_for_backward()</span></code>.</p>
 <dl class="field-list simple">
 </dl>
@@ -4425,7 +4448,7 @@ functions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.save_for_forward">
-<span class="sig-name descname"><span class="pre">save_for_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.save_for_forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_for_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.save_for_forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Save given tensors for a future call to <code class="xref py py-func docutils literal notranslate"><span class="pre">jvp()</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">save_for_forward</span></code> should be called at most once, in either the
 <a class="reference internal" href="#torch.autograd.function.NestedIOFunction.setup_context" title="torch.autograd.function.NestedIOFunction.setup_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code></a> or <a class="reference internal" href="#torch.autograd.function.NestedIOFunction.forward" title="torch.autograd.function.NestedIOFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> methods, and all arguments
@@ -4477,7 +4500,7 @@ attribute.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.set_materialize_grads">
-<span class="sig-name descname"><span class="pre">set_materialize_grads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.set_materialize_grads" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_materialize_grads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.set_materialize_grads" title="Permalink to this definition">#</a></dt>
 <dd><p>Set whether to materialize grad tensors. Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <p>This should be called only from either the <a class="reference internal" href="#torch.autograd.function.NestedIOFunction.setup_context" title="torch.autograd.function.NestedIOFunction.setup_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code></a> or
 <a class="reference internal" href="#torch.autograd.function.NestedIOFunction.forward" title="torch.autograd.function.NestedIOFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> methods.</p>
@@ -4523,7 +4546,7 @@ prior to calling the <a class="reference internal" href="#torch.autograd.functio
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.setup_context">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setup_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L397"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.setup_context" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setup_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L397"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.setup_context" title="Permalink to this definition">#</a></dt>
 <dd><p>There are two ways to define the forward pass of an autograd.Function.</p>
 <p>Either:</p>
 <ol class="arabic simple">
@@ -4544,7 +4567,7 @@ inside <code class="docutils literal notranslate"><span class="pre">setup_contex
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.vjp">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vjp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grad_outputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L414"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.vjp" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vjp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grad_outputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L414"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.vjp" title="Permalink to this definition">#</a></dt>
 <dd><p>Define a formula for differentiating the operation with backward mode automatic differentiation.</p>
 <p>This function is to be overridden by all subclasses.
 (Defining this function is equivalent to defining the <code class="docutils literal notranslate"><span class="pre">vjp</span></code> function.)</p>
@@ -4571,7 +4594,7 @@ output.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.vmap">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_dims</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L532"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.vmap" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_dims</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L532"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.vmap" title="Permalink to this definition">#</a></dt>
 <dd><p>Define the behavior for this autograd.Function underneath <a class="reference internal" href="torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a>.</p>
 <p>For a <a class="reference internal" href="../autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.Function()</span></code></a> to support
 <a class="reference internal" href="torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a>, you must either override this static method, or set
@@ -4876,21 +4899,17 @@ output has the vmapped dimension and what index it is in.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4935,16 +4954,18 @@ output has the vmapped dimension and what index it is in.</p>
          "@type": "Article",
          "headline": "NestedIOFunction",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.autograd.function.NestedIOFunction.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.autograd.function.NestedIOFunction.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "NestedIOFunction# class torch.autograd.function.NestedIOFunction(*args, **kwargs)[source]# This class is here only for backward compatibility reasons. Use Function instead of this for any new use case. backward(*gradients)[source]# Shared backward utility. Return type Any backward_extended(*grad_output)[source]# User defined backward. forward(*args)[source]# Shared forward utility. Return type Any forward_extended(*input)[source]# User defined forward. static jvp(ctx, *grad_inputs)[source]# Define a formula for differentiating the operation with forward mode automatic differentiation. This function is to be overridden by all subclasses. It must accept a context ctx as the first argument, followed by as many inputs as the forward() got (None will be passed in for non tensor inputs of the forward function), and it should return as many tensors as there were outputs to forward(). Each argument is the gradient w.r.t the given input, and each returned value should be the gradient w.r.t. the corresponding output. If an output is not a Tensor or the function is not differentiable with respect to that output, you can just pass None as a gradient for that input. You can use the ctx object to pass any value from the forward to this functions. Return type Any mark_dirty(*args, **kwargs)[source]# See Function.mark_dirty(). mark_non_differentiable(*args, **kwargs)[source]# See Function.mark_non_differentiable(). save_for_backward(*args)[source]# See Function.save_for_backward(). save_for_forward(*tensors)[source]# Save given tensors for a future call to jvp(). save_for_forward should be called at most once, in either the setup_context() or forward() methods, and all arguments should be tensors. In jvp(), saved objects can be accessed through the saved_tensors attribute. Arguments can also be None. This is a no-op. See Extending torch.autograd for more details on how to use this method. Example: &gt;&gt;&gt; class Func(torch.autograd.Function): &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; def forward(ctx, x: torch.Tensor, y: torch.Tensor, z: int): &gt;&gt;&gt; ctx.save_for_backward(x, y) &gt;&gt;&gt; ctx.save_for_forward(x, y) &gt;&gt;&gt; ctx.z = z &gt;&gt;&gt; return x * y * z &gt;&gt;&gt; &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; def jvp(ctx, x_t, y_t, _): &gt;&gt;&gt; x, y = ctx.saved_tensors &gt;&gt;&gt; z = ctx.z &gt;&gt;&gt; return z * (y * x_t + x * y_t) &gt;&gt;&gt; &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; def vjp(ctx, grad_out): &gt;&gt;&gt; x, y = ctx.saved_tensors &gt;&gt;&gt; z = ctx.z &gt;&gt;&gt; return z * grad_out * y, z * grad_out * x, None &gt;&gt;&gt; &gt;&gt;&gt; a = torch.tensor(1., requires_grad=True, dtype=torch.double) &gt;&gt;&gt; t = torch.tensor(1., dtype=torch.double) &gt;&gt;&gt; b = torch.tensor(2., requires_grad=True, dtype=torch.double) &gt;&gt;&gt; c = 4 &gt;&gt;&gt; &gt;&gt;&gt; with fwAD.dual_level(): &gt;&gt;&gt; a_dual = fwAD.make_dual(a, t) &gt;&gt;&gt; d = Func.apply(a_dual, b, c) property saved_tensors# See Function.saved_tensors(). set_materialize_grads(value)[source]# Set whether to materialize grad tensors. Default is True. This should be called only from either the setup_context() or forward() methods. If True, undefined grad tensors will be expanded to tensors full o..."
        }

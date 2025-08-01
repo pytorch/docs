@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/cuda.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/cuda.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4675,7 +4698,7 @@ GPUs for computation.</p>
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.use_mem_pool">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">use_mem_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/cuda/memory.py#L1218"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.use_mem_pool" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">use_mem_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/cuda/memory.py#L1218"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.use_mem_pool" title="Permalink to this definition">#</a></dt>
 <dd><p>A context manager that routes allocations to a given pool.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -5080,21 +5103,17 @@ ensure that their system is appropriately configured to use GPUDirect Storage pe
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -5139,17 +5158,19 @@ ensure that their system is appropriately configured to use GPUDirect Storage pe
          "@type": "Article",
          "headline": "torch.cuda",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/cuda.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/cuda.html"
          },
-         "datePublished": "Dec 23, 2016",
-         "dateModified": "Jun 13, 2025",
+        "datePublished": "Dec 23, 2016T00:00:00Z",
+         "dateModified": "Jun 13, 2025T00:00:00Z",
          "articleBody": "torch.cuda# Created On: Dec 23, 2016 | Last Updated On: Jun 13, 2025 This package adds support for CUDA tensor types. It implements the same function as CPU tensors, but they utilize GPUs for computation. It is lazily initialized, so you can always import it, and use is_available() to determine if your system supports CUDA. CUDA semantics has more details about working with CUDA. StreamContext Context-manager that selects a given stream. can_device_access_peer Check if peer access between two devices is possible. current_blas_handle Return cublasHandle_t pointer to current cuBLAS handle current_device Return the index of a currently selected device. current_stream Return the currently selected Stream for a given device. cudart Retrieves the CUDA runtime API module. default_stream Return the default Stream for a given device. device Context-manager that changes the selected device. device_count Return the number of GPUs available. device_memory_used Return used global (device) memory in bytes as given by nvidia-smi or amd-smi. device_of Context-manager that changes the current device to that of given object. get_arch_list Return list CUDA architectures this library was compiled for. get_device_capability Get the cuda capability of a device. get_device_name Get the name of a device. get_device_properties Get the properties of a device. get_gencode_flags Return NVCC gencode flags this library was compiled with. get_stream_from_external Return a Stream from an externally allocated CUDA stream. get_sync_debug_mode Return current value of debug mode for cuda synchronizing operations. init Initialize PyTorch&#39;s CUDA state. ipc_collect Force collects GPU memory after it has been released by CUDA IPC. is_available Return a bool indicating if CUDA is currently available. is_initialized Return whether PyTorch&#39;s CUDA state has been initialized. is_tf32_supported Return a bool indicating if the current CUDA/ROCm device supports dtype tf32. memory_usage Return the percent of time over the past sample period during which global (device) memory was being read or written as given by nvidia-smi. set_device Set the current device. set_stream Set the current stream.This is a wrapper API to set the stream. set_sync_debug_mode Set the debug mode for cuda synchronizing operations. stream Wrap around the Context-manager StreamContext that selects a given stream. synchronize Wait for all kernels in all streams on a CUDA device to complete. utilization Return the percent of time over the past sample period during which one or more kernels was executing on the GPU as given by nvidia-smi. temperature Return the average temperature of the GPU sensor in Degrees C (Centigrades). power_draw Return the average power draw of the GPU sensor in mW (MilliWatts) clock_rate Return the clock speed of the GPU SM in MHz (megahertz) over the past sample period as given by nvidia-smi. AcceleratorError Exception raised while executing on device OutOfMemoryError Exception raised when devic..."
        }
    </script>

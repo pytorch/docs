@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.autograd.function.FunctionCtx.save_for_backward.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.autograd.function.FunctionCtx.save_for_backward.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,7 +4358,7 @@ document.write(`
 <h1>torch.autograd.function.FunctionCtx.save_for_backward<a class="headerlink" href="#torch-autograd-function-functionctx-save-for-backward" title="Permalink to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.FunctionCtx.save_for_backward">
-<span class="sig-prename descclassname"><span class="pre">FunctionCtx.</span></span><span class="sig-name descname"><span class="pre">save_for_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/autograd/function.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.FunctionCtx.save_for_backward" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">FunctionCtx.</span></span><span class="sig-name descname"><span class="pre">save_for_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/autograd/function.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.FunctionCtx.save_for_backward" title="Permalink to this definition">#</a></dt>
 <dd><p>Save given tensors for a future call to <code class="xref py py-func docutils literal notranslate"><span class="pre">backward()</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">save_for_backward</span></code> should be called at most once, in either the
 <code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code> or <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> methods, and only with tensors.</p>
@@ -4651,21 +4674,17 @@ they weren’t used in any in-place operation that modified their content.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4710,16 +4729,18 @@ they weren’t used in any in-place operation that modified their content.</p>
          "@type": "Article",
          "headline": "torch.autograd.function.FunctionCtx.save_for_backward",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.autograd.function.FunctionCtx.save_for_backward.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.autograd.function.FunctionCtx.save_for_backward.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.autograd.function.FunctionCtx.save_for_backward# FunctionCtx.save_for_backward(*tensors)[source]# Save given tensors for a future call to backward(). save_for_backward should be called at most once, in either the setup_context() or forward() methods, and only with tensors. All tensors intended to be used in the backward pass should be saved with save_for_backward (as opposed to directly on ctx) to prevent incorrect gradients and memory leaks, and enable the application of saved tensor hooks. See torch.autograd.graph.saved_tensors_hooks. See Extending torch.autograd for more details. Note that if intermediary tensors, tensors that are neither inputs nor outputs of forward(), are saved for backward, your custom Function may not support double backward. Custom Functions that do not support double backward should decorate their backward() method with @once_differentiable so that performing double backward raises an error. If you’d like to support double backward, you can either recompute intermediaries based on the inputs during backward or return the intermediaries as the outputs of the custom Function. See the double backward tutorial for more details. In backward(), saved tensors can be accessed through the saved_tensors attribute. Before returning them to the user, a check is made to ensure they weren’t used in any in-place operation that modified their content. Arguments can also be None. This is a no-op. See Extending torch.autograd for more details on how to use this method. Example: &gt;&gt;&gt; class Func(Function): &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; def forward(ctx, x: torch.Tensor, y: torch.Tensor, z: int): &gt;&gt;&gt; w = x * z &gt;&gt;&gt; out = x * y + y * z + w * y &gt;&gt;&gt; ctx.save_for_backward(x, y, w, out) &gt;&gt;&gt; ctx.z = z # z is not a tensor &gt;&gt;&gt; return out &gt;&gt;&gt; &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; @once_differentiable &gt;&gt;&gt; def backward(ctx, grad_out): &gt;&gt;&gt; x, y, w, out = ctx.saved_tensors &gt;&gt;&gt; z = ctx.z &gt;&gt;&gt; gx = grad_out * (y + y * z) &gt;&gt;&gt; gy = grad_out * (x + z + w) &gt;&gt;&gt; gz = None &gt;&gt;&gt; return gx, gy, gz &gt;&gt;&gt; &gt;&gt;&gt; a = torch.tensor(1., requires_grad=True, dtype=torch.double) &gt;&gt;&gt; b = torch.tensor(2., requires_grad=True, dtype=torch.double) &gt;&gt;&gt; c = 4 &gt;&gt;&gt; d = Func.apply(a, b, c)"
        }

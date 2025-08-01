@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.norm.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.norm.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,7 +4358,7 @@ document.write(`
 <h1>torch.norm<a class="headerlink" href="#torch-norm" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.norm">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fro'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/functional.py#L1709"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.norm" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fro'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/functional.py#L1709"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.norm" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the matrix norm or vector norm of a given tensor.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4710,21 +4733,17 @@ exactly two dimensions.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4769,16 +4788,18 @@ exactly two dimensions.</p>
          "@type": "Article",
          "headline": "torch.norm",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.norm.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.norm.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.norm# torch.norm(input, p=&#39;fro&#39;, dim=None, keepdim=False, out=None, dtype=None)[source]# Returns the matrix norm or vector norm of a given tensor. Warning torch.norm is deprecated and may be removed in a future PyTorch release. Its documentation and behavior may be incorrect, and it is no longer actively maintained. Use torch.linalg.vector_norm() when computing vector norms and torch.linalg.matrix_norm() when computing matrix norms. For a function with a similar behavior as this one see torch.linalg.norm(). Note, however, the signature for these functions is slightly different than the signature for torch.norm. Parameters input (Tensor) – The input tensor. Its data type must be either a floating point or complex type. For complex inputs, the norm is calculated using the absolute value of each element. If the input is complex and neither dtype nor out is specified, the result’s data type will be the corresponding floating point type (e.g. float if input is complexfloat). p (int, float, inf, -inf, &#39;fro&#39;, &#39;nuc&#39;, optional) – the order of norm. Default: &#39;fro&#39; The following norms can be calculated: ord matrix norm vector norm ’fro’ Frobenius norm – ‘nuc’ nuclear norm – Number – sum(abs(x)**ord)**(1./ord) The vector norm can be calculated across any number of dimensions. The corresponding dimensions of input are flattened into one dimension, and the norm is calculated on the flattened dimension. Frobenius norm produces the same result as p=2 in all cases except when dim is a list of three or more dims, in which case Frobenius norm throws an error. Nuclear norm can only be calculated across exactly two dimensions. dim (int, tuple of ints, list of ints, optional) – Specifies which dimension or dimensions of input to calculate the norm across. If dim is None, the norm will be calculated across all dimensions of input. If the norm type indicated by p does not support the specified number of dimensions, an error will occur. keepdim (bool, optional) – whether the output tensors have dim retained or not. Ignored if dim = None and out = None. Default: False out (Tensor, optional) – the output tensor. Ignored if dim = None and out = None. dtype (torch.dtype, optional) – the desired data type of returned tensor. If specified, the input tensor is casted to dtype while performing the operation. Default: None. Note Even though p=&#39;fro&#39; supports any number of dimensions, the true mathematical definition of Frobenius norm only applies to tensors with exactly two dimensions. torch.linalg.matrix_norm() with ord=&#39;fro&#39; aligns with the mathematical definition, since it can only be applied across exactly two dimensions. Example: &gt;&gt;&gt; import torch &gt;&gt;&gt; a = torch.arange(9, dtype= torch.float) - 4 &gt;&gt;&gt; b = a.reshape((3, 3)) &gt;&gt;&gt; torch.norm(a) tensor(7.7460) &gt;&gt;&gt; torch.norm(b) tensor(7.7460) &gt;&gt;&gt; torch.norm(a, float(&#39;inf&#39;)) tensor(4.) &gt;&gt;&gt; torch.norm(b, float(&#39;inf&#39;)) tensor(4.) &gt;&gt;&gt; c = torch.tensor([[ 1, 2, 3], [-1, 1, 4]] , dtype=torch.float) &gt;&gt;&gt; torch.norm(c, dim=0) tensor([..."
        }

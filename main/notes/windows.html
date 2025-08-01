@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/notes/windows.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/notes/windows.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2106,21 +2129,17 @@ tensors cannot succeed, there are two alternatives for this.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -2165,18 +2184,20 @@ tensors cannot succeed, there are two alternatives for this.</p>
          "@type": "Article",
          "headline": "Windows FAQ",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/notes/windows.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/notes/windows.html"
          },
-         "datePublished": "Apr 23, 2018",
-         "dateModified": "May 20, 2025",
-         "articleBody": "Windows FAQ# Created On: Apr 23, 2018 | Last Updated On: May 20, 2025 Building from source# Include optional components# There are two supported components for Windows PyTorch: MKL and MAGMA. Here are the steps to build with them. REM Make sure you have 7z and curl installed. REM Download MKL files curl https://s3.amazonaws.com/ossci-windows/mkl_2020.2.254.7z -k -O 7z x -aoa mkl_2020.2.254.7z -omkl REM Download MAGMA files REM version available: REM 2.5.4 (CUDA 10.1 10.2 11.0 11.1) x (Debug Release) REM 2.5.3 (CUDA 10.1 10.2 11.0) x (Debug Release) REM 2.5.2 (CUDA 9.2 10.0 10.1 10.2) x (Debug Release) REM 2.5.1 (CUDA 9.2 10.0 10.1 10.2) x (Debug Release) set &#34;CUDA_PREFIX=cuda102&#34; set &#34;CONFIG=release&#34; set &#34;HOST=https://s3.amazonaws.com/ossci-windows&#34; curl -k &#34;%HOST%/magma_2.5.4_%CUDA_PREFIX%_%CONFIG%.7z&#34; -o magma.7z 7z x -aoa magma.7z -omagma REM Setting essential environment variables set &#34;CMAKE_INCLUDE_PATH=%cd%\mkl\include&#34; set &#34;LIB=%cd%\mkl\lib;%LIB%&#34; set &#34;MAGMA_HOME=%cd%\magma&#34; Speeding CUDA build for Windows# Visual Studio doesn’t support parallel custom task currently. As an alternative, we can use Ninja to parallelize CUDA build tasks. It can be used by typing only a few lines of code. REM Let&#39;s install ninja first. pip install ninja REM Set it as the cmake generator set CMAKE_GENERATOR=Ninja One key install script# You can take a look at this set of scripts. It will lead the way for you. Extension# CFFI Extension# The support for CFFI Extension is very experimental. You must specify additional libraries in Extension object to make it build on Windows. ffi = create_extension( &#39;_ext.my_lib&#39;, headers=headers, sources=sources, define_macros=defines, relative_to=__file__, with_cuda=with_cuda, extra_compile_args=[&#34;-std=c99&#34;], libraries=[&#39;ATen&#39;, &#39;_C&#39;] # Append cuda libraries when necessary, like cudart ) Cpp Extension# This type of extension has better support compared with the previous one. However, it still needs some manual configuration. First, you should open the x86_x64 Cross Tools Command Prompt for VS 2017. And then, you can start your compiling process. Installation# Package not found in win-32 channel.# Solving environment: failed PackagesNotFoundError: The following packages are not available from current channels: - pytorch Current channels: - https://repo.continuum.io/pkgs/main/win-32 - https://repo.continuum.io/pkgs/main/noarch - https://repo.continuum.io/pkgs/free/win-32 - https://repo.continuum.io/pkgs/free/noarch - https://repo.continuum.io/pkgs/r/win-32 - https://repo.continuum.io/pkgs/r/noarch - https://repo.continuum.io/pkgs/pro/win-32 - https://repo.continuum.io/pkgs/pro/noarch - https://repo.continuum.io/pkgs/msys2/win-32 - https://repo.continuum.io/pkgs/msys2/noarch PyTorch doesn’t work on 32-bit system. Please use Windows and Python 64-bit version. Import error# from torch._C import * ImportError: DLL load failed: The specified module could not be found. The problem is caused by the missing of the essential files. For ..."
+        "datePublished": "Apr 23, 2018T00:00:00Z",
+         "dateModified": "May 20, 2025T00:00:00Z",
+         "articleBody": "Windows FAQ# Created On: Apr 23, 2018 | Last Updated On: May 20, 2025 Building from source# Include optional components# There are two supported components for Windows PyTorch: MKL and MAGMA. Here are the steps to build with them. REM Make sure you have 7z and curl installed. REM Download MKL files curl https://s3.amazonaws.com/ossci-windows/mkl_2020.2.254.7z -k -O 7z x -aoa mkl_2020.2.254.7z -omkl REM Download MAGMA files REM version available: REM 2.5.4 (CUDA 10.1 10.2 11.0 11.1) x (Debug Release) REM 2.5.3 (CUDA 10.1 10.2 11.0) x (Debug Release) REM 2.5.2 (CUDA 9.2 10.0 10.1 10.2) x (Debug Release) REM 2.5.1 (CUDA 9.2 10.0 10.1 10.2) x (Debug Release) set \&#34;CUDA_PREFIX=cuda102\&#34; set \&#34;CONFIG=release\&#34; set \&#34;HOST=https://s3.amazonaws.com/ossci-windows\&#34; curl -k \&#34;%HOST%/magma_2.5.4_%CUDA_PREFIX%_%CONFIG%.7z\&#34; -o magma.7z 7z x -aoa magma.7z -omagma REM Setting essential environment variables set \&#34;CMAKE_INCLUDE_PATH=%cd%\\mkl\\include\&#34; set \&#34;LIB=%cd%\\mkl\\lib;%LIB%\&#34; set \&#34;MAGMA_HOME=%cd%\\magma\&#34; Speeding CUDA build for Windows# Visual Studio doesn’t support parallel custom task currently. As an alternative, we can use Ninja to parallelize CUDA build tasks. It can be used by typing only a few lines of code. REM Let&#39;s install ninja first. pip install ninja REM Set it as the cmake generator set CMAKE_GENERATOR=Ninja One key install script# You can take a look at this set of scripts. It will lead the way for you. Extension# CFFI Extension# The support for CFFI Extension is very experimental. You must specify additional libraries in Extension object to make it build on Windows. ffi = create_extension( &#39;_ext.my_lib&#39;, headers=headers, sources=sources, define_macros=defines, relative_to=__file__, with_cuda=with_cuda, extra_compile_args=[\&#34;-std=c99\&#34;], libraries=[&#39;ATen&#39;, &#39;_C&#39;] # Append cuda libraries when necessary, like cudart ) Cpp Extension# This type of extension has better support compared with the previous one. However, it still needs some manual configuration. First, you should open the x86_x64 Cross Tools Command Prompt for VS 2017. And then, you can start your compiling process. Installation# Package not found in win-32 channel.# Solving environment: failed PackagesNotFoundError: The following packages are not available from current channels: - pytorch Current channels: - https://repo.continuum.io/pkgs/main/win-32 - https://repo.continuum.io/pkgs/main/noarch - https://repo.continuum.io/pkgs/free/win-32 - https://repo.continuum.io/pkgs/free/noarch - https://repo.continuum.io/pkgs/r/win-32 - https://repo.continuum.io/pkgs/r/noarch - https://repo.continuum.io/pkgs/pro/win-32 - https://repo.continuum.io/pkgs/pro/noarch - https://repo.continuum.io/pkgs/msys2/win-32 - https://repo.continuum.io/pkgs/msys2/noarch PyTorch doesn’t work on 32-bit system. Please use Windows and Python 64-bit version. Import error# from torch._C import * ImportError: DLL load failed: The specified module could not be found. The problem is caused by the missing of the essential files. For ..."
        }
    </script>
 

@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.Sequential.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.nn.Sequential.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,7 +4358,7 @@ document.write(`
 <h1>Sequential<a class="headerlink" href="#sequential" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.Sequential">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">Sequential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><span class="pre">Module</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/container.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.Sequential" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">Sequential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><span class="pre">Module</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/container.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.Sequential" title="Permalink to this definition">#</a></dt>
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">Sequential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.13)"><span class="pre">OrderedDict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><span class="pre">Module</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>A sequential container.</p>
@@ -4381,7 +4404,7 @@ the layers in a <code class="docutils literal notranslate"><span class="pre">Seq
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.Sequential.append">
-<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/container.py#L253"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.Sequential.append" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/container.py#L253"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.Sequential.append" title="Permalink to this definition">#</a></dt>
 <dd><p>Append a given module to the end.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4406,7 +4429,7 @@ the layers in a <code class="docutils literal notranslate"><span class="pre">Seq
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.Sequential.extend">
-<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequential</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/container.py#L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.Sequential.extend" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequential</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/container.py#L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.Sequential.extend" title="Permalink to this definition">#</a></dt>
 <dd><p>Extends the current Sequential container with layers from another Sequential container.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4433,13 +4456,13 @@ the layers in a <code class="docutils literal notranslate"><span class="pre">Seq
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.Sequential.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/container.py#L245"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.Sequential.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/container.py#L245"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.Sequential.forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.Sequential.insert">
-<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/container.py#L274"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.Sequential.insert" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/container.py#L274"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.Sequential.insert" title="Permalink to this definition">#</a></dt>
 <dd><p>Inserts a module into the Sequential container at the specified index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4467,7 +4490,7 @@ the layers in a <code class="docutils literal notranslate"><span class="pre">Seq
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.Sequential.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/container.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.Sequential.pop" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/container.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.Sequential.pop" title="Permalink to this definition">#</a></dt>
 <dd><p>Pop <code class="docutils literal notranslate"><span class="pre">key</span></code> from self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4747,21 +4770,17 @@ the layers in a <code class="docutils literal notranslate"><span class="pre">Seq
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4806,18 +4825,20 @@ the layers in a <code class="docutils literal notranslate"><span class="pre">Seq
          "@type": "Article",
          "headline": "Sequential",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.nn.Sequential.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.nn.Sequential.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "Sequential# class torch.nn.Sequential(*args: Module)[source]# class torch.nn.Sequential(arg: OrderedDict[str, Module]) A sequential container. Modules will be added to it in the order they are passed in the constructor. Alternatively, an OrderedDict of modules can be passed in. The forward() method of Sequential accepts any input and forwards it to the first module it contains. It then “chains” outputs to inputs sequentially for each subsequent module, finally returning the output of the last module. The value a Sequential provides over manually calling a sequence of modules is that it allows treating the whole container as a single module, such that performing a transformation on the Sequential applies to each of the modules it stores (which are each a registered submodule of the Sequential). What’s the difference between a Sequential and a torch.nn.ModuleList? A ModuleList is exactly what it sounds like–a list for storing Module s! On the other hand, the layers in a Sequential are connected in a cascading way. Example: # Using Sequential to create a small model. When `model` is run, # input will first be passed to `Conv2d(1,20,5)`. The output of # `Conv2d(1,20,5)` will be used as the input to the first # `ReLU`; the output of the first `ReLU` will become the input # for `Conv2d(20,64,5)`. Finally, the output of # `Conv2d(20,64,5)` will be used as input to the second `ReLU` model = nn.Sequential( nn.Conv2d(1, 20, 5), nn.ReLU(), nn.Conv2d(20, 64, 5), nn.ReLU() ) # Using Sequential with OrderedDict. This is functionally the # same as the above code model = nn.Sequential( OrderedDict( [ (&#34;conv1&#34;, nn.Conv2d(1, 20, 5)), (&#34;relu1&#34;, nn.ReLU()), (&#34;conv2&#34;, nn.Conv2d(20, 64, 5)), (&#34;relu2&#34;, nn.ReLU()), ] ) ) append(module)[source]# Append a given module to the end. Parameters module (nn.Module) – module to append Return type Self Example: &gt;&gt;&gt; import torch.nn as nn &gt;&gt;&gt; n = nn.Sequential(nn.Linear(1, 2), nn.Linear(2, 3)) &gt;&gt;&gt; n.append(nn.Linear(3, 4)) Sequential( (0): Linear(in_features=1, out_features=2, bias=True) (1): Linear(in_features=2, out_features=3, bias=True) (2): Linear(in_features=3, out_features=4, bias=True) ) extend(sequential)[source]# Extends the current Sequential container with layers from another Sequential container. Parameters sequential (Sequential) – A Sequential container whose layers will be added to the current container. Return type Self Example: &gt;&gt;&gt; import torch.nn as nn &gt;&gt;&gt; n = nn.Sequential(nn.Linear(1, 2), nn.Linear(2, 3)) &gt;&gt;&gt; other = nn.Sequential(nn.Linear(3, 4), nn.Linear(4, 5)) &gt;&gt;&gt; n.extend(other) # or `n + other` Sequential( (0): Linear(in_features=1, out_features=2, bias=True) (1): Linear(in_features=2, out_features=3, bias=True) (2): Linear(in_features=3, out_features=4, bias=True) (3): Linear(in_features=4, out_features=5, bias=True) ) forward(input)[source]# Runs the forward pass. insert(index, module)[source]# Inserts a module into the Sequential container at the specified index. Parameters index (int) – The index t..."
+         "articleBody": "Sequential# class torch.nn.Sequential(*args: Module)[source]# class torch.nn.Sequential(arg: OrderedDict[str, Module]) A sequential container. Modules will be added to it in the order they are passed in the constructor. Alternatively, an OrderedDict of modules can be passed in. The forward() method of Sequential accepts any input and forwards it to the first module it contains. It then “chains” outputs to inputs sequentially for each subsequent module, finally returning the output of the last module. The value a Sequential provides over manually calling a sequence of modules is that it allows treating the whole container as a single module, such that performing a transformation on the Sequential applies to each of the modules it stores (which are each a registered submodule of the Sequential). What’s the difference between a Sequential and a torch.nn.ModuleList? A ModuleList is exactly what it sounds like–a list for storing Module s! On the other hand, the layers in a Sequential are connected in a cascading way. Example: # Using Sequential to create a small model. When `model` is run, # input will first be passed to `Conv2d(1,20,5)`. The output of # `Conv2d(1,20,5)` will be used as the input to the first # `ReLU`; the output of the first `ReLU` will become the input # for `Conv2d(20,64,5)`. Finally, the output of # `Conv2d(20,64,5)` will be used as input to the second `ReLU` model = nn.Sequential( nn.Conv2d(1, 20, 5), nn.ReLU(), nn.Conv2d(20, 64, 5), nn.ReLU() ) # Using Sequential with OrderedDict. This is functionally the # same as the above code model = nn.Sequential( OrderedDict( [ (\&#34;conv1\&#34;, nn.Conv2d(1, 20, 5)), (\&#34;relu1\&#34;, nn.ReLU()), (\&#34;conv2\&#34;, nn.Conv2d(20, 64, 5)), (\&#34;relu2\&#34;, nn.ReLU()), ] ) ) append(module)[source]# Append a given module to the end. Parameters module (nn.Module) – module to append Return type Self Example: &gt;&gt;&gt; import torch.nn as nn &gt;&gt;&gt; n = nn.Sequential(nn.Linear(1, 2), nn.Linear(2, 3)) &gt;&gt;&gt; n.append(nn.Linear(3, 4)) Sequential( (0): Linear(in_features=1, out_features=2, bias=True) (1): Linear(in_features=2, out_features=3, bias=True) (2): Linear(in_features=3, out_features=4, bias=True) ) extend(sequential)[source]# Extends the current Sequential container with layers from another Sequential container. Parameters sequential (Sequential) – A Sequential container whose layers will be added to the current container. Return type Self Example: &gt;&gt;&gt; import torch.nn as nn &gt;&gt;&gt; n = nn.Sequential(nn.Linear(1, 2), nn.Linear(2, 3)) &gt;&gt;&gt; other = nn.Sequential(nn.Linear(3, 4), nn.Linear(4, 5)) &gt;&gt;&gt; n.extend(other) # or `n + other` Sequential( (0): Linear(in_features=1, out_features=2, bias=True) (1): Linear(in_features=2, out_features=3, bias=True) (2): Linear(in_features=3, out_features=4, bias=True) (3): Linear(in_features=4, out_features=5, bias=True) ) forward(input)[source]# Runs the forward pass. insert(index, module)[source]# Inserts a module into the Sequential container at the specified index. Parameters index (int) – The index t..."
        }
    </script>
 

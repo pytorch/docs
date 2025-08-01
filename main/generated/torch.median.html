@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.median.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.median.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4677,21 +4700,17 @@ tensor, which must have dtype long, with their indices in the dimension
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4736,16 +4755,18 @@ tensor, which must have dtype long, with their indices in the dimension
          "@type": "Article",
          "headline": "torch.median",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.median.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.median.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.median# torch.median(input) → Tensor# Returns the median of the values in input. Note The median is not unique for input tensors with an even number of elements. In this case the lower of the two medians is returned. To compute the mean of both medians, use torch.quantile() with q=0.5 instead. Warning This function produces deterministic (sub)gradients unlike median(dim=0) Parameters input (Tensor) – the input tensor. Example: &gt;&gt;&gt; a = torch.randn(1, 3) &gt;&gt;&gt; a tensor([[ 1.5219, -1.5212, 0.2202]]) &gt;&gt;&gt; torch.median(a) tensor(0.2202) torch.median(input, dim=-1, keepdim=False, *, out=None) Returns a namedtuple (values, indices) where values contains the median of each row of input in the dimension dim, and indices contains the index of the median values found in the dimension dim. By default, dim is the last dimension of the input tensor. If keepdim is True, the output tensors are of the same size as input except in the dimension dim where they are of size 1. Otherwise, dim is squeezed (see torch.squeeze()), resulting in the outputs tensor having 1 fewer dimension than input. Note The median is not unique for input tensors with an even number of elements in the dimension dim. In this case the lower of the two medians is returned. To compute the mean of both medians in input, use torch.quantile() with q=0.5 instead. Warning indices does not necessarily contain the first occurrence of each median value found, unless it is unique. The exact implementation details are device-specific. Do not expect the same result when run on CPU and GPU in general. For the same reason do not expect the gradients to be deterministic. Parameters input (Tensor) – the input tensor. dim (int, optional) – the dimension to reduce. If None, all dimensions are reduced. keepdim (bool, optional) – whether the output tensor has dim retained or not. Default: False. Keyword Arguments out ((Tensor, Tensor), optional) – The first tensor will be populated with the median values and the second tensor, which must have dtype long, with their indices in the dimension dim of input. Example: &gt;&gt;&gt; a = torch.randn(4, 5) &gt;&gt;&gt; a tensor([[ 0.2505, -0.3982, -0.9948, 0.3518, -1.3131], [ 0.3180, -0.6993, 1.0436, 0.0438, 0.2270], [-0.2751, 0.7303, 0.2192, 0.3321, 0.2488], [ 1.0778, -1.9510, 0.7048, 0.4742, -0.7125]]) &gt;&gt;&gt; torch.median(a, 1) torch.return_types.median(values=tensor([-0.3982, 0.2270, 0.2488, 0.4742]), indices=tensor([1, 4, 4, 3]))"
        }

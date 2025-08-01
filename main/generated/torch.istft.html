@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.istft.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.istft.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4679,21 +4702,17 @@ Note that this is incompatible with <code class="docutils literal notranslate"><
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4738,18 +4757,20 @@ Note that this is incompatible with <code class="docutils literal notranslate"><
          "@type": "Article",
          "headline": "torch.istft",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.istft.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.istft.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.istft# torch.istft(input, n_fft, hop_length=None, win_length=None, window=None, center=True, normalized=False, onesided=None, length=None, return_complex=False) → Tensor:# Inverse short time Fourier Transform. This is expected to be the inverse of stft(). Warning From version 2.1, a warning will be provided if a window is not specified. In a future release, this attribute will be required. Please provide the same window used in the stft call. It has the same parameters (+ additional optional parameter of length) and it should return the least squares estimation of the original signal. The algorithm will check using the NOLA condition ( nonzero overlap). Important consideration in the parameters window and center so that the envelope created by the summation of all the windows is never zero at certain point in time. Specifically, ∑t=−∞∞∣w∣2[n−t×hop_length]=0\sum_{t=-\infty}^{\infty} |w|^2[n-t\times hop\_length] \cancel{=} 0∑t=−∞∞​∣w∣2[n−t×hop_length]=​0. Since stft() discards elements at the end of the signal if they do not fit in a frame, istft may return a shorter signal than the original signal (can occur if center is False since the signal isn’t padded). If length is given in the arguments and is longer than expected, istft will pad zeros to the end of the returned signal. If center is True, then there will be padding e.g. &#39;constant&#39;, &#39;reflect&#39;, etc. Left padding can be trimmed off exactly because they can be calculated but right padding cannot be calculated without additional information. Example: Suppose the last window is: [17, 18, 0, 0, 0] vs [18, 0, 0, 0, 0] The n_fft, hop_length, win_length are all the same which prevents the calculation of right padding. These additional values could be zeros or a reflection of the signal so providing length could be useful. If length is None then padding will be aggressively removed (some loss of signal). [1] D. W. Griffin and J. S. Lim, “Signal estimation from modified short-time Fourier transform,” IEEE Trans. ASSP, vol.32, no.2, pp.236-243, Apr. 1984. Parameters input (Tensor) – The input tensor. Expected to be in the format of stft(), output. That is a complex tensor of shape (B?, N, T) where B? is an optional batch dimension N is the number of frequency samples, (n_fft // 2) + 1 for onesided input, or otherwise n_fft. T is the number of frames, 1 + length // hop_length for centered stft, or 1 + (length - n_fft) // hop_length otherwise. Changed in version 2.0: Real datatype inputs are no longer supported. Input must now have a complex datatype, as returned by stft(..., return_complex=True). n_fft (int) – Size of Fourier transform hop_length (Optional[int]) – The distance between neighboring sliding window frames. (Default: n_fft // 4) win_length (Optional[int]) – The size of window frame and STFT filter. (Default: n_fft) window (Optional[torch.Tensor]) – The optional window function. Shape must be 1d and &lt;= n_fft (Default: torch.ones(win_length)) center (bool) – Whether input was padded on..."
+         "articleBody": "torch.istft# torch.istft(input, n_fft, hop_length=None, win_length=None, window=None, center=True, normalized=False, onesided=None, length=None, return_complex=False) → Tensor:# Inverse short time Fourier Transform. This is expected to be the inverse of stft(). Warning From version 2.1, a warning will be provided if a window is not specified. In a future release, this attribute will be required. Please provide the same window used in the stft call. It has the same parameters (+ additional optional parameter of length) and it should return the least squares estimation of the original signal. The algorithm will check using the NOLA condition ( nonzero overlap). Important consideration in the parameters window and center so that the envelope created by the summation of all the windows is never zero at certain point in time. Specifically, ∑t=−∞∞∣w∣2[n−t×hop_length]=0\\sum_{t=-\\infty}^{\\infty} |w|^2[n-t\\times hop\\_length] \\cancel{=} 0∑t=−∞∞​∣w∣2[n−t×hop_length]=​0. Since stft() discards elements at the end of the signal if they do not fit in a frame, istft may return a shorter signal than the original signal (can occur if center is False since the signal isn’t padded). If length is given in the arguments and is longer than expected, istft will pad zeros to the end of the returned signal. If center is True, then there will be padding e.g. &#39;constant&#39;, &#39;reflect&#39;, etc. Left padding can be trimmed off exactly because they can be calculated but right padding cannot be calculated without additional information. Example: Suppose the last window is: [17, 18, 0, 0, 0] vs [18, 0, 0, 0, 0] The n_fft, hop_length, win_length are all the same which prevents the calculation of right padding. These additional values could be zeros or a reflection of the signal so providing length could be useful. If length is None then padding will be aggressively removed (some loss of signal). [1] D. W. Griffin and J. S. Lim, “Signal estimation from modified short-time Fourier transform,” IEEE Trans. ASSP, vol.32, no.2, pp.236-243, Apr. 1984. Parameters input (Tensor) – The input tensor. Expected to be in the format of stft(), output. That is a complex tensor of shape (B?, N, T) where B? is an optional batch dimension N is the number of frequency samples, (n_fft // 2) + 1 for onesided input, or otherwise n_fft. T is the number of frames, 1 + length // hop_length for centered stft, or 1 + (length - n_fft) // hop_length otherwise. Changed in version 2.0: Real datatype inputs are no longer supported. Input must now have a complex datatype, as returned by stft(..., return_complex=True). n_fft (int) – Size of Fourier transform hop_length (Optional[int]) – The distance between neighboring sliding window frames. (Default: n_fft // 4) win_length (Optional[int]) – The size of window frame and STFT filter. (Default: n_fft) window (Optional[torch.Tensor]) – The optional window function. Shape must be 1d and &lt;= n_fft (Default: torch.ones(win_length)) center (bool) – Whether input was padded on..."
        }
    </script>
 

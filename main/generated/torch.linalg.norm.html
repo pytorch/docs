@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.linalg.norm.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.linalg.norm.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4773,21 +4796,17 @@ will be <code class="xref py py-attr docutils literal notranslate"><span class="
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4832,16 +4851,18 @@ will be <code class="xref py py-attr docutils literal notranslate"><span class="
          "@type": "Article",
          "headline": "torch.linalg.norm",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.linalg.norm.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.linalg.norm.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.linalg.norm# torch.linalg.norm(A, ord=None, dim=None, keepdim=False, *, out=None, dtype=None) → Tensor# Computes a vector or matrix norm. Supports input of float, double, cfloat and cdouble dtypes. Whether this function computes a vector or matrix norm is determined as follows: If dim is an int, the vector norm will be computed. If dim is a 2-tuple, the matrix norm will be computed. If dim= None and ord= None, A will be flattened to 1D and the 2-norm of the resulting vector will be computed. If dim= None and ord != None, A must be 1D or 2D. ord defines the norm that is computed. The following norms are supported: ord norm for matrices norm for vectors None (default) Frobenius norm 2-norm (see below) ‘fro’ Frobenius norm – not supported – ‘nuc’ nuclear norm – not supported – inf max(sum(abs(x), dim=1)) max(abs(x)) -inf min(sum(abs(x), dim=1)) min(abs(x)) 0 – not supported – sum(x != 0) 1 max(sum(abs(x), dim=0)) as below -1 min(sum(abs(x), dim=0)) as below 2 largest singular value as below -2 smallest singular value as below other int or float – not supported – sum(abs(x)^{ord})^{(1 / ord)} where inf refers to float(‘inf’), NumPy’s inf object, or any equivalent object. See also torch.linalg.vector_norm() computes a vector norm. torch.linalg.matrix_norm() computes a matrix norm. The above functions are often clearer and more flexible than using torch.linalg.norm(). For example, torch.linalg.norm(A, ord=1, dim=(0, 1)) always computes a matrix norm, but with torch.linalg.vector_norm(A, ord=1, dim=(0, 1)) it is possible to compute a vector norm over the two dimensions. Parameters A (Tensor) – tensor of shape (*, n) or (*, m, n) where * is zero or more batch dimensions ord (int, float, inf, -inf, &#39;fro&#39;, &#39;nuc&#39;, optional) – order of norm. Default: None dim (int, Tuple[int], optional) – dimensions over which to compute the vector or matrix norm. See above for the behavior when dim= None. Default: None keepdim (bool, optional) – If set to True, the reduced dimensions are retained in the result as dimensions with size one. Default: False Keyword Arguments out (Tensor, optional) – output tensor. Ignored if None. Default: None. dtype (torch.dtype, optional) – If specified, the input tensor is cast to dtype before performing the operation, and the returned tensor’s type will be dtype. Default: None Returns A real-valued tensor, even when A is complex. Examples: &gt;&gt;&gt; from torch import linalg as LA &gt;&gt;&gt; a = torch.arange(9, dtype=torch.float) - 4 &gt;&gt;&gt; a tensor([-4., -3., -2., -1., 0., 1., 2., 3., 4.]) &gt;&gt;&gt; B = a.reshape((3, 3)) &gt;&gt;&gt; B tensor([[-4., -3., -2.], [-1., 0., 1.], [ 2., 3., 4.]]) &gt;&gt;&gt; LA.norm(a) tensor(7.7460) &gt;&gt;&gt; LA.norm(B) tensor(7.7460) &gt;&gt;&gt; LA.norm(B, &#39;fro&#39;) tensor(7.7460) &gt;&gt;&gt; LA.norm(a, float(&#39;inf&#39;)) tensor(4.) &gt;&gt;&gt; LA.norm(B, float(&#39;inf&#39;)) tensor(9.) &gt;&gt;&gt; LA.norm(a, -float(&#39;inf&#39;)) tensor(0.) &gt;&gt;&gt; LA.norm(B, -float(&#39;inf&#39;)) tensor(2.) &gt;&gt;&gt; LA.norm(a, 1) tensor(20.) &gt;&gt;&gt; LA.norm(B, 1) tensor(7.) &gt;&gt;&gt; LA.norm(a, -1) tensor(0.) &gt;&gt;&gt; LA.norm(B, -1) tensor(6.)..."
        }

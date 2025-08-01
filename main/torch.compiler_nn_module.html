@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/torch.compiler_nn_module.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/torch.compiler_nn_module.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4660,21 +4683,17 @@ guards.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4719,17 +4738,19 @@ guards.</p>
          "@type": "Article",
          "headline": "PyTorch 2.0 NNModule Support",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/torch.compiler_nn_module.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/torch.compiler_nn_module.html"
          },
-         "datePublished": "Apr 06, 2023",
-         "dateModified": "Jun 10, 2025",
+        "datePublished": "Apr 06, 2023T00:00:00Z",
+         "dateModified": "Jun 10, 2025T00:00:00Z",
          "articleBody": "PyTorch 2.0 NNModule Support# Created On: Apr 06, 2023 | Last Updated On: Jun 10, 2025 Author: Will Constable torch.compile has special handling for torch.nn.Module objects, tracing them differently than it traces arbitrary python classes, with the intent of producing faster code by making assumptions about the structure. This doc describes some of the tradeoffs or edge cases that come up due to this specialization. NNModule Hooks Support# Previously, torch.compile had no support for hooks on nn.Modules, and if hooks were registered they would simply be ignored in the compiled program. Indeed many users do not use nn.Module hooks at all, or only use them for debug workflows, but there are valid use cases for composing nn.Module hooks with torch.compile. Hooks that are orchestrated via nn.Module.call implementation include _forward_pre_hooks, forward_hooks, _backward_pre_hooks, and _backward_hooks, and will be referred to as ‘call hooks’. These hooks are partially supported by torch.compile with limitations described below. Another category of hooks includes _state_dict_hooks and its pre and load_ variants, and are still unsupported by torch.compile. nn.Module.__call__ Hooks Usage and limitations# By default, torch.compile will trace the contents of nn.Module.__call__ which means it will encounter and run forward/pre-forward hooks. If you install hooks before calling torch.compile and then do not remove or alter the hooks later, your use case should be supported by default. Backward/Pre-backward hooks are generally also supported, with similar caveats: currently graph-breaks in dynamo occur when accessing backward_hooks dicts, which is probably avoiable with some work. Graph-breaks also impact the timing of firing backward hooks, since graph-segments are run as autograd-functions which produce all their grads at the same time. Assuming it were possible for dynamo to not graph-break on the presence of backward-hooks, we would still expect the backward hooks for a series of modules to all fire together after the whole compiled graph’s backward ran. hooks on ‘allowed modules’ torch.compile treats common modules such as torch.conv, as well as modules that are difficult to trace, specially by allowing them to be called opaquely in the dynamo graph instead of traced into by dynamo. For such modules, hooks currently trigger a graph-break so that the affected modules run outside of dynamo. Depending on the model, this could introduce a significant performance regression, and additional work is required to improve this support. skip_nnmodule_hook_guards By default, torch._dynamo.config.skip_nnmodule_hook_guards is set to True, meaning no guards will be installed on each nn.Module hook dictionary, improving runtime by reducing guard execution time, at the cost of not noticing if any hook dict is changed after compilation. If you want to be able to remove or modify hooks after compilation and have torch.compile react appropriately (by recompiling), then y..."
        }
    </script>

@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/compile/programming_model.nested_graph_breaks.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/compile/programming_model.nested_graph_breaks.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4798,21 +4821,17 @@ We end up tracing <span class="math"><span class="katex"><span class="katex-math
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4857,18 +4876,20 @@ We end up tracing <span class="math"><span class="katex"><span class="katex-math
          "@type": "Article",
          "headline": "Nested Graph Breaks",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/compile/programming_model.nested_graph_breaks.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/compile/programming_model.nested_graph_breaks.html"
          },
-         "datePublished": "Jul 28, 2025",
-         "dateModified": "Jul 28, 2025",
-         "articleBody": "Nested Graph Breaks# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 Summary: Graph breaks in nested functions can result in hard-to-understand compiler behavior, which we document below A nested graph break results in O(N)\mathcal O(N)O(N) duplicate graph break behavior Recall that when torch.compile is applied to a function, any nested function calls are also traced. A nested graph break refers to any graph break that happens in a nested function call. def inner(x): ... torch._dynamo.graph_break() # nested graph break ... @torch.compile def outer(x): ... y = inner(x) ... The resumption semantics around nested graph breaks can be confusing, so we describe the behavior here. Recall that in fullgraph=False, graph breaks are handled by compiling the FX graph that has been determined so far, running the unsupported code in regular Python, then resuming tracing after the unsupported code with a new FX graph. Resuming a function is actually a fairly complicated technical feat, so resuming tracing is only supported on top-level functions. We can therefore resume tracing after a nested graph break with this restriction in the following way: First, consider the below example where torch.compile traces from f and traces all the way until the graph break in inner1 is encountered. def inner1(x): x = x + 1 torch._dynamo.graph_break() # stop tracing due to graph break return x + 2 def inner2(x): x = x + 4 x = inner1(x) x = x + 8 @torch.compile def f(x): # start tracing from here x = x + 16 x = inner2(x) x = x + 32 f(torch.randn(3)) Since we can only resume from top-level functions, we graph break on the inner2 call in f. # The semantics of torch.compile(f)(x) is roughly this: def compiled_f_semantics(x): y = x + 16 z = inner2(y) return torch.compile(resume_f_semantics)(z) def resume_f_semantics(x): return x + 32 compiled_f_semantics(torch.randn(3)) inner2 is then automatically compiled as a top-level function. We trace all the way until the graph break in inner1 is encountered again. def inner1(x): x = x + 1 torch._dynamo.graph_break() # stop tracing due to graph break return x + 2 # this torch.compile is automatically applied @torch.compile def inner2(x): # start tracing from here x = x + 4 x = inner1(x) x = x + 8 def compiled_f_semantics(x): y = x + 16 z = inner2(y) return torch.compile(resume_f_semantics)(z) def resume_f_semantics(x): return x + 32 compiled_f_semantics(torch.randn(3)) Then we graph break on the inner1 call in inner2. def compiled_inner2_semantics(x): y = x + 4 z = inner1(y) return torch.compile(resume_inner2_semantics)(z) def resume_inner2_semantics(x): return x + 8 inner1 is then automatically compiled as a top-level function. The graph break is from inner1, so we handle the graph break normally. # this torch.compile is automatically applied @torch.compile def inner1(x): # start tracing from here x = x + 1 torch._dynamo.graph_break() # stop tracing due to graph break return x + 2 def compiled_f_semantics(x): y = x + 16 z = com..."
+        "datePublished": "Jul 28, 2025T00:00:00Z",
+         "dateModified": "Jul 28, 2025T00:00:00Z",
+         "articleBody": "Nested Graph Breaks# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 Summary: Graph breaks in nested functions can result in hard-to-understand compiler behavior, which we document below A nested graph break results in O(N)\\mathcal O(N)O(N) duplicate graph break behavior Recall that when torch.compile is applied to a function, any nested function calls are also traced. A nested graph break refers to any graph break that happens in a nested function call. def inner(x): ... torch._dynamo.graph_break() # nested graph break ... @torch.compile def outer(x): ... y = inner(x) ... The resumption semantics around nested graph breaks can be confusing, so we describe the behavior here. Recall that in fullgraph=False, graph breaks are handled by compiling the FX graph that has been determined so far, running the unsupported code in regular Python, then resuming tracing after the unsupported code with a new FX graph. Resuming a function is actually a fairly complicated technical feat, so resuming tracing is only supported on top-level functions. We can therefore resume tracing after a nested graph break with this restriction in the following way: First, consider the below example where torch.compile traces from f and traces all the way until the graph break in inner1 is encountered. def inner1(x): x = x + 1 torch._dynamo.graph_break() # stop tracing due to graph break return x + 2 def inner2(x): x = x + 4 x = inner1(x) x = x + 8 @torch.compile def f(x): # start tracing from here x = x + 16 x = inner2(x) x = x + 32 f(torch.randn(3)) Since we can only resume from top-level functions, we graph break on the inner2 call in f. # The semantics of torch.compile(f)(x) is roughly this: def compiled_f_semantics(x): y = x + 16 z = inner2(y) return torch.compile(resume_f_semantics)(z) def resume_f_semantics(x): return x + 32 compiled_f_semantics(torch.randn(3)) inner2 is then automatically compiled as a top-level function. We trace all the way until the graph break in inner1 is encountered again. def inner1(x): x = x + 1 torch._dynamo.graph_break() # stop tracing due to graph break return x + 2 # this torch.compile is automatically applied @torch.compile def inner2(x): # start tracing from here x = x + 4 x = inner1(x) x = x + 8 def compiled_f_semantics(x): y = x + 16 z = inner2(y) return torch.compile(resume_f_semantics)(z) def resume_f_semantics(x): return x + 32 compiled_f_semantics(torch.randn(3)) Then we graph break on the inner1 call in inner2. def compiled_inner2_semantics(x): y = x + 4 z = inner1(y) return torch.compile(resume_inner2_semantics)(z) def resume_inner2_semantics(x): return x + 8 inner1 is then automatically compiled as a top-level function. The graph break is from inner1, so we handle the graph break normally. # this torch.compile is automatically applied @torch.compile def inner1(x): # start tracing from here x = x + 1 torch._dynamo.graph_break() # stop tracing due to graph break return x + 2 def compiled_f_semantics(x): y = x + 16 z = com..."
        }
    </script>
 

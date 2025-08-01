@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/compile/programming_model.reporting_issues.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/compile/programming_model.reporting_issues.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4696,21 +4719,17 @@ activation checkpointing, compiled autograd etc.</p></li>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4755,18 +4774,20 @@ activation checkpointing, compiled autograd etc.</p></li>
          "@type": "Article",
          "headline": "Reporting Issues",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/compile/programming_model.reporting_issues.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/compile/programming_model.reporting_issues.html"
          },
-         "datePublished": "Jul 29, 2025",
-         "dateModified": "Jul 29, 2025",
-         "articleBody": "Reporting Issues# Created On: Jul 29, 2025 | Last Updated On: Jul 29, 2025 If the provided workarounds were not enough to get torch.compile working, then you should consider reporting the issue to PyTorch. But there are a few things that you can do to make our lives significantly easier. Ablation# Check which component of the torch.compile stack is the one causing the issue using the backend= option for torch.compile. In particular, try: torch.compile(fn, backend=&#34;eager&#34;), which only runs TorchDynamo, the graph capture component of torch.compile. torch.compile(fn, backend=&#34;aot_eager&#34;), which runs TorchDynamo and AOTAutograd, which additionally generates the backward graph during compilation. torch.compile(fn, backend=&#34;aot_eager_decomp_partition&#34;), which runs TorchDynamo and AOTAutograd with operator decompositions/partitions. torch.compile(fn, backend=&#34;inductor&#34;), which runs TorchDynamo, AOTAutograd, and TorchInductor, the backend ML compiler that generates compiled kernels. If you only fail with the Inductor backend, you can additionally test various Inductor modes: torch.compile(fn, backend=&#34;inductor&#34;, mode=&#34;default&#34;) torch.compile(fn, backend=&#34;inductor&#34;, mode=&#34;reduce-overhead&#34;) torch.compile(fn, backend=&#34;inductor&#34;, mode=&#34;max-autotune&#34;) You can also check if dynamic shapes is causing issues with any backend: torch.compile(fn, dynamic=True) (always use dynamic shapes) torch.compile(fn, dynamic=False) (never use dynamic shapes) torch.compile(fn, dynamic=None) (automatic dynamic shapes) Bisecting# Did you try on the latest nightly? Did something work in the past but now no longer works? Can you bisect to determine the first nightly where your issue occurs? Bisecting is especially helpful for performance, accuracy, or compile time regressions, where it is not immediately obvious where the problem originates from. Creating a reproducer# Creating reproducers is a lot of work, and it is perfectly fine if you do not have the time to do it. However, if you are a motivated user unfamiliar with the internals of torch.compile, creating a standalone reproducer can have a huge impact on our ability to fix the bug. Without a reproducer, your bug report must contain enough information for us to identify the root cause of the problem and write a reproducer from scratch. Here’s a list of useful reproducers, ranked from most to least preferred: Self-contained, small reproducer: A script with no external dependencies, under 100 lines of code, that reproduces the problem when run. Self-contained, large reproducer: Even if it’s large, being self-contained is a huge advantage! Non-self-contained reproducer with manageable dependencies: For example, if you can reproduce the problem by running a script after pip install transformers, that’s manageable. We can likely run it and investigate. Non-self-contained reproducer requiring substantial setup: This might involve downloading datasets, multiple environment setup steps, or specific system library versions requiring..."
+        "datePublished": "Jul 29, 2025T00:00:00Z",
+         "dateModified": "Jul 29, 2025T00:00:00Z",
+         "articleBody": "Reporting Issues# Created On: Jul 29, 2025 | Last Updated On: Jul 29, 2025 If the provided workarounds were not enough to get torch.compile working, then you should consider reporting the issue to PyTorch. But there are a few things that you can do to make our lives significantly easier. Ablation# Check which component of the torch.compile stack is the one causing the issue using the backend= option for torch.compile. In particular, try: torch.compile(fn, backend=\&#34;eager\&#34;), which only runs TorchDynamo, the graph capture component of torch.compile. torch.compile(fn, backend=\&#34;aot_eager\&#34;), which runs TorchDynamo and AOTAutograd, which additionally generates the backward graph during compilation. torch.compile(fn, backend=\&#34;aot_eager_decomp_partition\&#34;), which runs TorchDynamo and AOTAutograd with operator decompositions/partitions. torch.compile(fn, backend=\&#34;inductor\&#34;), which runs TorchDynamo, AOTAutograd, and TorchInductor, the backend ML compiler that generates compiled kernels. If you only fail with the Inductor backend, you can additionally test various Inductor modes: torch.compile(fn, backend=\&#34;inductor\&#34;, mode=\&#34;default\&#34;) torch.compile(fn, backend=\&#34;inductor\&#34;, mode=\&#34;reduce-overhead\&#34;) torch.compile(fn, backend=\&#34;inductor\&#34;, mode=\&#34;max-autotune\&#34;) You can also check if dynamic shapes is causing issues with any backend: torch.compile(fn, dynamic=True) (always use dynamic shapes) torch.compile(fn, dynamic=False) (never use dynamic shapes) torch.compile(fn, dynamic=None) (automatic dynamic shapes) Bisecting# Did you try on the latest nightly? Did something work in the past but now no longer works? Can you bisect to determine the first nightly where your issue occurs? Bisecting is especially helpful for performance, accuracy, or compile time regressions, where it is not immediately obvious where the problem originates from. Creating a reproducer# Creating reproducers is a lot of work, and it is perfectly fine if you do not have the time to do it. However, if you are a motivated user unfamiliar with the internals of torch.compile, creating a standalone reproducer can have a huge impact on our ability to fix the bug. Without a reproducer, your bug report must contain enough information for us to identify the root cause of the problem and write a reproducer from scratch. Here’s a list of useful reproducers, ranked from most to least preferred: Self-contained, small reproducer: A script with no external dependencies, under 100 lines of code, that reproduces the problem when run. Self-contained, large reproducer: Even if it’s large, being self-contained is a huge advantage! Non-self-contained reproducer with manageable dependencies: For example, if you can reproduce the problem by running a script after pip install transformers, that’s manageable. We can likely run it and investigate. Non-self-contained reproducer requiring substantial setup: This might involve downloading datasets, multiple environment setup steps, or specific system library versions requiring..."
        }
    </script>
 

@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/torch.compiler_dynamo_deepdive.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/torch.compiler_dynamo_deepdive.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -5389,21 +5412,17 @@ more, Dynamo can split the code into as many graphs as it needs.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -5448,17 +5467,19 @@ more, Dynamo can split the code into as many graphs as it needs.</p>
          "@type": "Article",
          "headline": "Dynamo Deep-Dive",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/torch.compiler_dynamo_deepdive.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/torch.compiler_dynamo_deepdive.html"
          },
-         "datePublished": "Apr 02, 2024",
-         "dateModified": "Jun 10, 2025",
+        "datePublished": "Apr 02, 2024T00:00:00Z",
+         "dateModified": "Jun 10, 2025T00:00:00Z",
          "articleBody": "Dynamo Deep-Dive# Created On: Apr 02, 2024 | Last Updated On: Jun 10, 2025 TorchDynamo (or simply Dynamo) is the tracer within torch.compile, and it is, more often than not, the one to blame for those insane backtraces. However, we cannot blindly blame Dynamo for these errors. In order to provide the user with the flexibility it does, Dynamo is given the arduous task of understanding any Python program. In particular, Dynamo has to implement a good part of the Python programming language internally! In this post, we will go over the internal design of Dynamo from the ground up. We will discuss the functionality it provides, and how it is implemented. By the end of this post, you will have a better understanding of what went wrong when you torch.compiled a PyTorch program and the compilation errored out, or succeeded but the speed-up was not what you expected. A Gentle Introduction to Dynamo# Before getting our hands dirty with all the implementation details, let’s start by discussing what it is that Dynamo does. Dynamo is a tracer. This means, given and function and inputs to it, it executes the function and records a linear sequence of instructions (without control flow) into a graph. For example, consider the following program: import torch @torch.compile def mse(x, y): z = (x - y) ** 2 return z.sum() x = torch.randn(200) y = torch.randn(200) mse(x, y) If we save this program into the file example.py and we run TORCH_LOGS=graph_code python example.py we see the output that Dynamo traced def forward(l_x_: torch.Tensor, l_y_: torch.Tensor): # File: example.py:5, code: z = (x - y) ** 2 sub = l_x_ - l_y_ z = sub ** 2 # File: example.py:6, code: return z.sum() sum_1 = z.sum() return (sum_1,) We call this a graph (or trace) of the function for the given inputs. This is represented via an FX graph. We will simply think of an FX graph as a container that stores a list of function calls. The first thing we should notice is that the graph is a linear sequence of PyTorch operations. 1 Dynamo records all the PyTorch operations and stores them sequentially. For example, it split z = (x - y) ** 2 into its two constituting operations, sub = l_x_ - l_y_ and z = sub ** 2. When we say that the trace is linear, we mean that there is no branching or any control flow. To see this, consider import torch @torch.compile def fn(x, n): y = x ** 2 if n &gt;= 0: return (n + 1) * y else: return y / n x = torch.randn(200) fn(x, 2) which, when executed with TORCH_LOGS=graph_code, returns def forward(l_x_: torch.Tensor): # File: example.py:5, code: y = x ** 2 y = l_x_ ** 2 # File: example.py:7, code: return (n + 1) * y mul = 3 * y return (mul,) We see that Dynamo completely removed the if statement from the trace and just recorded the operations that were executed with the inputs. As such, it should be clear that the trace of a function depends on the inputs. In particular, this means that the trace is not generated when we write @torch.compile, but when we execute the functi..."
        }
    </script>

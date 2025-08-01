@@ -62,6 +62,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/notes/mkldnn.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -73,6 +74,28 @@
 <link rel="canonical" href="/notes/mkldnn.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -112,7 +135,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1977,21 +2000,17 @@ is overridden to bf16.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -2036,18 +2055,20 @@ is overridden to bf16.</p>
          "@type": "Article",
          "headline": "MKLDNN backend",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/notes/mkldnn.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/notes/mkldnn.html"
          },
-         "datePublished": "May 10, 2025",
-         "dateModified": "Jul 17, 2025",
-         "articleBody": "MKLDNN backend# Created On: May 10, 2025 | Last Updated On: Jul 17, 2025 MKLDNN is an open-source cross-platform performance library of basic building blocks for deep learning applications. # The flag below controls whether enable MKLDNN backend in Pytorch. torch.backends.mkldnn.enabled = True Users can disable MKLDNN backend by: torch.backends.mkldnn.enabled = False Bfloat16 (BF16) on MKLDNN backend# Starting in PyTorch 2.9, there is a set of APIs to control the internal computation precision for float32 operators. # The flag below controls the internal computation precision for mkldnn matmul. Default ieee is float32. torch.backends.mkldnn.matmul.fp32_precision = &#34;ieee&#34; # The flag below controls the internal computation precision for mkldnn conv. Default ieee is float32. torch.backends.mkldnn.conv.fp32_precision = &#34;ieee&#34; # The flag below controls the internal computation precision for mkldnn rnn. Default ieee is float32. torch.backends.mkldnn.rnn.fp32_precision = &#34;ieee&#34; Note that besides matmuls and convolutions themselves, functions and nn modules that internally uses matmuls or convolutions are also affected. These include torch.nn.Linear, torch.nn._ConvNd, torch.cdist(), torch.tensordot(), torch.nn.functional.affine_grid() and torch.nn.functional.grid_sample(), torch.nn.AdaptiveLogSoftmaxWithLoss, torch.nn.GRU and torch.nn.LSTM. To get an idea of the precision and speed, see the example code and benchmark data (on SPR) below: torch.manual_seed(0) a_full = torch.randn(10240, 10240, dtype=torch.double) b_full = torch.randn(10240, 10240, dtype=torch.double) ab_full = a_full @ b_full mean = ab_full.abs().mean() # 80.7451 a = a_full.float() b = b_full.float() # Do matmul at BF16 mode. torch.backends.mkldnn.matmul.fp32_precision = &#39;bf16&#39; ab_bf16 = a @ b # expected speedup with BF16 dot-product acceleration error = (ab_bf16 - ab_full).abs().max() # 1.3704 relative_error = error / mean # 0.0170 print(error, relative_error) # Do matmul at TF32 mode. torch.backends.mkldnn.matmul.fp32_precision = &#39;tf32&#39; ab_tf32 = a @ b # expected speedup with TF32 dot-product acceleration error = (ab_tf32 - ab_full).abs().max() # 0.0004 relative_error = error / mean # 0.00000552 print(error, relative_error) # Do matmul FP32 mode. torch.backends.mkldnn.matmul.fp32_precision = &#39;ieee&#39; ab_fp32 = a @ b error = (ab_fp32 - ab_full).abs().max() # 0.0003 relative_error = error / mean # 0.00000317 print(error, relative_error) From the above example, we can see that with BF16, the speed is ~7x faster on SPR, and that relative error compared to double precision is approximately 2 orders of magnitude larger. If full FP32 precision is needed, users can disable BF16 by: torch.backends.mkldnn.matmul.fp32_precision = &#39;ieee&#39; torch.backends.mkldnn.conv.fp32_precision = &#39;ieee&#39; torch.backends.mkldnn.rnn.fp32_precision = &#39;ieee&#39; To toggle the BF16 flags off in C++, you can do at::globalContext().setFloat32Precision(&#34;ieee&#34;, &#34;mkldnn&#34;, &#34;matmul&#34;); at::globalContext().setFloat32Precision(&#34;ieee&#34;..."
+        "datePublished": "May 10, 2025T00:00:00Z",
+         "dateModified": "Jul 17, 2025T00:00:00Z",
+         "articleBody": "MKLDNN backend# Created On: May 10, 2025 | Last Updated On: Jul 17, 2025 MKLDNN is an open-source cross-platform performance library of basic building blocks for deep learning applications. # The flag below controls whether enable MKLDNN backend in Pytorch. torch.backends.mkldnn.enabled = True Users can disable MKLDNN backend by: torch.backends.mkldnn.enabled = False Bfloat16 (BF16) on MKLDNN backend# Starting in PyTorch 2.9, there is a set of APIs to control the internal computation precision for float32 operators. # The flag below controls the internal computation precision for mkldnn matmul. Default ieee is float32. torch.backends.mkldnn.matmul.fp32_precision = \&#34;ieee\&#34; # The flag below controls the internal computation precision for mkldnn conv. Default ieee is float32. torch.backends.mkldnn.conv.fp32_precision = \&#34;ieee\&#34; # The flag below controls the internal computation precision for mkldnn rnn. Default ieee is float32. torch.backends.mkldnn.rnn.fp32_precision = \&#34;ieee\&#34; Note that besides matmuls and convolutions themselves, functions and nn modules that internally uses matmuls or convolutions are also affected. These include torch.nn.Linear, torch.nn._ConvNd, torch.cdist(), torch.tensordot(), torch.nn.functional.affine_grid() and torch.nn.functional.grid_sample(), torch.nn.AdaptiveLogSoftmaxWithLoss, torch.nn.GRU and torch.nn.LSTM. To get an idea of the precision and speed, see the example code and benchmark data (on SPR) below: torch.manual_seed(0) a_full = torch.randn(10240, 10240, dtype=torch.double) b_full = torch.randn(10240, 10240, dtype=torch.double) ab_full = a_full @ b_full mean = ab_full.abs().mean() # 80.7451 a = a_full.float() b = b_full.float() # Do matmul at BF16 mode. torch.backends.mkldnn.matmul.fp32_precision = &#39;bf16&#39; ab_bf16 = a @ b # expected speedup with BF16 dot-product acceleration error = (ab_bf16 - ab_full).abs().max() # 1.3704 relative_error = error / mean # 0.0170 print(error, relative_error) # Do matmul at TF32 mode. torch.backends.mkldnn.matmul.fp32_precision = &#39;tf32&#39; ab_tf32 = a @ b # expected speedup with TF32 dot-product acceleration error = (ab_tf32 - ab_full).abs().max() # 0.0004 relative_error = error / mean # 0.00000552 print(error, relative_error) # Do matmul FP32 mode. torch.backends.mkldnn.matmul.fp32_precision = &#39;ieee&#39; ab_fp32 = a @ b error = (ab_fp32 - ab_full).abs().max() # 0.0003 relative_error = error / mean # 0.00000317 print(error, relative_error) From the above example, we can see that with BF16, the speed is ~7x faster on SPR, and that relative error compared to double precision is approximately 2 orders of magnitude larger. If full FP32 precision is needed, users can disable BF16 by: torch.backends.mkldnn.matmul.fp32_precision = &#39;ieee&#39; torch.backends.mkldnn.conv.fp32_precision = &#39;ieee&#39; torch.backends.mkldnn.rnn.fp32_precision = &#39;ieee&#39; To toggle the BF16 flags off in C++, you can do at::globalContext().setFloat32Precision(\&#34;ieee\&#34;, \&#34;mkldnn\&#34;, \&#34;matmul\&#34;); at::globalContext().setFloat32Precision(\&#34;ieee\&#34;..."
        }
    </script>
 

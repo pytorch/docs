@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/elastic/customization.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/elastic/customization.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4721,21 +4744,17 @@ in your custom launcher.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4780,18 +4799,20 @@ in your custom launcher.</p>
          "@type": "Article",
          "headline": "Customization",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/elastic/customization.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/elastic/customization.html"
          },
-         "datePublished": "May 04, 2021",
-         "dateModified": "May 04, 2021",
-         "articleBody": "Customization# Created On: May 04, 2021 | Last Updated On: May 04, 2021 This section describes how to customize TorchElastic to fit your needs. Launcher# The launcher program that ships with TorchElastic should be sufficient for most use-cases (see torchrun (Elastic Launch)). You can implement a custom launcher by programmatically creating an agent and passing it specs for your workers as shown below. # my_launcher.py if __name__ == &#34;__main__&#34;: args = parse_args(sys.argv[1:]) rdzv_handler = RendezvousHandler(...) spec = WorkerSpec( local_world_size=args.nproc_per_node, fn=trainer_entrypoint_fn, args=(trainer_entrypoint_fn args.fn_args,...), rdzv_handler=rdzv_handler, max_restarts=args.max_restarts, monitor_interval=args.monitor_interval, ) agent = LocalElasticAgent(spec, start_method=&#34;spawn&#34;) try: run_result = agent.run() if run_result.is_failed(): print(f&#34;worker 0 failed with: run_result.failures[0]&#34;) else: print(f&#34;worker 0 return value is: run_result.return_values[0]&#34;) except Exception ex: # handle exception Rendezvous Handler# To implement your own rendezvous, extend torch.distributed.elastic.rendezvous.RendezvousHandler and implement its methods. Warning Rendezvous handlers are tricky to implement. Before you begin make sure you completely understand the properties of rendezvous. Please refer to Rendezvous for more information. Once implemented you can pass your custom rendezvous handler to the worker spec when creating the agent. spec = WorkerSpec( rdzv_handler=MyRendezvousHandler(params), ... ) elastic_agent = LocalElasticAgent(spec, start_method=start_method) elastic_agent.run(spec.role) Metric Handler# TorchElastic emits platform level metrics (see Metrics). By default metrics are emitted to /dev/null so you will not see them. To have the metrics pushed to a metric handling service in your infrastructure, implement a torch.distributed.elastic.metrics.MetricHandler and configure it in your custom launcher. # my_launcher.py import torch.distributed.elastic.metrics as metrics class MyMetricHandler(metrics.MetricHandler): def emit(self, metric_data: metrics.MetricData): # push metric_data to your metric sink def main(): metrics.configure(MyMetricHandler()) spec = WorkerSpec(...) agent = LocalElasticAgent(spec) agent.run() Events Handler# TorchElastic supports events recording (see Events). The events module defines API that allows you to record events and implement custom EventHandler. EventHandler is used for publishing events produced during torchelastic execution to different sources, e.g. AWS CloudWatch. By default it uses torch.distributed.elastic.events.NullEventHandler that ignores events. To configure custom events handler you need to implement torch.distributed.elastic.events.EventHandler interface and configure it in your custom launcher. # my_launcher.py import torch.distributed.elastic.events as events class MyEventHandler(events.EventHandler): def record(self, event: events.Event): # process event def main(): events.configure(..."
+        "datePublished": "May 04, 2021T00:00:00Z",
+         "dateModified": "May 04, 2021T00:00:00Z",
+         "articleBody": "Customization# Created On: May 04, 2021 | Last Updated On: May 04, 2021 This section describes how to customize TorchElastic to fit your needs. Launcher# The launcher program that ships with TorchElastic should be sufficient for most use-cases (see torchrun (Elastic Launch)). You can implement a custom launcher by programmatically creating an agent and passing it specs for your workers as shown below. # my_launcher.py if __name__ == \&#34;__main__\&#34;: args = parse_args(sys.argv[1:]) rdzv_handler = RendezvousHandler(...) spec = WorkerSpec( local_world_size=args.nproc_per_node, fn=trainer_entrypoint_fn, args=(trainer_entrypoint_fn args.fn_args,...), rdzv_handler=rdzv_handler, max_restarts=args.max_restarts, monitor_interval=args.monitor_interval, ) agent = LocalElasticAgent(spec, start_method=\&#34;spawn\&#34;) try: run_result = agent.run() if run_result.is_failed(): print(f\&#34;worker 0 failed with: run_result.failures[0]\&#34;) else: print(f\&#34;worker 0 return value is: run_result.return_values[0]\&#34;) except Exception ex: # handle exception Rendezvous Handler# To implement your own rendezvous, extend torch.distributed.elastic.rendezvous.RendezvousHandler and implement its methods. Warning Rendezvous handlers are tricky to implement. Before you begin make sure you completely understand the properties of rendezvous. Please refer to Rendezvous for more information. Once implemented you can pass your custom rendezvous handler to the worker spec when creating the agent. spec = WorkerSpec( rdzv_handler=MyRendezvousHandler(params), ... ) elastic_agent = LocalElasticAgent(spec, start_method=start_method) elastic_agent.run(spec.role) Metric Handler# TorchElastic emits platform level metrics (see Metrics). By default metrics are emitted to /dev/null so you will not see them. To have the metrics pushed to a metric handling service in your infrastructure, implement a torch.distributed.elastic.metrics.MetricHandler and configure it in your custom launcher. # my_launcher.py import torch.distributed.elastic.metrics as metrics class MyMetricHandler(metrics.MetricHandler): def emit(self, metric_data: metrics.MetricData): # push metric_data to your metric sink def main(): metrics.configure(MyMetricHandler()) spec = WorkerSpec(...) agent = LocalElasticAgent(spec) agent.run() Events Handler# TorchElastic supports events recording (see Events). The events module defines API that allows you to record events and implement custom EventHandler. EventHandler is used for publishing events produced during torchelastic execution to different sources, e.g. AWS CloudWatch. By default it uses torch.distributed.elastic.events.NullEventHandler that ignores events. To configure custom events handler you need to implement torch.distributed.elastic.events.EventHandler interface and configure it in your custom launcher. # my_launcher.py import torch.distributed.elastic.events as events class MyEventHandler(events.EventHandler): def record(self, event: events.Event): # process event def main(): events.configure(..."
        }
    </script>
 

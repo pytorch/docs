@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.addbmm.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.addbmm.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4646,21 +4669,17 @@ must be real numbers, otherwise they should be integers.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4705,18 +4724,20 @@ must be real numbers, otherwise they should be integers.</p>
          "@type": "Article",
          "headline": "torch.addbmm",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.addbmm.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.addbmm.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.addbmm# torch.addbmm(input, batch1, batch2, *, beta=1, alpha=1, out=None) → Tensor# Performs a batch matrix-matrix product of matrices stored in batch1 and batch2, with a reduced add step (all matrix multiplications get accumulated along the first dimension). input is added to the final result. batch1 and batch2 must be 3-D tensors each containing the same number of matrices. If batch1 is a (b×n×m)(b \times n \times m)(b×n×m) tensor, batch2 is a (b×m×p)(b \times m \times p)(b×m×p) tensor, input must be broadcastable with a (n×p)(n \times p)(n×p) tensor and out will be a (n×p)(n \times p)(n×p) tensor. out=β input+α (∑i=0b−1batch1i@batch2i)out = \beta\ \text{input} + \alpha\ (\sum_{i=0}^{b-1} \text{batch1}_i \mathbin{@} \text{batch2}_i) out=β input+α (i=0∑b−1​batch1i​@batch2i​)If beta is 0, then the content of input will be ignored, and nan and inf in it will not be propagated. For inputs of type FloatTensor or DoubleTensor, arguments beta and alpha must be real numbers, otherwise they should be integers. This operator supports TensorFloat32. On certain ROCm devices, when using float16 inputs this module will use different precision for backward. Parameters input (Tensor) – matrix to be added batch1 (Tensor) – the first batch of matrices to be multiplied batch2 (Tensor) – the second batch of matrices to be multiplied Keyword Arguments beta (Number, optional) – multiplier for input (β\betaβ) alpha (Number, optional) – multiplier for batch1 @ batch2 (α\alphaα) out (Tensor, optional) – the output tensor. Example: &gt;&gt;&gt; M = torch.randn(3, 5) &gt;&gt;&gt; batch1 = torch.randn(10, 3, 4) &gt;&gt;&gt; batch2 = torch.randn(10, 4, 5) &gt;&gt;&gt; torch.addbmm(M, batch1, batch2) tensor([[ 6.6311, 0.0503, 6.9768, -12.0362, -2.1653], [ -4.8185, -1.4255, -6.6760, 8.9453, 2.5743], [ -3.8202, 4.3691, 1.0943, -1.1109, 5.4730]])"
+         "articleBody": "torch.addbmm# torch.addbmm(input, batch1, batch2, *, beta=1, alpha=1, out=None) → Tensor# Performs a batch matrix-matrix product of matrices stored in batch1 and batch2, with a reduced add step (all matrix multiplications get accumulated along the first dimension). input is added to the final result. batch1 and batch2 must be 3-D tensors each containing the same number of matrices. If batch1 is a (b×n×m)(b \\times n \\times m)(b×n×m) tensor, batch2 is a (b×m×p)(b \\times m \\times p)(b×m×p) tensor, input must be broadcastable with a (n×p)(n \\times p)(n×p) tensor and out will be a (n×p)(n \\times p)(n×p) tensor. out=β input+α (∑i=0b−1batch1i@batch2i)out = \\beta\\ \\text{input} + \\alpha\\ (\\sum_{i=0}^{b-1} \\text{batch1}_i \\mathbin{@} \\text{batch2}_i) out=β input+α (i=0∑b−1​batch1i​@batch2i​)If beta is 0, then the content of input will be ignored, and nan and inf in it will not be propagated. For inputs of type FloatTensor or DoubleTensor, arguments beta and alpha must be real numbers, otherwise they should be integers. This operator supports TensorFloat32. On certain ROCm devices, when using float16 inputs this module will use different precision for backward. Parameters input (Tensor) – matrix to be added batch1 (Tensor) – the first batch of matrices to be multiplied batch2 (Tensor) – the second batch of matrices to be multiplied Keyword Arguments beta (Number, optional) – multiplier for input (β\\betaβ) alpha (Number, optional) – multiplier for batch1 @ batch2 (α\\alphaα) out (Tensor, optional) – the output tensor. Example: &gt;&gt;&gt; M = torch.randn(3, 5) &gt;&gt;&gt; batch1 = torch.randn(10, 3, 4) &gt;&gt;&gt; batch2 = torch.randn(10, 4, 5) &gt;&gt;&gt; torch.addbmm(M, batch1, batch2) tensor([[ 6.6311, 0.0503, 6.9768, -12.0362, -2.1653], [ -4.8185, -1.4255, -6.6760, 8.9453, 2.5743], [ -3.8202, 4.3691, 1.0943, -1.1109, 5.4730]])"
        }
    </script>
 

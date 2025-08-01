@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.MultiLabelSoftMarginLoss.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.nn.MultiLabelSoftMarginLoss.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,7 +4358,7 @@ document.write(`
 <h1>MultiLabelSoftMarginLoss<a class="headerlink" href="#multilabelsoftmarginloss" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.MultiLabelSoftMarginLoss">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">MultiLabelSoftMarginLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/loss.py#L1348"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.MultiLabelSoftMarginLoss" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">MultiLabelSoftMarginLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/loss.py#L1348"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.MultiLabelSoftMarginLoss" title="Permalink to this definition">#</a></dt>
 <dd><p>Creates a criterion that optimizes a multi-label one-versus-all
 loss based on max-entropy, between input <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> and target <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span> of size
 <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mi>C</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, C)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mclose">)</span></span></span></span></span>.
@@ -4380,7 +4403,7 @@ specifying either of those two args will override <code class="xref py py-attr d
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.MultiLabelSoftMarginLoss.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/loss.py#L1398"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.MultiLabelSoftMarginLoss.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/loss.py#L1398"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.MultiLabelSoftMarginLoss.forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4656,21 +4679,17 @@ specifying either of those two args will override <code class="xref py py-attr d
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4715,18 +4734,20 @@ specifying either of those two args will override <code class="xref py py-attr d
          "@type": "Article",
          "headline": "MultiLabelSoftMarginLoss",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.nn.MultiLabelSoftMarginLoss.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.nn.MultiLabelSoftMarginLoss.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "MultiLabelSoftMarginLoss# class torch.nn.MultiLabelSoftMarginLoss(weight=None, size_average=None, reduce=None, reduction=&#39;mean&#39;)[source]# Creates a criterion that optimizes a multi-label one-versus-all loss based on max-entropy, between input xxx and target yyy of size (N,C)(N, C)(N,C). For each sample in the minibatch: loss(x,y)=−1C∗∑iy[i]∗log⁡((1+exp⁡(−x[i]))−1)+(1−y[i])∗log⁡(exp⁡(−x[i])(1+exp⁡(−x[i])))loss(x, y) = - \frac{1}{C} * \sum_i y[i] * \log((1 + \exp(-x[i]))^{-1}) + (1-y[i]) * \log\left(\frac{\exp(-x[i])}{(1 + \exp(-x[i]))}\right) loss(x,y)=−C1​∗i∑​y[i]∗log((1+exp(−x[i]))−1)+(1−y[i])∗log((1+exp(−x[i]))exp(−x[i])​)where i∈{0, ⋯ , x.nElement()−1}i \in \left\{0, \; \cdots , \; \text{x.nElement}() - 1\right\}i∈{0,⋯,x.nElement()−1}, y[i]∈{0, 1}y[i] \in \left\{0, \; 1\right\}y[i]∈{0,1}. Parameters weight (Tensor, optional) – a manual rescaling weight given to each class. If given, it has to be a Tensor of size C. Otherwise, it is treated as if having all ones. size_average (bool, optional) – Deprecated (see reduction). By default, the losses are averaged over each loss element in the batch. Note that for some losses, there are multiple elements per sample. If the field size_average is set to False, the losses are instead summed for each minibatch. Ignored when reduce is False. Default: True reduce (bool, optional) – Deprecated (see reduction). By default, the losses are averaged or summed over observations for each minibatch depending on size_average. When reduce is False, returns a loss per batch element instead and ignores size_average. Default: True reduction (str, optional) – Specifies the reduction to apply to the output: &#39;none&#39; | &#39;mean&#39; | &#39;sum&#39;. &#39;none&#39;: no reduction will be applied, &#39;mean&#39;: the sum of the output will be divided by the number of elements in the output, &#39;sum&#39;: the output will be summed. Note: size_average and reduce are in the process of being deprecated, and in the meantime, specifying either of those two args will override reduction. Default: &#39;mean&#39; Shape: Input: (N,C)(N, C)(N,C) where N is the batch size and C is the number of classes. Target: (N,C)(N, C)(N,C), label targets must have the same shape as the input. Output: scalar. If reduction is &#39;none&#39;, then (N)(N)(N). forward(input, target)[source]# Runs the forward pass. Return type Tensor"
+         "articleBody": "MultiLabelSoftMarginLoss# class torch.nn.MultiLabelSoftMarginLoss(weight=None, size_average=None, reduce=None, reduction=&#39;mean&#39;)[source]# Creates a criterion that optimizes a multi-label one-versus-all loss based on max-entropy, between input xxx and target yyy of size (N,C)(N, C)(N,C). For each sample in the minibatch: loss(x,y)=−1C∗∑iy[i]∗log⁡((1+exp⁡(−x[i]))−1)+(1−y[i])∗log⁡(exp⁡(−x[i])(1+exp⁡(−x[i])))loss(x, y) = - \\frac{1}{C} * \\sum_i y[i] * \\log((1 + \\exp(-x[i]))^{-1}) + (1-y[i]) * \\log\\left(\\frac{\\exp(-x[i])}{(1 + \\exp(-x[i]))}\\right) loss(x,y)=−C1​∗i∑​y[i]∗log((1+exp(−x[i]))−1)+(1−y[i])∗log((1+exp(−x[i]))exp(−x[i])​)where i∈{0, ⋯ , x.nElement()−1}i \\in \\left\\{0, \\; \\cdots , \\; \\text{x.nElement}() - 1\\right\\}i∈{0,⋯,x.nElement()−1}, y[i]∈{0, 1}y[i] \\in \\left\\{0, \\; 1\\right\\}y[i]∈{0,1}. Parameters weight (Tensor, optional) – a manual rescaling weight given to each class. If given, it has to be a Tensor of size C. Otherwise, it is treated as if having all ones. size_average (bool, optional) – Deprecated (see reduction). By default, the losses are averaged over each loss element in the batch. Note that for some losses, there are multiple elements per sample. If the field size_average is set to False, the losses are instead summed for each minibatch. Ignored when reduce is False. Default: True reduce (bool, optional) – Deprecated (see reduction). By default, the losses are averaged or summed over observations for each minibatch depending on size_average. When reduce is False, returns a loss per batch element instead and ignores size_average. Default: True reduction (str, optional) – Specifies the reduction to apply to the output: &#39;none&#39; | &#39;mean&#39; | &#39;sum&#39;. &#39;none&#39;: no reduction will be applied, &#39;mean&#39;: the sum of the output will be divided by the number of elements in the output, &#39;sum&#39;: the output will be summed. Note: size_average and reduce are in the process of being deprecated, and in the meantime, specifying either of those two args will override reduction. Default: &#39;mean&#39; Shape: Input: (N,C)(N, C)(N,C) where N is the batch size and C is the number of classes. Target: (N,C)(N, C)(N,C), label targets must have the same shape as the input. Output: scalar. If reduction is &#39;none&#39;, then (N)(N)(N). forward(input, target)[source]# Runs the forward pass. Return type Tensor"
        }
    </script>
 

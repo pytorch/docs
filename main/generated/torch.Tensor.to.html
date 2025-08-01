@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.Tensor.to.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.Tensor.to.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4695,21 +4718,17 @@ already matches the desired conversion.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4754,16 +4773,18 @@ already matches the desired conversion.</p>
          "@type": "Article",
          "headline": "torch.Tensor.to",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.Tensor.to.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.Tensor.to.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.Tensor.to# Tensor.to(*args, **kwargs) → Tensor# Performs Tensor dtype and/or device conversion. A torch.dtype and torch.device are inferred from the arguments of self.to(*args, **kwargs). Note If the self Tensor already has the correct torch.dtype and torch.device, then self is returned. Otherwise, the returned tensor is a copy of self with the desired torch.dtype and torch.device. Note If self requires gradients (requires_grad=True) but the target dtype specified is an integer type, the returned tensor will implicitly set requires_grad=False. This is because only tensors with floating-point or complex dtypes can require gradients. Here are the ways to call to: to(dtype, non_blocking=False, copy=False, memory_format=torch.preserve_format) → Tensor Returns a Tensor with the specified dtype Args:memory_format (torch.memory_format, optional): the desired memory format of returned Tensor. Default: torch.preserve_format. Note According to C++ type conversion rules, converting floating point value to integer type will truncate the fractional part. If the truncated value cannot fit into the target type (e.g., casting torch.inf to torch.long), the behavior is undefined and the result may vary across platforms. torch.to(device=None, dtype=None, non_blocking=False, copy=False, memory_format=torch.preserve_format) → Tensor Returns a Tensor with the specified device and (optional) dtype. If dtype is None it is inferred to be self.dtype. When non_blocking is set to True, the function attempts to perform the conversion asynchronously with respect to the host, if possible. This asynchronous behavior applies to both pinned and pageable memory. However, caution is advised when using this feature. For more information, refer to the tutorial on good usage of non_blocking and pin_memory. When copy is set, a new Tensor is created even when the Tensor already matches the desired conversion. Args:memory_format (torch.memory_format, optional): the desired memory format of returned Tensor. Default: torch.preserve_format. torch.to(other, non_blocking=False, copy=False) → Tensor Returns a Tensor with same torch.dtype and torch.device as the Tensor other. When non_blocking is set to True, the function attempts to perform the conversion asynchronously with respect to the host, if possible. This asynchronous behavior applies to both pinned and pageable memory. However, caution is advised when using this feature. For more information, refer to the tutorial on good usage of non_blocking and pin_memory. When copy is set, a new Tensor is created even when the Tensor already matches the desired conversion. Example: &gt;&gt;&gt; tensor = torch.randn(2, 2) # Initially dtype=float32, device=cpu &gt;&gt;&gt; tensor.to(torch.float64) tensor([[-0.5044, 0.0005], [ 0.3310, -0.0584]], dtype=torch.float64) &gt;&gt;&gt; cuda0 = torch.device(&#39;cuda:0&#39;) &gt;&gt;&gt; tensor.to(cuda0) tensor([[-0.5044, 0.0005], [ 0.3310, -0.0584]], device=&#39;cuda:0&#39;) &gt;&gt;&gt; tensor.to(cuda0, dtype=torch.float64) tensor([[-0.5044, 0.0005], [ 0.33..."
        }

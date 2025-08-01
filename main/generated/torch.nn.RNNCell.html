@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.RNNCell.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.nn.RNNCell.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,7 +4358,7 @@ document.write(`
 <h1>RNNCell<a class="headerlink" href="#rnncell" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.RNNCell">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">RNNCell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonlinearity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tanh'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/rnn.py#L1492"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.RNNCell" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">RNNCell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonlinearity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tanh'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/rnn.py#L1492"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.RNNCell" title="Permalink to this definition">#</a></dt>
 <dd><p>An Elman RNN cell with tanh or ReLU non-linearity.</p>
 <div class="math">
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>h</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo>=</mo><mi>tanh</mi><mo>⁡</mo><mo stretchy="false">(</mo><msub><mi>W</mi><mrow><mi>i</mi><mi>h</mi></mrow></msub><mi>x</mi><mo>+</mo><msub><mi>b</mi><mrow><mi>i</mi><mi>h</mi></mrow></msub><mo>+</mo><msub><mi>W</mi><mrow><mi>h</mi><mi>h</mi></mrow></msub><mi>h</mi><mo>+</mo><msub><mi>b</mi><mrow><mi>h</mi><mi>h</mi></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">h&#x27; = \tanh(W_{ih} x + b_{ih}  +  W_{hh} h + b_{hh})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8019em;"></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">tanh</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ih</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ih</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">hh</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">hh</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></div><p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">nonlinearity</span></code> is <cite>‘relu’</cite>, then ReLU is used in place of tanh.</p>
@@ -4684,21 +4707,17 @@ where <span class="math"><span class="katex"><span class="katex-mathml"><math xm
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4743,18 +4762,20 @@ where <span class="math"><span class="katex"><span class="katex-mathml"><math xm
          "@type": "Article",
          "headline": "RNNCell",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.nn.RNNCell.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.nn.RNNCell.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "RNNCell# class torch.nn.RNNCell(input_size, hidden_size, bias=True, nonlinearity=&#39;tanh&#39;, device=None, dtype=None)[source]# An Elman RNN cell with tanh or ReLU non-linearity. h′=tanh⁡(Wihx+bih+Whhh+bhh)h&#39; = \tanh(W_{ih} x + b_{ih} + W_{hh} h + b_{hh})h′=tanh(Wih​x+bih​+Whh​h+bhh​)If nonlinearity is ‘relu’, then ReLU is used in place of tanh. Parameters input_size (int) – The number of expected features in the input x hidden_size (int) – The number of features in the hidden state h bias (bool) – If False, then the layer does not use bias weights b_ih and b_hh. Default: True nonlinearity (str) – The non-linearity to use. Can be either &#39;tanh&#39; or &#39;relu&#39;. Default: &#39;tanh&#39; Inputs: input, hidden input: tensor containing input features hidden: tensor containing the initial hidden state Defaults to zero if not provided. Outputs: h’ h’ of shape (batch, hidden_size): tensor containing the next hidden state for each element in the batch Shape: input: (N,Hin)(N, H_{in})(N,Hin​) or (Hin)(H_{in})(Hin​) tensor containing input features where HinH_{in}Hin​ = input_size. hidden: (N,Hout)(N, H_{out})(N,Hout​) or (Hout)(H_{out})(Hout​) tensor containing the initial hidden state where HoutH_{out}Hout​ = hidden_size. Defaults to zero if not provided. output: (N,Hout)(N, H_{out})(N,Hout​) or (Hout)(H_{out})(Hout​) tensor containing the next hidden state. Variables weight_ih (torch.Tensor) – the learnable input-hidden weights, of shape (hidden_size, input_size) weight_hh (torch.Tensor) – the learnable hidden-hidden weights, of shape (hidden_size, hidden_size) bias_ih – the learnable input-hidden bias, of shape (hidden_size) bias_hh – the learnable hidden-hidden bias, of shape (hidden_size) Note All the weights and biases are initialized from U(−k,k)\mathcal{U}(-\sqrt{k}, \sqrt{k})U(−k​,k​) where k=1hidden_sizek = \frac{1}{\text{hidden\_size}}k=hidden_size1​ Examples: &gt;&gt;&gt; rnn = nn.RNNCell(10, 20) &gt;&gt;&gt; input = torch.randn(6, 3, 10) &gt;&gt;&gt; hx = torch.randn(3, 20) &gt;&gt;&gt; output = [] &gt;&gt;&gt; for i in range(6): ... hx = rnn(input[i], hx) ... output.append(hx)"
+         "articleBody": "RNNCell# class torch.nn.RNNCell(input_size, hidden_size, bias=True, nonlinearity=&#39;tanh&#39;, device=None, dtype=None)[source]# An Elman RNN cell with tanh or ReLU non-linearity. h′=tanh⁡(Wihx+bih+Whhh+bhh)h&#39; = \\tanh(W_{ih} x + b_{ih} + W_{hh} h + b_{hh})h′=tanh(Wih​x+bih​+Whh​h+bhh​)If nonlinearity is ‘relu’, then ReLU is used in place of tanh. Parameters input_size (int) – The number of expected features in the input x hidden_size (int) – The number of features in the hidden state h bias (bool) – If False, then the layer does not use bias weights b_ih and b_hh. Default: True nonlinearity (str) – The non-linearity to use. Can be either &#39;tanh&#39; or &#39;relu&#39;. Default: &#39;tanh&#39; Inputs: input, hidden input: tensor containing input features hidden: tensor containing the initial hidden state Defaults to zero if not provided. Outputs: h’ h’ of shape (batch, hidden_size): tensor containing the next hidden state for each element in the batch Shape: input: (N,Hin)(N, H_{in})(N,Hin​) or (Hin)(H_{in})(Hin​) tensor containing input features where HinH_{in}Hin​ = input_size. hidden: (N,Hout)(N, H_{out})(N,Hout​) or (Hout)(H_{out})(Hout​) tensor containing the initial hidden state where HoutH_{out}Hout​ = hidden_size. Defaults to zero if not provided. output: (N,Hout)(N, H_{out})(N,Hout​) or (Hout)(H_{out})(Hout​) tensor containing the next hidden state. Variables weight_ih (torch.Tensor) – the learnable input-hidden weights, of shape (hidden_size, input_size) weight_hh (torch.Tensor) – the learnable hidden-hidden weights, of shape (hidden_size, hidden_size) bias_ih – the learnable input-hidden bias, of shape (hidden_size) bias_hh – the learnable hidden-hidden bias, of shape (hidden_size) Note All the weights and biases are initialized from U(−k,k)\\mathcal{U}(-\\sqrt{k}, \\sqrt{k})U(−k​,k​) where k=1hidden_sizek = \\frac{1}{\\text{hidden\\_size}}k=hidden_size1​ Examples: &gt;&gt;&gt; rnn = nn.RNNCell(10, 20) &gt;&gt;&gt; input = torch.randn(6, 3, 10) &gt;&gt;&gt; hx = torch.randn(3, 20) &gt;&gt;&gt; output = [] &gt;&gt;&gt; for i in range(6): ... hx = rnn(input[i], hx) ... output.append(hx)"
        }
    </script>
 

@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.compiler.allow_in_graph.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.compiler.allow_in_graph.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4346,7 +4369,7 @@ document.write(`
 <h1>torch.compiler.allow_in_graph<a class="headerlink" href="#torch-compiler-allow-in-graph" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.allow_in_graph">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">allow_in_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/compiler/__init__.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.allow_in_graph" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">allow_in_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/compiler/__init__.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.allow_in_graph" title="Permalink to this definition">#</a></dt>
 <dd><p>Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function
 and instead directly write it to the graph when encountered.</p>
 <p>If you are using <a class="reference internal" href="torch.compile.html#torch.compile" title="torch.compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.compile()</span></code></a> (with backend=”inductor” (the default)), or
@@ -4700,21 +4723,17 @@ tuple containing the modified functions.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4759,16 +4778,18 @@ tuple containing the modified functions.</p>
          "@type": "Article",
          "headline": "torch.compiler.allow_in_graph",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.compiler.allow_in_graph.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.compiler.allow_in_graph.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.compiler.allow_in_graph# torch.compiler.allow_in_graph(fn)[source]# Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered. If you are using torch.compile() (with backend=”inductor” (the default)), or torch.export.export(), and trying to black-box a Python function throughout all tracing, do not use this API. Instead, please create a custom operator (see PyTorch Custom Operators Landing Page) Warning If you’re a typical torch.compile user (e.g. you’re applying torch.compile to a model to make it run faster), you probably don’t want to use this function. allow_in_graph() is a footgun because it skips the compiler frontend (Dynamo) that is responsible for doing safety checks (graph breaks, handling closures, etc). Incorrect usage will lead to difficult-to-debug silent incorrectness issues. Given a Python function with no allow_in_graph decorator, regular execution of torch.compile traces through the function. allow_in_graph() changes it so that the frontend does not trace inside the function, but the compiler backend still traces through it. Compare this to custom operators, which treats a function as a black box throughout the torch.compile stack. The following table compares these mechanisms. Mechanism Frontend (Dynamo) Backend (AOTAutograd+Inductor) no decorator trace inside trace inside allow_in_graph opaque callable trace inside custom op opaque callable opaque callable One common use case for allow_in_graph() is as an escape hatch for the compiler frontend: if you know the function works w.r.t. to the downstream components of the compilation stack (AOTAutograd and Inductor) but there is a Dynamo bug that prevents it from symbolically introspecting the function properly (or if your code is in C/C++ and therefore cannot be introspected with Dynamo), then one can decorate said function with allow_in_graph() to bypass Dynamo. We require that fn adhere to the following restrictions. Failure to adhere results in undefined behavior: The inputs to fn must be Proxy-able types in the FX graph. Valid types include: Tensor/int/bool/float/None/List[Tensor?]/List[int?]/List[float?] Tuple[Tensor?, …]/Tuple[int?, …]/Tuple[float?, …]/torch.dtype/torch.device The outputs to fn must be Proxy-able types in the FX graph (see previous bullet) all Tensors used inside of fn must be passed directly as inputs to fn (as opposed to being captured variables). Parameters fn – A callable representing the function to be included in the graph. If fn is a list or tuple of callables it recursively applies allow_in_graph() to each function and returns a new list or tuple containing the modified functions. Example: torch.compiler.allow_in_graph(my_custom_function) @torch.compile(...) def fn(x): x = torch.add(x, 1) x = my_custom_function(x) x = torch.add(x, 1) return x fn(...) Will capture a single graph containing my_custom_function()."
        }

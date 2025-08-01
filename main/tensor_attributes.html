@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/tensor_attributes.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/tensor_attributes.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -5026,21 +5049,17 @@ Otherwise output strides will follow <code class="docutils literal notranslate">
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -5085,17 +5104,19 @@ Otherwise output strides will follow <code class="docutils literal notranslate">
          "@type": "Article",
          "headline": "Tensor Attributes",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/tensor_attributes.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/tensor_attributes.html"
          },
-         "datePublished": "Apr 21, 2018",
-         "dateModified": "Jun 27, 2025",
+        "datePublished": "Apr 21, 2018T00:00:00Z",
+         "dateModified": "Jun 27, 2025T00:00:00Z",
          "articleBody": "Tensor Attributes# Created On: Apr 21, 2018 | Last Updated On: Jun 27, 2025 Each torch.Tensor has a torch.dtype, torch.device, and torch.layout. torch.dtype# class torch.dtype# A torch.dtype is an object that represents the data type of a torch.Tensor. PyTorch has several different data types: Floating point dtypes dtype description torch.float32 or torch.float 32-bit floating point, as defined in https://en.wikipedia.org/wiki/IEEE_754 torch.float64 or torch.double 64-bit floating point, as defined in https://en.wikipedia.org/wiki/IEEE_754 torch.float16 or torch.half 16-bit floating point, as defined in https://en.wikipedia.org/wiki/IEEE_754, S-E-M 1-5-10 torch.bfloat16 16-bit floating point, sometimes referred to as Brain floating point, S-E-M 1-8-7 torch.complex32 or torch.chalf 32-bit complex with two float16 components torch.complex64 or torch.cfloat 64-bit complex with two float32 components torch.complex128 or torch.cdouble 128-bit complex with two float64 components torch.float8_e4m3fn [shell], 1 8-bit floating point, S-E-M 1-4-3, from https://arxiv.org/abs/2209.05433 torch.float8_e5m2 [shell] 8-bit floating point, S-E-M 1-5-2, from https://arxiv.org/abs/2209.05433 torch.float8_e4m3fnuz [shell], 1 8-bit floating point, S-E-M 1-4-3, from https://arxiv.org/pdf/2206.02915 torch.float8_e5m2fnuz [shell], 1 8-bit floating point, S-E-M 1-5-2, from https://arxiv.org/pdf/2206.02915 torch.float8_e8m0fnu [shell], 1 8-bit floating point, S-E-M 0-8-0, from https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf torch.float4_e2m1fn_x2 [shell], 1 packed 4-bit floating point, S-E-M 1-2-1, from https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf Integer dtypes dtype description torch.uint8 8-bit integer (unsigned) torch.int8 8-bit integer (signed) torch.uint16 [shell], 2 16-bit integer (unsigned) torch.int16 or torch.short 16-bit integer (signed) torch.uint32 [shell], 2 32-bit integer (unsigned) torch.int32 or torch.int 32-bit integer (signed) torch.uint64 [shell], 2 64-bit integer (unsigned) torch.int64 or torch.long 64-bit integer (signed) torch.bool Boolean shell(1,2,3,4,5,6,7,8,9) a shell dtype a specialized dtype with limited op and backend support. Specifically, ops that support tensor creation (torch.empty, torch.fill, torch.zeros) and operations which do not peek inside the data elements (torch.cat, torch.view, torch.reshape) are supported. Ops that peek inside the data elements such as casting, matrix multiplication, nan/inf checks are supported only on a case by case basis, depending on maturity and presence of hardware accelerated kernels and established use cases. 1(1,2,3,4,5) The “fn”, “fnu” and “fnuz” dtype suffixes mean: “f” - finite value encodings only, no infinity; “n” - nan value encodings differ from the IEEE spec; “uz” - “unsigned zero” only, i.e. no negative zero encoding 2(1,2,3) Unsigned types asides from uint8 are currently planned to only have limited support in ea..."
        }
    </script>

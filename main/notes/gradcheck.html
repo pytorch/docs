@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/notes/gradcheck.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/notes/gradcheck.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2119,21 +2142,17 @@ Note that <span class="math"><span class="katex"><span class="katex-mathml"><mat
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -2178,18 +2197,20 @@ Note that <span class="math"><span class="katex"><span class="katex-mathml"><mat
          "@type": "Article",
          "headline": "Gradcheck mechanics",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/notes/gradcheck.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/notes/gradcheck.html"
          },
-         "datePublished": "Apr 27, 2021",
-         "dateModified": "Jun 18, 2025",
-         "articleBody": "Gradcheck mechanics# Created On: Apr 27, 2021 | Last Updated On: Jun 18, 2025 This note presents an overview of how the gradcheck() and gradgradcheck() functions work. It will cover both forward and backward mode AD for both real and complex-valued functions as well as higher-order derivatives. This note also covers both the default behavior of gradcheck as well as the case where fast_mode=True argument is passed (referred to as fast gradcheck below). Notations and background information Default backward mode gradcheck behavior Real-to-real functions Complex-to-real functions Functions with complex outputs Fast backward mode gradcheck Fast gradcheck for real-to-real functions Fast gradcheck for complex-to-real functions Fast gradcheck for functions with complex outputs Gradgradcheck implementation Notations and background information# Throughout this note, we will use the following convention: xxx, yyy, aaa, bbb, vvv, uuu, ururur and uiuiui are real-valued vectors and zzz is a complex-valued vector that can be rewritten in terms of two real-valued vectors as z=a+ibz = a + i bz=a+ib. NNN and MMM are two integers that we will use for the dimension of the input and output space respectively. f:RN→RMf: \mathcal{R}^N \to \mathcal{R}^Mf:RN→RM is our basic real-to-real function such that y=f(x)y = f(x)y=f(x). g:CN→RMg: \mathcal{C}^N \to \mathcal{R}^Mg:CN→RM is our basic complex-to-real function such that y=g(z)y = g(z)y=g(z). For the simple real-to-real case, we write as JfJ_fJf​ the Jacobian matrix associated with fff of size M×NM \times NM×N. This matrix contains all the partial derivatives such that the entry at position (i,j)(i, j)(i,j) contains ∂yi∂xj\frac{\partial y_i}{\partial x_j}∂xj​∂yi​​. Backward mode AD is then computing, for a given vector vvv of size MMM, the quantity vTJfv^T J_fvTJf​. Forward mode AD on the other hand is computing, for a given vector uuu of size NNN, the quantity JfuJ_f uJf​u. For functions that contain complex values, the story is a lot more complex. We only provide the gist here and the full description can be found at Autograd for Complex Numbers. The constraints to satisfy complex differentiability (Cauchy-Riemann equations) are too restrictive for all real-valued loss functions, so we instead opted to use Wirtinger calculus. In a basic setting of Wirtinger calculus, the chain rule requires access to both the Wirtinger derivative (called WWW below) and the Conjugate Wirtinger derivative (called CWCWCW below). Both WWW and CWCWCW need to be propagated because in general, despite their name, one is not the complex conjugate of the other. To avoid having to propagate both values, for backward mode AD, we always work under the assumption that the function whose derivative is being calculated is either a real-valued function or is part of a bigger real-valued function. This assumption means that all the intermediary gradients we compute during the backward pass are also associated with real-valued functions. In practice..."
+        "datePublished": "Apr 27, 2021T00:00:00Z",
+         "dateModified": "Jun 18, 2025T00:00:00Z",
+         "articleBody": "Gradcheck mechanics# Created On: Apr 27, 2021 | Last Updated On: Jun 18, 2025 This note presents an overview of how the gradcheck() and gradgradcheck() functions work. It will cover both forward and backward mode AD for both real and complex-valued functions as well as higher-order derivatives. This note also covers both the default behavior of gradcheck as well as the case where fast_mode=True argument is passed (referred to as fast gradcheck below). Notations and background information Default backward mode gradcheck behavior Real-to-real functions Complex-to-real functions Functions with complex outputs Fast backward mode gradcheck Fast gradcheck for real-to-real functions Fast gradcheck for complex-to-real functions Fast gradcheck for functions with complex outputs Gradgradcheck implementation Notations and background information# Throughout this note, we will use the following convention: xxx, yyy, aaa, bbb, vvv, uuu, ururur and uiuiui are real-valued vectors and zzz is a complex-valued vector that can be rewritten in terms of two real-valued vectors as z=a+ibz = a + i bz=a+ib. NNN and MMM are two integers that we will use for the dimension of the input and output space respectively. f:RN→RMf: \\mathcal{R}^N \\to \\mathcal{R}^Mf:RN→RM is our basic real-to-real function such that y=f(x)y = f(x)y=f(x). g:CN→RMg: \\mathcal{C}^N \\to \\mathcal{R}^Mg:CN→RM is our basic complex-to-real function such that y=g(z)y = g(z)y=g(z). For the simple real-to-real case, we write as JfJ_fJf​ the Jacobian matrix associated with fff of size M×NM \\times NM×N. This matrix contains all the partial derivatives such that the entry at position (i,j)(i, j)(i,j) contains ∂yi∂xj\\frac{\\partial y_i}{\\partial x_j}∂xj​∂yi​​. Backward mode AD is then computing, for a given vector vvv of size MMM, the quantity vTJfv^T J_fvTJf​. Forward mode AD on the other hand is computing, for a given vector uuu of size NNN, the quantity JfuJ_f uJf​u. For functions that contain complex values, the story is a lot more complex. We only provide the gist here and the full description can be found at Autograd for Complex Numbers. The constraints to satisfy complex differentiability (Cauchy-Riemann equations) are too restrictive for all real-valued loss functions, so we instead opted to use Wirtinger calculus. In a basic setting of Wirtinger calculus, the chain rule requires access to both the Wirtinger derivative (called WWW below) and the Conjugate Wirtinger derivative (called CWCWCW below). Both WWW and CWCWCW need to be propagated because in general, despite their name, one is not the complex conjugate of the other. To avoid having to propagate both values, for backward mode AD, we always work under the assumption that the function whose derivative is being calculated is either a real-valued function or is part of a bigger real-valued function. This assumption means that all the intermediary gradients we compute during the backward pass are also associated with real-valued functions. In practice..."
        }
    </script>
 

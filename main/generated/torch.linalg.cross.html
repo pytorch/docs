@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.linalg.cross.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.linalg.cross.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4644,21 +4667,17 @@ It broadcasts over the batch dimensions.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4703,16 +4722,18 @@ It broadcasts over the batch dimensions.</p>
          "@type": "Article",
          "headline": "torch.linalg.cross",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.linalg.cross.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.linalg.cross.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.linalg.cross# torch.linalg.cross(input, other, *, dim=-1, out=None) → Tensor# Computes the cross product of two 3-dimensional vectors. Supports input of float, double, cfloat and cdouble dtypes. Also supports batches of vectors, for which it computes the product along the dimension dim. It broadcasts over the batch dimensions. Parameters input (Tensor) – the first input tensor. other (Tensor) – the second input tensor. dim (int, optional) – the dimension along which to take the cross-product. Default: -1. Keyword Arguments out (Tensor, optional) – the output tensor. Ignored if None. Default: None. Example &gt;&gt;&gt; a = torch.randn(4, 3) &gt;&gt;&gt; a tensor([[-0.3956, 1.1455, 1.6895], [-0.5849, 1.3672, 0.3599], [-1.1626, 0.7180, -0.0521], [-0.1339, 0.9902, -2.0225]]) &gt;&gt;&gt; b = torch.randn(4, 3) &gt;&gt;&gt; b tensor([[-0.0257, -1.4725, -1.2251], [-1.1479, -0.7005, -1.9757], [-1.3904, 0.3726, -1.1836], [-0.9688, -0.7153, 0.2159]]) &gt;&gt;&gt; torch.linalg.cross(a, b) tensor([[ 1.0844, -0.5281, 0.6120], [-2.4490, -1.5687, 1.9792], [-0.8304, -1.3037, 0.5650], [-1.2329, 1.9883, 1.0551]]) &gt;&gt;&gt; a = torch.randn(1, 3) # a is broadcast to match shape of b &gt;&gt;&gt; a tensor([[-0.9941, -0.5132, 0.5681]]) &gt;&gt;&gt; torch.linalg.cross(a, b) tensor([[ 1.4653, -1.2325, 1.4507], [ 1.4119, -2.6163, 0.1073], [ 0.3957, -1.9666, -1.0840], [ 0.2956, -0.3357, 0.2139]])"
        }

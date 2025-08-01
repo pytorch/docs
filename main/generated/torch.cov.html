@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.cov.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.cov.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4671,21 +4694,17 @@ Must have floating point dtype. Ignored if <code class="docutils literal notrans
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4730,18 +4749,20 @@ Must have floating point dtype. Ignored if <code class="docutils literal notrans
          "@type": "Article",
          "headline": "torch.cov",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.cov.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.cov.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.cov# torch.cov(input, *, correction=1, fweights=None, aweights=None) → Tensor# Estimates the covariance matrix of the variables given by the input matrix, where rows are the variables and columns are the observations. A covariance matrix is a square matrix giving the covariance of each pair of variables. The diagonal contains the variance of each variable (covariance of a variable with itself). By definition, if input represents a single variable (Scalar or 1D) then its variance is returned. The sample covariance of the variables xxx and yyy is given by: cov(x,y)=∑i=1N(xi−xˉ)(yi−yˉ)max⁡(0, N − δN)\text{cov}(x,y) = \frac{\sum^{N}_{i = 1}(x_{i} - \bar{x})(y_{i} - \bar{y})}{\max(0,~N~-~\delta N)} cov(x,y)=max(0, N − δN)∑i=1N​(xi​−xˉ)(yi​−yˉ​)​where xˉ\bar{x}xˉ and yˉ\bar{y}yˉ​ are the simple means of the xxx and yyy respectively, and δN\delta NδN is the correction. If fweights and/or aweights are provided, the weighted covariance is calculated, which is given by: covw(x,y)=∑i=1Nwi(xi−μx∗)(yi−μy∗)max⁡(0, ∑i=1Nwi − ∑i=1Nwiai∑i=1Nwi δN)\text{cov}_w(x,y) = \frac{\sum^{N}_{i = 1}w_i(x_{i} - \mu_x^*)(y_{i} - \mu_y^*)} {\max(0,~\sum^{N}_{i = 1}w_i~-~\frac{\sum^{N}_{i = 1}w_ia_i}{\sum^{N}_{i = 1}w_i}~\delta N)} covw​(x,y)=max(0, ∑i=1N​wi​ − ∑i=1N​wi​∑i=1N​wi​ai​​ δN)∑i=1N​wi​(xi​−μx∗​)(yi​−μy∗​)​where www denotes fweights or aweights (f and a for brevity) based on whichever is provided, or w=f×aw = f \times aw=f×a if both are provided, and μx∗=∑i=1Nwixi∑i=1Nwi\mu_x^* = \frac{\sum^{N}_{i = 1}w_ix_{i} }{\sum^{N}_{i = 1}w_i}μx∗​=∑i=1N​wi​∑i=1N​wi​xi​​ is the weighted mean of the variable. If not provided, f and/or a can be seen as a 1\mathbb{1}1 vector of appropriate size. Parameters input (Tensor) – A 2D matrix containing multiple variables and observations, or a Scalar or 1D vector representing a single variable. Keyword Arguments correction (int, optional) – difference between the sample size and sample degrees of freedom. Defaults to Bessel’s correction, correction = 1 which returns the unbiased estimate, even if both fweights and aweights are specified. correction = 0 will return the simple average. Defaults to 1. fweights (tensor, optional) – A Scalar or 1D tensor of observation vector frequencies representing the number of times each observation should be repeated. Its numel must equal the number of columns of input. Must have integral dtype. Ignored if None. Defaults to None. aweights (tensor, optional) – A Scalar or 1D array of observation vector weights. These relative weights are typically large for observations considered “important” and smaller for observations considered less “important”. Its numel must equal the number of columns of input. Must have floating point dtype. Ignored if None. Defaults to None. Returns (Tensor) The covariance matrix of the variables. See also torch.corrcoef() normalized covariance matrix. Example: &gt;&gt;&gt; x = torch.tensor([[0, 2], [1, 1], [2, 0]]).T &gt;&gt;&gt; x tensor([[0, 1, 2], [2, 1, 0]]) &gt;&gt;&gt; torch.cov(x) tensor([[ ..."
+         "articleBody": "torch.cov# torch.cov(input, *, correction=1, fweights=None, aweights=None) → Tensor# Estimates the covariance matrix of the variables given by the input matrix, where rows are the variables and columns are the observations. A covariance matrix is a square matrix giving the covariance of each pair of variables. The diagonal contains the variance of each variable (covariance of a variable with itself). By definition, if input represents a single variable (Scalar or 1D) then its variance is returned. The sample covariance of the variables xxx and yyy is given by: cov(x,y)=∑i=1N(xi−xˉ)(yi−yˉ)max⁡(0, N − δN)\\text{cov}(x,y) = \\frac{\\sum^{N}_{i = 1}(x_{i} - \\bar{x})(y_{i} - \\bar{y})}{\\max(0,~N~-~\\delta N)} cov(x,y)=max(0, N − δN)∑i=1N​(xi​−xˉ)(yi​−yˉ​)​where xˉ\\bar{x}xˉ and yˉ\\bar{y}yˉ​ are the simple means of the xxx and yyy respectively, and δN\\delta NδN is the correction. If fweights and/or aweights are provided, the weighted covariance is calculated, which is given by: covw(x,y)=∑i=1Nwi(xi−μx∗)(yi−μy∗)max⁡(0, ∑i=1Nwi − ∑i=1Nwiai∑i=1Nwi δN)\\text{cov}_w(x,y) = \\frac{\\sum^{N}_{i = 1}w_i(x_{i} - \\mu_x^*)(y_{i} - \\mu_y^*)} {\\max(0,~\\sum^{N}_{i = 1}w_i~-~\\frac{\\sum^{N}_{i = 1}w_ia_i}{\\sum^{N}_{i = 1}w_i}~\\delta N)} covw​(x,y)=max(0, ∑i=1N​wi​ − ∑i=1N​wi​∑i=1N​wi​ai​​ δN)∑i=1N​wi​(xi​−μx∗​)(yi​−μy∗​)​where www denotes fweights or aweights (f and a for brevity) based on whichever is provided, or w=f×aw = f \\times aw=f×a if both are provided, and μx∗=∑i=1Nwixi∑i=1Nwi\\mu_x^* = \\frac{\\sum^{N}_{i = 1}w_ix_{i} }{\\sum^{N}_{i = 1}w_i}μx∗​=∑i=1N​wi​∑i=1N​wi​xi​​ is the weighted mean of the variable. If not provided, f and/or a can be seen as a 1\\mathbb{1}1 vector of appropriate size. Parameters input (Tensor) – A 2D matrix containing multiple variables and observations, or a Scalar or 1D vector representing a single variable. Keyword Arguments correction (int, optional) – difference between the sample size and sample degrees of freedom. Defaults to Bessel’s correction, correction = 1 which returns the unbiased estimate, even if both fweights and aweights are specified. correction = 0 will return the simple average. Defaults to 1. fweights (tensor, optional) – A Scalar or 1D tensor of observation vector frequencies representing the number of times each observation should be repeated. Its numel must equal the number of columns of input. Must have integral dtype. Ignored if None. Defaults to None. aweights (tensor, optional) – A Scalar or 1D array of observation vector weights. These relative weights are typically large for observations considered “important” and smaller for observations considered less “important”. Its numel must equal the number of columns of input. Must have floating point dtype. Ignored if None. Defaults to None. Returns (Tensor) The covariance matrix of the variables. See also torch.corrcoef() normalized covariance matrix. Example: &gt;&gt;&gt; x = torch.tensor([[0, 2], [1, 1], [2, 0]]).T &gt;&gt;&gt; x tensor([[0, 1, 2], [2, 1, 0]]) &gt;&gt;&gt; torch.cov(x) tensor([[ ..."
        }
    </script>
 

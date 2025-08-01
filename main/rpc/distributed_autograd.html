@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/rpc/distributed_autograd.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/rpc/distributed_autograd.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4964,21 +4987,17 @@ file called “dist_autograd_simple.py”, it can be run with the command
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -5023,18 +5042,20 @@ file called “dist_autograd_simple.py”, it can be run with the command
          "@type": "Article",
          "headline": "Distributed Autograd Design",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/rpc/distributed_autograd.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/rpc/distributed_autograd.html"
          },
-         "datePublished": "Nov 12, 2019",
-         "dateModified": "Sep 03, 2021",
-         "articleBody": "Distributed Autograd Design# Created On: Nov 12, 2019 | Last Updated On: Sep 03, 2021 This note will present the detailed design for distributed autograd and walk through the internals of the same. Make sure you’re familiar with Autograd mechanics and the Distributed RPC Framework before proceeding. Background# Let’s say you have two nodes and a very simple model partitioned across two nodes. This can be implemented using torch.distributed.rpc as follows: import torch import torch.distributed.rpc as rpc def my_add(t1, t2): return torch.add(t1, t2) # On worker 0: t1 = torch.rand((3, 3), requires_grad=True) t2 = torch.rand((3, 3), requires_grad=True) # Perform some computation remotely. t3 = rpc.rpc_sync(&#34;worker1&#34;, my_add, args=(t1, t2)) # Perform some computation locally based on remote result. t4 = torch.rand((3, 3), requires_grad=True) t5 = torch.mul(t3, t4) # Compute some loss. loss = t5.sum() The main motivation behind distributed autograd is to enable running a backward pass on such distributed models with the loss that we’ve computed and record appropriate gradients for all tensors that require gradients. Autograd recording during the forward pass# PyTorch builds the autograd graph during the forward pass and this graph is used to execute the backward pass. For more details see How autograd encodes the history. For distributed autograd, we need to keep track of all RPCs during the forward pass to ensure the backward pass is executed appropriately. For this purpose, we attach send and recv functions to the autograd graph when we perform an RPC. The send function is attached to the source of the RPC and its output edges point to the autograd function for the input tensors of the RPC. The input for this function during the backward pass is received from the destination as the output of the appropriate recv function. The recv function is attached to the destination of the RPC and its inputs are retrieved from operators executed on the destination using the input tensors. The output gradients of this function are sent to the source node to the appropriate send function during the backward pass. Each send-recv pair is assigned a globally unique autograd_message_id to uniquely identify the pair. This is useful to look up the corresponding function on a remote node during the backward pass. For RRef, whenever we call torch.distributed.rpc.RRef.to_here() we attach an appropriate send-recv pair for the tensors involved. As an example, this is what the autograd graph for our example above would look like (t5.sum() excluded for simplicity): Distributed Autograd Context# Each forward and backward pass that uses distributed autograd is assigned a unique torch.distributed.autograd.context and this context has a globally unique autograd_context_id. This context is created on each node as needed. This context serves the following purpose: Multiple nodes running distributed backward passes might accumulate gradients on the same tensor and as a result the ...."
+        "datePublished": "Nov 12, 2019T00:00:00Z",
+         "dateModified": "Sep 03, 2021T00:00:00Z",
+         "articleBody": "Distributed Autograd Design# Created On: Nov 12, 2019 | Last Updated On: Sep 03, 2021 This note will present the detailed design for distributed autograd and walk through the internals of the same. Make sure you’re familiar with Autograd mechanics and the Distributed RPC Framework before proceeding. Background# Let’s say you have two nodes and a very simple model partitioned across two nodes. This can be implemented using torch.distributed.rpc as follows: import torch import torch.distributed.rpc as rpc def my_add(t1, t2): return torch.add(t1, t2) # On worker 0: t1 = torch.rand((3, 3), requires_grad=True) t2 = torch.rand((3, 3), requires_grad=True) # Perform some computation remotely. t3 = rpc.rpc_sync(\&#34;worker1\&#34;, my_add, args=(t1, t2)) # Perform some computation locally based on remote result. t4 = torch.rand((3, 3), requires_grad=True) t5 = torch.mul(t3, t4) # Compute some loss. loss = t5.sum() The main motivation behind distributed autograd is to enable running a backward pass on such distributed models with the loss that we’ve computed and record appropriate gradients for all tensors that require gradients. Autograd recording during the forward pass# PyTorch builds the autograd graph during the forward pass and this graph is used to execute the backward pass. For more details see How autograd encodes the history. For distributed autograd, we need to keep track of all RPCs during the forward pass to ensure the backward pass is executed appropriately. For this purpose, we attach send and recv functions to the autograd graph when we perform an RPC. The send function is attached to the source of the RPC and its output edges point to the autograd function for the input tensors of the RPC. The input for this function during the backward pass is received from the destination as the output of the appropriate recv function. The recv function is attached to the destination of the RPC and its inputs are retrieved from operators executed on the destination using the input tensors. The output gradients of this function are sent to the source node to the appropriate send function during the backward pass. Each send-recv pair is assigned a globally unique autograd_message_id to uniquely identify the pair. This is useful to look up the corresponding function on a remote node during the backward pass. For RRef, whenever we call torch.distributed.rpc.RRef.to_here() we attach an appropriate send-recv pair for the tensors involved. As an example, this is what the autograd graph for our example above would look like (t5.sum() excluded for simplicity): Distributed Autograd Context# Each forward and backward pass that uses distributed autograd is assigned a unique torch.distributed.autograd.context and this context has a globally unique autograd_context_id. This context is created on each node as needed. This context serves the following purpose: Multiple nodes running distributed backward passes might accumulate gradients on the same tensor and as a result the ...."
        }
    </script>
 

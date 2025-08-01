@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.sparse.sampled_addmm.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.sparse.sampled_addmm.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4648,21 +4671,17 @@ the sampled matrix multiplication</p></li>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4707,18 +4726,20 @@ the sampled matrix multiplication</p></li>
          "@type": "Article",
          "headline": "torch.sparse.sampled_addmm",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.sparse.sampled_addmm.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.sparse.sampled_addmm.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.sparse.sampled_addmm# torch.sparse.sampled_addmm(input, mat1, mat2, *, beta=1., alpha=1., out=None) → Tensor# Performs a matrix multiplication of the dense matrices mat1 and mat2 at the locations specified by the sparsity pattern of input. The matrix input is added to the final result. Mathematically this performs the following operation: out=α (mat1@mat2)∗spy(input)+β input\text{out} = \alpha\ (\text{mat1} \mathbin{@} \text{mat2})*\text{spy}(\text{input}) + \beta\ \text{input}out=α (mat1@mat2)∗spy(input)+β inputwhere spy(input)\text{spy}(\text{input})spy(input) is the sparsity pattern matrix of input, alpha and beta are the scaling factors. spy(input)\text{spy}(\text{input})spy(input) has value 1 at the positions where input has non-zero values, and 0 elsewhere. Note input must be a sparse CSR tensor. mat1 and mat2 must be dense tensors. Parameters input (Tensor) – a sparse CSR matrix of shape (m, n) to be added and used to compute the sampled matrix multiplication mat1 (Tensor) – a dense matrix of shape (m, k) to be multiplied mat2 (Tensor) – a dense matrix of shape (k, n) to be multiplied Keyword Arguments beta (Number, optional) – multiplier for input (β\betaβ) alpha (Number, optional) – multiplier for mat1@mat2mat1 @ mat2mat1@mat2 (α\alphaα) out (Tensor, optional) – output tensor. Ignored if None. Default: None. Examples: &gt;&gt;&gt; input = torch.eye(3, device=&#39;cuda&#39;).to_sparse_csr() &gt;&gt;&gt; mat1 = torch.randn(3, 5, device=&#39;cuda&#39;) &gt;&gt;&gt; mat2 = torch.randn(5, 3, device=&#39;cuda&#39;) &gt;&gt;&gt; torch.sparse.sampled_addmm(input, mat1, mat2) tensor(crow_indices=tensor([0, 1, 2, 3]), col_indices=tensor([0, 1, 2]), values=tensor([ 0.2847, -0.7805, -0.1900]), device=&#39;cuda:0&#39;, size=(3, 3), nnz=3, layout=torch.sparse_csr) &gt;&gt;&gt; torch.sparse.sampled_addmm(input, mat1, mat2).to_dense() tensor([[ 0.2847, 0.0000, 0.0000], [ 0.0000, -0.7805, 0.0000], [ 0.0000, 0.0000, -0.1900]], device=&#39;cuda:0&#39;) &gt;&gt;&gt; torch.sparse.sampled_addmm(input, mat1, mat2, beta=0.5, alpha=0.5) tensor(crow_indices=tensor([0, 1, 2, 3]), col_indices=tensor([0, 1, 2]), values=tensor([ 0.1423, -0.3903, -0.0950]), device=&#39;cuda:0&#39;, size=(3, 3), nnz=3, layout=torch.sparse_csr)"
+         "articleBody": "torch.sparse.sampled_addmm# torch.sparse.sampled_addmm(input, mat1, mat2, *, beta=1., alpha=1., out=None) → Tensor# Performs a matrix multiplication of the dense matrices mat1 and mat2 at the locations specified by the sparsity pattern of input. The matrix input is added to the final result. Mathematically this performs the following operation: out=α (mat1@mat2)∗spy(input)+β input\\text{out} = \\alpha\\ (\\text{mat1} \\mathbin{@} \\text{mat2})*\\text{spy}(\\text{input}) + \\beta\\ \\text{input}out=α (mat1@mat2)∗spy(input)+β inputwhere spy(input)\\text{spy}(\\text{input})spy(input) is the sparsity pattern matrix of input, alpha and beta are the scaling factors. spy(input)\\text{spy}(\\text{input})spy(input) has value 1 at the positions where input has non-zero values, and 0 elsewhere. Note input must be a sparse CSR tensor. mat1 and mat2 must be dense tensors. Parameters input (Tensor) – a sparse CSR matrix of shape (m, n) to be added and used to compute the sampled matrix multiplication mat1 (Tensor) – a dense matrix of shape (m, k) to be multiplied mat2 (Tensor) – a dense matrix of shape (k, n) to be multiplied Keyword Arguments beta (Number, optional) – multiplier for input (β\\betaβ) alpha (Number, optional) – multiplier for mat1@mat2mat1 @ mat2mat1@mat2 (α\\alphaα) out (Tensor, optional) – output tensor. Ignored if None. Default: None. Examples: &gt;&gt;&gt; input = torch.eye(3, device=&#39;cuda&#39;).to_sparse_csr() &gt;&gt;&gt; mat1 = torch.randn(3, 5, device=&#39;cuda&#39;) &gt;&gt;&gt; mat2 = torch.randn(5, 3, device=&#39;cuda&#39;) &gt;&gt;&gt; torch.sparse.sampled_addmm(input, mat1, mat2) tensor(crow_indices=tensor([0, 1, 2, 3]), col_indices=tensor([0, 1, 2]), values=tensor([ 0.2847, -0.7805, -0.1900]), device=&#39;cuda:0&#39;, size=(3, 3), nnz=3, layout=torch.sparse_csr) &gt;&gt;&gt; torch.sparse.sampled_addmm(input, mat1, mat2).to_dense() tensor([[ 0.2847, 0.0000, 0.0000], [ 0.0000, -0.7805, 0.0000], [ 0.0000, 0.0000, -0.1900]], device=&#39;cuda:0&#39;) &gt;&gt;&gt; torch.sparse.sampled_addmm(input, mat1, mat2, beta=0.5, alpha=0.5) tensor(crow_indices=tensor([0, 1, 2, 3]), col_indices=tensor([0, 1, 2]), values=tensor([ 0.1423, -0.3903, -0.0950]), device=&#39;cuda:0&#39;, size=(3, 3), nnz=3, layout=torch.sparse_csr)"
        }
    </script>
 

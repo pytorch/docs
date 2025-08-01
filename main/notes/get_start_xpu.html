@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/notes/get_start_xpu.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/notes/get_start_xpu.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2308,21 +2331,17 @@ document.write(`
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -2367,17 +2386,19 @@ document.write(`
          "@type": "Article",
          "headline": "Getting Started on Intel GPU",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/notes/get_start_xpu.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/notes/get_start_xpu.html"
          },
-         "datePublished": "Jun 14, 2024",
-         "dateModified": "Jun 18, 2025",
+        "datePublished": "Jun 14, 2024T00:00:00Z",
+         "dateModified": "Jun 18, 2025T00:00:00Z",
          "articleBody": "Getting Started on Intel GPU# Created On: Jun 14, 2024 | Last Updated On: Jun 18, 2025 Hardware Prerequisite# For Intel Data Center GPU Device Red Hat* Enterprise Linux* 9.2 SUSE Linux Enterprise Server* 15 SP5 Ubuntu* Server 22.04 (&gt;= 5.15 LTS kernel) Intel® Data Center GPU Max Series (CodeName: Ponte Vecchio) yes yes yes For Intel Client GPU Supported OS Validated Hardware Windows 11 &amp; Ubuntu 24.10 Intel® Arc A-Series Graphics (CodeName: Alchemist) Intel® Arc B-Series Graphics (CodeName: Battlemage) Intel® Core™ Ultra Processors with Intel® Arc™ Graphics (CodeName: Meteor Lake-H) Intel® Core™ Ultra Desktop Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Lunar Lake) Intel® Core™ Ultra Mobile Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Arrow Lake-H) Ubuntu 24.04 &amp; WSL2 (Ubuntu 24.04) Intel® Arc A-Series Graphics (CodeName: Alchemist) Intel® Core™ Ultra Processors with Intel® Arc™ Graphics (CodeName: Meteor Lake-H) Intel® Core™ Ultra Desktop Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Lunar Lake) Intel® Core™ Ultra Mobile Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Arrow Lake-H) Intel GPUs support (Prototype) is ready from PyTorch* 2.5 for Intel® Client GPUs and Intel® Data Center GPU Max Series on both Linux and Windows, which brings Intel GPUs and the SYCL* software stack into the official PyTorch stack with consistent user experience to embrace more AI application scenarios. Software Prerequisite# To use PyTorch on Intel GPUs, you need to install the Intel GPUs driver first. For installation guide, visit Intel GPUs Driver Installation. Please skip the Intel® Deep Learning Essentials installation section if you install from binaries. For building from source, please refer to PyTorch Installation Prerequisites for Intel GPUs for both Intel GPU Driver and Intel® Deep Learning Essentials Installation. Installation# Binaries# Now that we have Intel GPU Driver installed, use the following commands to install pytorch, torchvision, torchaudio. For release wheels pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/xpu For nightly wheels pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/xpu From Source# Now that we have Intel GPU Driver and Intel® Deep Learning Essentials installed. Follow guides to build pytorch, torchvision, torchaudio from source. Build from source for torch refer to PyTorch Installation Build from source. Build from source for torchvision refer to Torchvision Installation Build from source. Build from source for torchaudio refer to Torchaudio Installation Build from source. Check availability for Intel GPU# To check if your Intel GPU is available, you would typically use the following code: import torch print(torch.xpu.is_available()) # torch.xpu is the API for Intel GPU support If the output is False, double check driver installation for Intel GPUs. Minimum Code Change# If you are migrating..."
        }
    </script>

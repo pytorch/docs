@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.kron.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.kron.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4655,21 +4678,17 @@ M347 1759 V0 H263 V1759 v600 v1759 h84z"/></svg></span></span></span><span class
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4714,18 +4733,20 @@ M347 1759 V0 H263 V1759 v600 v1759 h84z"/></svg></span></span></span><span class
          "@type": "Article",
          "headline": "torch.kron",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.kron.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.kron.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.kron# torch.kron(input, other, *, out=None) → Tensor# Computes the Kronecker product, denoted by ⊗\otimes⊗, of input and other. If input is a (a0×a1×⋯×an)(a_0 \times a_1 \times \dots \times a_n)(a0​×a1​×⋯×an​) tensor and other is a (b0×b1×⋯×bn)(b_0 \times b_1 \times \dots \times b_n)(b0​×b1​×⋯×bn​) tensor, the result will be a (a0∗b0×a1∗b1×⋯×an∗bn)(a_0*b_0 \times a_1*b_1 \times \dots \times a_n*b_n)(a0​∗b0​×a1​∗b1​×⋯×an​∗bn​) tensor with the following entries: (input⊗other)k0,k1,…,kn=inputi0,i1,…,in∗otherj0,j1,…,jn,(\text{input} \otimes \text{other})_{k_0, k_1, \dots, k_n} = \text{input}_{i_0, i_1, \dots, i_n} * \text{other}_{j_0, j_1, \dots, j_n}, (input⊗other)k0​,k1​,…,kn​​=inputi0​,i1​,…,in​​∗otherj0​,j1​,…,jn​​,where kt=it∗bt+jtk_t = i_t * b_t + j_tkt​=it​∗bt​+jt​ for 0≤t≤n0 \leq t \leq n0≤t≤n. If one tensor has fewer dimensions than the other it is unsqueezed until it has the same number of dimensions. Supports real-valued and complex-valued inputs. Note This function generalizes the typical definition of the Kronecker product for two matrices to two tensors, as described above. When input is a (m×n)(m \times n)(m×n) matrix and other is a (p×q)(p \times q)(p×q) matrix, the result will be a (p∗m×q∗n)(p*m \times q*n)(p∗m×q∗n) block matrix: A⊗B=[a11B⋯a1nB⋮⋱⋮am1B⋯amnB]\mathbf{A} \otimes \mathbf{B}=\begin{bmatrix} a_{11} \mathbf{B} &amp; \cdots &amp; a_{1 n} \mathbf{B} \\ \vdots &amp; \ddots &amp; \vdots \\ a_{m 1} \mathbf{B} &amp; \cdots &amp; a_{m n} \mathbf{B} \end{bmatrix} A⊗B=​a11​B⋮am1​B​⋯⋱⋯​a1n​B⋮amn​B​​where input is A\mathbf{A}A and other is B\mathbf{B}B. Parameters input (Tensor) – other (Tensor) – Keyword Arguments out (Tensor, optional) – The output tensor. Ignored if None. Default: None Examples: &gt;&gt;&gt; mat1 = torch.eye(2) &gt;&gt;&gt; mat2 = torch.ones(2, 2) &gt;&gt;&gt; torch.kron(mat1, mat2) tensor([[1., 1., 0., 0.], [1., 1., 0., 0.], [0., 0., 1., 1.], [0., 0., 1., 1.]]) &gt;&gt;&gt; mat1 = torch.eye(2) &gt;&gt;&gt; mat2 = torch.arange(1, 5).reshape(2, 2) &gt;&gt;&gt; torch.kron(mat1, mat2) tensor([[1., 2., 0., 0.], [3., 4., 0., 0.], [0., 0., 1., 2.], [0., 0., 3., 4.]])"
+         "articleBody": "torch.kron# torch.kron(input, other, *, out=None) → Tensor# Computes the Kronecker product, denoted by ⊗\\otimes⊗, of input and other. If input is a (a0×a1×⋯×an)(a_0 \\times a_1 \\times \\dots \\times a_n)(a0​×a1​×⋯×an​) tensor and other is a (b0×b1×⋯×bn)(b_0 \\times b_1 \\times \\dots \\times b_n)(b0​×b1​×⋯×bn​) tensor, the result will be a (a0∗b0×a1∗b1×⋯×an∗bn)(a_0*b_0 \\times a_1*b_1 \\times \\dots \\times a_n*b_n)(a0​∗b0​×a1​∗b1​×⋯×an​∗bn​) tensor with the following entries: (input⊗other)k0,k1,…,kn=inputi0,i1,…,in∗otherj0,j1,…,jn,(\\text{input} \\otimes \\text{other})_{k_0, k_1, \\dots, k_n} = \\text{input}_{i_0, i_1, \\dots, i_n} * \\text{other}_{j_0, j_1, \\dots, j_n}, (input⊗other)k0​,k1​,…,kn​​=inputi0​,i1​,…,in​​∗otherj0​,j1​,…,jn​​,where kt=it∗bt+jtk_t = i_t * b_t + j_tkt​=it​∗bt​+jt​ for 0≤t≤n0 \\leq t \\leq n0≤t≤n. If one tensor has fewer dimensions than the other it is unsqueezed until it has the same number of dimensions. Supports real-valued and complex-valued inputs. Note This function generalizes the typical definition of the Kronecker product for two matrices to two tensors, as described above. When input is a (m×n)(m \\times n)(m×n) matrix and other is a (p×q)(p \\times q)(p×q) matrix, the result will be a (p∗m×q∗n)(p*m \\times q*n)(p∗m×q∗n) block matrix: A⊗B=[a11B⋯a1nB⋮⋱⋮am1B⋯amnB]\\mathbf{A} \\otimes \\mathbf{B}=\\begin{bmatrix} a_{11} \\mathbf{B} &amp; \\cdots &amp; a_{1 n} \\mathbf{B} \\\\ \\vdots &amp; \\ddots &amp; \\vdots \\\\ a_{m 1} \\mathbf{B} &amp; \\cdots &amp; a_{m n} \\mathbf{B} \\end{bmatrix} A⊗B=​a11​B⋮am1​B​⋯⋱⋯​a1n​B⋮amn​B​​where input is A\\mathbf{A}A and other is B\\mathbf{B}B. Parameters input (Tensor) – other (Tensor) – Keyword Arguments out (Tensor, optional) – The output tensor. Ignored if None. Default: None Examples: &gt;&gt;&gt; mat1 = torch.eye(2) &gt;&gt;&gt; mat2 = torch.ones(2, 2) &gt;&gt;&gt; torch.kron(mat1, mat2) tensor([[1., 1., 0., 0.], [1., 1., 0., 0.], [0., 0., 1., 1.], [0., 0., 1., 1.]]) &gt;&gt;&gt; mat1 = torch.eye(2) &gt;&gt;&gt; mat2 = torch.arange(1, 5).reshape(2, 2) &gt;&gt;&gt; torch.kron(mat1, mat2) tensor([[1., 2., 0., 0.], [3., 4., 0., 0.], [0., 0., 1., 2.], [0., 0., 3., 4.]])"
        }
    </script>
 

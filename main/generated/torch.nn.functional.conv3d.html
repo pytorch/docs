@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.conv3d.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.nn.functional.conv3d.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4645,21 +4668,17 @@ the number of groups. Default: 1</p></li>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4704,18 +4723,20 @@ the number of groups. Default: 1</p></li>
          "@type": "Article",
          "headline": "torch.nn.functional.conv3d",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.nn.functional.conv3d.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.nn.functional.conv3d.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.nn.functional.conv3d# torch.nn.functional.conv3d(input, weight, bias=None, stride=1, padding=0, dilation=1, groups=1) → Tensor# Applies a 3D convolution over an input image composed of several input planes. This operator supports TensorFloat32. See Conv3d for details and output shape. Note In some circumstances when given tensors on a CUDA device and using CuDNN, this operator may select a nondeterministic algorithm to increase performance. If this is undesirable, you can try to make the operation deterministic (potentially at a performance cost) by setting torch.backends.cudnn.deterministic = True. See Reproducibility for more information. Note This operator supports complex data types i.e. complex32, complex64, complex128. Parameters input – input tensor of shape (minibatch,in_channels,iT,iH,iW)(\text{minibatch} , \text{in\_channels} , iT , iH , iW)(minibatch,in_channels,iT,iH,iW) weight – filters of shape (out_channels,in_channelsgroups,kT,kH,kW)(\text{out\_channels} , \frac{\text{in\_channels}}{\text{groups}} , kT , kH , kW)(out_channels,groupsin_channels​,kT,kH,kW) bias – optional bias tensor of shape (out_channels)(\text{out\_channels})(out_channels). Default: None stride – the stride of the convolving kernel. Can be a single number or a tuple (sT, sH, sW). Default: 1 padding – implicit paddings on both sides of the input. Can be a string {‘valid’, ‘same’}, single number or a tuple (padT, padH, padW). Default: 0 padding=&#39;valid&#39; is the same as no padding. padding=&#39;same&#39; pads the input so the output has the same shape as the input. However, this mode doesn’t support any stride values other than 1. Warning For padding=&#39;same&#39;, if the weight is even-length and dilation is odd in any dimension, a full pad() operation may be needed internally. Lowering performance. dilation – the spacing between kernel elements. Can be a single number or a tuple (dT, dH, dW). Default: 1 groups – split input into groups, in_channels\text{in\_channels}in_channels should be divisible by the number of groups. Default: 1 Examples: &gt;&gt;&gt; filters = torch.randn(33, 16, 3, 3, 3) &gt;&gt;&gt; inputs = torch.randn(20, 16, 50, 10, 20) &gt;&gt;&gt; F.conv3d(inputs, filters)"
+         "articleBody": "torch.nn.functional.conv3d# torch.nn.functional.conv3d(input, weight, bias=None, stride=1, padding=0, dilation=1, groups=1) → Tensor# Applies a 3D convolution over an input image composed of several input planes. This operator supports TensorFloat32. See Conv3d for details and output shape. Note In some circumstances when given tensors on a CUDA device and using CuDNN, this operator may select a nondeterministic algorithm to increase performance. If this is undesirable, you can try to make the operation deterministic (potentially at a performance cost) by setting torch.backends.cudnn.deterministic = True. See Reproducibility for more information. Note This operator supports complex data types i.e. complex32, complex64, complex128. Parameters input – input tensor of shape (minibatch,in_channels,iT,iH,iW)(\\text{minibatch} , \\text{in\\_channels} , iT , iH , iW)(minibatch,in_channels,iT,iH,iW) weight – filters of shape (out_channels,in_channelsgroups,kT,kH,kW)(\\text{out\\_channels} , \\frac{\\text{in\\_channels}}{\\text{groups}} , kT , kH , kW)(out_channels,groupsin_channels​,kT,kH,kW) bias – optional bias tensor of shape (out_channels)(\\text{out\\_channels})(out_channels). Default: None stride – the stride of the convolving kernel. Can be a single number or a tuple (sT, sH, sW). Default: 1 padding – implicit paddings on both sides of the input. Can be a string {‘valid’, ‘same’}, single number or a tuple (padT, padH, padW). Default: 0 padding=&#39;valid&#39; is the same as no padding. padding=&#39;same&#39; pads the input so the output has the same shape as the input. However, this mode doesn’t support any stride values other than 1. Warning For padding=&#39;same&#39;, if the weight is even-length and dilation is odd in any dimension, a full pad() operation may be needed internally. Lowering performance. dilation – the spacing between kernel elements. Can be a single number or a tuple (dT, dH, dW). Default: 1 groups – split input into groups, in_channels\\text{in\\_channels}in_channels should be divisible by the number of groups. Default: 1 Examples: &gt;&gt;&gt; filters = torch.randn(33, 16, 3, 3, 3) &gt;&gt;&gt; inputs = torch.randn(20, 16, 50, 10, 20) &gt;&gt;&gt; F.conv3d(inputs, filters)"
        }
    </script>
 

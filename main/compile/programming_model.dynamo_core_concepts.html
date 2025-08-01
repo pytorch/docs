@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/compile/programming_model.dynamo_core_concepts.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/compile/programming_model.dynamo_core_concepts.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4401,10 +4424,10 @@ If you’re not getting the speedups you expect, we recommend checking for graph
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0.0036, 0.5802, 0.0761])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([2.1430e-06, 5.1840e-09, 1.7373e-02])
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_698/215272159.py:4
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_695/215272159.py:4
 Graph Break Reason: Attempted to call function marked as skipped
   Explanation: Dynamo developers have intentionally marked that the function `save` in file `/opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/serialization.py` should not be traced.
   Hint: Avoid calling the function `save`.
@@ -4459,9 +4482,9 @@ User code traceback:
     if await self.run_code(code, result, async_=asy):
   File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_698/215272159.py&quot;, line 9, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_695/215272159.py&quot;, line 9, in &lt;module&gt;
     print(f(x))
-  File &quot;/tmp/ipykernel_698/215272159.py&quot;, line 4, in f
+  File &quot;/tmp/ipykernel_695/215272159.py&quot;, line 4, in f
     torch.save(y, &quot;foo.pt&quot;)  # torch.save is an unsupported operation
 </pre></div>
 </div>
@@ -4512,11 +4535,11 @@ TREE_GUARD_MANAGER:
 | +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:631 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
-| +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=0), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(False, False)
-| | +- TENSOR_MATCH: check_tensor(L[&#39;x&#39;], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[3, 3], stride=[3, 1])  # return x + 1  # mp/ipykernel_698/1068332425.py:3 in fn
-| | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # return x + 1  # mp/ipykernel_698/1068332425.py:3 in fn
+| +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=0), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
+| | +- TENSOR_MATCH: check_tensor(L[&#39;x&#39;], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[3, 3], stride=[3, 1])  # return x + 1  # mp/ipykernel_695/1068332425.py:3 in fn
+| | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # return x + 1  # mp/ipykernel_695/1068332425.py:3 in fn
 
-Guard eval latency = 135.91 us
+Guard eval latency = 51.88 us
 </pre></div>
 </div>
 </div>
@@ -4547,7 +4570,7 @@ tensor([[2., 2., 2., 2.],
         [2., 2., 2., 2.]])
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recompiling function fn in /tmp/ipykernel_698/420870727.py:1
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recompiling function fn in /tmp/ipykernel_695/420870727.py:1
     triggered by the following guard failure(s):
     - 3/0: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 4
 </pre></div>
@@ -4584,7 +4607,7 @@ tensor([[2., 2., 2., 2.],
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>create_env
-create_symbol s77 = 3 for L[&#39;x&#39;].size()[0] [2, int_oo] return x + 1  # mp/ipykernel_698/1458103805.py:3 in fn (_dynamo/variables/builder.py:3494 in &lt;lambda&gt;), for more info run with TORCHDYNAMO_EXTENDED_DEBUG_CREATE_SYMBOL=&quot;s77&quot; or to suppress this message run with TORCHDYNAMO_EXTENDED_ADVICE=&quot;0&quot;
+create_symbol s77 = 3 for L[&#39;x&#39;].size()[0] [2, int_oo] return x + 1  # mp/ipykernel_695/1458103805.py:3 in fn (_dynamo/variables/builder.py:3494 in &lt;lambda&gt;), for more info run with TORCHDYNAMO_EXTENDED_DEBUG_CREATE_SYMBOL=&quot;s77&quot; or to suppress this message run with TORCHDYNAMO_EXTENDED_ADVICE=&quot;0&quot;
 create_symbol s77 duck sized L[&#39;x&#39;].size()[1]
 eval False == False [statically known]
 eval False == False [statically known]
@@ -4884,21 +4907,17 @@ Skipping guard L[&#39;x&#39;].storage_offset() == 0
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4943,18 +4962,20 @@ Skipping guard L[&#39;x&#39;].storage_offset() == 0
          "@type": "Article",
          "headline": "Dynamo Core Concepts",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/compile/programming_model.dynamo_core_concepts.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/compile/programming_model.dynamo_core_concepts.html"
          },
-         "datePublished": "Jul 28, 2025",
-         "dateModified": "Jul 28, 2025",
-         "articleBody": "Dynamo Core Concepts# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 Summary: Dynamo, torch.compile’s frontend, performs tracing to capture the semantics of a Python function (and its nested function calls) into a linear sequence of operations (the “(FX) graph”), residual bytecode, and “guards” (a list of conditions under which the graph and bytecode are valid). Unsupported Python features lead to graph breaks, where Dynamo compiles a partial graph acquired from tracing, then runs the unsupported code, then resumes tracing. Graph breaks may lead to slowness in torch.compile and prevent backend optimization opportunities. If you’re not seeing the performance you expect, then check for graph breaks. Dynamo Tracing# torch.compile’s frontend (Dynamo) is a custom Python bytecode interpreter designed to allow graph compilation in PyTorch programs while retaining the full flexibility of Python. Given a function to be compiled, Dynamo interprets Python bytecode to extract sequences of PyTorch operations into 1 or more FX graphs that may be further optimized by a backend. For example, for the function f in the above diagram, Dynamo produces: a single FX graph that takes in the original input plus some additional inputs required by the function. Python bytecode that can be used as a drop-in replacement for f. In our example, the bytecode retrieves the additional inputs and passes it to the graph and also contains unoptimizable Python side effects (the list append) guards that specify the conditions under which the graph and bytecode are valid. Unless otherwise specified, the graph produced by Dynamo specializes on the shapes of input Tensors. Graph Breaks# Dynamo traces your code and attempts to capture your PyTorch code into a single computation graph of PyTorch operators (FX graph). However, this is not always possible. When encountering code that can’t be traced, a “graph break” occurs. In the default torch.compile settings, a graph break involves compiling the FX graph that has been determined so far, running the unsupported code in regular Python, then resuming tracing after the unsupported code with a new FX graph. Graph breaks are a feature that allows Dynamo to run over arbitrary Python code and carve out functional subgraphs that can each be individually optimized. However, it is possible for graph breaks to lead to unexpected slowness in torch.compile. If you’re not getting the speedups you expect, we recommend checking for graph breaks and removing them. Graph breaks may occur on things like: Data-dependent if-statements Many Python built-in functions C functions Below is an example of a graph break due to calling an unsupported operation torch.save: @torch.compile def f(x): y = x ** 2 / 2 torch.save(y, &#34;foo.pt&#34;) # torch.save is an unsupported operation z = y ** 3 / 6 return z x = torch.randn(3) print(f(x)) tensor([0.0036, 0.5802, 0.0761]) Graph break in user code at /tmp/ipykernel_698/215272159.py:4 Graph Break Reason: Attempted to..."
+        "datePublished": "Jul 28, 2025T00:00:00Z",
+         "dateModified": "Jul 28, 2025T00:00:00Z",
+         "articleBody": "Dynamo Core Concepts# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 Summary: Dynamo, torch.compile’s frontend, performs tracing to capture the semantics of a Python function (and its nested function calls) into a linear sequence of operations (the “(FX) graph”), residual bytecode, and “guards” (a list of conditions under which the graph and bytecode are valid). Unsupported Python features lead to graph breaks, where Dynamo compiles a partial graph acquired from tracing, then runs the unsupported code, then resumes tracing. Graph breaks may lead to slowness in torch.compile and prevent backend optimization opportunities. If you’re not seeing the performance you expect, then check for graph breaks. Dynamo Tracing# torch.compile’s frontend (Dynamo) is a custom Python bytecode interpreter designed to allow graph compilation in PyTorch programs while retaining the full flexibility of Python. Given a function to be compiled, Dynamo interprets Python bytecode to extract sequences of PyTorch operations into 1 or more FX graphs that may be further optimized by a backend. For example, for the function f in the above diagram, Dynamo produces: a single FX graph that takes in the original input plus some additional inputs required by the function. Python bytecode that can be used as a drop-in replacement for f. In our example, the bytecode retrieves the additional inputs and passes it to the graph and also contains unoptimizable Python side effects (the list append) guards that specify the conditions under which the graph and bytecode are valid. Unless otherwise specified, the graph produced by Dynamo specializes on the shapes of input Tensors. Graph Breaks# Dynamo traces your code and attempts to capture your PyTorch code into a single computation graph of PyTorch operators (FX graph). However, this is not always possible. When encountering code that can’t be traced, a “graph break” occurs. In the default torch.compile settings, a graph break involves compiling the FX graph that has been determined so far, running the unsupported code in regular Python, then resuming tracing after the unsupported code with a new FX graph. Graph breaks are a feature that allows Dynamo to run over arbitrary Python code and carve out functional subgraphs that can each be individually optimized. However, it is possible for graph breaks to lead to unexpected slowness in torch.compile. If you’re not getting the speedups you expect, we recommend checking for graph breaks and removing them. Graph breaks may occur on things like: Data-dependent if-statements Many Python built-in functions C functions Below is an example of a graph break due to calling an unsupported operation torch.save: @torch.compile def f(x): y = x ** 2 / 2 torch.save(y, \&#34;foo.pt\&#34;) # torch.save is an unsupported operation z = y ** 3 / 6 return z x = torch.randn(3) print(f(x)) tensor([2.1430e-06, 5.1840e-09, 1.7373e-02]) Graph break in user code at /tmp/ipykernel_695/215272159.py:4 Graph Break Reason: ..."
        }
    </script>
 

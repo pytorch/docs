@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/notes/extending.func.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/notes/extending.func.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2373,21 +2396,17 @@ Please see <a class="reference internal" href="extending.html#forward-ad-autogra
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -2432,17 +2451,19 @@ Please see <a class="reference internal" href="extending.html#forward-ad-autogra
          "@type": "Article",
          "headline": "Extending torch.func with autograd.Function",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/notes/extending.func.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/notes/extending.func.html"
          },
-         "datePublished": "Jan 03, 2023",
-         "dateModified": "Sep 14, 2023",
+        "datePublished": "Jan 03, 2023T00:00:00Z",
+         "dateModified": "Sep 14, 2023T00:00:00Z",
          "articleBody": "Extending torch.func with autograd.Function# Created On: Jan 03, 2023 | Last Updated On: Sep 14, 2023 So you’d like to use torch.autograd.Function with the torch.func transforms like torch.vmap(), torch.func.grad(), etc. There are two main use cases: you wish to call code that does not contain PyTorch operations and have it work with function transforms. That is, the torch.autograd.Function’s forward/backward/etc calls into functions from other systems like C++, CUDA, numpy. you wish to specify custom gradient rules, like JAX’s custom_vjp/custom_jvp PyTorch combines both of these concepts into torch.autograd.Function. Basic Usage# This guide assumes you are familiar with Extending torch.autograd, which explains how to use torch.autograd.Function. torch.autograd.Function can either have a forward() that accepts a ctx object, or it can have separate forward() (that does not accept ctx) and a setup_context() staticmethod that modifies the ctx object. Only the latter is supported with function transforms: forward() is the code that performs the operation and it should not accept a ctx object. setup_context(ctx, inputs, output) is the code where you can call methods on ctx. Here is where you should save Tensors for backward (by calling ctx.save_for_backward(*tensors)), or save non-Tensors (by assigning them to the ctx object). Because setup_context() accepts only inputs and output, the only quantities that can be saved are either objects (such as Tensors) in the inputs or outputs or quantities (like Tensor.shape) derived from them. If you wish to save a non-input intermediate activation from Function.forward() for backward, then you’ll need to return it as an output from forward() so that it gets passed to setup_context(). Depending on the transform, to support reverse-mode AD (torch.func.grad(), torch.func.vjp()), the torch.autograd.Function needs a backward() staticmethod. to support torch.vmap(), the torch.autograd.Function needs a vmap() staticmethod. to support torch.func.jvp(), the torch.autograd.Function needs a jvp() staticmethod. to support compositions of transforms (like torch.func.jacrev(), torch.func.jacfwd(), torch.func.hessian()) – you may need multiple of the above. In order for the torch.autograd.Function to be arbitrarily composable with function transforms, we recommend that all other staticmethods other than forward() and setup_context() must be transformable: that is, they must consist of only PyTorch operators or call other torch.autograd.Function (that may call into C++/CUDA/etc). Let’s go over some examples of common use cases. Example 1: autograd.Function calls into another system# A common case is a torch.autograd.Function with both forward() and backward() calling into another system (like C++, CUDA, numpy, triton). import torch import numpy as np def to_numpy(tensor): return tensor.cpu().numpy() class NumpySort(torch.autograd.Function): # Note that forward does not take ctx @staticmethod def forward(x, dim): device = x.d..."
        }
    </script>

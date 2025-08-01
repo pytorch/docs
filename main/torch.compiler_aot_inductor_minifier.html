@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/torch.compiler_aot_inductor_minifier.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/torch.compiler_aot_inductor_minifier.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4817,21 +4840,17 @@ Wrote minimal repro out to repro.py
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4876,18 +4895,20 @@ Wrote minimal repro out to repro.py
          "@type": "Article",
          "headline": "AOTInductor Minifier",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/torch.compiler_aot_inductor_minifier.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/torch.compiler_aot_inductor_minifier.html"
          },
-         "datePublished": "Jun 13, 2025",
-         "dateModified": "Jun 13, 2025",
-         "articleBody": "AOTInductor Minifier# Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025 If you encounter an error while using AOT Inductor APIs such as torch._inductor.aoti_compile_and_package, torch._indcutor.aoti_load_package, or running the loaded model of aoti_load_package on some inputs, you can use the AOTInductor Minifier to create a minimal nn.Module that reproduce the error by setting from torch._inductor import config; config.aot_inductor.dump_aoti_minifier = True. One a high-level, there are two steps in using the minifier: Set from torch._inductor import config; config.aot_inductor.dump_aoti_minifier = True or set the environment variable DUMP_AOTI_MINIFIER=1. Then running the script that errors would produce a minifier_launcher.py script. The output directory is configurable by setting torch._dynamo.config.debug_dir_root to a valid directory name. Run the minifier_launcher.py script. If the minifier runs successfully, it generates runnable python code in repro.py which reproduces the exact error. Example Code# Here is sample code which will generate an error because we injected an error on relu with torch._inductor.config.triton.inject_relu_bug_TESTING_ONLY = &#34;compile_error&#34;. import torch from torch._inductor import config as inductor_config class Model(torch.nn.Module): def __init__(self): super().__init__() self.fc1 = torch.nn.Linear(10, 16) self.relu = torch.nn.ReLU() self.sigmoid = torch.nn.Sigmoid() def forward(self, x): x = self.fc1(x) x = self.relu(x) x = self.sigmoid(x) return x inductor_config.aot_inductor.dump_aoti_minifier = True torch._inductor.config.triton.inject_relu_bug_TESTING_ONLY = &#34;compile_error&#34; with torch.no_grad(): model = Model().to(&#34;cuda&#34;) example_inputs = (torch.randn(8, 10).to(&#34;cuda&#34;),) ep = torch.export.export(model, example_inputs) package_path = torch._inductor.aoti_compile_and_package(ep) compiled_model = torch._inductor.aoti_load_package(package_path) result = compiled_model(*example_inputs) The code above generates the following error: RuntimeError: Failed to import /tmp/torchinductor_shangdiy/fr/cfrlf4smkwe4lub4i4cahkrb3qiczhf7hliqqwpewbw3aplj5g3s.py SyntaxError: invalid syntax (cfrlf4smkwe4lub4i4cahkrb3qiczhf7hliqqwpewbw3aplj5g3s.py, line 29) This is because we injected an error on relu, and so the generated triton kernel looks like below. Note that we have compile error! instead if relu, so we get a SyntaxError. @triton.jit def triton_poi_fused_addmm_relu_sigmoid_0(in_out_ptr0, in_ptr0, xnumel, XBLOCK : tl.constexpr): xnumel = 128 xoffset = tl.program_id(0) * XBLOCK xindex = xoffset + tl.arange(0, XBLOCK)[:] xmask = xindex &lt; xnumel x2 = xindex x0 = xindex % 16 tmp0 = tl.load(in_out_ptr0 + (x2), xmask) tmp1 = tl.load(in_ptr0 + (x0), xmask, eviction_policy=&#39;evict_last&#39;) tmp2 = tmp0 + tmp1 tmp3 = compile error! tmp4 = tl.sigmoid(tmp3) tl.store(in_out_ptr0 + (x2), tmp4, xmask) Since we have torch._inductor.config.aot_inductor.dump_aoti_minifier=True, we also see an additional line indicating where minifier_l..."
+        "datePublished": "Jun 13, 2025T00:00:00Z",
+         "dateModified": "Jun 13, 2025T00:00:00Z",
+         "articleBody": "AOTInductor Minifier# Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025 If you encounter an error while using AOT Inductor APIs such as torch._inductor.aoti_compile_and_package, torch._indcutor.aoti_load_package, or running the loaded model of aoti_load_package on some inputs, you can use the AOTInductor Minifier to create a minimal nn.Module that reproduce the error by setting from torch._inductor import config; config.aot_inductor.dump_aoti_minifier = True. One a high-level, there are two steps in using the minifier: Set from torch._inductor import config; config.aot_inductor.dump_aoti_minifier = True or set the environment variable DUMP_AOTI_MINIFIER=1. Then running the script that errors would produce a minifier_launcher.py script. The output directory is configurable by setting torch._dynamo.config.debug_dir_root to a valid directory name. Run the minifier_launcher.py script. If the minifier runs successfully, it generates runnable python code in repro.py which reproduces the exact error. Example Code# Here is sample code which will generate an error because we injected an error on relu with torch._inductor.config.triton.inject_relu_bug_TESTING_ONLY = \&#34;compile_error\&#34;. import torch from torch._inductor import config as inductor_config class Model(torch.nn.Module): def __init__(self): super().__init__() self.fc1 = torch.nn.Linear(10, 16) self.relu = torch.nn.ReLU() self.sigmoid = torch.nn.Sigmoid() def forward(self, x): x = self.fc1(x) x = self.relu(x) x = self.sigmoid(x) return x inductor_config.aot_inductor.dump_aoti_minifier = True torch._inductor.config.triton.inject_relu_bug_TESTING_ONLY = \&#34;compile_error\&#34; with torch.no_grad(): model = Model().to(\&#34;cuda\&#34;) example_inputs = (torch.randn(8, 10).to(\&#34;cuda\&#34;),) ep = torch.export.export(model, example_inputs) package_path = torch._inductor.aoti_compile_and_package(ep) compiled_model = torch._inductor.aoti_load_package(package_path) result = compiled_model(*example_inputs) The code above generates the following error: RuntimeError: Failed to import /tmp/torchinductor_shangdiy/fr/cfrlf4smkwe4lub4i4cahkrb3qiczhf7hliqqwpewbw3aplj5g3s.py SyntaxError: invalid syntax (cfrlf4smkwe4lub4i4cahkrb3qiczhf7hliqqwpewbw3aplj5g3s.py, line 29) This is because we injected an error on relu, and so the generated triton kernel looks like below. Note that we have compile error! instead if relu, so we get a SyntaxError. @triton.jit def triton_poi_fused_addmm_relu_sigmoid_0(in_out_ptr0, in_ptr0, xnumel, XBLOCK : tl.constexpr): xnumel = 128 xoffset = tl.program_id(0) * XBLOCK xindex = xoffset + tl.arange(0, XBLOCK)[:] xmask = xindex &lt; xnumel x2 = xindex x0 = xindex % 16 tmp0 = tl.load(in_out_ptr0 + (x2), xmask) tmp1 = tl.load(in_ptr0 + (x0), xmask, eviction_policy=&#39;evict_last&#39;) tmp2 = tmp0 + tmp1 tmp3 = compile error! tmp4 = tl.sigmoid(tmp3) tl.store(in_out_ptr0 + (x2), tmp4, xmask) Since we have torch._inductor.config.aot_inductor.dump_aoti_minifier=True, we also see an additional line indicating where minifier_l..."
        }
    </script>
 

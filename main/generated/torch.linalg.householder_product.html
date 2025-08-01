@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.linalg.householder_product.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.linalg.householder_product.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4664,21 +4687,17 @@ If this condition is not met, no error will be thrown, but the gradient produced
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4723,18 +4742,20 @@ If this condition is not met, no error will be thrown, but the gradient produced
          "@type": "Article",
          "headline": "torch.linalg.householder_product",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.linalg.householder_product.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.linalg.householder_product.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.linalg.householder_product# torch.linalg.householder_product(A, tau, *, out=None) → Tensor# Computes the first n columns of a product of Householder matrices. Let K\mathbb{K}K be R\mathbb{R}R or C\mathbb{C}C, and let A∈Km×nA \in \mathbb{K}^{m \times n}A∈Km×n be a matrix with columns ai∈Kma_i \in \mathbb{K}^mai​∈Km for i=1,…,mi=1,\ldots,mi=1,…,m with m≥nm \geq nm≥n. Denote by bib_ibi​ the vector resulting from zeroing out the first i−1i-1i−1 components of aia_iai​ and setting to 1 the iii-th. For a vector τ∈Kk\tau \in \mathbb{K}^kτ∈Kk with k≤nk \leq nk≤n, this function computes the first nnn columns of the matrix H1H2...HkwithHi=Im−τibibiHH_1H_2 ... H_k \qquad\text{with}\qquad H_i = \mathrm{I}_m - \tau_i b_i b_i^{\text{H}}H1​H2​...Hk​withHi​=Im​−τi​bi​biH​where Im\mathrm{I}_mIm​ is the m-dimensional identity matrix and bHb^{\text{H}}bH is the conjugate transpose when bbb is complex, and the transpose when bbb is real-valued. The output matrix is the same size as the input matrix A. See Representation of Orthogonal or Unitary Matrices for further details. Supports inputs of float, double, cfloat and cdouble dtypes. Also supports batches of matrices, and if the inputs are batches of matrices then the output has the same batch dimensions. See also torch.geqrf() can be used together with this function to form the Q from the qr() decomposition. torch.ormqr() is a related function that computes the matrix multiplication of a product of Householder matrices with another matrix. However, that function is not supported by autograd. Warning Gradient computations are only well-defined if τi≠1∣∣ai∣∣2\tau_i \neq \frac{1}{||a_i||^2}τi​=∣∣ai​∣∣21​. If this condition is not met, no error will be thrown, but the gradient produced may contain NaN. Parameters A (Tensor) – tensor of shape (*, m, n) where * is zero or more batch dimensions. tau (Tensor) – tensor of shape (*, k) where * is zero or more batch dimensions. Keyword Arguments out (Tensor, optional) – output tensor. Ignored if None. Default: None. Raises RuntimeError – if A doesn’t satisfy the requirement m &gt;= n, or tau doesn’t satisfy the requirement n &gt;= k. Examples: &gt;&gt;&gt; A = torch.randn(2, 2) &gt;&gt;&gt; h, tau = torch.geqrf(A) &gt;&gt;&gt; Q = torch.linalg.householder_product(h, tau) &gt;&gt;&gt; torch.dist(Q, torch.linalg.qr(A).Q) tensor(0.) &gt;&gt;&gt; h = torch.randn(3, 2, 2, dtype=torch.complex128) &gt;&gt;&gt; tau = torch.randn(3, 1, dtype=torch.complex128) &gt;&gt;&gt; Q = torch.linalg.householder_product(h, tau) &gt;&gt;&gt; Q tensor([[[ 1.8034+0.4184j, 0.2588-1.0174j], [-0.6853+0.7953j, 2.0790+0.5620j]], [[ 1.4581+1.6989j, -1.5360+0.1193j], [ 1.3877-0.6691j, 1.3512+1.3024j]], [[ 1.4766+0.5783j, 0.0361+0.6587j], [ 0.6396+0.1612j, 1.3693+0.4481j]]], dtype=torch.complex128)"
+         "articleBody": "torch.linalg.householder_product# torch.linalg.householder_product(A, tau, *, out=None) → Tensor# Computes the first n columns of a product of Householder matrices. Let K\\mathbb{K}K be R\\mathbb{R}R or C\\mathbb{C}C, and let A∈Km×nA \\in \\mathbb{K}^{m \\times n}A∈Km×n be a matrix with columns ai∈Kma_i \\in \\mathbb{K}^mai​∈Km for i=1,…,mi=1,\\ldots,mi=1,…,m with m≥nm \\geq nm≥n. Denote by bib_ibi​ the vector resulting from zeroing out the first i−1i-1i−1 components of aia_iai​ and setting to 1 the iii-th. For a vector τ∈Kk\\tau \\in \\mathbb{K}^kτ∈Kk with k≤nk \\leq nk≤n, this function computes the first nnn columns of the matrix H1H2...HkwithHi=Im−τibibiHH_1H_2 ... H_k \\qquad\\text{with}\\qquad H_i = \\mathrm{I}_m - \\tau_i b_i b_i^{\\text{H}}H1​H2​...Hk​withHi​=Im​−τi​bi​biH​where Im\\mathrm{I}_mIm​ is the m-dimensional identity matrix and bHb^{\\text{H}}bH is the conjugate transpose when bbb is complex, and the transpose when bbb is real-valued. The output matrix is the same size as the input matrix A. See Representation of Orthogonal or Unitary Matrices for further details. Supports inputs of float, double, cfloat and cdouble dtypes. Also supports batches of matrices, and if the inputs are batches of matrices then the output has the same batch dimensions. See also torch.geqrf() can be used together with this function to form the Q from the qr() decomposition. torch.ormqr() is a related function that computes the matrix multiplication of a product of Householder matrices with another matrix. However, that function is not supported by autograd. Warning Gradient computations are only well-defined if τi≠1∣∣ai∣∣2\\tau_i \\neq \\frac{1}{||a_i||^2}τi​=∣∣ai​∣∣21​. If this condition is not met, no error will be thrown, but the gradient produced may contain NaN. Parameters A (Tensor) – tensor of shape (*, m, n) where * is zero or more batch dimensions. tau (Tensor) – tensor of shape (*, k) where * is zero or more batch dimensions. Keyword Arguments out (Tensor, optional) – output tensor. Ignored if None. Default: None. Raises RuntimeError – if A doesn’t satisfy the requirement m &gt;= n, or tau doesn’t satisfy the requirement n &gt;= k. Examples: &gt;&gt;&gt; A = torch.randn(2, 2) &gt;&gt;&gt; h, tau = torch.geqrf(A) &gt;&gt;&gt; Q = torch.linalg.householder_product(h, tau) &gt;&gt;&gt; torch.dist(Q, torch.linalg.qr(A).Q) tensor(0.) &gt;&gt;&gt; h = torch.randn(3, 2, 2, dtype=torch.complex128) &gt;&gt;&gt; tau = torch.randn(3, 1, dtype=torch.complex128) &gt;&gt;&gt; Q = torch.linalg.householder_product(h, tau) &gt;&gt;&gt; Q tensor([[[ 1.8034+0.4184j, 0.2588-1.0174j], [-0.6853+0.7953j, 2.0790+0.5620j]], [[ 1.4581+1.6989j, -1.5360+0.1193j], [ 1.3877-0.6691j, 1.3512+1.3024j]], [[ 1.4766+0.5783j, 0.0361+0.6587j], [ 0.6396+0.1612j, 1.3693+0.4481j]]], dtype=torch.complex128)"
        }
    </script>
 

@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.lu.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.lu.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,7 +4358,7 @@ document.write(`
 <h1>torch.lu<a class="headerlink" href="#torch-lu" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.lu">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">lu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/_jit_internal.py#L617"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.lu" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">lu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/_jit_internal.py#L617"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.lu" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes the LU factorization of a matrix or batches of matrices
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">A</span></code>. Returns a tuple containing the LU factorization and
 pivots of <code class="xref py py-attr docutils literal notranslate"><span class="pre">A</span></code>.  Pivoting is done if <code class="xref py py-attr docutils literal notranslate"><span class="pre">pivot</span></code> is set to
@@ -4701,21 +4724,17 @@ each minibatch has succeeded or failed</p></li>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4760,18 +4779,20 @@ each minibatch has succeeded or failed</p></li>
          "@type": "Article",
          "headline": "torch.lu",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.lu.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.lu.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.lu# torch.lu(*args, **kwargs)[source]# Computes the LU factorization of a matrix or batches of matrices A. Returns a tuple containing the LU factorization and pivots of A. Pivoting is done if pivot is set to True. Warning torch.lu() is deprecated in favor of torch.linalg.lu_factor() and torch.linalg.lu_factor_ex(). torch.lu() will be removed in a future PyTorch release. LU, pivots, info = torch.lu(A, compute_pivots) should be replaced with LU, pivots = torch.linalg.lu_factor(A, compute_pivots) LU, pivots, info = torch.lu(A, compute_pivots, get_infos=True) should be replaced with LU, pivots, info = torch.linalg.lu_factor_ex(A, compute_pivots) Note The returned permutation matrix for every matrix in the batch is represented by a 1-indexed vector of size min(A.shape[-2], A.shape[-1]). pivots[i] == j represents that in the i-th step of the algorithm, the i-th row was permuted with the j-1-th row. LU factorization with pivot = False is not available for CPU, and attempting to do so will throw an error. However, LU factorization with pivot = False is available for CUDA. This function does not check if the factorization was successful or not if get_infos is True since the status of the factorization is present in the third element of the return tuple. In the case of batches of square matrices with size less or equal to 32 on a CUDA device, the LU factorization is repeated for singular matrices due to the bug in the MAGMA library (see magma issue 13). L, U, and P can be derived using torch.lu_unpack(). Warning The gradients of this function will only be finite when A is full rank. This is because the LU decomposition is just differentiable at full rank matrices. Furthermore, if A is close to not being full rank, the gradient will be numerically unstable as it depends on the computation of L−1L^{-1}L−1 and U−1U^{-1}U−1. Parameters A (Tensor) – the tensor to factor of size (∗,m,n)(*, m, n)(∗,m,n) pivot (bool, optional) – controls whether pivoting is done. Default: True get_infos (bool, optional) – if set to True, returns an info IntTensor. Default: False out (tuple, optional) – optional output tuple. If get_infos is True, then the elements in the tuple are Tensor, IntTensor, and IntTensor. If get_infos is False, then the elements in the tuple are Tensor, IntTensor. Default: None Returns A tuple of tensors containing factorization (Tensor): the factorization of size (∗,m,n)(*, m, n)(∗,m,n) pivots (IntTensor): the pivots of size (∗,min(m,n))(*, \text{min}(m, n))(∗,min(m,n)). pivots stores all the intermediate transpositions of rows. The final permutation perm could be reconstructed by applying swap(perm[i], perm[pivots[i] - 1]) for i = 0, ..., pivots.size(-1) - 1, where perm is initially the identity permutation of mmm elements (essentially this is what torch.lu_unpack() is doing). infos (IntTensor, optional): if get_infos is True, this is a tensor of size (∗)(*)(∗) where non-zero values indicate whether factorization for the matrix or each minibatc..."
+         "articleBody": "torch.lu# torch.lu(*args, **kwargs)[source]# Computes the LU factorization of a matrix or batches of matrices A. Returns a tuple containing the LU factorization and pivots of A. Pivoting is done if pivot is set to True. Warning torch.lu() is deprecated in favor of torch.linalg.lu_factor() and torch.linalg.lu_factor_ex(). torch.lu() will be removed in a future PyTorch release. LU, pivots, info = torch.lu(A, compute_pivots) should be replaced with LU, pivots = torch.linalg.lu_factor(A, compute_pivots) LU, pivots, info = torch.lu(A, compute_pivots, get_infos=True) should be replaced with LU, pivots, info = torch.linalg.lu_factor_ex(A, compute_pivots) Note The returned permutation matrix for every matrix in the batch is represented by a 1-indexed vector of size min(A.shape[-2], A.shape[-1]). pivots[i] == j represents that in the i-th step of the algorithm, the i-th row was permuted with the j-1-th row. LU factorization with pivot = False is not available for CPU, and attempting to do so will throw an error. However, LU factorization with pivot = False is available for CUDA. This function does not check if the factorization was successful or not if get_infos is True since the status of the factorization is present in the third element of the return tuple. In the case of batches of square matrices with size less or equal to 32 on a CUDA device, the LU factorization is repeated for singular matrices due to the bug in the MAGMA library (see magma issue 13). L, U, and P can be derived using torch.lu_unpack(). Warning The gradients of this function will only be finite when A is full rank. This is because the LU decomposition is just differentiable at full rank matrices. Furthermore, if A is close to not being full rank, the gradient will be numerically unstable as it depends on the computation of L−1L^{-1}L−1 and U−1U^{-1}U−1. Parameters A (Tensor) – the tensor to factor of size (∗,m,n)(*, m, n)(∗,m,n) pivot (bool, optional) – controls whether pivoting is done. Default: True get_infos (bool, optional) – if set to True, returns an info IntTensor. Default: False out (tuple, optional) – optional output tuple. If get_infos is True, then the elements in the tuple are Tensor, IntTensor, and IntTensor. If get_infos is False, then the elements in the tuple are Tensor, IntTensor. Default: None Returns A tuple of tensors containing factorization (Tensor): the factorization of size (∗,m,n)(*, m, n)(∗,m,n) pivots (IntTensor): the pivots of size (∗,min(m,n))(*, \\text{min}(m, n))(∗,min(m,n)). pivots stores all the intermediate transpositions of rows. The final permutation perm could be reconstructed by applying swap(perm[i], perm[pivots[i] - 1]) for i = 0, ..., pivots.size(-1) - 1, where perm is initially the identity permutation of mmm elements (essentially this is what torch.lu_unpack() is doing). infos (IntTensor, optional): if get_infos is True, this is a tensor of size (∗)(*)(∗) where non-zero values indicate whether factorization for the matrix or each minibatc..."
        }
    </script>
 

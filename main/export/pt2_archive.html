@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/export/pt2_archive.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/export/pt2_archive.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4732,21 +4755,17 @@ finer-grained control over the packaging and loading process.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4791,17 +4810,19 @@ finer-grained control over the packaging and loading process.</p>
          "@type": "Article",
          "headline": "PT2 Archive Spec",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/export/pt2_archive.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/export/pt2_archive.html"
          },
-         "datePublished": "Jul 16, 2025",
-         "dateModified": "Jul 16, 2025",
+        "datePublished": "Jul 16, 2025T00:00:00Z",
+         "dateModified": "Jul 16, 2025T00:00:00Z",
          "articleBody": "PT2 Archive Spec# Created On: Jul 16, 2025 | Last Updated On: Jul 16, 2025 The following specification defines the archive format which can be produced through the following methods: torch.export through calling torch.export.save() AOTInductor through calling torch._inductor.aoti_compile_and_package() The archive is a zipfile, and can be manipulated using standard zipfile APIs. The following is a sample archive. We will walk through the archive folder by folder. . ├── archive_format ├── byteorder ├── .data │ ├── serialization_id │ └── version ├── data │ ├── aotinductor │ │ └── model1 │ │ ├── aotinductor_pickle_data.json │ │ ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.cpp │ │ ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.so │ │ ├── cg7domx3woam3nnliwud7yvtcencqctxkvvcafuriladwxw4nfiv.cubin │ │ └── cubaaxppb6xmuqdm4bej55h2pftbce3bjyyvljxbtdfuolmv45ex.cubin │ ├── weights │ │ ├── model1_model_param_config.json │ │ ├── weight_0 │ │ ├── weight_1 │ │ ├── weight_2 │ └── constants │ │ ├── model1_model_constants_config.json │ │ ├── tensor_0 │ │ ├── tensor_1 │ │ ├── custom_obj_0 │ │ ├── custom_obj_1 │ └── sample_inputs │ ├── model1.pt │ └── model2.pt ├── extra │ └── ....json └── models ├── model1.json └── model2.json Contents# Archive Headers# archive_format declares the format used by this archive. Currently, it can only be “pt2”. byteorder. One of “little” or “big”, used by zip file reader /.data/version contains the archive version. (Notice that this is neither export serialization’s schema version, nor Aten Opset Version). /.data/serialization_id is a hash generated for the current archive, used for verification. AOTInductor Compiled Artifact# Path: /data/aotinductor/&lt;model_name&gt;-&lt;backend&gt;/ AOTInductor compilation artifacts are saved for each model-backend pair. For example, compilation artifacts for the model1 model on A100 and H100 will be saved in model1-a100 and model1-h100 folders separately. The folder typically contains &lt;uuid&gt;.so: Dynamic library compiled from .cpp. &lt;uuid&gt;.cpp: AOTInductor generated cpp wrapper file. *.cubin: Triton kernels compiled from triton codegen kernels (optional) &lt;uuid&gt;.json: External fallback nodes for custom ops to be executed by ProxyExecutor, serialized according to ExternKernelNode struct. If the model doesn’t use custom ops/ProxyExecutor, this file would be omitted. &lt;uuid&gt;_metadata.json: Metadata which was passed in from the aot_inductor.metadata inductor config Weights# Path: /data/weights/* Model parameters and buffers are saved in the /data/weights/ folder. Each tensor is saved as a separated file. The file only contains the raw data blob, tensor metadata are saved separately in the &lt;model_name&gt;_model_param_config.json. Constants# Path: /data/constants/* TensorConstants, non-persistent buffers and TorchBind objects are saved in the /data/constants/ folder. Metadata is saved separately in the &lt;model_name&gt;_model_constants_config.json Sample Inputs# Path: /data/sample_inputs/&lt;model_name&gt;.p..."
        }
    </script>

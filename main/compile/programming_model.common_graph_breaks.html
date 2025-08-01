@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/compile/programming_model.common_graph_breaks.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/compile/programming_model.common_graph_breaks.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4375,7 +4398,7 @@ Graph Break Reason: TypeError when making fake tensor call
   Explanation: 
 
 
-  Developer debug context: TypeError &lt;built-in method sin of type object at 0x7f8005302060&gt;: sin() takes 1 positional argument but 2 were given
+  Developer debug context: TypeError &lt;built-in method sin of type object at 0x7f034e87c060&gt;: sin() takes 1 positional argument but 2 were given
 
  For more details about this graph break, please visit: https://pytorch-labs.github.io/compile-graph-break-site/gb/gb0112.html
 User code traceback:
@@ -4607,9 +4630,9 @@ User code traceback:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.5793, 1.9974, 0.5823],
-        [0.6868, 0.8339, 1.5652],
-        [1.1356, 1.5671, 0.6291]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[1.1029, 1.4572, 1.7908],
+        [0.1481, 2.2768, 0.1414],
+        [1.9390, 0.6634, 2.0699]])
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_585/2410325100.py:5
@@ -4690,9 +4713,9 @@ User code traceback:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[ 1.6551,  1.6129,  0.2830],
-        [-0.5954,  1.4108,  0.9583],
-        [ 1.8701,  2.2072,  2.7066]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[ 1.7221, -0.1086,  1.7711],
+        [ 0.8732,  2.2527,  2.0451],
+        [ 1.0814,  1.8743,  0.4085]])
 </pre></div>
 </div>
 </div>
@@ -5121,21 +5144,17 @@ tensor([[0.9093, 0.9093, 0.9093],
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -5180,18 +5199,20 @@ tensor([[0.9093, 0.9093, 0.9093],
          "@type": "Article",
          "headline": "Common Graph Breaks",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/compile/programming_model.common_graph_breaks.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/compile/programming_model.common_graph_breaks.html"
          },
-         "datePublished": "Jul 28, 2025",
-         "dateModified": "Jul 28, 2025",
-         "articleBody": "Common Graph Breaks# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 Below are some common graph breaks and some workarounds. Incorrect Code# Your code might contain errors (meaning it doesn’t execute even without torch.compile). In the example below, there’s a typo in the torch.sin call due to an extra argument. Always disable torch.compile to check if the code runs correctly. @torch.compile def fn(x): y = torch.sin(x, x) return y try: fn(torch.ones(3, 3)) except Exception as e: pass Graph break in user code at /tmp/ipykernel_585/343837593.py:3 Graph Break Reason: TypeError when making fake tensor call Explanation: Developer debug context: TypeError &lt;built-in method sin of type object at 0x7f8005302060&gt;: sin() takes 1 positional argument but 2 were given For more details about this graph break, please visit: https://pytorch-labs.github.io/compile-graph-break-site/gb/gb0112.html User code traceback: File &#34;/opt/conda/envs/py_3.9/lib/python3.9/runpy.py&#34;, line 197, in _run_module_as_main return _run_code(code, main_globals, None, File &#34;/opt/conda/envs/py_3.9/lib/python3.9/runpy.py&#34;, line 87, in _run_code exec(code, run_globals) File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel_launcher.py&#34;, line 18, in &lt;module&gt; app.launch_new_instance() File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/traitlets/config/application.py&#34;, line 1075, in launch_instance app.start() File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelapp.py&#34;, line 739, in start self.io_loop.start() File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/tornado/platform/asyncio.py&#34;, line 211, in start self.asyncio_loop.run_forever() File &#34;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/base_events.py&#34;, line 601, in run_forever self._run_once() File &#34;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/base_events.py&#34;, line 1905, in _run_once handle._run() File &#34;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/events.py&#34;, line 80, in _run self._context.run(self._callback, *self._args) File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py&#34;, line 516, in dispatch_queue await self.process_one() File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py&#34;, line 505, in process_one await dispatch(*args) File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py&#34;, line 397, in dispatch_shell await result File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/ipkernel.py&#34;, line 368, in execute_request await super().execute_request(stream, ident, parent) File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py&#34;, line 752, in execute_request reply_content = await reply_content File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/ipkernel.py&#34;, line 455, in do_execute res = shell.run_cell( File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/zmqshell.py&#34;, line 577, in run_cell return super().run_cell(*args, **kwargs) File &#34;/op..."
+        "datePublished": "Jul 28, 2025T00:00:00Z",
+         "dateModified": "Jul 28, 2025T00:00:00Z",
+         "articleBody": "Common Graph Breaks# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 Below are some common graph breaks and some workarounds. Incorrect Code# Your code might contain errors (meaning it doesn’t execute even without torch.compile). In the example below, there’s a typo in the torch.sin call due to an extra argument. Always disable torch.compile to check if the code runs correctly. @torch.compile def fn(x): y = torch.sin(x, x) return y try: fn(torch.ones(3, 3)) except Exception as e: pass Graph break in user code at /tmp/ipykernel_585/343837593.py:3 Graph Break Reason: TypeError when making fake tensor call Explanation: Developer debug context: TypeError &lt;built-in method sin of type object at 0x7f034e87c060&gt;: sin() takes 1 positional argument but 2 were given For more details about this graph break, please visit: https://pytorch-labs.github.io/compile-graph-break-site/gb/gb0112.html User code traceback: File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/runpy.py\&#34;, line 197, in _run_module_as_main return _run_code(code, main_globals, None, File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/runpy.py\&#34;, line 87, in _run_code exec(code, run_globals) File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel_launcher.py\&#34;, line 18, in &lt;module&gt; app.launch_new_instance() File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/traitlets/config/application.py\&#34;, line 1075, in launch_instance app.start() File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelapp.py\&#34;, line 739, in start self.io_loop.start() File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/tornado/platform/asyncio.py\&#34;, line 211, in start self.asyncio_loop.run_forever() File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/base_events.py\&#34;, line 601, in run_forever self._run_once() File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/base_events.py\&#34;, line 1905, in _run_once handle._run() File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/events.py\&#34;, line 80, in _run self._context.run(self._callback, *self._args) File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py\&#34;, line 516, in dispatch_queue await self.process_one() File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py\&#34;, line 505, in process_one await dispatch(*args) File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py\&#34;, line 397, in dispatch_shell await result File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/ipkernel.py\&#34;, line 368, in execute_request await super().execute_request(stream, ident, parent) File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py\&#34;, line 752, in execute_request reply_content = await reply_content File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/ipkernel.py\&#34;, line 455, in do_execute res = shell.run_cell( File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/zmqshell.py\&#34;, line 577, in run_cell return super().run_cell(*args, **kwargs) File \&#34;/op..."
        }
    </script>
 

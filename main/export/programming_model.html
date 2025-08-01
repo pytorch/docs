@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/export/programming_model.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/export/programming_model.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -5143,21 +5166,17 @@ attributes.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -5202,17 +5221,19 @@ attributes.</p>
          "@type": "Article",
          "headline": "torch.export Programming Model",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/export/programming_model.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/export/programming_model.html"
          },
-         "datePublished": "Dec 18, 2024",
-         "dateModified": "Jul 16, 2025",
+        "datePublished": "Dec 18, 2024T00:00:00Z",
+         "dateModified": "Jul 16, 2025T00:00:00Z",
          "articleBody": "torch.export Programming Model# Created On: Dec 18, 2024 | Last Updated On: Jul 16, 2025 This document aims to explain the behaviors and capabilities of torch.export.export(). It is intended to help build your intuition for how torch.export.export() handles code. Basics of Tracing# torch.export.export() captures a graph representing your model by tracing its execution on “example” inputs and recording the PyTorch operations and conditions observed along the traced path. This graph can then be run on different inputs as long as they satisfy the same conditions. The basic output of torch.export.export() is a single graph of PyTorch operations, with associated metadata. The exact format of this output is covered in the export IR spec. Strict vs. Non-Strict Tracing# torch.export.export() provides two modes of tracing. In non-strict mode, we trace through the program using the normal Python interpreter. Your code executes exactly as it would in eager mode; the only difference is that all Tensors are replaced by fake Tensors, which have shapes and other forms of metadata but no data, wrapped in Proxy objects that record all operations on them into a graph. We also capture conditions on Tensor shapes that guard the correctness of the generated code. In strict mode, we first trace through the program using TorchDynamo, a Python bytecode analysis engine. TorchDynamo does not actually execute your Python code. Instead, it symbolically analyzes it and builds a graph based on the results. On the one hand, this analysis allows torch.export.export() to provide additional guarantees on Python-level safety (beyond capturing conditions on Tensor shapes, as in non-strict mode). On the other hand, not all Python features are supported by this analysis. Although currently the default mode of tracing is strict, we strongly recommend using non-strict, which will soon become the default. For most models, conditions on Tensor shapes are enough for soundness, and the additional guarantees on Python-level safety have no impact; at the same time, the possibility of hitting unsupported Python features in TorchDynamo presents an unnecessary risk. In the rest of this document we assume we are tracing in non-strict mode; in particular, we assume that all Python features are supported. Values: Static vs. Dynamic# A key concept in understanding the behavior of torch.export.export() is the difference between static and dynamic values. Static Values# A static value is a value that is fixed at export time and cannot change between executions of the exported program. When the value is encountered during tracing, we treat it as a constant and hard-code it into the graph. When an operation is performed (e.g. x + y) and all inputs are static, the output of the operation is directly hard-coded into the graph and the operation does not show up (i.e. it gets “constant-folded”). When a value has been hard-coded into the graph, we say that the graph has been specialized to that value. Fo..."
        }
    </script>

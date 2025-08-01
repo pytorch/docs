@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/compile/programming_model.compiler_disable.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/compile/programming_model.compiler_disable.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4389,12 +4412,12 @@ Use the <code class="docutils literal notranslate"><span class="pre">recursive=F
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([8., 8., 8.])
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_646/1421264493.py:13
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_639/1421264493.py:13
 Graph Break Reason: Skip calling `torch.compiler.disable()`d function
-  Explanation: Skip calling function `&lt;function outer1 at 0x7efe74386e50&gt;` since it was wrapped with `torch.compiler.disable` (reason: None)
+  Explanation: Skip calling function `&lt;function outer1 at 0x7f9d64042550&gt;` since it was wrapped with `torch.compiler.disable` (reason: None)
   Hint: Remove the `torch.compiler.disable` call
 
-  Developer debug context: &lt;function outer1 at 0x7efe74386e50&gt;
+  Developer debug context: &lt;function outer1 at 0x7f9d64042550&gt;
 
  For more details about this graph break, please visit: https://pytorch-labs.github.io/compile-graph-break-site/gb/gb0098.html
 User code traceback:
@@ -4442,18 +4465,18 @@ User code traceback:
     if await self.run_code(code, result, async_=asy):
   File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_646/1421264493.py&quot;, line 16, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_639/1421264493.py&quot;, line 16, in &lt;module&gt;
     print(f(torch.ones(3)))
-  File &quot;/tmp/ipykernel_646/1421264493.py&quot;, line 13, in f
+  File &quot;/tmp/ipykernel_639/1421264493.py&quot;, line 13, in f
     x = outer1(x)
 
 TRACED GRAPH
- ===== __compiled_fn_4_59eca98c_05dc_45e7_8652_25df2b62d19e =====
+ ===== __compiled_fn_4_c7236d48_cda7_4b2f_acff_82498d45c160 =====
  /opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_stack0_: &quot;f32[3][1]cpu&quot;):
         l_stack0_ = L_stack0_
         
-         # File: /tmp/ipykernel_646/1421264493.py:14 in torch_dynamo_resume_in_f_at_13, code: return x + 4  # traced
+         # File: /tmp/ipykernel_639/1421264493.py:14 in torch_dynamo_resume_in_f_at_13, code: return x + 4  # traced
         add: &quot;f32[3][1]cpu&quot; = l_stack0_ + 4;  l_stack0_ = None
         return (add,)
         
@@ -4486,12 +4509,12 @@ TRACED GRAPH
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([8., 8., 8.])
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_646/881423632.py:13
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_639/881423632.py:13
 Graph Break Reason: Skip inlining `torch.compiler.disable()`d function
-  Explanation: Skip inlining function &lt;function outer2 at 0x7efe23997700&gt; since it was wrapped with `torch.compiler.disable` (reason: None)
+  Explanation: Skip inlining function &lt;function outer2 at 0x7f9d483a0310&gt; since it was wrapped with `torch.compiler.disable` (reason: None)
   Hint: Remove the `torch.compiler.disable` call
 
-  Developer debug context: &lt;function outer2 at 0x7efe23997700&gt;
+  Developer debug context: &lt;function outer2 at 0x7f9d483a0310&gt;
 
  For more details about this graph break, please visit: https://pytorch-labs.github.io/compile-graph-break-site/gb/gb0099.html
 User code traceback:
@@ -4539,12 +4562,12 @@ User code traceback:
     if await self.run_code(code, result, async_=asy):
   File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_646/881423632.py&quot;, line 16, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_639/881423632.py&quot;, line 16, in &lt;module&gt;
     print(g(torch.ones(3)))
-  File &quot;/tmp/ipykernel_646/881423632.py&quot;, line 13, in g
+  File &quot;/tmp/ipykernel_639/881423632.py&quot;, line 13, in g
     x = outer2(x)
 
-Graph break in user code at /tmp/ipykernel_646/881423632.py:2
+Graph break in user code at /tmp/ipykernel_639/881423632.py:2
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -4597,35 +4620,35 @@ User code traceback:
     if await self.run_code(code, result, async_=asy):
   File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_646/881423632.py&quot;, line 16, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_639/881423632.py&quot;, line 16, in &lt;module&gt;
     print(g(torch.ones(3)))
-  File &quot;/tmp/ipykernel_646/881423632.py&quot;, line 13, in g
+  File &quot;/tmp/ipykernel_639/881423632.py&quot;, line 13, in g
     x = outer2(x)
   File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/_dynamo/external_utils.py&quot;, line 196, in nonrecursive_disable_wrapper
     return fn(*args, **kwargs)
-  File &quot;/tmp/ipykernel_646/881423632.py&quot;, line 9, in outer2
+  File &quot;/tmp/ipykernel_639/881423632.py&quot;, line 9, in outer2
     return inner2(x)
-  File &quot;/tmp/ipykernel_646/881423632.py&quot;, line 2, in inner2
+  File &quot;/tmp/ipykernel_639/881423632.py&quot;, line 2, in inner2
     torch._dynamo.graph_break()  # traced
 
 TRACED GRAPH
- ===== __compiled_fn_12_cbfdd30d_d6b2_47c1_9223_43dd45406334 =====
+ ===== __compiled_fn_12_dede8706_d444_42f0_83cd_889adda9571c =====
  /opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
         
-         # File: /tmp/ipykernel_646/881423632.py:3 in torch_dynamo_resume_in_inner2_at_2, code: return x + 1  # traced
+         # File: /tmp/ipykernel_639/881423632.py:3 in torch_dynamo_resume_in_inner2_at_2, code: return x + 1  # traced
         add: &quot;f32[3][1]cpu&quot; = l_x_ + 1;  l_x_ = None
         return (add,)
         
 
 TRACED GRAPH
- ===== __compiled_fn_14_443e1123_9358_4a43_944d_dc800f6d53bf =====
+ ===== __compiled_fn_14_e0c7e41d_cf10_456a_87a3_626f534753e4 =====
  /opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_stack0_: &quot;f32[3][1]cpu&quot;):
         l_stack0_ = L_stack0_
         
-         # File: /tmp/ipykernel_646/881423632.py:14 in torch_dynamo_resume_in_g_at_13, code: return x + 4  # traced
+         # File: /tmp/ipykernel_639/881423632.py:14 in torch_dynamo_resume_in_g_at_13, code: return x + 4  # traced
         add: &quot;f32[3][1]cpu&quot; = l_stack0_ + 4;  l_stack0_ = None
         return (add,)
         
@@ -4907,21 +4930,17 @@ When the compiler crashes, we will just skip tracing the function and try again 
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4966,18 +4985,20 @@ When the compiler crashes, we will just skip tracing the function and try again 
          "@type": "Article",
          "headline": "Disabling and Suppressing Errors",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/compile/programming_model.compiler_disable.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/compile/programming_model.compiler_disable.html"
          },
-         "datePublished": "Jul 28, 2025",
-         "dateModified": "Jul 28, 2025",
-         "articleBody": "Disabling and Suppressing Errors# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 For some model architectures, there are portions of the model which are particularly difficult to compile - either there are many graph breaks, or there are crashes. You may want to explicitly disable these portions of the model which are problematic so that you can apply torch.compile to the parts that work. You can do this by using the @torch.compiler.disable decorator. When torch.compile attempts to call a disabled function, it breaks the graph and skips tracing the disabled function, resuming tracing after the call. By default, all recursive calls made from a disabled function are also disabled. Use the recursive=False option to allow compilation for recursive calls. def inner1(x): torch._dynamo.graph_break() # not traced return x + 1 # not traced @torch.compiler.disable def outer1(x): x = x + 2 # not traced torch._dynamo.graph_break() # not traced return inner1(x) @torch.compile def f(x): x = outer1(x) return x + 4 # traced print(f(torch.ones(3))) tensor([8., 8., 8.]) Graph break in user code at /tmp/ipykernel_646/1421264493.py:13 Graph Break Reason: Skip calling `torch.compiler.disable()`d function Explanation: Skip calling function `&lt;function outer1 at 0x7efe74386e50&gt;` since it was wrapped with `torch.compiler.disable` (reason: None) Hint: Remove the `torch.compiler.disable` call Developer debug context: &lt;function outer1 at 0x7efe74386e50&gt; For more details about this graph break, please visit: https://pytorch-labs.github.io/compile-graph-break-site/gb/gb0098.html User code traceback: File &#34;/opt/conda/envs/py_3.9/lib/python3.9/runpy.py&#34;, line 197, in _run_module_as_main return _run_code(code, main_globals, None, File &#34;/opt/conda/envs/py_3.9/lib/python3.9/runpy.py&#34;, line 87, in _run_code exec(code, run_globals) File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel_launcher.py&#34;, line 18, in &lt;module&gt; app.launch_new_instance() File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/traitlets/config/application.py&#34;, line 1075, in launch_instance app.start() File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelapp.py&#34;, line 739, in start self.io_loop.start() File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/tornado/platform/asyncio.py&#34;, line 211, in start self.asyncio_loop.run_forever() File &#34;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/base_events.py&#34;, line 601, in run_forever self._run_once() File &#34;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/base_events.py&#34;, line 1905, in _run_once handle._run() File &#34;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/events.py&#34;, line 80, in _run self._context.run(self._callback, *self._args) File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py&#34;, line 516, in dispatch_queue await self.process_one() File &#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py&#34;, line 505, in process_one await dispatch(*args) File &#34;/opt/conda/envs/py_3.9/l..."
+        "datePublished": "Jul 28, 2025T00:00:00Z",
+         "dateModified": "Jul 28, 2025T00:00:00Z",
+         "articleBody": "Disabling and Suppressing Errors# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 For some model architectures, there are portions of the model which are particularly difficult to compile - either there are many graph breaks, or there are crashes. You may want to explicitly disable these portions of the model which are problematic so that you can apply torch.compile to the parts that work. You can do this by using the @torch.compiler.disable decorator. When torch.compile attempts to call a disabled function, it breaks the graph and skips tracing the disabled function, resuming tracing after the call. By default, all recursive calls made from a disabled function are also disabled. Use the recursive=False option to allow compilation for recursive calls. def inner1(x): torch._dynamo.graph_break() # not traced return x + 1 # not traced @torch.compiler.disable def outer1(x): x = x + 2 # not traced torch._dynamo.graph_break() # not traced return inner1(x) @torch.compile def f(x): x = outer1(x) return x + 4 # traced print(f(torch.ones(3))) tensor([8., 8., 8.]) Graph break in user code at /tmp/ipykernel_639/1421264493.py:13 Graph Break Reason: Skip calling `torch.compiler.disable()`d function Explanation: Skip calling function `&lt;function outer1 at 0x7f9d64042550&gt;` since it was wrapped with `torch.compiler.disable` (reason: None) Hint: Remove the `torch.compiler.disable` call Developer debug context: &lt;function outer1 at 0x7f9d64042550&gt; For more details about this graph break, please visit: https://pytorch-labs.github.io/compile-graph-break-site/gb/gb0098.html User code traceback: File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/runpy.py\&#34;, line 197, in _run_module_as_main return _run_code(code, main_globals, None, File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/runpy.py\&#34;, line 87, in _run_code exec(code, run_globals) File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel_launcher.py\&#34;, line 18, in &lt;module&gt; app.launch_new_instance() File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/traitlets/config/application.py\&#34;, line 1075, in launch_instance app.start() File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelapp.py\&#34;, line 739, in start self.io_loop.start() File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/tornado/platform/asyncio.py\&#34;, line 211, in start self.asyncio_loop.run_forever() File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/base_events.py\&#34;, line 601, in run_forever self._run_once() File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/base_events.py\&#34;, line 1905, in _run_once handle._run() File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/events.py\&#34;, line 80, in _run self._context.run(self._callback, *self._args) File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py\&#34;, line 516, in dispatch_queue await self.process_one() File \&#34;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py\&#34;, line 505, in process_one await dispatch(*args) File \&#34;/opt/conda/envs/py_3.9/l..."
        }
    </script>
 

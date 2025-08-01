@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/torch.compiler_get_started.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/torch.compiler_get_started.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4742,21 +4765,17 @@ basic understanding of how torch.compile works. Here is what you check out next:
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4801,18 +4820,20 @@ basic understanding of how torch.compile works. Here is what you check out next:
          "@type": "Article",
          "headline": "Getting Started",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/torch.compiler_get_started.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/torch.compiler_get_started.html"
          },
-         "datePublished": "Jun 16, 2025",
-         "dateModified": "Jun 16, 2025",
-         "articleBody": "Getting Started# Created On: Jun 16, 2025 | Last Updated On: Jun 16, 2025 Before you read this section, make sure to read the torch.compiler let’s start by looking at a simple torch.compile example that demonstrates how to use torch.compile for inference. This example demonstrates the torch.cos() and torch.sin() features which are examples of pointwise operators as they operate element by element on a vector. This example might not show significant performance gains but should help you form an intuitive understanding of how you can use torch.compile in your own programs. Note To run this script, you need to have at least one GPU on your machine. If you do not have a GPU, you can remove the .to(device=&#34;cuda:0&#34;) code in the snippet below and it will run on CPU. You can also set device to xpu:0 to run on Intel® GPUs. import torch def fn(x): a = torch.cos(x) b = torch.sin(a) return b new_fn = torch.compile(fn, backend=&#34;inductor&#34;) input_tensor = torch.randn(10000).to(device=&#34;cuda:0&#34;) a = new_fn(input_tensor) A more famous pointwise operator you might want to use would be something like torch.relu(). Pointwise ops in eager mode are suboptimal because each one would need to read a tensor from the memory, make some changes, and then write back those changes. The single most important optimization that inductor performs is fusion. In the example above we can turn 2 reads (x, a) and 2 writes (a, b) into 1 read (x) and 1 write (b), which is crucial especially for newer GPUs where the bottleneck is memory bandwidth (how quickly you can send data to a GPU) rather than compute (how quickly your GPU can crunch floating point operations). Another major optimization that inductor provides is automatic support for CUDA graphs. CUDA graphs help eliminate the overhead from launching individual kernels from a Python program which is especially relevant for newer GPUs. TorchDynamo supports many different backends, but TorchInductor specifically works by generating Triton kernels. Let’s save our example above into a file called example.py. We can inspect the code generated Triton kernels by running TORCH_COMPILE_DEBUG=1 python example.py. As the script executes, you should see DEBUG messages printed to the terminal. Closer to the end of the log, you should see a path to a folder that contains torchinductor_&lt;your_username&gt;. In that folder, you can find the output_code.py file that contains the generated kernel code similar to the following: @pointwise(size_hints=[16384], filename=__file__, triton_meta={&#39;signature&#39;: {&#39;in_ptr0&#39;: &#39;*fp32&#39;, &#39;out_ptr0&#39;: &#39;*fp32&#39;, &#39;xnumel&#39;: &#39;i32&#39;}, &#39;device&#39;: 0, &#39;constants&#39;: {}, &#39;mutated_arg_names&#39;: [], &#39;configs&#39;: [AttrsDescriptor(divisible_by_16=(0, 1, 2), equal_to_1=())]}) @triton.jit def triton_(in_ptr0, out_ptr0, xnumel, XBLOCK : tl.constexpr): xnumel = 10000 xoffset = tl.program_id(0) * XBLOCK xindex = xoffset + tl.arange(0, XBLOCK)[:] xmask = xindex &lt; xnumel x0 = xindex tmp0 = tl.load(in_ptr0 + (x0), xmask, other=0.0) tmp1 = tl.cos(tmp0..."
+        "datePublished": "Jun 16, 2025T00:00:00Z",
+         "dateModified": "Jun 16, 2025T00:00:00Z",
+         "articleBody": "Getting Started# Created On: Jun 16, 2025 | Last Updated On: Jun 16, 2025 Before you read this section, make sure to read the torch.compiler let’s start by looking at a simple torch.compile example that demonstrates how to use torch.compile for inference. This example demonstrates the torch.cos() and torch.sin() features which are examples of pointwise operators as they operate element by element on a vector. This example might not show significant performance gains but should help you form an intuitive understanding of how you can use torch.compile in your own programs. Note To run this script, you need to have at least one GPU on your machine. If you do not have a GPU, you can remove the .to(device=\&#34;cuda:0\&#34;) code in the snippet below and it will run on CPU. You can also set device to xpu:0 to run on Intel® GPUs. import torch def fn(x): a = torch.cos(x) b = torch.sin(a) return b new_fn = torch.compile(fn, backend=\&#34;inductor\&#34;) input_tensor = torch.randn(10000).to(device=\&#34;cuda:0\&#34;) a = new_fn(input_tensor) A more famous pointwise operator you might want to use would be something like torch.relu(). Pointwise ops in eager mode are suboptimal because each one would need to read a tensor from the memory, make some changes, and then write back those changes. The single most important optimization that inductor performs is fusion. In the example above we can turn 2 reads (x, a) and 2 writes (a, b) into 1 read (x) and 1 write (b), which is crucial especially for newer GPUs where the bottleneck is memory bandwidth (how quickly you can send data to a GPU) rather than compute (how quickly your GPU can crunch floating point operations). Another major optimization that inductor provides is automatic support for CUDA graphs. CUDA graphs help eliminate the overhead from launching individual kernels from a Python program which is especially relevant for newer GPUs. TorchDynamo supports many different backends, but TorchInductor specifically works by generating Triton kernels. Let’s save our example above into a file called example.py. We can inspect the code generated Triton kernels by running TORCH_COMPILE_DEBUG=1 python example.py. As the script executes, you should see DEBUG messages printed to the terminal. Closer to the end of the log, you should see a path to a folder that contains torchinductor_&lt;your_username&gt;. In that folder, you can find the output_code.py file that contains the generated kernel code similar to the following: @pointwise(size_hints=[16384], filename=__file__, triton_meta={&#39;signature&#39;: {&#39;in_ptr0&#39;: &#39;*fp32&#39;, &#39;out_ptr0&#39;: &#39;*fp32&#39;, &#39;xnumel&#39;: &#39;i32&#39;}, &#39;device&#39;: 0, &#39;constants&#39;: {}, &#39;mutated_arg_names&#39;: [], &#39;configs&#39;: [AttrsDescriptor(divisible_by_16=(0, 1, 2), equal_to_1=())]}) @triton.jit def triton_(in_ptr0, out_ptr0, xnumel, XBLOCK : tl.constexpr): xnumel = 10000 xoffset = tl.program_id(0) * XBLOCK xindex = xoffset + tl.arange(0, XBLOCK)[:] xmask = xindex &lt; xnumel x0 = xindex tmp0 = tl.load(in_ptr0 + (x0), xmask, other=0.0) tmp1 = tl.cos(tmp0..."
        }
    </script>
 

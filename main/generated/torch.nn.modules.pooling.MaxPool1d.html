@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.modules.pooling.MaxPool1d.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.nn.modules.pooling.MaxPool1d.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4346,7 +4369,7 @@ document.write(`
 <h1>MaxPool1d<a class="headerlink" href="#maxpool1d" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.modules.pooling.MaxPool1d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.pooling.</span></span><span class="sig-name descname"><span class="pre">MaxPool1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ceil_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/pooling.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.pooling.MaxPool1d" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.pooling.</span></span><span class="sig-name descname"><span class="pre">MaxPool1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ceil_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/pooling.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.pooling.MaxPool1d" title="Permalink to this definition">#</a></dt>
 <dd><p>Applies a 1D max pooling over an input signal composed of several input planes.</p>
 <p>In the simplest case, the output value of the layer with input size <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mi>C</mi><mo separator="true">,</mo><mi>L</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, C, L)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">L</span><span class="mclose">)</span></span></span></span></span>
 and output <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mi>C</mi><mo separator="true">,</mo><msub><mi>L</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, C, L_{out})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span> can be precisely described as:</p>
@@ -4405,7 +4428,7 @@ when <span class="math"><span class="katex"><span class="katex-mathml"><math xml
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.pooling.MaxPool1d.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/nn/modules/pooling.py#L144"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.pooling.MaxPool1d.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/nn/modules/pooling.py#L144"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.pooling.MaxPool1d.forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 </dl>
@@ -4678,21 +4701,17 @@ when <span class="math"><span class="katex"><span class="katex-mathml"><math xml
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4737,18 +4756,20 @@ when <span class="math"><span class="katex"><span class="katex-mathml"><math xml
          "@type": "Article",
          "headline": "MaxPool1d",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.nn.modules.pooling.MaxPool1d.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.nn.modules.pooling.MaxPool1d.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "MaxPool1d# class torch.nn.modules.pooling.MaxPool1d(kernel_size, stride=None, padding=0, dilation=1, return_indices=False, ceil_mode=False)[source]# Applies a 1D max pooling over an input signal composed of several input planes. In the simplest case, the output value of the layer with input size (N,C,L)(N, C, L)(N,C,L) and output (N,C,Lout)(N, C, L_{out})(N,C,Lout​) can be precisely described as: out(Ni,Cj,k)=max⁡m=0,…,kernel_size−1input(Ni,Cj,stride×k+m)out(N_i, C_j, k) = \max_{m=0, \ldots, \text{kernel\_size} - 1} input(N_i, C_j, stride \times k + m) out(Ni​,Cj​,k)=m=0,…,kernel_size−1max​input(Ni​,Cj​,stride×k+m)If padding is non-zero, then the input is implicitly padded with negative infinity on both sides for padding number of points. dilation is the stride between the elements within the sliding window. This link has a nice visualization of the pooling parameters. Note When ceil_mode=True, sliding windows are allowed to go off-bounds if they start within the left padding or the input. Sliding windows that would start in the right padded region are ignored. Parameters kernel_size (Union[int, tuple[int]]) – The size of the sliding window, must be &gt; 0. stride (Union[int, tuple[int]]) – The stride of the sliding window, must be &gt; 0. Default value is kernel_size. padding (Union[int, tuple[int]]) – Implicit negative infinity padding to be added on both sides, must be &gt;= 0 and &lt;= kernel_size / 2. dilation (Union[int, tuple[int]]) – The stride between elements within a sliding window, must be &gt; 0. return_indices (bool) – If True, will return the argmax along with the max values. Useful for torch.nn.MaxUnpool1d later ceil_mode (bool) – If True, will use ceil instead of floor to compute the output shape. This ensures that every element in the input tensor is covered by a sliding window. Shape: Input: (N,C,Lin)(N, C, L_{in})(N,C,Lin​) or (C,Lin)(C, L_{in})(C,Lin​). Output: (N,C,Lout)(N, C, L_{out})(N,C,Lout​) or (C,Lout)(C, L_{out})(C,Lout​), where ceil_mode = False Lout=⌊Lin+2×padding−dilation×(kernel_size−1)−1stride⌋+1L_{out} = \left\lfloor \frac{L_{in} + 2 \times \text{padding} - \text{dilation} \times (\text{kernel\_size} - 1) - 1}{\text{stride}}\right\rfloor + 1 Lout​=⌊strideLin​+2×padding−dilation×(kernel_size−1)−1​⌋+1where ceil_mode = True Lout=⌈Lin+2×padding−dilation×(kernel_size−1)−1+(stride−1)stride⌉+1L_{out} = \left\lceil \frac{L_{in} + 2 \times \text{padding} - \text{dilation} \times (\text{kernel\_size} - 1) - 1 + (stride - 1)}{\text{stride}}\right\rceil + 1 Lout​=⌈strideLin​+2×padding−dilation×(kernel_size−1)−1+(stride−1)​⌉+1 Ensure that the last pooling starts inside the image, make Lout=Lout−1L_{out} = L_{out} - 1Lout​=Lout​−1 when (Lout−1)∗stride&gt;=Lin+padding(L_{out} - 1) * \text{stride} &gt;= L_{in} + \text{padding}(Lout​−1)∗stride&gt;=Lin​+padding. Examples: &gt;&gt;&gt; # pool of size=3, stride=2 &gt;&gt;&gt; m = nn.MaxPool1d(3, stride=2) &gt;&gt;&gt; input = torch.randn(20, 16, 50) &gt;&gt;&gt; output = m(input) forward(input)[source]# Runs the forward pass."
+         "articleBody": "MaxPool1d# class torch.nn.modules.pooling.MaxPool1d(kernel_size, stride=None, padding=0, dilation=1, return_indices=False, ceil_mode=False)[source]# Applies a 1D max pooling over an input signal composed of several input planes. In the simplest case, the output value of the layer with input size (N,C,L)(N, C, L)(N,C,L) and output (N,C,Lout)(N, C, L_{out})(N,C,Lout​) can be precisely described as: out(Ni,Cj,k)=max⁡m=0,…,kernel_size−1input(Ni,Cj,stride×k+m)out(N_i, C_j, k) = \\max_{m=0, \\ldots, \\text{kernel\\_size} - 1} input(N_i, C_j, stride \\times k + m) out(Ni​,Cj​,k)=m=0,…,kernel_size−1max​input(Ni​,Cj​,stride×k+m)If padding is non-zero, then the input is implicitly padded with negative infinity on both sides for padding number of points. dilation is the stride between the elements within the sliding window. This link has a nice visualization of the pooling parameters. Note When ceil_mode=True, sliding windows are allowed to go off-bounds if they start within the left padding or the input. Sliding windows that would start in the right padded region are ignored. Parameters kernel_size (Union[int, tuple[int]]) – The size of the sliding window, must be &gt; 0. stride (Union[int, tuple[int]]) – The stride of the sliding window, must be &gt; 0. Default value is kernel_size. padding (Union[int, tuple[int]]) – Implicit negative infinity padding to be added on both sides, must be &gt;= 0 and &lt;= kernel_size / 2. dilation (Union[int, tuple[int]]) – The stride between elements within a sliding window, must be &gt; 0. return_indices (bool) – If True, will return the argmax along with the max values. Useful for torch.nn.MaxUnpool1d later ceil_mode (bool) – If True, will use ceil instead of floor to compute the output shape. This ensures that every element in the input tensor is covered by a sliding window. Shape: Input: (N,C,Lin)(N, C, L_{in})(N,C,Lin​) or (C,Lin)(C, L_{in})(C,Lin​). Output: (N,C,Lout)(N, C, L_{out})(N,C,Lout​) or (C,Lout)(C, L_{out})(C,Lout​), where ceil_mode = False Lout=⌊Lin+2×padding−dilation×(kernel_size−1)−1stride⌋+1L_{out} = \\left\\lfloor \\frac{L_{in} + 2 \\times \\text{padding} - \\text{dilation} \\times (\\text{kernel\\_size} - 1) - 1}{\\text{stride}}\\right\\rfloor + 1 Lout​=⌊strideLin​+2×padding−dilation×(kernel_size−1)−1​⌋+1where ceil_mode = True Lout=⌈Lin+2×padding−dilation×(kernel_size−1)−1+(stride−1)stride⌉+1L_{out} = \\left\\lceil \\frac{L_{in} + 2 \\times \\text{padding} - \\text{dilation} \\times (\\text{kernel\\_size} - 1) - 1 + (stride - 1)}{\\text{stride}}\\right\\rceil + 1 Lout​=⌈strideLin​+2×padding−dilation×(kernel_size−1)−1+(stride−1)​⌉+1 Ensure that the last pooling starts inside the image, make Lout=Lout−1L_{out} = L_{out} - 1Lout​=Lout​−1 when (Lout−1)∗stride&gt;=Lin+padding(L_{out} - 1) * \\text{stride} &gt;= L_{in} + \\text{padding}(Lout​−1)∗stride&gt;=Lin​+padding. Examples: &gt;&gt;&gt; # pool of size=3, stride=2 &gt;&gt;&gt; m = nn.MaxPool1d(3, stride=2) &gt;&gt;&gt; input = torch.randn(20, 16, 50) &gt;&gt;&gt; output = m(input) forward(input)[source]# Runs the forward pass."
        }
    </script>
 

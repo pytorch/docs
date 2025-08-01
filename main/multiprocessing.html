@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/multiprocessing.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -69,6 +70,28 @@
 <link rel="canonical" href="/multiprocessing.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -108,7 +131,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1590,19 +1613,19 @@ to you.</p>
 <h2>Strategy management<a class="headerlink" href="#strategy-management" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.multiprocessing.get_all_sharing_strategies">
-<span class="sig-prename descclassname"><span class="pre">torch.multiprocessing.</span></span><span class="sig-name descname"><span class="pre">get_all_sharing_strategies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/multiprocessing/__init__.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.multiprocessing.get_all_sharing_strategies" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.multiprocessing.</span></span><span class="sig-name descname"><span class="pre">get_all_sharing_strategies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/multiprocessing/__init__.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.multiprocessing.get_all_sharing_strategies" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a set of sharing strategies supported on a current system.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.multiprocessing.get_sharing_strategy">
-<span class="sig-prename descclassname"><span class="pre">torch.multiprocessing.</span></span><span class="sig-name descname"><span class="pre">get_sharing_strategy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/multiprocessing/__init__.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.multiprocessing.get_sharing_strategy" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.multiprocessing.</span></span><span class="sig-name descname"><span class="pre">get_sharing_strategy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/multiprocessing/__init__.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.multiprocessing.get_sharing_strategy" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the current strategy for sharing CPU tensors.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.multiprocessing.set_sharing_strategy">
-<span class="sig-prename descclassname"><span class="pre">torch.multiprocessing.</span></span><span class="sig-name descname"><span class="pre">set_sharing_strategy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_strategy</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/multiprocessing/__init__.py#L61"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.multiprocessing.set_sharing_strategy" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.multiprocessing.</span></span><span class="sig-name descname"><span class="pre">set_sharing_strategy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_strategy</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/multiprocessing/__init__.py#L61"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.multiprocessing.set_sharing_strategy" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the strategy for sharing CPU tensors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1741,7 +1764,7 @@ of error propagation, out of order termination, and will actively
 terminate processes upon detecting an error in one of them.</p>
 <span class="target" id="module-torch.multiprocessing.spawn"></span><dl class="py function">
 <dt class="sig sig-object py" id="torch.multiprocessing.spawn.spawn">
-<span class="sig-prename descclassname"><span class="pre">torch.multiprocessing.spawn.</span></span><span class="sig-name descname"><span class="pre">spawn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nprocs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">join</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daemon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spawn'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/multiprocessing/spawn.py#L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.multiprocessing.spawn.spawn" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.multiprocessing.spawn.</span></span><span class="sig-name descname"><span class="pre">spawn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nprocs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">join</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daemon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spawn'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/multiprocessing/spawn.py#L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.multiprocessing.spawn.spawn" title="Permalink to this definition">#</a></dt>
 <dd><p>Spawns <code class="docutils literal notranslate"><span class="pre">nprocs</span></code> processes that run <code class="docutils literal notranslate"><span class="pre">fn</span></code> with <code class="docutils literal notranslate"><span class="pre">args</span></code>.</p>
 <p>If one of the processes exits with a non-zero exit status, the
 remaining processes are killed and an exception is raised with the
@@ -1778,11 +1801,11 @@ use <code class="docutils literal notranslate"><span class="pre">start_processes
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.multiprocessing.SpawnContext">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.multiprocessing.</span></span><span class="sig-name descname"><span class="pre">SpawnContext</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/multiprocessing/spawn.py#L218"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.multiprocessing.SpawnContext" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.multiprocessing.</span></span><span class="sig-name descname"><span class="pre">SpawnContext</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/multiprocessing/spawn.py#L218"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.multiprocessing.SpawnContext" title="Permalink to this definition">#</a></dt>
 <dd><p>Returned by <a class="reference internal" href="#module-torch.multiprocessing.spawn" title="torch.multiprocessing.spawn"><code class="xref py py-func docutils literal notranslate"><span class="pre">spawn()</span></code></a> when called with <code class="docutils literal notranslate"><span class="pre">join=False</span></code>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.multiprocessing.SpawnContext.join">
-<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grace_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/multiprocessing/spawn.py#L120"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.multiprocessing.SpawnContext.join" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grace_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/multiprocessing/spawn.py#L120"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.multiprocessing.SpawnContext.join" title="Permalink to this definition">#</a></dt>
 <dd><p>Join one or more processes within spawn context.</p>
 <p>Attempt to join one or more processes in this spawn context.
 If one of them exited with a non-zero exit status, this function
@@ -2066,21 +2089,17 @@ still don’t exit, wait another grace period before killing them.</p></li>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -2125,17 +2144,19 @@ still don’t exit, wait another grace period before killing them.</p></li>
          "@type": "Article",
          "headline": "Multiprocessing package - torch.multiprocessing",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/multiprocessing.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/multiprocessing.html"
          },
-         "datePublished": "Dec 23, 2016",
-         "dateModified": "Jun 08, 2025",
+        "datePublished": "Dec 23, 2016T00:00:00Z",
+         "dateModified": "Jun 08, 2025T00:00:00Z",
          "articleBody": "Multiprocessing package - torch.multiprocessing# Created On: Dec 23, 2016 | Last Updated On: Jun 08, 2025 torch.multiprocessing is a wrapper around the native multiprocessing module. It registers custom reducers, that use shared memory to provide shared views on the same data in different processes. Once the tensor/storage is moved to shared_memory (see share_memory_()), it will be possible to send it to other processes without making any copies. The API is 100% compatible with the original module - it’s enough to change import multiprocessing to import torch.multiprocessing to have all the tensors sent through the queues or shared via other mechanisms, moved to shared memory. Because of the similarity of APIs we do not document most of this package contents, and we recommend referring to very good docs of the original module. Warning If the main process exits abruptly (e.g. because of an incoming signal), Python’s multiprocessing sometimes fails to clean up its children. It’s a known caveat, so if you’re seeing any resource leaks after interrupting the interpreter, it probably means that this has just happened to you. Strategy management# torch.multiprocessing.get_all_sharing_strategies()[source]# Return a set of sharing strategies supported on a current system. torch.multiprocessing.get_sharing_strategy()[source]# Return the current strategy for sharing CPU tensors. torch.multiprocessing.set_sharing_strategy(new_strategy)[source]# Set the strategy for sharing CPU tensors. Parameters new_strategy (str) – Name of the selected strategy. Should be one of the values returned by get_all_sharing_strategies(). Sharing CUDA tensors# Sharing CUDA tensors between processes is supported only in Python 3, using a spawn or forkserver start methods. Unlike CPU tensors, the sending process is required to keep the original tensor as long as the receiving process retains a copy of the tensor. The refcounting is implemented under the hood but requires users to follow the next best practices. Warning If the consumer process dies abnormally to a fatal signal, the shared tensor could be forever kept in memory as long as the sending process is running. Release memory ASAP in the consumer. ## Good x = queue.get() # do somethings with x del x ## Bad x = queue.get() # do somethings with x # do everything else (producer have to keep x in memory) Keep producer process running until all consumers exits. This will prevent the situation when the producer process releasing memory which is still in use by the consumer. ## producer # send tensors, do something event.wait() ## consumer # receive tensors and use them event.set() Don’t pass received tensors. # not going to work x = queue.get() queue_2.put(x) # you need to create a process-local copy x = queue.get() x_clone = x.clone() queue_2.put(x_clone) # putting and getting from the same queue in the same process will likely end up with segfault queue.put(tensor) x = queue.get() Sharing strategies# This section provides a br..."
        }
    </script>

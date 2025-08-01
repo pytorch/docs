@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.ao.quantization.backend_config.BackendPatternConfig.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.ao.quantization.backend_config.BackendPatternConfig.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4346,14 +4369,14 @@ document.write(`
 <h1>BackendPatternConfig<a class="headerlink" href="#backendpatternconfig" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.backend_config.</span></span><span class="sig-name descname"><span class="pre">BackendPatternConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/ao/quantization/backend_config/backend_config.py#L437"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.backend_config.</span></span><span class="sig-name descname"><span class="pre">BackendPatternConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/ao/quantization/backend_config/backend_config.py#L437"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig" title="Permalink to this definition">#</a></dt>
 <dd><p>Config object that specifies quantization behavior for a given operator pattern.
 For a detailed example usage, see <a class="reference internal" href="torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig" title="torch.ao.quantization.backend_config.BackendConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">BackendConfig</span></code></a>.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.add_dtype_config">
-<span class="sig-name descname"><span class="pre">add_dtype_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype_config</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/ao/quantization/backend_config/backend_config.py#L512"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.add_dtype_config" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_dtype_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype_config</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/ao/quantization/backend_config/backend_config.py#L512"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.add_dtype_config" title="Permalink to this definition">#</a></dt>
 <dd><p>Add a set of supported data types passed as arguments to quantize ops in the
 reference model spec.</p>
 <dl class="field-list simple">
@@ -4365,7 +4388,7 @@ reference model spec.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend_pattern_config_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/ao/quantization/backend_config/backend_config.py#L630"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.from_dict" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend_pattern_config_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/ao/quantization/backend_config/backend_config.py#L630"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.from_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a <code class="docutils literal notranslate"><span class="pre">BackendPatternConfig</span></code> from a dictionary with the following items:</p>
 <blockquote>
 <div><p>“pattern”: the pattern being configured
@@ -4389,7 +4412,7 @@ implementation for this pattern’s root module.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_dtype_configs">
-<span class="sig-name descname"><span class="pre">set_dtype_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype_configs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/ao/quantization/backend_config/backend_config.py#L520"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_dtype_configs" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_dtype_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype_configs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/ao/quantization/backend_config/backend_config.py#L520"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_dtype_configs" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the supported data types passed as arguments to quantize ops in the
 reference model spec, overriding all previously registered data types.</p>
 <dl class="field-list simple">
@@ -4401,7 +4424,7 @@ reference model spec, overriding all previously registered data types.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_fused_module">
-<span class="sig-name descname"><span class="pre">set_fused_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fused_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/ao/quantization/backend_config/backend_config.py#L567"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_fused_module" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_fused_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fused_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/ao/quantization/backend_config/backend_config.py#L567"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_fused_module" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the module that represents the fused implementation for this pattern.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4412,7 +4435,7 @@ reference model spec, overriding all previously registered data types.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_fuser_method">
-<span class="sig-name descname"><span class="pre">set_fuser_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fuser_method</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/ao/quantization/backend_config/backend_config.py#L576"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_fuser_method" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_fuser_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fuser_method</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/ao/quantization/backend_config/backend_config.py#L576"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_fuser_method" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the function that specifies how to fuse this BackendPatternConfig’s pattern.</p>
 <p>The first argument of this function should be <cite>is_qat</cite>, and the rest of the arguments
 should be the items in the tuple pattern. The return value of this function should be
@@ -4434,7 +4457,7 @@ the resulting fused module.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_observation_type">
-<span class="sig-name descname"><span class="pre">set_observation_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/ao/quantization/backend_config/backend_config.py#L486"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_observation_type" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_observation_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/ao/quantization/backend_config/backend_config.py#L486"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_observation_type" title="Permalink to this definition">#</a></dt>
 <dd><p>Set how observers should be inserted in the graph for this pattern.</p>
 <p>Observation type here refers to how observers (or quant-dequant ops) will be placed
 in the graph. This is used to produce the desired reference patterns understood by
@@ -4459,7 +4482,7 @@ with observers (and fake quantizes) attached instead of observers themselves.</p
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_pattern">
-<span class="sig-name descname"><span class="pre">set_pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/ao/quantization/backend_config/backend_config.py#L471"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_pattern" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/ao/quantization/backend_config/backend_config.py#L471"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_pattern" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the pattern to configure.</p>
 <p>The pattern can be a float module, functional operator, pytorch operator, or a tuple
 combination of the above. Tuple patterns are treated as sequential patterns, and
@@ -4473,7 +4496,7 @@ currently only tuples of 2 or 3 elements are supported.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_qat_module">
-<span class="sig-name descname"><span class="pre">set_qat_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qat_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/ao/quantization/backend_config/backend_config.py#L548"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_qat_module" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_qat_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qat_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/ao/quantization/backend_config/backend_config.py#L548"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_qat_module" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the module that represents the QAT implementation for this pattern.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4484,7 +4507,7 @@ currently only tuples of 2 or 3 elements are supported.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_reference_quantized_module">
-<span class="sig-name descname"><span class="pre">set_reference_quantized_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_quantized_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/ao/quantization/backend_config/backend_config.py#L555"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_reference_quantized_module" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_reference_quantized_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_quantized_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/ao/quantization/backend_config/backend_config.py#L555"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_reference_quantized_module" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the module that represents the reference quantized implementation for
 this pattern’s root module.</p>
 <p>For more detail, see <a class="reference internal" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_root_module" title="torch.ao.quantization.backend_config.BackendPatternConfig.set_root_module"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_root_module()</span></code></a>.</p>
@@ -4497,7 +4520,7 @@ this pattern’s root module.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.set_root_module">
-<span class="sig-name descname"><span class="pre">set_root_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/ao/quantization/backend_config/backend_config.py#L530"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_root_module" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_root_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/ao/quantization/backend_config/backend_config.py#L530"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.set_root_module" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the module that represents the root for this pattern.</p>
 <p>When we construct the reference quantized model during the convert phase,
 the root modules (e.g. torch.nn.Linear for torch.ao.nn.intrinsic.LinearReLU)
@@ -4516,7 +4539,7 @@ in the same BackendPatternConfig in order for the conversion to take place.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.ao.quantization.backend_config.BackendPatternConfig.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/ao/quantization/backend_config/backend_config.py#L706"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.to_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/ao/quantization/backend_config/backend_config.py#L706"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.backend_config.BackendPatternConfig.to_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert this <code class="docutils literal notranslate"><span class="pre">BackendPatternConfig</span></code> to a dictionary with the items described in
 <a class="reference internal" href="#torch.ao.quantization.backend_config.BackendPatternConfig.from_dict" title="torch.ao.quantization.backend_config.BackendPatternConfig.from_dict"><code class="xref py py-func docutils literal notranslate"><span class="pre">from_dict()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -4803,21 +4826,17 @@ in the same BackendPatternConfig in order for the conversion to take place.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4862,16 +4881,18 @@ in the same BackendPatternConfig in order for the conversion to take place.</p>
          "@type": "Article",
          "headline": "BackendPatternConfig",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.ao.quantization.backend_config.BackendPatternConfig.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.ao.quantization.backend_config.BackendPatternConfig.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "BackendPatternConfig# class torch.ao.quantization.backend_config.BackendPatternConfig(pattern=None)[source]# Config object that specifies quantization behavior for a given operator pattern. For a detailed example usage, see BackendConfig. add_dtype_config(dtype_config)[source]# Add a set of supported data types passed as arguments to quantize ops in the reference model spec. Return type BackendPatternConfig classmethod from_dict(backend_pattern_config_dict)[source]# Create a BackendPatternConfig from a dictionary with the following items: “pattern”: the pattern being configured “observation_type”: the ObservationType that specifies how observers should be inserted for this pattern “dtype_configs”: a list of dictionaries that represents DTypeConfig s “root_module”: a torch.nn.Module that represents the root for this pattern “qat_module”: a torch.nn.Module that represents the QAT implementation for this pattern “reference_quantized_module”: a torch.nn.Module that represents the reference quantized implementation for this pattern’s root module. “fused_module”: a torch.nn.Module that represents the fused implementation for this pattern “fuser_method”: a function that specifies how to fuse the pattern for this pattern “pattern_complex_format”: the pattern specified in the reversed nested tuple format (deprecated) Return type BackendPatternConfig set_dtype_configs(dtype_configs)[source]# Set the supported data types passed as arguments to quantize ops in the reference model spec, overriding all previously registered data types. Return type BackendPatternConfig set_fused_module(fused_module)[source]# Set the module that represents the fused implementation for this pattern. Return type BackendPatternConfig set_fuser_method(fuser_method)[source]# Set the function that specifies how to fuse this BackendPatternConfig’s pattern. The first argument of this function should be is_qat, and the rest of the arguments should be the items in the tuple pattern. The return value of this function should be the resulting fused module. For example, the fuser method for the pattern (torch.nn.Linear, torch.nn.ReLU) can be: def fuse_linear_relu(is_qat, linear, relu):return torch.ao.nn.intrinsic.LinearReLU(linear, relu) For a more complicated example, see https://gist.github.com/jerryzh168/8bea7180a8ba3c279f2c9b050f2a69a6. Return type BackendPatternConfig set_observation_type(observation_type)[source]# Set how observers should be inserted in the graph for this pattern. Observation type here refers to how observers (or quant-dequant ops) will be placed in the graph. This is used to produce the desired reference patterns understood by the backend. Weighted ops such as linear and conv require different observers (or quantization parameters passed to quantize ops in the reference model) for the input and the output. There are two observation types: OUTPUT_USE_DIFFERENT_OBSERVER_AS_INPUT (default): the output observer instance will be different from the input. This is the most..."
        }

@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.sparse_bsr_tensor.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.sparse_bsr_tensor.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4675,21 +4698,17 @@ initially False.</p></li>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4734,16 +4753,18 @@ initially False.</p></li>
          "@type": "Article",
          "headline": "torch.sparse_bsr_tensor",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.sparse_bsr_tensor.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.sparse_bsr_tensor.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.sparse_bsr_tensor# torch.sparse_bsr_tensor(crow_indices, col_indices, values, size=None, *, dtype=None, device=None, pin_memory=False, requires_grad=False, check_invariants=None) → Tensor# Constructs a sparse tensor in BSR (Block Compressed Sparse Row)) with specified 2-dimensional blocks at the given crow_indices and col_indices. Sparse matrix multiplication operations in BSR format are typically faster than that for sparse tensors in COO format. Make you have a look at the note on the data type of the indices. Note If the device argument is not specified the device of the given values and indices tensor(s) must match. If, however, the argument is specified the input Tensors will be converted to the given device and in turn determine the device of the constructed sparse tensor. Parameters crow_indices (array_like) – (B+1)-dimensional array of size (*batchsize, nrowblocks + 1). The last element of each batch is the number of non-zeros. This tensor encodes the block index in values and col_indices depending on where the given row block starts. Each successive number in the tensor subtracted by the number before it denotes the number of blocks in a given row. col_indices (array_like) – Column block coordinates of each block in values. (B+1)-dimensional tensor with the same length as values. values (array_list) – Initial values for the tensor. Can be a list, tuple, NumPy ndarray, scalar, and other types that represents a (1 + 2 + K)-dimensional tensor where K is the number of dense dimensions. size (list, tuple, torch.Size, optional) – Size of the sparse tensor: (*batchsize, nrows * blocksize[0], ncols * blocksize[1], *densesize) where blocksize == values.shape[1:3]. If not provided, the size will be inferred as the minimum size big enough to hold all non-zero blocks. Keyword Arguments dtype (torch.dtype, optional) – the desired data type of returned tensor. Default: if None, infers data type from values. device (torch.device, optional) – the desired device of returned tensor. Default: if None, uses the current device for the default tensor type (see torch.set_default_device()). device will be the CPU for CPU tensor types and the current CUDA device for CUDA tensor types. pin_memory (bool, optional) – If set, returned tensor would be allocated in the pinned memory. Works only for CPU tensors. Default: False. requires_grad (bool, optional) – If autograd should record operations on the returned tensor. Default: False. check_invariants (bool, optional) – If sparse tensor invariants are checked. Default: as returned by torch.sparse.check_sparse_tensor_invariants.is_enabled(), initially False. Example: &gt;&gt;&gt; crow_indices = [0, 1, 2] &gt;&gt;&gt; col_indices = [0, 1] &gt;&gt;&gt; values = [[[1, 2], [3, 4]], [[5, 6], [7, 8]]] &gt;&gt;&gt; torch.sparse_bsr_tensor(torch.tensor(crow_indices, dtype=torch.int64), ... torch.tensor(col_indices, dtype=torch.int64), ... torch.tensor(values), dtype=torch.double) tensor(crow_indices=tensor([0, 1, 2]), col_indices=tensor([0, 1]), values=..."
        }

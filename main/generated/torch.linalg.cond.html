@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.linalg.cond.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.linalg.cond.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4726,21 +4749,17 @@ is invertible for <code class="xref py py-attr docutils literal notranslate"><sp
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4785,18 +4804,20 @@ is invertible for <code class="xref py py-attr docutils literal notranslate"><sp
          "@type": "Article",
          "headline": "torch.linalg.cond",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.linalg.cond.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.linalg.cond.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.linalg.cond# torch.linalg.cond(A, p=None, *, out=None) → Tensor# Computes the condition number of a matrix with respect to a matrix norm. Letting K\mathbb{K}K be R\mathbb{R}R or C\mathbb{C}C, the condition number κ\kappaκ of a matrix A∈Kn×nA \in \mathbb{K}^{n \times n}A∈Kn×n is defined as κ(A)=∥A∥p∥A−1∥p\kappa(A) = \|A\|_p\|A^{-1}\|_pκ(A)=∥A∥p​∥A−1∥p​The condition number of A measures the numerical stability of the linear system AX = B with respect to a matrix norm. Supports input of float, double, cfloat and cdouble dtypes. Also supports batches of matrices, and if A is a batch of matrices then the output has the same batch dimensions. p defines the matrix norm that is computed. The following norms are supported: p matrix norm None 2-norm (largest singular value) ‘fro’ Frobenius norm ‘nuc’ nuclear norm inf max(sum(abs(x), dim=1)) -inf min(sum(abs(x), dim=1)) 1 max(sum(abs(x), dim=0)) -1 min(sum(abs(x), dim=0)) 2 largest singular value -2 smallest singular value where inf refers to float(‘inf’), NumPy’s inf object, or any equivalent object. For p is one of (‘fro’, ‘nuc’, inf, -inf, 1, -1), this function uses torch.linalg.norm() and torch.linalg.inv(). As such, in this case, the matrix (or every matrix in the batch) A has to be square and invertible. For p in (2, -2), this function can be computed in terms of the singular values σ1≥…≥σn\sigma_1 \geq \ldots \geq \sigma_nσ1​≥…≥σn​ κ2(A)=σ1σnκ−2(A)=σnσ1\kappa_2(A) = \frac{\sigma_1}{\sigma_n}\qquad \kappa_{-2}(A) = \frac{\sigma_n}{\sigma_1}κ2​(A)=σn​σ1​​κ−2​(A)=σ1​σn​​In these cases, it is computed using torch.linalg.svdvals(). For these norms, the matrix (or every matrix in the batch) A may have any shape. Note When inputs are on a CUDA device, this function synchronizes that device with the CPU if p is one of (‘fro’, ‘nuc’, inf, -inf, 1, -1). See also torch.linalg.solve() for a function that solves linear systems of square matrices. torch.linalg.lstsq() for a function that solves linear systems of general matrices. Parameters A (Tensor) – tensor of shape (*, m, n) where * is zero or more batch dimensions for p in (2, -2), and of shape (*, n, n) where every matrix is invertible for p in (‘fro’, ‘nuc’, inf, -inf, 1, -1). p (int, inf, -inf, &#39;fro&#39;, &#39;nuc&#39;, optional) – the type of the matrix norm to use in the computations (see above). Default: None Keyword Arguments out (Tensor, optional) – output tensor. Ignored if None. Default: None. Returns A real-valued tensor, even when A is complex. Raises RuntimeError – if p is one of (‘fro’, ‘nuc’, inf, -inf, 1, -1) and the A matrix or any matrix in the batch A is not square or invertible. Examples: &gt;&gt;&gt; A = torch.randn(3, 4, 4, dtype=torch.complex64) &gt;&gt;&gt; torch.linalg.cond(A) &gt;&gt;&gt; A = torch.tensor([[1., 0, -1], [0, 1, 0], [1, 0, 1]]) &gt;&gt;&gt; torch.linalg.cond(A) tensor([1.4142]) &gt;&gt;&gt; torch.linalg.cond(A, &#39;fro&#39;) tensor(3.1623) &gt;&gt;&gt; torch.linalg.cond(A, &#39;nuc&#39;) tensor(9.2426) &gt;&gt;&gt; torch.linalg.cond(A, float(&#39;inf&#39;)) tensor(2.) &gt;&gt;&gt; torch.linalg.cond(A, float(&#39;-inf&#39;))..."
+         "articleBody": "torch.linalg.cond# torch.linalg.cond(A, p=None, *, out=None) → Tensor# Computes the condition number of a matrix with respect to a matrix norm. Letting K\\mathbb{K}K be R\\mathbb{R}R or C\\mathbb{C}C, the condition number κ\\kappaκ of a matrix A∈Kn×nA \\in \\mathbb{K}^{n \\times n}A∈Kn×n is defined as κ(A)=∥A∥p∥A−1∥p\\kappa(A) = \\|A\\|_p\\|A^{-1}\\|_pκ(A)=∥A∥p​∥A−1∥p​The condition number of A measures the numerical stability of the linear system AX = B with respect to a matrix norm. Supports input of float, double, cfloat and cdouble dtypes. Also supports batches of matrices, and if A is a batch of matrices then the output has the same batch dimensions. p defines the matrix norm that is computed. The following norms are supported: p matrix norm None 2-norm (largest singular value) ‘fro’ Frobenius norm ‘nuc’ nuclear norm inf max(sum(abs(x), dim=1)) -inf min(sum(abs(x), dim=1)) 1 max(sum(abs(x), dim=0)) -1 min(sum(abs(x), dim=0)) 2 largest singular value -2 smallest singular value where inf refers to float(‘inf’), NumPy’s inf object, or any equivalent object. For p is one of (‘fro’, ‘nuc’, inf, -inf, 1, -1), this function uses torch.linalg.norm() and torch.linalg.inv(). As such, in this case, the matrix (or every matrix in the batch) A has to be square and invertible. For p in (2, -2), this function can be computed in terms of the singular values σ1≥…≥σn\\sigma_1 \\geq \\ldots \\geq \\sigma_nσ1​≥…≥σn​ κ2(A)=σ1σnκ−2(A)=σnσ1\\kappa_2(A) = \\frac{\\sigma_1}{\\sigma_n}\\qquad \\kappa_{-2}(A) = \\frac{\\sigma_n}{\\sigma_1}κ2​(A)=σn​σ1​​κ−2​(A)=σ1​σn​​In these cases, it is computed using torch.linalg.svdvals(). For these norms, the matrix (or every matrix in the batch) A may have any shape. Note When inputs are on a CUDA device, this function synchronizes that device with the CPU if p is one of (‘fro’, ‘nuc’, inf, -inf, 1, -1). See also torch.linalg.solve() for a function that solves linear systems of square matrices. torch.linalg.lstsq() for a function that solves linear systems of general matrices. Parameters A (Tensor) – tensor of shape (*, m, n) where * is zero or more batch dimensions for p in (2, -2), and of shape (*, n, n) where every matrix is invertible for p in (‘fro’, ‘nuc’, inf, -inf, 1, -1). p (int, inf, -inf, &#39;fro&#39;, &#39;nuc&#39;, optional) – the type of the matrix norm to use in the computations (see above). Default: None Keyword Arguments out (Tensor, optional) – output tensor. Ignored if None. Default: None. Returns A real-valued tensor, even when A is complex. Raises RuntimeError – if p is one of (‘fro’, ‘nuc’, inf, -inf, 1, -1) and the A matrix or any matrix in the batch A is not square or invertible. Examples: &gt;&gt;&gt; A = torch.randn(3, 4, 4, dtype=torch.complex64) &gt;&gt;&gt; torch.linalg.cond(A) &gt;&gt;&gt; A = torch.tensor([[1., 0, -1], [0, 1, 0], [1, 0, 1]]) &gt;&gt;&gt; torch.linalg.cond(A) tensor([1.4142]) &gt;&gt;&gt; torch.linalg.cond(A, &#39;fro&#39;) tensor(3.1623) &gt;&gt;&gt; torch.linalg.cond(A, &#39;nuc&#39;) tensor(9.2426) &gt;&gt;&gt; torch.linalg.cond(A, float(&#39;inf&#39;)) tensor(2.) &gt;&gt;&gt; torch.linalg.cond(A, float(&#39;-inf&#39;))..."
        }
    </script>
 

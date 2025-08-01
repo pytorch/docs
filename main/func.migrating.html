@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/func.migrating.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/func.migrating.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4842,21 +4865,17 @@ into PyTorch’s compilation story. If you are a user, please use
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4901,17 +4920,19 @@ into PyTorch’s compilation story. If you are a user, please use
          "@type": "Article",
          "headline": "Migrating from functorch to torch.func",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/func.migrating.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/func.migrating.html"
          },
-         "datePublished": "Jun 11, 2025",
-         "dateModified": "Jun 11, 2025",
+        "datePublished": "Jun 11, 2025T00:00:00Z",
+         "dateModified": "Jun 11, 2025T00:00:00Z",
          "articleBody": "Migrating from functorch to torch.func# Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025 torch.func, previously known as “functorch”, is JAX-like composable function transforms for PyTorch. functorch started as an out-of-tree library over at the pytorch/functorch repository. Our goal has always been to upstream functorch directly into PyTorch and provide it as a core PyTorch library. As the final step of the upstream, we’ve decided to migrate from being a top level package (functorch) to being a part of PyTorch to reflect how the function transforms are integrated directly into PyTorch core. As of PyTorch 2.0, we are deprecating import functorch and ask that users migrate to the newest APIs, which we will maintain going forward. import functorch will be kept around to maintain backwards compatibility for a couple of releases. function transforms# The following APIs are a drop-in replacement for the following functorch APIs. They are fully backwards compatible. functorch API PyTorch API (as of PyTorch 2.0) functorch.vmap torch.vmap() or torch.func.vmap() functorch.grad torch.func.grad() functorch.vjp torch.func.vjp() functorch.jvp torch.func.jvp() functorch.jacrev torch.func.jacrev() functorch.jacfwd torch.func.jacfwd() functorch.hessian torch.func.hessian() functorch.functionalize torch.func.functionalize() Furthermore, if you are using torch.autograd.functional APIs, please try out the torch.func equivalents instead. torch.func function transforms are more composable and more performant in many cases. torch.autograd.functional API torch.func API (as of PyTorch 2.0) torch.autograd.functional.vjp() torch.func.grad() or torch.func.vjp() torch.autograd.functional.jvp() torch.func.jvp() torch.autograd.functional.jacobian() torch.func.jacrev() or torch.func.jacfwd() torch.autograd.functional.hessian() torch.func.hessian() NN module utilities# We’ve changed the APIs to apply function transforms over NN modules to make them fit better into the PyTorch design philosophy. The new API is different, so please read this section carefully. functorch.make_functional# torch.func.functional_call() is the replacement for functorch.make_functional and functorch.make_functional_with_buffers. However, it is not a drop-in replacement. If you’re in a hurry, you can use helper functions in this gist that emulate the behavior of functorch.make_functional and functorch.make_functional_with_buffers. We recommend using torch.func.functional_call() directly because it is a more explicit and flexible API. Concretely, functorch.make_functional returns a functional module and parameters. The functional module accepts parameters and inputs to the model as arguments. torch.func.functional_call() allows one to call the forward pass of an existing module using new parameters and buffers and inputs. Here’s an example of how to compute gradients of parameters of a model using functorch vs torch.func: # --------------- # using functorch # --------------- import torch impor..."
        }
    </script>

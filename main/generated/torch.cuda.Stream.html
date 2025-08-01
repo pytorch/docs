@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.cuda.Stream.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.cuda.Stream.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,7 +4358,7 @@ document.write(`
 <h1>Stream<a class="headerlink" href="#stream" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.Stream">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">Stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/cuda/streams.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Stream" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">Stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/cuda/streams.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Stream" title="Permalink to this definition">#</a></dt>
 <dd><p>Wrapper around a CUDA stream.</p>
 <p>A CUDA stream is a linear sequence of execution that belongs to a specific
 device, independent from other streams. It supports with statement as a
@@ -4357,7 +4380,7 @@ highest for large negative numbers).</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.Stream.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/cuda/streams.py#L88"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Stream.query" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/cuda/streams.py#L88"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Stream.query" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if all the work submitted has been completed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -4371,7 +4394,7 @@ highest for large negative numbers).</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.Stream.record_event">
-<span class="sig-name descname"><span class="pre">record_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/cuda/streams.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Stream.record_event" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">record_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/cuda/streams.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Stream.record_event" title="Permalink to this definition">#</a></dt>
 <dd><p>Record an event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4386,7 +4409,7 @@ will be allocated.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.Stream.synchronize">
-<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/cuda/streams.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Stream.synchronize" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/cuda/streams.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Stream.synchronize" title="Permalink to this definition">#</a></dt>
 <dd><p>Wait for all the kernels in this stream to complete.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4399,7 +4422,7 @@ will be allocated.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.Stream.wait_event">
-<span class="sig-name descname"><span class="pre">wait_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/cuda/streams.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Stream.wait_event" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">wait_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/cuda/streams.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Stream.wait_event" title="Permalink to this definition">#</a></dt>
 <dd><p>Make all future work submitted to the stream wait for an event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4417,7 +4440,7 @@ operations are affected.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.Stream.wait_stream">
-<span class="sig-name descname"><span class="pre">wait_stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/cuda/streams.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Stream.wait_stream" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">wait_stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/cuda/streams.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.Stream.wait_stream" title="Permalink to this definition">#</a></dt>
 <dd><p>Synchronize with another stream.</p>
 <p>All future work submitted to this stream will wait until all kernels
 submitted to a given stream at the time of call complete.</p>
@@ -4704,21 +4727,17 @@ kernels in <a class="reference internal" href="torch.cuda.stream.html#torch.cuda
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4763,16 +4782,18 @@ kernels in <a class="reference internal" href="torch.cuda.stream.html#torch.cuda
          "@type": "Article",
          "headline": "Stream",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.cuda.Stream.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.cuda.Stream.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "Stream# class torch.cuda.Stream(device=None, priority=0, **kwargs)[source]# Wrapper around a CUDA stream. A CUDA stream is a linear sequence of execution that belongs to a specific device, independent from other streams. It supports with statement as a context manager to ensure the operators within the with block are running on the corresponding stream. See CUDA semantics for details. Parameters device (torch.device or int, optional) – a device on which to allocate the stream. If device is None (default) or a negative integer, this will use the current device. priority (int, optional) – priority of the stream, which can be positive, 0, or negative. A lower number indicates a higher priority. By default, the priority is set to 0. If the value falls outside of the allowed priority range, it will automatically be mapped to the nearest valid priority (lowest for large positive numbers or highest for large negative numbers). query()[source]# Check if all the work submitted has been completed. Returns A boolean indicating if all kernels in this stream are completed. Return type bool record_event(event=None)[source]# Record an event. Parameters event (torch.cuda.Event, optional) – event to record. If not given, a new one will be allocated. Returns Recorded event. synchronize()[source]# Wait for all the kernels in this stream to complete. Note This is a wrapper around cudaStreamSynchronize(): see CUDA Stream documentation for more info. wait_event(event)[source]# Make all future work submitted to the stream wait for an event. Parameters event (torch.cuda.Event) – an event to wait for. Note This is a wrapper around cudaStreamWaitEvent(): see CUDA Stream documentation for more info. This function returns without waiting for event: only future operations are affected. wait_stream(stream)[source]# Synchronize with another stream. All future work submitted to this stream will wait until all kernels submitted to a given stream at the time of call complete. Parameters stream (Stream) – a stream to synchronize. Note This function returns without waiting for currently enqueued kernels in stream: only future operations are affected."
        }

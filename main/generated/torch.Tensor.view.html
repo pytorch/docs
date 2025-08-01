@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.Tensor.view.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.Tensor.view.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4734,21 +4757,17 @@ program will cause undefined behavior.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4793,18 +4812,20 @@ program will cause undefined behavior.</p>
          "@type": "Article",
          "headline": "torch.Tensor.view",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.Tensor.view.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.Tensor.view.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.Tensor.view# Tensor.view(*shape) → Tensor# Returns a new tensor with the same data as the self tensor but of a different shape. The returned tensor shares the same data and must have the same number of elements, but may have a different size. For a tensor to be viewed, the new view size must be compatible with its original size and stride, i.e., each new view dimension must either be a subspace of an original dimension, or only span across original dimensions d,d+1,…,d+kd, d+1, \dots, d+kd,d+1,…,d+k that satisfy the following contiguity-like condition that ∀i=d,…,d+k−1\forall i = d, \dots, d+k-1∀i=d,…,d+k−1, stride[i]=stride[i+1]×size[i+1]\text{stride}[i] = \text{stride}[i+1] \times \text{size}[i+1]stride[i]=stride[i+1]×size[i+1]Otherwise, it will not be possible to view self tensor as shape without copying it (e.g., via contiguous()). When it is unclear whether a view() can be performed, it is advisable to use reshape(), which returns a view if the shapes are compatible, and copies (equivalent to calling contiguous()) otherwise. Parameters shape (torch.Size or int...) – the desired size Example: &gt;&gt;&gt; x = torch.randn(4, 4) &gt;&gt;&gt; x.size() torch.Size([4, 4]) &gt;&gt;&gt; y = x.view(16) &gt;&gt;&gt; y.size() torch.Size([16]) &gt;&gt;&gt; z = x.view(-1, 8) # the size -1 is inferred from other dimensions &gt;&gt;&gt; z.size() torch.Size([2, 8]) &gt;&gt;&gt; a = torch.randn(1, 2, 3, 4) &gt;&gt;&gt; a.size() torch.Size([1, 2, 3, 4]) &gt;&gt;&gt; b = a.transpose(1, 2) # Swaps 2nd and 3rd dimension &gt;&gt;&gt; b.size() torch.Size([1, 3, 2, 4]) &gt;&gt;&gt; c = a.view(1, 3, 2, 4) # Does not change tensor layout in memory &gt;&gt;&gt; c.size() torch.Size([1, 3, 2, 4]) &gt;&gt;&gt; torch.equal(b, c) False view(dtype) → Tensor Returns a new tensor with the same data as the self tensor but of a different dtype. If the element size of dtype is different than that of self.dtype, then the size of the last dimension of the output will be scaled proportionally. For instance, if dtype element size is twice that of self.dtype, then each pair of elements in the last dimension of self will be combined, and the size of the last dimension of the output will be half that of self. If dtype element size is half that of self.dtype, then each element in the last dimension of self will be split in two, and the size of the last dimension of the output will be double that of self. For this to be possible, the following conditions must be true: self.dim() must be greater than 0. self.stride(-1) must be 1. Additionally, if the element size of dtype is greater than that of self.dtype, the following conditions must be true as well: self.size(-1) must be divisible by the ratio between the element sizes of the dtypes. self.storage_offset() must be divisible by the ratio between the element sizes of the dtypes. The strides of all dimensions, except the last dimension, must be divisible by the ratio between the element sizes of the dtypes. If any of the above conditions are not met, an error is thrown. Warning This overload is not supported by TorchScript, and using it in a To..."
+         "articleBody": "torch.Tensor.view# Tensor.view(*shape) → Tensor# Returns a new tensor with the same data as the self tensor but of a different shape. The returned tensor shares the same data and must have the same number of elements, but may have a different size. For a tensor to be viewed, the new view size must be compatible with its original size and stride, i.e., each new view dimension must either be a subspace of an original dimension, or only span across original dimensions d,d+1,…,d+kd, d+1, \\dots, d+kd,d+1,…,d+k that satisfy the following contiguity-like condition that ∀i=d,…,d+k−1\\forall i = d, \\dots, d+k-1∀i=d,…,d+k−1, stride[i]=stride[i+1]×size[i+1]\\text{stride}[i] = \\text{stride}[i+1] \\times \\text{size}[i+1]stride[i]=stride[i+1]×size[i+1]Otherwise, it will not be possible to view self tensor as shape without copying it (e.g., via contiguous()). When it is unclear whether a view() can be performed, it is advisable to use reshape(), which returns a view if the shapes are compatible, and copies (equivalent to calling contiguous()) otherwise. Parameters shape (torch.Size or int...) – the desired size Example: &gt;&gt;&gt; x = torch.randn(4, 4) &gt;&gt;&gt; x.size() torch.Size([4, 4]) &gt;&gt;&gt; y = x.view(16) &gt;&gt;&gt; y.size() torch.Size([16]) &gt;&gt;&gt; z = x.view(-1, 8) # the size -1 is inferred from other dimensions &gt;&gt;&gt; z.size() torch.Size([2, 8]) &gt;&gt;&gt; a = torch.randn(1, 2, 3, 4) &gt;&gt;&gt; a.size() torch.Size([1, 2, 3, 4]) &gt;&gt;&gt; b = a.transpose(1, 2) # Swaps 2nd and 3rd dimension &gt;&gt;&gt; b.size() torch.Size([1, 3, 2, 4]) &gt;&gt;&gt; c = a.view(1, 3, 2, 4) # Does not change tensor layout in memory &gt;&gt;&gt; c.size() torch.Size([1, 3, 2, 4]) &gt;&gt;&gt; torch.equal(b, c) False view(dtype) → Tensor Returns a new tensor with the same data as the self tensor but of a different dtype. If the element size of dtype is different than that of self.dtype, then the size of the last dimension of the output will be scaled proportionally. For instance, if dtype element size is twice that of self.dtype, then each pair of elements in the last dimension of self will be combined, and the size of the last dimension of the output will be half that of self. If dtype element size is half that of self.dtype, then each element in the last dimension of self will be split in two, and the size of the last dimension of the output will be double that of self. For this to be possible, the following conditions must be true: self.dim() must be greater than 0. self.stride(-1) must be 1. Additionally, if the element size of dtype is greater than that of self.dtype, the following conditions must be true as well: self.size(-1) must be divisible by the ratio between the element sizes of the dtypes. self.storage_offset() must be divisible by the ratio between the element sizes of the dtypes. The strides of all dimensions, except the last dimension, must be divisible by the ratio between the element sizes of the dtypes. If any of the above conditions are not met, an error is thrown. Warning This overload is not supported by TorchScript, and using it in a To..."
        }
    </script>
 

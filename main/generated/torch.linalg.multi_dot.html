@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.linalg.multi_dot.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.linalg.multi_dot.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4663,21 +4686,17 @@ tensors may be 1D or 2D. Every other tensor must be 2D.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4722,18 +4741,20 @@ tensors may be 1D or 2D. Every other tensor must be 2D.</p>
          "@type": "Article",
          "headline": "torch.linalg.multi_dot",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.linalg.multi_dot.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.linalg.multi_dot.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.linalg.multi_dot# torch.linalg.multi_dot(tensors, *, out=None)# Efficiently multiplies two or more matrices by reordering the multiplications so that the fewest arithmetic operations are performed. Supports inputs of float, double, cfloat and cdouble dtypes. This function does not support batched inputs. Every tensor in tensors must be 2D, except for the first and last which may be 1D. If the first tensor is a 1D vector of shape (n,) it is treated as a row vector of shape (1, n), similarly if the last tensor is a 1D vector of shape (n,) it is treated as a column vector of shape (n, 1). If the first and last tensors are matrices, the output will be a matrix. However, if either is a 1D vector, then the output will be a 1D vector. Differences with numpy.linalg.multi_dot: Unlike numpy.linalg.multi_dot, the first and last tensors must either be 1D or 2D whereas NumPy allows them to be nD Warning This function does not broadcast. Note This function is implemented by chaining torch.mm() calls after computing the optimal matrix multiplication order. Note The cost of multiplying two matrices with shapes (a, b) and (b, c) is a * b * c. Given matrices A, B, C with shapes (10, 100), (100, 5), (5, 50) respectively, we can calculate the cost of different multiplication orders as follows: cost⁡((AB)C)=10×100×5+10×5×50=7500cost⁡(A(BC))=10×100×50+100×5×50=75000\begin{align*} \operatorname{cost}((AB)C) &amp;= 10 \times 100 \times 5 + 10 \times 5 \times 50 = 7500 \\ \operatorname{cost}(A(BC)) &amp;= 10 \times 100 \times 50 + 100 \times 5 \times 50 = 75000 \end{align*}cost((AB)C)cost(A(BC))​=10×100×5+10×5×50=7500=10×100×50+100×5×50=75000​In this case, multiplying A and B first followed by C is 10 times faster. Parameters tensors (Sequence[Tensor]) – two or more tensors to multiply. The first and last tensors may be 1D or 2D. Every other tensor must be 2D. Keyword Arguments out (Tensor, optional) – output tensor. Ignored if None. Default: None. Examples: &gt;&gt;&gt; from torch.linalg import multi_dot &gt;&gt;&gt; multi_dot([torch.tensor([1, 2]), torch.tensor([2, 3])]) tensor(8) &gt;&gt;&gt; multi_dot([torch.tensor([[1, 2]]), torch.tensor([2, 3])]) tensor([8]) &gt;&gt;&gt; multi_dot([torch.tensor([[1, 2]]), torch.tensor([[2], [3]])]) tensor([[8]]) &gt;&gt;&gt; A = torch.arange(2 * 3).view(2, 3) &gt;&gt;&gt; B = torch.arange(3 * 2).view(3, 2) &gt;&gt;&gt; C = torch.arange(2 * 2).view(2, 2) &gt;&gt;&gt; multi_dot((A, B, C)) tensor([[ 26, 49], [ 80, 148]])"
+         "articleBody": "torch.linalg.multi_dot# torch.linalg.multi_dot(tensors, *, out=None)# Efficiently multiplies two or more matrices by reordering the multiplications so that the fewest arithmetic operations are performed. Supports inputs of float, double, cfloat and cdouble dtypes. This function does not support batched inputs. Every tensor in tensors must be 2D, except for the first and last which may be 1D. If the first tensor is a 1D vector of shape (n,) it is treated as a row vector of shape (1, n), similarly if the last tensor is a 1D vector of shape (n,) it is treated as a column vector of shape (n, 1). If the first and last tensors are matrices, the output will be a matrix. However, if either is a 1D vector, then the output will be a 1D vector. Differences with numpy.linalg.multi_dot: Unlike numpy.linalg.multi_dot, the first and last tensors must either be 1D or 2D whereas NumPy allows them to be nD Warning This function does not broadcast. Note This function is implemented by chaining torch.mm() calls after computing the optimal matrix multiplication order. Note The cost of multiplying two matrices with shapes (a, b) and (b, c) is a * b * c. Given matrices A, B, C with shapes (10, 100), (100, 5), (5, 50) respectively, we can calculate the cost of different multiplication orders as follows: cost⁡((AB)C)=10×100×5+10×5×50=7500cost⁡(A(BC))=10×100×50+100×5×50=75000\\begin{align*} \\operatorname{cost}((AB)C) &amp;= 10 \\times 100 \\times 5 + 10 \\times 5 \\times 50 = 7500 \\\\ \\operatorname{cost}(A(BC)) &amp;= 10 \\times 100 \\times 50 + 100 \\times 5 \\times 50 = 75000 \\end{align*}cost((AB)C)cost(A(BC))​=10×100×5+10×5×50=7500=10×100×50+100×5×50=75000​In this case, multiplying A and B first followed by C is 10 times faster. Parameters tensors (Sequence[Tensor]) – two or more tensors to multiply. The first and last tensors may be 1D or 2D. Every other tensor must be 2D. Keyword Arguments out (Tensor, optional) – output tensor. Ignored if None. Default: None. Examples: &gt;&gt;&gt; from torch.linalg import multi_dot &gt;&gt;&gt; multi_dot([torch.tensor([1, 2]), torch.tensor([2, 3])]) tensor(8) &gt;&gt;&gt; multi_dot([torch.tensor([[1, 2]]), torch.tensor([2, 3])]) tensor([8]) &gt;&gt;&gt; multi_dot([torch.tensor([[1, 2]]), torch.tensor([[2], [3]])]) tensor([[8]]) &gt;&gt;&gt; A = torch.arange(2 * 3).view(2, 3) &gt;&gt;&gt; B = torch.arange(3 * 2).view(3, 2) &gt;&gt;&gt; C = torch.arange(2 * 2).view(2, 2) &gt;&gt;&gt; multi_dot((A, B, C)) tensor([[ 26, 49], [ 80, 148]])"
        }
    </script>
 

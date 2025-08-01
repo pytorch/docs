@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/compile/programming_model.recompilation.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/compile/programming_model.recompilation.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4411,11 +4434,11 @@ In the below example, we have a recompilation for each function call.</p>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recompiling function fn in /tmp/ipykernel_967/3647755280.py:1
     triggered by the following guard failure(s):
-    - 2/0: c == 0.5                                               
+    - 2/0: c == 0.5                                                 # return x + c  # mp/ipykernel_967/3647755280.py:3 in fn
 Recompiling function fn in /tmp/ipykernel_967/3647755280.py:1
     triggered by the following guard failure(s):
     - 2/1: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 2
-    - 2/0: c == 0.5                                               
+    - 2/0: c == 0.5                                                 # return x + c  # mp/ipykernel_967/3647755280.py:3 in fn
 </pre></div>
 </div>
 </div>
@@ -4442,7 +4465,7 @@ Recompiling function fn in /tmp/ipykernel_967/3647755280.py:1
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Profiler function &lt;class &#39;torch.autograd.profiler.record_function&#39;&gt; will be ignored
 Recompiling function step in /opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/optim/adam.py:213
     triggered by the following guard failure(s):
-    - 7/0: self.param_groups[0][&#39;lr&#39;] == 0.01                     
+    - 7/0: self.param_groups[0][&#39;lr&#39;] == 0.01                       # for group in self.param_groups:  # optim/adam.py:228 in step
 </pre></div>
 </div>
 </div>
@@ -4662,28 +4685,28 @@ a graph break in order to reduce recompilation costs, at the expense of introduc
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recompiling function fn in /tmp/ipykernel_967/2876112129.py:4
     triggered by the following guard failure(s):
-    - 10/0: c == 1                                                 
+    - 10/0: c == 1                                                   # return y + c  # mp/ipykernel_967/2876112129.py:7 in fn
 Recompiling function fn in /tmp/ipykernel_967/2876112129.py:4
     triggered by the following guard failure(s):
-    - 10/1: c == 2                                                 
-    - 10/0: c == 1                                                 
+    - 10/1: c == 2                                                   # return y + c  # mp/ipykernel_967/2876112129.py:7 in fn
+    - 10/0: c == 1                                                   # return y + c  # mp/ipykernel_967/2876112129.py:7 in fn
 Recompiling function fn in /tmp/ipykernel_967/2876112129.py:4
     triggered by the following guard failure(s):
-    - 10/2: c == 3                                                 
-    - 10/1: c == 2                                                 
-    - 10/0: c == 1                                                 
+    - 10/2: c == 3                                                   # return y + c  # mp/ipykernel_967/2876112129.py:7 in fn
+    - 10/1: c == 2                                                   # return y + c  # mp/ipykernel_967/2876112129.py:7 in fn
+    - 10/0: c == 1                                                   # return y + c  # mp/ipykernel_967/2876112129.py:7 in fn
 Recompiling function torch_dynamo_resume_in_gn_at_15 in /tmp/ipykernel_967/2876112129.py:15
     triggered by the following guard failure(s):
-    - 12/0: c == 1                                                 
+    - 12/0: c == 1                                                   # return y + c  # recompiled every time  # mp/ipykernel_967/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15
 Recompiling function torch_dynamo_resume_in_gn_at_15 in /tmp/ipykernel_967/2876112129.py:15
     triggered by the following guard failure(s):
-    - 12/1: c == 2                                                 
-    - 12/0: c == 1                                                 
+    - 12/1: c == 2                                                   # return y + c  # recompiled every time  # mp/ipykernel_967/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15
+    - 12/0: c == 1                                                   # return y + c  # recompiled every time  # mp/ipykernel_967/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15
 Recompiling function torch_dynamo_resume_in_gn_at_15 in /tmp/ipykernel_967/2876112129.py:15
     triggered by the following guard failure(s):
-    - 12/2: c == 3                                                 
-    - 12/1: c == 2                                                 
-    - 12/0: c == 1                                                 
+    - 12/2: c == 3                                                   # return y + c  # recompiled every time  # mp/ipykernel_967/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15
+    - 12/1: c == 2                                                   # return y + c  # recompiled every time  # mp/ipykernel_967/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15
+    - 12/0: c == 1                                                   # return y + c  # recompiled every time  # mp/ipykernel_967/2876112129.py:16 in torch_dynamo_resume_in_gn_at_15
 </pre></div>
 </div>
 </div>
@@ -4970,21 +4993,17 @@ Recompiling function torch_dynamo_resume_in_gn_at_15 in /tmp/ipykernel_967/28761
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -5029,18 +5048,20 @@ Recompiling function torch_dynamo_resume_in_gn_at_15 in /tmp/ipykernel_967/28761
          "@type": "Article",
          "headline": "Dealing with Recompilations",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/compile/programming_model.recompilation.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/compile/programming_model.recompilation.html"
          },
-         "datePublished": "Jul 29, 2025",
-         "dateModified": "Jul 29, 2025",
-         "articleBody": "Dealing with Recompilations# Created On: Jul 29, 2025 | Last Updated On: Jul 29, 2025 Recompilations are necessary for torch.compile soundness, but can result in significantly increased compile time. Thus, minimizing recompilations while preserving soundness is essential for reducing compile time. You can view recompilations and their reasons using tlparse or TORCH_LOGS=recompiles. Is Dynamic Shapes Enabled?# In the below example, we recompile due to mismatched shapes: @torch.compile def fn(x): return x + 1 fn(torch.ones(3)) fn(torch.ones(4)) Recompiling function fn in /tmp/ipykernel_967/2479206322.py:1 triggered by the following guard failure(s): - 0/0: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 4 tensor([2., 2., 2., 2.]) Make sure that the dynamic option of torch.compile is not set to False. The default option, dynamic=None, will only attempt dynamic shapes after the first compilation. You can set dynamic=True to upfront compile as dynamic as possible: @torch.compile(dynamic=True) def gn(x): return x + 1 gn(torch.ones(3)) gn(torch.ones(4)) tensor([2., 2., 2., 2.]) For more information on dynamic shapes, including dealing with errors/recompilations due to dynamic shapes, see the dynamic shapes manual. Wrapping Constants with Tensors# By default, int / float variables are treated as constants and are guarded on their exact value. In the below example, we have a recompilation for each function call. @torch.compile def fn(x, c): return x + c for i in range(5): fn(torch.ones(i), 0.5 + i) Recompiling function fn in /tmp/ipykernel_967/3647755280.py:1 triggered by the following guard failure(s): - 2/0: c == 0.5 Recompiling function fn in /tmp/ipykernel_967/3647755280.py:1 triggered by the following guard failure(s): - 2/1: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 2 - 2/0: c == 0.5 In particular, for LR schedulers, initializing with a constant can lead to recompilations: mod = torch.nn.Linear(3, 3) opt = torch.optim.Adam(mod.parameters(), lr=0.01) sched = torch.optim.lr_scheduler.ExponentialLR(opt, 0.9) @torch.compile def gn(inp): opt.zero_grad(True) out = mod(inp).sum() out.backward() opt.step() sched.step() for i in range(5): gn(torch.ones(3, 3)) Profiler function &lt;class &#39;torch.autograd.profiler.record_function&#39;&gt; will be ignored Recompiling function step in /opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/optim/adam.py:213 triggered by the following guard failure(s): - 7/0: self.param_groups[0][&#39;lr&#39;] == 0.01 In both examples, we can wrap float variables in tensors in order to prevent recompilations. # first example for i in range(5): fn(torch.ones(i), torch.tensor(0.5 + i)) # second example opt = torch.optim.Adam(mod.parameters(), lr=torch.tensor(0.01)) sched = torch.optim.lr_scheduler.ExponentialLR(opt, torch.tensor(0.9)) for i in range(5): gn(torch.ones(3, 3)) Recompiling function fn in /tmp/ipykernel_967/3647755280.py:1 triggered by the following guard failure(s): - 0/0: tensor &#39;x&#39; size mismatch at index 0. ex..."
+        "datePublished": "Jul 29, 2025T00:00:00Z",
+         "dateModified": "Jul 29, 2025T00:00:00Z",
+         "articleBody": "Dealing with Recompilations# Created On: Jul 29, 2025 | Last Updated On: Jul 29, 2025 Recompilations are necessary for torch.compile soundness, but can result in significantly increased compile time. Thus, minimizing recompilations while preserving soundness is essential for reducing compile time. You can view recompilations and their reasons using tlparse or TORCH_LOGS=recompiles. Is Dynamic Shapes Enabled?# In the below example, we recompile due to mismatched shapes: @torch.compile def fn(x): return x + 1 fn(torch.ones(3)) fn(torch.ones(4)) Recompiling function fn in /tmp/ipykernel_967/2479206322.py:1 triggered by the following guard failure(s): - 0/0: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 4 tensor([2., 2., 2., 2.]) Make sure that the dynamic option of torch.compile is not set to False. The default option, dynamic=None, will only attempt dynamic shapes after the first compilation. You can set dynamic=True to upfront compile as dynamic as possible: @torch.compile(dynamic=True) def gn(x): return x + 1 gn(torch.ones(3)) gn(torch.ones(4)) tensor([2., 2., 2., 2.]) For more information on dynamic shapes, including dealing with errors/recompilations due to dynamic shapes, see the dynamic shapes manual. Wrapping Constants with Tensors# By default, int / float variables are treated as constants and are guarded on their exact value. In the below example, we have a recompilation for each function call. @torch.compile def fn(x, c): return x + c for i in range(5): fn(torch.ones(i), 0.5 + i) Recompiling function fn in /tmp/ipykernel_967/3647755280.py:1 triggered by the following guard failure(s): - 2/0: c == 0.5 # return x + c # mp/ipykernel_967/3647755280.py:3 in fn Recompiling function fn in /tmp/ipykernel_967/3647755280.py:1 triggered by the following guard failure(s): - 2/1: tensor &#39;x&#39; size mismatch at index 0. expected 1, actual 2 - 2/0: c == 0.5 # return x + c # mp/ipykernel_967/3647755280.py:3 in fn In particular, for LR schedulers, initializing with a constant can lead to recompilations: mod = torch.nn.Linear(3, 3) opt = torch.optim.Adam(mod.parameters(), lr=0.01) sched = torch.optim.lr_scheduler.ExponentialLR(opt, 0.9) @torch.compile def gn(inp): opt.zero_grad(True) out = mod(inp).sum() out.backward() opt.step() sched.step() for i in range(5): gn(torch.ones(3, 3)) Profiler function &lt;class &#39;torch.autograd.profiler.record_function&#39;&gt; will be ignored Recompiling function step in /opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/optim/adam.py:213 triggered by the following guard failure(s): - 7/0: self.param_groups[0][&#39;lr&#39;] == 0.01 # for group in self.param_groups: # optim/adam.py:228 in step In both examples, we can wrap float variables in tensors in order to prevent recompilations. # first example for i in range(5): fn(torch.ones(i), torch.tensor(0.5 + i)) # second example opt = torch.optim.Adam(mod.parameters(), lr=torch.tensor(0.01)) sched = torch.optim.lr_scheduler.ExponentialLR(opt, torch.tensor(0.9)) for i in range(5): ..."
        }
    </script>
 

@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.diagonal.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.diagonal.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4662,21 +4685,17 @@ take diagonal. Default: 1.</p></li>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4721,16 +4740,18 @@ take diagonal. Default: 1.</p></li>
          "@type": "Article",
          "headline": "torch.diagonal",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.diagonal.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.diagonal.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.diagonal# torch.diagonal(input, offset=0, dim1=0, dim2=1) → Tensor# Returns a partial view of input with the its diagonal elements with respect to dim1 and dim2 appended as a dimension at the end of the shape. The argument offset controls which diagonal to consider: If offset = 0, it is the main diagonal. If offset &gt; 0, it is above the main diagonal. If offset &lt; 0, it is below the main diagonal. Applying torch.diag_embed() to the output of this function with the same arguments yields a diagonal matrix with the diagonal entries of the input. However, torch.diag_embed() has different default dimensions, so those need to be explicitly specified. Parameters input (Tensor) – the input tensor. Must be at least 2-dimensional. offset (int, optional) – which diagonal to consider. Default: 0 (main diagonal). dim1 (int, optional) – first dimension with respect to which to take diagonal. Default: 0. dim2 (int, optional) – second dimension with respect to which to take diagonal. Default: 1. Note To take a batch diagonal, pass in dim1=-2, dim2=-1. Examples: &gt;&gt;&gt; a = torch.randn(3, 3) &gt;&gt;&gt; a tensor([[-1.0854, 1.1431, -0.1752], [ 0.8536, -0.0905, 0.0360], [ 0.6927, -0.3735, -0.4945]]) &gt;&gt;&gt; torch.diagonal(a) tensor([-1.0854, -0.0905, -0.4945]) &gt;&gt;&gt; torch.diagonal(a, 1) tensor([ 1.1431, 0.0360]) &gt;&gt;&gt; b = torch.randn(2, 5) &gt;&gt;&gt; b tensor([[-1.7948, -1.2731, -0.3181, 2.0200, -1.6745], [ 1.8262, -1.5049, 0.4114, 1.0704, -1.2607]]) &gt;&gt;&gt; torch.diagonal(b, 1, 1, 0) tensor([1.8262]) &gt;&gt;&gt; x = torch.randn(2, 5, 4, 2) &gt;&gt;&gt; torch.diagonal(x, offset=-1, dim1=1, dim2=2) tensor([[[-1.2631, 0.3755, -1.5977, -1.8172], [-1.1065, 1.0401, -0.2235, -0.7938]], [[-1.7325, -0.3081, 0.6166, 0.2335], [ 1.0500, 0.7336, -0.3836, -1.1015]]])"
        }

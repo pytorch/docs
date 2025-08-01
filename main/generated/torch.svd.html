@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.svd.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.svd.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4739,21 +4762,17 @@ consequently, the shape of returned <cite>U</cite> and <cite>V</cite>. Default: 
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4798,18 +4817,20 @@ consequently, the shape of returned <cite>U</cite> and <cite>V</cite>. Default: 
          "@type": "Article",
          "headline": "torch.svd",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.svd.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.svd.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.svd# torch.svd(input, some=True, compute_uv=True, *, out=None)# Computes the singular value decomposition of either a matrix or batch of matrices input. The singular value decomposition is represented as a namedtuple (U, S, V), such that input =Udiag(S)VH= U \text{diag}(S) V^{\text{H}}=Udiag(S)VH. where VHV^{\text{H}}VH is the transpose of V for real inputs, and the conjugate transpose of V for complex inputs. If input is a batch of matrices, then U, S, and V are also batched with the same batch dimensions as input. If some is True (default), the method returns the reduced singular value decomposition. In this case, if the last two dimensions of input are m and n, then the returned U and V matrices will contain only min(n, m) orthonormal columns. If compute_uv is False, the returned U and V will be zero-filled matrices of shape (m, m) and (n, n) respectively, and the same device as input. The argument some has no effect when compute_uv is False. Supports input of float, double, cfloat and cdouble data types. The dtypes of U and V are the same as input’s. S will always be real-valued, even if input is complex. Warning torch.svd() is deprecated in favor of torch.linalg.svd() and will be removed in a future PyTorch release. U, S, V = torch.svd(A, some=some, compute_uv=True) (default) should be replaced with U, S, Vh = torch.linalg.svd(A, full_matrices=not some) V = Vh.mH _, S, _ = torch.svd(A, some=some, compute_uv=False) should be replaced with S = torch.linalg.svdvals(A) Note Differences with torch.linalg.svd(): some is the opposite of torch.linalg.svd()’s full_matrices. Note that default value for both is True, so the default behavior is effectively the opposite. torch.svd() returns V, whereas torch.linalg.svd() returns Vh, that is, VHV^{\text{H}}VH. If compute_uv is False, torch.svd() returns zero-filled tensors for U and Vh, whereas torch.linalg.svd() returns empty tensors. Note The singular values are returned in descending order. If input is a batch of matrices, then the singular values of each matrix in the batch are returned in descending order. Note The S tensor can only be used to compute gradients if compute_uv is True. Note When some is False, the gradients on U[…, :, min(m, n):] and V[…, :, min(m, n):] will be ignored in the backward pass, as those vectors can be arbitrary bases of the corresponding subspaces. Note The implementation of torch.linalg.svd() on CPU uses LAPACK’s routine ?gesdd (a divide-and-conquer algorithm) instead of ?gesvd for speed. Analogously, on GPU, it uses cuSOLVER’s routines gesvdj and gesvdjBatched on CUDA 10.1.243 and later, and MAGMA’s routine gesdd on earlier versions of CUDA. Note The returned U will not be contiguous. The matrix (or batch of matrices) will be represented as a column-major matrix (i.e. Fortran-contiguous). Warning The gradients with respect to U and V will only be finite when the input does not have zero nor repeated singular values. Warning If the distance between any two singula..."
+         "articleBody": "torch.svd# torch.svd(input, some=True, compute_uv=True, *, out=None)# Computes the singular value decomposition of either a matrix or batch of matrices input. The singular value decomposition is represented as a namedtuple (U, S, V), such that input =Udiag(S)VH= U \\text{diag}(S) V^{\\text{H}}=Udiag(S)VH. where VHV^{\\text{H}}VH is the transpose of V for real inputs, and the conjugate transpose of V for complex inputs. If input is a batch of matrices, then U, S, and V are also batched with the same batch dimensions as input. If some is True (default), the method returns the reduced singular value decomposition. In this case, if the last two dimensions of input are m and n, then the returned U and V matrices will contain only min(n, m) orthonormal columns. If compute_uv is False, the returned U and V will be zero-filled matrices of shape (m, m) and (n, n) respectively, and the same device as input. The argument some has no effect when compute_uv is False. Supports input of float, double, cfloat and cdouble data types. The dtypes of U and V are the same as input’s. S will always be real-valued, even if input is complex. Warning torch.svd() is deprecated in favor of torch.linalg.svd() and will be removed in a future PyTorch release. U, S, V = torch.svd(A, some=some, compute_uv=True) (default) should be replaced with U, S, Vh = torch.linalg.svd(A, full_matrices=not some) V = Vh.mH _, S, _ = torch.svd(A, some=some, compute_uv=False) should be replaced with S = torch.linalg.svdvals(A) Note Differences with torch.linalg.svd(): some is the opposite of torch.linalg.svd()’s full_matrices. Note that default value for both is True, so the default behavior is effectively the opposite. torch.svd() returns V, whereas torch.linalg.svd() returns Vh, that is, VHV^{\\text{H}}VH. If compute_uv is False, torch.svd() returns zero-filled tensors for U and Vh, whereas torch.linalg.svd() returns empty tensors. Note The singular values are returned in descending order. If input is a batch of matrices, then the singular values of each matrix in the batch are returned in descending order. Note The S tensor can only be used to compute gradients if compute_uv is True. Note When some is False, the gradients on U[…, :, min(m, n):] and V[…, :, min(m, n):] will be ignored in the backward pass, as those vectors can be arbitrary bases of the corresponding subspaces. Note The implementation of torch.linalg.svd() on CPU uses LAPACK’s routine ?gesdd (a divide-and-conquer algorithm) instead of ?gesvd for speed. Analogously, on GPU, it uses cuSOLVER’s routines gesvdj and gesvdjBatched on CUDA 10.1.243 and later, and MAGMA’s routine gesdd on earlier versions of CUDA. Note The returned U will not be contiguous. The matrix (or batch of matrices) will be represented as a column-major matrix (i.e. Fortran-contiguous). Warning The gradients with respect to U and V will only be finite when the input does not have zero nor repeated singular values. Warning If the distance between any two singula..."
        }
    </script>
 

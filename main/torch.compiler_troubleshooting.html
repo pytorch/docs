@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/torch.compiler_troubleshooting.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/torch.compiler_troubleshooting.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -5741,21 +5764,17 @@ and <a class="reference external" href="https://pytorch.org/docs/stable/generate
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -5800,17 +5819,19 @@ and <a class="reference external" href="https://pytorch.org/docs/stable/generate
          "@type": "Article",
          "headline": "torch.compile Troubleshooting",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/torch.compiler_troubleshooting.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/torch.compiler_troubleshooting.html"
          },
-         "datePublished": "Nov 28, 2022",
-         "dateModified": "Jun 10, 2025",
+        "datePublished": "Nov 28, 2022T00:00:00Z",
+         "dateModified": "Jun 10, 2025T00:00:00Z",
          "articleBody": "torch.compile Troubleshooting# Created On: Nov 28, 2022 | Last Updated On: Jun 10, 2025 You’re trying to use torch.compile on your PyTorch model to enhance its performance but it’s not working as expected. Perhaps performance isn’t improving, crashes are happening, or compilation time is too long. This article provides tips, workarounds, and debugging tools to help you overcome these challenges. Contents Setting Expectations Compile times Terminology Graph break Guards Recompilation Dynamic Shapes Logging Tools tlparse / TORCH_TRACE TORCH_LOGS tlparse vs. TORCH_LOGS Simple Workarounds Where to apply torch.compile? Disabling and Suppressing Errors Resolving graph breaks Data-dependent operations Custom ops Printing Incorrect code Dealing with recompilations Is dynamic shapes enabled? Changing the cache size limit Wrapping constants with tensors Reporting Issues Ablation Bisecting Creating a reproducer Minifier Debugging Deeper TorchDynamo Logging what Dynamo is tracing Breakpointing Dynamo tracing Bytecode generation errors AOTAutograd Summary of TORCH_LOGS options Related Articles Setting Expectations# torch.compile is designed as a general-purpose PyTorch compiler. Unlike the previous compiler solution, TorchScript, torch.compile requires fewer code changes, meaning models typically don’t need to be rewritten from scratch. It also manages unsupported code more gracefully - unsupported code results in a lost optimization opportunity rather than a crash. In the ideal world, one can simply apply torch.compile to any PyTorch model and enjoy automatic speedups. However, in reality, code complexities can lead to one of three scenarios: torch.compile works seamlessly, providing speedups. Some code modifications are necessary. torch.compile doesn’t crash or take too long, but you might not be seeing significant performance gains. Extensive changes to your code are required. We anticipate most code will fall under scenarios (1) and (2). This document provides tips, arranged by level of involvement, to help address code issues in scenario (2). Compile times# torch.compile functions as a just-in-time compiler, so the initial one or two runs of the compiled function are expected to be significantly slower. Recompilations, which can occur under certain conditions (detailed below), will also make runs slower. Various torch.compile components cache results to reduce compilation time for future invocations, even in different processes. Cold-start (uncached) compilation time typically ranges from seconds to minutes for common or benchmarked models. Larger models may take upwards of 30 minutes to a few hours. Terminology# The following terms are relevant to troubleshooting torch.compile problems. Graph break# torch.compile traces your code and attempts to capture your PyTorch code into a single computation graph of PyTorch operators (FX graph). However, this is not always possible. When encountering code that can’t be traced, a “graph break” occurs. A graph br..."
        }
    </script>

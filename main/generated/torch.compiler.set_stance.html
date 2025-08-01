@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.compiler.set_stance.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.compiler.set_stance.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4346,7 +4369,7 @@ document.write(`
 <h1>torch.compiler.set_stance<a class="headerlink" href="#torch-compiler-set-stance" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.set_stance">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">set_stance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_guard_eval_unsafe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/compiler/__init__.py#L256"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.set_stance" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">set_stance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_guard_eval_unsafe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/compiler/__init__.py#L256"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.set_stance" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the current stance of the compiler.
 Can be used as a function, context manager, or decorator.
 Do not use this function inside a <cite>torch.compile</cite> region - an error will be raised otherwise.</p>
@@ -4678,21 +4701,17 @@ to use a specific backend. Otherwise, an error is raised.</p></li>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4737,18 +4756,20 @@ to use a specific backend. Otherwise, an error is raised.</p></li>
          "@type": "Article",
          "headline": "torch.compiler.set_stance",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.compiler.set_stance.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.compiler.set_stance.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.compiler.set_stance# torch.compiler.set_stance(stance=&#39;default&#39;, *, skip_guard_eval_unsafe=False, force_backend=None)[source]# Set the current stance of the compiler. Can be used as a function, context manager, or decorator. Do not use this function inside a torch.compile region - an error will be raised otherwise. @torch.compile def foo(x): ... @torch.compiler.set_stance(&#34;force_eager&#34;) def bar(): # will not be compiled foo(...) bar() with torch.compiler.set_stance(&#34;force_eager&#34;): # will also not be compiled foo(...) torch.compiler.set_stance(&#34;force_eager&#34;) # will also not be compiled foo(...) torch.compiler.set_stance(&#34;default&#34;) # will be compiled foo(...) Parameters stance (str) – The stance to set the compiler to. Valid values are: ”default”: The default stance, used for normal compilation. ”force_eager”: Ignore all torch.compile directives. ”eager_on_recompile”: Run code eagerly when a recompile is necessary. If there is cached compiled code valid for the input, it will still be used. ”fail_on_recompile”: Raise an error when recompiling a function. ”eager_then_compile”: Run the first invocation in eager mode, then compile on subsequent calls. This is beneficial for dynamic shapes as it allows inferring dynamism from the first two invocations instead of wasting a static compile on the first invocation. ”aot_eager_then_compile”: Run the first invocation with AOT eager to get memory benefits from activation checkpointing, then compile on subsequent calls. Like eager_then_compile, this improves handling of dynamic shapes by avoiding an initial static compile. skip_guard_eval_unsafe (bool) – A flag to run only differentiating guards. CAUTION - This flag is unsafe and should only be used if your setup meets the following conditions. torch.compile uses a guard system to support recompilations and choose which compiled artifact to run at runtime. These guards, though efficient, add some overhead, which may impact performance in scenarios where you need to optimize for minimal guard processing time. This API enables you to disable guard evaluation, assuming that you have warmed up the compiled model with a sufficient variety of inputs. This assumption means that, after the warmup phase, no further recompilations will be necessary. If this assumption fails, there is a risk of silently producing incorrect results (hence the term “unsafe” in the API name). force_backend (Optional[Union[str, Callable[[...], Any]]]) – If stance is “default”, this argument can be used to force torch.compile to use a specific backend. Otherwise, an error is raised."
+         "articleBody": "torch.compiler.set_stance# torch.compiler.set_stance(stance=&#39;default&#39;, *, skip_guard_eval_unsafe=False, force_backend=None)[source]# Set the current stance of the compiler. Can be used as a function, context manager, or decorator. Do not use this function inside a torch.compile region - an error will be raised otherwise. @torch.compile def foo(x): ... @torch.compiler.set_stance(\&#34;force_eager\&#34;) def bar(): # will not be compiled foo(...) bar() with torch.compiler.set_stance(\&#34;force_eager\&#34;): # will also not be compiled foo(...) torch.compiler.set_stance(\&#34;force_eager\&#34;) # will also not be compiled foo(...) torch.compiler.set_stance(\&#34;default\&#34;) # will be compiled foo(...) Parameters stance (str) – The stance to set the compiler to. Valid values are: ”default”: The default stance, used for normal compilation. ”force_eager”: Ignore all torch.compile directives. ”eager_on_recompile”: Run code eagerly when a recompile is necessary. If there is cached compiled code valid for the input, it will still be used. ”fail_on_recompile”: Raise an error when recompiling a function. ”eager_then_compile”: Run the first invocation in eager mode, then compile on subsequent calls. This is beneficial for dynamic shapes as it allows inferring dynamism from the first two invocations instead of wasting a static compile on the first invocation. ”aot_eager_then_compile”: Run the first invocation with AOT eager to get memory benefits from activation checkpointing, then compile on subsequent calls. Like eager_then_compile, this improves handling of dynamic shapes by avoiding an initial static compile. skip_guard_eval_unsafe (bool) – A flag to run only differentiating guards. CAUTION - This flag is unsafe and should only be used if your setup meets the following conditions. torch.compile uses a guard system to support recompilations and choose which compiled artifact to run at runtime. These guards, though efficient, add some overhead, which may impact performance in scenarios where you need to optimize for minimal guard processing time. This API enables you to disable guard evaluation, assuming that you have warmed up the compiled model with a sufficient variety of inputs. This assumption means that, after the warmup phase, no further recompilations will be necessary. If this assumption fails, there is a risk of silently producing incorrect results (hence the term “unsafe” in the API name). force_backend (Optional[Union[str, Callable[[...], Any]]]) – If stance is “default”, this argument can be used to force torch.compile to use a specific backend. Otherwise, an error is raised."
        }
    </script>
 

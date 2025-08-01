@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/optim.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/optim.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4441,7 +4464,7 @@ compute the loss, and return it.</p>
 <span id="optimizer-algorithms"></span><h2>Base class<a class="headerlink" href="#base-class" title="Permalink to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.optim.Optimizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/optim/optimizer.py#L338"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/optim/optimizer.py#L338"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer" title="Permalink to this definition">#</a></dt>
 <dd><p>Base class for all optimizers.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -5190,13 +5213,13 @@ We train the model for a total of 300 epochs and start to collect EMA averages i
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.swa_utils.get_ema_multi_avg_fn">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">get_ema_multi_avg_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/optim/swa_utils.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">get_ema_multi_avg_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/optim/swa_utils.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the function applying exponential moving average (EMA) across multiple params.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.swa_utils.update_bn">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">update_bn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/optim/swa_utils.py#L315"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.update_bn" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">update_bn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/optim/swa_utils.py#L315"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.update_bn" title="Permalink to this definition">#</a></dt>
 <dd><p>Update BatchNorm running_mean, running_var buffers in the model.</p>
 <p>It performs one pass over data in <cite>loader</cite> to estimate the activation
 statistics for BatchNorm layers in the model.</p>
@@ -5541,21 +5564,17 @@ for tracking purposes -->
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -5600,17 +5619,19 @@ for tracking purposes -->
          "@type": "Article",
          "headline": "torch.optim",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/optim.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/optim.html"
          },
-         "datePublished": "Jun 13, 2025",
-         "dateModified": "Jul 18, 2025",
+        "datePublished": "Jun 13, 2025T00:00:00Z",
+         "dateModified": "Jul 18, 2025T00:00:00Z",
          "articleBody": "torch.optim# Created On: Jun 13, 2025 | Last Updated On: Jul 18, 2025 torch.optim is a package implementing various optimization algorithms. Most commonly used methods are already supported, and the interface is general enough, so that more sophisticated ones can also be easily integrated in the future. How to use an optimizer# To use torch.optim you have to construct an optimizer object that will hold the current state and will update the parameters based on the computed gradients. Constructing it# To construct an Optimizer you have to give it an iterable containing the parameters (all should be Parameter s) or named parameters (tuples of (str, Parameter)) to optimize. Then, you can specify optimizer-specific options such as the learning rate, weight decay, etc. Example: optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9) optimizer = optim.Adam([var1, var2], lr=0.0001) Named parameters example: optimizer = optim.SGD(model.named_parameters(), lr=0.01, momentum=0.9) optimizer = optim.Adam([(&#39;layer0&#39;, var1), (&#39;layer1&#39;, var2)], lr=0.0001) Per-parameter options# Optimizer s also support specifying per-parameter options. To do this, instead of passing an iterable of Variable s, pass in an iterable of dict s. Each of them will define a separate parameter group, and should contain a params key, containing a list of parameters belonging to it. Other keys should match the keyword arguments accepted by the optimizers, and will be used as optimization options for this group. For example, this is very useful when one wants to specify per-layer learning rates: optim.SGD([ {&#39;params&#39;: model.base.parameters(), &#39;lr&#39;: 1e-2}, {&#39;params&#39;: model.classifier.parameters()} ], lr=1e-3, momentum=0.9) optim.SGD([ {&#39;params&#39;: model.base.named_parameters(), &#39;lr&#39;: 1e-2}, {&#39;params&#39;: model.classifier.named_parameters()} ], lr=1e-3, momentum=0.9) This means that model.base’s parameters will use a learning rate of 1e-2, whereas model.classifier’s parameters will stick to the default learning rate of 1e-3. Finally a momentum of 0.9 will be used for all parameters. Note You can still pass options as keyword arguments. They will be used as defaults, in the groups that didn’t override them. This is useful when you only want to vary a single option, while keeping all others consistent between parameter groups. Also consider the following example related to the distinct penalization of parameters. Remember that parameters() returns an iterable that contains all learnable parameters, including biases and other parameters that may prefer distinct penalization. To address this, one can specify individual penalization weights for each parameter group: bias_params = [p for name, p in self.named_parameters() if &#39;bias&#39; in name] others = [p for name, p in self.named_parameters() if &#39;bias&#39; not in name] optim.SGD([ {&#39;params&#39;: others}, {&#39;params&#39;: bias_params, &#39;weight_decay&#39;: 0} ], weight_decay=1e-2, lr=1e-2) In this manner, bias terms are isolated from non-bias terms, and a weight_d..."
        }
    </script>

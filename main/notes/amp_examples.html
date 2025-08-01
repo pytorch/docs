@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/notes/amp_examples.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/notes/amp_examples.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2304,21 +2327,17 @@ inputs to <code class="docutils literal notranslate"><span class="pre">float32</
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -2363,17 +2382,19 @@ inputs to <code class="docutils literal notranslate"><span class="pre">float32</
          "@type": "Article",
          "headline": "Automatic Mixed Precision examples",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/notes/amp_examples.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/notes/amp_examples.html"
          },
-         "datePublished": "Feb 13, 2020",
-         "dateModified": "Sep 13, 2024",
+        "datePublished": "Feb 13, 2020T00:00:00Z",
+         "dateModified": "Sep 13, 2024T00:00:00Z",
          "articleBody": "Automatic Mixed Precision examples# Created On: Feb 13, 2020 | Last Updated On: Sep 13, 2024 Ordinarily, “automatic mixed precision training” means training with torch.autocast and torch.amp.GradScaler together. Instances of torch.autocast enable autocasting for chosen regions. Autocasting automatically chooses the precision for operations to improve performance while maintaining accuracy. Instances of torch.amp.GradScaler help perform the steps of gradient scaling conveniently. Gradient scaling improves convergence for networks with float16 (by default on CUDA and XPU) gradients by minimizing gradient underflow, as explained here. torch.autocast and torch.amp.GradScaler are modular. In the samples below, each is used as its individual documentation suggests. (Samples here are illustrative. See the Automatic Mixed Precision recipe for a runnable walkthrough.) Typical Mixed Precision Training Working with Unscaled Gradients Gradient clipping Working with Scaled Gradients Gradient accumulation Gradient penalty Working with Multiple Models, Losses, and Optimizers Working with Multiple GPUs DataParallel in a single process DistributedDataParallel, one GPU per process DistributedDataParallel, multiple GPUs per process Autocast and Custom Autograd Functions Functions with multiple inputs or autocastable ops Functions that need a particular dtype Typical Mixed Precision Training# # Creates model and optimizer in default precision model = Net().cuda() optimizer = optim.SGD(model.parameters(), ...) # Creates a GradScaler once at the beginning of training. scaler = GradScaler() for epoch in epochs: for input, target in data: optimizer.zero_grad() # Runs the forward pass with autocasting. with autocast(device_type=&#39;cuda&#39;, dtype=torch.float16): output = model(input) loss = loss_fn(output, target) # Scales loss. Calls backward() on scaled loss to create scaled gradients. # Backward passes under autocast are not recommended. # Backward ops run in the same dtype autocast chose for corresponding forward ops. scaler.scale(loss).backward() # scaler.step() first unscales the gradients of the optimizer&#39;s assigned params. # If these gradients do not contain infs or NaNs, optimizer.step() is then called, # otherwise, optimizer.step() is skipped. scaler.step(optimizer) # Updates the scale for next iteration. scaler.update() Working with Unscaled Gradients# All gradients produced by scaler.scale(loss).backward() are scaled. If you wish to modify or inspect the parameters’ .grad attributes between backward() and scaler.step(optimizer), you should unscale them first. For example, gradient clipping manipulates a set of gradients such that their global norm (see torch.nn.utils.clip_grad_norm_()) or maximum magnitude (see torch.nn.utils.clip_grad_value_()) is &lt;=&lt;=&lt;= some user-imposed threshold. If you attempted to clip without unscaling, the gradients’ norm/maximum magnitude would also be scaled, so your requested threshold (which was meant to be the threshold for unscale..."
        }
    </script>

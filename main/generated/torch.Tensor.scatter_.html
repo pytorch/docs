@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.Tensor.scatter_.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.Tensor.scatter_.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4725,21 +4748,17 @@ returns <code class="docutils literal notranslate"><span class="pre">self</span>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4784,16 +4803,18 @@ returns <code class="docutils literal notranslate"><span class="pre">self</span>
          "@type": "Article",
          "headline": "torch.Tensor.scatter_",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.Tensor.scatter_.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.Tensor.scatter_.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
          "articleBody": "torch.Tensor.scatter_# Tensor.scatter_(dim, index, src, *, reduce=None) → Tensor# Writes all values from the tensor src into self at the indices specified in the index tensor. For each value in src, its output index is specified by its index in src for dimension != dim and by the corresponding value in index for dimension = dim. For a 3-D tensor, self is updated as: self[index[i][j][k]][j][k] = src[i][j][k] # if dim == 0 self[i][index[i][j][k]][k] = src[i][j][k] # if dim == 1 self[i][j][index[i][j][k]] = src[i][j][k] # if dim == 2 This is the reverse operation of the manner described in gather(). It is also required that index.size(d) &lt;= src.size(d) for all dimensions d, and that index.size(d) &lt;= self.size(d) for all dimensions d != dim. Note that input and index do not broadcast against each other for NPUs, so when running on NPUs, input and index must have the same number of dimensions. Standard broadcasting occurs in all other cases. Moreover, as for gather(), the values of index must be between 0 and self.size(dim) - 1 inclusive. Warning When indices are not unique, the behavior is non-deterministic (one of the values from src will be picked arbitrarily) and the gradient will be incorrect (it will be propagated to all locations in the source that correspond to the same index)! Note The backward pass is implemented only for src.shape == index.shape. Additionally accepts an optional reduce argument that allows specification of an optional reduction operation, which is applied to all values in the tensor src into self at the indices specified in the index. For each value in src, the reduction operation is applied to an index in self which is specified by its index in src for dimension != dim and by the corresponding value in index for dimension = dim. Given a 3-D tensor and reduction using the multiplication operation, self is updated as: self[index[i][j][k]][j][k] *= src[i][j][k] # if dim == 0 self[i][index[i][j][k]][k] *= src[i][j][k] # if dim == 1 self[i][j][index[i][j][k]] *= src[i][j][k] # if dim == 2 Reducing with the addition operation is the same as using scatter_add_(). Warning The reduce argument with Tensor src is deprecated and will be removed in a future PyTorch release. Please use scatter_reduce_() instead for more reduction options. Parameters dim (int) – the axis along which to index index (LongTensor) – the indices of elements to scatter, can be either empty or of the same dimensionality as src. When empty, the operation returns self unchanged. src (Tensor) – the source element(s) to scatter. Keyword Arguments reduce (str, optional) – reduction operation to apply, can be either &#39;add&#39; or &#39;multiply&#39;. Example: &gt;&gt;&gt; src = torch.arange(1, 11).reshape((2, 5)) &gt;&gt;&gt; src tensor([[ 1, 2, 3, 4, 5], [ 6, 7, 8, 9, 10]]) &gt;&gt;&gt; index = torch.tensor([[0, 1, 2, 0]]) &gt;&gt;&gt; torch.zeros(3, 5, dtype=src.dtype).scatter_(0, index, src) tensor([[1, 0, 0, 4, 0], [0, 2, 0, 0, 0], [0, 0, 3, 0, 0]]) &gt;&gt;&gt; index = torch.tensor([[0, 1, 2], [0, 1, 4]]) &gt;&gt;&gt; torch.z..."
        }

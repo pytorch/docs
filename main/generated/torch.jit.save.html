@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="../_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.jit.save.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/generated/torch.jit.save.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4335,7 +4358,7 @@ document.write(`
 <h1>torch.jit.save<a class="headerlink" href="#torch-jit-save" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.save">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_extra_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/6c7f88c2c9d5edc8f940d0b1ab7c9124056da417/torch/jit/_serialization.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.save" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_extra_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/eb853e222bd7f62d8f424ce825fe4f37b401c5e1/torch/jit/_serialization.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.save" title="Permalink to this definition">#</a></dt>
 <dd><p>Save an offline version of this module for use in a separate process.</p>
 <p>The saved module serializes all of the methods, submodules, parameters, and
 attributes of this module. It can be loaded into the C++ API using
@@ -4660,21 +4683,17 @@ replicate the 1.6 behavior.</p>
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="../_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4719,18 +4738,20 @@ replicate the 1.6 behavior.</p>
          "@type": "Article",
          "headline": "torch.jit.save",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/generated/torch.jit.save.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "../_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/generated/torch.jit.save.html"
          },
-         "datePublished": "",
+        "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.jit.save# torch.jit.save(m, f, _extra_files=None)[source]# Save an offline version of this module for use in a separate process. The saved module serializes all of the methods, submodules, parameters, and attributes of this module. It can be loaded into the C++ API using torch::jit::load(filename) or into the Python API with torch.jit.load. To be able to save a module, it must not make any calls to native Python functions. This means that all submodules must be subclasses of ScriptModule as well. Danger All modules, no matter their device, are always loaded onto the CPU during loading. This is different from torch.load()’s semantics and may change in the future. Parameters m – A ScriptModule to save. f – A file-like object (has to implement write and flush) or a string containing a file name. _extra_files – Map from filename to contents which will be stored as part of f. Note torch.jit.save attempts to preserve the behavior of some operators across versions. For example, dividing two integer tensors in PyTorch 1.5 performed floor division, and if the module containing that code is saved in PyTorch 1.5 and loaded in PyTorch 1.6 its division behavior will be preserved. The same module saved in PyTorch 1.6 will fail to load in PyTorch 1.5, however, since the behavior of division changed in 1.6, and 1.5 does not know how to replicate the 1.6 behavior. Example: .. testcode: import torch import io class MyModule(torch.nn.Module): def forward(self, x): return x + 10 m = torch.jit.script(MyModule()) # Save to file torch.jit.save(m, &#39;scriptmodule.pt&#39;) # This line is equivalent to the previous m.save(&#34;scriptmodule.pt&#34;) # Save to io.BytesIO buffer buffer = io.BytesIO() torch.jit.save(m, buffer) # Save with extra files extra_files = {&#39;foo.txt&#39;: b&#39;bar&#39;} torch.jit.save(m, &#39;scriptmodule.pt&#39;, _extra_files=extra_files)"
+         "articleBody": "torch.jit.save# torch.jit.save(m, f, _extra_files=None)[source]# Save an offline version of this module for use in a separate process. The saved module serializes all of the methods, submodules, parameters, and attributes of this module. It can be loaded into the C++ API using torch::jit::load(filename) or into the Python API with torch.jit.load. To be able to save a module, it must not make any calls to native Python functions. This means that all submodules must be subclasses of ScriptModule as well. Danger All modules, no matter their device, are always loaded onto the CPU during loading. This is different from torch.load()’s semantics and may change in the future. Parameters m – A ScriptModule to save. f – A file-like object (has to implement write and flush) or a string containing a file name. _extra_files – Map from filename to contents which will be stored as part of f. Note torch.jit.save attempts to preserve the behavior of some operators across versions. For example, dividing two integer tensors in PyTorch 1.5 performed floor division, and if the module containing that code is saved in PyTorch 1.5 and loaded in PyTorch 1.6 its division behavior will be preserved. The same module saved in PyTorch 1.6 will fail to load in PyTorch 1.5, however, since the behavior of division changed in 1.6, and 1.5 does not know how to replicate the 1.6 behavior. Example: .. testcode: import torch import io class MyModule(torch.nn.Module): def forward(self, x): return x + 10 m = torch.jit.script(MyModule()) # Save to file torch.jit.save(m, &#39;scriptmodule.pt&#39;) # This line is equivalent to the previous m.save(\&#34;scriptmodule.pt\&#34;) # Save to io.BytesIO buffer buffer = io.BytesIO() torch.jit.save(m, buffer) # Save with extra files extra_files = {&#39;foo.txt&#39;: b&#39;bar&#39;} torch.jit.save(m, &#39;scriptmodule.pt&#39;, _extra_files=extra_files)"
        }
    </script>
 

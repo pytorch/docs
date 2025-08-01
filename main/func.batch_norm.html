@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/func.batch_norm.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/func.batch_norm.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4698,21 +4721,17 @@ have a net where you want the BatchNorm to not use running stats, you can run
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4757,17 +4776,19 @@ have a net where you want the BatchNorm to not use running stats, you can run
          "@type": "Article",
          "headline": "Patching Batch Norm",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/func.batch_norm.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/func.batch_norm.html"
          },
-         "datePublished": "Jan 03, 2023",
-         "dateModified": "Jun 11, 2025",
+        "datePublished": "Jan 03, 2023T00:00:00Z",
+         "dateModified": "Jun 11, 2025T00:00:00Z",
          "articleBody": "Patching Batch Norm# Created On: Jan 03, 2023 | Last Updated On: Jun 11, 2025 What’s happening?# Batch Norm requires in-place updates to running_mean and running_var of the same size as the input. Functorch does not support inplace update to a regular tensor that takes in a batched tensor (i.e. regular.add_(batched) is not allowed). So when vmapping over a batch of inputs to a single module, we end up with this error How to fix# One of the best supported ways is to switch BatchNorm for GroupNorm. Options 1 and 2 support this All of these options assume that you don’t need running stats. If you’re using a module this means that it’s assumed you won’t use batch norm in evaluation mode. If you have a use case that involves running batch norm with vmap in evaluation mode, please file an issue Option 1: Change the BatchNorm# If you want to change for GroupNorm, anywhere that you have BatchNorm, replace it with: BatchNorm2d(C, G, track_running_stats=False) Here C is the same C as in the original BatchNorm. G is the number of groups to break C into. As such, C % G == 0 and as a fallback, you can set C == G, meaning each channel will be treated separately. If you must use BatchNorm and you’ve built the module yourself, you can change the module to not use running stats. In other words, anywhere that there’s a BatchNorm module, set the track_running_stats flag to be False BatchNorm2d(64, track_running_stats=False) Option 2: torchvision parameter# Some torchvision models, like resnet and regnet, can take in a norm_layer parameter. These are often defaulted to be BatchNorm2d if they’ve been defaulted. Instead you can set it to be GroupNorm. import torchvision from functools import partial torchvision.models.resnet18(norm_layer=lambda c: GroupNorm(num_groups=g, c)) Here, once again, c % g == 0 so as a fallback, set g = c. If you are attached to BatchNorm, be sure to use a version that doesn’t use running stats import torchvision from functools import partial torchvision.models.resnet18(norm_layer=partial(BatchNorm2d, track_running_stats=False)) Option 3: functorch’s patching# functorch has added some functionality to allow for quick, in-place patching of the module to not use running stats. Changing the norm layer is more fragile, so we have not offered that. If you have a net where you want the BatchNorm to not use running stats, you can run replace_all_batch_norm_modules_ to update the module in-place to not use running stats from torch.func import replace_all_batch_norm_modules_ replace_all_batch_norm_modules_(net) Option 4: eval mode# When run under eval mode, the running_mean and running_var will not be updated. Therefore, vmap can support this mode model.eval() vmap(model)(x) model.train()"
        }
    </script>

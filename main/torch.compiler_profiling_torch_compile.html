@@ -60,6 +60,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
+    <script src="_static/js/runllm-widget.js"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/torch.compiler_profiling_torch_compile.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,6 +72,28 @@
 <link rel="canonical" href="/torch.compiler_profiling_torch_compile.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+  if (window.location.hostname === 'docs.pytorch.org' || window.location.hostname === 'docs-preview.pytorch.org') {
+    const script = document.createElement('script');
+    script.src = 'https://cmp.osano.com/16A0DbT9yDNIaQkvZ/31b1b91a-e0b6-47ea-bde2-7f2bd13dbe5c/osano.js?variant=one';
+    document.head.appendChild(script);
+  }
+</script>
+<script>
+  // Cookie banner for non-LF projects.
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide cookie banner on local environments
+    if (window.location.hostname === 'localhost' ||
+        window.location.hostname === '0.0.0.0' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.hostname.startsWith('192.168.')) {
+      const banner = document.querySelector('.cookie-banner-wrapper');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  });
+</script>
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6c7f88c )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+giteb853e2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4850,21 +4873,17 @@ document.write(`
 
 
        </div>
-
-  <div class="cookie-banner-wrapper">
-  <div class="container">
-    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/img/pytorch-x.svg">
-  </div>
-</div>
  </footer>
-   
-  <footer class="bd-footer"><div class="cookie-banner-wrapper">
+
+<div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
+
+   
+  <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
     <div class="footer-items__start">
@@ -4909,18 +4928,20 @@ document.write(`
          "@type": "Article",
          "headline": "Profiling to understand torch.compile performance",
          "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+         "url": "/torch.compiler_profiling_torch_compile.html",
          "author": {
            "@type": "Organization",
-           "name": "PyTorch Contributors"
+           "name": "PyTorch Contributors",
+           "url": "https://pytorch.org"
          },
          "image": "_static/img/pytorch_seo.png",
          "mainEntityOfPage": {
            "@type": "WebPage",
            "@id": "/torch.compiler_profiling_torch_compile.html"
          },
-         "datePublished": "Jun 06, 2023",
-         "dateModified": "Jul 11, 2025",
-         "articleBody": "Profiling to understand torch.compile performance# Created On: Jun 06, 2023 | Last Updated On: Jul 11, 2025 What to use torch.profiler for:# torch.profiler is helpful for understanding the performance of your program at a kernel-level granularity - for example, it can show graph breaks and resources utilization at the level of the program. The data provided by the profiler can often help users understand where to investigate further to understand model performance. To understand kernel-level performance, other tools exist, such as Nvidia Nsight compute tool, AMD Omnitrace, Intel® VTune™ Profiler or inductor’s profiling tools can be used. See also the general pytorch profiler guide. Basics of using torch.profiler and viewing traces# Example program: We’ll use this example of profiling resnet18. Notice the following parts of this example program: Include a warm-up run to wait for compilation to complete (this will warm up systems like the CUDA caching allocator) Use torch.profiler.profile() context for profiling the section we are interested in Use prof.export_chrome_trace(&#34;trace.json&#34;) to export the profiling artifact. import torch from torchvision.models import resnet18 device = &#39;cuda&#39; # or &#39;cpu&#39;, &#39;xpu&#39;, etc. model = resnet18().to(device) inputs = [torch.randn((5, 3, 224, 224), device=device) for _ in range(10)] model_c = torch.compile(model) def fwd_bwd(inp): out = model_c(inp) out.sum().backward() # warm up fwd_bwd(inputs[0]) with torch.profiler.profile() as prof: for i in range(1, 4): fwd_bwd(inputs[i]) prof.step() prof.export_chrome_trace(&#34;trace.json&#34;) Viewing chrome traces: In the Chrome browser, open chrome://tracing and load the json file. Use the “w” and “s” keys to zoom in and out, and use “a” and “d” to scroll left and right. “?” will show a “help” screen with a list of shortcuts. Here, we observe: CompiledFunction and CompiledFunctionBackward events, which correspond to the dynamo-compiled regions. CPU events at the top, and GPU events at the bottom. Flows between CPU and accelerator events Every kernel on the accelerator occurs after being launched by code running on the CPU. The profiler can draw connections (i.e. “flows”) between the accelerator and CPU events to show which CPU event launched a accelerator kernel. This is particularly helpful because, with a few exceptions, accelerator kernels are launched asynchronously. To view a flow connection, click on a GPU kernel and click “ac2g”: Alternatively, turn on all flows with the “Flow events” dropdown at the top. Working around CUDA Graph profiling issues# When CUDA graphs are enabled, some CUDA configurations (driver version under 525.85.12 or CUDA &lt; 12) can encounter issues between the profiling tools and CUDA graphs. To fix these issues, add an empty profiling context at the top of your program: import torch torch.profiler._utils._init_for_cuda_graphs() # ... rest of program Understanding compilation time# To understand why compilation is taking a long time, you can profile th..."
+        "datePublished": "Jun 06, 2023T00:00:00Z",
+         "dateModified": "Jul 11, 2025T00:00:00Z",
+         "articleBody": "Profiling to understand torch.compile performance# Created On: Jun 06, 2023 | Last Updated On: Jul 11, 2025 What to use torch.profiler for:# torch.profiler is helpful for understanding the performance of your program at a kernel-level granularity - for example, it can show graph breaks and resources utilization at the level of the program. The data provided by the profiler can often help users understand where to investigate further to understand model performance. To understand kernel-level performance, other tools exist, such as Nvidia Nsight compute tool, AMD Omnitrace, Intel® VTune™ Profiler or inductor’s profiling tools can be used. See also the general pytorch profiler guide. Basics of using torch.profiler and viewing traces# Example program: We’ll use this example of profiling resnet18. Notice the following parts of this example program: Include a warm-up run to wait for compilation to complete (this will warm up systems like the CUDA caching allocator) Use torch.profiler.profile() context for profiling the section we are interested in Use prof.export_chrome_trace(\&#34;trace.json\&#34;) to export the profiling artifact. import torch from torchvision.models import resnet18 device = &#39;cuda&#39; # or &#39;cpu&#39;, &#39;xpu&#39;, etc. model = resnet18().to(device) inputs = [torch.randn((5, 3, 224, 224), device=device) for _ in range(10)] model_c = torch.compile(model) def fwd_bwd(inp): out = model_c(inp) out.sum().backward() # warm up fwd_bwd(inputs[0]) with torch.profiler.profile() as prof: for i in range(1, 4): fwd_bwd(inputs[i]) prof.step() prof.export_chrome_trace(\&#34;trace.json\&#34;) Viewing chrome traces: In the Chrome browser, open chrome://tracing and load the json file. Use the “w” and “s” keys to zoom in and out, and use “a” and “d” to scroll left and right. “?” will show a “help” screen with a list of shortcuts. Here, we observe: CompiledFunction and CompiledFunctionBackward events, which correspond to the dynamo-compiled regions. CPU events at the top, and GPU events at the bottom. Flows between CPU and accelerator events Every kernel on the accelerator occurs after being launched by code running on the CPU. The profiler can draw connections (i.e. “flows”) between the accelerator and CPU events to show which CPU event launched a accelerator kernel. This is particularly helpful because, with a few exceptions, accelerator kernels are launched asynchronously. To view a flow connection, click on a GPU kernel and click “ac2g”: Alternatively, turn on all flows with the “Flow events” dropdown at the top. Working around CUDA Graph profiling issues# When CUDA graphs are enabled, some CUDA configurations (driver version under 525.85.12 or CUDA &lt; 12) can encounter issues between the profiling tools and CUDA graphs. To fix these issues, add an empty profiling context at the top of your program: import torch torch.profiler._utils._init_for_cuda_graphs() # ... rest of program Understanding compilation time# To understand why compilation is taking a long time, you can profile th..."
        }
    </script>
 
