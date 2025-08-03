@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita81ffbc )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita29ed5e )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4369,7 +4369,7 @@ document.write(`
 <h1>fuse_modules<a class="headerlink" href="#fuse-modules" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.fuse_modules.fuse_modules">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fuse_modules.</span></span><span class="sig-name descname"><span class="pre">fuse_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modules_to_fuse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fuser_func=&lt;function</span> <span class="pre">fuse_known_modules&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fuse_custom_config_dict=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a81ffbc5f571ba6faba91634353726537028db8a/torch/ao/quantization/fuse_modules.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fuse_modules.fuse_modules" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fuse_modules.</span></span><span class="sig-name descname"><span class="pre">fuse_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modules_to_fuse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fuser_func=&lt;function</span> <span class="pre">fuse_known_modules&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fuse_custom_config_dict=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a29ed5e1acc5a1f90729bff23b3017ab12b898d5/torch/ao/quantization/fuse_modules.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fuse_modules.fuse_modules" title="Permalink to this definition">#</a></dt>
 <dd><p>Fuse a list of modules into a single module.</p>
 <p>Fuses only the following sequence of modules:
 conv, bn
