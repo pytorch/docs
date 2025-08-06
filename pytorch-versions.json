@@ -1,14 +1,14 @@
 [
   {
-    "name": "main (unstable)",
-    "version": "main",
-    "url": "https://docs.pytorch.org/docs/main/"
-  },
-  {
     "name": "v2.8.0 (stable)",
     "version": "2.8",
     "url": "https://docs.pytorch.org/docs/2.8/",
     "preferred": true
+  },
+  {
+    "name": "main (unstable)",
+    "version": "main",
+    "url": "https://docs.pytorch.org/docs/main/"
   },
   {
     "name": "v2.7.0",
