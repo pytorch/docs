@@ -7,7 +7,7 @@
   },
   {
     "name": "main (unstable)",
-    "version": "main",
+    "version": "unstable",
     "url": "https://docs.pytorch.org/docs/main/"
   },
   {
