@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git6a82da3 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git5cedc5a )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3134,6 +3134,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.current_stream.html">torch.accelerator.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.device_index.html">device_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.memory_allocated.html">torch.accelerator.memory.memory_allocated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.memory_reserved.html">torch.accelerator.memory.memory_reserved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.memory_stats.html">torch.accelerator.memory.memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.reset_accumulated_memory_stats.html">torch.accelerator.memory.reset_accumulated_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.reset_peak_memory_stats.html">torch.accelerator.memory.reset_peak_memory_stats</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cpu.html">torch.cpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3359,8 +3367,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4417,7 +4425,7 @@ or submit an issue to the <a class="reference external" href="https://github.com
 
   Developer debug context: call_method UserDefinedObjectVariable(list_iterator) __next__ [] {}
 
- For more details about this graph break, please visit: https://pytorch-labs.github.io/compile-graph-break-site/gb/gb0156.html
+ For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0156.html
 
 from user code:
    File &quot;/tmp/ipykernel_881/1195637716.py&quot;, line 3, in f
@@ -4515,7 +4523,7 @@ but <strong>we do not provide any soundness guarantees</strong>.</p>
 
   Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}`
 
- For more details about this graph break, please visit: https://pytorch-labs.github.io/compile-graph-break-site/gb/gb0025.html
+ For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
 
 from user code:
    File &quot;/tmp/ipykernel_881/2422769198.py&quot;, line 11, in f
@@ -4526,7 +4534,7 @@ from user code:
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([-0.2332,  0.5867, -0.5204])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([ 0.0630, -0.6550, -0.1105])
 </pre></div>
 </div>
 </div>
@@ -4593,7 +4601,7 @@ Attempted to call function marked as skipped
 
   Developer debug context: module: square_cpu_kernel, qualname: PyCapsule.square_cpu, skip reason: &lt;missing reason&gt;
 
- For more details about this graph break, please visit: https://pytorch-labs.github.io/compile-graph-break-site/gb/gb0007.html
+ For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0007.html
 
 from user code:
    File &quot;/tmp/ipykernel_881/2059008136.py&quot;, line 41, in f
@@ -4604,7 +4612,7 @@ from user code:
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/_dynamo/variables/functions.py:1558: UserWarning: Dynamo does not know how to trace the builtin `square_cpu_kernel.PyCapsule.square_cpu.` This function is either a Python builtin (e.g. _warnings.warn) or a third-party C/C++ Python extension (perhaps created with pybind).
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/_dynamo/variables/functions.py:1545: UserWarning: Dynamo does not know how to trace the builtin `square_cpu_kernel.PyCapsule.square_cpu.` This function is either a Python builtin (e.g. _warnings.warn) or a third-party C/C++ Python extension (perhaps created with pybind).
 If it is a Python builtin, please file an issue on GitHub so the PyTorch team can add support for it and see the next case for a workaround.
 If it is a third-party C/C++ Python extension, please either wrap it into a PyTorch-understood custom operator (see https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html for more details) or, if it is traceable, use `torch.compiler.allow_in_graph`.
   torch._dynamo.utils.warn_once(explanation + &quot;\n&quot; + &quot;\n&quot;.join(hints))
@@ -4632,9 +4640,9 @@ If it is a third-party C/C++ Python extension, please either wrap it into a PyTo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[3.2537e-02, 2.3589e-01, 5.0696e-01],
-        [1.6147e-01, 1.0041e+00, 3.8107e+00],
-        [5.0432e-01, 1.6153e+00, 2.4678e-04]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[1.5818, 0.3253, 1.3085],
+        [0.0064, 0.8760, 3.8714],
+        [4.1807, 0.0719, 0.2768]])
 </pre></div>
 </div>
 </div>
@@ -4673,7 +4681,7 @@ code is not called in the compiled region.</p>
 
   Developer debug context: module: torch.serialization, qualname: save, skip reason: &lt;missing reason&gt;
 
- For more details about this graph break, please visit: https://pytorch-labs.github.io/compile-graph-break-site/gb/gb0007.html
+ For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0007.html
 
 from user code:
    File &quot;/tmp/ipykernel_881/150060719.py&quot;, line 4, in f
@@ -4707,7 +4715,7 @@ Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especiall
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([1.3794e-07, 2.5424e-02, 1.5362e-05])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0.0068, 0.0047, 0.0475])
 </pre></div>
 </div>
 </div>
@@ -5061,7 +5069,7 @@ Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especiall
          },
         "datePublished": "Jul 28, 2025T00:00:00Z",
          "dateModified": "Jul 28, 2025T00:00:00Z",
-         "articleBody": "Use fullgraph=True to Identify and Eliminate Graph Breaks# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 Using torch.compile(fullgraph=False) (the default) is a good way to get started with torch.compile: it supports all Python programs out-of-the-box via the ability to graph break and gives good performance on common cases. However, if you’re trying to get more performance out of your model, you should explicitly think about what regions of code should be compiled: We recommend using torch.compile(fullgraph=True) to find and eliminate graph breaks in your code. If you’re a library developer (or testing if your code “works” with torch.compile), we recommend testing using torch.compile(fullgraph=True). torch.compile(fullgraph=True) offers stronger guarantees over fullgraph=False: we will always capture a single FX graph to be compiled (or error if we cannot due to a graph break). In particular, you are forced to resolve every graph break that is encountered. There are a number of strategies for resolving a graph break. Strategy 1: Rewrite the unsupported code to use features supported by Dynamo# Many graph break error messages will give some suggestions on how to rewrite code to avoid the graph break. If the graph break is still difficult to resolve, then please move on to the next strategy or submit an issue to the PyTorch GitHub repo. More graph break examples and how to resolve them can be found in Common Graph Breaks. Example: Dynamo does not support calling next on a list_iterator object that was an input to the function being compiled. @torch.compile(fullgraph=True) def f(xs): a = next(xs) b = next(xs) return a + b xs = [torch.tensor(1.), torch.tensor(2.)] try: out = f(iter(xs)) except Exception as e: print(e) Unsupported method call Explanation: Dynamo does not know how to trace method `__next__` of class `list_iterator` Hint: Avoid calling `list_iterator.__next__` in your code. Hint: Please report an issue to PyTorch. Hint: Dynamo does not fully support tracing builtin iterators (e.g. `map`, `zip`, `enumerate`) passed in from uncompiled to compiled regions (e.g. `torch.compile(fn)(enumerate(...))`). This can happen unintentionally if a previous graph break happens with a builtin iterator in the local scope. Hint: List/dict comprehensions in Python &lt;= 3.11 result in implicit function calls, which Dynamo cannot trace as a top level frame. Possible workarounds are (1) use a loop instead of a comprehension, (2) fix any graph breaks in the function above the comprehension, (3) wrap the comprehension in a function, or (4) use Python 3.12+. Developer debug context: call_method UserDefinedObjectVariable(list_iterator) __next__ [] {} For more details about this graph break, please visit: https://pytorch-labs.github.io/compile-graph-break-site/gb/gb0156.html from user code: File \&#34;/tmp/ipykernel_881/1195637716.py\&#34;, line 3, in f a = next(xs) Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re repor..."
+         "articleBody": "Use fullgraph=True to Identify and Eliminate Graph Breaks# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 Using torch.compile(fullgraph=False) (the default) is a good way to get started with torch.compile: it supports all Python programs out-of-the-box via the ability to graph break and gives good performance on common cases. However, if you’re trying to get more performance out of your model, you should explicitly think about what regions of code should be compiled: We recommend using torch.compile(fullgraph=True) to find and eliminate graph breaks in your code. If you’re a library developer (or testing if your code “works” with torch.compile), we recommend testing using torch.compile(fullgraph=True). torch.compile(fullgraph=True) offers stronger guarantees over fullgraph=False: we will always capture a single FX graph to be compiled (or error if we cannot due to a graph break). In particular, you are forced to resolve every graph break that is encountered. There are a number of strategies for resolving a graph break. Strategy 1: Rewrite the unsupported code to use features supported by Dynamo# Many graph break error messages will give some suggestions on how to rewrite code to avoid the graph break. If the graph break is still difficult to resolve, then please move on to the next strategy or submit an issue to the PyTorch GitHub repo. More graph break examples and how to resolve them can be found in Common Graph Breaks. Example: Dynamo does not support calling next on a list_iterator object that was an input to the function being compiled. @torch.compile(fullgraph=True) def f(xs): a = next(xs) b = next(xs) return a + b xs = [torch.tensor(1.), torch.tensor(2.)] try: out = f(iter(xs)) except Exception as e: print(e) Unsupported method call Explanation: Dynamo does not know how to trace method `__next__` of class `list_iterator` Hint: Avoid calling `list_iterator.__next__` in your code. Hint: Please report an issue to PyTorch. Hint: Dynamo does not fully support tracing builtin iterators (e.g. `map`, `zip`, `enumerate`) passed in from uncompiled to compiled regions (e.g. `torch.compile(fn)(enumerate(...))`). This can happen unintentionally if a previous graph break happens with a builtin iterator in the local scope. Hint: List/dict comprehensions in Python &lt;= 3.11 result in implicit function calls, which Dynamo cannot trace as a top level frame. Possible workarounds are (1) use a loop instead of a comprehension, (2) fix any graph breaks in the function above the comprehension, (3) wrap the comprehension in a function, or (4) use Python 3.12+. Developer debug context: call_method UserDefinedObjectVariable(list_iterator) __next__ [] {} For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0156.html from user code: File \&#34;/tmp/ipykernel_881/1195637716.py\&#34;, line 3, in f a = next(xs) Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re repor..."
        }
    </script>
 
