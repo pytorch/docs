@@ -1,6 +1,0 @@
-﻿torch.accelerator.memory.empty\_cache
-=====================================
-
-.. currentmodule:: torch.accelerator.memory
-
-.. autofunction:: empty_cache

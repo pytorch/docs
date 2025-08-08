@@ -1,6 +1,0 @@
-﻿torch.accelerator.memory.max\_memory\_reserved
-==============================================
-
-.. currentmodule:: torch.accelerator.memory
-
-.. autofunction:: max_memory_reserved

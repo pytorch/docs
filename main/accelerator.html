@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git5cedc5a )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git03b254e )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3134,14 +3134,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.current_stream.html">torch.accelerator.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.device_index.html">device_index</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_allocated.html">torch.accelerator.memory.memory_allocated</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_reserved.html">torch.accelerator.memory.memory_reserved</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_stats.html">torch.accelerator.memory.memory_stats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.reset_accumulated_memory_stats.html">torch.accelerator.memory.reset_accumulated_memory_stats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.reset_peak_memory_stats.html">torch.accelerator.memory.reset_peak_memory_stats</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cpu.html">torch.cpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3367,8 +3359,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4355,7 +4347,7 @@ document.write(`
                   
   <div class="section" id="module-torch.accelerator">
 <span id="torch-accelerator"></span><h1>torch.accelerator<a class="headerlink" href="#module-torch.accelerator" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 27, 2024 | Last Updated On: Aug 06, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 27, 2024 | Last Updated On: Aug 07, 2025</p>
 <p>This package introduces support for the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> in python.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <colgroup>
@@ -4398,42 +4390,6 @@ document.write(`
 </tr>
 </tbody>
 </table>
-</div>
-<span class="target" id="module-torch.accelerator.memory"></span><div class="section" id="memory-management">
-<h2>Memory management<a class="headerlink" href="#memory-management" title="Permalink to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><p id="torch.accelerator.memory.empty_cache"/><a class="reference internal" href="generated/torch.accelerator.memory.empty_cache.html#torch.accelerator.memory.empty_cache" title="torch.accelerator.memory.empty_cache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_cache</span></code></a></p></td>
-<td><p>Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other application.</p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.accelerator.memory.max_memory_allocated"/><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_allocated.html#torch.accelerator.memory.max_memory_allocated" title="torch.accelerator.memory.max_memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_allocated</span></code></a></p></td>
-<td><p>Return the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> maximum device memory occupied by tensors in bytes for a given device index.</p></td>
-</tr>
-<tr class="row-odd"><td><p><p id="torch.accelerator.memory.max_memory_reserved"/><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_reserved.html#torch.accelerator.memory.max_memory_reserved" title="torch.accelerator.memory.max_memory_reserved"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_reserved</span></code></a></p></td>
-<td><p>Return the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> maximum device memory managed by the caching allocator in bytes for a given device index.</p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.accelerator.memory.memory_allocated"/><a class="reference internal" href="generated/torch.accelerator.memory.memory_allocated.html#torch.accelerator.memory.memory_allocated" title="torch.accelerator.memory.memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_allocated</span></code></a></p></td>
-<td><p>Return the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> device memory occupied by tensors in bytes for a given device index.</p></td>
-</tr>
-<tr class="row-odd"><td><p><p id="torch.accelerator.memory.memory_reserved"/><a class="reference internal" href="generated/torch.accelerator.memory.memory_reserved.html#torch.accelerator.memory.memory_reserved" title="torch.accelerator.memory.memory_reserved"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_reserved</span></code></a></p></td>
-<td><p>Return the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> device memory managed by the caching allocator in bytes for a given device index.</p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.accelerator.memory.memory_stats"/><a class="reference internal" href="generated/torch.accelerator.memory.memory_stats.html#torch.accelerator.memory.memory_stats" title="torch.accelerator.memory.memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_stats</span></code></a></p></td>
-<td><p>Return a dictionary of accelerator device memory allocator statistics for a given device index.</p></td>
-</tr>
-<tr class="row-odd"><td><p><p id="torch.accelerator.memory.reset_accumulated_memory_stats"/><a class="reference internal" href="generated/torch.accelerator.memory.reset_accumulated_memory_stats.html#torch.accelerator.memory.reset_accumulated_memory_stats" title="torch.accelerator.memory.reset_accumulated_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_accumulated_memory_stats</span></code></a></p></td>
-<td><p>Reset the &quot;accumulated&quot; (historical) stats tracked by the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> memory allocator for a given device index.</p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.accelerator.memory.reset_peak_memory_stats"/><a class="reference internal" href="generated/torch.accelerator.memory.reset_peak_memory_stats.html#torch.accelerator.memory.reset_peak_memory_stats" title="torch.accelerator.memory.reset_peak_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_peak_memory_stats</span></code></a></p></td>
-<td><p>Reset the &quot;peak&quot; stats tracked by the current <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a> memory allocator for a given device index.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 </div>
 
@@ -4550,18 +4506,6 @@ document.write(`
               
                 <div class="bd-sidebar-secondary bd-toc">
 <div class="sidebar-secondary-items sidebar-secondary__inner">
-    
-       <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-management">Memory management</a></li>
-</ul>
-  </nav></div>
     
        <div class="sidebar-secondary-item">
 
@@ -4780,8 +4724,8 @@ document.write(`
            "@id": "/accelerator.html"
          },
         "datePublished": "Oct 27, 2024T00:00:00Z",
-         "dateModified": "Aug 06, 2025T00:00:00Z",
-         "articleBody": "torch.accelerator# Created On: Oct 27, 2024 | Last Updated On: Aug 06, 2025 This package introduces support for the current accelerator in python. device_count Return the number of current accelerator available. is_available Check if the current accelerator is available at runtime: it was build, all the required drivers are available and at least one device is visible. current_accelerator Return the device of the accelerator available at compilation time. set_device_index Set the current device index to a given device. set_device_idx (Deprecated) Set the current device index to a given device. current_device_index Return the index of a currently selected device for the current accelerator. current_device_idx (Deprecated) Return the index of a currently selected device for the current accelerator. set_stream Set the current stream to a given stream. current_stream Return the currently selected stream for a given device. synchronize Wait for all kernels in all streams on the given device to complete. device_index Context manager to set the current device index for the current accelerator. Memory management# empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other application. max_memory_allocated Return the current accelerator maximum device memory occupied by tensors in bytes for a given device index. max_memory_reserved Return the current accelerator maximum device memory managed by the caching allocator in bytes for a given device index. memory_allocated Return the current accelerator device memory occupied by tensors in bytes for a given device index. memory_reserved Return the current accelerator device memory managed by the caching allocator in bytes for a given device index. memory_stats Return a dictionary of accelerator device memory allocator statistics for a given device index. reset_accumulated_memory_stats Reset the \&#34;accumulated\&#34; (historical) stats tracked by the current accelerator memory allocator for a given device index. reset_peak_memory_stats Reset the \&#34;peak\&#34; stats tracked by the current accelerator memory allocator for a given device index."
+         "dateModified": "Aug 07, 2025T00:00:00Z",
+         "articleBody": "torch.accelerator# Created On: Oct 27, 2024 | Last Updated On: Aug 07, 2025 This package introduces support for the current accelerator in python. device_count Return the number of current accelerator available. is_available Check if the current accelerator is available at runtime: it was build, all the required drivers are available and at least one device is visible. current_accelerator Return the device of the accelerator available at compilation time. set_device_index Set the current device index to a given device. set_device_idx (Deprecated) Set the current device index to a given device. current_device_index Return the index of a currently selected device for the current accelerator. current_device_idx (Deprecated) Return the index of a currently selected device for the current accelerator. set_stream Set the current stream to a given stream. current_stream Return the currently selected stream for a given device. synchronize Wait for all kernels in all streams on the given device to complete. device_index Context manager to set the current device index for the current accelerator."
        }
    </script>
 

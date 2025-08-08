@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git5cedc5a )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git03b254e )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3134,14 +3134,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.current_stream.html">torch.accelerator.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.device_index.html">device_index</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_allocated.html">torch.accelerator.memory.memory_allocated</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_reserved.html">torch.accelerator.memory.memory_reserved</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.memory_stats.html">torch.accelerator.memory.memory_stats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.reset_accumulated_memory_stats.html">torch.accelerator.memory.reset_accumulated_memory_stats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.accelerator.memory.reset_peak_memory_stats.html">torch.accelerator.memory.reset_peak_memory_stats</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cpu.html">torch.cpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3367,8 +3359,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4541,55 +4533,55 @@ Graph signature:
     
 Range constraints: {}
 
-tensor([[[[1.4878, 1.2969, 2.4689,  ..., 1.8274, 1.8392, 1.8057],
-          [1.4883, 2.1398, 1.6723,  ..., 2.0318, 2.2843, 1.9218],
-          [1.7039, 2.2323, 2.1886,  ..., 1.3708, 1.6020, 2.3726],
+tensor([[[[1.6242, 1.5999, 1.9739,  ..., 1.4233, 1.5865, 1.2388],
+          [1.4232, 1.8297, 1.4657,  ..., 0.9563, 1.5040, 1.5353],
+          [1.5593, 1.4750, 1.7552,  ..., 1.4207, 1.7615, 1.8209],
           ...,
-          [1.5937, 1.8566, 2.0023,  ..., 1.6940, 1.6802, 1.5579],
-          [2.1109, 2.1997, 2.0308,  ..., 1.7683, 1.3887, 1.2609],
-          [2.4897, 2.0330, 1.6010,  ..., 2.1054, 1.9264, 1.8573]],
+          [1.5595, 1.4490, 1.4362,  ..., 1.4772, 1.2646, 1.3745],
+          [0.9812, 1.9552, 1.3482,  ..., 1.6878, 1.2571, 1.6245],
+          [1.0689, 1.8149, 2.2381,  ..., 1.6679, 1.7767, 1.4165]],
 
-         [[2.4518, 1.7998, 1.6947,  ..., 1.9093, 1.4787, 1.6044],
-          [2.4092, 1.8059, 2.2815,  ..., 1.7077, 2.2029, 1.7851],
-          [1.3761, 1.8707, 2.3105,  ..., 2.7449, 1.5251, 2.2521],
+         [[1.3035, 1.5512, 1.8779,  ..., 1.9856, 2.0444, 2.5499],
+          [1.3620, 1.4649, 2.0634,  ..., 2.3261, 1.7472, 1.7639],
+          [1.6073, 1.7946, 2.2848,  ..., 2.0329, 2.3510, 1.6251],
           ...,
-          [2.1189, 1.7114, 1.6518,  ..., 2.4814, 1.8878, 1.7793],
-          [1.9187, 2.0383, 1.5849,  ..., 1.8454, 1.7531, 2.6351],
-          [1.2608, 2.2987, 1.8864,  ..., 2.9781, 1.4710, 2.5998]],
+          [2.4503, 1.9681, 1.9636,  ..., 2.3534, 2.1089, 2.3544],
+          [1.7528, 2.0387, 1.5474,  ..., 1.8771, 1.8509, 1.5175],
+          [2.2533, 1.7543, 1.6282,  ..., 1.2556, 1.6960, 1.7324]],
 
-         [[1.4886, 1.4967, 1.2007,  ..., 2.0970, 2.4161, 1.6343],
-          [2.1286, 2.4306, 1.2792,  ..., 1.4398, 1.9407, 1.8086],
-          [1.7934, 1.7268, 2.0955,  ..., 1.9557, 1.8242, 1.9956],
+         [[1.4843, 1.9090, 1.8675,  ..., 2.6178, 1.5143, 1.8178],
+          [1.5563, 2.2355, 2.4168,  ..., 2.2314, 2.2246, 1.6292],
+          [1.3824, 2.0479, 1.2314,  ..., 1.8543, 2.6714, 2.0199],
           ...,
-          [1.9196, 1.3003, 1.9189,  ..., 1.8691, 2.0259, 1.7594],
-          [1.6033, 1.6558, 1.8733,  ..., 1.6803, 1.4788, 1.8152],
-          [1.3071, 2.2572, 1.9134,  ..., 2.2119, 1.8766, 1.7190]],
+          [1.7826, 1.4641, 1.3173,  ..., 1.5252, 1.8551, 1.7296],
+          [1.4472, 1.3842, 0.8653,  ..., 2.4343, 1.1356, 1.6912],
+          [1.9217, 1.6769, 1.7229,  ..., 1.8881, 2.0327, 1.8258]],
 
          ...,
 
-         [[1.7314, 2.0003, 1.5663,  ..., 1.8794, 1.8780, 1.5645],
-          [1.9361, 1.9378, 2.1567,  ..., 1.6981, 1.7871, 2.0168],
-          [1.7157, 1.8910, 1.7401,  ..., 2.5120, 1.9447, 2.2651],
+         [[1.3550, 2.3707, 2.0555,  ..., 1.8771, 1.9731, 1.3860],
+          [1.6160, 2.5861, 1.7487,  ..., 2.0139, 1.4796, 1.8988],
+          [1.8464, 1.8414, 1.6793,  ..., 2.4061, 1.7921, 1.7840],
           ...,
-          [1.4391, 1.5212, 2.2985,  ..., 2.2536, 1.8095, 1.8314],
-          [1.3453, 2.0615, 1.5809,  ..., 1.4752, 2.3244, 1.4524],
-          [1.8068, 2.9623, 1.6282,  ..., 2.3563, 2.8575, 2.0159]],
+          [1.9524, 2.0079, 2.7281,  ..., 2.0446, 1.9521, 1.6499],
+          [1.8999, 2.1459, 1.8404,  ..., 1.5226, 1.4336, 1.7213],
+          [1.5094, 1.2624, 1.9860,  ..., 2.6690, 2.1713, 2.3289]],
 
-         [[1.4355, 2.3110, 1.8979,  ..., 2.4285, 2.1281, 1.6779],
-          [1.7398, 2.5301, 1.2291,  ..., 1.3270, 1.6439, 1.9535],
-          [1.7404, 2.2201, 1.7832,  ..., 1.8019, 1.3285, 1.7015],
+         [[1.4980, 1.2025, 1.8482,  ..., 3.1407, 1.9000, 2.0274],
+          [2.6308, 1.6257, 1.9036,  ..., 2.2637, 1.7860, 2.3776],
+          [2.3314, 1.8077, 1.6059,  ..., 1.7312, 3.1957, 2.4220],
           ...,
-          [1.8939, 2.1478, 1.9152,  ..., 1.9712, 1.7280, 1.8623],
-          [3.1848, 1.5238, 2.3416,  ..., 2.7377, 1.3815, 1.9852],
-          [2.0186, 0.9649, 1.8823,  ..., 2.6910, 2.3703, 1.7323]],
+          [1.8745, 1.3968, 1.8861,  ..., 1.4656, 1.9132, 2.1072],
+          [2.3276, 1.6496, 1.4785,  ..., 2.2203, 2.0625, 2.7290],
+          [2.2077, 2.0393, 1.9158,  ..., 2.6626, 2.1318, 2.0310]],
 
-         [[1.7726, 2.5254, 1.5760,  ..., 1.8277, 1.3613, 1.7676],
-          [1.7208, 1.8593, 2.1051,  ..., 1.4196, 2.0446, 1.9783],
-          [2.2830, 1.4747, 1.7216,  ..., 1.1337, 1.6881, 1.5439],
+         [[2.4020, 1.9802, 1.6978,  ..., 2.6939, 1.8630, 1.8077],
+          [2.3941, 1.5918, 1.8393,  ..., 0.9658, 1.5641, 2.4503],
+          [2.2187, 1.8741, 2.3980,  ..., 1.2616, 2.5069, 2.0801],
           ...,
-          [1.3526, 1.7684, 1.3093,  ..., 1.6575, 1.6633, 1.9796],
-          [1.6407, 1.6029, 1.5749,  ..., 1.8520, 1.7763, 1.4041],
-          [1.4491, 2.5543, 1.3290,  ..., 2.3119, 2.0676, 1.8213]]]],
+          [0.4733, 1.0295, 1.2413,  ..., 1.5339, 1.3644, 1.5325],
+          [1.5380, 0.8790, 1.6193,  ..., 2.3518, 1.6814, 1.5811],
+          [1.4860, 1.5977, 2.2901,  ..., 1.8166, 1.9435, 1.7256]]]],
        grad_fn=&lt;MaxPool2DWithIndicesBackward0&gt;)
 </pre></div>
 </div>
@@ -4797,21 +4789,21 @@ Graph signature:
 Range constraints: {s24: VR[0, int_oo]}
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(tensor([[1.1890, 1.1993, 1.0000,  ..., 1.0000, 2.1021, 1.0000],
-         [1.0000, 1.0000, 2.1137,  ..., 1.3507, 1.0000, 1.8209],
-         [1.0000, 1.4803, 1.0000,  ..., 1.1723, 1.5334, 2.3812],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(tensor([[1.4166, 1.4868, 1.1572,  ..., 1.2845, 1.0000, 1.4764],
+         [1.0000, 1.0000, 1.3307,  ..., 1.0000, 1.0000, 1.0000],
+         [1.0000, 1.0000, 1.8970,  ..., 1.2561, 1.3547, 1.3908],
          ...,
-         [1.0000, 1.0000, 1.0000,  ..., 1.0000, 1.6930, 1.0000],
-         [1.0000, 1.0000, 1.4690,  ..., 1.2608, 1.2365, 1.0000],
-         [1.0000, 1.0000, 1.0000,  ..., 1.0000, 1.0000, 1.1117]],
+         [1.0000, 1.0000, 1.0000,  ..., 1.5368, 1.8362, 1.2373],
+         [1.0000, 1.0000, 1.0000,  ..., 1.3350, 1.3819, 1.4390],
+         [1.0000, 1.0000, 1.0564,  ..., 1.7573, 1.0000, 1.1452]],
         grad_fn=&lt;AddBackward0&gt;),
- tensor([[0.0000, 0.4571, 0.0391,  ..., 0.0000, 0.5298, 0.7715],
-         [0.0397, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-         [0.2957, 0.8018, 0.0000,  ..., 0.0000, 0.4899, 0.0000],
+ tensor([[0.3456, 0.2645, 0.0000,  ..., 0.0000, 0.2567, 0.5514],
+         [0.0767, 1.2249, 0.0000,  ..., 1.0499, 0.3364, 0.6910],
+         [0.0000, 0.8678, 0.0000,  ..., 0.0000, 1.0587, 0.6210],
          ...,
-         [0.4349, 0.0000, 0.7041,  ..., 0.0000, 0.0000, 0.6543],
-         [0.6584, 0.0736, 0.0000,  ..., 0.5975, 0.0000, 0.0000],
-         [0.0000, 0.0418, 0.0803,  ..., 0.0000, 0.0000, 0.0000]],
+         [0.0000, 0.0000, 0.5984,  ..., 0.0000, 0.3378, 0.1401],
+         [0.0000, 0.3133, 0.0000,  ..., 0.0000, 0.4071, 0.0000],
+         [0.4242, 0.1547, 0.2347,  ..., 0.7091, 0.8173, 0.0000]],
         grad_fn=&lt;ReluBackward0&gt;))
 </pre></div>
 </div>
@@ -5022,11 +5014,11 @@ shapes are changing.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;d&#39;: [None, _DimHint(type=&lt;_DimHintType.DYNAMIC: 3&gt;, min=None, max=None, _factory=True), None, (_DimHint(type=&lt;_DimHintType.DYNAMIC: 3&gt;, min=None, max=None, _factory=True),)]}
 ExportedProgram:
     class GraphModule(torch.nn.Module):
-        def forward(self, d_b, d_i: &quot;Sym(s70)&quot;, d_f, d_t: &quot;f32[s54]&quot;):
+        def forward(self, d_b, d_i: &quot;Sym(s37)&quot;, d_f, d_t: &quot;f32[s99]&quot;):
              # File: /tmp/ipykernel_618/829931439.py:16 in forward, code: return d.i + d.f + d.t
-            sym_float: &quot;Sym(ToFloat(s70))&quot; = torch.sym_float(d_i);  d_i = None
-            add: &quot;Sym(ToFloat(s70) + 3.0)&quot; = sym_float + 3.0;  sym_float = None
-            add_1: &quot;f32[s54]&quot; = torch.ops.aten.add.Tensor(d_t, add);  d_t = add = None
+            sym_float: &quot;Sym(ToFloat(s37))&quot; = torch.sym_float(d_i);  d_i = None
+            add: &quot;Sym(ToFloat(s37) + 3.0)&quot; = sym_float + 3.0;  sym_float = None
+            add_1: &quot;f32[s99]&quot; = torch.ops.aten.add.Tensor(d_t, add);  d_t = add = None
             return (add_1,)
             
 Graph signature: 
@@ -5039,7 +5031,7 @@ Graph signature:
     # outputs
     add_1: USER_OUTPUT
     
-Range constraints: {s70: VR[0, int_oo], s54: VR[2, int_oo]}
+Range constraints: {s37: VR[0, int_oo], s99: VR[2, int_oo]}
 </pre></div>
 </div>
 </div>

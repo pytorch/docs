@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git5cedc5a )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git03b254e )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3134,14 +3134,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.current_stream.html">torch.accelerator.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.device_index.html">device_index</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.memory_allocated.html">torch.accelerator.memory.memory_allocated</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.memory_reserved.html">torch.accelerator.memory.memory_reserved</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.memory_stats.html">torch.accelerator.memory.memory_stats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.reset_accumulated_memory_stats.html">torch.accelerator.memory.reset_accumulated_memory_stats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.accelerator.memory.reset_peak_memory_stats.html">torch.accelerator.memory.reset_peak_memory_stats</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cpu.html">torch.cpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3367,8 +3359,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4480,17 +4472,17 @@ and configure your job to use your custom metric handler.</p>
 <p>Below are the metric handlers that come included with torchelastic.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.metrics.api.MetricHandler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.metrics.api.</span></span><span class="sig-name descname"><span class="pre">MetricHandler</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5cedc5a0ff236529f76ac514805b825bc73e1a74/torch/distributed/elastic/metrics/api.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.metrics.api.MetricHandler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.metrics.api.</span></span><span class="sig-name descname"><span class="pre">MetricHandler</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/03b254e49f2d4c092e6ca712e5702cf2895aa47e/torch/distributed/elastic/metrics/api.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.metrics.api.MetricHandler" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.metrics.api.ConsoleMetricHandler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.metrics.api.</span></span><span class="sig-name descname"><span class="pre">ConsoleMetricHandler</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5cedc5a0ff236529f76ac514805b825bc73e1a74/torch/distributed/elastic/metrics/api.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.metrics.api.ConsoleMetricHandler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.metrics.api.</span></span><span class="sig-name descname"><span class="pre">ConsoleMetricHandler</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/03b254e49f2d4c092e6ca712e5702cf2895aa47e/torch/distributed/elastic/metrics/api.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.metrics.api.ConsoleMetricHandler" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.metrics.api.NullMetricHandler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.metrics.api.</span></span><span class="sig-name descname"><span class="pre">NullMetricHandler</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5cedc5a0ff236529f76ac514805b825bc73e1a74/torch/distributed/elastic/metrics/api.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.metrics.api.NullMetricHandler" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.metrics.api.</span></span><span class="sig-name descname"><span class="pre">NullMetricHandler</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/03b254e49f2d4c092e6ca712e5702cf2895aa47e/torch/distributed/elastic/metrics/api.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.metrics.api.NullMetricHandler" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -4498,14 +4490,14 @@ and configure your job to use your custom metric handler.</p>
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.metrics.configure">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.metrics.</span></span><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5cedc5a0ff236529f76ac514805b825bc73e1a74/torch/distributed/elastic/metrics/api.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.metrics.configure" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.metrics.</span></span><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/03b254e49f2d4c092e6ca712e5702cf2895aa47e/torch/distributed/elastic/metrics/api.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.metrics.configure" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.metrics.prof">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.metrics.</span></span><span class="sig-name descname"><span class="pre">prof</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'torchelastic'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5cedc5a0ff236529f76ac514805b825bc73e1a74/torch/distributed/elastic/metrics/api.py#L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.metrics.prof" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.metrics.</span></span><span class="sig-name descname"><span class="pre">prof</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'torchelastic'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/03b254e49f2d4c092e6ca712e5702cf2895aa47e/torch/distributed/elastic/metrics/api.py#L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.metrics.prof" title="Permalink to this definition">#</a></dt>
 <dd><p>&#64;profile decorator publishes duration.ms, count, success, failure metrics for the function that it decorates.</p>
 <p>The metric name defaults to the qualified name (<code class="docutils literal notranslate"><span class="pre">class_name.def_name</span></code>) of the function.
 If the function does not belong to a class, it uses the leaf module name instead.</p>
@@ -4526,7 +4518,7 @@ If the function does not belong to a class, it uses the leaf module name instead
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.metrics.put_metric">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.metrics.</span></span><span class="sig-name descname"><span class="pre">put_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'torchelastic'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5cedc5a0ff236529f76ac514805b825bc73e1a74/torch/distributed/elastic/metrics/api.py#L191"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.metrics.put_metric" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.metrics.</span></span><span class="sig-name descname"><span class="pre">put_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'torchelastic'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/03b254e49f2d4c092e6ca712e5702cf2895aa47e/torch/distributed/elastic/metrics/api.py#L191"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.metrics.put_metric" title="Permalink to this definition">#</a></dt>
 <dd><p>Publish a metric data point.</p>
 <p>Usage</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">put_metric</span><span class="p">(</span><span class="s2">&quot;metric_name&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>

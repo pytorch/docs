@@ -1,6 +1,0 @@
-﻿torch.accelerator.memory.reset\_peak\_memory\_stats
-===================================================
-
-.. currentmodule:: torch.accelerator.memory
-
-.. autofunction:: reset_peak_memory_stats
