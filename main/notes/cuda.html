@@ -135,7 +135,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git03b254e )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gite96c7c4 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1636,7 +1636,7 @@ document.write(`
                   
   <div class="section" id="cuda-semantics">
 <span id="id1"></span><h1>CUDA semantics<a class="headerlink" href="#cuda-semantics" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 16, 2017 | Last Updated On: Jul 16, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 16, 2017 | Last Updated On: Aug 07, 2025</p>
 <p><a class="reference internal" href="../cuda.html#module-torch.cuda" title="torch.cuda"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.cuda</span></code></a> is used to set up and run CUDA operations. It keeps track of
 the currently selected GPU, and all CUDA tensors you allocate will by default be
 created on that device. The selected device can be changed with a
@@ -2417,6 +2417,125 @@ and can cause your workload to run out of memory.</p></li>
 </ul>
 </div>
 </div>
+<div class="section" id="tuning-nvlink-performance-with-custom-memory-allocator-on-h100-h200-gpus">
+<h2>Tuning NVLink Performance with Custom Memory Allocator on H100/H200 GPUs<a class="headerlink" href="#tuning-nvlink-performance-with-custom-memory-allocator-on-h100-h200-gpus" title="Permalink to this heading">#</a></h2>
+<p>In rare cases, performance of NVLink on H100/H200 GPUs can be influenced by the physical memory
+layout of data, creating an opportunity for developers to tune their applications for optimal
+throughput.</p>
+<p>An example of how physical memory layout of data affects performance is when communication
+kernels issue unbalanced NVLink read/write operations. In the following figure, we can see
+that each warp accesses memory addresses with a consistent strided pattern in each single wave.
+We can have a more balanced load by tuning the stride size in the workload or we can implement
+a custom CUDA allocator.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">_______________________________</span>  <span class="n">_______________________________</span>      <span class="n">_______________________________</span>
+<span class="o">|</span> <span class="n">Warp</span> <span class="mi">0</span> <span class="n">Reading</span> <span class="o">|</span> <span class="n">No</span><span class="o">-</span><span class="n">reading</span> <span class="o">|</span>  <span class="o">|</span> <span class="n">Warp</span> <span class="mi">1</span> <span class="n">Reading</span> <span class="o">|</span> <span class="n">No</span><span class="o">-</span><span class="n">reading</span> <span class="o">|</span>  <span class="o">...</span>  <span class="n">Warp</span> <span class="n">N</span> <span class="n">Reading</span> <span class="o">|</span> <span class="n">No</span><span class="o">-</span><span class="n">reading</span> <span class="o">|</span>
+<span class="n">_______________________________</span>  <span class="n">_______________________________</span>      <span class="n">_______________________________</span>
+<span class="o">&lt;-----------------------------&gt;</span>
+        <span class="n">Stride</span> <span class="n">size</span>
+</pre></div>
+</div>
+<p>Such an allocator can maintain contiguous virtual memory addresses for the kernel while strategically
+arranging the mapping to physical memory addresses (e.g., through shuffling). This technique allows
+developers to explore different physical access patterns to find the most efficient one, unlocking
+higher performance without modifying the kernel’s logic. A practical implementation of such an allocator
+can be achieved using PyTorch’s custom allocator support as mentioned before, where the malloc and free
+functions are:</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// assuming a system with 8 GPUs</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">CustomAllocInfo</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">void</span><span class="o">**</span><span class="w"> </span><span class="n">devPtr</span><span class="p">;</span><span class="w">  </span><span class="c1">// This will be the usable virtual memory address</span>
+<span class="w">  </span><span class="n">CUdeviceptr</span><span class="w"> </span><span class="n">dptr</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">totalSize</span><span class="p">;</span><span class="w">  </span><span class="c1">// Total size of the allocated memory</span>
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">padded_size</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">device_id</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">CUmemGenericAllocationHandle</span><span class="o">&gt;</span><span class="w"> </span><span class="n">handles</span><span class="p">;</span><span class="w">  </span><span class="c1">// Handles to physical memory allocations</span>
+<span class="p">};</span>
+
+<span class="c1">// loop over pages</span>
+<span class="n">cudaError_t</span><span class="w"> </span><span class="nf">customCudaMalloc</span><span class="p">(</span><span class="n">CustomAllocInfo</span><span class="o">*</span><span class="w"> </span><span class="n">info</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">info</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">cudaErrorInvalidValue</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">CUdeviceptr</span><span class="w"> </span><span class="n">dptr</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Handles to redundant physical memory allocations which help truncate stride pattern in physical memory</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">CUmemGenericAllocationHandle</span><span class="o">&gt;</span><span class="w"> </span><span class="n">handles_redundant</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">granularity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">CUmemAllocationProp</span><span class="w"> </span><span class="n">prop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">currentDev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">device_id</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">totalSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">totalSize</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">prop</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CU_MEM_ALLOCATION_TYPE_PINNED</span><span class="p">;</span>
+<span class="w">    </span><span class="n">prop</span><span class="p">.</span><span class="n">location</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CU_MEM_LOCATION_TYPE_DEVICE</span><span class="p">;</span>
+<span class="w">    </span><span class="n">prop</span><span class="p">.</span><span class="n">location</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">currentDev</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cuMemGetAllocationGranularity</span><span class="p">(</span><span class="o">&amp;</span><span class="n">granularity</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">prop</span><span class="p">,</span><span class="w"> </span><span class="n">CU_MEM_ALLOC_GRANULARITY_MINIMUM</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">padded_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ROUND_UP</span><span class="p">(</span><span class="n">totalSize</span><span class="p">,</span><span class="w"> </span><span class="n">granularity</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">padded_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">padded_size</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// loop over pages</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">iter_granularity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">granularity</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">64</span><span class="p">;</span><span class="w"> </span><span class="c1">// 64 * granularity with shift_size = 2 works</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">iteration_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">totalSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">iter_granularity</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">iter_granularity</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">cuMemAddressReserve</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dptr</span><span class="p">,</span><span class="w"> </span><span class="n">padded_size</span><span class="p">,</span><span class="w"> </span><span class="mi">0ULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0ULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0ULL</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">shift_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">iteration_count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">+=</span><span class="n">shift_size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="n">CUmemGenericAllocationHandle</span><span class="w"> </span><span class="n">allocHandle</span><span class="p">[</span><span class="n">shift_size</span><span class="p">];</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">(</span><span class="n">shift</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">shift_size</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">shift</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">iteration_count</span><span class="p">);</span><span class="w"> </span><span class="n">shift</span><span class="o">++</span><span class="p">){</span>
+<span class="w">            </span><span class="n">CHECK_CUDA</span><span class="p">(</span><span class="n">cuMemCreate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">allocHandle</span><span class="p">[</span><span class="n">shift</span><span class="p">],</span><span class="w"> </span><span class="n">iter_granularity</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">prop</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
+<span class="w">            </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">handles</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">allocHandle</span><span class="p">[</span><span class="n">shift</span><span class="p">]);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">(</span><span class="n">shift</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">shift_size</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">shift</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">iteration_count</span><span class="p">);</span><span class="w"> </span><span class="n">shift</span><span class="o">++</span><span class="p">){</span>
+
+<span class="w">            </span><span class="c1">// mapping makes the shift (shift -&gt; (shift+1)%shift_size  )</span>
+<span class="w">            </span><span class="n">CHECK_CUDA</span><span class="p">(</span><span class="n">cuMemMap</span><span class="p">(</span><span class="n">dptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">shift</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">iter_granularity</span><span class="p">,</span><span class="w"> </span><span class="n">iter_granularity</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">allocHandle</span><span class="p">[(</span><span class="n">shift</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">shift_size</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
+
+<span class="w">            </span><span class="n">setupMultiGPUAccess</span><span class="p">(</span><span class="n">dptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">shift</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">iter_granularity</span><span class="p">,</span><span class="w"> </span><span class="n">iter_granularity</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">});</span><span class="w"> </span><span class="c1">// Enable access for all 8 GPUs</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// std::cout &lt;&lt; &quot;Here we allocate one redundant page (2MB)...&quot; &lt;&lt; std::endl;</span>
+<span class="w">        </span><span class="c1">// this is an extra optimization on top of the swizzling. It helps &quot;break&quot;</span>
+<span class="w">        </span><span class="c1">// the physical access pattern even more. It can be left out if workload is already</span>
+<span class="w">        </span><span class="c1">// performing at SOL with just swizzling.</span>
+<span class="w">        </span><span class="n">CUmemGenericAllocationHandle</span><span class="w"> </span><span class="n">allocHandle_redundant</span><span class="p">;</span>
+<span class="w">        </span><span class="n">CHECK_CUDA</span><span class="p">(</span><span class="n">cuMemCreate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">allocHandle_redundant</span><span class="p">,</span><span class="w"> </span><span class="n">granularity</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">prop</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
+<span class="w">        </span><span class="n">handles_redundant</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">allocHandle_redundant</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="o">*</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">devPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">dptr</span><span class="p">;</span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">dptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dptr</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Release each redundant allocation</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">handles_redundant</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// std::cout &lt;&lt; &quot;Here we release one redundant page (2MB)...&quot; &lt;&lt; std::endl;</span>
+<span class="w">        </span><span class="n">CHECK_CUDA</span><span class="p">(</span><span class="n">cuMemRelease</span><span class="p">(</span><span class="n">handle</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">customCudaFree</span><span class="p">(</span><span class="n">CustomAllocInfo</span><span class="o">*</span><span class="w"> </span><span class="n">info</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">info</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// CHECK_CUDA(cudaSetDevice(info-&gt;device_id));</span>
+
+<span class="w">    </span><span class="n">CHECK_CUDA</span><span class="p">(</span><span class="n">cuMemUnmap</span><span class="p">(</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">dptr</span><span class="p">,</span><span class="w"> </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">padded_size</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// Unmap and release each allocation</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">handles</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">CHECK_CUDA</span><span class="p">(</span><span class="n">cuMemRelease</span><span class="p">(</span><span class="n">handle</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Unreserve the virtual address space</span>
+<span class="w">    </span><span class="c1">// CHECK_CUDA(cuMemAddressFree((CUdeviceptr)*info-&gt;devPtr, info-&gt;padded_size));</span>
+<span class="w">    </span><span class="n">CHECK_CUDA</span><span class="p">(</span><span class="n">cuMemAddressFree</span><span class="p">(</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">dptr</span><span class="p">,</span><span class="w"> </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">padded_size</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="cublas-workspaces">
 <h2>cuBLAS workspaces<a class="headerlink" href="#cublas-workspaces" title="Permalink to this heading">#</a></h2>
 <p>For each combination of cuBLAS handle and CUDA stream, a cuBLAS workspace will be allocated
@@ -3168,6 +3287,7 @@ or if they’ll run concurrently, passing them as a tuple to a single invocation
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-custom-memory-allocators-for-cuda">Using custom memory allocators for CUDA</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mixing-different-cuda-system-allocators-in-the-same-program">Mixing different CUDA system allocators in the same program</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tuning-nvlink-performance-with-custom-memory-allocator-on-h100-h200-gpus">Tuning NVLink Performance with Custom Memory Allocator on H100/H200 GPUs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cublas-workspaces">cuBLAS workspaces</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cufft-plan-cache">cuFFT plan cache</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#just-in-time-compilation">Just-in-Time Compilation</a></li>
@@ -3419,8 +3539,8 @@ or if they’ll run concurrently, passing them as a tuple to a single invocation
            "@id": "/notes/cuda.html"
          },
         "datePublished": "Jan 16, 2017T00:00:00Z",
-         "dateModified": "Jul 16, 2025T00:00:00Z",
-         "articleBody": "CUDA semantics# Created On: Jan 16, 2017 | Last Updated On: Jul 16, 2025 torch.cuda is used to set up and run CUDA operations. It keeps track of the currently selected GPU, and all CUDA tensors you allocate will by default be created on that device. The selected device can be changed with a torch.cuda.device context manager. However, once a tensor is allocated, you can do operations on it irrespective of the selected device, and the results will be always placed on the same device as the tensor. Cross-GPU operations are not allowed by default, with the exception of copy_() and other methods with copy-like functionality such as to() and cuda(). Unless you enable peer-to-peer memory access, any attempts to launch ops on tensors spread across different devices will raise an error. Below you can find a small example showcasing this: cuda = torch.device(&#39;cuda&#39;) # Default CUDA device cuda0 = torch.device(&#39;cuda:0&#39;) cuda2 = torch.device(&#39;cuda:2&#39;) # GPU 2 (these are 0-indexed) x = torch.tensor([1., 2.], device=cuda0) # x.device is device(type=&#39;cuda&#39;, index=0) y = torch.tensor([1., 2.]).cuda() # y.device is device(type=&#39;cuda&#39;, index=0) with torch.cuda.device(1): # allocates a tensor on GPU 1 a = torch.tensor([1., 2.], device=cuda) # transfers a tensor from CPU to GPU 1 b = torch.tensor([1., 2.]).cuda() # a.device and b.device are device(type=&#39;cuda&#39;, index=1) # You can also use ``Tensor.to`` to transfer a tensor: b2 = torch.tensor([1., 2.]).to(device=cuda) # b.device and b2.device are device(type=&#39;cuda&#39;, index=1) c = a + b # c.device is device(type=&#39;cuda&#39;, index=1) z = x + y # z.device is device(type=&#39;cuda&#39;, index=0) # even within a context, you can specify the device # (or give a GPU index to the .cuda call) d = torch.randn(2, device=cuda2) e = torch.randn(2).to(cuda2) f = torch.randn(2).cuda(cuda2) # d.device, e.device, and f.device are all device(type=&#39;cuda&#39;, index=2) TensorFloat-32 (TF32) on Ampere (and later) devices# After Pytorch 2.9, we provide a new sets of APIs to control the TF32 behavior in a more fine-grained way, and suggest to use the new APIs for better control. We can set float32 precision per backend and per operators. We can also override the global setting for a specific operator. torch.backends.fp32_precision = \&#34;ieee\&#34; torch.backends.cuda.matmul.fp32_precision = \&#34;ieee\&#34; torch.backends.cudnn.fp32_precision = \&#34;ieee\&#34; torch.backends.cudnn.conv.fp32_precision = \&#34;tf32\&#34; torch.backends.cudnn.rnn.fp32_precision = \&#34;tf32\&#34; The fp32_precision can be set to ieee or tf32 for cuda/cudnn. ieee fp32_precision indicate that we will use FP32 as internal computation precision. tf32 fp32_precision indicate that we will allow to use TF32 as internal computation precision. We can override a generic setting for a specific operator if the fp32_precision is set to ieee. torch.backends.cudnn.fp32_precision = \&#34;tf32\&#34; torch.backends.cudnn.conv.fp32_precision = \&#34;ieee\&#34; torch.backends.cudnn.rnn.fp32_precision = \&#34;ieee\&#34; We can also override a generic setting for a specif..."
+         "dateModified": "Aug 07, 2025T00:00:00Z",
+         "articleBody": "CUDA semantics# Created On: Jan 16, 2017 | Last Updated On: Aug 07, 2025 torch.cuda is used to set up and run CUDA operations. It keeps track of the currently selected GPU, and all CUDA tensors you allocate will by default be created on that device. The selected device can be changed with a torch.cuda.device context manager. However, once a tensor is allocated, you can do operations on it irrespective of the selected device, and the results will be always placed on the same device as the tensor. Cross-GPU operations are not allowed by default, with the exception of copy_() and other methods with copy-like functionality such as to() and cuda(). Unless you enable peer-to-peer memory access, any attempts to launch ops on tensors spread across different devices will raise an error. Below you can find a small example showcasing this: cuda = torch.device(&#39;cuda&#39;) # Default CUDA device cuda0 = torch.device(&#39;cuda:0&#39;) cuda2 = torch.device(&#39;cuda:2&#39;) # GPU 2 (these are 0-indexed) x = torch.tensor([1., 2.], device=cuda0) # x.device is device(type=&#39;cuda&#39;, index=0) y = torch.tensor([1., 2.]).cuda() # y.device is device(type=&#39;cuda&#39;, index=0) with torch.cuda.device(1): # allocates a tensor on GPU 1 a = torch.tensor([1., 2.], device=cuda) # transfers a tensor from CPU to GPU 1 b = torch.tensor([1., 2.]).cuda() # a.device and b.device are device(type=&#39;cuda&#39;, index=1) # You can also use ``Tensor.to`` to transfer a tensor: b2 = torch.tensor([1., 2.]).to(device=cuda) # b.device and b2.device are device(type=&#39;cuda&#39;, index=1) c = a + b # c.device is device(type=&#39;cuda&#39;, index=1) z = x + y # z.device is device(type=&#39;cuda&#39;, index=0) # even within a context, you can specify the device # (or give a GPU index to the .cuda call) d = torch.randn(2, device=cuda2) e = torch.randn(2).to(cuda2) f = torch.randn(2).cuda(cuda2) # d.device, e.device, and f.device are all device(type=&#39;cuda&#39;, index=2) TensorFloat-32 (TF32) on Ampere (and later) devices# After Pytorch 2.9, we provide a new sets of APIs to control the TF32 behavior in a more fine-grained way, and suggest to use the new APIs for better control. We can set float32 precision per backend and per operators. We can also override the global setting for a specific operator. torch.backends.fp32_precision = \&#34;ieee\&#34; torch.backends.cuda.matmul.fp32_precision = \&#34;ieee\&#34; torch.backends.cudnn.fp32_precision = \&#34;ieee\&#34; torch.backends.cudnn.conv.fp32_precision = \&#34;tf32\&#34; torch.backends.cudnn.rnn.fp32_precision = \&#34;tf32\&#34; The fp32_precision can be set to ieee or tf32 for cuda/cudnn. ieee fp32_precision indicate that we will use FP32 as internal computation precision. tf32 fp32_precision indicate that we will allow to use TF32 as internal computation precision. We can override a generic setting for a specific operator if the fp32_precision is set to ieee. torch.backends.cudnn.fp32_precision = \&#34;tf32\&#34; torch.backends.cudnn.conv.fp32_precision = \&#34;ieee\&#34; torch.backends.cudnn.rnn.fp32_precision = \&#34;ieee\&#34; We can also override a generic setting for a specif..."
        }
    </script>
 
