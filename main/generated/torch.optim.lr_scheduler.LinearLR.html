@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitf0980fc )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitb602ea9 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3367,8 +3367,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4366,7 +4366,7 @@ document.write(`
 <h1>LinearLR<a class="headerlink" href="#linearlr" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.LinearLR">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.lr_scheduler.</span></span><span class="sig-name descname"><span class="pre">LinearLR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3333333333333333</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f0980fc0bbd656d6c02d23ad97e945353b314f35/torch/optim/lr_scheduler.py#L664"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LinearLR" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.lr_scheduler.</span></span><span class="sig-name descname"><span class="pre">LinearLR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3333333333333333</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b602ea9cab7d43a7ee7b4051227090f23fbd3dbf/torch/optim/lr_scheduler.py#L664"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LinearLR" title="Permalink to this definition">#</a></dt>
 <dd><p>Decays the learning rate of each parameter group by linearly changing small multiplicative factor.</p>
 <p>The multiplication is done until the number of epoch reaches a pre-defined milestone: total_iters.
 Notice that such decay can happen simultaneously with other changes to the learning rate
@@ -4404,7 +4404,7 @@ Default: 5.</p></li>
 <img alt="../_images/LinearLR.png" src="../_images/LinearLR.png" />
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.LinearLR.get_last_lr">
-<span class="sig-name descname"><span class="pre">get_last_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f0980fc0bbd656d6c02d23ad97e945353b314f35/torch/optim/lr_scheduler.py#L168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LinearLR.get_last_lr" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_last_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b602ea9cab7d43a7ee7b4051227090f23fbd3dbf/torch/optim/lr_scheduler.py#L168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LinearLR.get_last_lr" title="Permalink to this definition">#</a></dt>
 <dd><p>Return last computed learning rate by current scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4415,7 +4415,7 @@ Default: 5.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.LinearLR.get_lr">
-<span class="sig-name descname"><span class="pre">get_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f0980fc0bbd656d6c02d23ad97e945353b314f35/torch/optim/lr_scheduler.py#L723"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LinearLR.get_lr" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b602ea9cab7d43a7ee7b4051227090f23fbd3dbf/torch/optim/lr_scheduler.py#L723"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LinearLR.get_lr" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute the learning rate.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4426,7 +4426,7 @@ Default: 5.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.LinearLR.load_state_dict">
-<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f0980fc0bbd656d6c02d23ad97e945353b314f35/torch/optim/lr_scheduler.py#L159"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LinearLR.load_state_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b602ea9cab7d43a7ee7b4051227090f23fbd3dbf/torch/optim/lr_scheduler.py#L159"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LinearLR.load_state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Load the scheduler’s state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4438,7 +4438,7 @@ from a call to <a class="reference internal" href="#torch.optim.lr_scheduler.Lin
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.LinearLR.state_dict">
-<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f0980fc0bbd656d6c02d23ad97e945353b314f35/torch/optim/lr_scheduler.py#L149"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LinearLR.state_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b602ea9cab7d43a7ee7b4051227090f23fbd3dbf/torch/optim/lr_scheduler.py#L149"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LinearLR.state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the state of the scheduler as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
 <p>It contains an entry for every variable in self.__dict__ which
 is not the optimizer.</p>
@@ -4451,7 +4451,7 @@ is not the optimizer.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.LinearLR.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f0980fc0bbd656d6c02d23ad97e945353b314f35/torch/optim/lr_scheduler.py#L176"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LinearLR.step" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b602ea9cab7d43a7ee7b4051227090f23fbd3dbf/torch/optim/lr_scheduler.py#L176"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LinearLR.step" title="Permalink to this definition">#</a></dt>
 <dd><p>Perform a step.</p>
 <dl class="field-list simple">
 </dl>
