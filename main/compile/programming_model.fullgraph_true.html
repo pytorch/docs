@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitee89cc7 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git8d1cf52 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4534,7 +4534,7 @@ from user code:
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0.0312, 0.4780, 0.1075])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([-0.7258, -0.4446, -0.7451])
 </pre></div>
 </div>
 </div>
@@ -4612,7 +4612,7 @@ from user code:
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/_dynamo/variables/functions.py:1568: UserWarning: Dynamo does not know how to trace the builtin `square_cpu_kernel.PyCapsule.square_cpu.` This function is either a Python builtin (e.g. _warnings.warn) or a third-party C/C++ Python extension (perhaps created with pybind).
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/_dynamo/variables/functions.py:1580: UserWarning: Dynamo does not know how to trace the builtin `square_cpu_kernel.PyCapsule.square_cpu.` This function is either a Python builtin (e.g. _warnings.warn) or a third-party C/C++ Python extension (perhaps created with pybind).
 If it is a Python builtin, please file an issue on GitHub so the PyTorch team can add support for it and see the next case for a workaround.
 If it is a third-party C/C++ Python extension, please either wrap it into a PyTorch-understood custom operator (see https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html for more details) or, if it is traceable, use `torch.compiler.allow_in_graph`.
   torch._dynamo.utils.warn_once(explanation + &quot;\n&quot; + &quot;\n&quot;.join(hints))
@@ -4640,9 +4640,9 @@ If it is a third-party C/C++ Python extension, please either wrap it into a PyTo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[7.6979e-03, 5.2046e-04, 2.8203e-01],
-        [4.2755e-02, 2.0633e-01, 5.1780e-01],
-        [7.0485e-01, 1.9133e+00, 3.9541e-06]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[4.2668e-01, 9.6076e-01, 3.3395e-03],
+        [6.7032e+00, 8.6125e-01, 8.0276e-02],
+        [3.1290e-01, 7.8124e-01, 2.0848e-02]])
 </pre></div>
 </div>
 </div>
@@ -4715,7 +4715,7 @@ Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especiall
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0.0003, 0.0040, 0.0014])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([1.8503e-04, 5.0445e-05, 5.8097e-01])
 </pre></div>
 </div>
 </div>

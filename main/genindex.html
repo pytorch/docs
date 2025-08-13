@@ -139,7 +139,7 @@ window.addEventListener("load", () => mermaid.run());
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitee89cc7 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git8d1cf52 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -2109,9 +2109,9 @@ document.write(`
 </li>
       <li><a href="distributions.html#torch.distributions.transforms.AffineTransform">AffineTransform (class in torch.distributions.transforms)</a>
 </li>
-      <li><a href="elastic/numa.html#torch.distributed.numa.binding.NumaOptions.affinity_mode">affinity_mode (torch.distributed.numa.binding.NumaOptions attribute)</a>
+      <li><a href="elastic/numa.html#torch.numa.binding.NumaOptions.affinity_mode">affinity_mode (torch.numa.binding.NumaOptions attribute)</a>
 </li>
-      <li><a href="elastic/numa.html#torch.distributed.numa.binding.AffinityMode">AffinityMode (class in torch.distributed.numa.binding)</a>
+      <li><a href="elastic/numa.html#torch.numa.binding.AffinityMode">AffinityMode (class in torch.numa.binding)</a>
 </li>
       <li><a href="monitor.html#torch.monitor.Aggregation">Aggregation (class in torch.monitor)</a>
 </li>
@@ -9026,7 +9026,9 @@ document.write(`
 </li>
       <li><a href="generated/torch.fx.experimental.proxy_tensor.maybe_enable_thunkify.html#torch.fx.experimental.proxy_tensor.maybe_enable_thunkify">maybe_enable_thunkify() (in module torch.fx.experimental.proxy_tensor)</a>
 </li>
-      <li><a href="elastic/numa.html#torch.distributed.numa.binding.maybe_wrap_with_numa_bindings">maybe_wrap_with_numa_bindings() (in module torch.distributed.numa.binding)</a>
+      <li><a href="elastic/numa.html#torch.numa.binding.maybe_get_temporary_python_executable_with_numa_bindings">maybe_get_temporary_python_executable_with_numa_bindings() (in module torch.numa.binding)</a>
+</li>
+      <li><a href="elastic/numa.html#torch.numa.binding.maybe_wrap_command_with_numa_bindings">maybe_wrap_command_with_numa_bindings() (in module torch.numa.binding)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.bernoulli.Bernoulli.mean">mean (torch.distributions.bernoulli.Bernoulli property)</a>
 
@@ -9968,10 +9970,6 @@ document.write(`
 </li>
         <li><a href="distributed.html#module-torch.distributed.nn.jit.templates.remote_module_template">torch.distributed.nn.jit.templates.remote_module_template</a>
 </li>
-        <li><a href="elastic/numa.html#module-torch.distributed.numa">torch.distributed.numa</a>
-</li>
-        <li><a href="elastic/numa.html#module-torch.distributed.numa.binding">torch.distributed.numa.binding</a>
-</li>
         <li><a href="distributed.optim.html#module-torch.distributed.optim">torch.distributed.optim</a>
 </li>
         <li><a href="distributed.html#module-torch.distributed.optim.apply_optimizer_in_backward">torch.distributed.optim.apply_optimizer_in_backward</a>
@@ -10627,6 +10625,10 @@ document.write(`
         <li><a href="nn.html#module-torch.nn.utils.rnn">torch.nn.utils.rnn</a>
 </li>
         <li><a href="nn.html#module-torch.nn.utils.stateless">torch.nn.utils.stateless</a>
+</li>
+        <li><a href="elastic/numa.html#module-torch.numa">torch.numa</a>
+</li>
+        <li><a href="elastic/numa.html#module-torch.numa.binding">torch.numa.binding</a>
 </li>
         <li><a href="onnx.html#module-torch.onnx">torch.onnx</a>
 </li>
@@ -11521,7 +11523,7 @@ document.write(`
 </li>
       <li><a href="rpc.html#torch.distributed.rpc.TensorPipeRpcBackendOptions.num_worker_threads">num_worker_threads (torch.distributed.rpc.TensorPipeRpcBackendOptions property)</a>
 </li>
-      <li><a href="elastic/numa.html#torch.distributed.numa.binding.NumaOptions">NumaOptions (class in torch.distributed.numa.binding)</a>
+      <li><a href="elastic/numa.html#torch.numa.binding.NumaOptions">NumaOptions (class in torch.numa.binding)</a>
 </li>
       <li><a href="generated/torch.numel.html#torch.numel">numel() (in module torch)</a>
 
@@ -17584,20 +17586,6 @@ document.write(`
 </li>
       </ul></li>
       <li>
-    torch.distributed.numa
-
-      <ul>
-        <li><a href="elastic/numa.html#module-torch.distributed.numa">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.numa.binding
-
-      <ul>
-        <li><a href="elastic/numa.html#module-torch.distributed.numa.binding">module</a>
-</li>
-      </ul></li>
-      <li>
     torch.distributed.optim
 
       <ul>
@@ -18255,8 +18243,6 @@ document.write(`
         <li><a href="export/api_reference.html#module-torch.export.custom_obj">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.export.custom_ops
 
@@ -18271,6 +18257,8 @@ document.write(`
         <li><a href="export/api_reference.html#module-torch.export.decomp_utils">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.export.dynamic_shapes
 
@@ -19897,6 +19885,20 @@ document.write(`
 
       <ul>
         <li><a href="nn.html#module-torch.nn.utils.stateless">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.numa
+
+      <ul>
+        <li><a href="elastic/numa.html#module-torch.numa">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.numa.binding
+
+      <ul>
+        <li><a href="elastic/numa.html#module-torch.numa.binding">module</a>
 </li>
       </ul></li>
       <li>
