@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git8d1cf52 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita06ec54 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -636,9 +636,23 @@ document.write(`
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
+    Install PyTorch
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="../pytorch-api.html">
-    Python API
+    Reference API
   </a>
 </li>
 
@@ -653,13 +667,6 @@ document.write(`
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../community/index.html">
     Community
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://docs.pytorch.org/cppdocs/">
-    C++
   </a>
 </li>
 
@@ -1084,9 +1091,23 @@ document.write(`
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://pytorch.org/get-started/locally/">
+    Install PyTorch
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="../pytorch-api.html">
-    Python API
+    Reference API
   </a>
 </li>
 
@@ -1101,13 +1122,6 @@ document.write(`
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../community/index.html">
     Community
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://docs.pytorch.org/cppdocs/">
-    C++
   </a>
 </li>
 
@@ -1506,7 +1520,11 @@ document.write(`
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://docs.pytorch.org/cppdocs/">C++</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../torch.html">torch</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="torch.is_tensor.html">torch.is_tensor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.is_storage.html">torch.is_storage</a></li>
@@ -3367,8 +3385,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4293,7 +4311,7 @@ document.write(`
       </a>
     </li>
     
-    <li class="breadcrumb-item"><a href="../pytorch-api.html" class="nav-link">Python API</a></li>
+    <li class="breadcrumb-item"><a href="../pytorch-api.html" class="nav-link">Reference API</a></li>
     
     
     <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
@@ -4344,7 +4362,7 @@ document.write(`
       
         <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
           <link itemprop="item" href="../pytorch-api.html">
-          <meta itemprop="name" content="Python API">
+          <meta itemprop="name" content="Reference API">
           <meta itemprop="position" content="1">
         </div>
       
@@ -4377,7 +4395,7 @@ document.write(`
 <h1>torch.functional.lu<a class="headerlink" href="#torch-functional-lu" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.functional.lu">
-<span class="sig-prename descclassname"><span class="pre">torch.functional.</span></span><span class="sig-name descname"><span class="pre">lu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8d1cf529229dce7cd5ea04abb0faac83b87ca6d1/torch/_jit_internal.py#L617"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.functional.lu" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.functional.</span></span><span class="sig-name descname"><span class="pre">lu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a06ec54d40013c97fbffc174ea8f524ea5a95715/torch/_jit_internal.py#L617"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.functional.lu" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes the LU factorization of a matrix or batches of matrices
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">A</span></code>. Returns a tuple containing the LU factorization and
 pivots of <code class="xref py py-attr docutils literal notranslate"><span class="pre">A</span></code>.  Pivoting is done if <code class="xref py py-attr docutils literal notranslate"><span class="pre">pivot</span></code> is set to
@@ -4428,7 +4446,8 @@ the gradient will be numerically unstable as it depends on the computation of <s
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the tensor to factor of size <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>∗</mo><mo separator="true">,</mo><mi>m</mi><mo separator="true">,</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(*, m, n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">m</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span></p></li>
-<li><p><strong>pivot</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – controls whether pivoting is done. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
+<li><p><strong>pivot</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to compute the LU decomposition with partial pivoting, or the regular LU
+decomposition. <code class="xref py py-attr docutils literal notranslate"><span class="pre">pivot</span></code><cite>= False</cite> not supported on CPU. Default: <cite>True</cite>.</p></li>
 <li><p><strong>get_infos</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – if set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, returns an info IntTensor.
 Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
 <li><p><strong>out</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>, </em><em>optional</em>) – optional output tuple. If <code class="xref py py-attr docutils literal notranslate"><span class="pre">get_infos</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>,
@@ -4811,7 +4830,7 @@ each minibatch has succeeded or failed</p></li>
          },
         "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.functional.lu# torch.functional.lu(*args, **kwargs)[source]# Computes the LU factorization of a matrix or batches of matrices A. Returns a tuple containing the LU factorization and pivots of A. Pivoting is done if pivot is set to True. Warning torch.lu() is deprecated in favor of torch.linalg.lu_factor() and torch.linalg.lu_factor_ex(). torch.lu() will be removed in a future PyTorch release. LU, pivots, info = torch.lu(A, compute_pivots) should be replaced with LU, pivots = torch.linalg.lu_factor(A, compute_pivots) LU, pivots, info = torch.lu(A, compute_pivots, get_infos=True) should be replaced with LU, pivots, info = torch.linalg.lu_factor_ex(A, compute_pivots) Note The returned permutation matrix for every matrix in the batch is represented by a 1-indexed vector of size min(A.shape[-2], A.shape[-1]). pivots[i] == j represents that in the i-th step of the algorithm, the i-th row was permuted with the j-1-th row. LU factorization with pivot = False is not available for CPU, and attempting to do so will throw an error. However, LU factorization with pivot = False is available for CUDA. This function does not check if the factorization was successful or not if get_infos is True since the status of the factorization is present in the third element of the return tuple. In the case of batches of square matrices with size less or equal to 32 on a CUDA device, the LU factorization is repeated for singular matrices due to the bug in the MAGMA library (see magma issue 13). L, U, and P can be derived using torch.lu_unpack(). Warning The gradients of this function will only be finite when A is full rank. This is because the LU decomposition is just differentiable at full rank matrices. Furthermore, if A is close to not being full rank, the gradient will be numerically unstable as it depends on the computation of L−1L^{-1}L−1 and U−1U^{-1}U−1. Parameters A (Tensor) – the tensor to factor of size (∗,m,n)(*, m, n)(∗,m,n) pivot (bool, optional) – controls whether pivoting is done. Default: True get_infos (bool, optional) – if set to True, returns an info IntTensor. Default: False out (tuple, optional) – optional output tuple. If get_infos is True, then the elements in the tuple are Tensor, IntTensor, and IntTensor. If get_infos is False, then the elements in the tuple are Tensor, IntTensor. Default: None Returns A tuple of tensors containing factorization (Tensor): the factorization of size (∗,m,n)(*, m, n)(∗,m,n) pivots (IntTensor): the pivots of size (∗,min(m,n))(*, \\text{min}(m, n))(∗,min(m,n)). pivots stores all the intermediate transpositions of rows. The final permutation perm could be reconstructed by applying swap(perm[i], perm[pivots[i] - 1]) for i = 0, ..., pivots.size(-1) - 1, where perm is initially the identity permutation of mmm elements (essentially this is what torch.lu_unpack() is doing). infos (IntTensor, optional): if get_infos is True, this is a tensor of size (∗)(*)(∗) where non-zero values indicate whether factorization for the m..."
+         "articleBody": "torch.functional.lu# torch.functional.lu(*args, **kwargs)[source]# Computes the LU factorization of a matrix or batches of matrices A. Returns a tuple containing the LU factorization and pivots of A. Pivoting is done if pivot is set to True. Warning torch.lu() is deprecated in favor of torch.linalg.lu_factor() and torch.linalg.lu_factor_ex(). torch.lu() will be removed in a future PyTorch release. LU, pivots, info = torch.lu(A, compute_pivots) should be replaced with LU, pivots = torch.linalg.lu_factor(A, compute_pivots) LU, pivots, info = torch.lu(A, compute_pivots, get_infos=True) should be replaced with LU, pivots, info = torch.linalg.lu_factor_ex(A, compute_pivots) Note The returned permutation matrix for every matrix in the batch is represented by a 1-indexed vector of size min(A.shape[-2], A.shape[-1]). pivots[i] == j represents that in the i-th step of the algorithm, the i-th row was permuted with the j-1-th row. LU factorization with pivot = False is not available for CPU, and attempting to do so will throw an error. However, LU factorization with pivot = False is available for CUDA. This function does not check if the factorization was successful or not if get_infos is True since the status of the factorization is present in the third element of the return tuple. In the case of batches of square matrices with size less or equal to 32 on a CUDA device, the LU factorization is repeated for singular matrices due to the bug in the MAGMA library (see magma issue 13). L, U, and P can be derived using torch.lu_unpack(). Warning The gradients of this function will only be finite when A is full rank. This is because the LU decomposition is just differentiable at full rank matrices. Furthermore, if A is close to not being full rank, the gradient will be numerically unstable as it depends on the computation of L−1L^{-1}L−1 and U−1U^{-1}U−1. Parameters A (Tensor) – the tensor to factor of size (∗,m,n)(*, m, n)(∗,m,n) pivot (bool, optional) – Whether to compute the LU decomposition with partial pivoting, or the regular LU decomposition. pivot= False not supported on CPU. Default: True. get_infos (bool, optional) – if set to True, returns an info IntTensor. Default: False out (tuple, optional) – optional output tuple. If get_infos is True, then the elements in the tuple are Tensor, IntTensor, and IntTensor. If get_infos is False, then the elements in the tuple are Tensor, IntTensor. Default: None Returns A tuple of tensors containing factorization (Tensor): the factorization of size (∗,m,n)(*, m, n)(∗,m,n) pivots (IntTensor): the pivots of size (∗,min(m,n))(*, \\text{min}(m, n))(∗,min(m,n)). pivots stores all the intermediate transpositions of rows. The final permutation perm could be reconstructed by applying swap(perm[i], perm[pivots[i] - 1]) for i = 0, ..., pivots.size(-1) - 1, where perm is initially the identity permutation of mmm elements (essentially this is what torch.lu_unpack() is doing). infos (IntTensor, optional): if get_infos is True, ..."
        }
    </script>
 
