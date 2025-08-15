@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita06ec54 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitdc194a3 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3406,6 +3406,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
@@ -3478,6 +3479,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
@@ -4395,7 +4397,7 @@ document.write(`
 <h1>LogSoftmax<a class="headerlink" href="#logsoftmax" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.modules.activation.LogSoftmax">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.activation.</span></span><span class="sig-name descname"><span class="pre">LogSoftmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a06ec54d40013c97fbffc174ea8f524ea5a95715/torch/nn/modules/activation.py#L1853"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.activation.LogSoftmax" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.activation.</span></span><span class="sig-name descname"><span class="pre">LogSoftmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dc194a309641a68c16d29cb904e5b8a100a13395/torch/nn/modules/activation.py#L1853"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.activation.LogSoftmax" title="Permalink to this definition">#</a></dt>
 <dd><p>Applies the <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mtext>Softmax</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\log(\text{Softmax}(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord text"><span class="mord">Softmax</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span></span> function to an n-dimensional input Tensor.</p>
 <p>The LogSoftmax formulation can be simplified as:</p>
 <div class="math">
@@ -4429,7 +4431,7 @@ values in the range [-inf, 0)</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.activation.LogSoftmax.extra_repr">
-<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a06ec54d40013c97fbffc174ea8f524ea5a95715/torch/nn/modules/activation.py#L1898"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.activation.LogSoftmax.extra_repr" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dc194a309641a68c16d29cb904e5b8a100a13395/torch/nn/modules/activation.py#L1898"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.activation.LogSoftmax.extra_repr" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the extra representation of the module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4440,7 +4442,7 @@ values in the range [-inf, 0)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.activation.LogSoftmax.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a06ec54d40013c97fbffc174ea8f524ea5a95715/torch/nn/modules/activation.py#L1892"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.activation.LogSoftmax.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dc194a309641a68c16d29cb904e5b8a100a13395/torch/nn/modules/activation.py#L1892"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.activation.LogSoftmax.forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>

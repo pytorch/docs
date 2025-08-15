@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita06ec54 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitdc194a3 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3406,6 +3406,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
@@ -3478,6 +3479,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
@@ -4384,7 +4386,7 @@ document.write(`
 <h1>torch.utils.generate_methods_for_privateuse1_backend<a class="headerlink" href="#torch-utils-generate-methods-for-privateuse1-backend" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.utils.generate_methods_for_privateuse1_backend">
-<span class="sig-prename descclassname"><span class="pre">torch.utils.</span></span><span class="sig-name descname"><span class="pre">generate_methods_for_privateuse1_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">for_tensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_packed_sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_storage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsupported_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a06ec54d40013c97fbffc174ea8f524ea5a95715/torch/utils/backend_registration.py#L345"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.generate_methods_for_privateuse1_backend" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.utils.</span></span><span class="sig-name descname"><span class="pre">generate_methods_for_privateuse1_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">for_tensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_packed_sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_storage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsupported_dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dc194a309641a68c16d29cb904e5b8a100a13395/torch/utils/backend_registration.py#L345"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.generate_methods_for_privateuse1_backend" title="Permalink to this definition">#</a></dt>
 <dd><p>Automatically generate attributes and methods for the custom backend after rename privateuse1 backend.</p>
 <p>In the default scenario, storage-related methods will not be generated automatically.</p>
 <p>When you implement kernels for various torch operations, and register them to the PrivateUse1 dispatch key.

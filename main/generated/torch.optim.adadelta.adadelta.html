@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita06ec54 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitdc194a3 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3406,6 +3406,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
@@ -3478,6 +3479,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
@@ -4395,7 +4397,7 @@ document.write(`
 <h1>torch.optim.adadelta.adadelta<a class="headerlink" href="#torch-optim-adadelta-adadelta" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.adadelta.adadelta">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.adadelta.</span></span><span class="sig-name descname"><span class="pre">adadelta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">square_avgs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_deltas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capturable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">differentiable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_complex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_decay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximize</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a06ec54d40013c97fbffc174ea8f524ea5a95715/torch/optim/adadelta.py#L408"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adadelta.adadelta" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.adadelta.</span></span><span class="sig-name descname"><span class="pre">adadelta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">square_avgs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_deltas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capturable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">differentiable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_complex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_decay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximize</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dc194a309641a68c16d29cb904e5b8a100a13395/torch/optim/adadelta.py#L408"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adadelta.adadelta" title="Permalink to this definition">#</a></dt>
 <dd><p>Functional API that performs Adadelta algorithm computation.</p>
 <p>See <a class="reference internal" href="torch.optim.Adadelta.html#torch.optim.Adadelta" title="torch.optim.Adadelta"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adadelta</span></code></a> for details.</p>
 <dl class="field-list simple">

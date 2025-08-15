@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita06ec54 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitdc194a3 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3406,6 +3406,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
@@ -3478,6 +3479,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
@@ -4382,79 +4384,79 @@ document.write(`
                   
   <div class="section" id="torch-compile-troubleshooting">
 <span id="torch-compiler-troubleshooting"></span><h1>torch.compile Troubleshooting<a class="headerlink" href="#torch-compile-troubleshooting" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Nov 28, 2022 | Last Updated On: Jun 10, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Nov 28, 2022 | Last Updated On: Aug 14, 2025</p>
 <p>You’re trying to use <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> on your PyTorch model to enhance its performance
 but it’s not working as expected. Perhaps performance isn’t improving, crashes are happening, or compilation time is too long. This article provides tips, workarounds, and debugging tools to help you overcome these challenges.</p>
 <p><strong>Contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#setting-expectations" id="id1">Setting Expectations</a></p>
+<li><p><a class="reference internal" href="#setting-expectations" id="id3">Setting Expectations</a></p>
 <ul>
-<li><p><a class="reference internal" href="#compile-times" id="id2">Compile times</a></p></li>
+<li><p><a class="reference internal" href="#compile-times" id="id4">Compile times</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#terminology" id="id3">Terminology</a></p>
+<li><p><a class="reference internal" href="#terminology" id="id5">Terminology</a></p>
 <ul>
-<li><p><a class="reference internal" href="#graph-break" id="id4">Graph break</a></p></li>
-<li><p><a class="reference internal" href="#guards" id="id5">Guards</a></p></li>
-<li><p><a class="reference internal" href="#recompilation" id="id6">Recompilation</a></p></li>
-<li><p><a class="reference internal" href="#dynamic-shapes" id="id7">Dynamic Shapes</a></p></li>
+<li><p><a class="reference internal" href="#graph-break" id="id6">Graph break</a></p></li>
+<li><p><a class="reference internal" href="#guards" id="id7">Guards</a></p></li>
+<li><p><a class="reference internal" href="#recompilation" id="id8">Recompilation</a></p></li>
+<li><p><a class="reference internal" href="#dynamic-shapes" id="id9">Dynamic Shapes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#logging-tools" id="id8">Logging Tools</a></p>
+<li><p><a class="reference internal" href="#logging-tools" id="id10">Logging Tools</a></p>
 <ul>
-<li><p><a class="reference internal" href="#tlparse-torch-trace" id="id9">tlparse / TORCH_TRACE</a></p></li>
-<li><p><a class="reference internal" href="#torch-logs" id="id10">TORCH_LOGS</a></p></li>
-<li><p><a class="reference internal" href="#tlparse-vs-torch-logs" id="id11">tlparse vs. TORCH_LOGS</a></p></li>
+<li><p><a class="reference internal" href="#tlparse-torch-trace" id="id11">tlparse / TORCH_TRACE</a></p></li>
+<li><p><a class="reference internal" href="#torch-logs" id="id12">TORCH_LOGS</a></p></li>
+<li><p><a class="reference internal" href="#tlparse-vs-torch-logs" id="id13">tlparse vs. TORCH_LOGS</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#simple-workarounds" id="id12">Simple Workarounds</a></p>
+<li><p><a class="reference internal" href="#simple-workarounds" id="id14">Simple Workarounds</a></p>
 <ul>
-<li><p><a class="reference internal" href="#where-to-apply-torch-compile" id="id13">Where to apply torch.compile?</a></p></li>
-<li><p><a class="reference internal" href="#disabling-and-suppressing-errors" id="id14">Disabling and Suppressing Errors</a></p></li>
-<li><p><a class="reference internal" href="#resolving-graph-breaks" id="id15">Resolving graph breaks</a></p>
+<li><p><a class="reference internal" href="#where-to-apply-torch-compile" id="id15">Where to apply torch.compile?</a></p></li>
+<li><p><a class="reference internal" href="#disabling-and-suppressing-errors" id="id16">Disabling and Suppressing Errors</a></p></li>
+<li><p><a class="reference internal" href="#resolving-graph-breaks" id="id17">Resolving graph breaks</a></p>
 <ul>
-<li><p><a class="reference internal" href="#data-dependent-operations" id="id16">Data-dependent operations</a></p></li>
-<li><p><a class="reference internal" href="#custom-ops" id="id17">Custom ops</a></p></li>
-<li><p><a class="reference internal" href="#printing" id="id18">Printing</a></p></li>
-<li><p><a class="reference internal" href="#incorrect-code" id="id19">Incorrect code</a></p></li>
+<li><p><a class="reference internal" href="#data-dependent-operations" id="id18">Data-dependent operations</a></p></li>
+<li><p><a class="reference internal" href="#custom-ops" id="id19">Custom ops</a></p></li>
+<li><p><a class="reference internal" href="#printing" id="id20">Printing</a></p></li>
+<li><p><a class="reference internal" href="#incorrect-code" id="id21">Incorrect code</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#dealing-with-recompilations" id="id20">Dealing with recompilations</a></p>
+<li><p><a class="reference internal" href="#dealing-with-recompilations" id="id22">Dealing with recompilations</a></p>
 <ul>
-<li><p><a class="reference internal" href="#is-dynamic-shapes-enabled" id="id21">Is dynamic shapes enabled?</a></p></li>
-<li><p><a class="reference internal" href="#changing-the-cache-size-limit" id="id22">Changing the cache size limit</a></p></li>
-<li><p><a class="reference internal" href="#wrapping-constants-with-tensors" id="id23">Wrapping constants with tensors</a></p></li>
+<li><p><a class="reference internal" href="#is-dynamic-shapes-enabled" id="id23">Is dynamic shapes enabled?</a></p></li>
+<li><p><a class="reference internal" href="#changing-the-cache-size-limit" id="id24">Changing the cache size limit</a></p></li>
+<li><p><a class="reference internal" href="#wrapping-constants-with-tensors" id="id25">Wrapping constants with tensors</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#reporting-issues" id="id24">Reporting Issues</a></p>
+<li><p><a class="reference internal" href="#reporting-issues" id="id26">Reporting Issues</a></p>
 <ul>
-<li><p><a class="reference internal" href="#ablation" id="id25">Ablation</a></p></li>
-<li><p><a class="reference internal" href="#bisecting" id="id26">Bisecting</a></p></li>
-<li><p><a class="reference internal" href="#creating-a-reproducer" id="id27">Creating a reproducer</a></p></li>
-<li><p><a class="reference internal" href="#minifier" id="id28">Minifier</a></p></li>
+<li><p><a class="reference internal" href="#ablation" id="id27">Ablation</a></p></li>
+<li><p><a class="reference internal" href="#bisecting" id="id28">Bisecting</a></p></li>
+<li><p><a class="reference internal" href="#creating-a-reproducer" id="id29">Creating a reproducer</a></p></li>
+<li><p><a class="reference internal" href="#minifier" id="id30">Minifier</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#debugging-deeper" id="id29">Debugging Deeper</a></p>
+<li><p><a class="reference internal" href="#debugging-deeper" id="id31">Debugging Deeper</a></p>
 <ul>
-<li><p><a class="reference internal" href="#torchdynamo" id="id30">TorchDynamo</a></p>
+<li><p><a class="reference internal" href="#torchdynamo" id="id32">TorchDynamo</a></p>
 <ul>
-<li><p><a class="reference internal" href="#logging-what-dynamo-is-tracing" id="id31">Logging what Dynamo is tracing</a></p></li>
-<li><p><a class="reference internal" href="#breakpointing-dynamo-tracing" id="id32">Breakpointing Dynamo tracing</a></p></li>
-<li><p><a class="reference internal" href="#bytecode-generation-errors" id="id33">Bytecode generation errors</a></p></li>
+<li><p><a class="reference internal" href="#logging-what-dynamo-is-tracing" id="id33">Logging what Dynamo is tracing</a></p></li>
+<li><p><a class="reference internal" href="#breakpointing-dynamo-tracing" id="id34">Breakpointing Dynamo tracing</a></p></li>
+<li><p><a class="reference internal" href="#bytecode-generation-errors" id="id35">Bytecode generation errors</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#aotautograd" id="id34">AOTAutograd</a></p></li>
-<li><p><a class="reference internal" href="#summary-of-torch-logs-options" id="id35">Summary of TORCH_LOGS options</a></p></li>
+<li><p><a class="reference internal" href="#aotautograd" id="id36">AOTAutograd</a></p></li>
+<li><p><a class="reference internal" href="#summary-of-torch-logs-options" id="id37">Summary of TORCH_LOGS options</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#related-articles" id="id36">Related Articles</a></p></li>
+<li><p><a class="reference internal" href="#related-articles" id="id38">Related Articles</a></p></li>
 </ul>
 </div>
 <div class="section" id="setting-expectations">
-<h2><a class="toc-backref" href="#id1">Setting Expectations</a><a class="headerlink" href="#setting-expectations" title="Permalink to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id3">Setting Expectations</a><a class="headerlink" href="#setting-expectations" title="Permalink to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> is designed as a general-purpose PyTorch compiler.
 Unlike the previous compiler solution, TorchScript, <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>
 requires fewer code changes, meaning models typically don’t need to be rewritten from scratch.
@@ -4470,7 +4472,7 @@ but you might not be seeing significant performance gains.</p></li>
 <p>We anticipate most code will fall under scenarios (1) and (2).
 This document provides tips, arranged by level of involvement, to help address code issues in scenario (2).</p>
 <div class="section" id="compile-times">
-<h3><a class="toc-backref" href="#id2">Compile times</a><a class="headerlink" href="#compile-times" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id4">Compile times</a><a class="headerlink" href="#compile-times" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> functions as a just-in-time compiler, so the initial one or two runs
 of the compiled function are expected to be significantly slower. Recompilations, which can occur under certain conditions (detailed below),
 will also make runs slower. Various <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> components cache results to
@@ -4480,10 +4482,10 @@ Larger models may take upwards of 30 minutes to a few hours.</p>
 </div>
 </div>
 <div class="section" id="terminology">
-<h2><a class="toc-backref" href="#id3">Terminology</a><a class="headerlink" href="#terminology" title="Permalink to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id5">Terminology</a><a class="headerlink" href="#terminology" title="Permalink to this heading">#</a></h2>
 <p>The following terms are relevant to troubleshooting <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> problems.</p>
 <div class="section" id="graph-break">
-<h3><a class="toc-backref" href="#id4">Graph break</a><a class="headerlink" href="#graph-break" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id6">Graph break</a><a class="headerlink" href="#graph-break" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> traces your code and attempts to capture your PyTorch code into a
 single computation graph of PyTorch operators (FX graph). However, this is not always possible.
 When encountering code that can’t be traced, a “graph break” occurs.
@@ -4540,7 +4542,7 @@ torch._dynamo.exc.Unsupported: builtin: open [&lt;class &#39;torch._dynamo.varia
 </div>
 </div>
 <div class="section" id="guards">
-<h3><a class="toc-backref" href="#id5">Guards</a><a class="headerlink" href="#guards" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id7">Guards</a><a class="headerlink" href="#guards" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> makes some assumptions about runtime values as we trace through code.
 During tracing, we generate “guards”, which are runtime checks for these assumptions.
 Guards are run in future calls to the compiled function to determine if we can reuse previously compiled code.
@@ -4570,7 +4572,7 @@ TREE_GUARD_MANAGER:
 </div>
 </div>
 <div class="section" id="recompilation">
-<h3><a class="toc-backref" href="#id6">Recompilation</a><a class="headerlink" href="#recompilation" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id8">Recompilation</a><a class="headerlink" href="#recompilation" title="Permalink to this heading">#</a></h3>
 <p>If the guards fail for every instance of previously compiled code,
 then <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> must “recompile” the function, requiring the original code to be traced again.</p>
 <p>In the example below, recompilation is necessary because the guard checking the tensor argument’s shape failed.</p>
@@ -4592,7 +4594,7 @@ Recompiling function fn in /data/users/williamwen/pytorch/playground.py:3
 </div>
 </div>
 <div class="section" id="dynamic-shapes">
-<h3><a class="toc-backref" href="#id7">Dynamic Shapes</a><a class="headerlink" href="#dynamic-shapes" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id9">Dynamic Shapes</a><a class="headerlink" href="#dynamic-shapes" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> initially assumes tensor shapes are static/constant and guards based on these assumptions.
 By using “dynamic shapes,” we can get <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> to produce compiled code that can accept
 tensor inputs with different shapes - we avoid recompiling every time shapes differ.
@@ -4620,9 +4622,9 @@ produce_guards
 </div>
 </div>
 <div class="section" id="logging-tools">
-<h2><a class="toc-backref" href="#id8">Logging Tools</a><a class="headerlink" href="#logging-tools" title="Permalink to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id10">Logging Tools</a><a class="headerlink" href="#logging-tools" title="Permalink to this heading">#</a></h2>
 <div class="section" id="tlparse-torch-trace">
-<h3><a class="toc-backref" href="#id9">tlparse / TORCH_TRACE</a><a class="headerlink" href="#tlparse-torch-trace" title="Permalink to this heading">#</a></h3>
+<span id="id1"></span><h3><a class="toc-backref" href="#id11">tlparse / TORCH_TRACE</a><a class="headerlink" href="#tlparse-torch-trace" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">tlparse</span></code> / <code class="docutils literal notranslate"><span class="pre">TORCH_TRACE</span></code> are a pair of tools that produce compilation reports that look like this:
 <a class="reference external" href="https://web.mit.edu/~ezyang/Public/bhack-20240609-tlparse/index.html">https://web.mit.edu/~ezyang/Public/bhack-20240609-tlparse/index.html</a>.</p>
 <p>Traces are very easy to collect. To collect a trace, run your reproduction command with</p>
@@ -4667,7 +4669,7 @@ For example, you can look at the high-level generated FX graph or the generated 
 </ul>
 </div>
 <div class="section" id="torch-logs">
-<h3><a class="toc-backref" href="#id10">TORCH_LOGS</a><a class="headerlink" href="#torch-logs" title="Permalink to this heading">#</a></h3>
+<span id="id2"></span><h3><a class="toc-backref" href="#id12">TORCH_LOGS</a><a class="headerlink" href="#torch-logs" title="Permalink to this heading">#</a></h3>
 <p>You can use the <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS</span></code> environment variable to selectively enable parts of the <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> stack to log.
 <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS</span></code> is in fact the source of logs for <code class="docutils literal notranslate"><span class="pre">tlparse</span></code>. The format of the <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS</span></code> environment variable looks like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TORCH_LOGS</span><span class="o">=</span><span class="s2">&quot;&lt;option1&gt;,&lt;option2&gt;,...&quot;</span> <span class="n">python</span> <span class="n">foo</span><span class="o">.</span><span class="n">py</span>
@@ -4691,7 +4693,7 @@ For the full list of options, see <a class="reference external" href="https://py
 and <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch._logging.set_logs.html#torch._logging.set_logs">torch._logging.set_logs</a>.</p>
 </div>
 <div class="section" id="tlparse-vs-torch-logs">
-<h3><a class="toc-backref" href="#id11">tlparse vs. TORCH_LOGS</a><a class="headerlink" href="#tlparse-vs-torch-logs" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id13">tlparse vs. TORCH_LOGS</a><a class="headerlink" href="#tlparse-vs-torch-logs" title="Permalink to this heading">#</a></h3>
 <p>Generally, we suggest first using <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> when encountering issues.
 <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> is ideal for debugging large models and gaining a high-level overview of how your model was compiled.
 On the other hand, <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS</span></code> is preferred for small examples and fine-grained debugging detail,
@@ -4699,11 +4701,11 @@ when we already have an idea of which <code class="docutils literal notranslate"
 </div>
 </div>
 <div class="section" id="simple-workarounds">
-<h2><a class="toc-backref" href="#id12">Simple Workarounds</a><a class="headerlink" href="#simple-workarounds" title="Permalink to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id14">Simple Workarounds</a><a class="headerlink" href="#simple-workarounds" title="Permalink to this heading">#</a></h2>
 <p>Here, we describe some workarounds to <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> issues involving small code modifications
 or changing some <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> settings.</p>
 <div class="section" id="where-to-apply-torch-compile">
-<h3><a class="toc-backref" href="#id13">Where to apply torch.compile?</a><a class="headerlink" href="#where-to-apply-torch-compile" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id15">Where to apply torch.compile?</a><a class="headerlink" href="#where-to-apply-torch-compile" title="Permalink to this heading">#</a></h3>
 <p>We recommend applying <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> to the highest-level function that doesn’t cause excessive problems.
 Typically, it is your train or eval step with the optimizer but without the loop, your top-level <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>,
 or some sub-<code class="docutils literal notranslate"><span class="pre">nn.Module``s.</span> <span class="pre">``torch.compile</span></code> specifically doesn’t handle distributed wrapper modules like
@@ -4746,7 +4748,7 @@ DDP or FSDP very well, so consider applying <code class="docutils literal notran
 </div>
 </div>
 <div class="section" id="disabling-and-suppressing-errors">
-<h3><a class="toc-backref" href="#id14">Disabling and Suppressing Errors</a><a class="headerlink" href="#disabling-and-suppressing-errors" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id16">Disabling and Suppressing Errors</a><a class="headerlink" href="#disabling-and-suppressing-errors" title="Permalink to this heading">#</a></h3>
 <p>For some model architectures, there are portions of the model which are particularly difficult to compile
 - either there are many graph breaks, or there are crashes. You may want to explicitly disable these
 portions of the model which are problematic so that you can apply <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> to the parts that work.
@@ -4788,7 +4790,7 @@ the function and try again later. This is not best practice - it is better to ev
 disable annotations as necessary.</p>
 </div>
 <div class="section" id="resolving-graph-breaks">
-<h3><a class="toc-backref" href="#id15">Resolving graph breaks</a><a class="headerlink" href="#resolving-graph-breaks" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id17">Resolving graph breaks</a><a class="headerlink" href="#resolving-graph-breaks" title="Permalink to this heading">#</a></h3>
 <p>To maximize optimization opportunities, it’s important to reduce the number of graph breaks.
 Recall that you can see what graph breaks are happening using <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> or <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=&quot;graph_breaks&quot;</span></code>.
 In general, graph breaks are caused by one of the following:</p>
@@ -4812,7 +4814,7 @@ then please report the graph break as an issue. If a function has many graph bre
 consider disabling compilation on that function, as the overhead cost for the graph breaks may become prohibitive.</p>
 <p>Below are some common graph breaks and some workarounds.</p>
 <div class="section" id="data-dependent-operations">
-<h4><a class="toc-backref" href="#id16">Data-dependent operations</a><a class="headerlink" href="#data-dependent-operations" title="Permalink to this heading">#</a></h4>
+<h4><a class="toc-backref" href="#id18">Data-dependent operations</a><a class="headerlink" href="#data-dependent-operations" title="Permalink to this heading">#</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> graph breaks on data-dependent operations such as data-dependent control flow
 (if-statements, loops with tensors) and direct tensor data accesses (<code class="docutils literal notranslate"><span class="pre">.item</span></code>, <code class="docutils literal notranslate"><span class="pre">.data_ptr</span></code>).</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
@@ -4914,14 +4916,14 @@ torch._dynamo.exc.Unsupported: Tensor.item
 </ul>
 </div>
 <div class="section" id="custom-ops">
-<h4><a class="toc-backref" href="#id17">Custom ops</a><a class="headerlink" href="#custom-ops" title="Permalink to this heading">#</a></h4>
+<h4><a class="toc-backref" href="#id19">Custom ops</a><a class="headerlink" href="#custom-ops" title="Permalink to this heading">#</a></h4>
 <p>If you have code that <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has trouble tracing through, either due to missing support or fundamental incompatibility,
 you can consider wrapping the problematic code in a custom op.</p>
 <p>Custom ops require a little bit of additional work to get them to be compatible with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>.
 See <a class="reference external" href="https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html">https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html</a> for more details.</p>
 </div>
 <div class="section" id="printing">
-<h4><a class="toc-backref" href="#id18">Printing</a><a class="headerlink" href="#printing" title="Permalink to this heading">#</a></h4>
+<h4><a class="toc-backref" href="#id20">Printing</a><a class="headerlink" href="#printing" title="Permalink to this heading">#</a></h4>
 <p>Printing/logging/issuing warnings will result in a graph break. If you have a function that makes many logging calls,
 for example, a function that logs data about a training iteration, consider applying <code class="docutils literal notranslate"><span class="pre">torch.compiler.disable</span></code> on it.</p>
 <p>Alternatively, you can try using <code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.reorderable_logging_functions</span></code>.
@@ -4946,7 +4948,7 @@ log!
 </div>
 </div>
 <div class="section" id="incorrect-code">
-<h4><a class="toc-backref" href="#id19">Incorrect code</a><a class="headerlink" href="#incorrect-code" title="Permalink to this heading">#</a></h4>
+<h4><a class="toc-backref" href="#id21">Incorrect code</a><a class="headerlink" href="#incorrect-code" title="Permalink to this heading">#</a></h4>
 <p>Your code may be wrong, or is otherwise encountering an error from outside <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>.
 In the code below, we made a typo in the <code class="docutils literal notranslate"><span class="pre">torch.sin</span></code> call by providing an extra argument.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
@@ -4973,10 +4975,10 @@ In order to differentiate, we recommend trying to run your code without <code cl
 </div>
 </div>
 <div class="section" id="dealing-with-recompilations">
-<h3><a class="toc-backref" href="#id20">Dealing with recompilations</a><a class="headerlink" href="#dealing-with-recompilations" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id22">Dealing with recompilations</a><a class="headerlink" href="#dealing-with-recompilations" title="Permalink to this heading">#</a></h3>
 <p>You can view recompilations and their reasons using <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> or <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=recompiles</span></code>.</p>
 <div class="section" id="is-dynamic-shapes-enabled">
-<h4><a class="toc-backref" href="#id21">Is dynamic shapes enabled?</a><a class="headerlink" href="#is-dynamic-shapes-enabled" title="Permalink to this heading">#</a></h4>
+<h4><a class="toc-backref" href="#id23">Is dynamic shapes enabled?</a><a class="headerlink" href="#is-dynamic-shapes-enabled" title="Permalink to this heading">#</a></h4>
 <p>Recompilations due to mismatched shapes are in the form:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tensor</span> <span class="s1">&#39;L[&#39;</span><span class="n">x</span><span class="s1">&#39;]&#39;</span> <span class="n">size</span> <span class="n">mismatch</span> <span class="n">at</span> <span class="n">index</span> <span class="mf">0.</span> <span class="n">expected</span> <span class="mi">3</span><span class="p">,</span> <span class="n">actual</span> <span class="mi">4</span>
 </pre></div>
@@ -4987,7 +4989,7 @@ You can set <code class="docutils literal notranslate"><span class="pre">dynamic
 <p>For more information on dynamic shapes, see <a class="reference external" href="https://docs.google.com/document/d/1GgvOe7C8_NVOMLOCwDaYV1mXXyHMXY7ExoewHqooxrs/edit#heading=h.fh8zzonyw8ng">The dynamic shapes manual</a>.</p>
 </div>
 <div class="section" id="changing-the-cache-size-limit">
-<h4><a class="toc-backref" href="#id22">Changing the cache size limit</a><a class="headerlink" href="#changing-the-cache-size-limit" title="Permalink to this heading">#</a></h4>
+<h4><a class="toc-backref" href="#id24">Changing the cache size limit</a><a class="headerlink" href="#changing-the-cache-size-limit" title="Permalink to this heading">#</a></h4>
 <p>There is a limit to how many times a function can be recompiled, determined by <code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.recompile_limit</span></code>
 and <code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.accumulated_recompile_limit</span></code>.
 If either limit is exceeded, then we will not attempt to compile the function again and instead will run the function eagerly.
@@ -5014,7 +5016,7 @@ torch._dynamo hit config.recompile_limit (8)
 If the cost of recompilation outweighs the benefit of compilation, then you can consider lowering the cache size limit.</p>
 </div>
 <div class="section" id="wrapping-constants-with-tensors">
-<h4><a class="toc-backref" href="#id23">Wrapping constants with tensors</a><a class="headerlink" href="#wrapping-constants-with-tensors" title="Permalink to this heading">#</a></h4>
+<h4><a class="toc-backref" href="#id25">Wrapping constants with tensors</a><a class="headerlink" href="#wrapping-constants-with-tensors" title="Permalink to this heading">#</a></h4>
 <p>By default, <code class="docutils literal notranslate"><span class="pre">int</span></code> / <code class="docutils literal notranslate"><span class="pre">float</span></code> variables are treated as constants and are guarded as such.
 In the below example, we have a recompilation for each function call.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
@@ -5092,12 +5094,12 @@ torch._dynamo hit config.recompile_limit (8)
 </div>
 </div>
 <div class="section" id="reporting-issues">
-<h2><a class="toc-backref" href="#id24">Reporting Issues</a><a class="headerlink" href="#reporting-issues" title="Permalink to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id26">Reporting Issues</a><a class="headerlink" href="#reporting-issues" title="Permalink to this heading">#</a></h2>
 <p>If the workarounds provided above were not enough to get <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> working,
 then you should consider reporting the issue to PyTorch.
 But there are a few things that you can do to make our lives significantly easier.</p>
 <div class="section" id="ablation">
-<h3><a class="toc-backref" href="#id25">Ablation</a><a class="headerlink" href="#ablation" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id27">Ablation</a><a class="headerlink" href="#ablation" title="Permalink to this heading">#</a></h3>
 <p>Check which component of the <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> stack is the one causing the issue using the <code class="docutils literal notranslate"><span class="pre">backend=</span></code> option for <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>.
 In particular, try:</p>
 <ul class="simple">
@@ -5120,14 +5122,14 @@ In particular, try:</p>
 </ul>
 </div>
 <div class="section" id="bisecting">
-<h3><a class="toc-backref" href="#id26">Bisecting</a><a class="headerlink" href="#bisecting" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id28">Bisecting</a><a class="headerlink" href="#bisecting" title="Permalink to this heading">#</a></h3>
 <p>Did you try on the latest nightly? Did something work in the past but now no longer works?
 Can you bisect to determine the first nightly where your issue occurs?
 Bisecting is especially helpful for performance, accuracy, or compile time regressions,
 where it is not immediately obvious where the problem originates from.</p>
 </div>
 <div class="section" id="creating-a-reproducer">
-<h3><a class="toc-backref" href="#id27">Creating a reproducer</a><a class="headerlink" href="#creating-a-reproducer" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id29">Creating a reproducer</a><a class="headerlink" href="#creating-a-reproducer" title="Permalink to this heading">#</a></h3>
 <p>Creating reproducers is a lot of work, and it is perfectly fine if you do not have the time to do it.
 However, if you are a motivated user unfamiliar with the internals of <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>,
 creating a standalone reproducer can have a huge impact on our ability to fix the bug.
@@ -5169,7 +5171,7 @@ activation checkpointing, compiled autograd etc.</p></li>
 </ul>
 </div>
 <div class="section" id="minifier">
-<h3><a class="toc-backref" href="#id28">Minifier</a><a class="headerlink" href="#minifier" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id30">Minifier</a><a class="headerlink" href="#minifier" title="Permalink to this heading">#</a></h3>
 <p>The minifier is an early <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> tool that, given an FX graph that crashes when we attempt to run or compile it,
 finds a subgraph that also crashes and outputs the code that performs that subgraph’s operations.
 Essentially, the minifier finds a minimal repro for a certain class of <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>-related crashes.
@@ -5185,7 +5187,7 @@ For accuracy-related issues, consider setting <code class="docutils literal notr
 </div>
 </div>
 <div class="section" id="debugging-deeper">
-<h2><a class="toc-backref" href="#id29">Debugging Deeper</a><a class="headerlink" href="#debugging-deeper" title="Permalink to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id31">Debugging Deeper</a><a class="headerlink" href="#debugging-deeper" title="Permalink to this heading">#</a></h2>
 <p>This section provides tools and techniques for independently debugging <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> issues
 or for gaining a deeper understanding of the <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> stack.
 These methods are more involved than those presented above and are used by PyTorch developers regularly
@@ -5197,9 +5199,9 @@ Our debugging strategy involves first identifying the component in which the err
 and then individually debugging the component. To determine the component responsible for the issue,
 see the <code class="docutils literal notranslate"><span class="pre">Ablation</span></code> section under <code class="docutils literal notranslate"><span class="pre">Reporting</span> <span class="pre">Issues</span></code> above. For guidance on debugging a specific component, consult the sections below.</p>
 <div class="section" id="torchdynamo">
-<h3><a class="toc-backref" href="#id30">TorchDynamo</a><a class="headerlink" href="#torchdynamo" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id32">TorchDynamo</a><a class="headerlink" href="#torchdynamo" title="Permalink to this heading">#</a></h3>
 <div class="section" id="logging-what-dynamo-is-tracing">
-<h4><a class="toc-backref" href="#id31">Logging what Dynamo is tracing</a><a class="headerlink" href="#logging-what-dynamo-is-tracing" title="Permalink to this heading">#</a></h4>
+<h4><a class="toc-backref" href="#id33">Logging what Dynamo is tracing</a><a class="headerlink" href="#logging-what-dynamo-is-tracing" title="Permalink to this heading">#</a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=trace_bytecode</span></code> option enables you to view the precise bytecode instructions that Dynamo is tracing,
 as well as a symbolic representation of the Python interpreter stack. When encountering a graph break or crash,
 it is advisable to inspect the last few bytecode instructions traced.</p>
@@ -5268,7 +5270,7 @@ TRACED GRAPH
 </div>
 </div>
 <div class="section" id="breakpointing-dynamo-tracing">
-<h4><a class="toc-backref" href="#id32">Breakpointing Dynamo tracing</a><a class="headerlink" href="#breakpointing-dynamo-tracing" title="Permalink to this heading">#</a></h4>
+<h4><a class="toc-backref" href="#id34">Breakpointing Dynamo tracing</a><a class="headerlink" href="#breakpointing-dynamo-tracing" title="Permalink to this heading">#</a></h4>
 <p>Inserting a breakpoint in Dynamo/user code is helpful at times to see what the state of Dynamo is when tracing through user code.
 Unfortunately, inserting a breakpoint in the normal Python fashion will result in a graph break in TorchDynamo,
 so we will not be able to view the state of Dynamo at the point where we intended to breakpoint.</p>
@@ -5346,7 +5348,7 @@ def forward(self, L_x_: &quot;f32[3, 3]&quot;):
 </div>
 </div>
 <div class="section" id="bytecode-generation-errors">
-<h4><a class="toc-backref" href="#id33">Bytecode generation errors</a><a class="headerlink" href="#bytecode-generation-errors" title="Permalink to this heading">#</a></h4>
+<h4><a class="toc-backref" href="#id35">Bytecode generation errors</a><a class="headerlink" href="#bytecode-generation-errors" title="Permalink to this heading">#</a></h4>
 <p>Although uncommon, Dynamo may generate incorrect bytecode. This may occur if you determine the following:</p>
 <ul class="simple">
 <li><p>Ablation reveals the error is happening at the TorchDynamo level</p></li>
@@ -5360,12 +5362,12 @@ You can see a high-level overview on what bytecode Dynamo generates <a class="re
 </div>
 </div>
 <div class="section" id="aotautograd">
-<h3><a class="toc-backref" href="#id34">AOTAutograd</a><a class="headerlink" href="#aotautograd" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id36">AOTAutograd</a><a class="headerlink" href="#aotautograd" title="Permalink to this heading">#</a></h3>
 <p>AOTAutograd errors are typically difficult to debug - we recommend just submitting an issue.
 AOTAutograd logging output is primarily helpful to see what the input to Inductor is.</p>
 </div>
 <div class="section" id="summary-of-torch-logs-options">
-<span id="troubleshooting-torch-logs-options"></span><h3><a class="toc-backref" href="#id35">Summary of TORCH_LOGS options</a><a class="headerlink" href="#summary-of-torch-logs-options" title="Permalink to this heading">#</a></h3>
+<span id="troubleshooting-torch-logs-options"></span><h3><a class="toc-backref" href="#id37">Summary of TORCH_LOGS options</a><a class="headerlink" href="#summary-of-torch-logs-options" title="Permalink to this heading">#</a></h3>
 <p>A summary of helpful <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS</span></code> options is:</p>
 <div class="pst-scrollable-table-container"><table class="colwidths-given table">
 <colgroup>
@@ -5446,7 +5448,7 @@ and <a class="reference external" href="https://pytorch.org/docs/stable/generate
 </div>
 </div>
 <div class="section" id="related-articles">
-<h2><a class="toc-backref" href="#id36">Related Articles</a><a class="headerlink" href="#related-articles" title="Permalink to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id38">Related Articles</a><a class="headerlink" href="#related-articles" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pytorch.org/tutorials/intermediate/torch_compile_tutorial.html">torch.compile tutorial</a></p></li>
 <li><p><a class="reference external" href="https://pytorch.org/docs/stable/torch.compiler_fine_grain_apis.html">torch.compile fine-grained APIs</a></p></li>
@@ -5857,8 +5859,8 @@ and <a class="reference external" href="https://pytorch.org/docs/stable/generate
            "@id": "/torch.compiler_troubleshooting.html"
          },
         "datePublished": "Nov 28, 2022T00:00:00Z",
-         "dateModified": "Jun 10, 2025T00:00:00Z",
-         "articleBody": "torch.compile Troubleshooting# Created On: Nov 28, 2022 | Last Updated On: Jun 10, 2025 You’re trying to use torch.compile on your PyTorch model to enhance its performance but it’s not working as expected. Perhaps performance isn’t improving, crashes are happening, or compilation time is too long. This article provides tips, workarounds, and debugging tools to help you overcome these challenges. Contents Setting Expectations Compile times Terminology Graph break Guards Recompilation Dynamic Shapes Logging Tools tlparse / TORCH_TRACE TORCH_LOGS tlparse vs. TORCH_LOGS Simple Workarounds Where to apply torch.compile? Disabling and Suppressing Errors Resolving graph breaks Data-dependent operations Custom ops Printing Incorrect code Dealing with recompilations Is dynamic shapes enabled? Changing the cache size limit Wrapping constants with tensors Reporting Issues Ablation Bisecting Creating a reproducer Minifier Debugging Deeper TorchDynamo Logging what Dynamo is tracing Breakpointing Dynamo tracing Bytecode generation errors AOTAutograd Summary of TORCH_LOGS options Related Articles Setting Expectations# torch.compile is designed as a general-purpose PyTorch compiler. Unlike the previous compiler solution, TorchScript, torch.compile requires fewer code changes, meaning models typically don’t need to be rewritten from scratch. It also manages unsupported code more gracefully - unsupported code results in a lost optimization opportunity rather than a crash. In the ideal world, one can simply apply torch.compile to any PyTorch model and enjoy automatic speedups. However, in reality, code complexities can lead to one of three scenarios: torch.compile works seamlessly, providing speedups. Some code modifications are necessary. torch.compile doesn’t crash or take too long, but you might not be seeing significant performance gains. Extensive changes to your code are required. We anticipate most code will fall under scenarios (1) and (2). This document provides tips, arranged by level of involvement, to help address code issues in scenario (2). Compile times# torch.compile functions as a just-in-time compiler, so the initial one or two runs of the compiled function are expected to be significantly slower. Recompilations, which can occur under certain conditions (detailed below), will also make runs slower. Various torch.compile components cache results to reduce compilation time for future invocations, even in different processes. Cold-start (uncached) compilation time typically ranges from seconds to minutes for common or benchmarked models. Larger models may take upwards of 30 minutes to a few hours. Terminology# The following terms are relevant to troubleshooting torch.compile problems. Graph break# torch.compile traces your code and attempts to capture your PyTorch code into a single computation graph of PyTorch operators (FX graph). However, this is not always possible. When encountering code that can’t be traced, a “graph break” occurs. A graph br..."
+         "dateModified": "Aug 14, 2025T00:00:00Z",
+         "articleBody": "torch.compile Troubleshooting# Created On: Nov 28, 2022 | Last Updated On: Aug 14, 2025 You’re trying to use torch.compile on your PyTorch model to enhance its performance but it’s not working as expected. Perhaps performance isn’t improving, crashes are happening, or compilation time is too long. This article provides tips, workarounds, and debugging tools to help you overcome these challenges. Contents Setting Expectations Compile times Terminology Graph break Guards Recompilation Dynamic Shapes Logging Tools tlparse / TORCH_TRACE TORCH_LOGS tlparse vs. TORCH_LOGS Simple Workarounds Where to apply torch.compile? Disabling and Suppressing Errors Resolving graph breaks Data-dependent operations Custom ops Printing Incorrect code Dealing with recompilations Is dynamic shapes enabled? Changing the cache size limit Wrapping constants with tensors Reporting Issues Ablation Bisecting Creating a reproducer Minifier Debugging Deeper TorchDynamo Logging what Dynamo is tracing Breakpointing Dynamo tracing Bytecode generation errors AOTAutograd Summary of TORCH_LOGS options Related Articles Setting Expectations# torch.compile is designed as a general-purpose PyTorch compiler. Unlike the previous compiler solution, TorchScript, torch.compile requires fewer code changes, meaning models typically don’t need to be rewritten from scratch. It also manages unsupported code more gracefully - unsupported code results in a lost optimization opportunity rather than a crash. In the ideal world, one can simply apply torch.compile to any PyTorch model and enjoy automatic speedups. However, in reality, code complexities can lead to one of three scenarios: torch.compile works seamlessly, providing speedups. Some code modifications are necessary. torch.compile doesn’t crash or take too long, but you might not be seeing significant performance gains. Extensive changes to your code are required. We anticipate most code will fall under scenarios (1) and (2). This document provides tips, arranged by level of involvement, to help address code issues in scenario (2). Compile times# torch.compile functions as a just-in-time compiler, so the initial one or two runs of the compiled function are expected to be significantly slower. Recompilations, which can occur under certain conditions (detailed below), will also make runs slower. Various torch.compile components cache results to reduce compilation time for future invocations, even in different processes. Cold-start (uncached) compilation time typically ranges from seconds to minutes for common or benchmarked models. Larger models may take upwards of 30 minutes to a few hours. Terminology# The following terms are relevant to troubleshooting torch.compile problems. Graph break# torch.compile traces your code and attempts to capture your PyTorch code into a single computation graph of PyTorch operators (FX graph). However, this is not always possible. When encountering code that can’t be traced, a “graph break” occurs. A graph br..."
        }
    </script>
 

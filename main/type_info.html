@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita06ec54 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitdc194a3 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3406,6 +3406,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
@@ -3478,6 +3479,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
@@ -4373,7 +4375,7 @@ document.write(`
                   
   <div class="section" id="type-info">
 <span id="type-info-doc"></span><h1>Type Info<a class="headerlink" href="#type-info" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 06, 2025 | Last Updated On: Jun 06, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 06, 2025 | Last Updated On: Aug 14, 2025</p>
 <p>The numerical properties of a <a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a> can be accessed through either the <a class="reference internal" href="#torch.torch.finfo" title="torch.torch.finfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.finfo</span></code></a> or the <a class="reference internal" href="#torch.torch.iinfo" title="torch.torch.iinfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.iinfo</span></code></a>.</p>
 <div class="section" id="torch-finfo">
 <span id="finfo-doc"></span><h2>torch.finfo<a class="headerlink" href="#torch-finfo" title="Permalink to this heading">#</a></h2>
@@ -4400,7 +4402,7 @@ This is similar to <a class="reference external" href="https://numpy.org/doc/sta
 </tr>
 <tr class="row-odd"><td class="text-left"><p>eps</p></td>
 <td class="text-left"><p>float</p></td>
-<td class="text-left"><p>The smallest representable number such that <code class="docutils literal notranslate"><span class="pre">1.0</span> <span class="pre">+</span> <span class="pre">eps</span> <span class="pre">!=</span> <span class="pre">1.0</span></code>.</p></td>
+<td class="text-left"><p>The difference between 1.0 and the next smallest representable float larger than 1.0.</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>max</p></td>
 <td class="text-left"><p>float</p></td>
@@ -4824,8 +4826,8 @@ This is similar to <a class="reference external" href="https://numpy.org/doc/sta
            "@id": "/type_info.html"
          },
         "datePublished": "Jun 06, 2025T00:00:00Z",
-         "dateModified": "Jun 06, 2025T00:00:00Z",
-         "articleBody": "Type Info# Created On: Jun 06, 2025 | Last Updated On: Jun 06, 2025 The numerical properties of a torch.dtype can be accessed through either the torch.finfo or the torch.iinfo. torch.finfo# class torch.finfo# A torch.finfo is an object that represents the numerical properties of a floating point torch.dtype, (i.e. torch.float32, torch.float64, torch.float16, and torch.bfloat16). This is similar to numpy.finfo. A torch.finfo provides the following attributes: Name Type Description bits int The number of bits occupied by the type. eps float The smallest representable number such that 1.0 + eps != 1.0. max float The largest representable number. min float The smallest representable number (typically -max). tiny float The smallest positive normal number. Equivalent to smallest_normal. smallest_normal float The smallest positive normal number. See notes. resolution float The approximate decimal resolution of this type, i.e., 10**-precision. Note The constructor of torch.finfo can be called without argument, in which case the class is created for the pytorch default dtype (as returned by torch.get_default_dtype()). Note smallest_normal returns the smallest normal number, but there are smaller subnormal numbers. See https://en.wikipedia.org/wiki/Denormal_number for more information. torch.iinfo# class torch.iinfo# A torch.iinfo is an object that represents the numerical properties of a integer torch.dtype (i.e. torch.uint8, torch.int8, torch.int16, torch.int32, and torch.int64). This is similar to numpy.iinfo. A torch.iinfo provides the following attributes: Name Type Description bits int The number of bits occupied by the type. max int The largest representable number. min int The smallest representable number."
+         "dateModified": "Aug 14, 2025T00:00:00Z",
+         "articleBody": "Type Info# Created On: Jun 06, 2025 | Last Updated On: Aug 14, 2025 The numerical properties of a torch.dtype can be accessed through either the torch.finfo or the torch.iinfo. torch.finfo# class torch.finfo# A torch.finfo is an object that represents the numerical properties of a floating point torch.dtype, (i.e. torch.float32, torch.float64, torch.float16, and torch.bfloat16). This is similar to numpy.finfo. A torch.finfo provides the following attributes: Name Type Description bits int The number of bits occupied by the type. eps float The difference between 1.0 and the next smallest representable float larger than 1.0. max float The largest representable number. min float The smallest representable number (typically -max). tiny float The smallest positive normal number. Equivalent to smallest_normal. smallest_normal float The smallest positive normal number. See notes. resolution float The approximate decimal resolution of this type, i.e., 10**-precision. Note The constructor of torch.finfo can be called without argument, in which case the class is created for the pytorch default dtype (as returned by torch.get_default_dtype()). Note smallest_normal returns the smallest normal number, but there are smaller subnormal numbers. See https://en.wikipedia.org/wiki/Denormal_number for more information. torch.iinfo# class torch.iinfo# A torch.iinfo is an object that represents the numerical properties of a integer torch.dtype (i.e. torch.uint8, torch.int8, torch.int16, torch.int32, and torch.int64). This is similar to numpy.iinfo. A torch.iinfo provides the following attributes: Name Type Description bits int The number of bits occupied by the type. max int The largest representable number. min int The smallest representable number."
        }
    </script>
 

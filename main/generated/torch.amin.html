@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita06ec54 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitdc194a3 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3406,6 +3406,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
@@ -3478,6 +3479,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
@@ -4396,8 +4398,15 @@ dimension(s) <code class="xref py py-attr docutils literal notranslate"><span cl
 </ul>
 </dd>
 </dl>
-<p>Both <code class="docutils literal notranslate"><span class="pre">max</span></code>/<code class="docutils literal notranslate"><span class="pre">min</span></code> and <code class="docutils literal notranslate"><span class="pre">amax</span></code>/<code class="docutils literal notranslate"><span class="pre">amin</span></code> evenly distribute gradients between equal values
+<p>Both <code class="docutils literal notranslate"><span class="pre">amax</span></code>/<code class="docutils literal notranslate"><span class="pre">amin</span></code> evenly distribute gradients between equal values
 when there are multiple input elements with the same minimum or maximum value.</p>
+<dl class="simple">
+<dt>For <code class="docutils literal notranslate"><span class="pre">max</span></code>/<code class="docutils literal notranslate"><span class="pre">min</span></code>:</dt><dd><ul class="simple">
+<li><p>If reduce over all dimensions(no dim specified), gradients evenly distribute between equally <code class="docutils literal notranslate"><span class="pre">max</span></code>/<code class="docutils literal notranslate"><span class="pre">min</span></code> values.</p></li>
+<li><p>If reduce over one specified axis, only propagate to the indexed element.</p></li>
+</ul>
+</dd>
+</dl>
 </div>
 <p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">keepdim</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the output tensor is of the same size
 as <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> except in the dimension(s) <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code> where it is of size 1.
@@ -4759,7 +4768,7 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
          },
         "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.amin# torch.amin(input, dim, keepdim=False, *, out=None) → Tensor# Returns the minimum value of each slice of the input tensor in the given dimension(s) dim. Note The difference between max/min and amax/amin is: amax/amin supports reducing on multiple dimensions, amax/amin does not return indices. Both max/min and amax/amin evenly distribute gradients between equal values when there are multiple input elements with the same minimum or maximum value. If keepdim is True, the output tensor is of the same size as input except in the dimension(s) dim where it is of size 1. Otherwise, dim is squeezed (see torch.squeeze()), resulting in the output tensor having 1 (or len(dim)) fewer dimension(s). Parameters input (Tensor) – the input tensor. dim (int or tuple of ints, optional) – the dimension or dimensions to reduce. If None, all dimensions are reduced. keepdim (bool, optional) – whether the output tensor has dim retained or not. Default: False. Keyword Arguments out (Tensor, optional) – the output tensor. Example: &gt;&gt;&gt; a = torch.randn(4, 4) &gt;&gt;&gt; a tensor([[ 0.6451, -0.4866, 0.2987, -1.3312], [-0.5744, 1.2980, 1.8397, -0.2713], [ 0.9128, 0.9214, -1.7268, -0.2995], [ 0.9023, 0.4853, 0.9075, -1.6165]]) &gt;&gt;&gt; torch.amin(a, 1) tensor([-1.3312, -0.5744, -1.7268, -1.6165])"
+         "articleBody": "torch.amin# torch.amin(input, dim, keepdim=False, *, out=None) → Tensor# Returns the minimum value of each slice of the input tensor in the given dimension(s) dim. Note The difference between max/min and amax/amin is: amax/amin supports reducing on multiple dimensions, amax/amin does not return indices. Both amax/amin evenly distribute gradients between equal values when there are multiple input elements with the same minimum or maximum value. For max/min: If reduce over all dimensions(no dim specified), gradients evenly distribute between equally max/min values. If reduce over one specified axis, only propagate to the indexed element. If keepdim is True, the output tensor is of the same size as input except in the dimension(s) dim where it is of size 1. Otherwise, dim is squeezed (see torch.squeeze()), resulting in the output tensor having 1 (or len(dim)) fewer dimension(s). Parameters input (Tensor) – the input tensor. dim (int or tuple of ints, optional) – the dimension or dimensions to reduce. If None, all dimensions are reduced. keepdim (bool, optional) – whether the output tensor has dim retained or not. Default: False. Keyword Arguments out (Tensor, optional) – the output tensor. Example: &gt;&gt;&gt; a = torch.randn(4, 4) &gt;&gt;&gt; a tensor([[ 0.6451, -0.4866, 0.2987, -1.3312], [-0.5744, 1.2980, 1.8397, -0.2713], [ 0.9128, 0.9214, -1.7268, -0.2995], [ 0.9023, 0.4853, 0.9075, -1.6165]]) &gt;&gt;&gt; torch.amin(a, 1) tensor([-1.3312, -0.5744, -1.7268, -1.6165])"
        }
    </script>
 

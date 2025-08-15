@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gita06ec54 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitdc194a3 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3406,6 +3406,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_ir.html">IRs</a></li>
@@ -3478,6 +3479,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.compiler_aot_inductor_debugging_guide.html">AOTInductor Debugging Guide</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.compiler_inductor_profiling.html">TorchInductor GPU Profiling</a></li>
@@ -4395,7 +4397,7 @@ document.write(`
 <h1>torch.func.replace_all_batch_norm_modules_<a class="headerlink" href="#torch-func-replace-all-batch-norm-modules" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.func.replace_all_batch_norm_modules_">
-<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">replace_all_batch_norm_modules_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a06ec54d40013c97fbffc174ea8f524ea5a95715/torch/_functorch/batch_norm_replacement.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.replace_all_batch_norm_modules_" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">replace_all_batch_norm_modules_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/dc194a309641a68c16d29cb904e5b8a100a13395/torch/_functorch/batch_norm_replacement.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.replace_all_batch_norm_modules_" title="Permalink to this definition">#</a></dt>
 <dd><p>In place updates <code class="xref py py-attr docutils literal notranslate"><span class="pre">root</span></code> by setting the <code class="docutils literal notranslate"><span class="pre">running_mean</span></code> and <code class="docutils literal notranslate"><span class="pre">running_var</span></code> to be None and
 setting track_running_stats to be False for any nn.BatchNorm module in <code class="xref py py-attr docutils literal notranslate"><span class="pre">root</span></code></p>
 <dl class="field-list simple">
