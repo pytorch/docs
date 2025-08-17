@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitf782c79 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git26297c2 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4932,49 +4932,52 @@ This opset is designed to serve as the functional IR to interface with backends.
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sum.dim_IntList</span></code></p></td>
 <td><p>sum.dim_IntList(Tensor self, int[1]? dim, bool keepdim=False, *, ScalarType? dtype=None) -&gt; Tensor</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sym_numel</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sym_is_contiguous</span></code></p></td>
+<td><p>sym_is_contiguous(Tensor self, MemoryFormat memory_format=contiguous_format) -&gt; SymBool</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sym_numel</span></code></p></td>
 <td><p>sym_numel(Tensor self) -&gt; SymInt</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sym_size.int</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sym_size.int</span></code></p></td>
 <td><p>sym_size.int(Tensor self, int dim) -&gt; SymInt</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sym_storage_offset</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sym_storage_offset</span></code></p></td>
 <td><p>sym_storage_offset(Tensor self) -&gt; SymInt</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sym_stride.int</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.sym_stride.int</span></code></p></td>
 <td><p>sym_stride.int(Tensor self, int dim) -&gt; SymInt</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.tan</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.tan</span></code></p></td>
 <td><p>tan(Tensor self) -&gt; Tensor</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.tanh</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.tanh</span></code></p></td>
 <td><p>tanh(Tensor self) -&gt; Tensor</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.topk</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.topk</span></code></p></td>
 <td><p>topk(Tensor self, SymInt k, int dim=-1, bool largest=True, bool sorted=True) -&gt; (Tensor values, Tensor indices)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.trunc</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.trunc</span></code></p></td>
 <td><p>trunc(Tensor self) -&gt; Tensor</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.unsqueeze</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.unsqueeze</span></code></p></td>
 <td><p>unsqueeze(Tensor(a) self, int dim) -&gt; Tensor(a)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.upsample_bilinear2d.vec</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.upsample_bilinear2d.vec</span></code></p></td>
 <td><p>upsample_bilinear2d.vec(Tensor input, SymInt[]? output_size, bool align_corners, float[]? scale_factors) -&gt; Tensor</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.upsample_nearest2d.vec</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.upsample_nearest2d.vec</span></code></p></td>
 <td><p>upsample_nearest2d.vec(Tensor input, SymInt[]? output_size, float[]? scale_factors) -&gt; Tensor</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.var.correction</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.var.correction</span></code></p></td>
 <td><p>var.correction(Tensor self, int[1]? dim=None, *, Scalar? correction=None, bool keepdim=False) -&gt; Tensor</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.var.dim</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.var.dim</span></code></p></td>
 <td><p>var.dim(Tensor self, int[1]? dim, bool unbiased=True, bool keepdim=False) -&gt; Tensor</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.view</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.view</span></code></p></td>
 <td><p>view(Tensor(a) self, SymInt[] size) -&gt; Tensor(a)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aten.where.self</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aten.where.self</span></code></p></td>
 <td><p>where.self(Tensor condition, Tensor self, Tensor other) -&gt; Tensor</p></td>
 </tr>
 </tbody>
