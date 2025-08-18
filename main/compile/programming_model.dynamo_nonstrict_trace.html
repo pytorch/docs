@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git26297c2 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git7a68d02 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3385,8 +3385,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4438,9 +4438,9 @@ and you are sure that the function is non-strict traceable.</p></li>
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
 
 from user code:
-   File &quot;/tmp/ipykernel_855/2253748958.py&quot;, line 9, in func
+   File &quot;/tmp/ipykernel_853/2253748958.py&quot;, line 9, in func
     n = get_magic_num()
-  File &quot;/tmp/ipykernel_855/2253748958.py&quot;, line 5, in get_magic_num
+  File &quot;/tmp/ipykernel_853/2253748958.py&quot;, line 5, in get_magic_num
     torch._dynamo.graph_break()
 
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
@@ -4490,8 +4490,8 @@ and the FX graph will eventually contain all the relevant tensor operations whic
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([42.1262, 42.1704, 42.7515, 42.3453, 42.9119, 42.3454, 42.6319, 42.9987,
-        42.1594, 42.7225])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([42.6738, 42.5260, 42.0753, 42.3253, 42.2027, 42.1406, 42.6273, 42.8784,
+        42.6562, 42.6347])
 </pre></div>
 </div>
 </div>
@@ -4515,8 +4515,8 @@ and the FX graph will eventually contain all the relevant tensor operations whic
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([42.6657, 42.4482, 42.8774, 42.5032, 42.5974, 42.2277, 42.9030, 42.6432,
-        42.6694, 42.1937])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([42.9239, 42.6278, 42.2176, 42.9045, 42.2935, 42.6093, 42.5515, 42.3194,
+        42.6176, 42.7449])
 </pre></div>
 </div>
 </div>
@@ -4855,7 +4855,7 @@ and the FX graph will eventually contain all the relevant tensor operations whic
          },
         "datePublished": "Jul 28, 2025T00:00:00Z",
          "dateModified": "Jul 28, 2025T00:00:00Z",
-         "articleBody": "Use torch._dynamo.nonstrict_trace# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 Summary: Use nonstrict_trace to trace a function with non-strict tracing inside of a torch.compile’d region. You may wish to do this because the Dynamo graph breaks on something inside of the function and you are sure that the function is non-strict traceable. Consider the following scenario: def get_magic_num(): # This explicit graph break call is meant to emulate any kind of Dynamo # graph break, e.g., the function is implemented in C, or uses some python # language feature Dynamo doesn&#39;t yet support. torch._dynamo.graph_break() return torch.tensor([42]) @torch.compile(fullgraph=True) def func(x): n = get_magic_num() return x + n try: func(torch.rand(10)) except Exception as e: print(e) Call to `torch._dynamo.graph_break()` Explanation: User-inserted graph break. Message: None Hint: Remove the `torch._dynamo.graph_break()` call. Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}` For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html from user code: File \&#34;/tmp/ipykernel_855/2253748958.py\&#34;, line 9, in func n = get_magic_num() File \&#34;/tmp/ipykernel_855/2253748958.py\&#34;, line 5, in get_magic_num torch._dynamo.graph_break() Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=\&#34;+dynamo\&#34; If we run the code above, we’ll get an error from Dynamo, because it sees a graph break while the user specified fullgraph=True. In these situations, if a user still wants to keep fullgraph=True, they typically have several options: The graph break is due to a language feature Dynamo doesn’t yet support. In this case, the user either rewrites their code, or files an issue on GitHub. The graph break is due to a call to a function implemented in C. In this case, the user can try to use a custom op. The user could also try providing a polyfill (a reference implementation in Python) so that Dynamo can trace through it. Worst case scenario – an internal compiler error. In this case, the user likely has to file an issue on GitHub. In addition to all these options, PyTorch does provide an alternative torch._dynamo.nonstrict_trace, if the function call that induced the graph break satisfies certain requirements: The requirements of general non-strict tracing. The inputs and outputs must contain either basic types (e.g., int, float, list, dict, torch.Tensor), or user-defined types that are registered to torch.utils._pytree. The function must be defined outside the torch.compile’d region. Any non-input values read by the function will be treated as a constant (e.g., a global tensor), and will not be guarded on. When tracing through a call to a torch._dynamo.nonstrict_trace’d function, torch.compile switches to non-strict tracing, and the FX graph will eventually con..."
+         "articleBody": "Use torch._dynamo.nonstrict_trace# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 Summary: Use nonstrict_trace to trace a function with non-strict tracing inside of a torch.compile’d region. You may wish to do this because the Dynamo graph breaks on something inside of the function and you are sure that the function is non-strict traceable. Consider the following scenario: def get_magic_num(): # This explicit graph break call is meant to emulate any kind of Dynamo # graph break, e.g., the function is implemented in C, or uses some python # language feature Dynamo doesn&#39;t yet support. torch._dynamo.graph_break() return torch.tensor([42]) @torch.compile(fullgraph=True) def func(x): n = get_magic_num() return x + n try: func(torch.rand(10)) except Exception as e: print(e) Call to `torch._dynamo.graph_break()` Explanation: User-inserted graph break. Message: None Hint: Remove the `torch._dynamo.graph_break()` call. Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}` For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html from user code: File \&#34;/tmp/ipykernel_853/2253748958.py\&#34;, line 9, in func n = get_magic_num() File \&#34;/tmp/ipykernel_853/2253748958.py\&#34;, line 5, in get_magic_num torch._dynamo.graph_break() Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=\&#34;+dynamo\&#34; If we run the code above, we’ll get an error from Dynamo, because it sees a graph break while the user specified fullgraph=True. In these situations, if a user still wants to keep fullgraph=True, they typically have several options: The graph break is due to a language feature Dynamo doesn’t yet support. In this case, the user either rewrites their code, or files an issue on GitHub. The graph break is due to a call to a function implemented in C. In this case, the user can try to use a custom op. The user could also try providing a polyfill (a reference implementation in Python) so that Dynamo can trace through it. Worst case scenario – an internal compiler error. In this case, the user likely has to file an issue on GitHub. In addition to all these options, PyTorch does provide an alternative torch._dynamo.nonstrict_trace, if the function call that induced the graph break satisfies certain requirements: The requirements of general non-strict tracing. The inputs and outputs must contain either basic types (e.g., int, float, list, dict, torch.Tensor), or user-defined types that are registered to torch.utils._pytree. The function must be defined outside the torch.compile’d region. Any non-input values read by the function will be treated as a constant (e.g., a global tensor), and will not be guarded on. When tracing through a call to a torch._dynamo.nonstrict_trace’d function, torch.compile switches to non-strict tracing, and the FX graph will eventually con..."
        }
    </script>
 
