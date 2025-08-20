@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+gitbbc7c03 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git9d7cecd )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -1657,7 +1657,7 @@ document.write(`
                   
   <div class="section" id="libtorch-stable-abi">
 <h1>LibTorch Stable ABI<a class="headerlink" href="#libtorch-stable-abi" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Mar 17, 2025 | Last Updated On: Jun 18, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Mar 17, 2025 | Last Updated On: Aug 19, 2025</p>
 <p>This note will eventually contain more details on how to use the APIs in torch/csrc/stable. For the moment, it contains a table of internal representations:</p>
 <ol class="arabic simple">
 <li><p>type in custom extension: type used within the end user custom library.</p></li>
@@ -1679,102 +1679,107 @@ document.write(`
 <td><p>std::optional&lt;T&gt;</p></td>
 <td><p>Type?</p></td>
 </tr>
-<tr class="row-odd"><td><p>RAIIATH</p></td>
+<tr class="row-odd"><td><p>torch::stable::Tensor</p></td>
 <td><p>raw bitwise copy of underlying AtenTensorHandle into leading bytes of uint64_t</p></td>
 <td><p>at::Tensor</p></td>
 <td><p>Tensor</p></td>
 </tr>
-<tr class="row-even"><td><p>int32_t</p></td>
-<td><p>raw bitwise copy into leading bytes of uint64_t</p></td>
-<td><p>at::ScalarType</p></td>
+<tr class="row-even"><td><p>RAIIATH (outdated)</p></td>
+<td><p>raw bitwise copy of underlying AtenTensorHandle into leading bytes of uint64_t</p></td>
+<td><p>at::Tensor</p></td>
+<td><p>Tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p>torch::headeronly::ScalarType</p></td>
+<td><p>raw bitwise copy of the translated underlying enum into leading bytes of uint64_t</p></td>
+<td><p>torch::headeronly::ScalarType</p></td>
 <td><p>ScalarType</p></td>
 </tr>
-<tr class="row-odd"><td><p>int32_t</p></td>
+<tr class="row-even"><td><p>int32_t</p></td>
 <td><p>raw bitwise copy into leading bytes of uint64_t</p></td>
 <td><p>at::Layout</p></td>
 <td><p>Layout</p></td>
 </tr>
-<tr class="row-even"><td><p>int32_t</p></td>
+<tr class="row-odd"><td><p>int32_t</p></td>
 <td><p>raw bitwise copy into leading bytes of uint64_t</p></td>
 <td><p>at::MemoryFormat</p></td>
 <td><p>MemoryFormat</p></td>
 </tr>
-<tr class="row-odd"><td><p>bool</p></td>
+<tr class="row-even"><td><p>bool</p></td>
 <td><p>raw bitwise copy into leading bytes of uint64_t</p></td>
 <td><p>bool</p></td>
 <td><p>bool</p></td>
 </tr>
-<tr class="row-even"><td><p>int64_t</p></td>
+<tr class="row-odd"><td><p>int64_t</p></td>
 <td><p>raw bitwise copy into leading bytes of uint64_t</p></td>
 <td><p>int64_t</p></td>
 <td><p>int</p></td>
 </tr>
-<tr class="row-odd"><td><p>double</p></td>
+<tr class="row-even"><td><p>double</p></td>
 <td><p>raw bitwise copy into leading bytes of uint64_t</p></td>
 <td><p>double</p></td>
 <td><p>float</p></td>
 </tr>
-<tr class="row-even"><td><p>?</p></td>
+<tr class="row-odd"><td><p>?</p></td>
 <td><p>?</p></td>
 <td><p>c10::Device</p></td>
 <td><p>Device</p></td>
 </tr>
-<tr class="row-odd"><td><p>?</p></td>
+<tr class="row-even"><td><p>?</p></td>
 <td><p>?</p></td>
 <td><p>c10::Stream</p></td>
 <td><p>Stream</p></td>
 </tr>
-<tr class="row-even"><td><p>?</p></td>
+<tr class="row-odd"><td><p>?</p></td>
 <td><p>?</p></td>
 <td><p>c10::complex<double></p></td>
 <td><p>complex</p></td>
 </tr>
-<tr class="row-odd"><td><p>?</p></td>
+<tr class="row-even"><td><p>?</p></td>
 <td><p>?</p></td>
 <td><p>at::Scalar</p></td>
 <td><p>Scalar</p></td>
 </tr>
-<tr class="row-even"><td><p>?</p></td>
+<tr class="row-odd"><td><p>?</p></td>
 <td><p>?</p></td>
 <td><p>std::string/const char*/ivalue::ConstantString</p></td>
 <td><p>str</p></td>
 </tr>
-<tr class="row-odd"><td><p>?</p></td>
+<tr class="row-even"><td><p>?</p></td>
 <td><p>?</p></td>
 <td><p>at::Storage</p></td>
 <td><p>Storage</p></td>
 </tr>
-<tr class="row-even"><td><p>?</p></td>
+<tr class="row-odd"><td><p>?</p></td>
 <td><p>?</p></td>
 <td><p>at::Generator</p></td>
 <td><p>Generator</p></td>
 </tr>
-<tr class="row-odd"><td><p>?</p></td>
+<tr class="row-even"><td><p>?</p></td>
 <td><p>?</p></td>
 <td><p>c10::List&lt;T&gt;</p></td>
 <td><p>Type[]</p></td>
 </tr>
-<tr class="row-even"><td><p>?</p></td>
+<tr class="row-odd"><td><p>?</p></td>
 <td><p>?</p></td>
 <td><p>ivalue::Tuple&lt;T&gt;</p></td>
 <td><p>(Type, …)</p></td>
 </tr>
-<tr class="row-odd"><td><p>?</p></td>
+<tr class="row-even"><td><p>?</p></td>
 <td><p>?</p></td>
 <td><p>c10::SymInt</p></td>
 <td><p>SymInt</p></td>
 </tr>
-<tr class="row-even"><td><p>?</p></td>
+<tr class="row-odd"><td><p>?</p></td>
 <td><p>?</p></td>
 <td><p>c10::SymFloat</p></td>
 <td><p>SymFloat</p></td>
 </tr>
-<tr class="row-odd"><td><p>?</p></td>
+<tr class="row-even"><td><p>?</p></td>
 <td><p>?</p></td>
 <td><p>c10::SymBool</p></td>
 <td><p>SymBool</p></td>
 </tr>
-<tr class="row-even"><td><p>?</p></td>
+<tr class="row-odd"><td><p>?</p></td>
 <td><p>?</p></td>
 <td><p>at::QScheme</p></td>
 <td><p>QScheme</p></td>
@@ -2142,8 +2147,8 @@ b. When registering your function to be called with a stack, you must steal refe
            "@id": "/notes/libtorch_stable_abi.html"
          },
         "datePublished": "Mar 17, 2025T00:00:00Z",
-         "dateModified": "Jun 18, 2025T00:00:00Z",
-         "articleBody": "LibTorch Stable ABI# Created On: Mar 17, 2025 | Last Updated On: Jun 18, 2025 This note will eventually contain more details on how to use the APIs in torch/csrc/stable. For the moment, it contains a table of internal representations: type in custom extension: type used within the end user custom library. StableIValue representation: a stable conversion of the type to liaison between the user model vs libtorch.so in an ABI-stable manner. type in libtorch: type used within libtorch.so (or any code binary locked with libtorch). Schema Type: type as described by the schema, which we hail as the source of truth for both ATen ops in native_functions.yaml and for user defined custom operators registered to the dispatcher via TORCH_LIBRARY or torch.library. type in custom extension StableIValue representation type in libtorch Schema Type std::optional&lt;S&gt; if there is a value, raw bitwise copy into leading bytes of uint64_t of pointer to a new StableIValue representing S. if there is no value, nullptr. std::optional&lt;T&gt; Type? RAIIATH raw bitwise copy of underlying AtenTensorHandle into leading bytes of uint64_t at::Tensor Tensor int32_t raw bitwise copy into leading bytes of uint64_t at::ScalarType ScalarType int32_t raw bitwise copy into leading bytes of uint64_t at::Layout Layout int32_t raw bitwise copy into leading bytes of uint64_t at::MemoryFormat MemoryFormat bool raw bitwise copy into leading bytes of uint64_t bool bool int64_t raw bitwise copy into leading bytes of uint64_t int64_t int double raw bitwise copy into leading bytes of uint64_t double float ? ? c10::Device Device ? ? c10::Stream Stream ? ? c10::complex complex ? ? at::Scalar Scalar ? ? std::string/const char*/ivalue::ConstantString str ? ? at::Storage Storage ? ? at::Generator Generator ? ? c10::List&lt;T&gt; Type[] ? ? ivalue::Tuple&lt;T&gt; (Type, …) ? ? c10::SymInt SymInt ? ? c10::SymFloat SymFloat ? ? c10::SymBool SymBool ? ? at::QScheme QScheme Our confidently supported types are the ones in the table that have completed rows. You can rely on this subset for proper ABI stability. For a limited set of use cases, we also implicitly support any literal type that is representable within 64 bits as StableIValues, as the default reinterpret_cast will succeed. (For example: c10::Device.) These types are currently ABI-stable on best effort but might break in the future and thus should be used for short term testing only. You can always work with StableIValue abstractions in your custom kernel for types such as c10::Device even if there is no standard defined representation of device in custom extensions by not introspecting into the StableIValue. For example, a custom operator can take as argument a StableIValue device and directly pass it through to an aten operator with aoti_torch_call_dispatcher. How to use stack-based APIs# aoti_torch_call_dispatcher is what we consider a stack-based API because it takes as input a stack of StableIValues, which correlates with a torch::jit::stack of IValues. W..."
+         "dateModified": "Aug 19, 2025T00:00:00Z",
+         "articleBody": "LibTorch Stable ABI# Created On: Mar 17, 2025 | Last Updated On: Aug 19, 2025 This note will eventually contain more details on how to use the APIs in torch/csrc/stable. For the moment, it contains a table of internal representations: type in custom extension: type used within the end user custom library. StableIValue representation: a stable conversion of the type to liaison between the user model vs libtorch.so in an ABI-stable manner. type in libtorch: type used within libtorch.so (or any code binary locked with libtorch). Schema Type: type as described by the schema, which we hail as the source of truth for both ATen ops in native_functions.yaml and for user defined custom operators registered to the dispatcher via TORCH_LIBRARY or torch.library. type in custom extension StableIValue representation type in libtorch Schema Type std::optional&lt;S&gt; if there is a value, raw bitwise copy into leading bytes of uint64_t of pointer to a new StableIValue representing S. if there is no value, nullptr. std::optional&lt;T&gt; Type? torch::stable::Tensor raw bitwise copy of underlying AtenTensorHandle into leading bytes of uint64_t at::Tensor Tensor RAIIATH (outdated) raw bitwise copy of underlying AtenTensorHandle into leading bytes of uint64_t at::Tensor Tensor torch::headeronly::ScalarType raw bitwise copy of the translated underlying enum into leading bytes of uint64_t torch::headeronly::ScalarType ScalarType int32_t raw bitwise copy into leading bytes of uint64_t at::Layout Layout int32_t raw bitwise copy into leading bytes of uint64_t at::MemoryFormat MemoryFormat bool raw bitwise copy into leading bytes of uint64_t bool bool int64_t raw bitwise copy into leading bytes of uint64_t int64_t int double raw bitwise copy into leading bytes of uint64_t double float ? ? c10::Device Device ? ? c10::Stream Stream ? ? c10::complex complex ? ? at::Scalar Scalar ? ? std::string/const char*/ivalue::ConstantString str ? ? at::Storage Storage ? ? at::Generator Generator ? ? c10::List&lt;T&gt; Type[] ? ? ivalue::Tuple&lt;T&gt; (Type, …) ? ? c10::SymInt SymInt ? ? c10::SymFloat SymFloat ? ? c10::SymBool SymBool ? ? at::QScheme QScheme Our confidently supported types are the ones in the table that have completed rows. You can rely on this subset for proper ABI stability. For a limited set of use cases, we also implicitly support any literal type that is representable within 64 bits as StableIValues, as the default reinterpret_cast will succeed. (For example: c10::Device.) These types are currently ABI-stable on best effort but might break in the future and thus should be used for short term testing only. You can always work with StableIValue abstractions in your custom kernel for types such as c10::Device even if there is no standard defined representation of device in custom extensions by not introspecting into the StableIValue. For example, a custom operator can take as argument a StableIValue device and directly pass it through to an aten operator with aoti_torch_call_dispatcher. ..."
        }
    </script>
 
