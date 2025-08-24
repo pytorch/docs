@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git46429be )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git3e5b021 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3385,8 +3385,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4404,13 +4404,13 @@ serialized.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ExportedProgram:
     class GraphModule(torch.nn.Module):
         def forward(self, x: &quot;f32[10, 10]&quot;, y: &quot;f32[10, 10]&quot;):
-             # File: /tmp/ipykernel_618/2550508656.py:6 in forward, code: a = torch.sin(x)
+             # File: /tmp/ipykernel_615/2550508656.py:6 in forward, code: a = torch.sin(x)
             sin: &quot;f32[10, 10]&quot; = torch.ops.aten.sin.default(x);  x = None
             
-             # File: /tmp/ipykernel_618/2550508656.py:7 in forward, code: b = torch.cos(y)
+             # File: /tmp/ipykernel_615/2550508656.py:7 in forward, code: b = torch.cos(y)
             cos: &quot;f32[10, 10]&quot; = torch.ops.aten.cos.default(y);  y = None
             
-             # File: /tmp/ipykernel_618/2550508656.py:8 in forward, code: return a + b
+             # File: /tmp/ipykernel_615/2550508656.py:8 in forward, code: return a + b
             add: &quot;f32[10, 10]&quot; = torch.ops.aten.add.Tensor(sin, cos);  sin = cos = None
             return (add,)
             
@@ -4539,7 +4539,7 @@ example:</p>
              # File: /opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/nn/modules/conv.py:548 in forward, code: return self._conv_forward(input, self.weight, self.bias)
             conv2d: &quot;f32[1, 16, 256, 256]&quot; = torch.ops.aten.conv2d.default(x, p_conv_weight, p_conv_bias, [1, 1], [1, 1]);  x = p_conv_weight = p_conv_bias = None
             
-             # File: /tmp/ipykernel_618/2848084713.py:16 in forward, code: a.add_(constant)
+             # File: /tmp/ipykernel_615/2848084713.py:16 in forward, code: a.add_(constant)
             add_: &quot;f32[1, 16, 256, 256]&quot; = torch.ops.aten.add_.Tensor(conv2d, constant);  conv2d = constant = None
             
              # File: /opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/nn/modules/activation.py:144 in forward, code: return F.relu(input, inplace=self.inplace)
@@ -4561,55 +4561,55 @@ Graph signature:
     
 Range constraints: {}
 
-tensor([[[[1.7613, 1.4322, 1.7224,  ..., 1.8149, 1.5314, 2.0060],
-          [1.7130, 1.8990, 1.8618,  ..., 1.8068, 1.5146, 1.6782],
-          [2.0731, 1.9641, 1.4158,  ..., 2.5526, 2.8758, 1.4362],
+tensor([[[[1.4790, 1.7483, 1.5120,  ..., 1.5509, 1.9660, 2.1981],
+          [1.8897, 1.6406, 2.0008,  ..., 2.0289, 1.8814, 1.6772],
+          [2.5893, 1.7005, 2.1528,  ..., 1.7168, 2.4298, 1.8430],
           ...,
-          [1.5646, 1.4589, 1.4252,  ..., 1.9785, 1.7510, 1.8723],
-          [1.5532, 1.3178, 1.8219,  ..., 2.0399, 1.9295, 2.1364],
-          [1.3984, 2.2559, 1.7564,  ..., 1.7425, 1.7392, 2.1429]],
+          [2.0219, 2.2068, 1.7062,  ..., 2.0769, 2.0205, 2.0288],
+          [1.8057, 2.0709, 2.2604,  ..., 1.6591, 1.2570, 1.8261],
+          [1.1282, 1.6648, 1.8228,  ..., 1.8712, 2.4236, 1.9809]],
 
-         [[1.7773, 1.8066, 2.1827,  ..., 1.3381, 1.8693, 1.6573],
-          [2.0396, 1.7268, 3.1509,  ..., 2.6175, 1.7612, 1.6837],
-          [1.1886, 1.8293, 2.0188,  ..., 1.7074, 1.5935, 1.7458],
+         [[2.1030, 1.9064, 1.4005,  ..., 1.7979, 1.9357, 1.7917],
+          [2.0489, 1.5926, 1.6852,  ..., 1.8835, 1.6527, 1.7633],
+          [1.5733, 1.1927, 1.6936,  ..., 2.0678, 1.8157, 2.4031],
           ...,
-          [1.6211, 1.5826, 1.8403,  ..., 2.2077, 2.2553, 1.9453],
-          [1.5813, 1.5446, 1.6565,  ..., 1.8440, 1.9854, 1.5743],
-          [1.5958, 2.1490, 1.4215,  ..., 2.0461, 1.9222, 2.3442]],
+          [1.7406, 2.0233, 1.9392,  ..., 1.7555, 2.0742, 2.0258],
+          [1.5153, 1.8370, 2.1709,  ..., 2.0333, 1.1256, 1.3220],
+          [1.6895, 1.8642, 1.1594,  ..., 2.0267, 1.7341, 1.7046]],
 
-         [[1.7260, 1.7108, 1.8468,  ..., 1.7362, 1.4149, 1.4519],
-          [1.9854, 2.0047, 1.9562,  ..., 1.8141, 2.4617, 1.6887],
-          [1.5977, 1.5414, 2.1192,  ..., 3.2514, 1.7946, 2.0802],
+         [[1.6463, 1.7893, 1.8489,  ..., 1.3202, 1.4760, 1.8020],
+          [1.8833, 1.7311, 1.9427,  ..., 1.4483, 1.7790, 1.7900],
+          [1.6286, 1.7031, 2.2342,  ..., 1.6186, 1.4328, 1.8715],
           ...,
-          [2.3318, 1.5107, 2.1969,  ..., 1.8562, 2.2763, 1.8039],
-          [1.9710, 1.3804, 2.1663,  ..., 1.8227, 1.6024, 1.6063],
-          [1.4303, 1.7557, 1.7413,  ..., 1.9335, 2.1211, 1.6061]],
+          [1.4706, 1.5592, 2.4573,  ..., 1.8165, 1.5265, 1.6791],
+          [1.8967, 1.7259, 1.6489,  ..., 1.4190, 1.7223, 2.4767],
+          [1.8787, 1.4839, 1.5202,  ..., 1.4919, 1.8166, 1.9884]],
 
          ...,
 
-         [[1.5726, 1.8053, 1.4770,  ..., 1.7047, 1.5509, 1.3762],
-          [1.4621, 1.2042, 1.6946,  ..., 1.4633, 1.7192, 1.6818],
-          [2.2379, 1.3052, 2.1293,  ..., 2.0874, 2.0455, 1.6653],
+         [[1.2560, 1.7555, 1.3680,  ..., 1.5272, 1.6545, 1.6232],
+          [2.5283, 1.7174, 1.3899,  ..., 1.8172, 2.7052, 1.2921],
+          [1.4009, 2.1572, 1.3119,  ..., 1.9923, 1.9248, 2.8400],
           ...,
-          [2.0463, 1.3478, 1.8312,  ..., 2.0034, 2.4763, 1.4168],
-          [1.2675, 1.4918, 1.4401,  ..., 1.7287, 1.4382, 1.8160],
-          [1.5588, 1.9210, 1.8867,  ..., 1.5266, 1.3413, 1.4063]],
+          [1.9733, 1.9206, 1.7223,  ..., 2.0412, 1.9475, 1.4084],
+          [1.6930, 2.0700, 2.1157,  ..., 1.3831, 1.6325, 1.9892],
+          [1.7292, 1.6987, 2.1023,  ..., 1.7718, 1.9260, 2.1823]],
 
-         [[2.1833, 2.0094, 2.1294,  ..., 2.2944, 2.1368, 1.8668],
-          [2.3533, 2.2674, 1.8659,  ..., 2.3648, 1.9992, 1.8951],
-          [2.1280, 1.9501, 1.8802,  ..., 2.7717, 1.6501, 2.6420],
+         [[1.7412, 1.4202, 1.9070,  ..., 1.4969, 2.1129, 1.7346],
+          [1.4775, 2.0301, 2.1462,  ..., 1.9828, 1.8020, 1.8650],
+          [1.5231, 1.8018, 2.1141,  ..., 1.8128, 1.1086, 1.6624],
           ...,
-          [1.6996, 2.1461, 2.4274,  ..., 2.0641, 1.7289, 1.8713],
-          [1.9897, 2.3403, 1.5677,  ..., 1.5854, 2.0309, 2.3064],
-          [2.9364, 1.8842, 2.4908,  ..., 2.0993, 3.1557, 2.2870]],
+          [0.9042, 2.1880, 1.5922,  ..., 1.0368, 1.8151, 1.7792],
+          [1.4204, 2.0071, 1.5027,  ..., 1.9624, 1.2321, 1.4927],
+          [1.0563, 1.7833, 1.7704,  ..., 2.0698, 1.6688, 1.6925]],
 
-         [[1.1410, 1.7512, 2.8123,  ..., 2.0938, 1.5453, 1.1382],
-          [1.6105, 1.9816, 1.5462,  ..., 1.5513, 1.6477, 1.1029],
-          [1.3410, 1.4236, 1.9036,  ..., 1.7846, 1.6593, 2.1916],
+         [[1.4993, 2.1884, 2.2277,  ..., 1.5037, 1.6796, 1.8303],
+          [2.1996, 2.1257, 2.4630,  ..., 1.7247, 2.3343, 1.9069],
+          [2.4671, 2.4506, 2.1982,  ..., 1.8536, 2.0909, 2.0356],
           ...,
-          [1.3059, 1.5302, 1.5741,  ..., 1.8790, 1.3778, 1.6331],
-          [1.5353, 1.3826, 1.6717,  ..., 1.5410, 1.5382, 2.2500],
-          [1.0978, 1.8125, 1.6887,  ..., 1.3527, 2.6957, 1.5265]]]],
+          [1.7746, 1.6962, 2.5906,  ..., 1.9304, 1.6850, 1.8961],
+          [1.2988, 2.0848, 1.7783,  ..., 1.2933, 1.8105, 2.4191],
+          [1.3674, 1.7621, 2.1565,  ..., 1.6474, 2.0211, 2.4762]]]],
        grad_fn=&lt;MaxPool2DWithIndicesBackward0&gt;)
 </pre></div>
 </div>
@@ -4689,7 +4689,7 @@ different shapes, even if they’re valid in eager mode.</p>
              # File: /opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/nn/modules/activation.py:144 in forward, code: return F.relu(input, inplace=self.inplace)
             relu_1: &quot;f32[32, 64]&quot; = torch.ops.aten.relu.default(linear_1);  linear_1 = None
             
-             # File: /tmp/ipykernel_618/1522925308.py:19 in forward, code: return (out1 + self.buffer, out2)
+             # File: /tmp/ipykernel_615/1522925308.py:19 in forward, code: return (out1 + self.buffer, out2)
             add: &quot;f32[32, 32]&quot; = torch.ops.aten.add.Tensor(relu, c_buffer);  relu = c_buffer = None
             return (add, relu_1)
             
@@ -4711,7 +4711,7 @@ Range constraints: {}
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Traceback (most recent call last):
-  File &quot;/tmp/ipykernel_618/1522925308.py&quot;, line 28, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_615/1522925308.py&quot;, line 28, in &lt;module&gt;
     ep.module()(*example_args2)  # fails
   File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/fx/graph_module.py&quot;, line 837, in call_wrapped
     return self._wrapped_call(self, *args, **kwargs)
@@ -4796,7 +4796,7 @@ from run to run. Such dimensions must be specified by using the
              # File: /opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/nn/modules/activation.py:144 in forward, code: return F.relu(input, inplace=self.inplace)
             relu_1: &quot;f32[s24, 64]&quot; = torch.ops.aten.relu.default(linear_1);  linear_1 = None
             
-             # File: /tmp/ipykernel_618/3456136871.py:18 in forward, code: return (out1 + self.buffer, out2)
+             # File: /tmp/ipykernel_615/3456136871.py:18 in forward, code: return (out1 + self.buffer, out2)
             add: &quot;f32[s24, 32]&quot; = torch.ops.aten.add.Tensor(relu, c_buffer);  relu = c_buffer = None
             return (add, relu_1)
             
@@ -4817,27 +4817,22 @@ Graph signature:
 Range constraints: {s24: VR[0, int_oo]}
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(tensor([[1.0000, 1.3819, 1.0000,  ..., 1.0000, 1.2850, 2.4708],
-         [1.0000, 1.0000, 2.2516,  ..., 1.0000, 1.0401, 1.1919],
-         [1.0000, 1.7201, 1.0000,  ..., 1.5210, 1.0000, 1.0000],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(tensor([[1.1615, 1.4132, 2.0689,  ..., 2.0766, 1.0000, 1.0000],
+         [1.6995, 1.8242, 1.0000,  ..., 1.5198, 1.0000, 1.0000],
+         [2.2485, 1.5377, 1.7623,  ..., 1.0000, 1.2789, 1.1074],
          ...,
-         [1.0418, 1.0000, 1.0000,  ..., 1.5620, 1.1691, 1.0000],
-         [1.2442, 1.0000, 1.3432,  ..., 1.0000, 1.4355, 1.0000],
-         [2.3207, 1.0000, 1.0000,  ..., 1.0000, 1.4144, 1.0000]],
+         [1.0228, 1.0365, 1.0458,  ..., 1.0000, 1.9190, 1.3212],
+         [1.0000, 1.0000, 1.6351,  ..., 1.6258, 1.0000, 1.6010],
+         [1.0000, 1.8143, 1.9240,  ..., 1.5310, 1.4456, 1.0000]],
         grad_fn=&lt;AddBackward0&gt;),
- tensor([[0.0000e+00, 2.5487e-04, 0.0000e+00,  ..., 0.0000e+00, 0.0000e+00,
-          0.0000e+00],
-         [0.0000e+00, 2.8931e-01, 6.5436e-01,  ..., 0.0000e+00, 3.6534e-01,
-          0.0000e+00],
-         [0.0000e+00, 0.0000e+00, 1.0697e+00,  ..., 6.2316e-01, 1.4613e-01,
-          6.3555e-01],
+ tensor([[0.0000, 0.4767, 0.1953,  ..., 0.0147, 0.0000, 0.0000],
+         [0.3749, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+         [0.3246, 0.0000, 0.5823,  ..., 0.0000, 0.0000, 0.0000],
          ...,
-         [1.0521e+00, 0.0000e+00, 7.0412e-01,  ..., 0.0000e+00, 0.0000e+00,
-          3.9739e-01],
-         [0.0000e+00, 1.1573e+00, 0.0000e+00,  ..., 0.0000e+00, 5.0188e-02,
-          5.3596e-01],
-         [4.0211e-02, 1.8878e-01, 8.1397e-01,  ..., 0.0000e+00, 1.0754e+00,
-          0.0000e+00]], grad_fn=&lt;ReluBackward0&gt;))
+         [0.0000, 0.0000, 0.8021,  ..., 0.0000, 0.7075, 0.0000],
+         [0.0000, 0.0000, 0.0000,  ..., 0.1052, 0.0000, 0.0000],
+         [0.0000, 0.0000, 0.1359,  ..., 0.0371, 0.0000, 0.4381]],
+        grad_fn=&lt;ReluBackward0&gt;))
 </pre></div>
 </div>
 </div>
@@ -4975,13 +4970,13 @@ dimensions are dynamic.</p>
 ExportedProgram:
     class GraphModule(torch.nn.Module):
         def forward(self, inp_x: &quot;f32[s96, s96 + 1, 8]&quot;, inp_others_0: &quot;f32[2*s96]&quot;, inp_others_1: &quot;f32[6]&quot;):
-             # File: /tmp/ipykernel_618/1070110726.py:5 in forward, code: x = inp[&quot;x&quot;] * 1
+             # File: /tmp/ipykernel_615/1070110726.py:5 in forward, code: x = inp[&quot;x&quot;] * 1
             mul: &quot;f32[s96, s96 + 1, 8]&quot; = torch.ops.aten.mul.Tensor(inp_x, 1);  inp_x = None
             
-             # File: /tmp/ipykernel_618/1070110726.py:6 in forward, code: y = inp[&quot;others&quot;][0] * 2
+             # File: /tmp/ipykernel_615/1070110726.py:6 in forward, code: y = inp[&quot;others&quot;][0] * 2
             mul_1: &quot;f32[2*s96]&quot; = torch.ops.aten.mul.Tensor(inp_others_0, 2);  inp_others_0 = None
             
-             # File: /tmp/ipykernel_618/1070110726.py:7 in forward, code: z = inp[&quot;others&quot;][1] * 3
+             # File: /tmp/ipykernel_615/1070110726.py:7 in forward, code: z = inp[&quot;others&quot;][1] * 3
             mul_2: &quot;f32[6]&quot; = torch.ops.aten.mul.Tensor(inp_others_1, 3);  inp_others_1 = None
             return (mul, mul_1, mul_2)
             
@@ -5048,7 +5043,7 @@ shapes are changing.</p>
 ExportedProgram:
     class GraphModule(torch.nn.Module):
         def forward(self, d_b, d_i: &quot;Sym(s37)&quot;, d_f, d_t: &quot;f32[s99]&quot;):
-             # File: /tmp/ipykernel_618/829931439.py:16 in forward, code: return d.i + d.f + d.t
+             # File: /tmp/ipykernel_615/829931439.py:16 in forward, code: return d.i + d.f + d.t
             sym_float: &quot;Sym(ToFloat(s37))&quot; = torch.sym_float(d_i);  d_i = None
             add: &quot;Sym(ToFloat(s37) + 3.0)&quot; = sym_float + 3.0;  sym_float = None
             add_1: &quot;f32[s99]&quot; = torch.ops.aten.add.Tensor(d_t, add);  d_t = add = None
@@ -5741,7 +5736,7 @@ have a FakeTensor kernel implementation yet, please file an issue.</p>
          },
         "datePublished": "Jun 12, 2025T00:00:00Z",
          "dateModified": "Jul 17, 2025T00:00:00Z",
-         "articleBody": "torch.export# Created On: Jun 12, 2025 | Last Updated On: Jul 17, 2025 Overview# torch.export.export() takes a torch.nn.Module and produces a traced graph representing only the Tensor computation of the function in an Ahead-of-Time (AOT) fashion, which can subsequently be executed with different outputs or serialized. import torch from torch.export import export, ExportedProgram class Mod(torch.nn.Module): def forward(self, x: torch.Tensor, y: torch.Tensor) -&gt; torch.Tensor: a = torch.sin(x) b = torch.cos(y) return a + b example_args = (torch.randn(10, 10), torch.randn(10, 10)) exported_program: ExportedProgram = export(Mod(), args=example_args) print(exported_program) ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \&#34;f32[10, 10]\&#34;, y: \&#34;f32[10, 10]\&#34;): # File: /tmp/ipykernel_618/2550508656.py:6 in forward, code: a = torch.sin(x) sin: \&#34;f32[10, 10]\&#34; = torch.ops.aten.sin.default(x); x = None # File: /tmp/ipykernel_618/2550508656.py:7 in forward, code: b = torch.cos(y) cos: \&#34;f32[10, 10]\&#34; = torch.ops.aten.cos.default(y); y = None # File: /tmp/ipykernel_618/2550508656.py:8 in forward, code: return a + b add: \&#34;f32[10, 10]\&#34; = torch.ops.aten.add.Tensor(sin, cos); sin = cos = None return (add,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} torch.export produces a clean intermediate representation (IR) with the following invariants. More specifications about the IR can be found here. Soundness: It is guaranteed to be a sound representation of the original program, and maintains the same calling conventions of the original program. Normalized: There are no Python semantics within the graph. Submodules from the original programs are inlined to form one fully flattened computational graph. Graph properties: The graph is purely functional, meaning it does not contain operations with side effects such as mutations or aliasing. It does not mutate any intermediate values, parameters, or buffers. Metadata: The graph contains metadata captured during tracing, such as a stacktrace from user’s code. Under the hood, torch.export leverages the following latest technologies: TorchDynamo (torch._dynamo) is an internal API that uses a CPython feature called the Frame Evaluation API to safely trace PyTorch graphs. This provides a massively improved graph capturing experience, with much fewer rewrites needed in order to fully trace the PyTorch code. AOT Autograd provides a functionalized PyTorch graph and ensures the graph is decomposed/lowered to the ATen operator set. Torch FX (torch.fx) is the underlying representation of the graph, allowing flexible Python-based transformations. Existing frameworks# torch.compile() also utilizes the same PT2 stack as torch.export, but is slightly different: JIT vs. AOT: torch.compile() is a JIT compiler whereas which is not intended to be used to produce compiled artifacts outside of deployment. Partial vs. Full Graph Capture: When torch.compile() runs into..."
+         "articleBody": "torch.export# Created On: Jun 12, 2025 | Last Updated On: Jul 17, 2025 Overview# torch.export.export() takes a torch.nn.Module and produces a traced graph representing only the Tensor computation of the function in an Ahead-of-Time (AOT) fashion, which can subsequently be executed with different outputs or serialized. import torch from torch.export import export, ExportedProgram class Mod(torch.nn.Module): def forward(self, x: torch.Tensor, y: torch.Tensor) -&gt; torch.Tensor: a = torch.sin(x) b = torch.cos(y) return a + b example_args = (torch.randn(10, 10), torch.randn(10, 10)) exported_program: ExportedProgram = export(Mod(), args=example_args) print(exported_program) ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \&#34;f32[10, 10]\&#34;, y: \&#34;f32[10, 10]\&#34;): # File: /tmp/ipykernel_615/2550508656.py:6 in forward, code: a = torch.sin(x) sin: \&#34;f32[10, 10]\&#34; = torch.ops.aten.sin.default(x); x = None # File: /tmp/ipykernel_615/2550508656.py:7 in forward, code: b = torch.cos(y) cos: \&#34;f32[10, 10]\&#34; = torch.ops.aten.cos.default(y); y = None # File: /tmp/ipykernel_615/2550508656.py:8 in forward, code: return a + b add: \&#34;f32[10, 10]\&#34; = torch.ops.aten.add.Tensor(sin, cos); sin = cos = None return (add,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} torch.export produces a clean intermediate representation (IR) with the following invariants. More specifications about the IR can be found here. Soundness: It is guaranteed to be a sound representation of the original program, and maintains the same calling conventions of the original program. Normalized: There are no Python semantics within the graph. Submodules from the original programs are inlined to form one fully flattened computational graph. Graph properties: The graph is purely functional, meaning it does not contain operations with side effects such as mutations or aliasing. It does not mutate any intermediate values, parameters, or buffers. Metadata: The graph contains metadata captured during tracing, such as a stacktrace from user’s code. Under the hood, torch.export leverages the following latest technologies: TorchDynamo (torch._dynamo) is an internal API that uses a CPython feature called the Frame Evaluation API to safely trace PyTorch graphs. This provides a massively improved graph capturing experience, with much fewer rewrites needed in order to fully trace the PyTorch code. AOT Autograd provides a functionalized PyTorch graph and ensures the graph is decomposed/lowered to the ATen operator set. Torch FX (torch.fx) is the underlying representation of the graph, allowing flexible Python-based transformations. Existing frameworks# torch.compile() also utilizes the same PT2 stack as torch.export, but is slightly different: JIT vs. AOT: torch.compile() is a JIT compiler whereas which is not intended to be used to produce compiled artifacts outside of deployment. Partial vs. Full Graph Capture: When torch.compile() runs into..."
        }
    </script>
 
