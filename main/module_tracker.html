@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git3e5b021 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git74280d0 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3385,8 +3385,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3752,6 +3752,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.Adamax.html">Adamax</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.ASGD.html">ASGD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.LBFGS.html">LBFGS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.Muon.html">Muon</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.NAdam.html">NAdam</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.RAdam.html">RAdam</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.RMSprop.html">RMSprop</a></li>
@@ -4380,7 +4381,7 @@ document.write(`
 It can be used within other tracking tools to be able to easily associate measured quantities to user-friendly names. This is used in particular in the FlopCounterMode today.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.utils.module_tracker.ModuleTracker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.module_tracker.</span></span><span class="sig-name descname"><span class="pre">ModuleTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3e5b021f217a42ae55dc690083f67a28126808ed/torch/utils/module_tracker.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.module_tracker.ModuleTracker" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.module_tracker.</span></span><span class="sig-name descname"><span class="pre">ModuleTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/74280d091321343b47a2975e17584b973d7c22c4/torch/utils/module_tracker.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.module_tracker.ModuleTracker" title="Permalink to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">ModuleTracker</span></code> is a context manager that tracks the nn.Module hierarchy during execution
 so that other system can query which Module is currently being executed (or its backward is being
 executed).</p>

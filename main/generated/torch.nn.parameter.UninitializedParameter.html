@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git3e5b021 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git74280d0 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3385,8 +3385,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3752,6 +3752,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.optim.Adamax.html">Adamax</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.optim.ASGD.html">ASGD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.optim.LBFGS.html">LBFGS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.optim.Muon.html">Muon</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.optim.NAdam.html">NAdam</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.optim.RAdam.html">RAdam</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.optim.RMSprop.html">RMSprop</a></li>
@@ -4386,7 +4387,7 @@ document.write(`
 <h1>UninitializedParameter<a class="headerlink" href="#uninitializedparameter" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.parameter.UninitializedParameter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.parameter.</span></span><span class="sig-name descname"><span class="pre">UninitializedParameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3e5b021f217a42ae55dc690083f67a28126808ed/torch/nn/parameter.py#L198"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.parameter.UninitializedParameter" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.parameter.</span></span><span class="sig-name descname"><span class="pre">UninitializedParameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/74280d091321343b47a2975e17584b973d7c22c4/torch/nn/parameter.py#L198"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.parameter.UninitializedParameter" title="Permalink to this definition">#</a></dt>
 <dd><p>A parameter that is not initialized.</p>
 <p>Uninitialized Parameters are a special case of <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Parameter</span></code>
 where the shape of the data is still unknown.</p>
@@ -4401,7 +4402,7 @@ during construction using e.g. <code class="docutils literal notranslate"><span 
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.parameter.UninitializedParameter.cls_to_become">
-<span class="sig-name descname"><span class="pre">cls_to_become</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3e5b021f217a42ae55dc690083f67a28126808ed/torch/nn/parameter.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.parameter.UninitializedParameter.cls_to_become" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cls_to_become</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/74280d091321343b47a2975e17584b973d7c22c4/torch/nn/parameter.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.parameter.UninitializedParameter.cls_to_become" title="Permalink to this definition">#</a></dt>
 <dd><p>alias of <a class="reference internal" href="torch.nn.parameter.Parameter.html#torch.nn.parameter.Parameter" title="torch.nn.parameter.Parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parameter</span></code></a></p>
 </dd></dl>
 
