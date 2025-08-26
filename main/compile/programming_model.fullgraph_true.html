@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git74280d0 )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git332fa5b )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3385,8 +3385,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4555,7 +4555,7 @@ from user code:
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([-0.7358,  0.6408, -0.5896])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([-0.7300, -0.6379, -0.6923])
 </pre></div>
 </div>
 </div>
@@ -4661,9 +4661,9 @@ If it is a third-party C/C++ Python extension, please either wrap it into a PyTo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[5.1077e-02, 2.2728e-01, 2.2794e+00],
-        [2.0967e-04, 5.1184e+00, 5.9059e-01],
-        [2.0156e-01, 1.1260e-09, 7.9528e-01]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[4.6333e-03, 1.7628e-04, 5.7954e+00],
+        [3.6716e+00, 9.9228e-03, 6.4773e-02],
+        [1.0635e+00, 5.8466e-01, 1.0639e-01]])
 </pre></div>
 </div>
 </div>
@@ -4736,7 +4736,7 @@ Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especiall
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0.0008, 0.1053, 0.0003])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([4.6591e-09, 4.8098e-01, 1.5085e-04])
 </pre></div>
 </div>
 </div>
