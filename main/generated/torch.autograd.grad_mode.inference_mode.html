@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git332fa5b )');
+   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git80bf883 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3385,8 +3385,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4387,28 +4387,37 @@ document.write(`
 <h1>inference_mode<a class="headerlink" href="#inference-mode" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.grad_mode.inference_mode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.grad_mode.</span></span><span class="sig-name descname"><span class="pre">inference_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/332fa5b388521c05a19217649745c6edfdc2836d/torch/autograd/grad_mode.py#L212"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.grad_mode.inference_mode" title="Permalink to this definition">#</a></dt>
-<dd><p>Context-manager that enables or disables inference mode.</p>
-<p>InferenceMode is a context manager analogous to <a class="reference internal" href="torch.no_grad.html#torch.no_grad" title="torch.autograd.grad_mode.no_grad"><code class="xref py py-class docutils literal notranslate"><span class="pre">no_grad</span></code></a>
-to be used when you are certain your operations will have no interactions
-with autograd (e.g., model training). Code run under this mode gets better
-performance by disabling view tracking and version counter bumps. Note that
-unlike some other mechanisms that locally enable or disable grad,
-entering inference_mode also disables to <a class="reference internal" href="../autograd.html#forward-mode-ad"><span class="std std-ref">forward-mode AD</span></a>.</p>
-<p>This context manager is thread local; it will not affect computation
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.grad_mode.</span></span><span class="sig-name descname"><span class="pre">inference_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80bf883d21ba48898e5fd40a6cbf418fa3ff3f33/torch/autograd/grad_mode.py#L212"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.grad_mode.inference_mode" title="Permalink to this definition">#</a></dt>
+<dd><p>Context manager that enables or disables inference mode.</p>
+<p>InferenceMode is analogous to <a class="reference internal" href="torch.no_grad.html#torch.no_grad" title="torch.autograd.grad_mode.no_grad"><code class="xref py py-class docutils literal notranslate"><span class="pre">no_grad</span></code></a> and should be used
+when you are certain your operations will not interact with autograd
+(e.g., during data loading or model evaluation). Compared to
+<a class="reference internal" href="torch.no_grad.html#torch.no_grad" title="torch.autograd.grad_mode.no_grad"><code class="xref py py-class docutils literal notranslate"><span class="pre">no_grad</span></code></a>, it removes additional overhead by disabling view
+tracking and version counter bumps. It is also more restrictive, in
+that tensors created in this mode cannot be used in computations
+recorded by autograd.</p>
+<p>This context manager is thread-local; it does not affect computation
 in other threads.</p>
 <p>Also functions as a decorator.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Inference mode is one of several mechanisms that can enable or
-disable gradients locally see <a class="reference internal" href="../notes/autograd.html#locally-disable-grad-doc"><span class="std std-ref">Locally disabling gradient computation</span></a> for
-more information on how they compare.</p>
+<p>Inference mode is one of several mechanisms that can locally enable
+or disable gradients. See <a class="reference internal" href="../notes/autograd.html#locally-disable-grad-doc"><span class="std std-ref">Locally disabling gradient computation</span></a> for a
+comparison. If avoiding the use of tensors created in inference mode
+in autograd-tracked regions is difficult, consider benchmarking your
+code with and without inference mode to weigh the performance benefits
+against the trade-offs. You can always use <a class="reference internal" href="torch.no_grad.html#torch.no_grad" title="torch.autograd.grad_mode.no_grad"><code class="xref py py-class docutils literal notranslate"><span class="pre">no_grad</span></code></a> instead.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Unlike some other mechanisms that locally enable or disable grad,
+entering inference_mode also disables <a class="reference internal" href="../autograd.html#forward-mode-ad"><span class="std std-ref">forward-mode AD</span></a>.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><em>function</em>) – Either a boolean flag whether to enable or
-disable inference mode or a Python function to decorate with
-inference mode enabled</p>
+<dd class="field-odd"><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><em>function</em>) – Either a boolean flag to enable or disable
+inference mode, or a Python function to decorate with inference
+mode enabled.</p>
 </dd>
 </dl>
 <dl>
@@ -4440,7 +4449,7 @@ False
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.grad_mode.inference_mode.clone">
-<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/332fa5b388521c05a19217649745c6edfdc2836d/torch/autograd/grad_mode.py#L282"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.grad_mode.inference_mode.clone" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80bf883d21ba48898e5fd40a6cbf418fa3ff3f33/torch/autograd/grad_mode.py#L290"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.grad_mode.inference_mode.clone" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a copy of this class</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4784,7 +4793,7 @@ False
          },
         "datePublished": "",
          "dateModified": "",
-         "articleBody": "inference_mode# class torch.autograd.grad_mode.inference_mode(mode=True)[source]# Context-manager that enables or disables inference mode. InferenceMode is a context manager analogous to no_grad to be used when you are certain your operations will have no interactions with autograd (e.g., model training). Code run under this mode gets better performance by disabling view tracking and version counter bumps. Note that unlike some other mechanisms that locally enable or disable grad, entering inference_mode also disables to forward-mode AD. This context manager is thread local; it will not affect computation in other threads. Also functions as a decorator. Note Inference mode is one of several mechanisms that can enable or disable gradients locally see Locally disabling gradient computation for more information on how they compare. Parameters mode (bool or function) – Either a boolean flag whether to enable or disable inference mode or a Python function to decorate with inference mode enabled Example::&gt;&gt;&gt; import torch &gt;&gt;&gt; x = torch.ones(1, 2, 3, requires_grad=True) &gt;&gt;&gt; with torch.inference_mode(): ... y = x * x &gt;&gt;&gt; y.requires_grad False &gt;&gt;&gt; y._version Traceback (most recent call last): File \&#34;&lt;stdin&gt;\&#34;, line 1, in &lt;module&gt; RuntimeError: Inference tensors do not track version counter. &gt;&gt;&gt; @torch.inference_mode() ... def func(x): ... return x * x &gt;&gt;&gt; out = func(x) &gt;&gt;&gt; out.requires_grad False &gt;&gt;&gt; @torch.inference_mode() ... def doubler(x): ... return x * 2 &gt;&gt;&gt; out = doubler(x) &gt;&gt;&gt; out.requires_grad False clone()[source]# Create a copy of this class Return type inference_mode"
+         "articleBody": "inference_mode# class torch.autograd.grad_mode.inference_mode(mode=True)[source]# Context manager that enables or disables inference mode. InferenceMode is analogous to no_grad and should be used when you are certain your operations will not interact with autograd (e.g., during data loading or model evaluation). Compared to no_grad, it removes additional overhead by disabling view tracking and version counter bumps. It is also more restrictive, in that tensors created in this mode cannot be used in computations recorded by autograd. This context manager is thread-local; it does not affect computation in other threads. Also functions as a decorator. Note Inference mode is one of several mechanisms that can locally enable or disable gradients. See Locally disabling gradient computation for a comparison. If avoiding the use of tensors created in inference mode in autograd-tracked regions is difficult, consider benchmarking your code with and without inference mode to weigh the performance benefits against the trade-offs. You can always use no_grad instead. Note Unlike some other mechanisms that locally enable or disable grad, entering inference_mode also disables forward-mode AD. Parameters mode (bool or function) – Either a boolean flag to enable or disable inference mode, or a Python function to decorate with inference mode enabled. Example::&gt;&gt;&gt; import torch &gt;&gt;&gt; x = torch.ones(1, 2, 3, requires_grad=True) &gt;&gt;&gt; with torch.inference_mode(): ... y = x * x &gt;&gt;&gt; y.requires_grad False &gt;&gt;&gt; y._version Traceback (most recent call last): File \&#34;&lt;stdin&gt;\&#34;, line 1, in &lt;module&gt; RuntimeError: Inference tensors do not track version counter. &gt;&gt;&gt; @torch.inference_mode() ... def func(x): ... return x * x &gt;&gt;&gt; out = func(x) &gt;&gt;&gt; out.requires_grad False &gt;&gt;&gt; @torch.inference_mode() ... def doubler(x): ... return x * 2 &gt;&gt;&gt; out = doubler(x) &gt;&gt;&gt; out.requires_grad False clone()[source]# Create a copy of this class Return type inference_mode"
        }
    </script>
 
