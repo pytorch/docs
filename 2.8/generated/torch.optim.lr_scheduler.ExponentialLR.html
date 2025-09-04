@@ -4511,8 +4511,7 @@ is not the optimizer.</p>
            "@id": "/generated/torch.optim.lr_scheduler.ExponentialLR.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "ExponentialLR# class torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma, last_epoch=-1)[source]# Decays the learning rate of each parameter group by gamma every epoch. When last_epoch=-1, sets initial lr as lr. Parameters optimizer (Optimizer) – Wrapped optimizer. gamma (float) – Multiplicative factor of learning rate decay. last_epoch (int) – The index of last epoch. Default: -1. Example &gt;&gt;&gt; scheduler = ExponentialLR(optimizer, gamma=0.95) &gt;&gt;&gt; for epoch in range(100): &gt;&gt;&gt; train(...) &gt;&gt;&gt; validate(...) &gt;&gt;&gt; scheduler.step() get_last_lr()[source]# Return last computed learning rate by current scheduler. Return type list[float] get_lr()[source]# Compute the learning rate of each parameter group. Return type list[float] load_state_dict(state_dict)[source]# Load the scheduler’s state. Parameters state_dict (dict) – scheduler state. Should be an object returned from a call to state_dict(). state_dict()[source]# Return the state of the scheduler as a dict. It contains an entry for every variable in self.__dict__ which is not the optimizer. Return type dict[str, Any] step(epoch=None)[source]# Perform a step."
+         "dateModified": ""
        }
    </script>
 

@@ -4517,8 +4517,7 @@ is not the optimizer.</p>
            "@id": "/generated/torch.optim.lr_scheduler.PolynomialLR.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "PolynomialLR# class torch.optim.lr_scheduler.PolynomialLR(optimizer, total_iters=5, power=1.0, last_epoch=-1)[source]# Decays the learning rate of each parameter group using a polynomial function in the given total_iters. When last_epoch=-1, sets initial lr as lr. Parameters optimizer (Optimizer) – Wrapped optimizer. total_iters (int) – The number of steps that the scheduler decays the learning rate. Default: 5. power (float) – The power of the polynomial. Default: 1.0. Example &gt;&gt;&gt; # Assuming optimizer uses lr = 0.05 for all groups &gt;&gt;&gt; # lr = 0.0490 if epoch == 0 &gt;&gt;&gt; # lr = 0.0481 if epoch == 1 &gt;&gt;&gt; # lr = 0.0472 if epoch == 2 &gt;&gt;&gt; # ... &gt;&gt;&gt; # lr = 0.0 if epoch &gt;= 50 &gt;&gt;&gt; scheduler = PolynomialLR(optimizer, total_iters=50, power=0.9) &gt;&gt;&gt; for epoch in range(100): &gt;&gt;&gt; train(...) &gt;&gt;&gt; validate(...) &gt;&gt;&gt; scheduler.step() get_last_lr()[source]# Return last computed learning rate by current scheduler. Return type list[float] get_lr()[source]# Compute the learning rate. Return type list[float] load_state_dict(state_dict)[source]# Load the scheduler’s state. Parameters state_dict (dict) – scheduler state. Should be an object returned from a call to state_dict(). state_dict()[source]# Return the state of the scheduler as a dict. It contains an entry for every variable in self.__dict__ which is not the optimizer. Return type dict[str, Any] step(epoch=None)[source]# Perform a step."
+         "dateModified": ""
        }
    </script>
 

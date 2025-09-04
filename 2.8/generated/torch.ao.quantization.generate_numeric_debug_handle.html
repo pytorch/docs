@@ -4456,8 +4456,7 @@ Notice that nodes like getattr are out of scope since they are not in the graph.
            "@id": "/generated/torch.ao.quantization.generate_numeric_debug_handle.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "generate_numeric_debug_handle# class torch.ao.quantization.generate_numeric_debug_handle(ep)[source]# Attach numeric_debug_handle_id for all nodes in the graph module of the given ExportedProgram, like conv2d, squeeze, conv1d, etc, except for placeholder. Notice that nodes like getattr are out of scope since they are not in the graph. The graph nodes of input exported program are modified inplace. Here’s an example of using debug handle quantize flow: ep = export_for_training(eager_model, example_inputs) generate_numeric_debug_handle(ep) m = ep.module() quantizer = XNNPACKQuantizer() m = prepare_pt2e(m, quantizer) m = convert_pt2e(m)"
+         "dateModified": ""
        }
    </script>
 

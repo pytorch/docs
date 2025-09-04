@@ -4473,8 +4473,7 @@ hook can still optionally return a new gradient to be used in place of
            "@id": "/generated/torch.autograd.graph.Node.register_hook.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.autograd.graph.Node.register_hook# abstract Node.register_hook(fn)[source]# Register a backward hook. The hook will be called every time a gradient with respect to the Node is computed. The hook should have the following signature: hook(grad_inputs: Tuple[Tensor], grad_outputs: Tuple[Tensor]) -&gt; Tuple[Tensor] or None The hook should not modify its argument, but it can optionally return a new gradient which will be used in place of grad_inputs. This function returns a handle with a method handle.remove() that removes the hook from the module. Note See Backward Hooks execution for more information on how when this hook is executed, and how its execution is ordered relative to other hooks. Note In the rare case where the hook is registered while the Node has already begun execution, there is no longer any guarantee on grad_outputs content (it might be as usual or empty depending on other factors). The hook can still optionally return a new gradient to be used in place of grad_inputs independent of grad_outputs. Example: &gt;&gt;&gt; import torch &gt;&gt;&gt; a = torch.tensor([0., 0., 0.], requires_grad=True) &gt;&gt;&gt; b = a.clone() &gt;&gt;&gt; assert isinstance(b.grad_fn, torch.autograd.graph.Node) &gt;&gt;&gt; handle = b.grad_fn.register_hook(lambda gI, gO: (gO[0] * 2,)) &gt;&gt;&gt; b.sum().backward(retain_graph=True) &gt;&gt;&gt; print(a.grad) tensor([2., 2., 2.]) &gt;&gt;&gt; handle.remove() # Removes the hook &gt;&gt;&gt; a.grad = None &gt;&gt;&gt; b.sum().backward(retain_graph=True) &gt;&gt;&gt; print(a.grad) tensor([1., 1., 1.]) Return type RemovableHandle"
+         "dateModified": ""
        }
    </script>
 

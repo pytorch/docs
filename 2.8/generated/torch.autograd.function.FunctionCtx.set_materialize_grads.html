@@ -4470,8 +4470,7 @@ prior to calling the <code class="xref py py-func docutils literal notranslate">
            "@id": "/generated/torch.autograd.function.FunctionCtx.set_materialize_grads.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.autograd.function.FunctionCtx.set_materialize_grads# FunctionCtx.set_materialize_grads(value)[source]# Set whether to materialize grad tensors. Default is True. This should be called only from either the setup_context() or forward() methods. If True, undefined grad tensors will be expanded to tensors full of zeros prior to calling the backward() and jvp() methods. Example: &gt;&gt;&gt; class SimpleFunc(Function): &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; def forward(ctx, x): &gt;&gt;&gt; return x.clone(), x.clone() &gt;&gt;&gt; &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; @once_differentiable &gt;&gt;&gt; def backward(ctx, g1, g2): &gt;&gt;&gt; return g1 + g2 # No check for None necessary &gt;&gt;&gt; &gt;&gt;&gt; # We modify SimpleFunc to handle non-materialized grad outputs &gt;&gt;&gt; class Func(Function): &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; def forward(ctx, x): &gt;&gt;&gt; ctx.set_materialize_grads(False) &gt;&gt;&gt; ctx.save_for_backward(x) &gt;&gt;&gt; return x.clone(), x.clone() &gt;&gt;&gt; &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; @once_differentiable &gt;&gt;&gt; def backward(ctx, g1, g2): &gt;&gt;&gt; x, = ctx.saved_tensors &gt;&gt;&gt; grad_input = torch.zeros_like(x) &gt;&gt;&gt; if g1 is not None: # We must check for None now &gt;&gt;&gt; grad_input += g1 &gt;&gt;&gt; if g2 is not None: &gt;&gt;&gt; grad_input += g2 &gt;&gt;&gt; return grad_input &gt;&gt;&gt; &gt;&gt;&gt; a = torch.tensor(1., requires_grad=True) &gt;&gt;&gt; b, _ = Func.apply(a) # induces g2 to be undefined"
+         "dateModified": ""
        }
    </script>
 

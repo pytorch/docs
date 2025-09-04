@@ -4532,8 +4532,7 @@ document.write(`
            "@id": "/generated/exportdb/python.assert.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "python.assert# dynamic_shape_assert# Note Tags: python.assert Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeAssert(torch.nn.Module): &#34;&#34;&#34; A basic usage of python assertion. &#34;&#34;&#34; def forward(self, x): # assertion with error message assert x.shape[0] &gt; 2, f&#34;{x.shape[0]} is greater than 2&#34; # assertion without error message assert x.shape[0] &gt; 1 return x example_args = (torch.randn(3, 2),) tags = {&#34;python.assert&#34;} model = DynamicShapeAssert() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: &#34;f32[3, 2]&#34;): return (x,) Graph signature: # inputs x: USER_INPUT # outputs x: USER_OUTPUT Range constraints: {} list_contains# Note Tags: python.data-structure, torch.dynamic-shape, python.assert Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ListContains(torch.nn.Module): &#34;&#34;&#34; List containment relation can be checked on a dynamic shape or constants. &#34;&#34;&#34; def forward(self, x): assert x.size(-1) in [6, 2] assert x.size(0) not in [4, 5, 6] assert &#34;monkey&#34; not in [&#34;cow&#34;, &#34;pig&#34;] return x + x example_args = (torch.randn(3, 2),) tags = {&#34;torch.dynamic-shape&#34;, &#34;python.data-structure&#34;, &#34;python.assert&#34;} model = ListContains() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: &#34;f32[3, 2]&#34;): add: &#34;f32[3, 2]&#34; = torch.ops.aten.add.Tensor(x, x); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {}"
+         "dateModified": ""
        }
    </script>
 

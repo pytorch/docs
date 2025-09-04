@@ -4457,8 +4457,7 @@ when <code class="xref py py-attr docutils literal notranslate"><span class="pre
            "@id": "/generated/torch.conj_physical.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.conj_physical# torch.conj_physical(input, *, out=None) → Tensor# Computes the element-wise conjugate of the given input tensor. If input has a non-complex dtype, this function just returns input. Note This performs the conjugate operation regardless of the fact conjugate bit is set or not. Warning In the future, torch.conj_physical() may return a non-writeable view for an input of non-complex dtype. It’s recommended that programs not modify the tensor returned by torch.conj_physical() when input is of non-complex dtype to be compatible with this change. outi=conj(inputi)\text{out}_{i} = conj(\text{input}_{i}) outi​=conj(inputi​) Parameters input (Tensor) – the input tensor. Keyword Arguments out (Tensor, optional) – the output tensor. Example: &gt;&gt;&gt; torch.conj_physical(torch.tensor([-1 + 1j, -2 + 2j, 3 - 3j])) tensor([-1 - 1j, -2 - 2j, 3 + 3j])"
+         "dateModified": ""
        }
    </script>
 

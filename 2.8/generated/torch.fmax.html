@@ -4454,8 +4454,7 @@ Only if both elements are NaN is NaN propagated.</p>
            "@id": "/generated/torch.fmax.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.fmax# torch.fmax(input, other, *, out=None) → Tensor# Computes the element-wise maximum of input and other. This is like torch.maximum() except it handles NaNs differently: if exactly one of the two elements being compared is a NaN then the non-NaN element is taken as the maximum. Only if both elements are NaN is NaN propagated. This function is a wrapper around C++’s std::fmax and is similar to NumPy’s fmax function. Supports broadcasting to a common shape, type promotion, and integer and floating-point inputs. Parameters input (Tensor) – the input tensor. other (Tensor) – the second input tensor Keyword Arguments out (Tensor, optional) – the output tensor. Example: &gt;&gt;&gt; a = torch.tensor([9.7, float(&#39;nan&#39;), 3.1, float(&#39;nan&#39;)]) &gt;&gt;&gt; b = torch.tensor([-2.2, 0.5, float(&#39;nan&#39;), float(&#39;nan&#39;)]) &gt;&gt;&gt; torch.fmax(a, b) tensor([9.7000, 0.5000, 3.1000, nan])"
+         "dateModified": ""
        }
    </script>
 

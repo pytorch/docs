@@ -4462,8 +4462,7 @@ while retaining the original tensor shape in the final output.</p>
            "@id": "/generated/torch.nn.ChannelShuffle.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "ChannelShuffle# class torch.nn.ChannelShuffle(groups)[source]# Divides and rearranges the channels in a tensor. This operation divides the channels in a tensor of shape (N,C,∗)(N, C, *)(N,C,∗) into g groups as (N,Cg,g,∗)(N, \frac{C}{g}, g, *)(N,gC​,g,∗) and shuffles them, while retaining the original tensor shape in the final output. Parameters groups (int) – number of groups to divide channels in. Examples: &gt;&gt;&gt; channel_shuffle = nn.ChannelShuffle(2) &gt;&gt;&gt; input = torch.arange(1, 17, dtype=torch.float32).view(1, 4, 2, 2) &gt;&gt;&gt; input tensor([[[[ 1., 2.], [ 3., 4.]], [[ 5., 6.], [ 7., 8.]], [[ 9., 10.], [11., 12.]], [[13., 14.], [15., 16.]]]]) &gt;&gt;&gt; output = channel_shuffle(input) &gt;&gt;&gt; output tensor([[[[ 1., 2.], [ 3., 4.]], [[ 9., 10.], [11., 12.]], [[ 5., 6.], [ 7., 8.]], [[13., 14.], [15., 16.]]]])"
+         "dateModified": ""
        }
    </script>
 

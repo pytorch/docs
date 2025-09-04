@@ -4459,8 +4459,7 @@ This API does NOT poison fork. For more details, see <a class="reference interna
            "@id": "/generated/torch.accelerator.current_accelerator.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.accelerator.current_accelerator# torch.accelerator.current_accelerator(check_available=False)[source]# Return the device of the accelerator available at compilation time. If no accelerator were available at compilation time, returns None. See accelerator for details. Parameters check_available (bool, optional) – if True, will also do a runtime check to see if the device torch.accelerator.is_available() on top of the compile-time check. Default: False Returns return the current accelerator as torch.device. Return type torch.device Note The index of the returned torch.device will be None, please use torch.accelerator.current_device_index() to know the current index being used. This API does NOT poison fork. For more details, see Poison fork in multiprocessing. Example: &gt;&gt;&gt; # If an accelerator is available, sent the model to it &gt;&gt;&gt; model = torch.nn.Linear(2, 2) &gt;&gt;&gt; if (current_device := current_accelerator(check_available=True)) is not None: &gt;&gt;&gt; model.to(current_device)"
+         "dateModified": ""
        }
    </script>
 

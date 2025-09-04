@@ -4455,8 +4455,7 @@ dimensions and the number of elements in <code class="xref py py-attr docutils l
            "@id": "/generated/torch.reshape.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.reshape# torch.reshape(input, shape) → Tensor# Returns a tensor with the same data and number of elements as input, but with the specified shape. When possible, the returned tensor will be a view of input. Otherwise, it will be a copy. Contiguous inputs and inputs with compatible strides can be reshaped without copying, but you should not depend on the copying vs. viewing behavior. See torch.Tensor.view() on when it is possible to return a view. A single dimension may be -1, in which case it’s inferred from the remaining dimensions and the number of elements in input. Parameters input (Tensor) – the tensor to be reshaped shape (tuple of int) – the new shape Example: &gt;&gt;&gt; a = torch.arange(4.) &gt;&gt;&gt; torch.reshape(a, (2, 2)) tensor([[ 0., 1.], [ 2., 3.]]) &gt;&gt;&gt; b = torch.tensor([[0, 1], [2, 3]]) &gt;&gt;&gt; torch.reshape(b, (-1,)) tensor([ 0, 1, 2, 3])"
+         "dateModified": ""
        }
    </script>
 

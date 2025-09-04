@@ -4451,8 +4451,7 @@ document.write(`
            "@id": "/generated/torch.nn.utils.prune.is_pruned.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.nn.utils.prune.is_pruned# torch.nn.utils.prune.is_pruned(module)[source]# Check if a module is pruned by looking for pruning pre-hooks. Check whether module is pruned by looking for forward_pre_hooks in its modules that inherit from the BasePruningMethod. Parameters module (nn.Module) – object that is either pruned or unpruned Returns binary answer to whether module is pruned. Examples &gt;&gt;&gt; from torch.nn.utils import prune &gt;&gt;&gt; m = nn.Linear(5, 7) &gt;&gt;&gt; print(prune.is_pruned(m)) False &gt;&gt;&gt; prune.random_unstructured(m, name=&#34;weight&#34;, amount=0.2) &gt;&gt;&gt; print(prune.is_pruned(m)) True"
+         "dateModified": ""
        }
    </script>
 

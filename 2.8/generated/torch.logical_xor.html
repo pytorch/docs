@@ -4457,8 +4457,7 @@ treated as <code class="docutils literal notranslate"><span class="pre">True</sp
            "@id": "/generated/torch.logical_xor.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.logical_xor# torch.logical_xor(input: Tensor, other: Tensor, *, out: Optional[Tensor]) → Tensor# Computes the element-wise logical XOR of the given input tensors. Zeros are treated as False and nonzeros are treated as True. Parameters input (Tensor) – the input tensor. other (Tensor) – the tensor to compute XOR with Keyword Arguments out (Tensor, optional) – the output tensor. Example: &gt;&gt;&gt; torch.logical_xor(torch.tensor([True, False, True]), torch.tensor([True, False, False])) tensor([False, False, True]) &gt;&gt;&gt; a = torch.tensor([0, 1, 10, 0], dtype=torch.int8) &gt;&gt;&gt; b = torch.tensor([4, 0, 1, 0], dtype=torch.int8) &gt;&gt;&gt; torch.logical_xor(a, b) tensor([ True, True, False, False]) &gt;&gt;&gt; torch.logical_xor(a.double(), b.double()) tensor([ True, True, False, False]) &gt;&gt;&gt; torch.logical_xor(a.double(), b) tensor([ True, True, False, False]) &gt;&gt;&gt; torch.logical_xor(a, b, out=torch.empty(4, dtype=torch.bool)) tensor([ True, True, False, False])"
+         "dateModified": ""
        }
    </script>
 

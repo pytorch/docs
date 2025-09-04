@@ -4471,8 +4471,7 @@ Tensor of size <code class="docutils literal notranslate"><span class="pre">B</s
            "@id": "/generated/torch.nn.utils.rnn.pad_sequence.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.nn.utils.rnn.pad_sequence# torch.nn.utils.rnn.pad_sequence(sequences, batch_first=False, padding_value=0.0, padding_side=&#39;right&#39;)[source]# Pad a list of variable length Tensors with padding_value. pad_sequence stacks a list of Tensors along a new dimension, and pads them to equal length. sequences can be list of sequences with size L x *, where L is length of the sequence and * is any number of dimensions (including 0). If batch_first is False, the output is of size T x B x *, and B x T x * otherwise, where B is the batch size (the number of elements in sequences), T is the length of the longest sequence. Example &gt;&gt;&gt; from torch.nn.utils.rnn import pad_sequence &gt;&gt;&gt; a = torch.ones(25, 300) &gt;&gt;&gt; b = torch.ones(22, 300) &gt;&gt;&gt; c = torch.ones(15, 300) &gt;&gt;&gt; pad_sequence([a, b, c]).size() torch.Size([25, 3, 300]) Note This function returns a Tensor of size T x B x * or B x T x * where T is the length of the longest sequence. This function assumes trailing dimensions and type of all the Tensors in sequences are same. Parameters sequences (list[Tensor]) – list of variable length sequences. batch_first (bool, optional) – if True, the output will be in B x T x * format, T x B x * otherwise. padding_value (float, optional) – value for padded elements. Default: 0. padding_side (str, optional) – the side to pad the sequences on. Default: &#39;right&#39;. Returns Tensor of size T x B x * if batch_first is False. Tensor of size B x T x * otherwise Return type Tensor"
+         "dateModified": ""
        }
    </script>
 

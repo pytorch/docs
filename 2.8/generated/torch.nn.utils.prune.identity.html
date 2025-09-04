@@ -4466,8 +4466,7 @@ will act.</p></li>
            "@id": "/generated/torch.nn.utils.prune.identity.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.nn.utils.prune.identity# torch.nn.utils.prune.identity(module, name)[source]# Apply pruning reparametrization without pruning any units. Applies pruning reparametrization to the tensor corresponding to the parameter called name in module without actually pruning any units. Modifies module in place (and also return the modified module) by: adding a named buffer called name+&#39;_mask&#39; corresponding to the binary mask applied to the parameter name by the pruning method. replacing the parameter name by its pruned version, while the original (unpruned) parameter is stored in a new parameter named name+&#39;_orig&#39;. Note The mask is a tensor of ones. Parameters module (nn.Module) – module containing the tensor to prune. name (str) – parameter name within module on which pruning will act. Returns modified (i.e. pruned) version of the input module Return type module (nn.Module) Examples &gt;&gt;&gt; m = prune.identity(nn.Linear(2, 3), &#34;bias&#34;) &gt;&gt;&gt; print(m.bias_mask) tensor([1., 1., 1.])"
+         "dateModified": ""
        }
    </script>
 

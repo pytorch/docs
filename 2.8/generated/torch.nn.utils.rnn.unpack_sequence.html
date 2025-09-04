@@ -4458,8 +4458,7 @@ document.write(`
            "@id": "/generated/torch.nn.utils.rnn.unpack_sequence.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.nn.utils.rnn.unpack_sequence# torch.nn.utils.rnn.unpack_sequence(packed_sequences)[source]# Unpack PackedSequence into a list of variable length Tensors. packed_sequences should be a PackedSequence object. Example &gt;&gt;&gt; from torch.nn.utils.rnn import pack_sequence, unpack_sequence &gt;&gt;&gt; a = torch.tensor([1, 2, 3]) &gt;&gt;&gt; b = torch.tensor([4, 5]) &gt;&gt;&gt; c = torch.tensor([6]) &gt;&gt;&gt; sequences = [a, b, c] &gt;&gt;&gt; print(sequences) [tensor([1, 2, 3]), tensor([4, 5]), tensor([6])] &gt;&gt;&gt; packed_sequences = pack_sequence(sequences) &gt;&gt;&gt; print(packed_sequences) PackedSequence(data=tensor([1, 4, 6, 2, 5, 3]), batch_sizes=tensor([3, 2, 1]), sorted_indices=None, unsorted_indices=None) &gt;&gt;&gt; unpacked_sequences = unpack_sequence(packed_sequences) &gt;&gt;&gt; print(unpacked_sequences) [tensor([1, 2, 3]), tensor([4, 5]), tensor([6])] Parameters packed_sequences (PackedSequence) – A PackedSequence object. Returns a list of Tensor objects Return type list[torch.Tensor]"
+         "dateModified": ""
        }
    </script>
 

@@ -4461,8 +4461,7 @@ See also <a class="reference internal" href="torch.gather.html#torch.gather" tit
            "@id": "/generated/torch.take_along_dim.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.take_along_dim# torch.take_along_dim(input, indices, dim=None, *, out=None) → Tensor# Selects values from input at the 1-dimensional indices from indices along the given dim. If dim is None, the input array is treated as if it has been flattened to 1d. Functions that return indices along a dimension, like torch.argmax() and torch.argsort(), are designed to work with this function. See the examples below. Note This function is similar to NumPy’s take_along_axis. See also torch.gather(). Parameters input (Tensor) – the input tensor. indices (LongTensor) – the indices into input. Must have long dtype. dim (int, optional) – dimension to select along. Default: 0 Keyword Arguments out (Tensor, optional) – the output tensor. Example: &gt;&gt;&gt; t = torch.tensor([[10, 30, 20], [60, 40, 50]]) &gt;&gt;&gt; max_idx = torch.argmax(t) &gt;&gt;&gt; torch.take_along_dim(t, max_idx) tensor([60]) &gt;&gt;&gt; sorted_idx = torch.argsort(t, dim=1) &gt;&gt;&gt; torch.take_along_dim(t, sorted_idx, dim=1) tensor([[10, 20, 30], [40, 50, 60]])"
+         "dateModified": ""
        }
    </script>
 

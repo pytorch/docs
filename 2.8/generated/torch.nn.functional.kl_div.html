@@ -4467,8 +4467,7 @@ and in the meantime, specifying either of those two args will override <code cla
            "@id": "/generated/torch.nn.functional.kl_div.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.nn.functional.kl_div# torch.nn.functional.kl_div(input, target, size_average=None, reduce=None, reduction=&#39;mean&#39;, log_target=False)[source]# Compute the KL Divergence loss. Refer - The Kullback-Leibler divergence Loss See KLDivLoss for details. Parameters input (Tensor) – Tensor of arbitrary shape in log-probabilities. target (Tensor) – Tensor of the same shape as input. See log_target for the target’s interpretation. size_average (bool, optional) – Deprecated (see reduction). reduce (bool, optional) – Deprecated (see reduction). reduction (str, optional) – Specifies the reduction to apply to the output: &#39;none&#39; | &#39;batchmean&#39; | &#39;sum&#39; | &#39;mean&#39;. &#39;none&#39;: no reduction will be applied &#39;batchmean&#39;: the sum of the output will be divided by the batchsize &#39;sum&#39;: the output will be summed &#39;mean&#39;: the output will be divided by the number of elements in the output Default: &#39;mean&#39; log_target (bool) – A flag indicating whether target is passed in the log space. It is recommended to pass certain distributions (like softmax) in the log space to avoid numerical issues caused by explicit log. Default: False Return type Tensor Note size_average and reduce are in the process of being deprecated, and in the meantime, specifying either of those two args will override reduction. Warning reduction = &#39;mean&#39; doesn’t return the true kl divergence value, please use reduction = &#39;batchmean&#39; which aligns with KL math definition."
+         "dateModified": ""
        }
    </script>
 

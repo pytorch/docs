@@ -4460,8 +4460,7 @@ Default: <code class="docutils literal notranslate"><span class="pre">True</span
            "@id": "/generated/torch.nn.utils.parametrize.remove_parametrizations.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.nn.utils.parametrize.remove_parametrizations# torch.nn.utils.parametrize.remove_parametrizations(module, tensor_name, leave_parametrized=True)[source]# Remove the parametrizations on a tensor in a module. If leave_parametrized=True, module[tensor_name] will be set to its current output. In this case, the parametrization shall not change the dtype of the tensor. If leave_parametrized=False, module[tensor_name] will be set to the unparametrised tensor in module.parametrizations[tensor_name].original. This is only possible when the parametrization depends on just one tensor. Parameters module (nn.Module) – module from which remove the parametrization tensor_name (str) – name of the parametrization to be removed leave_parametrized (bool, optional) – leave the attribute tensor_name parametrized. Default: True Returns module Return type Module Raises ValueError – if module[tensor_name] is not parametrized ValueError – if leave_parametrized=False and the parametrization depends on several tensors"
+         "dateModified": ""
        }
    </script>
 

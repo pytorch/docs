@@ -4466,8 +4466,7 @@ See examples below.</p>
            "@id": "/generated/torch.ao.nn.quantizable.LSTM.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "LSTM# class torch.ao.nn.quantizable.LSTM(input_size, hidden_size, num_layers=1, bias=True, batch_first=False, dropout=0.0, bidirectional=False, device=None, dtype=None, *, split_gates=False)[source]# A quantizable long short-term memory (LSTM). For the description and the argument types, please, refer to LSTM Variables layers – instances of the _LSTMLayer Note To access the weights and biases, you need to access them per layer. See examples below. Examples: &gt;&gt;&gt; import torch.ao.nn.quantizable as nnqa &gt;&gt;&gt; rnn = nnqa.LSTM(10, 20, 2) &gt;&gt;&gt; input = torch.randn(5, 3, 10) &gt;&gt;&gt; h0 = torch.randn(2, 3, 20) &gt;&gt;&gt; c0 = torch.randn(2, 3, 20) &gt;&gt;&gt; output, (hn, cn) = rnn(input, (h0, c0)) &gt;&gt;&gt; # To get the weights: &gt;&gt;&gt; print(rnn.layers[0].weight_ih) tensor([[...]]) &gt;&gt;&gt; print(rnn.layers[0].weight_hh) AssertionError: There is no reverse path in the non-bidirectional layer"
+         "dateModified": ""
        }
    </script>
 

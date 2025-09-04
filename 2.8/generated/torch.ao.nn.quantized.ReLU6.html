@@ -4464,8 +4464,7 @@ dimensions</p></li>
            "@id": "/generated/torch.ao.nn.quantized.ReLU6.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "ReLU6# class torch.ao.nn.quantized.ReLU6(inplace=False)[source]# Applies the element-wise function: ReLU6(x)=min⁡(max⁡(x0,x),q(6))\text{ReLU6}(x) = \min(\max(x_0, x), q(6))ReLU6(x)=min(max(x0​,x),q(6)), where x0x_0x0​ is the zero_point, and q(6)q(6)q(6) is the quantized representation of number 6. Parameters inplace (bool) – can optionally do the operation in-place. Default: False Shape: Input: (N,∗)(N, *)(N,∗) where * means, any number of additional dimensions Output: (N,∗)(N, *)(N,∗), same shape as the input Examples: &gt;&gt;&gt; m = nn.quantized.ReLU6() &gt;&gt;&gt; input = torch.randn(2) &gt;&gt;&gt; input = torch.quantize_per_tensor(input, 1.0, 0, dtype=torch.qint32) &gt;&gt;&gt; output = m(input)"
+         "dateModified": ""
        }
    </script>
 

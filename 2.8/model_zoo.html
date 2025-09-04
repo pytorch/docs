@@ -4472,9 +4472,8 @@ Recommended for untrusted sources. See <a class="reference internal" href="gener
            "@type": "WebPage",
            "@id": "/model_zoo.html"
          },
-         "datePublished": "Jan 09, 2017",
-         "dateModified": "Jun 11, 2025",
-         "articleBody": "torch.utils.model_zoo# Created On: Jan 09, 2017 | Last Updated On: Jun 11, 2025 Moved to torch.hub. torch.utils.model_zoo.load_url(url, model_dir=None, map_location=None, progress=True, check_hash=False, file_name=None, weights_only=False)[source]# Loads the Torch serialized object at the given URL. If downloaded file is a zip file, it will be automatically decompressed. If the object is already present in model_dir, it’s deserialized and returned. The default value of model_dir is &lt;hub_dir&gt;/checkpoints where hub_dir is the directory returned by get_dir(). Parameters url (str) – URL of the object to download model_dir (str, optional) – directory in which to save the object map_location (optional) – a function or a dict specifying how to remap storage locations (see torch.load) progress (bool, optional) – whether or not to display a progress bar to stderr. Default: True check_hash (bool, optional) – If True, the filename part of the URL should follow the naming convention filename-&lt;sha256&gt;.ext where &lt;sha256&gt; is the first eight or more digits of the SHA256 hash of the contents of the file. The hash is used to ensure unique names and to verify the contents of the file. Default: False file_name (str, optional) – name for the downloaded file. Filename from url will be used if not set. weights_only (bool, optional) – If True, only weights will be loaded and no complex pickled objects. Recommended for untrusted sources. See load() for more details. Return type dict[str, Any] Example &gt;&gt;&gt; state_dict = torch.hub.load_state_dict_from_url( ... &#34;https://s3.amazonaws.com/pytorch/models/resnet18-5c106cde.pth&#34; ... )"
+         "datePublished": "2017-01-09T00:00:00Z",
+         "dateModified": "2025-06-11T00:00:00Z"
        }
    </script>
 

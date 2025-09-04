@@ -4482,8 +4482,7 @@ your dual tensors.</p>
            "@id": "/generated/torch.no_grad.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "no_grad# class torch.no_grad(orig_func=None)[source]# Context-manager that disables gradient calculation. Disabling gradient calculation is useful for inference, when you are sure that you will not call Tensor.backward(). It will reduce memory consumption for computations that would otherwise have requires_grad=True. In this mode, the result of every computation will have requires_grad=False, even when the inputs have requires_grad=True. There is an exception! All factory functions, or functions that create a new Tensor and take a requires_grad kwarg, will NOT be affected by this mode. This context manager is thread local; it will not affect computation in other threads. Also functions as a decorator. Note No-grad is one of several mechanisms that can enable or disable gradients locally see Locally disabling gradient computation for more information on how they compare. Note This API does not apply to forward-mode AD. If you want to disable forward AD for a computation, you can unpack your dual tensors. Example::&gt;&gt;&gt; x = torch.tensor([1.], requires_grad=True) &gt;&gt;&gt; with torch.no_grad(): ... y = x * 2 &gt;&gt;&gt; y.requires_grad False &gt;&gt;&gt; @torch.no_grad() ... def doubler(x): ... return x * 2 &gt;&gt;&gt; z = doubler(x) &gt;&gt;&gt; z.requires_grad False &gt;&gt;&gt; @torch.no_grad() ... def tripler(x): ... return x * 3 &gt;&gt;&gt; z = tripler(x) &gt;&gt;&gt; z.requires_grad False &gt;&gt;&gt; # factory function exception &gt;&gt;&gt; with torch.no_grad(): ... a = torch.nn.Parameter(torch.rand(10)) &gt;&gt;&gt; a.requires_grad True"
+         "dateModified": ""
        }
    </script>
 

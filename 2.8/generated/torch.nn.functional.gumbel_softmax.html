@@ -4472,8 +4472,7 @@ be probability distributions that sum to 1 across <cite>dim</cite>.</p>
            "@id": "/generated/torch.nn.functional.gumbel_softmax.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.nn.functional.gumbel_softmax# torch.nn.functional.gumbel_softmax(logits, tau=1, hard=False, eps=1e-10, dim=-1)[source]# Sample from the Gumbel-Softmax distribution (Link 1 Link 2) and optionally discretize. Parameters logits (Tensor) – […, num_features] unnormalized log probabilities tau (float) – non-negative scalar temperature hard (bool) – if True, the returned samples will be discretized as one-hot vectors, but will be differentiated as if it is the soft sample in autograd dim (int) – A dimension along which softmax will be computed. Default: -1. Returns Sampled tensor of same shape as logits from the Gumbel-Softmax distribution. If hard=True, the returned samples will be one-hot, otherwise they will be probability distributions that sum to 1 across dim. Return type Tensor Note This function is here for legacy reasons, may be removed from nn.Functional in the future. Note The main trick for hard is to do y_hard - y_soft.detach() + y_soft It achieves two things: - makes the output value exactly one-hot (since we add then subtract y_soft value) - makes the gradient equal to y_soft gradient (since we strip all other gradients) Examples::&gt;&gt;&gt; logits = torch.randn(20, 32) &gt;&gt;&gt; # Sample soft categorical using reparametrization trick: &gt;&gt;&gt; F.gumbel_softmax(logits, tau=1, hard=False) &gt;&gt;&gt; # Sample hard categorical using &#34;Straight-through&#34; trick: &gt;&gt;&gt; F.gumbel_softmax(logits, tau=1, hard=True)"
+         "dateModified": ""
        }
    </script>
 

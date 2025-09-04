@@ -4459,8 +4459,7 @@ specifying either of those two args will override <code class="xref py py-attr d
            "@id": "/generated/torch.nn.functional.binary_cross_entropy.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.nn.functional.binary_cross_entropy# torch.nn.functional.binary_cross_entropy(input, target, weight=None, size_average=None, reduce=None, reduction=&#39;mean&#39;)[source]# Compute Binary Cross Entropy between the target and input probabilities. See BCELoss for details. Parameters input (Tensor) – Tensor of arbitrary shape as probabilities. target (Tensor) – Tensor of the same shape as input with values between 0 and 1. weight (Tensor, optional) – a manual rescaling weight if provided it’s repeated to match input tensor shape size_average (bool, optional) – Deprecated (see reduction). reduce (bool, optional) – Deprecated (see reduction). reduction (str, optional) – Specifies the reduction to apply to the output: &#39;none&#39; | &#39;mean&#39; | &#39;sum&#39;. &#39;none&#39;: no reduction will be applied, &#39;mean&#39;: the sum of the output will be divided by the number of elements in the output, &#39;sum&#39;: the output will be summed. Note: size_average and reduce are in the process of being deprecated, and in the meantime, specifying either of those two args will override reduction. Default: &#39;mean&#39; Return type Tensor Examples: &gt;&gt;&gt; input = torch.randn(3, 2, requires_grad=True) &gt;&gt;&gt; target = torch.rand(3, 2, requires_grad=False) &gt;&gt;&gt; loss = F.binary_cross_entropy(torch.sigmoid(input), target) &gt;&gt;&gt; loss.backward()"
+         "dateModified": ""
        }
    </script>
 

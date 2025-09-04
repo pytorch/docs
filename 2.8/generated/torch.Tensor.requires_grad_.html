@@ -4459,8 +4459,7 @@ Default: <code class="docutils literal notranslate"><span class="pre">True</span
            "@id": "/generated/torch.Tensor.requires_grad_.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.Tensor.requires_grad_# Tensor.requires_grad_(requires_grad=True) → Tensor# Change if autograd should record operations on this tensor: sets this tensor’s requires_grad attribute in-place. Returns this tensor. requires_grad_()’s main use case is to tell autograd to begin recording operations on a Tensor tensor. If tensor has requires_grad=False (because it was obtained through a DataLoader, or required preprocessing or initialization), tensor.requires_grad_() makes it so that autograd will begin to record operations on tensor. Parameters requires_grad (bool) – If autograd should record operations on this tensor. Default: True. Example: &gt;&gt;&gt; # Let&#39;s say we want to preprocess some saved weights and use &gt;&gt;&gt; # the result as new weights. &gt;&gt;&gt; saved_weights = [0.1, 0.2, 0.3, 0.25] &gt;&gt;&gt; loaded_weights = torch.tensor(saved_weights) &gt;&gt;&gt; weights = preprocess(loaded_weights) # some function &gt;&gt;&gt; weights tensor([-0.5503, 0.4926, -2.1158, -0.8303]) &gt;&gt;&gt; # Now, start to record operations done to weights &gt;&gt;&gt; weights.requires_grad_() &gt;&gt;&gt; out = weights.pow(2).sum() &gt;&gt;&gt; out.backward() &gt;&gt;&gt; weights.grad tensor([-1.1007, 0.9853, -4.2316, -1.6606])"
+         "dateModified": ""
        }
    </script>
 

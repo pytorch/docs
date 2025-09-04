@@ -4453,8 +4453,7 @@ to the tensors, please clone them first.</p>
            "@id": "/generated/torch.broadcast_tensors.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.broadcast_tensors# torch.broadcast_tensors(*tensors) → List of Tensors[source]# Broadcasts the given tensors according to Broadcasting semantics. Parameters *tensors – any number of tensors of the same type Warning More than one element of a broadcasted tensor may refer to a single memory location. As a result, in-place operations (especially ones that are vectorized) may result in incorrect behavior. If you need to write to the tensors, please clone them first. Example: &gt;&gt;&gt; x = torch.arange(3).view(1, 3) &gt;&gt;&gt; y = torch.arange(2).view(2, 1) &gt;&gt;&gt; a, b = torch.broadcast_tensors(x, y) &gt;&gt;&gt; a.size() torch.Size([2, 3]) &gt;&gt;&gt; a tensor([[0, 1, 2], [0, 1, 2]])"
+         "dateModified": ""
        }
    </script>
 

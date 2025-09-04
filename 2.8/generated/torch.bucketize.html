@@ -4487,8 +4487,7 @@ Default value is False, i.e. default output data type is torch.int64.</p></li>
            "@id": "/generated/torch.bucketize.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.bucketize# torch.bucketize(input, boundaries, *, out_int32=False, right=False, out=None) → Tensor# Returns the indices of the buckets to which each value in the input belongs, where the boundaries of the buckets are set by boundaries. Return a new tensor with the same size as input. If right is False (default), then the left boundary is open. Note that this behavior is opposite the behavior of numpy.digitize. More formally, the returned index satisfies the following rules: right returned index satisfies False boundaries[i-1] &lt; input[m][n]...[l][x] &lt;= boundaries[i] True boundaries[i-1] &lt;= input[m][n]...[l][x] &lt; boundaries[i] Parameters input (Tensor or Scalar) – N-D tensor or a Scalar containing the search value(s). boundaries (Tensor) – 1-D tensor, must contain a strictly increasing sequence, or the return value is undefined. Keyword Arguments out_int32 (bool, optional) – indicate the output data type. torch.int32 if True, torch.int64 otherwise. Default value is False, i.e. default output data type is torch.int64. right (bool, optional) – determines the behavior for values in boundaries. See the table above. out (Tensor, optional) – the output tensor, must be the same size as input if provided. Example: &gt;&gt;&gt; boundaries = torch.tensor([1, 3, 5, 7, 9]) &gt;&gt;&gt; boundaries tensor([1, 3, 5, 7, 9]) &gt;&gt;&gt; v = torch.tensor([[3, 6, 9], [3, 6, 9]]) &gt;&gt;&gt; v tensor([[3, 6, 9], [3, 6, 9]]) &gt;&gt;&gt; torch.bucketize(v, boundaries) tensor([[1, 3, 4], [1, 3, 4]]) &gt;&gt;&gt; torch.bucketize(v, boundaries, right=True) tensor([[2, 3, 5], [2, 3, 5]])"
+         "dateModified": ""
        }
    </script>
 

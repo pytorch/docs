@@ -4471,8 +4471,7 @@ is causing problems for you, please comment on
            "@id": "/generated/torch.set_default_device.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.set_default_device# torch.set_default_device(device)[source]# Sets the default torch.Tensor to be allocated on device. This does not affect factory function calls which are called with an explicit device argument. Factory calls will be performed as if they were passed device as an argument. To only temporarily change the default device instead of setting it globally, use with torch.device(device): instead. The default device is initially cpu. If you set the default tensor device to another device (e.g., cuda) without a device index, tensors will be allocated on whatever the current device for the device type, even after torch.cuda.set_device() is called. Warning This function imposes a slight performance cost on every Python call to the torch API (not just factory functions). If this is causing problems for you, please comment on pytorch/pytorch#92701 Note This doesn’t affect functions that create tensors that share the same memory as the input, like: torch.from_numpy() and torch.frombuffer() Parameters device (device or string) – the device to set as default Example: &gt;&gt;&gt; torch.get_default_device() device(type=&#39;cpu&#39;) &gt;&gt;&gt; torch.set_default_device(&#39;cuda&#39;) # current device is 0 &gt;&gt;&gt; torch.get_default_device() device(type=&#39;cuda&#39;, index=0) &gt;&gt;&gt; torch.set_default_device(&#39;cuda&#39;) &gt;&gt;&gt; torch.cuda.set_device(&#39;cuda:1&#39;) # current device is 1 &gt;&gt;&gt; torch.get_default_device() device(type=&#39;cuda&#39;, index=1) &gt;&gt;&gt; torch.set_default_device(&#39;cuda:1&#39;) &gt;&gt;&gt; torch.get_default_device() device(type=&#39;cuda&#39;, index=1)"
+         "dateModified": ""
        }
    </script>
 

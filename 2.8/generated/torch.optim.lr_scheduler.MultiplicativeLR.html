@@ -4516,8 +4516,7 @@ and not if they are functions or lambdas.</p>
            "@id": "/generated/torch.optim.lr_scheduler.MultiplicativeLR.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "MultiplicativeLR# class torch.optim.lr_scheduler.MultiplicativeLR(optimizer, lr_lambda, last_epoch=-1)[source]# Multiply the learning rate of each parameter group by the factor given in the specified function. When last_epoch=-1, set initial lr as lr. Parameters optimizer (Optimizer) – Wrapped optimizer. lr_lambda (function or list) – A function which computes a multiplicative factor given an integer parameter epoch, or a list of such functions, one for each group in optimizer.param_groups. last_epoch (int) – The index of last epoch. Default: -1. Example &gt;&gt;&gt; lmbda = lambda epoch: 0.95 &gt;&gt;&gt; scheduler = MultiplicativeLR(optimizer, lr_lambda=lmbda) &gt;&gt;&gt; for epoch in range(100): &gt;&gt;&gt; train(...) &gt;&gt;&gt; validate(...) &gt;&gt;&gt; scheduler.step() get_last_lr()[source]# Return last computed learning rate by current scheduler. Return type list[float] get_lr()[source]# Compute the learning rate of each parameter group. Return type list[float] load_state_dict(state_dict)[source]# Load the scheduler’s state. Parameters state_dict (dict) – scheduler state. Should be an object returned from a call to state_dict(). state_dict()[source]# Return the state of the scheduler as a dict. It contains an entry for every variable in self.__dict__ which is not the optimizer. The learning rate lambda functions will only be saved if they are callable objects and not if they are functions or lambdas. Return type dict[str, Any] step(epoch=None)[source]# Perform a step."
+         "dateModified": ""
        }
    </script>
 

@@ -4459,8 +4459,7 @@ when <span class="math"><span class="katex"><span class="katex-mathml"><math xml
            "@id": "/generated/torch.nn.Softplus.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "Softplus# class torch.nn.Softplus(beta=1.0, threshold=20.0)[source]# Applies the Softplus function element-wise. Softplus(x)=1β∗log⁡(1+exp⁡(β∗x))\text{Softplus}(x) = \frac{1}{\beta} * \log(1 + \exp(\beta * x)) Softplus(x)=β1​∗log(1+exp(β∗x))SoftPlus is a smooth approximation to the ReLU function and can be used to constrain the output of a machine to always be positive. For numerical stability the implementation reverts to the linear function when input×β&gt;thresholdinput \times \beta &gt; thresholdinput×β&gt;threshold. Parameters beta (float) – the β\betaβ value for the Softplus formulation. Default: 1 threshold (float) – values above this revert to a linear function. Default: 20 Shape: Input: (∗)(*)(∗), where ∗*∗ means any number of dimensions. Output: (∗)(*)(∗), same shape as the input. Examples: &gt;&gt;&gt; m = nn.Softplus() &gt;&gt;&gt; input = torch.randn(2) &gt;&gt;&gt; output = m(input)"
+         "dateModified": ""
        }
    </script>
 

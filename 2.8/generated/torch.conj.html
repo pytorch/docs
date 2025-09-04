@@ -4456,8 +4456,7 @@ when <code class="xref py py-attr docutils literal notranslate"><span class="pre
            "@id": "/generated/torch.conj.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.conj# torch.conj(input) → Tensor# Returns a view of input with a flipped conjugate bit. If input has a non-complex dtype, this function just returns input. Note torch.conj() performs a lazy conjugation, but the actual conjugated tensor can be materialized at any time using torch.resolve_conj(). Warning In the future, torch.conj() may return a non-writeable view for an input of non-complex dtype. It’s recommended that programs not modify the tensor returned by torch.conj_physical() when input is of non-complex dtype to be compatible with this change. Parameters input (Tensor) – the input tensor. Example: &gt;&gt;&gt; x = torch.tensor([-1 + 1j, -2 + 2j, 3 - 3j]) &gt;&gt;&gt; x.is_conj() False &gt;&gt;&gt; y = torch.conj(x) &gt;&gt;&gt; y.is_conj() True"
+         "dateModified": ""
        }
    </script>
 

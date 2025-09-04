@@ -4451,8 +4451,7 @@ will act.</p></li>
            "@id": "/generated/torch.nn.utils.prune.remove.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.nn.utils.prune.remove# torch.nn.utils.prune.remove(module, name)[source]# Remove the pruning reparameterization from a module and the pruning method from the forward hook. The pruned parameter named name remains permanently pruned, and the parameter named name+&#39;_orig&#39; is removed from the parameter list. Similarly, the buffer named name+&#39;_mask&#39; is removed from the buffers. Note Pruning itself is NOT undone or reversed! Parameters module (nn.Module) – module containing the tensor to prune name (str) – parameter name within module on which pruning will act. Examples &gt;&gt;&gt; m = random_unstructured(nn.Linear(5, 7), name=&#34;weight&#34;, amount=0.2) &gt;&gt;&gt; m = remove(m, name=&#34;weight&#34;)"
+         "dateModified": ""
        }
    </script>
 

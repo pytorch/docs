@@ -4468,8 +4468,7 @@ must match input’s shape except on <code class="xref py py-attr docutils liter
            "@id": "/generated/torch.diff.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.diff# torch.diff(input, n=1, dim=-1, prepend=None, append=None) → Tensor# Computes the n-th forward difference along the given dimension. The first-order differences are given by out[i] = input[i + 1] - input[i]. Higher-order differences are calculated by using torch.diff() recursively. Parameters input (Tensor) – the tensor to compute the differences on n (int, optional) – the number of times to recursively compute the difference dim (int, optional) – the dimension to compute the difference along. Default is the last dimension. prepend (Tensor, optional) – values to prepend or append to input along dim before computing the difference. Their dimensions must be equivalent to that of input, and their shapes must match input’s shape except on dim. append (Tensor, optional) – values to prepend or append to input along dim before computing the difference. Their dimensions must be equivalent to that of input, and their shapes must match input’s shape except on dim. Keyword Arguments out (Tensor, optional) – the output tensor. Example: &gt;&gt;&gt; a = torch.tensor([1, 3, 2]) &gt;&gt;&gt; torch.diff(a) tensor([ 2, -1]) &gt;&gt;&gt; b = torch.tensor([4, 5]) &gt;&gt;&gt; torch.diff(a, append=b) tensor([ 2, -1, 2, 1]) &gt;&gt;&gt; c = torch.tensor([[1, 2, 3], [3, 4, 5]]) &gt;&gt;&gt; torch.diff(c, dim=0) tensor([[2, 2, 2]]) &gt;&gt;&gt; torch.diff(c, dim=1) tensor([[1, 1], [1, 1]])"
+         "dateModified": ""
        }
    </script>
 

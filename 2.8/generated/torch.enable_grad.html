@@ -4473,8 +4473,7 @@ more information on how they compare.</p>
            "@id": "/generated/torch.enable_grad.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "enable_grad# class torch.enable_grad(orig_func=None)[source]# Context-manager that enables gradient calculation. Enables gradient calculation, if it has been disabled via no_grad or set_grad_enabled. This context manager is thread local; it will not affect computation in other threads. Also functions as a decorator. Note enable_grad is one of several mechanisms that can enable or disable gradients locally see Locally disabling gradient computation for more information on how they compare. Note This API does not apply to forward-mode AD. Example::&gt;&gt;&gt; x = torch.tensor([1.], requires_grad=True) &gt;&gt;&gt; with torch.no_grad(): ... with torch.enable_grad(): ... y = x * 2 &gt;&gt;&gt; y.requires_grad True &gt;&gt;&gt; y.backward() &gt;&gt;&gt; x.grad tensor([2.]) &gt;&gt;&gt; @torch.enable_grad() ... def doubler(x): ... return x * 2 &gt;&gt;&gt; with torch.no_grad(): ... z = doubler(x) &gt;&gt;&gt; z.requires_grad True &gt;&gt;&gt; @torch.enable_grad() ... def tripler(x): ... return x * 3 &gt;&gt;&gt; with torch.no_grad(): ... z = tripler(x) &gt;&gt;&gt; z.requires_grad True"
+         "dateModified": ""
        }
    </script>
 

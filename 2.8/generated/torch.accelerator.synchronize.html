@@ -4453,8 +4453,7 @@ use <a class="reference internal" href="torch.accelerator.current_device_index.h
            "@id": "/generated/torch.accelerator.synchronize.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.accelerator.synchronize# torch.accelerator.synchronize(device=None, /)[source]# Wait for all kernels in all streams on the given device to complete. Parameters device (torch.device, str, int, optional) – device for which to synchronize. It must match the current accelerator device type. If not given, use torch.accelerator.current_device_index() by default. Note This function is a no-op if the current accelerator is not initialized. Example: &gt;&gt;&gt; assert torch.accelerator.is_available() &#34;No available accelerators detected.&#34; &gt;&gt;&gt; start_event = torch.Event(enable_timing=True) &gt;&gt;&gt; end_event = torch.Event(enable_timing=True) &gt;&gt;&gt; start_event.record() &gt;&gt;&gt; tensor = torch.randn(100, device=torch.accelerator.current_accelerator()) &gt;&gt;&gt; sum = torch.sum(tensor) &gt;&gt;&gt; end_event.record() &gt;&gt;&gt; torch.accelerator.synchronize() &gt;&gt;&gt; elapsed_time_ms = start_event.elapsed_time(end_event)"
+         "dateModified": ""
        }
    </script>
 

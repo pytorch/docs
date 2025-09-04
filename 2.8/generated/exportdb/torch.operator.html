@@ -4471,8 +4471,7 @@ document.write(`
            "@id": "/generated/exportdb/torch.operator.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.operator# unsupported_operator# Note Tags: torch.operator Support Level: NOT_SUPPORTED_YET Original source code: # mypy: allow-untyped-defs import torch from torch._export.db.case import SupportLevel class TorchSymMin(torch.nn.Module): &#34;&#34;&#34; torch.sym_min operator is not supported in export. &#34;&#34;&#34; def forward(self, x): return x.sum() + torch.sym_min(x.size(0), 100) example_args = (torch.randn(3, 2),) tags = {&#34;torch.operator&#34;} support_level = SupportLevel.NOT_SUPPORTED_YET model = TorchSymMin() torch.export.export(model, example_args) Result: Unsupported: torch.* op returned non-Tensor"
+         "dateModified": ""
        }
    </script>
 

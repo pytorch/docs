@@ -4440,8 +4440,7 @@ post facto apply any renamings discovered in the PropogateUnbackedSymInts pass.<
            "@id": "/generated/torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings# torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings(shape_env, bindings)[source]# When we do fake tensor prop, we oftentimes will allocate new unbacked symints. We then run proxy tensor mode, which populates node.meta[“unbacked_bindings”] with these new symints. To ensure consistency we use PropagateUnbackedSymInts to rename unbacked bindings to their old ones. But all of the node metas are still using the old bindings from before the renaming. This function helps to post facto apply any renamings discovered in the PropogateUnbackedSymInts pass. Return type Optional[dict[sympy.core.symbol.Symbol, tuple[torch.utils._pytree.KeyEntry, …]]]"
+         "dateModified": ""
        }
    </script>
 

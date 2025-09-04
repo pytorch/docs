@@ -4448,8 +4448,7 @@ tensor of shape <span class="math"><span class="katex"><span class="katex-mathml
            "@id": "/generated/torch.nn.functional.pixel_unshuffle.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.nn.functional.pixel_unshuffle# torch.nn.functional.pixel_unshuffle(input, downscale_factor) → Tensor# Reverses the PixelShuffle operation by rearranging elements in a tensor of shape (∗,C,H×r,W×r)(*, C, H \times r, W \times r)(∗,C,H×r,W×r) to a tensor of shape (∗,C×r2,H,W)(*, C \times r^2, H, W)(∗,C×r2,H,W), where r is the downscale_factor. See PixelUnshuffle for details. Parameters input (Tensor) – the input tensor downscale_factor (int) – factor to increase spatial resolution by Examples: &gt;&gt;&gt; input = torch.randn(1, 1, 12, 12) &gt;&gt;&gt; output = torch.nn.functional.pixel_unshuffle(input, 3) &gt;&gt;&gt; print(output.size()) torch.Size([1, 9, 4, 4])"
+         "dateModified": ""
        }
    </script>
 

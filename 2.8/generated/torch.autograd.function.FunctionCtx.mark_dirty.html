@@ -4462,8 +4462,7 @@ modification.</p>
            "@id": "/generated/torch.autograd.function.FunctionCtx.mark_dirty.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.autograd.function.FunctionCtx.mark_dirty# FunctionCtx.mark_dirty(*args)[source]# Mark given tensors as modified in an in-place operation. This should be called at most once, in either the setup_context() or forward() methods, and all arguments should be inputs. Every tensor that’s been modified in-place in a call to forward() should be given to this function, to ensure correctness of our checks. It doesn’t matter whether the function is called before or after modification. Examples::&gt;&gt;&gt; class Inplace(Function): &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; def forward(ctx, x): &gt;&gt;&gt; x_npy = x.numpy() # x_npy shares storage with x &gt;&gt;&gt; x_npy += 1 &gt;&gt;&gt; ctx.mark_dirty(x) &gt;&gt;&gt; return x &gt;&gt;&gt; &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; @once_differentiable &gt;&gt;&gt; def backward(ctx, grad_output): &gt;&gt;&gt; return grad_output &gt;&gt;&gt; &gt;&gt;&gt; a = torch.tensor(1., requires_grad=True, dtype=torch.double).clone() &gt;&gt;&gt; b = a * a &gt;&gt;&gt; Inplace.apply(a) # This would lead to wrong gradients! &gt;&gt;&gt; # but the engine would not know unless we mark_dirty &gt;&gt;&gt; b.backward() # RuntimeError: one of the variables needed for gradient &gt;&gt;&gt; # computation has been modified by an inplace operation"
+         "dateModified": ""
        }
    </script>
 

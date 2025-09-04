@@ -4462,8 +4462,7 @@ dimension <code class="xref py py-attr docutils literal notranslate"><span class
            "@id": "/generated/torch.Tensor.unfold.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.Tensor.unfold# Tensor.unfold(dimension, size, step) → Tensor# Returns a view of the original tensor which contains all slices of size size from self tensor in the dimension dimension. Step between two slices is given by step. If sizedim is the size of dimension dimension for self, the size of dimension dimension in the returned tensor will be (sizedim - size) / step + 1. An additional dimension of size size is appended in the returned tensor. Parameters dimension (int) – dimension in which unfolding happens size (int) – the size of each slice that is unfolded step (int) – the step between each slice Example: &gt;&gt;&gt; x = torch.arange(1., 8) &gt;&gt;&gt; x tensor([ 1., 2., 3., 4., 5., 6., 7.]) &gt;&gt;&gt; x.unfold(0, 2, 1) tensor([[ 1., 2.], [ 2., 3.], [ 3., 4.], [ 4., 5.], [ 5., 6.], [ 6., 7.]]) &gt;&gt;&gt; x.unfold(0, 2, 2) tensor([[ 1., 2.], [ 3., 4.], [ 5., 6.]])"
+         "dateModified": ""
        }
    </script>
 

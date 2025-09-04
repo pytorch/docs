@@ -4492,9 +4492,8 @@ of elements a <a class="reference internal" href="tensors.html#torch.Tensor" tit
            "@type": "WebPage",
            "@id": "/size.html"
          },
-         "datePublished": "Apr 19, 2024",
-         "dateModified": "Jun 18, 2025",
-         "articleBody": "torch.Size# Created On: Apr 19, 2024 | Last Updated On: Jun 18, 2025 torch.Size is the result type of a call to torch.Tensor.size(). It describes the size of all dimensions of the original tensor. As a subclass of tuple, it supports common sequence operations like indexing and length. Example: &gt;&gt;&gt; x = torch.ones(10, 20, 30) &gt;&gt;&gt; s = x.size() &gt;&gt;&gt; s torch.Size([10, 20, 30]) &gt;&gt;&gt; s[1] 20 &gt;&gt;&gt; len(s) 3 class torch.Size(iterable=(), /)# count(value, /)# Return number of occurrences of value. index(value, start=0, stop=9223372036854775807, /)# Return first index of value. Raises ValueError if the value is not present. numel() → int# Returns the number of elements a torch.Tensor with the given size would contain. More formally, for a tensor x = tensor.ones(10, 10) with size s = torch.Size([10, 10]), x.numel() == x.size().numel() == s.numel() == 100 holds true. Example: &gt;&gt;&gt; x=torch.ones(10, 10) &gt;&gt;&gt; s=x.size() &gt;&gt;&gt; s torch.Size([10, 10]) &gt;&gt;&gt; s.numel() 100 &gt;&gt;&gt; x.numel() == s.numel() True Warning This function does not return the number of dimensions described by torch.Size, but instead the number of elements a torch.Tensor with that size would contain."
+         "datePublished": "2024-04-19T00:00:00Z",
+         "dateModified": "2025-06-18T00:00:00Z"
        }
    </script>
 

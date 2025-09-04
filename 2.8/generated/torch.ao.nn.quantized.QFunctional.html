@@ -4468,8 +4468,7 @@ one of the underlying functions (e.g. <code class="docutils literal notranslate"
            "@id": "/generated/torch.ao.nn.quantized.QFunctional.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "QFunctional# class torch.ao.nn.quantized.QFunctional[source]# Wrapper class for quantized operations. The instance of this class can be used instead of the torch.ops.quantized prefix. See example usage below. Note This class does not provide a forward hook. Instead, you must use one of the underlying functions (e.g. add). Examples: &gt;&gt;&gt; q_add = QFunctional() &gt;&gt;&gt; a = torch.quantize_per_tensor(torch.tensor(3.0), 1.0, 0, torch.qint32) &gt;&gt;&gt; b = torch.quantize_per_tensor(torch.tensor(4.0), 1.0, 0, torch.qint32) &gt;&gt;&gt; q_add.add(a, b) # Equivalent to ``torch.ops.quantized.add(a, b, 1.0, 0)`` Valid operation names: add cat mul add_relu add_scalar mul_scalar"
+         "dateModified": ""
        }
    </script>
 

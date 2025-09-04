@@ -4463,8 +4463,7 @@ document.write(`
            "@id": "/generated/torch.nn.utils.rnn.unpad_sequence.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.nn.utils.rnn.unpad_sequence# torch.nn.utils.rnn.unpad_sequence(padded_sequences, lengths, batch_first=False)[source]# Unpad padded Tensor into a list of variable length Tensors. unpad_sequence unstacks padded Tensor into a list of variable length Tensors. Example &gt;&gt;&gt; from torch.nn.utils.rnn import pad_sequence, unpad_sequence &gt;&gt;&gt; a = torch.ones(25, 300) &gt;&gt;&gt; b = torch.ones(22, 300) &gt;&gt;&gt; c = torch.ones(15, 300) &gt;&gt;&gt; sequences = [a, b, c] &gt;&gt;&gt; padded_sequences = pad_sequence(sequences) &gt;&gt;&gt; lengths = torch.as_tensor([v.size(0) for v in sequences]) &gt;&gt;&gt; unpadded_sequences = unpad_sequence(padded_sequences, lengths) &gt;&gt;&gt; torch.allclose(sequences[0], unpadded_sequences[0]) True &gt;&gt;&gt; torch.allclose(sequences[1], unpadded_sequences[1]) True &gt;&gt;&gt; torch.allclose(sequences[2], unpadded_sequences[2]) True Parameters padded_sequences (Tensor) – padded sequences. lengths (Tensor) – length of original (unpadded) sequences. batch_first (bool, optional) – whether batch dimension first or not. Default: False. Returns a list of Tensor objects Return type list[torch.Tensor]"
+         "dateModified": ""
        }
    </script>
 

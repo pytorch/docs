@@ -4464,8 +4464,7 @@ an error if it is non-zero. Default: <cite>False</cite>.</p></li>
            "@id": "/generated/torch.linalg.solve_ex.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.linalg.solve_ex# torch.linalg.solve_ex(A, B, *, left=True, check_errors=False, out=None)# A version of solve() that does not perform error checks unless check_errors= True. It also returns the info tensor returned by LAPACK’s getrf. Note When the inputs are on a CUDA device, this function synchronizes only when check_errors= True. Warning This function is “experimental” and it may change in a future PyTorch release. Parameters A (Tensor) – tensor of shape (*, n, n) where * is zero or more batch dimensions. Keyword Arguments left (bool, optional) – whether to solve the system AX=BAX=BAX=B or XA=BXA = BXA=B. Default: True. check_errors (bool, optional) – controls whether to check the content of infos and raise an error if it is non-zero. Default: False. out (tuple, optional) – tuple of two tensors to write the output to. Ignored if None. Default: None. Returns A named tuple (result, info). Examples: &gt;&gt;&gt; A = torch.randn(3, 3) &gt;&gt;&gt; Ainv, info = torch.linalg.solve_ex(A) &gt;&gt;&gt; torch.dist(torch.linalg.inv(A), Ainv) tensor(0.) &gt;&gt;&gt; info tensor(0, dtype=torch.int32)"
+         "dateModified": ""
        }
    </script>
 

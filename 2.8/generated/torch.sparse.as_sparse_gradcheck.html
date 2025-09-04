@@ -4442,8 +4442,7 @@ on strided tensors only.</p>
            "@id": "/generated/torch.sparse.as_sparse_gradcheck.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.sparse.as_sparse_gradcheck# torch.sparse.as_sparse_gradcheck(gradcheck)[source]# Decorate function, to extend gradcheck for sparse tensors. Decorator for torch.autograd.gradcheck or its functools.partial variants that extends the gradcheck function with support to input functions that operate on or/and return sparse tensors. The specified gradcheck function itself is guaranteed to operate on strided tensors only. For example: &gt;&gt;&gt; gradcheck = torch.sparse.as_sparse_gradcheck(torch.autograd.gradcheck) &gt;&gt;&gt; x = torch.tensor([[0, 1], [2, 3]], dtype=torch.float64).to_sparse_coo().requires_grad_(True) &gt;&gt;&gt; gradcheck(lambda x: x.to_sparse_csr(), x) True"
+         "dateModified": ""
        }
    </script>
 

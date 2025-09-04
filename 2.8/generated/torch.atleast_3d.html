@@ -4466,8 +4466,7 @@ Input tensors with three or more dimensions are returned as-is.</p>
            "@id": "/generated/torch.atleast_3d.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.atleast_3d# torch.atleast_3d(*tensors)[source]# Returns a 3-dimensional view of each input tensor with zero dimensions. Input tensors with three or more dimensions are returned as-is. Parameters input (Tensor or list of Tensors) – Returns output (Tensor or tuple of Tensors) Example &gt;&gt;&gt; x = torch.tensor(0.5) &gt;&gt;&gt; x tensor(0.5000) &gt;&gt;&gt; torch.atleast_3d(x) tensor([[[0.5000]]]) &gt;&gt;&gt; y = torch.arange(4).view(2, 2) &gt;&gt;&gt; y tensor([[0, 1], [2, 3]]) &gt;&gt;&gt; torch.atleast_3d(y) tensor([[[0], [1]], [[2], [3]]]) &gt;&gt;&gt; x = torch.tensor(1).view(1, 1, 1) &gt;&gt;&gt; x tensor([[[1]]]) &gt;&gt;&gt; torch.atleast_3d(x) tensor([[[1]]]) &gt;&gt;&gt; x = torch.tensor(0.5) &gt;&gt;&gt; y = torch.tensor(1.0) &gt;&gt;&gt; torch.atleast_3d((x, y)) (tensor([[[0.5000]]]), tensor([[[1.]]]))"
+         "dateModified": ""
        }
    </script>
 

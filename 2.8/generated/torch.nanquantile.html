@@ -4468,8 +4468,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">linear</
            "@id": "/generated/torch.nanquantile.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.nanquantile# torch.nanquantile(input, q, dim=None, keepdim=False, *, interpolation=&#39;linear&#39;, out=None) → Tensor# This is a variant of torch.quantile() that “ignores” NaN values, computing the quantiles q as if NaN values in input did not exist. If all values in a reduced row are NaN then the quantiles for that reduction will be NaN. See the documentation for torch.quantile(). Parameters input (Tensor) – the input tensor. q (float or Tensor) – a scalar or 1D tensor of quantile values in the range [0, 1] dim (int, optional) – the dimension to reduce. If None, all dimensions are reduced. keepdim (bool, optional) – whether the output tensor has dim retained or not. Default: False. Keyword Arguments interpolation (str) – interpolation method to use when the desired quantile lies between two data points. Can be linear, lower, higher, midpoint and nearest. Default is linear. out (Tensor, optional) – the output tensor. Example: &gt;&gt;&gt; t = torch.tensor([float(&#39;nan&#39;), 1, 2]) &gt;&gt;&gt; t.quantile(0.5) tensor(nan) &gt;&gt;&gt; t.nanquantile(0.5) tensor(1.5000) &gt;&gt;&gt; t = torch.tensor([[float(&#39;nan&#39;), float(&#39;nan&#39;)], [1, 2]]) &gt;&gt;&gt; t tensor([[nan, nan], [1., 2.]]) &gt;&gt;&gt; t.nanquantile(0.5, dim=0) tensor([1., 2.]) &gt;&gt;&gt; t.nanquantile(0.5, dim=1) tensor([ nan, 1.5000])"
+         "dateModified": ""
        }
    </script>
 

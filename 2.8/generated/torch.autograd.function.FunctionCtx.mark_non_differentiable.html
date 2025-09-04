@@ -4459,8 +4459,7 @@ output.</p>
            "@id": "/generated/torch.autograd.function.FunctionCtx.mark_non_differentiable.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.autograd.function.FunctionCtx.mark_non_differentiable# FunctionCtx.mark_non_differentiable(*args)[source]# Mark outputs as non-differentiable. This should be called at most once, in either the setup_context() or forward() methods, and all arguments should be tensor outputs. This will mark outputs as not requiring gradients, increasing the efficiency of backward computation. You still need to accept a gradient for each output in backward(), but it’s always going to be a zero tensor with the same shape as the shape of a corresponding output. This is used e.g. for indices returned from a sort. See example::&gt;&gt;&gt; class Func(Function): &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; def forward(ctx, x): &gt;&gt;&gt; sorted, idx = x.sort() &gt;&gt;&gt; ctx.mark_non_differentiable(idx) &gt;&gt;&gt; ctx.save_for_backward(x, idx) &gt;&gt;&gt; return sorted, idx &gt;&gt;&gt; &gt;&gt;&gt; @staticmethod &gt;&gt;&gt; @once_differentiable &gt;&gt;&gt; def backward(ctx, g1, g2): # still need to accept g2 &gt;&gt;&gt; x, idx = ctx.saved_tensors &gt;&gt;&gt; grad_input = torch.zeros_like(x) &gt;&gt;&gt; grad_input.index_add_(0, idx, g1) &gt;&gt;&gt; return grad_input"
+         "dateModified": ""
        }
    </script>
 

@@ -4444,8 +4444,7 @@ for detailed steps on how to use this API.</p>
            "@id": "/generated/torch.autograd.forward_ad.unpack_dual.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.autograd.forward_ad.unpack_dual# torch.autograd.forward_ad.unpack_dual(tensor, *, level=None)[source]# Unpack a “dual tensor” to get both its Tensor value and its forward AD gradient. The result is a namedtuple (primal, tangent) where primal is a view of tensor’s primal and tangent is tensor’s tangent as-is. Neither of these tensors can be dual tensor of level level. This function is backward differentiable. Example: &gt;&gt;&gt; with dual_level(): ... inp = make_dual(x, x_t) ... out = f(inp) ... y, jvp = unpack_dual(out) ... jvp = unpack_dual(out).tangent Please see the forward-mode AD tutorial for detailed steps on how to use this API."
+         "dateModified": ""
        }
    </script>
 

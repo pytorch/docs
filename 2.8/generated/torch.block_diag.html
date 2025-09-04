@@ -4462,8 +4462,7 @@ diagonally adjacent. All other elements are set to 0.</p>
            "@id": "/generated/torch.block_diag.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.block_diag# torch.block_diag(*tensors)[source]# Create a block diagonal matrix from provided tensors. Parameters *tensors – One or more tensors with 0, 1, or 2 dimensions. Returns A 2 dimensional tensor with all the input tensors arranged in order such that their upper left and lower right corners are diagonally adjacent. All other elements are set to 0. Return type Tensor Example: &gt;&gt;&gt; import torch &gt;&gt;&gt; A = torch.tensor([[0, 1], [1, 0]]) &gt;&gt;&gt; B = torch.tensor([[3, 4, 5], [6, 7, 8]]) &gt;&gt;&gt; C = torch.tensor(7) &gt;&gt;&gt; D = torch.tensor([1, 2, 3]) &gt;&gt;&gt; E = torch.tensor([[4], [5], [6]]) &gt;&gt;&gt; torch.block_diag(A, B, C, D, E) tensor([[0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 3, 4, 5, 0, 0, 0, 0, 0], [0, 0, 6, 7, 8, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 7, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 2, 3, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 4], [0, 0, 0, 0, 0, 0, 0, 0, 0, 5], [0, 0, 0, 0, 0, 0, 0, 0, 0, 6]])"
+         "dateModified": ""
        }
    </script>
 

@@ -4518,8 +4518,7 @@ is not the optimizer.</p>
            "@id": "/generated/torch.optim.lr_scheduler.MultiStepLR.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "MultiStepLR# class torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones, gamma=0.1, last_epoch=-1)[source]# Decays the learning rate of each parameter group by gamma once the number of epoch reaches one of the milestones. Notice that such decay can happen simultaneously with other changes to the learning rate from outside this scheduler. When last_epoch=-1, sets initial lr as lr. Parameters optimizer (Optimizer) – Wrapped optimizer. milestones (list) – List of epoch indices. Must be increasing. gamma (float) – Multiplicative factor of learning rate decay. Default: 0.1. last_epoch (int) – The index of last epoch. Default: -1. Example &gt;&gt;&gt; # Assuming optimizer uses lr = 0.05 for all groups &gt;&gt;&gt; # lr = 0.05 if epoch &lt; 30 &gt;&gt;&gt; # lr = 0.005 if 30 &lt;= epoch &lt; 80 &gt;&gt;&gt; # lr = 0.0005 if epoch &gt;= 80 &gt;&gt;&gt; scheduler = MultiStepLR(optimizer, milestones=[30, 80], gamma=0.1) &gt;&gt;&gt; for epoch in range(100): &gt;&gt;&gt; train(...) &gt;&gt;&gt; validate(...) &gt;&gt;&gt; scheduler.step() get_last_lr()[source]# Return last computed learning rate by current scheduler. Return type list[float] get_lr()[source]# Compute the learning rate of each parameter group. Return type list[float] load_state_dict(state_dict)[source]# Load the scheduler’s state. Parameters state_dict (dict) – scheduler state. Should be an object returned from a call to state_dict(). state_dict()[source]# Return the state of the scheduler as a dict. It contains an entry for every variable in self.__dict__ which is not the optimizer. Return type dict[str, Any] step(epoch=None)[source]# Perform a step."
+         "dateModified": ""
        }
    </script>
 

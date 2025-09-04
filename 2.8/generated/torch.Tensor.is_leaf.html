@@ -4461,8 +4461,7 @@ To get <a class="reference internal" href="torch.Tensor.grad.html#torch.Tensor.g
            "@id": "/generated/torch.Tensor.is_leaf.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.Tensor.is_leaf# Tensor.is_leaf# All Tensors that have requires_grad which is False will be leaf Tensors by convention. For Tensors that have requires_grad which is True, they will be leaf Tensors if they were created by the user. This means that they are not the result of an operation and so grad_fn is None. Only leaf Tensors will have their grad populated during a call to backward(). To get grad populated for non-leaf Tensors, you can use retain_grad(). Example: &gt;&gt;&gt; a = torch.rand(10, requires_grad=True) &gt;&gt;&gt; a.is_leaf True &gt;&gt;&gt; b = torch.rand(10, requires_grad=True).cuda() &gt;&gt;&gt; b.is_leaf False # b was created by the operation that cast a cpu Tensor into a cuda Tensor &gt;&gt;&gt; c = torch.rand(10, requires_grad=True) + 2 &gt;&gt;&gt; c.is_leaf False # c was created by the addition operation &gt;&gt;&gt; d = torch.rand(10).cuda() &gt;&gt;&gt; d.is_leaf True # d does not require gradients and so has no operation creating it (that is tracked by the autograd engine) &gt;&gt;&gt; e = torch.rand(10).cuda().requires_grad_() &gt;&gt;&gt; e.is_leaf True # e requires gradients and has no operations creating it &gt;&gt;&gt; f = torch.rand(10, requires_grad=True, device=&#34;cuda&#34;) &gt;&gt;&gt; f.is_leaf True # f requires grad, has no operation creating it"
+         "dateModified": ""
        }
    </script>
 

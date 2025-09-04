@@ -4450,8 +4450,7 @@ to <code class="docutils literal notranslate"><span class="pre">x.transpose(-2,<
            "@id": "/generated/torch.adjoint.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.adjoint# torch.adjoint(input: Tensor) → Tensor# Returns a view of the tensor conjugated and with the last two dimensions transposed. x.adjoint() is equivalent to x.transpose(-2, -1).conj() for complex tensors and to x.transpose(-2, -1) for real tensors. Parameters {input} – Example: &gt;&gt;&gt; x = torch.arange(4, dtype=torch.float) &gt;&gt;&gt; A = torch.complex(x, x).reshape(2, 2) &gt;&gt;&gt; A tensor([[0.+0.j, 1.+1.j], [2.+2.j, 3.+3.j]]) &gt;&gt;&gt; A.adjoint() tensor([[0.-0.j, 2.-2.j], [1.-1.j, 3.-3.j]]) &gt;&gt;&gt; (A.adjoint() == A.mH).all() tensor(True)"
+         "dateModified": ""
        }
    </script>
 

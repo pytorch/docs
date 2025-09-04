@@ -4464,8 +4464,7 @@ is executed, and how its execution is ordered relative to other hooks.</p>
            "@id": "/generated/torch.autograd.graph.Node.register_prehook.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.autograd.graph.Node.register_prehook# abstract Node.register_prehook(fn)[source]# Register a backward pre-hook. The hook will be called every time a gradient with respect to the Node is computed. The hook should have the following signature: hook(grad_outputs: Tuple[Tensor]) -&gt; Tuple[Tensor] or None The hook should not modify its argument, but it can optionally return a new gradient which will be used in place of grad_outputs. This function returns a handle with a method handle.remove() that removes the hook from the module. Note See Backward Hooks execution for more information on how when this hook is executed, and how its execution is ordered relative to other hooks. Example: &gt;&gt;&gt; a = torch.tensor([0., 0., 0.], requires_grad=True) &gt;&gt;&gt; b = a.clone() &gt;&gt;&gt; assert isinstance(b.grad_fn, torch.autograd.graph.Node) &gt;&gt;&gt; handle = b.grad_fn.register_prehook(lambda gI: (gI[0] * 2,)) &gt;&gt;&gt; b.sum().backward(retain_graph=True) &gt;&gt;&gt; print(a.grad) tensor([2., 2., 2.]) &gt;&gt;&gt; handle.remove() &gt;&gt;&gt; a.grad = None &gt;&gt;&gt; b.sum().backward(retain_graph=True) &gt;&gt;&gt; print(a.grad) tensor([1., 1., 1.]) Return type RemovableHandle"
+         "dateModified": ""
        }
    </script>
 

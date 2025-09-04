@@ -4485,8 +4485,7 @@ is performed. This is useful for preventing data type overflows. Default: None.<
            "@id": "/generated/torch.prod.html"
          },
          "datePublished": "",
-         "dateModified": "",
-         "articleBody": "torch.prod# torch.prod(input: Tensor, *, dtype: Optional[_dtype]) → Tensor# Returns the product of all elements in the input tensor. Parameters input (Tensor) – the input tensor. Keyword Arguments dtype (torch.dtype, optional) – the desired data type of returned tensor. If specified, the input tensor is casted to dtype before the operation is performed. This is useful for preventing data type overflows. Default: None. Example: &gt;&gt;&gt; a = torch.randn(1, 3) &gt;&gt;&gt; a tensor([[-0.8020, 0.5428, -1.5854]]) &gt;&gt;&gt; torch.prod(a) tensor(0.6902) torch.prod(input, dim, keepdim=False, *, dtype=None) → Tensor Returns the product of each row of the input tensor in the given dimension dim. If keepdim is True, the output tensor is of the same size as input except in the dimension dim where it is of size 1. Otherwise, dim is squeezed (see torch.squeeze()), resulting in the output tensor having 1 fewer dimension than input. Parameters input (Tensor) – the input tensor. dim (int, optional) – the dimension to reduce. If None, all dimensions are reduced. keepdim (bool, optional) – whether the output tensor has dim retained or not. Default: False. Keyword Arguments dtype (torch.dtype, optional) – the desired data type of returned tensor. If specified, the input tensor is casted to dtype before the operation is performed. This is useful for preventing data type overflows. Default: None. Example: &gt;&gt;&gt; a = torch.randn(4, 2) &gt;&gt;&gt; a tensor([[ 0.5261, -0.3837], [ 1.1857, -0.2498], [-1.1646, 0.0705], [ 1.1131, -1.0629]]) &gt;&gt;&gt; torch.prod(a, 1) tensor([-0.2018, -0.2962, -0.0821, -1.1831])"
+         "dateModified": ""
        }
    </script>
 
