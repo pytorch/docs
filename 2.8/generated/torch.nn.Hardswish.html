@@ -4459,7 +4459,7 @@ document.write(`
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "Hardswish# class torch.nn.Hardswish(inplace=False)[source]# Applies the Hardswish function, element-wise. Method described in the paper: Searching for MobileNetV3. Hardswish is defined as: Hardswish(x)={0if x≤−3,xif x≥+3,x⋅(x+3)/6otherwise\text{Hardswish}(x) = \begin{cases} 0 &amp; \text{if~} x \le -3, \\ x &amp; \text{if~} x \ge +3, \\ x \cdot (x + 3) /6 &amp; \text{otherwise} \end{cases} Hardswish(x)=⎩⎨⎧​0xx⋅(x+3)/6​if x≤−3,if x≥+3,otherwise​ Parameters inplace (bool) – can optionally do the operation in-place. Default: False Shape: Input: (∗)(*)(∗), where ∗*∗ means any number of dimensions. Output: (∗)(*)(∗), same shape as the input. Examples: &gt;&gt;&gt; m = nn.Hardswish() &gt;&gt;&gt; input = torch.randn(2) &gt;&gt;&gt; output = m(input)"
+         "articleBody": "Hardswish# class torch.nn.Hardswish(inplace=False)[source]# Applies the Hardswish function, element-wise. Method described in the paper: Searching for MobileNetV3. Hardswish is defined as: Hardswish(x)={0if x≤−3,xif x≥+3,x⋅(x+3)/6otherwise\\text{Hardswish}(x) = \\begin{cases} 0 & \\text{if~} x \\le -3, \\\\ x & \\text{if~} x \\ge +3, \\\\ x \\cdot (x + 3) /6 & \\text{otherwise} \\end{cases} Hardswish(x)=⎩⎨⎧​0xx⋅(x+3)/6​if x≤−3,if x≥+3,otherwise​ Parameters inplace (bool) – can optionally do the operation in-place. Default: False Shape: Input: (∗)(*)(∗), where ∗*∗ means any number of dimensions. Output: (∗)(*)(∗), same shape as the input. Examples: >>> m = nn.Hardswish() >>> input = torch.randn(2) >>> output = m(input)"
        }
    </script>
 

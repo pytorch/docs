@@ -4453,7 +4453,7 @@ The number of output features is equal to the number of input planes.</p>
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "AdaptiveAvgPool1d# class torch.nn.AdaptiveAvgPool1d(output_size)[source]# Applies a 1D adaptive average pooling over an input signal composed of several input planes. The output size is LoutL_{out}Lout​, for any input size. The number of output features is equal to the number of input planes. Parameters output_size (Union[int, tuple[int]]) – the target output size LoutL_{out}Lout​. Shape: Input: (N,C,Lin)(N, C, L_{in})(N,C,Lin​) or (C,Lin)(C, L_{in})(C,Lin​). Output: (N,C,Lout)(N, C, L_{out})(N,C,Lout​) or (C,Lout)(C, L_{out})(C,Lout​), where Lout=output_sizeL_{out}=\text{output\_size}Lout​=output_size. Examples &gt;&gt;&gt; # target output size of 5 &gt;&gt;&gt; m = nn.AdaptiveAvgPool1d(5) &gt;&gt;&gt; input = torch.randn(1, 64, 8) &gt;&gt;&gt; output = m(input)"
+         "articleBody": "AdaptiveAvgPool1d# class torch.nn.AdaptiveAvgPool1d(output_size)[source]# Applies a 1D adaptive average pooling over an input signal composed of several input planes. The output size is LoutL_{out}Lout​, for any input size. The number of output features is equal to the number of input planes. Parameters output_size (Union[int, tuple[int]]) – the target output size LoutL_{out}Lout​. Shape: Input: (N,C,Lin)(N, C, L_{in})(N,C,Lin​) or (C,Lin)(C, L_{in})(C,Lin​). Output: (N,C,Lout)(N, C, L_{out})(N,C,Lout​) or (C,Lout)(C, L_{out})(C,Lout​), where Lout=output_sizeL_{out}=\\text{output\\_size}Lout​=output_size. Examples >>> # target output size of 5 >>> m = nn.AdaptiveAvgPool1d(5) >>> input = torch.randn(1, 64, 8) >>> output = m(input)"
        }
    </script>
 

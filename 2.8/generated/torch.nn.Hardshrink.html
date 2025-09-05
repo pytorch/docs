@@ -4459,7 +4459,7 @@ x, &amp; \text{ if } x &lt; -\lambda \\
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "Hardshrink# class torch.nn.Hardshrink(lambd=0.5)[source]# Applies the Hard Shrinkage (Hardshrink) function element-wise. Hardshrink is defined as: HardShrink(x)={x, if x&gt;λx, if x&lt;−λ0, otherwise \text{HardShrink}(x) = \begin{cases} x, &amp; \text{ if } x &gt; \lambda \\ x, &amp; \text{ if } x &lt; -\lambda \\ 0, &amp; \text{ otherwise } \end{cases} HardShrink(x)=⎩⎨⎧​x,x,0,​ if x&gt;λ if x&lt;−λ otherwise ​ Parameters lambd (float) – the λ\lambdaλ value for the Hardshrink formulation. Default: 0.5 Shape: Input: (∗)(*)(∗), where ∗*∗ means any number of dimensions. Output: (∗)(*)(∗), same shape as the input. Examples: &gt;&gt;&gt; m = nn.Hardshrink() &gt;&gt;&gt; input = torch.randn(2) &gt;&gt;&gt; output = m(input)"
+         "articleBody": "Hardshrink# class torch.nn.Hardshrink(lambd=0.5)[source]# Applies the Hard Shrinkage (Hardshrink) function element-wise. Hardshrink is defined as: HardShrink(x)={x, if x>λx, if x<−λ0, otherwise \\text{HardShrink}(x) = \\begin{cases} x, & \\text{ if } x > \\lambda \\\\ x, & \\text{ if } x < -\\lambda \\\\ 0, & \\text{ otherwise } \\end{cases} HardShrink(x)=⎩⎨⎧​x,x,0,​ if x>λ if x<−λ otherwise ​ Parameters lambd (float) – the λ\\lambdaλ value for the Hardshrink formulation. Default: 0.5 Shape: Input: (∗)(*)(∗), where ∗*∗ means any number of dimensions. Output: (∗)(*)(∗), same shape as the input. Examples: >>> m = nn.Hardshrink() >>> input = torch.randn(2) >>> output = m(input)"
        }
    </script>
 
