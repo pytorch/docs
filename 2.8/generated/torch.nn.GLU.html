@@ -4453,7 +4453,7 @@ dimensions</p></li>
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "GLU# class torch.nn.GLU(dim=-1)[source]# Applies the gated linear unit function. GLU(a,b)=a⊗σ(b){GLU}(a, b)= a \otimes \sigma(b)GLU(a,b)=a⊗σ(b) where aaa is the first half of the input matrices and bbb is the second half. Parameters dim (int) – the dimension on which to split the input. Default: -1 Shape: Input: (∗1,N,∗2)(\ast_1, N, \ast_2)(∗1​,N,∗2​) where * means, any number of additional dimensions Output: (∗1,M,∗2)(\ast_1, M, \ast_2)(∗1​,M,∗2​) where M=N/2M=N/2M=N/2 Examples: &gt;&gt;&gt; m = nn.GLU() &gt;&gt;&gt; input = torch.randn(4, 2) &gt;&gt;&gt; output = m(input)"
+         "articleBody": "GLU# class torch.nn.GLU(dim=-1)[source]# Applies the gated linear unit function. GLU(a,b)=a\u2297\u03c3(b){GLU}(a, b)= a \\otimes \\sigma(b)GLU(a,b)=a\u2297\u03c3(b) where aaa is the first half of the input matrices and bbb is the second half. Parameters dim (int) \u2013 the dimension on which to split the input. Default: -1 Shape: Input: (\u22171,N,\u22172)(\\ast_1, N, \\ast_2)(\u22171\u200b,N,\u22172\u200b) where * means, any number of additional dimensions Output: (\u22171,M,\u22172)(\\ast_1, M, \\ast_2)(\u22171\u200b,M,\u22172\u200b) where M=N/2M=N/2M=N/2 Examples: >>> m = nn.GLU() >>> input = torch.randn(4, 2) >>> output = m(input)"
        }
    </script>
 

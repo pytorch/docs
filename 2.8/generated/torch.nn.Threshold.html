@@ -4462,7 +4462,7 @@ x, &amp;\text{ if } x &gt; \text{threshold} \\
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "Threshold# class torch.nn.Threshold(threshold, value, inplace=False)[source]# Thresholds each element of the input Tensor. Threshold is defined as: y={x, if x&gt;thresholdvalue, otherwise y = \begin{cases} x, &amp;\text{ if } x &gt; \text{threshold} \\ \text{value}, &amp;\text{ otherwise } \end{cases} y={x,value,​ if x&gt;threshold otherwise ​ Parameters threshold (float) – The value to threshold at value (float) – The value to replace with inplace (bool) – can optionally do the operation in-place. Default: False Shape: Input: (∗)(*)(∗), where ∗*∗ means any number of dimensions. Output: (∗)(*)(∗), same shape as the input. Examples: &gt;&gt;&gt; m = nn.Threshold(0, 0.5) &gt;&gt;&gt; input = torch.arange(-3, 3) &gt;&gt;&gt; output = m(input)"
+         "articleBody": "Threshold# class torch.nn.Threshold(threshold, value, inplace=False)[source]# Thresholds each element of the input Tensor. Threshold is defined as: y={x, if x>thresholdvalue, otherwise y = \\begin{cases} x, &\\text{ if } x > \\text{threshold} \\\\ \\text{value}, &\\text{ otherwise } \\end{cases} y={x,value,\u200b if x>threshold otherwise \u200b Parameters threshold (float) \u2013 The value to threshold at value (float) \u2013 The value to replace with inplace (bool) \u2013 can optionally do the operation in-place. Default: False Shape: Input: (\u2217)(*)(\u2217), where \u2217*\u2217 means any number of dimensions. Output: (\u2217)(*)(\u2217), same shape as the input. Examples: >>> m = nn.Threshold(0, 0.5) >>> input = torch.arange(-3, 3) >>> output = m(input)"
        }
    </script>
 
