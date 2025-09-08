@@ -4454,7 +4454,7 @@ element in <code class="xref py py-attr docutils literal notranslate"><span clas
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.poisson# torch.poisson(input, generator=None) → Tensor# Returns a tensor of the same size as input with each element sampled from a Poisson distribution with rate parameter given by the corresponding element in input i.e., outi∼Poisson(inputi)\text{out}_i \sim \text{Poisson}(\text{input}_i) outi​∼Poisson(inputi​)input must be non-negative. Parameters input (Tensor) – the input tensor containing the rates of the Poisson distribution Keyword Arguments generator (torch.Generator, optional) – a pseudorandom number generator for sampling Example: &gt;&gt;&gt; rates = torch.rand(4, 4) * 5 # rate parameter between 0 and 5 &gt;&gt;&gt; torch.poisson(rates) tensor([[9., 1., 3., 5.], [8., 6., 6., 0.], [0., 4., 5., 3.], [2., 1., 4., 2.]])"
+         "articleBody": "torch.poissontorch.poisson(input, generator=None) → Tensor# Returns a tensor of the same size as input with each element sampled from a Poisson distribution with rate parameter given by the corresponding element in input i.e., outi∼Poisson(inputi)\\text{out}_i \\sim \\text{Poisson}(\\text{input}_i) outi​∼Poisson(inputi​)input must be non-negative. Parameters input (Tensor) – the input tensor containing the rates of the Poisson distribution Keyword Arguments generator (torch.Generator, optional) – a pseudorandom number generator for sampling Example: >>> rates = torch.rand(4, 4) * 5 # rate parameter between 0 and 5 >>> torch.poisson(rates) tensor([[9., 1., 3., 5.], [8., 6., 6., 0.], [0., 4., 5., 3.], [2., 1., 4., 2.]])"
        }
    </script>
 

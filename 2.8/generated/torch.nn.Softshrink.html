@@ -4458,7 +4458,7 @@ x + \lambda, &amp; \text{ if } x &lt; -\lambda \\
          },
          "datePublished": "",
          "dateModified": "",
-         "articleBody": "Softshrink# class torch.nn.Softshrink(lambd=0.5)[source]# Applies the soft shrinkage function element-wise. SoftShrinkage(x)={x−λ, if x&gt;λx+λ, if x&lt;−λ0, otherwise \text{SoftShrinkage}(x) = \begin{cases} x - \lambda, &amp; \text{ if } x &gt; \lambda \\ x + \lambda, &amp; \text{ if } x &lt; -\lambda \\ 0, &amp; \text{ otherwise } \end{cases} SoftShrinkage(x)=⎩⎨⎧​x−λ,x+λ,0,​ if x&gt;λ if x&lt;−λ otherwise ​ Parameters lambd (float) – the λ\lambdaλ (must be no less than zero) value for the Softshrink formulation. Default: 0.5 Shape: Input: (∗)(*)(∗), where ∗*∗ means any number of dimensions. Output: (∗)(*)(∗), same shape as the input. Examples: &gt;&gt;&gt; m = nn.Softshrink() &gt;&gt;&gt; input = torch.randn(2) &gt;&gt;&gt; output = m(input)"
+         "articleBody": "Softshrink# class torch.nn.Softshrink(lambd=0.5)[source]# Applies the soft shrinkage function element-wise. SoftShrinkage(x)={x−λ, if x>λx+λ, if x<−λ0, otherwise \\text{SoftShrinkage}(x) = \\begin{cases} x - \\lambda, & \\text{ if } x > \\lambda \\\\ x + \\lambda, & \\text{ if } x < -\\lambda \\\\ 0, & \\text{ otherwise } \\end{cases} SoftShrinkage(x)=⎩⎨⎧​x−λ,x+λ,0,​ if x>λ if x<−λ otherwise ​ Parameters lambd (float) – the λ\\lambdaλ (must be no less than zero) value for the Softshrink formulation. Default: 0.5 Shape: Input: (∗)(*)(∗), where ∗*∗ means any number of dimensions. Output: (∗)(*)(∗), same shape as the input. Examples: >>> m = nn.Softshrink() >>> input = torch.randn(2) >>> output = m(input)"
        }
    </script>
 
