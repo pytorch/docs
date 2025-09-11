@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git80bf883 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git3ad3bfe )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -764,7 +764,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1220,7 +1224,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -3382,11 +3390,12 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../export/ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../export/pt2_archive.html">PT2 Archive Spec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../export/draft_export.html">Draft Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../export/joint_with_descriptors.html">Joint with descriptors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3729,6 +3738,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../onnx_export.html">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_verification.html">torch.onnx.verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../onnx_testing.html">torch.onnx.testing</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../optim.html">torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4387,7 +4397,7 @@ document.write(`
 <h1>torch.argsort<a class="headerlink" href="#torch-argsort" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.argsort">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">argsort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="headerlink" href="#torch.argsort" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">argsort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="headerlink" href="#torch.argsort" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the indices that sort a tensor along a given dimension in ascending
 order by value.</p>
 <p>This is the second value returned by <a class="reference internal" href="torch.sort.html#torch.sort" title="torch.sort"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.sort()</span></code></a>.  See its documentation
@@ -4401,8 +4411,10 @@ which compare equal is not guaranteed. <code class="docutils literal notranslate
 <li><p><strong>input</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the input tensor.</p></li>
 <li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – the dimension to sort along</p></li>
 <li><p><strong>descending</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – controls the sorting order (ascending or descending)</p></li>
-<li><p><strong>stable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – controls the relative order of equivalent elements</p></li>
 </ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>stable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – controls the relative order of equivalent elements</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -4753,7 +4765,7 @@ which compare equal is not guaranteed. <code class="docutils literal notranslate
          },
         "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.argsort# torch.argsort(input, dim=-1, descending=False, stable=False) → Tensor# Returns the indices that sort a tensor along a given dimension in ascending order by value. This is the second value returned by torch.sort(). See its documentation for the exact semantics of this method. If stable is True then the sorting routine becomes stable, preserving the order of equivalent elements. If False, the relative order of values which compare equal is not guaranteed. True is slower. Parameters input (Tensor) – the input tensor. dim (int, optional) – the dimension to sort along descending (bool, optional) – controls the sorting order (ascending or descending) stable (bool, optional) – controls the relative order of equivalent elements Example: &gt;&gt;&gt; a = torch.randn(4, 4) &gt;&gt;&gt; a tensor([[ 0.0785, 1.5267, -0.8521, 0.4065], [ 0.1598, 0.0788, -0.0745, -1.2700], [ 1.2208, 1.0722, -0.7064, 1.2564], [ 0.0669, -0.2318, -0.8229, -0.9280]]) &gt;&gt;&gt; torch.argsort(a, dim=1) tensor([[2, 0, 3, 1], [3, 2, 1, 0], [2, 1, 0, 3], [3, 2, 1, 0]])"
+         "articleBody": "torch.argsort# torch.argsort(input, dim=-1, descending=False, *, stable=False) → Tensor# Returns the indices that sort a tensor along a given dimension in ascending order by value. This is the second value returned by torch.sort(). See its documentation for the exact semantics of this method. If stable is True then the sorting routine becomes stable, preserving the order of equivalent elements. If False, the relative order of values which compare equal is not guaranteed. True is slower. Parameters input (Tensor) – the input tensor. dim (int, optional) – the dimension to sort along descending (bool, optional) – controls the sorting order (ascending or descending) Keyword Arguments stable (bool, optional) – controls the relative order of equivalent elements Example: &gt;&gt;&gt; a = torch.randn(4, 4) &gt;&gt;&gt; a tensor([[ 0.0785, 1.5267, -0.8521, 0.4065], [ 0.1598, 0.0788, -0.0745, -1.2700], [ 1.2208, 1.0722, -0.7064, 1.2564], [ 0.0669, -0.2318, -0.8229, -0.9280]]) &gt;&gt;&gt; torch.argsort(a, dim=1) tensor([[2, 0, 3, 1], [3, 2, 1, 0], [2, 1, 0, 3], [3, 2, 1, 0]])"
        }
    </script>
 

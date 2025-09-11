@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git80bf883 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git3ad3bfe )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -764,7 +764,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1220,7 +1224,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -3382,11 +3390,12 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">PT2 Archive Spec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="draft_export.html">Draft Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="joint_with_descriptors.html">Joint with descriptors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3729,6 +3738,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../onnx_export.html">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_verification.html">torch.onnx.verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../onnx_testing.html">torch.onnx.testing</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../optim.html">torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4385,7 +4395,7 @@ document.write(`
                   
   <div class="section" id="pt2-archive-spec">
 <span id="export-pt2-archive"></span><h1>PT2 Archive Spec<a class="headerlink" href="#pt2-archive-spec" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 16, 2025 | Last Updated On: Jul 16, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 16, 2025 | Last Updated On: Sep 09, 2025</p>
 <p>The following specification defines the archive format which can be produced
 through the following methods:</p>
 <ul class="simple">
@@ -4403,18 +4413,22 @@ through the following methods:</p>
 ├── data
 │   ├── aotinductor
 │   │   └── model1
-│   │       ├── aotinductor_pickle_data.json
-│   │       ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.cpp
-│   │       ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.so
+│   │       ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.kernel_metadata.json
+│   │       ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.kernel.cpp
+│   │       ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.wrapper_metadata.json
+│   │       ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.wrapper.cpp
+│   │       ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.wrapper.so
 │   │       ├── cg7domx3woam3nnliwud7yvtcencqctxkvvcafuriladwxw4nfiv.cubin
 │   │       └── cubaaxppb6xmuqdm4bej55h2pftbce3bjyyvljxbtdfuolmv45ex.cubin
 │   ├── weights
-│   │  ├── model1_model_param_config.json
+│   │  ├── model1_weights_config.json
+│   │  ├── model2_weights_config.json
 │   │  ├── weight_0
 │   │  ├── weight_1
 │   │  ├── weight_2
 │   └── constants
-│   │  ├── model1_model_constants_config.json
+│   │  ├── model1_constants_config.json
+│   │  ├── model2_constants_config.json
 │   │  ├── tensor_0
 │   │  ├── tensor_1
 │   │  ├── custom_obj_0
@@ -4448,11 +4462,12 @@ example, compilation artifacts for the <code class="docutils literal notranslate
 saved in <code class="docutils literal notranslate"><span class="pre">model1-a100</span></code> and <code class="docutils literal notranslate"><span class="pre">model1-h100</span></code> folders separately.</p>
 <p>The folder typically contains</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;uuid&gt;.so</span></code>: Dynamic library compiled from <uuid>.cpp.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;uuid&gt;.cpp</span></code>: AOTInductor generated cpp wrapper file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;uuid&gt;.wrapper.so</span></code>: Dynamic library compiled from <uuid>.cpp.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;uuid&gt;.wrapper.cpp</span></code>: AOTInductor generated cpp wrapper file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;uuid&gt;.kernel.cpp</span></code>: AOTInductor generated cpp kernel file.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">*.cubin</span></code>: Triton kernels compiled from triton codegen kernels</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;uuid&gt;.wrapper_metadata.json</span></code>: Metadata which was passed in from the <code class="docutils literal notranslate"><span class="pre">aot_inductor.metadata</span></code> inductor config</p></li>
 <li><p>(optional) <code class="docutils literal notranslate"><span class="pre">&lt;uuid&gt;.json</span></code>: External fallback nodes for custom ops to be executed by <code class="docutils literal notranslate"><span class="pre">ProxyExecutor</span></code>, serialized according to <code class="docutils literal notranslate"><span class="pre">ExternKernelNode</span></code> struct. If the model doesn’t use custom ops/ProxyExecutor, this file would be omitted.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;uuid&gt;_metadata.json</span></code>: Metadata which was passed in from the <code class="docutils literal notranslate"><span class="pre">aot_inductor.metadata</span></code> inductor config</p></li>
 </ul>
 </div>
 <div class="section" id="weights">
@@ -4460,15 +4475,15 @@ saved in <code class="docutils literal notranslate"><span class="pre">model1-a10
 <p>Path: <code class="docutils literal notranslate"><span class="pre">/data/weights/*</span></code></p>
 <p>Model parameters and buffers are saved in the <code class="docutils literal notranslate"><span class="pre">/data/weights/</span></code> folder. Each
 tensor is saved as a separated file. The file only contains the raw data blob,
-tensor metadata are saved separately in the
-<code class="docutils literal notranslate"><span class="pre">&lt;model_name&gt;_model_param_config.json</span></code>.</p>
+tensor metadata and mapping from model weight FQN to saved raw data blob are saved separately in the
+<code class="docutils literal notranslate"><span class="pre">&lt;model_name&gt;_weights_config.json</span></code>.</p>
 </div>
 <div class="section" id="constants">
 <h3>Constants<a class="headerlink" href="#constants" title="Permalink to this heading">#</a></h3>
 <p>Path: <code class="docutils literal notranslate"><span class="pre">/data/constants/*</span></code></p>
 <p>TensorConstants, non-persistent buffers and TorchBind objects are saved in the
-<code class="docutils literal notranslate"><span class="pre">/data/constants/</span></code> folder. Metadata is saved separately in the
-<code class="docutils literal notranslate"><span class="pre">&lt;model_name&gt;_model_constants_config.json</span></code></p>
+<code class="docutils literal notranslate"><span class="pre">/data/constants/</span></code> folder. Metadata and mapping from model constant FQN to saved raw data blob are saved separately in the
+<code class="docutils literal notranslate"><span class="pre">&lt;model_name&gt;_constants_config.json</span></code></p>
 </div>
 <div class="section" id="sample-inputs">
 <h3>Sample Inputs<a class="headerlink" href="#sample-inputs" title="Permalink to this heading">#</a></h3>
@@ -4851,8 +4866,8 @@ finer-grained control over the packaging and loading process.</p>
            "@id": "/export/pt2_archive.html"
          },
         "datePublished": "Jul 16, 2025T00:00:00Z",
-         "dateModified": "Jul 16, 2025T00:00:00Z",
-         "articleBody": "PT2 Archive Spec# Created On: Jul 16, 2025 | Last Updated On: Jul 16, 2025 The following specification defines the archive format which can be produced through the following methods: torch.export through calling torch.export.save() AOTInductor through calling torch._inductor.aoti_compile_and_package() The archive is a zipfile, and can be manipulated using standard zipfile APIs. The following is a sample archive. We will walk through the archive folder by folder. . ├── archive_format ├── byteorder ├── .data │ ├── serialization_id │ └── version ├── data │ ├── aotinductor │ │ └── model1 │ │ ├── aotinductor_pickle_data.json │ │ ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.cpp │ │ ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.so │ │ ├── cg7domx3woam3nnliwud7yvtcencqctxkvvcafuriladwxw4nfiv.cubin │ │ └── cubaaxppb6xmuqdm4bej55h2pftbce3bjyyvljxbtdfuolmv45ex.cubin │ ├── weights │ │ ├── model1_model_param_config.json │ │ ├── weight_0 │ │ ├── weight_1 │ │ ├── weight_2 │ └── constants │ │ ├── model1_model_constants_config.json │ │ ├── tensor_0 │ │ ├── tensor_1 │ │ ├── custom_obj_0 │ │ ├── custom_obj_1 │ └── sample_inputs │ ├── model1.pt │ └── model2.pt ├── extra │ └── ....json └── models ├── model1.json └── model2.json Contents# Archive Headers# archive_format declares the format used by this archive. Currently, it can only be “pt2”. byteorder. One of “little” or “big”, used by zip file reader /.data/version contains the archive version. (Notice that this is neither export serialization’s schema version, nor Aten Opset Version). /.data/serialization_id is a hash generated for the current archive, used for verification. AOTInductor Compiled Artifact# Path: /data/aotinductor/&lt;model_name&gt;-&lt;backend&gt;/ AOTInductor compilation artifacts are saved for each model-backend pair. For example, compilation artifacts for the model1 model on A100 and H100 will be saved in model1-a100 and model1-h100 folders separately. The folder typically contains &lt;uuid&gt;.so: Dynamic library compiled from .cpp. &lt;uuid&gt;.cpp: AOTInductor generated cpp wrapper file. *.cubin: Triton kernels compiled from triton codegen kernels (optional) &lt;uuid&gt;.json: External fallback nodes for custom ops to be executed by ProxyExecutor, serialized according to ExternKernelNode struct. If the model doesn’t use custom ops/ProxyExecutor, this file would be omitted. &lt;uuid&gt;_metadata.json: Metadata which was passed in from the aot_inductor.metadata inductor config Weights# Path: /data/weights/* Model parameters and buffers are saved in the /data/weights/ folder. Each tensor is saved as a separated file. The file only contains the raw data blob, tensor metadata are saved separately in the &lt;model_name&gt;_model_param_config.json. Constants# Path: /data/constants/* TensorConstants, non-persistent buffers and TorchBind objects are saved in the /data/constants/ folder. Metadata is saved separately in the &lt;model_name&gt;_model_constants_config.json Sample Inputs# Path: /data/sample_inputs/&lt;model_name&gt;.p..."
+         "dateModified": "Sep 09, 2025T00:00:00Z",
+         "articleBody": "PT2 Archive Spec# Created On: Jul 16, 2025 | Last Updated On: Sep 09, 2025 The following specification defines the archive format which can be produced through the following methods: torch.export through calling torch.export.save() AOTInductor through calling torch._inductor.aoti_compile_and_package() The archive is a zipfile, and can be manipulated using standard zipfile APIs. The following is a sample archive. We will walk through the archive folder by folder. . ├── archive_format ├── byteorder ├── .data │ ├── serialization_id │ └── version ├── data │ ├── aotinductor │ │ └── model1 │ │ ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.kernel_metadata.json │ │ ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.kernel.cpp │ │ ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.wrapper_metadata.json │ │ ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.wrapper.cpp │ │ ├── cf5ez6ifexr7i2hezzz4s7xfusj4wtisvu2gddeamh37bw6bghjw.wrapper.so │ │ ├── cg7domx3woam3nnliwud7yvtcencqctxkvvcafuriladwxw4nfiv.cubin │ │ └── cubaaxppb6xmuqdm4bej55h2pftbce3bjyyvljxbtdfuolmv45ex.cubin │ ├── weights │ │ ├── model1_weights_config.json │ │ ├── model2_weights_config.json │ │ ├── weight_0 │ │ ├── weight_1 │ │ ├── weight_2 │ └── constants │ │ ├── model1_constants_config.json │ │ ├── model2_constants_config.json │ │ ├── tensor_0 │ │ ├── tensor_1 │ │ ├── custom_obj_0 │ │ ├── custom_obj_1 │ └── sample_inputs │ ├── model1.pt │ └── model2.pt ├── extra │ └── ....json └── models ├── model1.json └── model2.json Contents# Archive Headers# archive_format declares the format used by this archive. Currently, it can only be “pt2”. byteorder. One of “little” or “big”, used by zip file reader /.data/version contains the archive version. (Notice that this is neither export serialization’s schema version, nor Aten Opset Version). /.data/serialization_id is a hash generated for the current archive, used for verification. AOTInductor Compiled Artifact# Path: /data/aotinductor/&lt;model_name&gt;-&lt;backend&gt;/ AOTInductor compilation artifacts are saved for each model-backend pair. For example, compilation artifacts for the model1 model on A100 and H100 will be saved in model1-a100 and model1-h100 folders separately. The folder typically contains &lt;uuid&gt;.wrapper.so: Dynamic library compiled from .cpp. &lt;uuid&gt;.wrapper.cpp: AOTInductor generated cpp wrapper file. &lt;uuid&gt;.kernel.cpp: AOTInductor generated cpp kernel file. *.cubin: Triton kernels compiled from triton codegen kernels &lt;uuid&gt;.wrapper_metadata.json: Metadata which was passed in from the aot_inductor.metadata inductor config (optional) &lt;uuid&gt;.json: External fallback nodes for custom ops to be executed by ProxyExecutor, serialized according to ExternKernelNode struct. If the model doesn’t use custom ops/ProxyExecutor, this file would be omitted. Weights# Path: /data/weights/* Model parameters and buffers are saved in the /data/weights/ folder. Each tensor is saved as a separated file. The file only contains the raw data..."
        }
    </script>
 

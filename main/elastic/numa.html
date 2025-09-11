@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git80bf883 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git3ad3bfe )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -764,7 +764,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1220,7 +1224,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -3382,11 +3390,12 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../export/ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../export/pt2_archive.html">PT2 Archive Spec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../export/draft_export.html">Draft Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../export/joint_with_descriptors.html">Joint with descriptors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3729,6 +3738,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../onnx_export.html">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_verification.html">torch.onnx.verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../onnx_testing.html">torch.onnx.testing</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../optim.html">torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4388,14 +4398,14 @@ document.write(`
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 25, 2025 | Last Updated On: Aug 12, 2025</p>
 <span class="target" id="module-torch.numa.binding"></span><dl class="py class">
 <dt class="sig sig-object py" id="torch.numa.binding.AffinityMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">AffinityMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80bf883d21ba48898e5fd40a6cbf418fa3ff3f33/torch/numa/binding.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.AffinityMode" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">AffinityMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3ad3bfe11df7bf542885a6dd2dc2ada4ab940e53/torch/numa/binding.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.AffinityMode" title="Permalink to this definition">#</a></dt>
 <dd><p>See behavior description for each affinity mode
 in torch.distributed.run.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.numa.binding.NumaOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">NumaOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affinity_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.numa.binding.AffinityMode" title="torch.numa.binding.AffinityMode"><span class="pre">torch.numa.binding.AffinityMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_fall_back_if_binding_fails</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80bf883d21ba48898e5fd40a6cbf418fa3ff3f33/torch/numa/binding.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.NumaOptions" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">NumaOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affinity_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.numa.binding.AffinityMode" title="torch.numa.binding.AffinityMode"><span class="pre">torch.numa.binding.AffinityMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_fall_back_if_binding_fails</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3ad3bfe11df7bf542885a6dd2dc2ada4ab940e53/torch/numa/binding.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.NumaOptions" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -4410,9 +4420,9 @@ mass rollouts of numa binding.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_process">
-<span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_temporarily_apply_numa_binding_to_current_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80bf883d21ba48898e5fd40a6cbf418fa3ff3f33/torch/numa/binding.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_process" title="Permalink to this definition">#</a></dt>
-<dd><p>1. Applies NUMA binding to the current process, suitable for the process
+<dt class="sig sig-object py" id="torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_thread">
+<span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_temporarily_apply_numa_binding_to_current_thread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3ad3bfe11df7bf542885a6dd2dc2ada4ab940e53/torch/numa/binding.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_thread" title="Permalink to this definition">#</a></dt>
+<dd><p>1. Applies NUMA binding to the current thread, suitable for the thread
 which will be interacting with GPU gpu_index.
 2. Resets to the original CPU affinity before exiting the context manager.</p>
 <dl class="field-list simple">
@@ -4551,7 +4561,7 @@ which will be interacting with GPU gpu_index.
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.NumaOptions.affinity_mode"><code class="docutils literal notranslate"><span class="pre">NumaOptions.affinity_mode</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_process"><code class="docutils literal notranslate"><span class="pre">maybe_temporarily_apply_numa_binding_to_current_process()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_thread"><code class="docutils literal notranslate"><span class="pre">maybe_temporarily_apply_numa_binding_to_current_thread()</span></code></a></li>
 </ul>
   </nav></div>
     
@@ -4773,7 +4783,7 @@ which will be interacting with GPU gpu_index.
          },
         "datePublished": "Jul 25, 2025T00:00:00Z",
          "dateModified": "Aug 12, 2025T00:00:00Z",
-         "articleBody": "NUMA Binding Utilities# Created On: Jul 25, 2025 | Last Updated On: Aug 12, 2025 class torch.numa.binding.AffinityMode(value)[source]# See behavior description for each affinity mode in torch.distributed.run. class torch.numa.binding.NumaOptions(affinity_mode: torch.numa.binding.AffinityMode, should_fall_back_if_binding_fails: bool = False)[source]# affinity_mode: AffinityMode# If true, we will fall back to using the original command/entrypoint if we fail to compute or apply NUMA bindings. You should avoid using this option! It is only intended as a safety mechanism for facilitating mass rollouts of numa binding. torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_process(*, gpu_index, numa_options)[source]# 1. Applies NUMA binding to the current process, suitable for the process which will be interacting with GPU gpu_index. 2. Resets to the original CPU affinity before exiting the context manager. Return type Iterator[None]"
+         "articleBody": "NUMA Binding Utilities# Created On: Jul 25, 2025 | Last Updated On: Aug 12, 2025 class torch.numa.binding.AffinityMode(value)[source]# See behavior description for each affinity mode in torch.distributed.run. class torch.numa.binding.NumaOptions(affinity_mode: torch.numa.binding.AffinityMode, should_fall_back_if_binding_fails: bool = False)[source]# affinity_mode: AffinityMode# If true, we will fall back to using the original command/entrypoint if we fail to compute or apply NUMA bindings. You should avoid using this option! It is only intended as a safety mechanism for facilitating mass rollouts of numa binding. torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_thread(*, gpu_index, numa_options)[source]# 1. Applies NUMA binding to the current thread, suitable for the thread which will be interacting with GPU gpu_index. 2. Resets to the original CPU affinity before exiting the context manager. Return type Iterator[None]"
        }
    </script>
 

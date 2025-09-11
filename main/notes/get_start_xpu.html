@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git80bf883 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git3ad3bfe )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -764,7 +764,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1220,7 +1224,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1657,7 +1665,7 @@ document.write(`
                   
   <div class="section" id="getting-started-on-intel-gpu">
 <h1>Getting Started on Intel GPU<a class="headerlink" href="#getting-started-on-intel-gpu" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 14, 2024 | Last Updated On: Aug 05, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 14, 2024 | Last Updated On: Sep 01, 2025</p>
 <div class="section" id="hardware-prerequisite">
 <h2>Hardware Prerequisite<a class="headerlink" href="#hardware-prerequisite" title="Permalink to this heading">#</a></h2>
 <p>For Intel Data Center GPU</p>
@@ -1697,7 +1705,7 @@ document.write(`
 </thead>
 <tbody>
 <tr class="row-even"><td><div class="line-block">
-<div class="line">Windows 11 &amp; Ubuntu 24.10</div>
+<div class="line">Windows 11 &amp; Ubuntu 24.04/25.04</div>
 <div class="line"><br /></div>
 <div class="line"><br /></div>
 <div class="line"><br /></div>
@@ -1707,21 +1715,6 @@ document.write(`
 <td><div class="line-block">
 <div class="line">Intel® Arc A-Series Graphics (CodeName: Alchemist)</div>
 <div class="line">Intel® Arc B-Series Graphics (CodeName: Battlemage)</div>
-<div class="line">Intel® Core™ Ultra Processors with Intel® Arc™ Graphics (CodeName: Meteor Lake-H)</div>
-<div class="line">Intel® Core™ Ultra Desktop Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Lunar Lake)</div>
-<div class="line">Intel® Core™ Ultra Mobile Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Arrow Lake-H)</div>
-</div>
-</td>
-</tr>
-<tr class="row-odd"><td><div class="line-block">
-<div class="line">Ubuntu 24.04 &amp; WSL2 (Ubuntu 24.04)</div>
-<div class="line"><br /></div>
-<div class="line"><br /></div>
-<div class="line"><br /></div>
-</div>
-</td>
-<td><div class="line-block">
-<div class="line">Intel® Arc A-Series Graphics (CodeName: Alchemist)</div>
 <div class="line">Intel® Core™ Ultra Processors with Intel® Arc™ Graphics (CodeName: Meteor Lake-H)</div>
 <div class="line">Intel® Core™ Ultra Desktop Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Lunar Lake)</div>
 <div class="line">Intel® Core™ Ultra Mobile Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Arrow Lake-H)</div>
@@ -2421,8 +2414,8 @@ document.write(`
            "@id": "/notes/get_start_xpu.html"
          },
         "datePublished": "Jun 14, 2024T00:00:00Z",
-         "dateModified": "Aug 05, 2025T00:00:00Z",
-         "articleBody": "Getting Started on Intel GPU# Created On: Jun 14, 2024 | Last Updated On: Aug 05, 2025 Hardware Prerequisite# For Intel Data Center GPU Device Red Hat* Enterprise Linux* 9.2 SUSE Linux Enterprise Server* 15 SP5 Ubuntu* Server 22.04 (&gt;= 5.15 LTS kernel) Intel® Data Center GPU Max Series (CodeName: Ponte Vecchio) yes yes yes For Intel Client GPU Supported OS Validated Hardware Windows 11 &amp; Ubuntu 24.10 Intel® Arc A-Series Graphics (CodeName: Alchemist) Intel® Arc B-Series Graphics (CodeName: Battlemage) Intel® Core™ Ultra Processors with Intel® Arc™ Graphics (CodeName: Meteor Lake-H) Intel® Core™ Ultra Desktop Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Lunar Lake) Intel® Core™ Ultra Mobile Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Arrow Lake-H) Ubuntu 24.04 &amp; WSL2 (Ubuntu 24.04) Intel® Arc A-Series Graphics (CodeName: Alchemist) Intel® Core™ Ultra Processors with Intel® Arc™ Graphics (CodeName: Meteor Lake-H) Intel® Core™ Ultra Desktop Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Lunar Lake) Intel® Core™ Ultra Mobile Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Arrow Lake-H) Intel GPUs support (Prototype) is ready from PyTorch* 2.5 for Intel® Client GPUs and Intel® Data Center GPU Max Series on both Linux and Windows, which brings Intel GPUs and the SYCL* software stack into the official PyTorch stack with consistent user experience to embrace more AI application scenarios. Software Prerequisite# To use PyTorch on Intel GPUs, you need to install the Intel GPUs driver first. For installation guide, visit Intel GPUs Driver Installation. Please skip the Intel® Deep Learning Essentials installation section if you install from binaries. For building from source, please refer to PyTorch Installation Prerequisites for Intel GPUs for both Intel GPU Driver and Intel® Deep Learning Essentials Installation. Installation# Binaries# Now that we have Intel GPU Driver installed, use the following commands to install pytorch, torchvision, torchaudio. For release wheels pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/xpu For nightly wheels pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/xpu From Source# Now that we have Intel GPU Driver and Intel® Deep Learning Essentials installed. Follow guides to build pytorch, torchvision, torchaudio from source. Build from source for torch refer to PyTorch Installation Build from source. Build from source for torchvision refer to Torchvision Installation Build from source. Build from source for torchaudio refer to Torchaudio Installation Build from source. Check availability for Intel GPU# To check if your Intel GPU is available, you would typically use the following code: import torch print(torch.xpu.is_available()) # torch.xpu is the API for Intel GPU support If the output is False, double check driver installation for Intel GPUs. Minimum Code Change# If you are migrating..."
+         "dateModified": "Sep 01, 2025T00:00:00Z",
+         "articleBody": "Getting Started on Intel GPU# Created On: Jun 14, 2024 | Last Updated On: Sep 01, 2025 Hardware Prerequisite# For Intel Data Center GPU Device Red Hat* Enterprise Linux* 9.2 SUSE Linux Enterprise Server* 15 SP5 Ubuntu* Server 22.04 (&gt;= 5.15 LTS kernel) Intel® Data Center GPU Max Series (CodeName: Ponte Vecchio) yes yes yes For Intel Client GPU Supported OS Validated Hardware Windows 11 &amp; Ubuntu 24.04/25.04 Intel® Arc A-Series Graphics (CodeName: Alchemist) Intel® Arc B-Series Graphics (CodeName: Battlemage) Intel® Core™ Ultra Processors with Intel® Arc™ Graphics (CodeName: Meteor Lake-H) Intel® Core™ Ultra Desktop Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Lunar Lake) Intel® Core™ Ultra Mobile Processors (Series 2) with Intel® Arc™ Graphics (CodeName: Arrow Lake-H) Intel GPUs support (Prototype) is ready from PyTorch* 2.5 for Intel® Client GPUs and Intel® Data Center GPU Max Series on both Linux and Windows, which brings Intel GPUs and the SYCL* software stack into the official PyTorch stack with consistent user experience to embrace more AI application scenarios. Software Prerequisite# To use PyTorch on Intel GPUs, you need to install the Intel GPUs driver first. For installation guide, visit Intel GPUs Driver Installation. Please skip the Intel® Deep Learning Essentials installation section if you install from binaries. For building from source, please refer to PyTorch Installation Prerequisites for Intel GPUs for both Intel GPU Driver and Intel® Deep Learning Essentials Installation. Installation# Binaries# Now that we have Intel GPU Driver installed, use the following commands to install pytorch, torchvision, torchaudio. For release wheels pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/xpu For nightly wheels pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/xpu From Source# Now that we have Intel GPU Driver and Intel® Deep Learning Essentials installed. Follow guides to build pytorch, torchvision, torchaudio from source. Build from source for torch refer to PyTorch Installation Build from source. Build from source for torchvision refer to Torchvision Installation Build from source. Build from source for torchaudio refer to Torchaudio Installation Build from source. Check availability for Intel GPU# To check if your Intel GPU is available, you would typically use the following code: import torch print(torch.xpu.is_available()) # torch.xpu is the API for Intel GPU support If the output is False, double check driver installation for Intel GPUs. Minimum Code Change# If you are migrating code from cuda, you would change references from cuda to xpu. For example: # CUDA CODE tensor = torch.tensor([1.0, 2.0]).to(\&#34;cuda\&#34;) # CODE for Intel GPU tensor = torch.tensor([1.0, 2.0]).to(\&#34;xpu\&#34;) The following points outline the support and limitations for PyTorch with Intel GPU: Both training and inference workflows are supported. Both eager mode and tor..."
        }
    </script>
 

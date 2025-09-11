@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git80bf883 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git3ad3bfe )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -764,7 +764,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1220,7 +1224,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1561,6 +1569,13 @@ document.write(`
 </ul>
 </details></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Accelerator Integration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../accelerator/index.html">Accelerator Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../accelerator/operators.html">Operator Registration</a></li>
+</ul>
+</details></li>
+</ul>
 </div>
 </nav></div>
     </div>
@@ -1653,7 +1668,7 @@ document.write(`
                   
   <div class="section" id="user-guide">
 <h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Aug 13, 2025 | Last Updated On: Aug 13, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Aug 13, 2025 | Last Updated On: Sep 02, 2025</p>
 <p>PyTorch provides a flexible and efficient platform for building deep
 learning models, offering dynamic computation graphs and a rich
 ecosystem of tools and libraries. This guide will help you harness the power
@@ -1682,6 +1697,12 @@ of PyTorch to create and deploy machine learning models effectively.</p>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../notes.html">Developer Notes</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Accelerator Integration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../accelerator/index.html">Accelerator Integration</a></li>
 </ul>
 </div>
 </div>
@@ -2017,8 +2038,8 @@ of PyTorch to create and deploy machine learning models effectively.</p>
            "@id": "/user_guide/index.html"
          },
         "datePublished": "Aug 13, 2025T00:00:00Z",
-         "dateModified": "Aug 13, 2025T00:00:00Z",
-         "articleBody": "User Guide# Created On: Aug 13, 2025 | Last Updated On: Aug 13, 2025 PyTorch provides a flexible and efficient platform for building deep learning models, offering dynamic computation graphs and a rich ecosystem of tools and libraries. This guide will help you harness the power of PyTorch to create and deploy machine learning models effectively. Note This guide is a work in progress. Introduction Pytorch Overview Get Started Learn the Basics Core Concepts PyTorch Main Components Developer Notes Developer Notes"
+         "dateModified": "Sep 02, 2025T00:00:00Z",
+         "articleBody": "User Guide# Created On: Aug 13, 2025 | Last Updated On: Sep 02, 2025 PyTorch provides a flexible and efficient platform for building deep learning models, offering dynamic computation graphs and a rich ecosystem of tools and libraries. This guide will help you harness the power of PyTorch to create and deploy machine learning models effectively. Note This guide is a work in progress. Introduction Pytorch Overview Get Started Learn the Basics Core Concepts PyTorch Main Components Developer Notes Developer Notes Accelerator Integration Accelerator Integration"
        }
    </script>
 

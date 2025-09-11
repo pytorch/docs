@@ -135,7 +135,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git80bf883 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git3ad3bfe )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -766,7 +766,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1222,7 +1226,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1659,7 +1667,7 @@ document.write(`
                   
   <div class="section" id="cuda-semantics">
 <span id="id1"></span><h1>CUDA semantics<a class="headerlink" href="#cuda-semantics" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 16, 2017 | Last Updated On: Aug 07, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 16, 2017 | Last Updated On: Sep 04, 2025</p>
 <p><a class="reference internal" href="../cuda.html#module-torch.cuda" title="torch.cuda"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.cuda</span></code></a> is used to set up and run CUDA operations. It keeps track of
 the currently selected GPU, and all CUDA tensors you allocate will by default be
 created on that device. The selected device can be changed with a
@@ -2183,6 +2191,13 @@ benchmarking results.</p></li>
 <li><p><cite>pinned_use_background_threads</cite> option is a boolean flag to enable background thread
 for processing events. This avoids any slow path associated with querying/processing of
 events in the fast allocation path. This feature is disabled by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">graph_capture_record_stream_reuse</span></code> (experimental, default: <cite>False</cite>)
+If set to <cite>True</cite>, the CUDA caching allocator will attempt to reclaim device memory during
+CUDA Graph capture by using the graph topology (instead of CUDA events) to determine
+when a freed block is safe to reuse. This can reduce peak memory during long captures that free
+and reallocate buffers across multiple streams, especially when the capture DAG frequently
+reaches joined frontiers. Note: Enabling this option can significantly increase the time spent
+capturing the graph.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3562,8 +3577,8 @@ or if they’ll run concurrently, passing them as a tuple to a single invocation
            "@id": "/notes/cuda.html"
          },
         "datePublished": "Jan 16, 2017T00:00:00Z",
-         "dateModified": "Aug 07, 2025T00:00:00Z",
-         "articleBody": "CUDA semantics# Created On: Jan 16, 2017 | Last Updated On: Aug 07, 2025 torch.cuda is used to set up and run CUDA operations. It keeps track of the currently selected GPU, and all CUDA tensors you allocate will by default be created on that device. The selected device can be changed with a torch.cuda.device context manager. However, once a tensor is allocated, you can do operations on it irrespective of the selected device, and the results will be always placed on the same device as the tensor. Cross-GPU operations are not allowed by default, with the exception of copy_() and other methods with copy-like functionality such as to() and cuda(). Unless you enable peer-to-peer memory access, any attempts to launch ops on tensors spread across different devices will raise an error. Below you can find a small example showcasing this: cuda = torch.device(&#39;cuda&#39;) # Default CUDA device cuda0 = torch.device(&#39;cuda:0&#39;) cuda2 = torch.device(&#39;cuda:2&#39;) # GPU 2 (these are 0-indexed) x = torch.tensor([1., 2.], device=cuda0) # x.device is device(type=&#39;cuda&#39;, index=0) y = torch.tensor([1., 2.]).cuda() # y.device is device(type=&#39;cuda&#39;, index=0) with torch.cuda.device(1): # allocates a tensor on GPU 1 a = torch.tensor([1., 2.], device=cuda) # transfers a tensor from CPU to GPU 1 b = torch.tensor([1., 2.]).cuda() # a.device and b.device are device(type=&#39;cuda&#39;, index=1) # You can also use ``Tensor.to`` to transfer a tensor: b2 = torch.tensor([1., 2.]).to(device=cuda) # b.device and b2.device are device(type=&#39;cuda&#39;, index=1) c = a + b # c.device is device(type=&#39;cuda&#39;, index=1) z = x + y # z.device is device(type=&#39;cuda&#39;, index=0) # even within a context, you can specify the device # (or give a GPU index to the .cuda call) d = torch.randn(2, device=cuda2) e = torch.randn(2).to(cuda2) f = torch.randn(2).cuda(cuda2) # d.device, e.device, and f.device are all device(type=&#39;cuda&#39;, index=2) TensorFloat-32 (TF32) on Ampere (and later) devices# After Pytorch 2.9, we provide a new sets of APIs to control the TF32 behavior in a more fine-grained way, and suggest to use the new APIs for better control. We can set float32 precision per backend and per operators. We can also override the global setting for a specific operator. torch.backends.fp32_precision = \&#34;ieee\&#34; torch.backends.cuda.matmul.fp32_precision = \&#34;ieee\&#34; torch.backends.cudnn.fp32_precision = \&#34;ieee\&#34; torch.backends.cudnn.conv.fp32_precision = \&#34;tf32\&#34; torch.backends.cudnn.rnn.fp32_precision = \&#34;tf32\&#34; The fp32_precision can be set to ieee or tf32 for cuda/cudnn. ieee fp32_precision indicate that we will use FP32 as internal computation precision. tf32 fp32_precision indicate that we will allow to use TF32 as internal computation precision. We can override a generic setting for a specific operator if the fp32_precision is set to ieee. torch.backends.cudnn.fp32_precision = \&#34;tf32\&#34; torch.backends.cudnn.conv.fp32_precision = \&#34;ieee\&#34; torch.backends.cudnn.rnn.fp32_precision = \&#34;ieee\&#34; We can also override a generic setting for a specif..."
+         "dateModified": "Sep 04, 2025T00:00:00Z",
+         "articleBody": "CUDA semantics# Created On: Jan 16, 2017 | Last Updated On: Sep 04, 2025 torch.cuda is used to set up and run CUDA operations. It keeps track of the currently selected GPU, and all CUDA tensors you allocate will by default be created on that device. The selected device can be changed with a torch.cuda.device context manager. However, once a tensor is allocated, you can do operations on it irrespective of the selected device, and the results will be always placed on the same device as the tensor. Cross-GPU operations are not allowed by default, with the exception of copy_() and other methods with copy-like functionality such as to() and cuda(). Unless you enable peer-to-peer memory access, any attempts to launch ops on tensors spread across different devices will raise an error. Below you can find a small example showcasing this: cuda = torch.device(&#39;cuda&#39;) # Default CUDA device cuda0 = torch.device(&#39;cuda:0&#39;) cuda2 = torch.device(&#39;cuda:2&#39;) # GPU 2 (these are 0-indexed) x = torch.tensor([1., 2.], device=cuda0) # x.device is device(type=&#39;cuda&#39;, index=0) y = torch.tensor([1., 2.]).cuda() # y.device is device(type=&#39;cuda&#39;, index=0) with torch.cuda.device(1): # allocates a tensor on GPU 1 a = torch.tensor([1., 2.], device=cuda) # transfers a tensor from CPU to GPU 1 b = torch.tensor([1., 2.]).cuda() # a.device and b.device are device(type=&#39;cuda&#39;, index=1) # You can also use ``Tensor.to`` to transfer a tensor: b2 = torch.tensor([1., 2.]).to(device=cuda) # b.device and b2.device are device(type=&#39;cuda&#39;, index=1) c = a + b # c.device is device(type=&#39;cuda&#39;, index=1) z = x + y # z.device is device(type=&#39;cuda&#39;, index=0) # even within a context, you can specify the device # (or give a GPU index to the .cuda call) d = torch.randn(2, device=cuda2) e = torch.randn(2).to(cuda2) f = torch.randn(2).cuda(cuda2) # d.device, e.device, and f.device are all device(type=&#39;cuda&#39;, index=2) TensorFloat-32 (TF32) on Ampere (and later) devices# After Pytorch 2.9, we provide a new sets of APIs to control the TF32 behavior in a more fine-grained way, and suggest to use the new APIs for better control. We can set float32 precision per backend and per operators. We can also override the global setting for a specific operator. torch.backends.fp32_precision = \&#34;ieee\&#34; torch.backends.cuda.matmul.fp32_precision = \&#34;ieee\&#34; torch.backends.cudnn.fp32_precision = \&#34;ieee\&#34; torch.backends.cudnn.conv.fp32_precision = \&#34;tf32\&#34; torch.backends.cudnn.rnn.fp32_precision = \&#34;tf32\&#34; The fp32_precision can be set to ieee or tf32 for cuda/cudnn. ieee fp32_precision indicate that we will use FP32 as internal computation precision. tf32 fp32_precision indicate that we will allow to use TF32 as internal computation precision. We can override a generic setting for a specific operator if the fp32_precision is set to ieee. torch.backends.cudnn.fp32_precision = \&#34;tf32\&#34; torch.backends.cudnn.conv.fp32_precision = \&#34;ieee\&#34; torch.backends.cudnn.rnn.fp32_precision = \&#34;ieee\&#34; We can also override a generic setting for a specif..."
        }
    </script>
 

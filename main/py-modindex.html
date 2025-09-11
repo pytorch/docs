@@ -140,7 +140,7 @@ window.addEventListener("load", () => mermaid.run());
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git80bf883 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git3ad3bfe )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -773,7 +773,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1227,7 +1231,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1613,6 +1621,11 @@ document.write(`
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="future_mod.html#module-torch.__future__"><code class="xref">torch.__future__</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="export/joint_with_descriptors.html#module-torch._functorch._aot_autograd.fx_utils"><code class="xref">torch._functorch._aot_autograd.fx_utils</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
@@ -2798,6 +2811,11 @@ document.write(`
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="distributed.html#module-torch.distributed.checkpoint.planner_helpers"><code class="xref">torch.distributed.checkpoint.planner_helpers</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="distributed.html#module-torch.distributed.checkpoint.quantized_hf_storage"><code class="xref">torch.distributed.checkpoint.quantized_hf_storage</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
@@ -4923,6 +4941,11 @@ document.write(`
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="onnx.html#module-torch.onnx.symbolic_opset9"><code class="xref">torch.onnx.symbolic_opset9</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="onnx_testing.html#module-torch.onnx.testing"><code class="xref">torch.onnx.testing</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>

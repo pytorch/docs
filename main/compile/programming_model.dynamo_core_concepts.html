@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git80bf883 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git3ad3bfe )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -764,7 +764,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1220,7 +1224,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -3382,11 +3390,12 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../export/ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../export/pt2_archive.html">PT2 Archive Spec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../export/draft_export.html">Draft Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../export/joint_with_descriptors.html">Joint with descriptors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3729,6 +3738,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../onnx_export.html">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_verification.html">torch.onnx.verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../onnx_testing.html">torch.onnx.testing</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../optim.html">torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4453,12 +4463,12 @@ If you’re not getting the speedups you expect, we recommend checking for graph
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([2.0678e-10, 3.3423e+00, 1.5175e-02])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0.0028, 1.0537, 0.4990])
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_701/215272159.py:4
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_695/215272159.py:4
 Graph Break Reason: Attempted to call function marked as skipped
-  Explanation: Dynamo developers have intentionally marked that the function `save` in file `/opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/serialization.py` should not be traced.
+  Explanation: Dynamo developers have intentionally marked that the function `save` in file `/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py` should not be traced.
   Hint: Avoid calling the function `save`.
   Hint: Apply `@torch._dynamo.dont_skip_tracing` to the function `save` to force tracing into the function. More graph breaks may occur as a result of attempting to trace into the function.
   Hint: Please file an issue to PyTorch.
@@ -4467,53 +4477,53 @@ Graph Break Reason: Attempted to call function marked as skipped
 
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0007.html
 User code traceback:
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/runpy.py&quot;, line 197, in _run_module_as_main
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 196, in _run_module_as_main
     return _run_code(code, main_globals, None,
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/runpy.py&quot;, line 87, in _run_code
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 86, in _run_code
     exec(code, run_globals)
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel_launcher.py&quot;, line 18, in &lt;module&gt;
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py&quot;, line 18, in &lt;module&gt;
     app.launch_new_instance()
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/traitlets/config/application.py&quot;, line 1075, in launch_instance
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py&quot;, line 1075, in launch_instance
     app.start()
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelapp.py&quot;, line 739, in start
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py&quot;, line 739, in start
     self.io_loop.start()
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/tornado/platform/asyncio.py&quot;, line 211, in start
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py&quot;, line 211, in start
     self.asyncio_loop.run_forever()
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/base_events.py&quot;, line 601, in run_forever
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py&quot;, line 603, in run_forever
     self._run_once()
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/base_events.py&quot;, line 1905, in _run_once
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py&quot;, line 1909, in _run_once
     handle._run()
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/asyncio/events.py&quot;, line 80, in _run
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py&quot;, line 80, in _run
     self._context.run(self._callback, *self._args)
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py&quot;, line 519, in dispatch_queue
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 519, in dispatch_queue
     await self.process_one()
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py&quot;, line 508, in process_one
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 508, in process_one
     await dispatch(*args)
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py&quot;, line 400, in dispatch_shell
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 400, in dispatch_shell
     await result
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/ipkernel.py&quot;, line 368, in execute_request
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 368, in execute_request
     await super().execute_request(stream, ident, parent)
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/kernelbase.py&quot;, line 767, in execute_request
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py&quot;, line 767, in execute_request
     reply_content = await reply_content
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/ipkernel.py&quot;, line 455, in do_execute
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py&quot;, line 455, in do_execute
     res = shell.run_cell(
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/ipykernel/zmqshell.py&quot;, line 577, in run_cell
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py&quot;, line 577, in run_cell
     return super().run_cell(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/IPython/core/interactiveshell.py&quot;, line 3006, in run_cell
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3006, in run_cell
     result = self._run_cell(
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/IPython/core/interactiveshell.py&quot;, line 3061, in _run_cell
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3061, in _run_cell
     result = runner(coro)
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/IPython/core/async_helpers.py&quot;, line 129, in _pseudo_sync_runner
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/async_helpers.py&quot;, line 129, in _pseudo_sync_runner
     coro.send(None)
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/IPython/core/interactiveshell.py&quot;, line 3266, in run_cell_async
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3266, in run_cell_async
     has_raised = await self.run_ast_nodes(code_ast.body, cell_name,
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/IPython/core/interactiveshell.py&quot;, line 3445, in run_ast_nodes
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3445, in run_ast_nodes
     if await self.run_code(code, result, async_=asy):
-  File &quot;/opt/conda/envs/py_3.9/lib/python3.9/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_701/215272159.py&quot;, line 9, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_695/215272159.py&quot;, line 9, in &lt;module&gt;
     print(f(x))
-  File &quot;/tmp/ipykernel_701/215272159.py&quot;, line 4, in f
+  File &quot;/tmp/ipykernel_695/215272159.py&quot;, line 4, in f
     torch.save(y, &quot;foo.pt&quot;)  # torch.save is an unsupported operation
 </pre></div>
 </div>
@@ -4560,15 +4570,15 @@ can reuse previously compiled code. Examples of runtime checks are constant valu
 
 TREE_GUARD_MANAGER:
 +- RootGuardManager
-| +- LAMBDA_GUARD: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:670 in init_ambient_guards
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:658 in init_ambient_guards
+| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:692 in init_ambient_guards
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:680 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 | +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=0), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
-| | +- TENSOR_MATCH: check_tensor(L[&#39;x&#39;], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[3, 3], stride=[3, 1])  # return x + 1  # mp/ipykernel_701/1068332425.py:3 in fn
-| | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # return x + 1  # mp/ipykernel_701/1068332425.py:3 in fn
+| | +- TENSOR_MATCH: check_tensor(L[&#39;x&#39;], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[3, 3], stride=[3, 1])  # return x + 1  # mp/ipykernel_695/1068332425.py:3 in fn
+| | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # return x + 1  # mp/ipykernel_695/1068332425.py:3 in fn
 
-Guard eval latency = 138.46 us
+Guard eval latency = 53.10 us
 </pre></div>
 </div>
 </div>
@@ -4599,7 +4609,7 @@ tensor([[2., 2., 2., 2.],
         [2., 2., 2., 2.]])
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recompiling function fn in /tmp/ipykernel_701/420870727.py:1
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recompiling function fn in /tmp/ipykernel_695/420870727.py:1
     triggered by the following guard failure(s):
     - 3/0: tensor &#39;x&#39; size mismatch at index 0. expected 3, actual 4
 </pre></div>
@@ -4636,7 +4646,7 @@ tensor([[2., 2., 2., 2.],
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>create_env
-create_symbol s77 = 3 for L[&#39;x&#39;].size()[0] [2, int_oo] return x + 1  # mp/ipykernel_701/1458103805.py:3 in fn (_dynamo/variables/builder.py:3504 in &lt;lambda&gt;), for more info run with TORCHDYNAMO_EXTENDED_DEBUG_CREATE_SYMBOL=&quot;s77&quot; or to suppress this message run with TORCHDYNAMO_EXTENDED_ADVICE=&quot;0&quot;
+create_symbol s77 = 3 for L[&#39;x&#39;].size()[0] [2, int_oo] return x + 1  # mp/ipykernel_695/1458103805.py:3 in fn (_dynamo/variables/builder.py:3508 in &lt;lambda&gt;), for more info run with TORCHDYNAMO_EXTENDED_DEBUG_CREATE_SYMBOL=&quot;s77&quot; or to suppress this message run with TORCHDYNAMO_EXTENDED_ADVICE=&quot;0&quot;
 create_symbol s77 duck sized L[&#39;x&#39;].size()[1]
 eval False == False [statically known]
 eval False == False [statically known]
@@ -5004,7 +5014,7 @@ Skipping guard L[&#39;x&#39;].storage_offset() == 0
          },
         "datePublished": "Jul 28, 2025T00:00:00Z",
          "dateModified": "Jul 28, 2025T00:00:00Z",
-         "articleBody": "Dynamo Core Concepts# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 Summary: Dynamo, torch.compile’s frontend, performs tracing to capture the semantics of a Python function (and its nested function calls) into a linear sequence of operations (the “(FX) graph”), residual bytecode, and “guards” (a list of conditions under which the graph and bytecode are valid). Unsupported Python features lead to graph breaks, where Dynamo compiles a partial graph acquired from tracing, then runs the unsupported code, then resumes tracing. Graph breaks may lead to slowness in torch.compile and prevent backend optimization opportunities. If you’re not seeing the performance you expect, then check for graph breaks. Dynamo Tracing# torch.compile’s frontend (Dynamo) is a custom Python bytecode interpreter designed to allow graph compilation in PyTorch programs while retaining the full flexibility of Python. Given a function to be compiled, Dynamo interprets Python bytecode to extract sequences of PyTorch operations into 1 or more FX graphs that may be further optimized by a backend. For example, for the function f in the above diagram, Dynamo produces: a single FX graph that takes in the original input plus some additional inputs required by the function. Python bytecode that can be used as a drop-in replacement for f. In our example, the bytecode retrieves the additional inputs and passes it to the graph and also contains unoptimizable Python side effects (the list append) guards that specify the conditions under which the graph and bytecode are valid. Unless otherwise specified, the graph produced by Dynamo specializes on the shapes of input Tensors. Graph Breaks# Dynamo traces your code and attempts to capture your PyTorch code into a single computation graph of PyTorch operators (FX graph). However, this is not always possible. When encountering code that can’t be traced, a “graph break” occurs. In the default torch.compile settings, a graph break involves compiling the FX graph that has been determined so far, running the unsupported code in regular Python, then resuming tracing after the unsupported code with a new FX graph. Graph breaks are a feature that allows Dynamo to run over arbitrary Python code and carve out functional subgraphs that can each be individually optimized. However, it is possible for graph breaks to lead to unexpected slowness in torch.compile. If you’re not getting the speedups you expect, we recommend checking for graph breaks and removing them. Graph breaks may occur on things like: Data-dependent if-statements Many Python built-in functions C functions Below is an example of a graph break due to calling an unsupported operation torch.save: @torch.compile def f(x): y = x ** 2 / 2 torch.save(y, \&#34;foo.pt\&#34;) # torch.save is an unsupported operation z = y ** 3 / 6 return z x = torch.randn(3) print(f(x)) tensor([2.0678e-10, 3.3423e+00, 1.5175e-02]) Graph break in user code at /tmp/ipykernel_701/215272159.py:4 Graph Break Reason: ..."
+         "articleBody": "Dynamo Core Concepts# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 Summary: Dynamo, torch.compile’s frontend, performs tracing to capture the semantics of a Python function (and its nested function calls) into a linear sequence of operations (the “(FX) graph”), residual bytecode, and “guards” (a list of conditions under which the graph and bytecode are valid). Unsupported Python features lead to graph breaks, where Dynamo compiles a partial graph acquired from tracing, then runs the unsupported code, then resumes tracing. Graph breaks may lead to slowness in torch.compile and prevent backend optimization opportunities. If you’re not seeing the performance you expect, then check for graph breaks. Dynamo Tracing# torch.compile’s frontend (Dynamo) is a custom Python bytecode interpreter designed to allow graph compilation in PyTorch programs while retaining the full flexibility of Python. Given a function to be compiled, Dynamo interprets Python bytecode to extract sequences of PyTorch operations into 1 or more FX graphs that may be further optimized by a backend. For example, for the function f in the above diagram, Dynamo produces: a single FX graph that takes in the original input plus some additional inputs required by the function. Python bytecode that can be used as a drop-in replacement for f. In our example, the bytecode retrieves the additional inputs and passes it to the graph and also contains unoptimizable Python side effects (the list append) guards that specify the conditions under which the graph and bytecode are valid. Unless otherwise specified, the graph produced by Dynamo specializes on the shapes of input Tensors. Graph Breaks# Dynamo traces your code and attempts to capture your PyTorch code into a single computation graph of PyTorch operators (FX graph). However, this is not always possible. When encountering code that can’t be traced, a “graph break” occurs. In the default torch.compile settings, a graph break involves compiling the FX graph that has been determined so far, running the unsupported code in regular Python, then resuming tracing after the unsupported code with a new FX graph. Graph breaks are a feature that allows Dynamo to run over arbitrary Python code and carve out functional subgraphs that can each be individually optimized. However, it is possible for graph breaks to lead to unexpected slowness in torch.compile. If you’re not getting the speedups you expect, we recommend checking for graph breaks and removing them. Graph breaks may occur on things like: Data-dependent if-statements Many Python built-in functions C functions Below is an example of a graph break due to calling an unsupported operation torch.save: @torch.compile def f(x): y = x ** 2 / 2 torch.save(y, \&#34;foo.pt\&#34;) # torch.save is an unsupported operation z = y ** 3 / 6 return z x = torch.randn(3) print(f(x)) tensor([0.0028, 1.0537, 0.4990]) Graph break in user code at /tmp/ipykernel_695/215272159.py:4 Graph Break Reason: Attempted to..."
        }
    </script>
 

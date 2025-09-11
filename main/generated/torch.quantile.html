@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git80bf883 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git3ad3bfe )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -764,7 +764,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1220,7 +1224,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -3382,11 +3390,12 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../export/ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../export/pt2_archive.html">PT2 Archive Spec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../export/draft_export.html">Draft Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../export/joint_with_descriptors.html">Joint with descriptors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3729,6 +3738,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../onnx_export.html">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_verification.html">torch.onnx.verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../onnx_testing.html">torch.onnx.testing</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../optim.html">torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4397,7 +4407,7 @@ indices <code class="docutils literal notranslate"><span class="pre">i</span></c
 <li><p><code class="docutils literal notranslate"><span class="pre">linear</span></code>: <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+</span> <span class="pre">(b</span> <span class="pre">-</span> <span class="pre">a)</span> <span class="pre">*</span> <span class="pre">fraction</span></code>, where <code class="docutils literal notranslate"><span class="pre">fraction</span></code> is the fractional part of the computed quantile index.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">lower</span></code>: <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">higher</span></code>: <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nearest</span></code>: <code class="docutils literal notranslate"><span class="pre">a</span></code> or <code class="docutils literal notranslate"><span class="pre">b</span></code>, whichever’s index is closer to the computed quantile index (rounding down for .5 fractions).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nearest</span></code>: <code class="docutils literal notranslate"><span class="pre">a</span></code> or <code class="docutils literal notranslate"><span class="pre">b</span></code>, whichever’s index is closer to the computed quantile index (follows <a class="reference internal" href="torch.round.html#torch.round" title="torch.round"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.round()</span></code></a>).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">midpoint</span></code>: <code class="docutils literal notranslate"><span class="pre">(a</span> <span class="pre">+</span> <span class="pre">b)</span> <span class="pre">/</span> <span class="pre">2</span></code>.</p></li>
 </ul>
 <p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">q</span></code> is a 1D tensor, the first dimension of the output represents the quantiles and has size
@@ -4417,7 +4427,7 @@ equal to the size of <code class="xref py py-attr docutils literal notranslate">
 </dd>
 <dt class="field-even">Keyword Arguments</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – interpolation method to use when the desired quantile lies between two data points.
+<li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – interpolation method to use when the desired quantile lies between two data points.
 Can be <code class="docutils literal notranslate"><span class="pre">linear</span></code>, <code class="docutils literal notranslate"><span class="pre">lower</span></code>, <code class="docutils literal notranslate"><span class="pre">higher</span></code>, <code class="docutils literal notranslate"><span class="pre">midpoint</span></code> and <code class="docutils literal notranslate"><span class="pre">nearest</span></code>.
 Default is <code class="docutils literal notranslate"><span class="pre">linear</span></code>.</p></li>
 <li><p><strong>out</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><em>optional</em>) – the output tensor.</p></li>
@@ -4790,7 +4800,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">linear</
          },
         "datePublished": "",
          "dateModified": "",
-         "articleBody": "torch.quantile# torch.quantile(input, q, dim=None, keepdim=False, *, interpolation=&#39;linear&#39;, out=None) → Tensor# Computes the q-th quantiles of each row of the input tensor along the dimension dim. To compute the quantile, we map q in [0, 1] to the range of indices [0, n] to find the location of the quantile in the sorted input. If the quantile lies between two data points a &lt; b with indices i and j in the sorted order, result is computed according to the given interpolation method as follows: linear: a + (b - a) * fraction, where fraction is the fractional part of the computed quantile index. lower: a. higher: b. nearest: a or b, whichever’s index is closer to the computed quantile index (rounding down for .5 fractions). midpoint: (a + b) / 2. If q is a 1D tensor, the first dimension of the output represents the quantiles and has size equal to the size of q, the remaining dimensions are what remains from the reduction. Note By default dim is None resulting in the input tensor being flattened before computation. Parameters input (Tensor) – the input tensor. q (float or Tensor) – a scalar or 1D tensor of values in the range [0, 1]. dim (int, optional) – the dimension to reduce. keepdim (bool, optional) – whether the output tensor has dim retained or not. Default: False. Keyword Arguments interpolation (str) – interpolation method to use when the desired quantile lies between two data points. Can be linear, lower, higher, midpoint and nearest. Default is linear. out (Tensor, optional) – the output tensor. Example: &gt;&gt;&gt; a = torch.randn(2, 3) &gt;&gt;&gt; a tensor([[ 0.0795, -1.2117, 0.9765], [ 1.1707, 0.6706, 0.4884]]) &gt;&gt;&gt; q = torch.tensor([0.25, 0.5, 0.75]) &gt;&gt;&gt; torch.quantile(a, q, dim=1, keepdim=True) tensor([[[-0.5661], [ 0.5795]], [[ 0.0795], [ 0.6706]], [[ 0.5280], [ 0.9206]]]) &gt;&gt;&gt; torch.quantile(a, q, dim=1, keepdim=True).shape torch.Size([3, 2, 1]) &gt;&gt;&gt; a = torch.arange(4.) &gt;&gt;&gt; a tensor([0., 1., 2., 3.]) &gt;&gt;&gt; torch.quantile(a, 0.6, interpolation=&#39;linear&#39;) tensor(1.8000) &gt;&gt;&gt; torch.quantile(a, 0.6, interpolation=&#39;lower&#39;) tensor(1.) &gt;&gt;&gt; torch.quantile(a, 0.6, interpolation=&#39;higher&#39;) tensor(2.) &gt;&gt;&gt; torch.quantile(a, 0.6, interpolation=&#39;midpoint&#39;) tensor(1.5000) &gt;&gt;&gt; torch.quantile(a, 0.6, interpolation=&#39;nearest&#39;) tensor(2.) &gt;&gt;&gt; torch.quantile(a, 0.4, interpolation=&#39;nearest&#39;) tensor(1.)"
+         "articleBody": "torch.quantile# torch.quantile(input, q, dim=None, keepdim=False, *, interpolation=&#39;linear&#39;, out=None) → Tensor# Computes the q-th quantiles of each row of the input tensor along the dimension dim. To compute the quantile, we map q in [0, 1] to the range of indices [0, n] to find the location of the quantile in the sorted input. If the quantile lies between two data points a &lt; b with indices i and j in the sorted order, result is computed according to the given interpolation method as follows: linear: a + (b - a) * fraction, where fraction is the fractional part of the computed quantile index. lower: a. higher: b. nearest: a or b, whichever’s index is closer to the computed quantile index (follows torch.round()). midpoint: (a + b) / 2. If q is a 1D tensor, the first dimension of the output represents the quantiles and has size equal to the size of q, the remaining dimensions are what remains from the reduction. Note By default dim is None resulting in the input tensor being flattened before computation. Parameters input (Tensor) – the input tensor. q (float or Tensor) – a scalar or 1D tensor of values in the range [0, 1]. dim (int, optional) – the dimension to reduce. keepdim (bool, optional) – whether the output tensor has dim retained or not. Default: False. Keyword Arguments interpolation (str, optional) – interpolation method to use when the desired quantile lies between two data points. Can be linear, lower, higher, midpoint and nearest. Default is linear. out (Tensor, optional) – the output tensor. Example: &gt;&gt;&gt; a = torch.randn(2, 3) &gt;&gt;&gt; a tensor([[ 0.0795, -1.2117, 0.9765], [ 1.1707, 0.6706, 0.4884]]) &gt;&gt;&gt; q = torch.tensor([0.25, 0.5, 0.75]) &gt;&gt;&gt; torch.quantile(a, q, dim=1, keepdim=True) tensor([[[-0.5661], [ 0.5795]], [[ 0.0795], [ 0.6706]], [[ 0.5280], [ 0.9206]]]) &gt;&gt;&gt; torch.quantile(a, q, dim=1, keepdim=True).shape torch.Size([3, 2, 1]) &gt;&gt;&gt; a = torch.arange(4.) &gt;&gt;&gt; a tensor([0., 1., 2., 3.]) &gt;&gt;&gt; torch.quantile(a, 0.6, interpolation=&#39;linear&#39;) tensor(1.8000) &gt;&gt;&gt; torch.quantile(a, 0.6, interpolation=&#39;lower&#39;) tensor(1.) &gt;&gt;&gt; torch.quantile(a, 0.6, interpolation=&#39;higher&#39;) tensor(2.) &gt;&gt;&gt; torch.quantile(a, 0.6, interpolation=&#39;midpoint&#39;) tensor(1.5000) &gt;&gt;&gt; torch.quantile(a, 0.6, interpolation=&#39;nearest&#39;) tensor(2.) &gt;&gt;&gt; torch.quantile(a, 0.4, interpolation=&#39;nearest&#39;) tensor(1.)"
        }
    </script>
 

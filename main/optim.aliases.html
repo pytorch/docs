@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git80bf883 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git3ad3bfe )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -764,7 +764,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1220,7 +1224,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -3382,11 +3390,12 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="export/ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/pt2_archive.html">PT2 Archive Spec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="export/draft_export.html">Draft Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export/joint_with_descriptors.html">Joint with descriptors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3729,6 +3738,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="onnx_export.html">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="onnx_verification.html">torch.onnx.verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="onnx_testing.html">torch.onnx.testing</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="optim.html">torch.optim</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
@@ -4496,7 +4506,7 @@ document.write(`
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.optim.nadam.NAdam"/><a class="reference internal" href="generated/torch.optim.nadam.NAdam.html#torch.optim.nadam.NAdam" title="torch.optim.nadam.NAdam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NAdam</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.NAdam"/><a class="reference internal" href="generated/torch.optim.NAdam.html#torch.optim.NAdam" title="torch.optim.nadam.NAdam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NAdam</span></code></a></p></td>
 <td><p>Implements NAdam algorithm.</p></td>
 </tr>
 <tr class="row-even"><td><p><p id="torch.optim.nadam.nadam"/><a class="reference internal" href="generated/torch.optim.nadam.nadam.html#torch.optim.nadam.nadam" title="torch.optim.nadam.nadam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nadam</span></code></a></p></td>
@@ -4512,7 +4522,7 @@ document.write(`
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.optim.radam.RAdam"/><a class="reference internal" href="generated/torch.optim.radam.RAdam.html#torch.optim.radam.RAdam" title="torch.optim.radam.RAdam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RAdam</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.RAdam"/><a class="reference internal" href="generated/torch.optim.RAdam.html#torch.optim.RAdam" title="torch.optim.radam.RAdam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RAdam</span></code></a></p></td>
 <td><p>Implements RAdam algorithm.</p></td>
 </tr>
 <tr class="row-even"><td><p><p id="torch.optim.radam.radam"/><a class="reference internal" href="generated/torch.optim.radam.radam.html#torch.optim.radam.radam" title="torch.optim.radam.radam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">radam</span></code></a></p></td>

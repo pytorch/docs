@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.9.0a0+git80bf883 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git3ad3bfe )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -764,7 +764,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -1220,7 +1224,11 @@ document.write(`
 
     // Check if the URL contains /stable/ or /tutorials/
     const currentUrl = window.location.href;
-    const shouldDefaultToGoogle = currentUrl.includes('/stable/') || currentUrl.includes('/tutorials/');
+    // TODO: We've had reports that the google programmable search is returning stale documentation,
+    //       Simple reproduction is to turn google search on and search for multinomial which will
+    //       result in returning 1.8.1 documentation.
+    //       We should turn this back on when we resolve that bug.
+    const shouldDefaultToGoogle = false;
     const savedPreference = localStorage.getItem('searchPreference');
 
     // Set initial state
@@ -3382,11 +3390,12 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../export/ir_spec.html">torch.export IR Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../export/pt2_archive.html">PT2 Archive Spec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../export/draft_export.html">Draft Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../export/joint_with_descriptors.html">Joint with descriptors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3729,6 +3738,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../onnx_export.html">torch.export-based ONNX Exporter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_ops.html">torch.onnx.ops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../onnx_verification.html">torch.onnx.verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../onnx_testing.html">torch.onnx.testing</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../optim.html">torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4402,7 +4412,7 @@ document.write(`
                   
   <div class="section" id="working-with-fullgraph-false">
 <h1>Working with <code class="docutils literal notranslate"><span class="pre">fullgraph=False</span></code><a class="headerlink" href="#working-with-fullgraph-false" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2025 | Last Updated On: Jul 29, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2025 | Last Updated On: Sep 03, 2025</p>
 <p>While <code class="docutils literal notranslate"><span class="pre">fullgraph=False</span></code> is the default <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> setting, the semantics of resuming compilation upon encountering a graph break are more complicated.
 You can find details on the <code class="docutils literal notranslate"><span class="pre">fullgraph=False</span></code> semantics in the subsections.</p>
 <p>The strategy for using <code class="docutils literal notranslate"><span class="pre">torch.compile(fullgraph=False)</span></code> is as follows:</p>
@@ -4425,6 +4435,14 @@ a. We recommend using <code class="docutils literal notranslate"><span class="pr
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="programming_model.compiler_disable.html">Disabling and Suppressing Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programming_model.error_on_graph_break.html">Toggling <code class="docutils literal notranslate"><span class="pre">error_on_graph_break</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.error_on_graph_break.html#error-on-graph-break-false-example"><code class="docutils literal notranslate"><span class="pre">error_on_graph_break(False)</span></code> example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.error_on_graph_break.html#error-on-graph-break-true-example"><code class="docutils literal notranslate"><span class="pre">error_on_graph_break(True)</span></code> example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.error_on_graph_break.html#error-on-graph-break-nesting-behavior"><code class="docutils literal notranslate"><span class="pre">error_on_graph_break</span></code> nesting behavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.error_on_graph_break.html#interaction-with-fullgraph">Interaction with <code class="docutils literal notranslate"><span class="pre">fullgraph</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="programming_model.error_on_graph_break.html#summary-of-fullgraph-true-false-vs-error-on-graph-break">Summary of <code class="docutils literal notranslate"><span class="pre">fullgraph=True/False</span></code> vs <code class="docutils literal notranslate"><span class="pre">error_on_graph_break</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="programming_model.nested_graph_breaks.html">Nested Graph Breaks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="programming_model.skipped_functions.html">Skipped Functions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="programming_model.skipped_functions.html#graph-break-in-a-loop">Graph Break in a Loop</a></li>
@@ -4770,8 +4788,8 @@ a. We recommend using <code class="docutils literal notranslate"><span class="pr
            "@id": "/compile/programming_model.fullgraph_false.html"
          },
         "datePublished": "Jul 28, 2025T00:00:00Z",
-         "dateModified": "Jul 29, 2025T00:00:00Z",
-         "articleBody": "Working with fullgraph=False# Created On: Jul 28, 2025 | Last Updated On: Jul 29, 2025 While fullgraph=False is the default torch.compile setting, the semantics of resuming compilation upon encountering a graph break are more complicated. You can find details on the fullgraph=False semantics in the subsections. The strategy for using torch.compile(fullgraph=False) is as follows: Determine the ideal location to place torch.compile. Normally, it is the highest-level function that doesn’t result in excessive graph breaks. Functions that do a lot of preprocessing or I/O operations are examples of functions that result in many graph breaks and do not significantly benefit from torch.compile. a. You can isolate issues by first compiling individual functions/modules before compiling entire models. Apply torch.compiler.disable to functions in the compiled region that result in a lot of graph breaks and do not benefit from compilation. In this case, one graph break is better than potentially tens or hundreds. Use TORCH_LOGS=\&#34;graph_breaks\&#34; or tlparse to investigate remaining graph breaks. Work around these graph breaks using the same approaches as working around graph breaks under the fullgraph=True programming model. Not all graph breaks need to be removed - some may impact performance more than others. The general rule is to focus on graph breaks that are happening during model computation. a. We recommend using torch.compile(backend=&#39;eager&#39;) when debugging graph breaks, for faster debugging iteration times Where to apply torch.compile? compile(model) vs model.compile() Disabling and Suppressing Errors Nested Graph Breaks Skipped Functions Graph Break in a Loop Graph Break in a Context Manager Graph Break in a Try Block Hitting a Recompilation Limit Compiler Errors Dealing with Skipped Functions"
+         "dateModified": "Sep 03, 2025T00:00:00Z",
+         "articleBody": "Working with fullgraph=False# Created On: Jul 28, 2025 | Last Updated On: Sep 03, 2025 While fullgraph=False is the default torch.compile setting, the semantics of resuming compilation upon encountering a graph break are more complicated. You can find details on the fullgraph=False semantics in the subsections. The strategy for using torch.compile(fullgraph=False) is as follows: Determine the ideal location to place torch.compile. Normally, it is the highest-level function that doesn’t result in excessive graph breaks. Functions that do a lot of preprocessing or I/O operations are examples of functions that result in many graph breaks and do not significantly benefit from torch.compile. a. You can isolate issues by first compiling individual functions/modules before compiling entire models. Apply torch.compiler.disable to functions in the compiled region that result in a lot of graph breaks and do not benefit from compilation. In this case, one graph break is better than potentially tens or hundreds. Use TORCH_LOGS=\&#34;graph_breaks\&#34; or tlparse to investigate remaining graph breaks. Work around these graph breaks using the same approaches as working around graph breaks under the fullgraph=True programming model. Not all graph breaks need to be removed - some may impact performance more than others. The general rule is to focus on graph breaks that are happening during model computation. a. We recommend using torch.compile(backend=&#39;eager&#39;) when debugging graph breaks, for faster debugging iteration times Where to apply torch.compile? compile(model) vs model.compile() Disabling and Suppressing Errors Toggling error_on_graph_break error_on_graph_break(False) example error_on_graph_break(True) example error_on_graph_break nesting behavior Interaction with fullgraph Summary of fullgraph=True/False vs error_on_graph_break Nested Graph Breaks Skipped Functions Graph Break in a Loop Graph Break in a Context Manager Graph Break in a Try Block Hitting a Recompilation Limit Compiler Errors Dealing with Skipped Functions"
        }
    </script>
 
