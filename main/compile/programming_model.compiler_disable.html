@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git3ad3bfe )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4a757e1 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3394,8 +3394,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4451,12 +4451,12 @@ Use the <code class="docutils literal notranslate"><span class="pre">recursive=F
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([8., 8., 8.])
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_615/1421264493.py:13
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_611/1421264493.py:13
 Graph Break Reason: Skip calling `torch.compiler.disable()`d function
-  Explanation: Skip calling function `&lt;function outer1 at 0x7f5bb43ebb50&gt;` since it was wrapped with `torch.compiler.disable` (reason: None)
+  Explanation: Skip calling function `&lt;function outer1 at 0x7efd583e37f0&gt;` since it was wrapped with `torch.compiler.disable` (reason: None)
   Hint: Remove the `torch.compiler.disable` call
 
-  Developer debug context: &lt;function outer1 at 0x7f5bb43ebb50&gt;
+  Developer debug context: &lt;function outer1 at 0x7efd583e37f0&gt;
 
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0098.html
 User code traceback:
@@ -4504,18 +4504,18 @@ User code traceback:
     if await self.run_code(code, result, async_=asy):
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_615/1421264493.py&quot;, line 16, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_611/1421264493.py&quot;, line 16, in &lt;module&gt;
     print(f(torch.ones(3)))
-  File &quot;/tmp/ipykernel_615/1421264493.py&quot;, line 13, in f
+  File &quot;/tmp/ipykernel_611/1421264493.py&quot;, line 13, in f
     x = outer1(x)
 
 TRACED GRAPH
- ===== __compiled_fn_4_850a5aa7_7a73_467f_bc51_b2a7172727ab =====
+ ===== __compiled_fn_4_a4bbe481_f19f_4064_b7fb_048a13e52f4a =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_stack0_: &quot;f32[3][1]cpu&quot;):
         l_stack0_ = L_stack0_
         
-         # File: /tmp/ipykernel_615/1421264493.py:14 in torch_dynamo_resume_in_f_at_13, code: return x + 4  # traced
+         # File: /tmp/ipykernel_611/1421264493.py:14 in torch_dynamo_resume_in_f_at_13, code: return x + 4  # traced
         add: &quot;f32[3][1]cpu&quot; = l_stack0_ + 4;  l_stack0_ = None
         return (add,)
         
@@ -4548,12 +4548,12 @@ TRACED GRAPH
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([8., 8., 8.])
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_615/881423632.py:13
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_611/881423632.py:13
 Graph Break Reason: Skip inlining `torch.compiler.disable()`d function
-  Explanation: Skip inlining function &lt;function outer2 at 0x7f5b577091b0&gt; since it was wrapped with `torch.compiler.disable` (reason: None)
+  Explanation: Skip inlining function &lt;function outer2 at 0x7efcfac697e0&gt; since it was wrapped with `torch.compiler.disable` (reason: None)
   Hint: Remove the `torch.compiler.disable` call
 
-  Developer debug context: &lt;function outer2 at 0x7f5b577091b0&gt;
+  Developer debug context: &lt;function outer2 at 0x7efcfac697e0&gt;
 
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0099.html
 User code traceback:
@@ -4601,12 +4601,12 @@ User code traceback:
     if await self.run_code(code, result, async_=asy):
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_615/881423632.py&quot;, line 16, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_611/881423632.py&quot;, line 16, in &lt;module&gt;
     print(g(torch.ones(3)))
-  File &quot;/tmp/ipykernel_615/881423632.py&quot;, line 13, in g
+  File &quot;/tmp/ipykernel_611/881423632.py&quot;, line 13, in g
     x = outer2(x)
 
-Graph break in user code at /tmp/ipykernel_615/881423632.py:2
+Graph break in user code at /tmp/ipykernel_611/881423632.py:2
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -4659,35 +4659,35 @@ User code traceback:
     if await self.run_code(code, result, async_=asy):
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_615/881423632.py&quot;, line 16, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_611/881423632.py&quot;, line 16, in &lt;module&gt;
     print(g(torch.ones(3)))
-  File &quot;/tmp/ipykernel_615/881423632.py&quot;, line 13, in g
+  File &quot;/tmp/ipykernel_611/881423632.py&quot;, line 13, in g
     x = outer2(x)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/external_utils.py&quot;, line 196, in nonrecursive_disable_wrapper
     return fn(*args, **kwargs)
-  File &quot;/tmp/ipykernel_615/881423632.py&quot;, line 9, in outer2
+  File &quot;/tmp/ipykernel_611/881423632.py&quot;, line 9, in outer2
     return inner2(x)
-  File &quot;/tmp/ipykernel_615/881423632.py&quot;, line 2, in inner2
+  File &quot;/tmp/ipykernel_611/881423632.py&quot;, line 2, in inner2
     torch._dynamo.graph_break()  # traced
 
 TRACED GRAPH
- ===== __compiled_fn_12_04f9039d_857f_4042_bdf7_9767e82c5c78 =====
+ ===== __compiled_fn_12_a4e6eee7_0660_4404_8bf8_791bc5306afe =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
         
-         # File: /tmp/ipykernel_615/881423632.py:3 in torch_dynamo_resume_in_inner2_at_2, code: return x + 1  # traced
+         # File: /tmp/ipykernel_611/881423632.py:3 in torch_dynamo_resume_in_inner2_at_2, code: return x + 1  # traced
         add: &quot;f32[3][1]cpu&quot; = l_x_ + 1;  l_x_ = None
         return (add,)
         
 
 TRACED GRAPH
- ===== __compiled_fn_14_9bc2d09a_bf39_44fc_8904_dfd0fd43280c =====
+ ===== __compiled_fn_14_4127f476_8e89_474f_8a2e_a46def133a63 =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_stack0_: &quot;f32[3][1]cpu&quot;):
         l_stack0_ = L_stack0_
         
-         # File: /tmp/ipykernel_615/881423632.py:14 in torch_dynamo_resume_in_g_at_13, code: return x + 4  # traced
+         # File: /tmp/ipykernel_611/881423632.py:14 in torch_dynamo_resume_in_g_at_13, code: return x + 4  # traced
         add: &quot;f32[3][1]cpu&quot; = l_stack0_ + 4;  l_stack0_ = None
         return (add,)
         
@@ -5037,7 +5037,7 @@ When the compiler crashes, we will just skip tracing the function and try again 
          },
         "datePublished": "Jul 28, 2025T00:00:00Z",
          "dateModified": "Jul 28, 2025T00:00:00Z",
-         "articleBody": "Disabling and Suppressing Errors# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 For some model architectures, there are portions of the model which are particularly difficult to compile - either there are many graph breaks, or there are crashes. You may want to explicitly disable these portions of the model which are problematic so that you can apply torch.compile to the parts that work. You can do this by using the @torch.compiler.disable decorator. When torch.compile attempts to call a disabled function, it breaks the graph and skips tracing the disabled function, resuming tracing after the call. By default, all recursive calls made from a disabled function are also disabled. Use the recursive=False option to allow compilation for recursive calls. def inner1(x): torch._dynamo.graph_break() # not traced return x + 1 # not traced @torch.compiler.disable def outer1(x): x = x + 2 # not traced torch._dynamo.graph_break() # not traced return inner1(x) @torch.compile def f(x): x = outer1(x) return x + 4 # traced print(f(torch.ones(3))) tensor([8., 8., 8.]) Graph break in user code at /tmp/ipykernel_615/1421264493.py:13 Graph Break Reason: Skip calling `torch.compiler.disable()`d function Explanation: Skip calling function `&lt;function outer1 at 0x7f5bb43ebb50&gt;` since it was wrapped with `torch.compiler.disable` (reason: None) Hint: Remove the `torch.compiler.disable` call Developer debug context: &lt;function outer1 at 0x7f5bb43ebb50&gt; For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0098.html User code traceback: File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 196, in _run_module_as_main return _run_code(code, main_globals, None, File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 86, in _run_code exec(code, run_globals) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py\&#34;, line 18, in &lt;module&gt; app.launch_new_instance() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py\&#34;, line 1075, in launch_instance app.start() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py\&#34;, line 739, in start self.io_loop.start() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py\&#34;, line 211, in start self.asyncio_loop.run_forever() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\&#34;, line 603, in run_forever self._run_once() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\&#34;, line 1909, in _run_once handle._run() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py\&#34;, line 80, in _run self._context.run(self._callback, *self._args) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 519, in dispatch_queue await self.process_one() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 508, in process_one await dispatch(*args) File \&#34;/o..."
+         "articleBody": "Disabling and Suppressing Errors# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 For some model architectures, there are portions of the model which are particularly difficult to compile - either there are many graph breaks, or there are crashes. You may want to explicitly disable these portions of the model which are problematic so that you can apply torch.compile to the parts that work. You can do this by using the @torch.compiler.disable decorator. When torch.compile attempts to call a disabled function, it breaks the graph and skips tracing the disabled function, resuming tracing after the call. By default, all recursive calls made from a disabled function are also disabled. Use the recursive=False option to allow compilation for recursive calls. def inner1(x): torch._dynamo.graph_break() # not traced return x + 1 # not traced @torch.compiler.disable def outer1(x): x = x + 2 # not traced torch._dynamo.graph_break() # not traced return inner1(x) @torch.compile def f(x): x = outer1(x) return x + 4 # traced print(f(torch.ones(3))) tensor([8., 8., 8.]) Graph break in user code at /tmp/ipykernel_611/1421264493.py:13 Graph Break Reason: Skip calling `torch.compiler.disable()`d function Explanation: Skip calling function `&lt;function outer1 at 0x7efd583e37f0&gt;` since it was wrapped with `torch.compiler.disable` (reason: None) Hint: Remove the `torch.compiler.disable` call Developer debug context: &lt;function outer1 at 0x7efd583e37f0&gt; For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0098.html User code traceback: File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 196, in _run_module_as_main return _run_code(code, main_globals, None, File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 86, in _run_code exec(code, run_globals) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py\&#34;, line 18, in &lt;module&gt; app.launch_new_instance() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py\&#34;, line 1075, in launch_instance app.start() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py\&#34;, line 739, in start self.io_loop.start() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py\&#34;, line 211, in start self.asyncio_loop.run_forever() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\&#34;, line 603, in run_forever self._run_once() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\&#34;, line 1909, in _run_once handle._run() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py\&#34;, line 80, in _run self._context.run(self._callback, *self._args) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 519, in dispatch_queue await self.process_one() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 508, in process_one await dispatch(*args) File \&#34;/o..."
        }
    </script>
 

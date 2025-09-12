@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git3ad3bfe )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4a757e1 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3394,8 +3394,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4408,7 +4408,7 @@ document.write(`
 <h1>generate_numeric_debug_handle<a class="headerlink" href="#generate-numeric-debug-handle" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.generate_numeric_debug_handle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.</span></span><span class="sig-name descname"><span class="pre">generate_numeric_debug_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ep</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3ad3bfe11df7bf542885a6dd2dc2ada4ab940e53/torch/ao/quantization/pt2e/_numeric_debugger.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.generate_numeric_debug_handle" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.</span></span><span class="sig-name descname"><span class="pre">generate_numeric_debug_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ep</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4a757e1e1734698a22170ac584c54d5a0ba9e1d6/torch/ao/quantization/pt2e/_numeric_debugger.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.generate_numeric_debug_handle" title="Permalink to this definition">#</a></dt>
 <dd><p>Attach numeric_debug_handle_id for all nodes in the graph module of the given
 ExportedProgram, like conv2d, squeeze, conv1d, etc, except for placeholder.
 Notice that nodes like getattr are out of scope since they are not in the graph.</p>
