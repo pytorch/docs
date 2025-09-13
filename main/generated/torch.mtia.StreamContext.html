@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4a757e1 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita94ddd9 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3717,6 +3717,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../special.html">torch.special</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../torch.overrides.html">torch.overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nativert.html">torch.nativert</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nn.init.html">torch.nn.init</a></li>
@@ -4397,7 +4398,7 @@ document.write(`
 <h1>StreamContext<a class="headerlink" href="#streamcontext" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.mtia.StreamContext">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.mtia.</span></span><span class="sig-name descname"><span class="pre">StreamContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4a757e1e1734698a22170ac584c54d5a0ba9e1d6/torch/mtia/__init__.py#L284"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.StreamContext" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.mtia.</span></span><span class="sig-name descname"><span class="pre">StreamContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a94ddd9b00a677a65fea31d38154062646e6ec13/torch/mtia/__init__.py#L284"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.StreamContext" title="Permalink to this definition">#</a></dt>
 <dd><p>Context-manager that selects a given stream.</p>
 <p>All MTIA kernels queued within its context will be enqueued on a selected
 stream.</p>

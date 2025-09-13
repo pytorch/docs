@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4a757e1 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita94ddd9 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3717,6 +3717,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../special.html">torch.special</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../torch.overrides.html">torch.overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nativert.html">torch.nativert</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nn.init.html">torch.nn.init</a></li>
@@ -4406,8 +4407,8 @@ document.write(`
                   
   <div class="section" id="working-with-graph-breaks">
 <h1>Working with Graph Breaks<a class="headerlink" href="#working-with-graph-breaks" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025</p>
-<p>As you might remember from (Dynamo Core Concepts)[programming_model.dynamo_core_concepts] that Dynamo performs a graph break when
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 28, 2025 | Last Updated On: Sep 12, 2025</p>
+<p>As you might remember from <a class="reference internal" href="programming_model.dynamo_core_concepts.html"><span class="doc std std-doc">Dynamo Core Concepts</span></a> that Dynamo performs a graph break when
 it encounters code that can’t be traced. In the default <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> settings, Dynamo compiles the FX graph
 that has been determined up to that point, executes the unsupported code in regular Python, and then resumes tracing.</p>
 <p>Graph breaks enable Dynamo to trace through arbitrary Python code and carve out functional
@@ -4792,8 +4793,8 @@ If you’re not seeing the expected speedups, we recommend checking for graph br
            "@id": "/compile/programming_model.graph_breaks_index.html"
          },
         "datePublished": "Jul 28, 2025T00:00:00Z",
-         "dateModified": "Jul 28, 2025T00:00:00Z",
-         "articleBody": "Working with Graph Breaks# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 As you might remember from (Dynamo Core Concepts)[programming_model.dynamo_core_concepts] that Dynamo performs a graph break when it encounters code that can’t be traced. In the default torch.compile settings, Dynamo compiles the FX graph that has been determined up to that point, executes the unsupported code in regular Python, and then resumes tracing. Graph breaks enable Dynamo to trace through arbitrary Python code and carve out functional subgraphs that can each be individually optimized. However, graph breaks may cause unexpected slowness in torch.compile. If you’re not seeing the expected speedups, we recommend checking for graph breaks and removing them. The following sections outline strategies for addressing graph breaks. Use fullgraph=True to Identify and Eliminate Graph Breaks Strategy 1: Rewrite the unsupported code to use features supported by Dynamo Strategy 2: Pure functions can always be compiled via an escape hatch. Strategy 3: Don’t compile the code Common Graph Breaks Incorrect Code Data-dependent operations Printing and logging Use torch._dynamo.nonstrict_trace Custom Operators Working with fullgraph=False Where to apply torch.compile? compile(model) vs model.compile() Disabling and Suppressing Errors Toggling error_on_graph_break error_on_graph_break(False) example error_on_graph_break(True) example error_on_graph_break nesting behavior Interaction with fullgraph Summary of fullgraph=True/False vs error_on_graph_break Nested Graph Breaks Skipped Functions Graph Break in a Loop Graph Break in a Context Manager Graph Break in a Try Block Hitting a Recompilation Limit Compiler Errors Dealing with Skipped Functions"
+         "dateModified": "Sep 12, 2025T00:00:00Z",
+         "articleBody": "Working with Graph Breaks# Created On: Jul 28, 2025 | Last Updated On: Sep 12, 2025 As you might remember from Dynamo Core Concepts that Dynamo performs a graph break when it encounters code that can’t be traced. In the default torch.compile settings, Dynamo compiles the FX graph that has been determined up to that point, executes the unsupported code in regular Python, and then resumes tracing. Graph breaks enable Dynamo to trace through arbitrary Python code and carve out functional subgraphs that can each be individually optimized. However, graph breaks may cause unexpected slowness in torch.compile. If you’re not seeing the expected speedups, we recommend checking for graph breaks and removing them. The following sections outline strategies for addressing graph breaks. Use fullgraph=True to Identify and Eliminate Graph Breaks Strategy 1: Rewrite the unsupported code to use features supported by Dynamo Strategy 2: Pure functions can always be compiled via an escape hatch. Strategy 3: Don’t compile the code Common Graph Breaks Incorrect Code Data-dependent operations Printing and logging Use torch._dynamo.nonstrict_trace Custom Operators Working with fullgraph=False Where to apply torch.compile? compile(model) vs model.compile() Disabling and Suppressing Errors Toggling error_on_graph_break error_on_graph_break(False) example error_on_graph_break(True) example error_on_graph_break nesting behavior Interaction with fullgraph Summary of fullgraph=True/False vs error_on_graph_break Nested Graph Breaks Skipped Functions Graph Break in a Loop Graph Break in a Context Manager Graph Break in a Try Block Hitting a Recompilation Limit Compiler Errors Dealing with Skipped Functions"
        }
    </script>
 

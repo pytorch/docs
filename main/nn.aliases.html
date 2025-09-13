@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4a757e1 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita94ddd9 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3717,6 +3717,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="special.html">torch.special</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch.overrides.html">torch.overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nativert.html">torch.nativert</a></li>
 <li class="toctree-l1"><a class="reference internal" href="package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nn.init.html">torch.nn.init</a></li>
@@ -4447,7 +4448,7 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.ConvTranspose1d.html#torch.nn.modules.conv.ConvTranspose1d" title="torch.nn.modules.conv.ConvTranspose1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.ConvTranspose1d</span></code></a></p></td>
 <td><p>Applies a 1D transposed convolution operator over an input image composed of several input planes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.ConvTranspose2d.html#torch.nn.modules.conv.ConvTranspose2d" title="torch.nn.modules.conv.ConvTranspose2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.ConvTranspose2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.ConvTranspose2d.html#torch.nn.ConvTranspose2d" title="torch.nn.modules.conv.ConvTranspose2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.ConvTranspose2d</span></code></a></p></td>
 <td><p>Applies a 2D transposed convolution operator over an input image composed of several input planes.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.ConvTranspose3d.html#torch.nn.ConvTranspose3d" title="torch.nn.modules.conv.ConvTranspose3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.ConvTranspose3d</span></code></a></p></td>
@@ -4684,7 +4685,7 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.Tanh.html#torch.nn.modules.activation.Tanh" title="torch.nn.modules.activation.Tanh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Tanh</span></code></a></p></td>
 <td><p>Applies the Hyperbolic Tangent (Tanh) function element-wise.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.Tanhshrink.html#torch.nn.modules.activation.Tanhshrink" title="torch.nn.modules.activation.Tanhshrink"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Tanhshrink</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Tanhshrink.html#torch.nn.Tanhshrink" title="torch.nn.modules.activation.Tanhshrink"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Tanhshrink</span></code></a></p></td>
 <td><p>Applies the element-wise Tanhshrink function.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Threshold.html#torch.nn.Threshold" title="torch.nn.modules.activation.Threshold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.Threshold</span></code></a></p></td>
@@ -4951,7 +4952,7 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.MSELoss.html#torch.nn.modules.loss.MSELoss" title="torch.nn.modules.loss.MSELoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.MSELoss</span></code></a></p></td>
 <td><p>Creates a criterion that measures the mean squared error (squared L2 norm) between each element in the input <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> and target <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.CrossEntropyLoss.html#torch.nn.CrossEntropyLoss" title="torch.nn.modules.loss.CrossEntropyLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.CrossEntropyLoss</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.CrossEntropyLoss.html#torch.nn.modules.loss.CrossEntropyLoss" title="torch.nn.modules.loss.CrossEntropyLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.CrossEntropyLoss</span></code></a></p></td>
 <td><p>This criterion computes the cross entropy loss between input logits and target.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.CTCLoss.html#torch.nn.modules.loss.CTCLoss" title="torch.nn.modules.loss.CTCLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.CTCLoss</span></code></a></p></td>

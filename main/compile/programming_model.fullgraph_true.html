@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4a757e1 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita94ddd9 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3717,6 +3717,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../special.html">torch.special</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../torch.overrides.html">torch.overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nativert.html">torch.nativert</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nn.init.html">torch.nn.init</a></li>
@@ -4565,7 +4566,7 @@ from user code:
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([-0.1567,  0.0018, -0.7068])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([ 0.6692, -0.3961, -0.5055])
 </pre></div>
 </div>
 </div>
@@ -4671,9 +4672,9 @@ If it is a third-party C/C++ Python extension, please either wrap it into a PyTo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[1.6594e-03, 2.2856e+00, 1.5315e+00],
-        [1.5531e+00, 1.6610e-03, 4.4408e-01],
-        [1.3826e-02, 1.2766e+00, 8.5466e-01]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.2122, 3.2415, 3.1782],
+        [0.0537, 2.3555, 0.1438],
+        [0.0562, 0.7624, 1.0993]])
 </pre></div>
 </div>
 </div>
@@ -4746,7 +4747,7 @@ Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especiall
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([3.9937e-08, 9.6431e-04, 4.9257e-05])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([1.0579e-05, 6.8109e-11, 2.1315e-07])
 </pre></div>
 </div>
 </div>
