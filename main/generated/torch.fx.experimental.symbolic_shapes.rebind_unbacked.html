@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git886699b )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gite156a07 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4398,7 +4398,7 @@ document.write(`
 <h1>torch.fx.experimental.symbolic_shapes.rebind_unbacked<a class="headerlink" href="#torch-fx-experimental-symbolic-shapes-rebind-unbacked" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.rebind_unbacked">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">rebind_unbacked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape_env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/886699bc5c23105f6105d329f6ff6c0ada7b473c/torch/fx/experimental/symbolic_shapes.py#L533"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.rebind_unbacked" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">rebind_unbacked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape_env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e156a071712447a8f6930ce49785bab24549637c/torch/fx/experimental/symbolic_shapes.py#L533"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.rebind_unbacked" title="Permalink to this definition">#</a></dt>
 <dd><p>Suppose we are retracing a pre-existing FX graph that previously had
 fake tensor propagation (and therefore unbacked SymInts).  When we retrace,
 we re-propagate fake tensors, which results in new unbacked SymInts.
