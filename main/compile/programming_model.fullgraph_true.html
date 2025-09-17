@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitd08cabe )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitdf4ebdd )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3185,6 +3185,7 @@ document.write(`
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.StreamContext.html">StreamContext</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.can_device_access_peer.html">torch.cuda.can_device_access_peer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.check_error.html">torch.cuda.check_error</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.current_blas_handle.html">torch.cuda.current_blas_handle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.current_device.html">torch.cuda.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.current_stream.html">torch.cuda.current_stream</a></li>
@@ -3204,6 +3205,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.init.html">torch.cuda.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.ipc_collect.html">torch.cuda.ipc_collect</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.is_available.html">torch.cuda.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.is_bf16_supported.html">torch.cuda.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.is_initialized.html">torch.cuda.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.is_tf32_supported.html">torch.cuda.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.memory_usage.html">torch.cuda.memory_usage</a></li>
@@ -3309,6 +3311,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../xpu.html">torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.StreamContext.html">StreamContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.can_device_access_peer.html">torch.xpu.can_device_access_peer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.current_device.html">torch.xpu.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.current_stream.html">torch.xpu.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.device.html">device</a></li>
@@ -3322,6 +3325,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.get_stream_from_external.html">torch.xpu.get_stream_from_external</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.init.html">torch.xpu.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.is_available.html">torch.xpu.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.is_bf16_supported.html">torch.xpu.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.is_initialized.html">torch.xpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
@@ -3358,6 +3362,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.device_count.html">torch.mtia.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.init.html">torch.mtia.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.is_available.html">torch.mtia.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.is_bf16_supported.html">torch.mtia.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.is_initialized.html">torch.mtia.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.memory_stats.html">torch.mtia.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.get_device_capability.html">torch.mtia.get_device_capability</a></li>
@@ -3394,8 +3399,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4566,7 +4571,7 @@ from user code:
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([ 0.4953, -0.4495,  0.7215])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([ 0.0512,  0.7413, -0.6404])
 </pre></div>
 </div>
 </div>
@@ -4672,9 +4677,9 @@ If it is a third-party C/C++ Python extension, please either wrap it into a PyTo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.4644, 0.5076, 0.8590],
-        [1.2378, 0.4799, 0.0469],
-        [5.4899, 0.0059, 1.9201]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[1.3231, 0.0146, 0.1349],
+        [0.7185, 3.5601, 1.1044],
+        [6.3245, 0.0572, 0.9471]])
 </pre></div>
 </div>
 </div>
@@ -4747,7 +4752,7 @@ Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especiall
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([6.9957e+00, 1.0810e-04, 6.0047e-02])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([4.3965e-09, 5.9758e-02, 6.2240e-05])
 </pre></div>
 </div>
 </div>

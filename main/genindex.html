@@ -139,7 +139,7 @@ window.addEventListener("load", () => mermaid.run());
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitd08cabe )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitdf4ebdd )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3140,7 +3140,11 @@ document.write(`
       <li><a href="generated/torch.can_cast.html#torch.can_cast">can_cast() (in module torch)</a>
 </li>
       <li><a href="generated/torch.cuda.can_device_access_peer.html#torch.cuda.can_device_access_peer">can_device_access_peer() (in module torch.cuda)</a>
+
+      <ul>
+        <li><a href="generated/torch.xpu.can_device_access_peer.html#torch.xpu.can_device_access_peer">(in module torch.xpu)</a>
 </li>
+      </ul></li>
       <li><a href="backends.html#torch.backends.cuda.can_use_cudnn_attention">can_use_cudnn_attention() (in module torch.backends.cuda)</a>
 </li>
       <li><a href="backends.html#torch.backends.cuda.can_use_efficient_attention">can_use_efficient_attention() (in module torch.backends.cuda)</a>
@@ -3288,6 +3292,8 @@ document.write(`
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.check_consistent.html#torch.fx.experimental.symbolic_shapes.check_consistent">check_consistent() (in module torch.fx.experimental.symbolic_shapes)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.check_equal">check_equal() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
+</li>
+      <li><a href="generated/torch.cuda.check_error.html#torch.cuda.check_error">check_error() (in module torch.cuda)</a>
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.check_is_root">check_is_root() (torch.distributed.fsdp.FullyShardedDataParallel method)</a>
 </li>
@@ -7598,10 +7604,10 @@ document.write(`
         <li><a href="generated/torch.Tensor.inverse.html#torch.Tensor.inverse">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributions.html#torch.distributions.transforms.Transform.inverse_shape">inverse_shape() (torch.distributions.transforms.Transform method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributions.html#torch.distributions.inverse_gamma.InverseGamma">InverseGamma (class in torch.distributions.inverse_gamma)</a>
 </li>
       <li><a href="generated/torch.nn.utils.rnn.invert_permutation.html#torch.nn.utils.rnn.invert_permutation">invert_permutation() (in module torch.nn.utils.rnn)</a>
@@ -7660,6 +7666,14 @@ document.write(`
         <li><a href="profiler.html#torch.profiler.itt.is_available">(in module torch.profiler.itt)</a>
 </li>
         <li><a href="generated/torch.xpu.is_available.html#torch.xpu.is_available">(in module torch.xpu)</a>
+</li>
+      </ul></li>
+      <li><a href="generated/torch.cuda.is_bf16_supported.html#torch.cuda.is_bf16_supported">is_bf16_supported() (in module torch.cuda)</a>
+
+      <ul>
+        <li><a href="generated/torch.mtia.is_bf16_supported.html#torch.mtia.is_bf16_supported">(in module torch.mtia)</a>
+</li>
+        <li><a href="generated/torch.xpu.is_bf16_supported.html#torch.xpu.is_bf16_supported">(in module torch.xpu)</a>
 </li>
       </ul></li>
       <li><a href="export/joint_with_descriptors.html#torch._functorch._aot_autograd.descriptors.AOTInput.is_buffer">is_buffer() (torch._functorch._aot_autograd.descriptors.AOTInput method)</a>
@@ -11039,6 +11053,8 @@ document.write(`
         <li><a href="utils.html#module-torch.utils.data.graph_settings">torch.utils.data.graph_settings</a>
 </li>
         <li><a href="utils.html#module-torch.utils.data.sampler">torch.utils.data.sampler</a>
+</li>
+        <li><a href="utils.html#module-torch.utils.debug_mode">torch.utils.debug_mode</a>
 </li>
         <li><a href="deterministic.html#module-torch.utils.deterministic">torch.utils.deterministic</a>
 </li>
@@ -21196,6 +21212,13 @@ document.write(`
 
       <ul>
         <li><a href="utils.html#module-torch.utils.data.sampler">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.utils.debug_mode
+
+      <ul>
+        <li><a href="utils.html#module-torch.utils.debug_mode">module</a>
 </li>
       </ul></li>
       <li>

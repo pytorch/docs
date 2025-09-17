@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitd08cabe )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitdf4ebdd )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3185,6 +3185,7 @@ document.write(`
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.StreamContext.html">StreamContext</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.can_device_access_peer.html">torch.cuda.can_device_access_peer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.check_error.html">torch.cuda.check_error</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.current_blas_handle.html">torch.cuda.current_blas_handle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.current_device.html">torch.cuda.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.current_stream.html">torch.cuda.current_stream</a></li>
@@ -3204,6 +3205,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.init.html">torch.cuda.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.ipc_collect.html">torch.cuda.ipc_collect</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.is_available.html">torch.cuda.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.is_bf16_supported.html">torch.cuda.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.is_initialized.html">torch.cuda.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.is_tf32_supported.html">torch.cuda.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory_usage.html">torch.cuda.memory_usage</a></li>
@@ -3309,6 +3311,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../xpu.html">torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.StreamContext.html">StreamContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.can_device_access_peer.html">torch.xpu.can_device_access_peer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.current_device.html">torch.xpu.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.current_stream.html">torch.xpu.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.device.html">device</a></li>
@@ -3322,6 +3325,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.get_stream_from_external.html">torch.xpu.get_stream_from_external</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.init.html">torch.xpu.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_available.html">torch.xpu.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_bf16_supported.html">torch.xpu.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_initialized.html">torch.xpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
@@ -3358,6 +3362,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.device_count.html">torch.mtia.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.init.html">torch.mtia.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.is_available.html">torch.mtia.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.is_bf16_supported.html">torch.mtia.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.is_initialized.html">torch.mtia.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.memory_stats.html">torch.mtia.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.get_device_capability.html">torch.mtia.get_device_capability</a></li>
@@ -3394,8 +3399,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4398,7 +4403,7 @@ document.write(`
 <h1>KinetoStepTracker<a class="headerlink" href="#kinetosteptracker" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler.</span></span><span class="sig-name descname"><span class="pre">KinetoStepTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/autograd/profiler.py#L1133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler.</span></span><span class="sig-name descname"><span class="pre">KinetoStepTracker</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/autograd/profiler.py#L1133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker" title="Permalink to this definition">#</a></dt>
 <dd><p>Provides an abstraction for incrementing the step count globally.</p>
 <p>Previously, we only had one place to mark that a step() has occurred
 in the program via pytorch profiler step(). We will now add step hooks
@@ -4433,7 +4438,7 @@ We only call the kineto step() function when global count increments.</p>
 for now. The result could be incorrect increments of the step count.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker.current_step">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">current_step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/autograd/profiler.py#L1216"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.current_step" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">current_step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/autograd/profiler.py#L1216"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.current_step" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the latest step for any requester</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4444,7 +4449,7 @@ for now. The result could be incorrect increments of the step count.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker.erase_step_count">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">erase_step_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/autograd/profiler.py#L1185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.erase_step_count" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">erase_step_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/autograd/profiler.py#L1185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.erase_step_count" title="Permalink to this definition">#</a></dt>
 <dd><p>Remove a given requester.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4455,7 +4460,7 @@ for now. The result could be incorrect increments of the step count.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker.increment_step">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">increment_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/autograd/profiler.py#L1192"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.increment_step" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">increment_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/autograd/profiler.py#L1192"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.increment_step" title="Permalink to this definition">#</a></dt>
 <dd><p>Increments the step count for the requester.</p>
 <p>Additionally if the max over all step counts has incremented then
 trigger the _kineto_step() returns global step count</p>
@@ -4468,7 +4473,7 @@ trigger the _kineto_step() returns global step count</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler.KinetoStepTracker.init_step_count">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_step_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/autograd/profiler.py#L1178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.init_step_count" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_step_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requester</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/autograd/profiler.py#L1178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.KinetoStepTracker.init_step_count" title="Permalink to this definition">#</a></dt>
 <dd><p>Initialize for a given requester.</p>
 <dl class="field-list simple">
 </dl>

@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitd08cabe )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitdf4ebdd )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3185,6 +3185,7 @@ document.write(`
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../cuda.html">torch.cuda</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.StreamContext.html">StreamContext</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.can_device_access_peer.html">torch.cuda.can_device_access_peer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.check_error.html">torch.cuda.check_error</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.current_blas_handle.html">torch.cuda.current_blas_handle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.current_device.html">torch.cuda.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.current_stream.html">torch.cuda.current_stream</a></li>
@@ -3204,6 +3205,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.init.html">torch.cuda.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.ipc_collect.html">torch.cuda.ipc_collect</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.is_available.html">torch.cuda.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.is_bf16_supported.html">torch.cuda.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.is_initialized.html">torch.cuda.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.is_tf32_supported.html">torch.cuda.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory_usage.html">torch.cuda.memory_usage</a></li>
@@ -3309,6 +3311,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../xpu.html">torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.StreamContext.html">StreamContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.can_device_access_peer.html">torch.xpu.can_device_access_peer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.current_device.html">torch.xpu.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.current_stream.html">torch.xpu.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.device.html">device</a></li>
@@ -3322,6 +3325,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.get_stream_from_external.html">torch.xpu.get_stream_from_external</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.init.html">torch.xpu.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_available.html">torch.xpu.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_bf16_supported.html">torch.xpu.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_initialized.html">torch.xpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
@@ -3358,6 +3362,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.device_count.html">torch.mtia.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.init.html">torch.mtia.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.is_available.html">torch.mtia.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.is_bf16_supported.html">torch.mtia.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.is_initialized.html">torch.mtia.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.memory_stats.html">torch.mtia.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.get_device_capability.html">torch.mtia.get_device_capability</a></li>
@@ -3394,8 +3399,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4398,7 +4403,7 @@ document.write(`
 <h1>CUDAGraph<a class="headerlink" href="#cudagraph" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.CUDAGraph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">CUDAGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keep_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/cuda/graphs.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">CUDAGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keep_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/cuda/graphs.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph" title="Permalink to this definition">#</a></dt>
 <dd><p>Wrapper around a CUDA graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4430,7 +4435,7 @@ changes. Pytorch has no means of tracking these changes.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.CUDAGraph.capture_begin">
-<span class="sig-name descname"><span class="pre">capture_begin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capture_error_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'global'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/cuda/graphs.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.capture_begin" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">capture_begin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capture_error_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'global'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/cuda/graphs.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.capture_begin" title="Permalink to this definition">#</a></dt>
 <dd><p>Begin capturing CUDA work on the current stream.</p>
 <p>Typically, you shouldn’t call <code class="docutils literal notranslate"><span class="pre">capture_begin</span></code> yourself.
 Use <a class="reference internal" href="torch.cuda.graph.html#torch.cuda.graph" title="torch.cuda.graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">graph</span></code></a> or <a class="reference internal" href="torch.cuda.make_graphed_callables.html#torch.cuda.make_graphed_callables" title="torch.cuda.make_graphed_callables"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_graphed_callables()</span></code></a>,
@@ -4453,7 +4458,7 @@ unless you’re familiar with <a class="reference external" href="https://docs.n
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.CUDAGraph.capture_end">
-<span class="sig-name descname"><span class="pre">capture_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/cuda/graphs.py#L119"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.capture_end" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">capture_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/cuda/graphs.py#L119"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.capture_end" title="Permalink to this definition">#</a></dt>
 <dd><p>End CUDA graph capture on the current stream.</p>
 <p>After <code class="docutils literal notranslate"><span class="pre">capture_end</span></code>, <code class="docutils literal notranslate"><span class="pre">replay</span></code> may be called on this instance.</p>
 <p>Typically, you shouldn’t call <code class="docutils literal notranslate"><span class="pre">capture_end</span></code> yourself.
@@ -4465,7 +4470,7 @@ which call <code class="docutils literal notranslate"><span class="pre">capture_
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.CUDAGraph.debug_dump">
-<span class="sig-name descname"><span class="pre">debug_dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">debug_path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/cuda/graphs.py#L159"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.debug_dump" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">debug_dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">debug_path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/cuda/graphs.py#L159"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.debug_dump" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>debug_path</strong> (<em>required</em>) – Path to dump the graph to.</p>
@@ -4477,7 +4482,7 @@ enabled via CUDAGraph.enable_debug_mode()</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.CUDAGraph.enable_debug_mode">
-<span class="sig-name descname"><span class="pre">enable_debug_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/cuda/graphs.py#L155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.enable_debug_mode" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">enable_debug_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/cuda/graphs.py#L155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.enable_debug_mode" title="Permalink to this definition">#</a></dt>
 <dd><p>Enable debugging mode for CUDAGraph.debug_dump.</p>
 <dl class="field-list simple">
 </dl>
@@ -4485,7 +4490,7 @@ enabled via CUDAGraph.enable_debug_mode()</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.CUDAGraph.instantiate">
-<span class="sig-name descname"><span class="pre">instantiate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/cuda/graphs.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.instantiate" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">instantiate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/cuda/graphs.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.instantiate" title="Permalink to this definition">#</a></dt>
 <dd><p>Instantiate the CUDA graph. Will be called by
 <code class="docutils literal notranslate"><span class="pre">capture_end</span></code> if <code class="docutils literal notranslate"><span class="pre">keep_graph=False</span></code>, or by <code class="docutils literal notranslate"><span class="pre">replay</span></code> if
 <code class="docutils literal notranslate"><span class="pre">keep_graph=True</span></code> and <code class="docutils literal notranslate"><span class="pre">instantiate</span></code> has not already been
@@ -4497,7 +4502,7 @@ by <code class="docutils literal notranslate"><span class="pre">raw_cuda_graph</
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.CUDAGraph.pool">
-<span class="sig-name descname"><span class="pre">pool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/cuda/graphs.py#L147"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.pool" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">pool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/cuda/graphs.py#L147"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.pool" title="Permalink to this definition">#</a></dt>
 <dd><p>Return an opaque token representing the id of this graph’s memory pool.</p>
 <p>This id can optionally be passed to another graph’s <code class="docutils literal notranslate"><span class="pre">capture_begin</span></code>,
 which hints the other graph may share the same memory pool.</p>
@@ -4510,7 +4515,7 @@ which hints the other graph may share the same memory pool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.CUDAGraph.raw_cuda_graph">
-<span class="sig-name descname"><span class="pre">raw_cuda_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/cuda/graphs.py#L169"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.raw_cuda_graph" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">raw_cuda_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/cuda/graphs.py#L169"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.raw_cuda_graph" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the underlying cudaGraph_t. <code class="docutils literal notranslate"><span class="pre">keep_graph</span></code> must be True.</p>
 <p>See the following for APIs for how to manipulate this object: <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__GRAPH.html">Graph Managmement</a> and <a class="reference external" href="https://nvidia.github.io/cuda-python/cuda-bindings/latest/module/runtime.html#graph-management">cuda-python Graph Management bindings</a></p>
 <dl class="field-list simple">
@@ -4522,7 +4527,7 @@ which hints the other graph may share the same memory pool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.CUDAGraph.raw_cuda_graph_exec">
-<span class="sig-name descname"><span class="pre">raw_cuda_graph_exec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/cuda/graphs.py#L176"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.raw_cuda_graph_exec" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">raw_cuda_graph_exec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/cuda/graphs.py#L176"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.raw_cuda_graph_exec" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the underlying cudaGraphExec_t. <code class="docutils literal notranslate"><span class="pre">instantiate</span></code> must have been called if <code class="docutils literal notranslate"><span class="pre">keep_graph</span></code> is True, or <code class="docutils literal notranslate"><span class="pre">capture_end</span></code> must have been called if <code class="docutils literal notranslate"><span class="pre">keep_graph</span></code> is False. If you call <code class="docutils literal notranslate"><span class="pre">instantiate()</span></code> after <code class="docutils literal notranslate"><span class="pre">raw_cuda_graph_exec()</span></code>, the previously returned cudaGraphExec_t will be destroyed. It is your responsibility not to use this object after destruction.</p>
 <p>See the following for APIs for how to manipulate this object: <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__GRAPH__EXEC.html">Graph Execution</a> and <a class="reference external" href="https://nvidia.github.io/cuda-python/cuda-bindings/latest/module/runtime.html#graph-execution">cuda-python Graph Execution bindings</a></p>
 <dl class="field-list simple">
@@ -4534,7 +4539,7 @@ which hints the other graph may share the same memory pool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.CUDAGraph.replay">
-<span class="sig-name descname"><span class="pre">replay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/cuda/graphs.py#L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.replay" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">replay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/cuda/graphs.py#L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.replay" title="Permalink to this definition">#</a></dt>
 <dd><p>Replay the CUDA work captured by this graph.</p>
 <dl class="field-list simple">
 </dl>
@@ -4542,7 +4547,7 @@ which hints the other graph may share the same memory pool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.CUDAGraph.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d08cabe31475dbe307c49781bae6558ac8eafa52/torch/cuda/graphs.py#L143"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.reset" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/cuda/graphs.py#L143"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.CUDAGraph.reset" title="Permalink to this definition">#</a></dt>
 <dd><p>Delete the graph currently held by this instance.</p>
 <dl class="field-list simple">
 </dl>

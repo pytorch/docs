@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitd08cabe )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitdf4ebdd )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3185,6 +3185,7 @@ document.write(`
 <li class="toctree-l1 has-children"><a class="reference internal" href="cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.StreamContext.html">StreamContext</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.can_device_access_peer.html">torch.cuda.can_device_access_peer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.check_error.html">torch.cuda.check_error</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.current_blas_handle.html">torch.cuda.current_blas_handle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.current_device.html">torch.cuda.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.current_stream.html">torch.cuda.current_stream</a></li>
@@ -3204,6 +3205,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.init.html">torch.cuda.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.ipc_collect.html">torch.cuda.ipc_collect</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_available.html">torch.cuda.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_bf16_supported.html">torch.cuda.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_initialized.html">torch.cuda.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_tf32_supported.html">torch.cuda.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory_usage.html">torch.cuda.memory_usage</a></li>
@@ -3309,6 +3311,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="xpu.html">torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.StreamContext.html">StreamContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.can_device_access_peer.html">torch.xpu.can_device_access_peer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.current_device.html">torch.xpu.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.current_stream.html">torch.xpu.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.device.html">device</a></li>
@@ -3322,6 +3325,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_stream_from_external.html">torch.xpu.get_stream_from_external</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.init.html">torch.xpu.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_available.html">torch.xpu.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_bf16_supported.html">torch.xpu.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_initialized.html">torch.xpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
@@ -3358,6 +3362,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.device_count.html">torch.mtia.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.init.html">torch.mtia.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.is_available.html">torch.mtia.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.is_bf16_supported.html">torch.mtia.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.is_initialized.html">torch.mtia.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory_stats.html">torch.mtia.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.get_device_capability.html">torch.mtia.get_device_capability</a></li>
@@ -3394,8 +3399,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4387,7 +4392,7 @@ document.write(`
                   
   <div class="section" id="torch-mtia">
 <h1>torch.mtia<a class="headerlink" href="#torch-mtia" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 11, 2023 | Last Updated On: Jun 08, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 11, 2023 | Last Updated On: Sep 16, 2025</p>
 <p>The MTIA backend is implemented out of the tree, only interfaces are be defined here.</p>
 <span class="target" id="module-torch.mtia"></span><p>This package enables an interface for accessing MTIA backend in python</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
@@ -4417,49 +4422,52 @@ document.write(`
 <tr class="row-odd"><td><p><p id="torch.mtia.is_available"/><a class="reference internal" href="generated/torch.mtia.is_available.html#torch.mtia.is_available" title="torch.mtia.is_available"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_available</span></code></a></p></td>
 <td><p>Return true if MTIA device is available</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mtia.is_initialized"/><a class="reference internal" href="generated/torch.mtia.is_initialized.html#torch.mtia.is_initialized" title="torch.mtia.is_initialized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_initialized</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mtia.is_bf16_supported"/><a class="reference internal" href="generated/torch.mtia.is_bf16_supported.html#torch.mtia.is_bf16_supported" title="torch.mtia.is_bf16_supported"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_bf16_supported</span></code></a></p></td>
+<td><p>Return a bool indicating if the current MTIA device supports dtype bfloat16.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.mtia.is_initialized"/><a class="reference internal" href="generated/torch.mtia.is_initialized.html#torch.mtia.is_initialized" title="torch.mtia.is_initialized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_initialized</span></code></a></p></td>
 <td><p>Return whether PyTorch's MTIA state has been initialized.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mtia.memory_stats"/><a class="reference internal" href="generated/torch.mtia.memory_stats.html#torch.mtia.memory_stats" title="torch.mtia.memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_stats</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mtia.memory_stats"/><a class="reference internal" href="generated/torch.mtia.memory_stats.html#torch.mtia.memory_stats" title="torch.mtia.memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_stats</span></code></a></p></td>
 <td><p>Return a dictionary of MTIA memory allocator statistics for a given device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mtia.get_device_capability"/><a class="reference internal" href="generated/torch.mtia.get_device_capability.html#torch.mtia.get_device_capability" title="torch.mtia.get_device_capability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_capability</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mtia.get_device_capability"/><a class="reference internal" href="generated/torch.mtia.get_device_capability.html#torch.mtia.get_device_capability" title="torch.mtia.get_device_capability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_capability</span></code></a></p></td>
 <td><p>Return capability of a given device as a tuple of (major version, minor version).</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mtia.empty_cache"/><a class="reference internal" href="generated/torch.mtia.empty_cache.html#torch.mtia.empty_cache" title="torch.mtia.empty_cache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_cache</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mtia.empty_cache"/><a class="reference internal" href="generated/torch.mtia.empty_cache.html#torch.mtia.empty_cache" title="torch.mtia.empty_cache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_cache</span></code></a></p></td>
 <td><p>Empty the MTIA device cache.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mtia.record_memory_history"/><a class="reference internal" href="generated/torch.mtia.record_memory_history.html#torch.mtia.record_memory_history" title="torch.mtia.record_memory_history"><code class="xref py py-obj docutils literal notranslate"><span class="pre">record_memory_history</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mtia.record_memory_history"/><a class="reference internal" href="generated/torch.mtia.record_memory_history.html#torch.mtia.record_memory_history" title="torch.mtia.record_memory_history"><code class="xref py py-obj docutils literal notranslate"><span class="pre">record_memory_history</span></code></a></p></td>
 <td><p>Enable/Disable the memory profiler on MTIA allocator</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mtia.snapshot"/><a class="reference internal" href="generated/torch.mtia.snapshot.html#torch.mtia.snapshot" title="torch.mtia.snapshot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">snapshot</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mtia.snapshot"/><a class="reference internal" href="generated/torch.mtia.snapshot.html#torch.mtia.snapshot" title="torch.mtia.snapshot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">snapshot</span></code></a></p></td>
 <td><p>Return a dictionary of MTIA memory allocator history</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mtia.attach_out_of_memory_observer"/><a class="reference internal" href="generated/torch.mtia.attach_out_of_memory_observer.html#torch.mtia.attach_out_of_memory_observer" title="torch.mtia.attach_out_of_memory_observer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attach_out_of_memory_observer</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mtia.attach_out_of_memory_observer"/><a class="reference internal" href="generated/torch.mtia.attach_out_of_memory_observer.html#torch.mtia.attach_out_of_memory_observer" title="torch.mtia.attach_out_of_memory_observer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attach_out_of_memory_observer</span></code></a></p></td>
 <td><p>Attach an out-of-memory observer to MTIA memory allocator</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mtia.set_device"/><a class="reference internal" href="generated/torch.mtia.set_device.html#torch.mtia.set_device" title="torch.mtia.set_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_device</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mtia.set_device"/><a class="reference internal" href="generated/torch.mtia.set_device.html#torch.mtia.set_device" title="torch.mtia.set_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_device</span></code></a></p></td>
 <td><p>Set the current device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mtia.set_stream"/><a class="reference internal" href="generated/torch.mtia.set_stream.html#torch.mtia.set_stream" title="torch.mtia.set_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_stream</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mtia.set_stream"/><a class="reference internal" href="generated/torch.mtia.set_stream.html#torch.mtia.set_stream" title="torch.mtia.set_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_stream</span></code></a></p></td>
 <td><p>Set the current stream.This is a wrapper API to set the stream.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mtia.stream"/><a class="reference internal" href="generated/torch.mtia.stream.html#torch.mtia.stream" title="torch.mtia.stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stream</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mtia.stream"/><a class="reference internal" href="generated/torch.mtia.stream.html#torch.mtia.stream" title="torch.mtia.stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stream</span></code></a></p></td>
 <td><p>Wrap around the Context-manager StreamContext that selects a given stream.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mtia.synchronize"/><a class="reference internal" href="generated/torch.mtia.synchronize.html#torch.mtia.synchronize" title="torch.mtia.synchronize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synchronize</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mtia.synchronize"/><a class="reference internal" href="generated/torch.mtia.synchronize.html#torch.mtia.synchronize" title="torch.mtia.synchronize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synchronize</span></code></a></p></td>
 <td><p>Waits for all jobs in all streams on a MTIA device to complete.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mtia.device"/><a class="reference internal" href="generated/torch.mtia.device.html#torch.mtia.device" title="torch.mtia.device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mtia.device"/><a class="reference internal" href="generated/torch.mtia.device.html#torch.mtia.device" title="torch.mtia.device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device</span></code></a></p></td>
 <td><p>Context-manager that changes the selected device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mtia.set_rng_state"/><a class="reference internal" href="generated/torch.mtia.set_rng_state.html#torch.mtia.set_rng_state" title="torch.mtia.set_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rng_state</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mtia.set_rng_state"/><a class="reference internal" href="generated/torch.mtia.set_rng_state.html#torch.mtia.set_rng_state" title="torch.mtia.set_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rng_state</span></code></a></p></td>
 <td><p>Sets the random number generator state.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mtia.get_rng_state"/><a class="reference internal" href="generated/torch.mtia.get_rng_state.html#torch.mtia.get_rng_state" title="torch.mtia.get_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mtia.get_rng_state"/><a class="reference internal" href="generated/torch.mtia.get_rng_state.html#torch.mtia.get_rng_state" title="torch.mtia.get_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state</span></code></a></p></td>
 <td><p>Returns the random number generator state as a ByteTensor.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mtia.DeferredMtiaCallError"/><a class="reference internal" href="generated/torch.mtia.DeferredMtiaCallError.html#torch.mtia.DeferredMtiaCallError" title="torch.mtia.DeferredMtiaCallError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeferredMtiaCallError</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mtia.DeferredMtiaCallError"/><a class="reference internal" href="generated/torch.mtia.DeferredMtiaCallError.html#torch.mtia.DeferredMtiaCallError" title="torch.mtia.DeferredMtiaCallError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeferredMtiaCallError</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -4828,8 +4836,8 @@ document.write(`
            "@id": "/mtia.html"
          },
         "datePublished": "Jul 11, 2023T00:00:00Z",
-         "dateModified": "Jun 08, 2025T00:00:00Z",
-         "articleBody": "torch.mtia# Created On: Jul 11, 2023 | Last Updated On: Jun 08, 2025 The MTIA backend is implemented out of the tree, only interfaces are be defined here. This package enables an interface for accessing MTIA backend in python StreamContext Context-manager that selects a given stream. current_device Return the index of a currently selected device. current_stream Return the currently selected Stream for a given device. default_stream Return the default Stream for a given device. device_count Return the number of MTIA devices available. init is_available Return true if MTIA device is available is_initialized Return whether PyTorch&#39;s MTIA state has been initialized. memory_stats Return a dictionary of MTIA memory allocator statistics for a given device. get_device_capability Return capability of a given device as a tuple of (major version, minor version). empty_cache Empty the MTIA device cache. record_memory_history Enable/Disable the memory profiler on MTIA allocator snapshot Return a dictionary of MTIA memory allocator history attach_out_of_memory_observer Attach an out-of-memory observer to MTIA memory allocator set_device Set the current device. set_stream Set the current stream.This is a wrapper API to set the stream. stream Wrap around the Context-manager StreamContext that selects a given stream. synchronize Waits for all jobs in all streams on a MTIA device to complete. device Context-manager that changes the selected device. set_rng_state Sets the random number generator state. get_rng_state Returns the random number generator state as a ByteTensor. DeferredMtiaCallError Streams and events# Event Query and record Stream status to identify or control dependencies across Stream and measure timing. Stream An in-order queue of executing the respective tasks asynchronously in first in first out (FIFO) order."
+         "dateModified": "Sep 16, 2025T00:00:00Z",
+         "articleBody": "torch.mtia# Created On: Jul 11, 2023 | Last Updated On: Sep 16, 2025 The MTIA backend is implemented out of the tree, only interfaces are be defined here. This package enables an interface for accessing MTIA backend in python StreamContext Context-manager that selects a given stream. current_device Return the index of a currently selected device. current_stream Return the currently selected Stream for a given device. default_stream Return the default Stream for a given device. device_count Return the number of MTIA devices available. init is_available Return true if MTIA device is available is_bf16_supported Return a bool indicating if the current MTIA device supports dtype bfloat16. is_initialized Return whether PyTorch&#39;s MTIA state has been initialized. memory_stats Return a dictionary of MTIA memory allocator statistics for a given device. get_device_capability Return capability of a given device as a tuple of (major version, minor version). empty_cache Empty the MTIA device cache. record_memory_history Enable/Disable the memory profiler on MTIA allocator snapshot Return a dictionary of MTIA memory allocator history attach_out_of_memory_observer Attach an out-of-memory observer to MTIA memory allocator set_device Set the current device. set_stream Set the current stream.This is a wrapper API to set the stream. stream Wrap around the Context-manager StreamContext that selects a given stream. synchronize Waits for all jobs in all streams on a MTIA device to complete. device Context-manager that changes the selected device. set_rng_state Sets the random number generator state. get_rng_state Returns the random number generator state as a ByteTensor. DeferredMtiaCallError Streams and events# Event Query and record Stream status to identify or control dependencies across Stream and measure timing. Stream An in-order queue of executing the respective tasks asynchronously in first in first out (FIFO) order."
        }
    </script>
 

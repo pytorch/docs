@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitd08cabe )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitdf4ebdd )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3185,6 +3185,7 @@ document.write(`
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.StreamContext.html">StreamContext</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.can_device_access_peer.html">torch.cuda.can_device_access_peer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.check_error.html">torch.cuda.check_error</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.current_blas_handle.html">torch.cuda.current_blas_handle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.current_device.html">torch.cuda.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.current_stream.html">torch.cuda.current_stream</a></li>
@@ -3204,6 +3205,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.init.html">torch.cuda.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.ipc_collect.html">torch.cuda.ipc_collect</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.is_available.html">torch.cuda.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.is_bf16_supported.html">torch.cuda.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.is_initialized.html">torch.cuda.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.is_tf32_supported.html">torch.cuda.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.memory_usage.html">torch.cuda.memory_usage</a></li>
@@ -3309,6 +3311,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../xpu.html">torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.StreamContext.html">StreamContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.can_device_access_peer.html">torch.xpu.can_device_access_peer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.current_device.html">torch.xpu.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.current_stream.html">torch.xpu.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.device.html">device</a></li>
@@ -3322,6 +3325,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.get_stream_from_external.html">torch.xpu.get_stream_from_external</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.init.html">torch.xpu.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.is_available.html">torch.xpu.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.is_bf16_supported.html">torch.xpu.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.is_initialized.html">torch.xpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
@@ -3358,6 +3362,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.device_count.html">torch.mtia.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.init.html">torch.mtia.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.is_available.html">torch.mtia.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.is_bf16_supported.html">torch.mtia.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.is_initialized.html">torch.mtia.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.memory_stats.html">torch.mtia.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.get_device_capability.html">torch.mtia.get_device_capability</a></li>
@@ -3394,8 +3399,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4438,7 +4443,7 @@ Graph Break Reason: TypeError when making fake tensor call
   Explanation: 
 
 
-  Developer debug context: TypeError &lt;built-in method sin of type object at 0x7f8cc7f831a0&gt;: sin() takes 1 positional argument but 2 were given
+  Developer debug context: TypeError &lt;built-in method sin of type object at 0x7f6ecbf831a0&gt;: sin() takes 1 positional argument but 2 were given
 
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0112.html
 User code traceback:
@@ -4670,9 +4675,9 @@ User code traceback:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[1.3124, 1.3022, 0.1507],
-        [1.0117, 1.5548, 3.1299],
-        [1.1428, 0.8733, 2.1035]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.6573, 0.1990, 0.4703],
+        [1.0592, 1.3677, 1.0954],
+        [1.5641, 2.1346, 0.6004]])
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_575/2410325100.py:5
@@ -4753,9 +4758,9 @@ User code traceback:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[ 1.0841,  1.0366,  1.8789],
-        [ 1.0467,  0.5415, -0.0405],
-        [ 1.4734,  1.9550,  0.3671]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[ 0.9094, -0.2194,  0.5305],
+        [ 2.7848,  1.9989, -0.6494],
+        [ 1.0740,  1.3674,  2.5324]])
 </pre></div>
 </div>
 </div>
@@ -5252,7 +5257,7 @@ tensor([[0.9093, 0.9093, 0.9093],
          },
         "datePublished": "Jul 28, 2025T00:00:00Z",
          "dateModified": "Jul 28, 2025T00:00:00Z",
-         "articleBody": "Common Graph Breaks# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 Below are some common graph breaks and some workarounds. Incorrect Code# Your code might contain errors (meaning it doesn’t execute even without torch.compile). In the example below, there’s a typo in the torch.sin call due to an extra argument. Always disable torch.compile to check if the code runs correctly. @torch.compile def fn(x): y = torch.sin(x, x) return y try: fn(torch.ones(3, 3)) except Exception as e: pass Graph break in user code at /tmp/ipykernel_575/343837593.py:3 Graph Break Reason: TypeError when making fake tensor call Explanation: Developer debug context: TypeError &lt;built-in method sin of type object at 0x7f8cc7f831a0&gt;: sin() takes 1 positional argument but 2 were given For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0112.html User code traceback: File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 196, in _run_module_as_main return _run_code(code, main_globals, None, File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 86, in _run_code exec(code, run_globals) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py\&#34;, line 18, in &lt;module&gt; app.launch_new_instance() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py\&#34;, line 1075, in launch_instance app.start() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py\&#34;, line 739, in start self.io_loop.start() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py\&#34;, line 211, in start self.asyncio_loop.run_forever() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\&#34;, line 603, in run_forever self._run_once() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\&#34;, line 1909, in _run_once handle._run() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py\&#34;, line 80, in _run self._context.run(self._callback, *self._args) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 519, in dispatch_queue await self.process_one() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 508, in process_one await dispatch(*args) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 400, in dispatch_shell await result File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\&#34;, line 368, in execute_request await super().execute_request(stream, ident, parent) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 767, in execute_request reply_content = await reply_content File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\&#34;, line 455, in do_execute res = shell.run_cell( File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py\&#34;, line 577, in run_cell return super().run..."
+         "articleBody": "Common Graph Breaks# Created On: Jul 28, 2025 | Last Updated On: Jul 28, 2025 Below are some common graph breaks and some workarounds. Incorrect Code# Your code might contain errors (meaning it doesn’t execute even without torch.compile). In the example below, there’s a typo in the torch.sin call due to an extra argument. Always disable torch.compile to check if the code runs correctly. @torch.compile def fn(x): y = torch.sin(x, x) return y try: fn(torch.ones(3, 3)) except Exception as e: pass Graph break in user code at /tmp/ipykernel_575/343837593.py:3 Graph Break Reason: TypeError when making fake tensor call Explanation: Developer debug context: TypeError &lt;built-in method sin of type object at 0x7f6ecbf831a0&gt;: sin() takes 1 positional argument but 2 were given For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0112.html User code traceback: File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 196, in _run_module_as_main return _run_code(code, main_globals, None, File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 86, in _run_code exec(code, run_globals) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py\&#34;, line 18, in &lt;module&gt; app.launch_new_instance() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py\&#34;, line 1075, in launch_instance app.start() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py\&#34;, line 739, in start self.io_loop.start() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py\&#34;, line 211, in start self.asyncio_loop.run_forever() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\&#34;, line 603, in run_forever self._run_once() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\&#34;, line 1909, in _run_once handle._run() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py\&#34;, line 80, in _run self._context.run(self._callback, *self._args) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 519, in dispatch_queue await self.process_one() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 508, in process_one await dispatch(*args) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 400, in dispatch_shell await result File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\&#34;, line 368, in execute_request await super().execute_request(stream, ident, parent) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 767, in execute_request reply_content = await reply_content File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\&#34;, line 455, in do_execute res = shell.run_cell( File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/zmqshell.py\&#34;, line 577, in run_cell return super().run..."
        }
    </script>
 

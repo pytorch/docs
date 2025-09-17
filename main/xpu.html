@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitd08cabe )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitdf4ebdd )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3185,6 +3185,7 @@ document.write(`
 <li class="toctree-l1 has-children"><a class="reference internal" href="cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.StreamContext.html">StreamContext</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.can_device_access_peer.html">torch.cuda.can_device_access_peer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.check_error.html">torch.cuda.check_error</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.current_blas_handle.html">torch.cuda.current_blas_handle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.current_device.html">torch.cuda.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.current_stream.html">torch.cuda.current_stream</a></li>
@@ -3204,6 +3205,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.init.html">torch.cuda.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.ipc_collect.html">torch.cuda.ipc_collect</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_available.html">torch.cuda.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_bf16_supported.html">torch.cuda.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_initialized.html">torch.cuda.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_tf32_supported.html">torch.cuda.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.memory_usage.html">torch.cuda.memory_usage</a></li>
@@ -3309,6 +3311,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">torch.xpu</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.StreamContext.html">StreamContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.can_device_access_peer.html">torch.xpu.can_device_access_peer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.current_device.html">torch.xpu.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.current_stream.html">torch.xpu.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.device.html">device</a></li>
@@ -3322,6 +3325,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_stream_from_external.html">torch.xpu.get_stream_from_external</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.init.html">torch.xpu.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_available.html">torch.xpu.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_bf16_supported.html">torch.xpu.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_initialized.html">torch.xpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
@@ -3358,6 +3362,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.device_count.html">torch.mtia.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.init.html">torch.mtia.init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.is_available.html">torch.mtia.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.is_bf16_supported.html">torch.mtia.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.is_initialized.html">torch.mtia.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.memory_stats.html">torch.mtia.memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.get_device_capability.html">torch.mtia.get_device_capability</a></li>
@@ -3394,8 +3399,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4387,7 +4392,7 @@ document.write(`
                   
   <div class="section" id="module-torch.xpu">
 <span id="torch-xpu"></span><h1>torch.xpu<a class="headerlink" href="#module-torch.xpu" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 01, 2024 | Last Updated On: Jun 06, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 01, 2024 | Last Updated On: Sep 15, 2025</p>
 <p>This package introduces support for the XPU backend, specifically tailored for
 Intel GPU optimization.</p>
 <p>This package is lazily initialized, so you can always import it, and use
@@ -4401,44 +4406,50 @@ Intel GPU optimization.</p>
 <tr class="row-odd"><td><p><p id="torch.xpu.StreamContext"/><a class="reference internal" href="generated/torch.xpu.StreamContext.html#torch.xpu.StreamContext" title="torch.xpu.StreamContext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StreamContext</span></code></a></p></td>
 <td><p>Context-manager that selects a given stream.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.current_device"/><a class="reference internal" href="generated/torch.xpu.current_device.html#torch.xpu.current_device" title="torch.xpu.current_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_device</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.can_device_access_peer"/><a class="reference internal" href="generated/torch.xpu.can_device_access_peer.html#torch.xpu.can_device_access_peer" title="torch.xpu.can_device_access_peer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">can_device_access_peer</span></code></a></p></td>
+<td><p>Query whether a device can access a peer device's memory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.xpu.current_device"/><a class="reference internal" href="generated/torch.xpu.current_device.html#torch.xpu.current_device" title="torch.xpu.current_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_device</span></code></a></p></td>
 <td><p>Return the index of a currently selected device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.current_stream"/><a class="reference internal" href="generated/torch.xpu.current_stream.html#torch.xpu.current_stream" title="torch.xpu.current_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_stream</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.current_stream"/><a class="reference internal" href="generated/torch.xpu.current_stream.html#torch.xpu.current_stream" title="torch.xpu.current_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_stream</span></code></a></p></td>
 <td><p>Return the currently selected <a class="reference internal" href="generated/torch.xpu.Stream.html#torch.xpu.Stream" title="torch.xpu.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> for a given device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.device"/><a class="reference internal" href="generated/torch.xpu.device.html#torch.xpu.device" title="torch.xpu.device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.device"/><a class="reference internal" href="generated/torch.xpu.device.html#torch.xpu.device" title="torch.xpu.device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device</span></code></a></p></td>
 <td><p>Context-manager that changes the selected device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.device_count"/><a class="reference internal" href="generated/torch.xpu.device_count.html#torch.xpu.device_count" title="torch.xpu.device_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_count</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.device_count"/><a class="reference internal" href="generated/torch.xpu.device_count.html#torch.xpu.device_count" title="torch.xpu.device_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_count</span></code></a></p></td>
 <td><p>Return the number of XPU device available.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.device_of"/><a class="reference internal" href="generated/torch.xpu.device_of.html#torch.xpu.device_of" title="torch.xpu.device_of"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_of</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.device_of"/><a class="reference internal" href="generated/torch.xpu.device_of.html#torch.xpu.device_of" title="torch.xpu.device_of"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_of</span></code></a></p></td>
 <td><p>Context-manager that changes the current device to that of given object.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.get_arch_list"/><a class="reference internal" href="generated/torch.xpu.get_arch_list.html#torch.xpu.get_arch_list" title="torch.xpu.get_arch_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_arch_list</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.get_arch_list"/><a class="reference internal" href="generated/torch.xpu.get_arch_list.html#torch.xpu.get_arch_list" title="torch.xpu.get_arch_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_arch_list</span></code></a></p></td>
 <td><p>Return list XPU architectures this library was compiled for.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.get_device_capability"/><a class="reference internal" href="generated/torch.xpu.get_device_capability.html#torch.xpu.get_device_capability" title="torch.xpu.get_device_capability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_capability</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.get_device_capability"/><a class="reference internal" href="generated/torch.xpu.get_device_capability.html#torch.xpu.get_device_capability" title="torch.xpu.get_device_capability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_capability</span></code></a></p></td>
 <td><p>Get the xpu capability of a device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.get_device_name"/><a class="reference internal" href="generated/torch.xpu.get_device_name.html#torch.xpu.get_device_name" title="torch.xpu.get_device_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_name</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.get_device_name"/><a class="reference internal" href="generated/torch.xpu.get_device_name.html#torch.xpu.get_device_name" title="torch.xpu.get_device_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_name</span></code></a></p></td>
 <td><p>Get the name of a device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.get_device_properties"/><a class="reference internal" href="generated/torch.xpu.get_device_properties.html#torch.xpu.get_device_properties" title="torch.xpu.get_device_properties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_properties</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.get_device_properties"/><a class="reference internal" href="generated/torch.xpu.get_device_properties.html#torch.xpu.get_device_properties" title="torch.xpu.get_device_properties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_properties</span></code></a></p></td>
 <td><p>Get the properties of a device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.get_gencode_flags"/><a class="reference internal" href="generated/torch.xpu.get_gencode_flags.html#torch.xpu.get_gencode_flags" title="torch.xpu.get_gencode_flags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_gencode_flags</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.get_gencode_flags"/><a class="reference internal" href="generated/torch.xpu.get_gencode_flags.html#torch.xpu.get_gencode_flags" title="torch.xpu.get_gencode_flags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_gencode_flags</span></code></a></p></td>
 <td><p>Return XPU AOT(ahead-of-time) build flags this library was compiled with.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.get_stream_from_external"/><a class="reference internal" href="generated/torch.xpu.get_stream_from_external.html#torch.xpu.get_stream_from_external" title="torch.xpu.get_stream_from_external"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stream_from_external</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.get_stream_from_external"/><a class="reference internal" href="generated/torch.xpu.get_stream_from_external.html#torch.xpu.get_stream_from_external" title="torch.xpu.get_stream_from_external"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stream_from_external</span></code></a></p></td>
 <td><p>Return a <a class="reference internal" href="generated/torch.xpu.Stream.html#torch.xpu.Stream" title="torch.xpu.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> from an external SYCL queue.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.init"/><a class="reference internal" href="generated/torch.xpu.init.html#torch.xpu.init" title="torch.xpu.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.init"/><a class="reference internal" href="generated/torch.xpu.init.html#torch.xpu.init" title="torch.xpu.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a></p></td>
 <td><p>Initialize PyTorch's XPU state.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.is_available"/><a class="reference internal" href="generated/torch.xpu.is_available.html#torch.xpu.is_available" title="torch.xpu.is_available"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_available</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.is_available"/><a class="reference internal" href="generated/torch.xpu.is_available.html#torch.xpu.is_available" title="torch.xpu.is_available"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_available</span></code></a></p></td>
 <td><p>Return a bool indicating if XPU is currently available.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.xpu.is_bf16_supported"/><a class="reference internal" href="generated/torch.xpu.is_bf16_supported.html#torch.xpu.is_bf16_supported" title="torch.xpu.is_bf16_supported"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_bf16_supported</span></code></a></p></td>
+<td><p>Return a bool indicating if the current XPU device supports dtype bfloat16.</p></td>
 </tr>
 <tr class="row-odd"><td><p><p id="torch.xpu.is_initialized"/><a class="reference internal" href="generated/torch.xpu.is_initialized.html#torch.xpu.is_initialized" title="torch.xpu.is_initialized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_initialized</span></code></a></p></td>
 <td><p>Return whether PyTorch's XPU state has been initialized.</p></td>
@@ -4906,8 +4917,8 @@ for tracking purposes -->
            "@id": "/xpu.html"
          },
         "datePublished": "Feb 01, 2024T00:00:00Z",
-         "dateModified": "Jun 06, 2025T00:00:00Z",
-         "articleBody": "torch.xpu# Created On: Feb 01, 2024 | Last Updated On: Jun 06, 2025 This package introduces support for the XPU backend, specifically tailored for Intel GPU optimization. This package is lazily initialized, so you can always import it, and use is_available() to determine if your system supports XPU. StreamContext Context-manager that selects a given stream. current_device Return the index of a currently selected device. current_stream Return the currently selected Stream for a given device. device Context-manager that changes the selected device. device_count Return the number of XPU device available. device_of Context-manager that changes the current device to that of given object. get_arch_list Return list XPU architectures this library was compiled for. get_device_capability Get the xpu capability of a device. get_device_name Get the name of a device. get_device_properties Get the properties of a device. get_gencode_flags Return XPU AOT(ahead-of-time) build flags this library was compiled with. get_stream_from_external Return a Stream from an external SYCL queue. init Initialize PyTorch&#39;s XPU state. is_available Return a bool indicating if XPU is currently available. is_initialized Return whether PyTorch&#39;s XPU state has been initialized. set_device Set the current device. set_stream Set the current stream.This is a wrapper API to set the stream. stream Wrap around the Context-manager StreamContext that selects a given stream. synchronize Wait for all kernels in all streams on a XPU device to complete. Random Number Generator# get_rng_state Return the random number generator state of the specified GPU as a ByteTensor. get_rng_state_all Return a list of ByteTensor representing the random number states of all devices. initial_seed Return the current random seed of the current GPU. manual_seed Set the seed for generating random numbers for the current GPU. manual_seed_all Set the seed for generating random numbers on all GPUs. seed Set the seed for generating random numbers to a random number for the current GPU. seed_all Set the seed for generating random numbers to a random number on all GPUs. set_rng_state Set the random number generator state of the specified GPU. set_rng_state_all Set the random number generator state of all devices. Streams and events# Event Wrapper around a XPU event. Stream Wrapper around a XPU stream. Memory management# empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other XPU application. max_memory_allocated Return the maximum GPU memory occupied by tensors in bytes for a given device. max_memory_reserved Return the maximum GPU memory managed by the caching allocator in bytes for a given device. mem_get_info Return the global free and total GPU memory for a given device. memory_allocated Return the current GPU memory occupied by tensors in bytes for a given device. memory_reserved Return the current GPU memory managed by the caching allocator in by..."
+         "dateModified": "Sep 15, 2025T00:00:00Z",
+         "articleBody": "torch.xpu# Created On: Feb 01, 2024 | Last Updated On: Sep 15, 2025 This package introduces support for the XPU backend, specifically tailored for Intel GPU optimization. This package is lazily initialized, so you can always import it, and use is_available() to determine if your system supports XPU. StreamContext Context-manager that selects a given stream. can_device_access_peer Query whether a device can access a peer device&#39;s memory. current_device Return the index of a currently selected device. current_stream Return the currently selected Stream for a given device. device Context-manager that changes the selected device. device_count Return the number of XPU device available. device_of Context-manager that changes the current device to that of given object. get_arch_list Return list XPU architectures this library was compiled for. get_device_capability Get the xpu capability of a device. get_device_name Get the name of a device. get_device_properties Get the properties of a device. get_gencode_flags Return XPU AOT(ahead-of-time) build flags this library was compiled with. get_stream_from_external Return a Stream from an external SYCL queue. init Initialize PyTorch&#39;s XPU state. is_available Return a bool indicating if XPU is currently available. is_bf16_supported Return a bool indicating if the current XPU device supports dtype bfloat16. is_initialized Return whether PyTorch&#39;s XPU state has been initialized. set_device Set the current device. set_stream Set the current stream.This is a wrapper API to set the stream. stream Wrap around the Context-manager StreamContext that selects a given stream. synchronize Wait for all kernels in all streams on a XPU device to complete. Random Number Generator# get_rng_state Return the random number generator state of the specified GPU as a ByteTensor. get_rng_state_all Return a list of ByteTensor representing the random number states of all devices. initial_seed Return the current random seed of the current GPU. manual_seed Set the seed for generating random numbers for the current GPU. manual_seed_all Set the seed for generating random numbers on all GPUs. seed Set the seed for generating random numbers to a random number for the current GPU. seed_all Set the seed for generating random numbers to a random number on all GPUs. set_rng_state Set the random number generator state of the specified GPU. set_rng_state_all Set the random number generator state of all devices. Streams and events# Event Wrapper around a XPU event. Stream Wrapper around a XPU stream. Memory management# empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other XPU application. max_memory_allocated Return the maximum GPU memory occupied by tensors in bytes for a given device. max_memory_reserved Return the maximum GPU memory managed by the caching allocator in bytes for a given device. mem_get_info Return the global free and total GPU memory for a given device. memor..."
        }
    </script>
 
