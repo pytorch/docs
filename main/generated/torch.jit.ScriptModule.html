@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitdf4ebdd )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gite93706c )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4403,7 +4403,7 @@ document.write(`
 <h1>ScriptModule<a class="headerlink" href="#scriptmodule" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">ScriptModule</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/jit/_script.py#L513"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">ScriptModule</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/jit/_script.py#L513"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule" title="Permalink to this definition">#</a></dt>
 <dd><p>Wrapper for C++ torch::jit::Module with methods, attributes, and parameters.</p>
 <p>A wrapper around C++ <code class="docutils literal notranslate"><span class="pre">torch::jit::Module</span></code>. <code class="docutils literal notranslate"><span class="pre">ScriptModule</span></code>s
 contain methods, attributes, parameters, and
@@ -4412,7 +4412,7 @@ constants. These can be accessed the same way as on a normal <code class="docuti
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.add_module">
-<span class="sig-name descname"><span class="pre">add_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L639"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.add_module" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L639"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.add_module" title="Permalink to this definition">#</a></dt>
 <dd><p>Add a child module to the current module.</p>
 <p>The module can be accessed as an attribute using the given name.</p>
 <dl class="field-list simple">
@@ -4428,7 +4428,7 @@ accessed from this module using the given name</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.apply">
-<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1026"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.apply" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1026"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.apply" title="Permalink to this definition">#</a></dt>
 <dd><p>Apply <code class="docutils literal notranslate"><span class="pre">fn</span></code> recursively to every submodule (as returned by <code class="docutils literal notranslate"><span class="pre">.children()</span></code>) as well as self.</p>
 <p>Typical use includes initializing the parameters of a model
 (see also <a class="reference internal" href="../nn.init.html#nn-init-doc"><span class="std std-ref">torch.nn.init</span></a>).</p>
@@ -4470,7 +4470,7 @@ accessed from this module using the given name</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.bfloat16">
-<span class="sig-name descname"><span class="pre">bfloat16</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1201"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.bfloat16" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">bfloat16</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1201"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.bfloat16" title="Permalink to this definition">#</a></dt>
 <dd><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">bfloat16</span></code> datatype.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4488,7 +4488,7 @@ accessed from this module using the given name</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.buffers">
-<span class="sig-name descname"><span class="pre">buffers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2713"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.buffers" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">buffers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2713"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.buffers" title="Permalink to this definition">#</a></dt>
 <dd><p>Return an iterator over module buffers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4514,7 +4514,7 @@ are direct members of this module.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.children">
-<span class="sig-name descname"><span class="pre">children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2767"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.children" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2767"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.children" title="Permalink to this definition">#</a></dt>
 <dd><p>Return an iterator over immediate children modules.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Yields</dt>
@@ -4545,7 +4545,7 @@ The indices in the [0] output are keys to the underlying constant’s values.</p
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.compile">
-<span class="sig-name descname"><span class="pre">compile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L3030"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.compile" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">compile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L3030"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.compile" title="Permalink to this definition">#</a></dt>
 <dd><p>Compile this Module’s forward using <a class="reference internal" href="torch.compile.html#torch.compile" title="torch.compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.compile()</span></code></a>.</p>
 <p>This Module’s <cite>__call__</cite> method is compiled and all arguments are passed as-is
 to <a class="reference internal" href="torch.compile.html#torch.compile" title="torch.compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.compile()</span></code></a>.</p>
@@ -4554,7 +4554,7 @@ to <a class="reference internal" href="torch.compile.html#torch.compile" title="
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.cpu">
-<span class="sig-name descname"><span class="pre">cpu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1143"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.cpu" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cpu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1143"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.cpu" title="Permalink to this definition">#</a></dt>
 <dd><p>Move all model parameters and buffers to the CPU.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4572,7 +4572,7 @@ to <a class="reference internal" href="torch.compile.html#torch.compile" title="
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.cuda">
-<span class="sig-name descname"><span class="pre">cuda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1067"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.cuda" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cuda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1067"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.cuda" title="Permalink to this definition">#</a></dt>
 <dd><p>Move all model parameters and buffers to the GPU.</p>
 <p>This also makes associated parameters and buffers different objects. So
 it should be called before constructing the optimizer if the module will
@@ -4597,7 +4597,7 @@ copied to that device</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.double">
-<span class="sig-name descname"><span class="pre">double</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.double" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">double</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.double" title="Permalink to this definition">#</a></dt>
 <dd><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">double</span></code> datatype.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4615,7 +4615,7 @@ copied to that device</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.eval">
-<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2894"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.eval" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2894"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.eval" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the module in evaluation mode.</p>
 <p>This has an effect only on certain modules. See the documentation of
 particular modules for details of their behaviors in training/evaluation
@@ -4636,7 +4636,7 @@ etc.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.extra_repr">
-<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2970"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.extra_repr" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2970"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.extra_repr" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the extra representation of the module.</p>
 <p>To print customized extra information, you should re-implement
 this method in your own modules. Both single-line and multi-line
@@ -4650,7 +4650,7 @@ strings are acceptable.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.float">
-<span class="sig-name descname"><span class="pre">float</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.float" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">float</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.float" title="Permalink to this definition">#</a></dt>
 <dd><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">float</span></code> datatype.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4668,7 +4668,7 @@ strings are acceptable.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.get_buffer">
-<span class="sig-name descname"><span class="pre">get_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L853"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.get_buffer" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L853"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.get_buffer" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the buffer given by <code class="docutils literal notranslate"><span class="pre">target</span></code> if it exists, otherwise throw an error.</p>
 <p>See the docstring for <code class="docutils literal notranslate"><span class="pre">get_submodule</span></code> for a more detailed
 explanation of this method’s functionality as well as how to
@@ -4695,7 +4695,7 @@ fully-qualified string.)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.get_extra_state">
-<span class="sig-name descname"><span class="pre">get_extra_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L889"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.get_extra_state" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_extra_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L889"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.get_extra_state" title="Permalink to this definition">#</a></dt>
 <dd><p>Return any extra state to include in the module’s state_dict.</p>
 <p>Implement this and a corresponding <a class="reference internal" href="#torch.jit.ScriptModule.set_extra_state" title="torch.jit.ScriptModule.set_extra_state"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_extra_state()</span></code></a> for your module
 if you need to store extra state. This function is called when building the
@@ -4716,7 +4716,7 @@ their serialized pickled form changes.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.get_parameter">
-<span class="sig-name descname"><span class="pre">get_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L817"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.get_parameter" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L817"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.get_parameter" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the parameter given by <code class="docutils literal notranslate"><span class="pre">target</span></code> if it exists, otherwise throw an error.</p>
 <p>See the docstring for <code class="docutils literal notranslate"><span class="pre">get_submodule</span></code> for a more detailed
 explanation of this method’s functionality as well as how to
@@ -4743,7 +4743,7 @@ fully-qualified string.)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.get_submodule">
-<span class="sig-name descname"><span class="pre">get_submodule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L671"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.get_submodule" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_submodule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L671"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.get_submodule" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the submodule given by <code class="docutils literal notranslate"><span class="pre">target</span></code> if it exists, otherwise throw an error.</p>
 <p>For example, let’s say you have an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> <code class="docutils literal notranslate"><span class="pre">A</span></code> that
 looks like this:</p>
@@ -4798,7 +4798,7 @@ fully-qualified string.)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.half">
-<span class="sig-name descname"><span class="pre">half</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1190"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.half" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">half</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1190"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.half" title="Permalink to this definition">#</a></dt>
 <dd><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">half</span></code> datatype.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4823,7 +4823,7 @@ fully-qualified string.)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.ipu">
-<span class="sig-name descname"><span class="pre">ipu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1086"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.ipu" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">ipu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1086"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.ipu" title="Permalink to this definition">#</a></dt>
 <dd><p>Move all model parameters and buffers to the IPU.</p>
 <p>This also makes associated parameters and buffers different objects. So
 it should be called before constructing the optimizer if the module will
@@ -4848,7 +4848,7 @@ copied to that device</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.load_state_dict">
-<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assign</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2522"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.load_state_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assign</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2522"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.load_state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Copy parameters and buffers from <a class="reference internal" href="#torch.jit.ScriptModule.state_dict" title="torch.jit.ScriptModule.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a> into this module and its descendants.</p>
 <p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">strict</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, then
 the keys of <a class="reference internal" href="#torch.jit.ScriptModule.state_dict" title="torch.jit.ScriptModule.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a> must exactly match the keys returned
@@ -4903,7 +4903,7 @@ exists in <a class="reference internal" href="#torch.jit.ScriptModule.state_dict
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.modules">
-<span class="sig-name descname"><span class="pre">modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2796"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.modules" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2796"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.modules" title="Permalink to this definition">#</a></dt>
 <dd><p>Return an iterator over all modules in the network.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Yields</dt>
@@ -4935,7 +4935,7 @@ example, <code class="docutils literal notranslate"><span class="pre">l</span></
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.mtia">
-<span class="sig-name descname"><span class="pre">mtia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.mtia" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mtia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.mtia" title="Permalink to this definition">#</a></dt>
 <dd><p>Move all model parameters and buffers to the MTIA.</p>
 <p>This also makes associated parameters and buffers different objects. So
 it should be called before constructing the optimizer if the module will
@@ -4960,7 +4960,7 @@ copied to that device</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.named_buffers">
-<span class="sig-name descname"><span class="pre">named_buffers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2736"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.named_buffers" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">named_buffers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2736"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.named_buffers" title="Permalink to this definition">#</a></dt>
 <dd><p>Return an iterator over module buffers, yielding both the name of the buffer as well as the buffer itself.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4989,7 +4989,7 @@ are direct members of this module. Defaults to True.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.named_children">
-<span class="sig-name descname"><span class="pre">named_children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2776"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.named_children" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">named_children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2776"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.named_children" title="Permalink to this definition">#</a></dt>
 <dd><p>Return an iterator over immediate children modules, yielding both the name of the module as well as the module itself.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Yields</dt>
@@ -5009,7 +5009,7 @@ are direct members of this module. Defaults to True.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.named_modules">
-<span class="sig-name descname"><span class="pre">named_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2823"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.named_modules" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">named_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2823"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.named_modules" title="Permalink to this definition">#</a></dt>
 <dd><p>Return an iterator over all modules in the network, yielding both the name of the module as well as the module itself.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -5046,7 +5046,7 @@ example, <code class="docutils literal notranslate"><span class="pre">l</span></
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.named_parameters">
-<span class="sig-name descname"><span class="pre">named_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2681"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.named_parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">named_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2681"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.named_parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>Return an iterator over module parameters, yielding both the name of the parameter as well as the parameter itself.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -5076,7 +5076,7 @@ parameters in the result. Defaults to True.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.parameters">
-<span class="sig-name descname"><span class="pre">parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2656"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2656"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>Return an iterator over module parameters.</p>
 <p>This is typically passed to an optimizer.</p>
 <dl class="field-list simple">
@@ -5103,7 +5103,7 @@ are direct members of this module.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.register_backward_hook">
-<span class="sig-name descname"><span class="pre">register_backward_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1422"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_backward_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_backward_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1422"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_backward_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a backward hook on the module.</p>
 <p>This function is deprecated in favor of <a class="reference internal" href="torch.nn.Module.html#torch.nn.Module.register_full_backward_hook" title="torch.nn.Module.register_full_backward_hook"><code class="xref py py-meth docutils literal notranslate"><span class="pre">register_full_backward_hook()</span></code></a> and
 the behavior of this function will change in future versions.</p>
@@ -5120,7 +5120,7 @@ the behavior of this function will change in future versions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.register_buffer">
-<span class="sig-name descname"><span class="pre">register_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persistent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_buffer" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persistent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_buffer" title="Permalink to this definition">#</a></dt>
 <dd><p>Add a buffer to the module.</p>
 <p>This is typically used to register a buffer that should not be
 considered a model parameter. For example, BatchNorm’s <code class="docutils literal notranslate"><span class="pre">running_mean</span></code>
@@ -5152,7 +5152,7 @@ the buffer is <strong>not</strong> included in the module’s <a class="referenc
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.register_forward_hook">
-<span class="sig-name descname"><span class="pre">register_forward_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">always_call</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1678"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_forward_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_forward_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">always_call</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1678"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_forward_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a forward hook on the module.</p>
 <p>The hook will be called every time after <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> has computed an output.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">with_kwargs</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code> or not specified, the input contains only
@@ -5203,7 +5203,7 @@ Default: <code class="docutils literal notranslate"><span class="pre">False</spa
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.register_forward_pre_hook">
-<span class="sig-name descname"><span class="pre">register_forward_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1612"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_forward_pre_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_forward_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1612"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_forward_pre_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a forward pre-hook on the module.</p>
 <p>The hook will be called every time before <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> is invoked.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">with_kwargs</span></code> is false or not specified, the input contains only
@@ -5253,7 +5253,7 @@ Default: <code class="docutils literal notranslate"><span class="pre">False</spa
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.register_full_backward_hook">
-<span class="sig-name descname"><span class="pre">register_full_backward_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_full_backward_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_full_backward_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_full_backward_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a backward hook on the module.</p>
 <p>The hook will be called every time the gradients with respect to a module are computed, and its firing rules are as follows:</p>
 <blockquote>
@@ -5310,7 +5310,7 @@ all hooks registered by this method.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.register_full_backward_pre_hook">
-<span class="sig-name descname"><span class="pre">register_full_backward_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1373"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_full_backward_pre_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_full_backward_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1373"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_full_backward_pre_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a backward pre-hook on the module.</p>
 <p>The hook will be called every time the gradients for the module are computed.
 The hook should have the following signature:</p>
@@ -5356,7 +5356,7 @@ all hooks registered by this method.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.register_load_state_dict_post_hook">
-<span class="sig-name descname"><span class="pre">register_load_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2312"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_load_state_dict_post_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_load_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2312"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_load_state_dict_post_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a post-hook to be run after module’s <code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code> is called.</p>
 <dl class="simple">
 <dt>It should have the following signature::</dt><dd><p>hook(module, incompatible_keys) -&gt; None</p>
@@ -5386,7 +5386,7 @@ clearing out both missing and unexpected keys will avoid an error.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.register_load_state_dict_pre_hook">
-<span class="sig-name descname"><span class="pre">register_load_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_load_state_dict_pre_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_load_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_load_state_dict_pre_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a pre-hook to be run before module’s <code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code> is called.</p>
 <dl class="simple">
 <dt>It should have the following signature::</dt><dd><p>hook(module, state_dict, prefix, local_metadata, strict, missing_keys, unexpected_keys, error_msgs) -&gt; None  # noqa: B950</p>
@@ -5402,7 +5402,7 @@ loading the state dict.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.register_module">
-<span class="sig-name descname"><span class="pre">register_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L667"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_module" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L667"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_module" title="Permalink to this definition">#</a></dt>
 <dd><p>Alias for <a class="reference internal" href="#torch.jit.ScriptModule.add_module" title="torch.jit.ScriptModule.add_module"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_module()</span></code></a>.</p>
 <dl class="field-list simple">
 </dl>
@@ -5410,7 +5410,7 @@ loading the state dict.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.register_parameter">
-<span class="sig-name descname"><span class="pre">register_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L589"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_parameter" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L589"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_parameter" title="Permalink to this definition">#</a></dt>
 <dd><p>Add a parameter to the module.</p>
 <p>The parameter can be accessed as an attribute using given name.</p>
 <dl class="field-list simple">
@@ -5429,7 +5429,7 @@ module’s <a class="reference internal" href="#torch.jit.ScriptModule.state_dic
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.register_state_dict_post_hook">
-<span class="sig-name descname"><span class="pre">register_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_state_dict_post_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_state_dict_post_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a post-hook for the <a class="reference internal" href="torch.nn.Module.html#torch.nn.Module.state_dict" title="torch.nn.Module.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> method.</p>
 <dl class="simple">
 <dt>It should have the following signature::</dt><dd><p>hook(module, state_dict, prefix, local_metadata) -&gt; None</p>
@@ -5440,7 +5440,7 @@ module’s <a class="reference internal" href="#torch.jit.ScriptModule.state_dic
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.register_state_dict_pre_hook">
-<span class="sig-name descname"><span class="pre">register_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2127"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_state_dict_pre_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2127"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.register_state_dict_pre_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a pre-hook for the <a class="reference internal" href="torch.nn.Module.html#torch.nn.Module.state_dict" title="torch.nn.Module.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> method.</p>
 <dl class="simple">
 <dt>It should have the following signature::</dt><dd><p>hook(module, prefix, keep_vars) -&gt; None</p>
@@ -5452,7 +5452,7 @@ call is made.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.requires_grad_">
-<span class="sig-name descname"><span class="pre">requires_grad_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2912"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.requires_grad_" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">requires_grad_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2912"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.requires_grad_" title="Permalink to this definition">#</a></dt>
 <dd><p>Change if autograd should record operations on parameters in this module.</p>
 <p>This method sets the parameters’ <code class="xref py py-attr docutils literal notranslate"><span class="pre">requires_grad</span></code> attributes
 in-place.</p>
@@ -5476,7 +5476,7 @@ parameters in this module. Default: <code class="docutils literal notranslate"><
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/jit/_script.py#L742"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.save" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/jit/_script.py#L742"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.save" title="Permalink to this definition">#</a></dt>
 <dd><p>Save with a file-like object.</p>
 <p>save(f, _extra_files={})</p>
 <p>See <a class="reference internal" href="torch.jit.save.html#torch.jit.save" title="torch.jit.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.jit.save</span></code></a> which accepts a file-like object.
@@ -5486,7 +5486,7 @@ DO NOT confuse these two functions when it comes to the ‘f’ parameter functi
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.set_extra_state">
-<span class="sig-name descname"><span class="pre">set_extra_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L910"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.set_extra_state" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_extra_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L910"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.set_extra_state" title="Permalink to this definition">#</a></dt>
 <dd><p>Set extra state contained in the loaded <cite>state_dict</cite>.</p>
 <p>This function is called from <a class="reference internal" href="#torch.jit.ScriptModule.load_state_dict" title="torch.jit.ScriptModule.load_state_dict"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> to handle any extra state
 found within the <cite>state_dict</cite>. Implement this function and a corresponding
@@ -5501,7 +5501,7 @@ found within the <cite>state_dict</cite>. Implement this function and a correspo
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.set_submodule">
-<span class="sig-name descname"><span class="pre">set_submodule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L736"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.set_submodule" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_submodule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L736"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.set_submodule" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the submodule given by <code class="docutils literal notranslate"><span class="pre">target</span></code> if it exists, otherwise throw an error.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -5559,7 +5559,7 @@ if the submodule doesn’t already exist.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.share_memory">
-<span class="sig-name descname"><span class="pre">share_memory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2963"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.share_memory" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">share_memory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2963"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.share_memory" title="Permalink to this definition">#</a></dt>
 <dd><p>See <a class="reference internal" href="torch.Tensor.share_memory_.html#torch.Tensor.share_memory_" title="torch.Tensor.share_memory_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.share_memory_()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -5570,7 +5570,7 @@ if the submodule doesn’t already exist.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.state_dict">
-<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2191"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.state_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2191"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a dictionary containing references to the whole state of the module.</p>
 <p>Both parameters and persistent buffers (e.g. running averages) are
 included. Keys are corresponding parameter and buffer names.
@@ -5623,27 +5623,27 @@ Default: <code class="docutils literal notranslate"><span class="pre">False</spa
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.to">
-<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1244"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.to" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1244"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.to" title="Permalink to this definition">#</a></dt>
 <dd><p>Move and/or cast the parameters and buffers.</p>
 <p>This can be called as</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1244"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1244"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1244"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1244"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1244"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1244"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memory_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.channels_last</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1244"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memory_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.channels_last</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1244"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd></dd></dl>
 
 <p>Its signature is similar to <a class="reference internal" href="torch.Tensor.to.html#torch.Tensor.to" title="torch.Tensor.to"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.to()</span></code></a>, but only accepts
@@ -5722,7 +5722,7 @@ only argument)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.to_empty">
-<span class="sig-name descname"><span class="pre">to_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1212"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.to_empty" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1212"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.to_empty" title="Permalink to this definition">#</a></dt>
 <dd><p>Move the parameters and buffers to the specified device without copying storage.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -5744,7 +5744,7 @@ be recursively moved to the specified device.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.train">
-<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2872"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.train" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2872"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.train" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the module in training mode.</p>
 <p>This has an effect only on certain modules. See the documentation of
 particular modules for details of their behaviors in training/evaluation
@@ -5766,7 +5766,7 @@ mode (<code class="docutils literal notranslate"><span class="pre">False</span><
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.type">
-<span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dst_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.type" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dst_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.type" title="Permalink to this definition">#</a></dt>
 <dd><p>Casts all parameters and buffers to <code class="xref py py-attr docutils literal notranslate"><span class="pre">dst_type</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -5787,7 +5787,7 @@ mode (<code class="docutils literal notranslate"><span class="pre">False</span><
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.xpu">
-<span class="sig-name descname"><span class="pre">xpu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L1105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.xpu" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">xpu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L1105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.xpu" title="Permalink to this definition">#</a></dt>
 <dd><p>Move all model parameters and buffers to the XPU.</p>
 <p>This also makes associated parameters and buffers different objects. So
 it should be called before constructing optimizer if the module will
@@ -5812,7 +5812,7 @@ copied to that device</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.jit.ScriptModule.zero_grad">
-<span class="sig-name descname"><span class="pre">zero_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">set_to_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/nn/modules/module.py#L2935"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.zero_grad" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">zero_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">set_to_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/nn/modules/module.py#L2935"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.ScriptModule.zero_grad" title="Permalink to this definition">#</a></dt>
 <dd><p>Reset gradients of all model parameters.</p>
 <p>See similar function under <a class="reference internal" href="../optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.Optimizer</span></code></a> for more context.</p>
 <dl class="field-list simple">

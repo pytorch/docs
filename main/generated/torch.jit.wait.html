@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitdf4ebdd )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gite93706c )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -4403,7 +4403,7 @@ document.write(`
 <h1>torch.jit.wait<a class="headerlink" href="#torch-jit-wait" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.wait">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">future</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/df4ebddbe0fa2306fb8acd09b20265046d968c10/torch/jit/_async.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.wait" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">future</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e93706c2c8a19faca40e3a65f3395ac00318f6f9/torch/jit/_async.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.wait" title="Permalink to this definition">#</a></dt>
 <dd><p>Force completion of a <cite>torch.jit.Future[T]</cite> asynchronous task, returning the result of the task.</p>
 <p>See <a class="reference internal" href="torch.jit.fork.html#torch.jit.fork" title="torch.jit.fork"><code class="xref py py-func docutils literal notranslate"><span class="pre">fork()</span></code></a> for docs and examples.
 :param future: an asynchronous task reference, created through <cite>torch.jit.fork</cite>
