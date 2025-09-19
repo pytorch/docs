@@ -57,7 +57,7 @@ optional_input
 
     Tags: :doc:`python.object-model <python.object-model>`
 
-    Support Level: NOT_SUPPORTED_YET
+    Support Level: SUPPORTED
 
 Original source code:
 
@@ -81,7 +81,7 @@ Original source code:
     
     example_args = (torch.randn(2, 3),)
     tags = {"python.object-model"}
-    support_level = SupportLevel.NOT_SUPPORTED_YET
+    support_level = SupportLevel.SUPPORTED
     model = OptionalInput()
     
 

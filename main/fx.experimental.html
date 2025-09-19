@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gite93706c )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git17c1653 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3399,8 +3399,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4257,7 +4257,6 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="benchmark_utils.html">torch.utils.benchmark</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bottleneck.html">torch.utils.bottleneck</a></li>
 <li class="toctree-l1"><a class="reference internal" href="checkpoint.html">torch.utils.checkpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cpp_extension.html">torch.utils.cpp_extension</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">torch.utils.data</a></li>
@@ -4392,11 +4391,24 @@ document.write(`
                   
   <div class="section" id="torch-fx-experimental">
 <h1>torch.fx.experimental<a class="headerlink" href="#torch-fx-experimental" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 07, 2024 | Last Updated On: Jun 12, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 07, 2024 | Last Updated On: Sep 18, 2025</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>These APIs are experimental and subject to change without notice.</p>
 </div>
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.fx.experimental.sym_node.DynamicInt">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.sym_node.</span></span><span class="sig-name descname"><span class="pre">DynamicInt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/17c16537e263e05cccc62fb17173811cac637211/torch/fx/experimental/sym_node.py#L635"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.sym_node.DynamicInt" title="Permalink to this definition">#</a></dt>
+<dd><p>User API for marking dynamic integers in <cite>torch.compile</cite>.
+Intended to be compatible with both compile and eager mode.</p>
+<p>Example usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">DynamicInt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># compiles x as a dynamic integer input; returns f(4)</span>
+</pre></div>
+</div>
+</dd></dl>
+
 <div class="section" id="module-torch.fx.experimental.symbolic_shapes">
 <span id="torch-fx-experimental-symbolic-shapes"></span><h2>torch.fx.experimental.symbolic_shapes<a class="headerlink" href="#module-torch.fx.experimental.symbolic_shapes" title="Permalink to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
@@ -4683,6 +4695,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.fx.experimental.sym_node.DynamicInt"><code class="docutils literal notranslate"><span class="pre">DynamicInt</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-torch.fx.experimental.symbolic_shapes">torch.fx.experimental.symbolic_shapes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-torch.fx.experimental.proxy_tensor">torch.fx.experimental.proxy_tensor</a></li>
 </ul>
@@ -4905,8 +4918,8 @@ document.write(`
            "@id": "/fx.experimental.html"
          },
         "datePublished": "Feb 07, 2024T00:00:00Z",
-         "dateModified": "Jun 12, 2025T00:00:00Z",
-         "articleBody": "torch.fx.experimental# Created On: Feb 07, 2024 | Last Updated On: Jun 12, 2025 Warning These APIs are experimental and subject to change without notice. torch.fx.experimental.symbolic_shapes# ShapeEnv DimDynamic Controls how to perform symbol allocation for a dimension. StrictMinMaxConstraint For clients: the size at this dimension must be within &#39;vr&#39; (which specifies a lower and upper bound, inclusive-inclusive) AND it must be non-negative and should not be 0 or 1 (but see NB below). RelaxedUnspecConstraint For clients: no explicit constraint; constraint is whatever is implicitly inferred by guards from tracing. EqualityConstraint Represent and decide various kinds of equality constraints between input sources. SymbolicContext Data structure specifying how we should create symbols in create_symbolic_sizes_strides_storage_offset; e.g., should they be static or dynamic. StatelessSymbolicContext Create symbols in create_symbolic_sizes_strides_storage_offset via a symbolic_context determination as given by DimDynamic and DimConstraint. StatefulSymbolicContext Create symbols in create_symbolic_sizes_strides_storage_offset via a symbolic_context determination as given by a cache of Source:Symbol. SubclassSymbolicContext The correct symbolic context for a given inner tensor of a traceable tensor subclass may differ from that of the outer symbolic context. DimConstraints Custom solver for a system of constraints on symbolic dimensions. ShapeEnvSettings Encapsulates all shape env settings that could potentially affect FakeTensor dispatch. ConvertIntKey CallMethodKey PropagateUnbackedSymInts DivideByKey InnerTensorKey Specialization This class is used in multi-graph compilation contexts where we generate multiple specialized graphs and dispatch to the appropriate one at runtime. hint_int Retrieve the hint for an int (based on the underlying real values as observed at runtime). is_concrete_int Utility to check if underlying object in SymInt is concrete value. is_concrete_bool Utility to check if underlying object in SymBool is concrete value. is_concrete_float Utility to check if underlying object in SymInt is concrete value. has_free_symbols Faster version of bool(free_symbols(val)) has_free_unbacked_symbols Faster version of bool(free_unbacked_symbols(val)) guard_or_true Try to guard a, if data dependent error encountered just return true. guard_or_false Try to guard a, if data dependent error encountered just return false. guard_size_oblivious Perform a guard on a symbolic boolean expression in a size oblivious way. sym_and and, but for symbolic expressions, without bool casting. sym_eq Like ==, but when run on list/tuple, it will recursively test equality and use sym_and to join the results together, without guarding. sym_or or, but for symbolic expressions, without bool casting. constrain_range Applies a constraint that the passed in SymInt must lie between min-max inclusive-inclusive, WITHOUT introducing a guard on the SymInt (meaning that it can..."
+         "dateModified": "Sep 18, 2025T00:00:00Z",
+         "articleBody": "torch.fx.experimental# Created On: Feb 07, 2024 | Last Updated On: Sep 18, 2025 Warning These APIs are experimental and subject to change without notice. class torch.fx.experimental.sym_node.DynamicInt(val)[source]# User API for marking dynamic integers in torch.compile. Intended to be compatible with both compile and eager mode. Example usage: fn = torch.compile(f) x = DynamicInt(4) fn(x) # compiles x as a dynamic integer input; returns f(4) torch.fx.experimental.symbolic_shapes# ShapeEnv DimDynamic Controls how to perform symbol allocation for a dimension. StrictMinMaxConstraint For clients: the size at this dimension must be within &#39;vr&#39; (which specifies a lower and upper bound, inclusive-inclusive) AND it must be non-negative and should not be 0 or 1 (but see NB below). RelaxedUnspecConstraint For clients: no explicit constraint; constraint is whatever is implicitly inferred by guards from tracing. EqualityConstraint Represent and decide various kinds of equality constraints between input sources. SymbolicContext Data structure specifying how we should create symbols in create_symbolic_sizes_strides_storage_offset; e.g., should they be static or dynamic. StatelessSymbolicContext Create symbols in create_symbolic_sizes_strides_storage_offset via a symbolic_context determination as given by DimDynamic and DimConstraint. StatefulSymbolicContext Create symbols in create_symbolic_sizes_strides_storage_offset via a symbolic_context determination as given by a cache of Source:Symbol. SubclassSymbolicContext The correct symbolic context for a given inner tensor of a traceable tensor subclass may differ from that of the outer symbolic context. DimConstraints Custom solver for a system of constraints on symbolic dimensions. ShapeEnvSettings Encapsulates all shape env settings that could potentially affect FakeTensor dispatch. ConvertIntKey CallMethodKey PropagateUnbackedSymInts DivideByKey InnerTensorKey Specialization This class is used in multi-graph compilation contexts where we generate multiple specialized graphs and dispatch to the appropriate one at runtime. hint_int Retrieve the hint for an int (based on the underlying real values as observed at runtime). is_concrete_int Utility to check if underlying object in SymInt is concrete value. is_concrete_bool Utility to check if underlying object in SymBool is concrete value. is_concrete_float Utility to check if underlying object in SymInt is concrete value. has_free_symbols Faster version of bool(free_symbols(val)) has_free_unbacked_symbols Faster version of bool(free_unbacked_symbols(val)) guard_or_true Try to guard a, if data dependent error encountered just return true. guard_or_false Try to guard a, if data dependent error encountered just return false. guard_size_oblivious Perform a guard on a symbolic boolean expression in a size oblivious way. sym_and and, but for symbolic expressions, without bool casting. sym_eq Like ==, but when run on list/tuple, it will recursively test equality and u..."
        }
    </script>
 

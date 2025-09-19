@@ -19,8 +19,8 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
     :caption: Tags
 
     torch.escape-hatch
-    torch.cond
     torch.dynamic-shape
+    torch.cond
     python.closure
     torch.dynamic-value
     python.data-structure
@@ -233,7 +233,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -315,7 +315,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -394,7 +394,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -574,7 +574,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -666,7 +666,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -729,7 +729,7 @@ constrain_as_size_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -802,7 +802,7 @@ constrain_as_value_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -1105,7 +1105,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
 
     Support Level: SUPPORTED
 
@@ -1422,7 +1422,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -1477,7 +1477,7 @@ list_unpack
 
 .. note::
 
-    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.control-flow <python.control-flow>`
+    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -1661,6 +1661,50 @@ Result:
         
     Range constraints: {}
     
+
+
+optional_input
+^^^^^^^^^^^^^^
+
+.. note::
+
+    Tags: :doc:`python.object-model <python.object-model>`
+
+    Support Level: SUPPORTED
+
+Original source code:
+
+.. code-block:: python
+
+    # mypy: allow-untyped-defs
+    import torch
+    from torch._export.db.case import SupportLevel
+    
+    
+    class OptionalInput(torch.nn.Module):
+        """
+        Tracing through optional input is not supported yet
+        """
+    
+        def forward(self, x, y=torch.randn(2, 3)):
+            if y is not None:
+                return x + y
+            return x
+    
+    
+    example_args = (torch.randn(2, 3),)
+    tags = {"python.object-model"}
+    support_level = SupportLevel.SUPPORTED
+    model = OptionalInput()
+    
+
+    torch.export.export(model, example_args)
+
+Result:
+
+.. code-block::
+
+    Unsupported: Tracing through optional input is not supported yet
 
 
 pytree_flatten
@@ -2245,50 +2289,6 @@ Result:
 .. code-block::
 
     AssertionError: Mutating module attribute attr_list during export.
-
-
-optional_input
-^^^^^^^^^^^^^^
-
-.. note::
-
-    Tags: :doc:`python.object-model <python.object-model>`
-
-    Support Level: NOT_SUPPORTED_YET
-
-Original source code:
-
-.. code-block:: python
-
-    # mypy: allow-untyped-defs
-    import torch
-    from torch._export.db.case import SupportLevel
-    
-    
-    class OptionalInput(torch.nn.Module):
-        """
-        Tracing through optional input is not supported yet
-        """
-    
-        def forward(self, x, y=torch.randn(2, 3)):
-            if y is not None:
-                return x + y
-            return x
-    
-    
-    example_args = (torch.randn(2, 3),)
-    tags = {"python.object-model"}
-    support_level = SupportLevel.NOT_SUPPORTED_YET
-    model = OptionalInput()
-    
-
-    torch.export.export(model, example_args)
-
-Result:
-
-.. code-block::
-
-    Unsupported: Tracing through optional input is not supported yet
 
 
 unsupported_operator

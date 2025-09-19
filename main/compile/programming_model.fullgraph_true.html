@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gite93706c )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git17c1653 )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3399,8 +3399,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4257,7 +4257,6 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../benchmark_utils.html">torch.utils.benchmark</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../bottleneck.html">torch.utils.bottleneck</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../checkpoint.html">torch.utils.checkpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cpp_extension.html">torch.utils.cpp_extension</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../data.html">torch.utils.data</a></li>
@@ -4571,7 +4570,7 @@ from user code:
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([ 0.1919, -0.0710,  0.3955])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([-0.1946, -0.1942, -0.0531])
 </pre></div>
 </div>
 </div>
@@ -4677,9 +4676,9 @@ If it is a third-party C/C++ Python extension, please either wrap it into a PyTo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.0852, 0.1335, 0.0914],
-        [0.0101, 0.5632, 1.6155],
-        [1.3342, 0.1550, 1.3236]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.4359, 0.0589, 0.0069],
+        [1.6015, 0.2430, 0.8324],
+        [1.1613, 0.0674, 1.1379]])
 </pre></div>
 </div>
 </div>
@@ -4752,7 +4751,7 @@ Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especiall
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([1.6678e-02, 7.1827e-02, 2.4312e-10])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0.0883, 0.0011, 0.0017])
 </pre></div>
 </div>
 </div>
