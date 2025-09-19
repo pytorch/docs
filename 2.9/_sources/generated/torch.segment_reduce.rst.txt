@@ -1,0 +1,6 @@
+﻿torch.segment\_reduce
+=====================
+
+.. currentmodule:: torch
+
+.. autofunction:: segment_reduce

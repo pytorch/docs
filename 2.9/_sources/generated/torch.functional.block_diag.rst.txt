@@ -1,0 +1,6 @@
+﻿torch.functional.block\_diag
+============================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: block_diag

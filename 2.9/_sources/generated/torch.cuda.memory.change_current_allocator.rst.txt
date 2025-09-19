@@ -1,0 +1,6 @@
+﻿torch.cuda.memory.change\_current\_allocator
+============================================
+
+.. currentmodule:: torch.cuda.memory
+
+.. autofunction:: change_current_allocator
