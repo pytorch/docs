@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git093f064 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git8e3fd3d )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3399,8 +3399,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4468,7 +4468,7 @@ Finally, <code class="docutils literal notranslate"><span class="pre">error_on_g
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_874/1452578661.py:4
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_873/1452578661.py:4
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -4521,20 +4521,20 @@ User code traceback:
     if await self.run_code(code, result, async_=asy):
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_874/1452578661.py&quot;, line 17, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_873/1452578661.py&quot;, line 17, in &lt;module&gt;
     fn(torch.randn(3))
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/external_utils.py&quot;, line 209, in inner
     return func(*args, **kwargs)
-  File &quot;/tmp/ipykernel_874/1452578661.py&quot;, line 14, in fn
+  File &quot;/tmp/ipykernel_873/1452578661.py&quot;, line 14, in fn
     return inner(x)
-  File &quot;/tmp/ipykernel_874/1452578661.py&quot;, line 8, in inner
+  File &quot;/tmp/ipykernel_873/1452578661.py&quot;, line 8, in inner
     return code_with_a_difficult_graph_break(x)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/external_utils.py&quot;, line 209, in inner
     return func(*args, **kwargs)
-  File &quot;/tmp/ipykernel_874/1452578661.py&quot;, line 4, in code_with_a_difficult_graph_break
+  File &quot;/tmp/ipykernel_873/1452578661.py&quot;, line 4, in code_with_a_difficult_graph_break
     torch._dynamo.graph_break()
 
-Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_874/1452578661.py:4
+Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_873/1452578661.py:4
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -4542,7 +4542,7 @@ Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}`
 
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
-Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_874/1452578661.py:4
+Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_873/1452578661.py:4
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -4550,7 +4550,7 @@ Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}`
 
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
-Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_874/1452578661.py:4
+Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_873/1452578661.py:4
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -4560,7 +4560,7 @@ Graph Break Reason: Call to `torch._dynamo.graph_break()`
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([1.6392, 3.7358, 3.8097])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([3.8319, 2.7082, 4.4061])
 </pre></div>
 </div>
 </div>
@@ -4585,7 +4585,7 @@ but there are some sections of code with non-performance-critical graph breaks t
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_874/737485247.py:7
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_873/737485247.py:7
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -4638,15 +4638,15 @@ User code traceback:
     if await self.run_code(code, result, async_=asy):
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_874/737485247.py&quot;, line 11, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_873/737485247.py&quot;, line 11, in &lt;module&gt;
     fn(torch.randn(3))
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/external_utils.py&quot;, line 209, in inner
     return func(*args, **kwargs)
-  File &quot;/tmp/ipykernel_874/737485247.py&quot;, line 7, in fn
+  File &quot;/tmp/ipykernel_873/737485247.py&quot;, line 7, in fn
     torch._dynamo.graph_break()  # no error
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([1.8559, 3.9209, 2.3252])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([3.8991, 1.9883, 3.7530])
 </pre></div>
 </div>
 </div>
@@ -4674,7 +4674,7 @@ User code traceback:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_874/2112598647.py:4
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_873/2112598647.py:4
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -4727,18 +4727,18 @@ User code traceback:
     if await self.run_code(code, result, async_=asy):
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_874/2112598647.py&quot;, line 16, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_873/2112598647.py&quot;, line 16, in &lt;module&gt;
     fn(torch.randn(3))
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/external_utils.py&quot;, line 209, in inner
     return func(*args, **kwargs)
-  File &quot;/tmp/ipykernel_874/2112598647.py&quot;, line 13, in fn
+  File &quot;/tmp/ipykernel_873/2112598647.py&quot;, line 13, in fn
     return tp_mod.forward(x)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/external_utils.py&quot;, line 209, in inner
     return func(*args, **kwargs)
-  File &quot;/tmp/ipykernel_874/2112598647.py&quot;, line 4, in forward
+  File &quot;/tmp/ipykernel_873/2112598647.py&quot;, line 4, in forward
     torch._dynamo.graph_break()
 
-Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_874/2112598647.py:4
+Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_873/2112598647.py:4
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -4746,7 +4746,7 @@ Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}`
 
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
-Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_874/2112598647.py:4
+Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_873/2112598647.py:4
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -4756,7 +4756,7 @@ Graph Break Reason: Call to `torch._dynamo.graph_break()`
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([3.3083, 2.3772, 3.4037])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([2.1161, 3.1546, 2.8739])
 </pre></div>
 </div>
 </div>
@@ -4799,19 +4799,19 @@ Graph Break Reason: Call to `torch._dynamo.graph_break()`
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
 
 from user code:
-   File &quot;/tmp/ipykernel_874/2379101916.py&quot;, line 15, in torch_dynamo_resume_in_fn_at_14
+   File &quot;/tmp/ipykernel_873/2379101916.py&quot;, line 15, in torch_dynamo_resume_in_fn_at_14
     return inner(x)
-  File &quot;/tmp/ipykernel_874/2379101916.py&quot;, line 8, in inner
+  File &quot;/tmp/ipykernel_873/2379101916.py&quot;, line 8, in inner
     return inner2(x)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/external_utils.py&quot;, line 209, in inner
     return func(*args, **kwargs)
-  File &quot;/tmp/ipykernel_874/2379101916.py&quot;, line 4, in inner2
+  File &quot;/tmp/ipykernel_873/2379101916.py&quot;, line 4, in inner2
     torch._dynamo.graph_break()  # error
 
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_874/2379101916.py:14
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_873/2379101916.py:14
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -4864,9 +4864,9 @@ User code traceback:
     if await self.run_code(code, result, async_=asy):
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_874/2379101916.py&quot;, line 18, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_873/2379101916.py&quot;, line 18, in &lt;module&gt;
     fn(torch.randn(3))
-  File &quot;/tmp/ipykernel_874/2379101916.py&quot;, line 14, in fn
+  File &quot;/tmp/ipykernel_873/2379101916.py&quot;, line 14, in fn
     torch._dynamo.graph_break()  # no error
 </pre></div>
 </div>
@@ -4900,7 +4900,7 @@ but there are some sections of the code that are performance-critical and we wan
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_874/1007149706.py:3
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_873/1007149706.py:3
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -4953,18 +4953,18 @@ User code traceback:
     if await self.run_code(code, result, async_=asy):
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_874/1007149706.py&quot;, line 16, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_873/1007149706.py&quot;, line 16, in &lt;module&gt;
     fn(torch.randn(3))
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/external_utils.py&quot;, line 209, in inner
     return func(*args, **kwargs)
-  File &quot;/tmp/ipykernel_874/1007149706.py&quot;, line 13, in fn
+  File &quot;/tmp/ipykernel_873/1007149706.py&quot;, line 13, in fn
     return inner2(x)
-  File &quot;/tmp/ipykernel_874/1007149706.py&quot;, line 8, in inner2
+  File &quot;/tmp/ipykernel_873/1007149706.py&quot;, line 8, in inner2
     return inner(x)
-  File &quot;/tmp/ipykernel_874/1007149706.py&quot;, line 3, in inner
+  File &quot;/tmp/ipykernel_873/1007149706.py&quot;, line 3, in inner
     torch._dynamo.graph_break()
 
-Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_874/1007149706.py:3
+Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_873/1007149706.py:3
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -4972,7 +4972,7 @@ Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}`
 
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
-Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_874/1007149706.py:3
+Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_873/1007149706.py:3
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -4982,7 +4982,7 @@ Graph Break Reason: Call to `torch._dynamo.graph_break()`
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([1.8094, 3.4165, 3.9761])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([3.0493, 2.8699, 3.0902])
 </pre></div>
 </div>
 </div>
@@ -5010,7 +5010,7 @@ Graph Break Reason: Call to `torch._dynamo.graph_break()`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_874/1343774799.py:4
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_873/1343774799.py:4
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -5063,16 +5063,16 @@ User code traceback:
     if await self.run_code(code, result, async_=asy):
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_874/1343774799.py&quot;, line 16, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_873/1343774799.py&quot;, line 16, in &lt;module&gt;
     fn(torch.randn(3))
-  File &quot;/tmp/ipykernel_874/1343774799.py&quot;, line 13, in fn
+  File &quot;/tmp/ipykernel_873/1343774799.py&quot;, line 13, in fn
     return inner2(x)
-  File &quot;/tmp/ipykernel_874/1343774799.py&quot;, line 9, in inner2
+  File &quot;/tmp/ipykernel_873/1343774799.py&quot;, line 9, in inner2
     return inner(x)
-  File &quot;/tmp/ipykernel_874/1343774799.py&quot;, line 4, in inner
+  File &quot;/tmp/ipykernel_873/1343774799.py&quot;, line 4, in inner
     torch._dynamo.graph_break()
 
-Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_874/1343774799.py:4
+Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_873/1343774799.py:4
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -5080,7 +5080,7 @@ Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}`
 
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
-Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_874/1343774799.py:4
+Graph break (user stack suppressed due to duplicate graph break) in user code at /tmp/ipykernel_873/1343774799.py:4
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -5090,7 +5090,7 @@ Graph Break Reason: Call to `torch._dynamo.graph_break()`
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([2.3892, 0.5083, 4.4024])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([3.4016, 3.1496, 3.7645])
 </pre></div>
 </div>
 </div>
@@ -5128,11 +5128,11 @@ Graph Break Reason: Call to `torch._dynamo.graph_break()`
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
 
 from user code:
-   File &quot;/tmp/ipykernel_874/2331424258.py&quot;, line 9, in fn
+   File &quot;/tmp/ipykernel_873/2331424258.py&quot;, line 9, in fn
     return inner(x)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/external_utils.py&quot;, line 209, in inner
     return func(*args, **kwargs)
-  File &quot;/tmp/ipykernel_874/2331424258.py&quot;, line 3, in inner
+  File &quot;/tmp/ipykernel_873/2331424258.py&quot;, line 3, in inner
     x = x + 1
 
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
@@ -5170,11 +5170,11 @@ Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especiall
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
 
 from user code:
-   File &quot;/tmp/ipykernel_874/262151723.py&quot;, line 9, in fn
+   File &quot;/tmp/ipykernel_873/262151723.py&quot;, line 9, in fn
     return inner(x)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/polyfills/__init__.py&quot;, line 264, in getattr_and_trace
     return fn(*args[2:], **kwargs)
-  File &quot;/tmp/ipykernel_874/262151723.py&quot;, line 3, in inner
+  File &quot;/tmp/ipykernel_873/262151723.py&quot;, line 3, in inner
     x = x + 1
 
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
@@ -5211,13 +5211,13 @@ Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especiall
  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html
 
 from user code:
-   File &quot;/tmp/ipykernel_874/2119173801.py&quot;, line 3, in inner
+   File &quot;/tmp/ipykernel_873/2119173801.py&quot;, line 3, in inner
     x = x + 1
 
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_874/2119173801.py:3
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graph break in user code at /tmp/ipykernel_873/2119173801.py:3
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
   Hint: Remove the `torch._dynamo.graph_break()` call.
@@ -5270,13 +5270,13 @@ User code traceback:
     if await self.run_code(code, result, async_=asy):
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/IPython/core/interactiveshell.py&quot;, line 3505, in run_code
     exec(code_obj, self.user_global_ns, self.user_ns)
-  File &quot;/tmp/ipykernel_874/2119173801.py&quot;, line 12, in &lt;module&gt;
+  File &quot;/tmp/ipykernel_873/2119173801.py&quot;, line 12, in &lt;module&gt;
     fn(torch.randn(3))
-  File &quot;/tmp/ipykernel_874/2119173801.py&quot;, line 9, in fn
+  File &quot;/tmp/ipykernel_873/2119173801.py&quot;, line 9, in fn
     return inner(x)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/polyfills/__init__.py&quot;, line 264, in getattr_and_trace
     return fn(*args[2:], **kwargs)
-  File &quot;/tmp/ipykernel_874/2119173801.py&quot;, line 3, in inner
+  File &quot;/tmp/ipykernel_873/2119173801.py&quot;, line 3, in inner
     x = x + 1
 </pre></div>
 </div>
@@ -5656,7 +5656,7 @@ User code traceback:
          },
         "datePublished": "Sep 03, 2025T00:00:00Z",
          "dateModified": "Sep 03, 2025T00:00:00Z",
-         "articleBody": "Toggling error_on_graph_break# Created On: Sep 03, 2025 | Last Updated On: Sep 03, 2025 Summary: When fullgraph=False, we can use torch._dynamo.error_on_graph_break() for more flexibility in dealing with graph breaks. So far, we have introduced two ways in dealing with graph breaks in torch.compile: fullgraph=True errors on the first graph break and additionally guarantees that only one graph is traced from the code. fullgraph=False continues tracing even when encountering graph breaks. What if we want to disallow graph breaks for most of the code, but there are a few problematic functions where the graph breaks are hard to remove, and we are okay with having those graph breaks? We can use torch._dynamo.error_on_graph_break() to achieve this. torch.compile has an error_on_graph_break setting (initially set to False). If a graph break or compiler error occurs in code while error_on_graph_break is set to False, then torch.compile will attempt to continue compilation after the graph break/error. If error_on_graph_break is set to True, then torch.compile will abort compilation and propagate the error to user code. A significant difference between error_on_graph_break=True and fullgraph=True is that the former does not guarantee that a single graph will be captured. error_on_graph_break can be arbitrarily toggled during compile time by using the torch._dynamo.error_on_graph_break() context manager/decorator. In comparison, once fullgraph is set to True, it cannot be set back to False. Finally, error_on_graph_break has lower precedence than fullgraph - error_on_graph_break only takes effect when fullgraph=False. error_on_graph_break(False) example# @torch._dynamo.error_on_graph_break(False) def code_with_a_difficult_graph_break(x): x = x + 1 torch._dynamo.graph_break() return x + 2 def inner(x): return code_with_a_difficult_graph_break(x) # NOTE: fullgraph=False @torch._dynamo.error_on_graph_break(True) @torch.compile def fn(x): return inner(x) # No error, but there is a graph break fn(torch.randn(3)) Graph break in user code at /tmp/ipykernel_874/1452578661.py:4 Graph Break Reason: Call to `torch._dynamo.graph_break()` Explanation: User-inserted graph break. Message: None Hint: Remove the `torch._dynamo.graph_break()` call. Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}` For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html User code traceback: File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 196, in _run_module_as_main return _run_code(code, main_globals, None, File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 86, in _run_code exec(code, run_globals) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py\&#34;, line 18, in &lt;module&gt; app.launch_new_instance() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py\&#34;, line 1075, in launch_instance app.start() Fi..."
+         "articleBody": "Toggling error_on_graph_break# Created On: Sep 03, 2025 | Last Updated On: Sep 03, 2025 Summary: When fullgraph=False, we can use torch._dynamo.error_on_graph_break() for more flexibility in dealing with graph breaks. So far, we have introduced two ways in dealing with graph breaks in torch.compile: fullgraph=True errors on the first graph break and additionally guarantees that only one graph is traced from the code. fullgraph=False continues tracing even when encountering graph breaks. What if we want to disallow graph breaks for most of the code, but there are a few problematic functions where the graph breaks are hard to remove, and we are okay with having those graph breaks? We can use torch._dynamo.error_on_graph_break() to achieve this. torch.compile has an error_on_graph_break setting (initially set to False). If a graph break or compiler error occurs in code while error_on_graph_break is set to False, then torch.compile will attempt to continue compilation after the graph break/error. If error_on_graph_break is set to True, then torch.compile will abort compilation and propagate the error to user code. A significant difference between error_on_graph_break=True and fullgraph=True is that the former does not guarantee that a single graph will be captured. error_on_graph_break can be arbitrarily toggled during compile time by using the torch._dynamo.error_on_graph_break() context manager/decorator. In comparison, once fullgraph is set to True, it cannot be set back to False. Finally, error_on_graph_break has lower precedence than fullgraph - error_on_graph_break only takes effect when fullgraph=False. error_on_graph_break(False) example# @torch._dynamo.error_on_graph_break(False) def code_with_a_difficult_graph_break(x): x = x + 1 torch._dynamo.graph_break() return x + 2 def inner(x): return code_with_a_difficult_graph_break(x) # NOTE: fullgraph=False @torch._dynamo.error_on_graph_break(True) @torch.compile def fn(x): return inner(x) # No error, but there is a graph break fn(torch.randn(3)) Graph break in user code at /tmp/ipykernel_873/1452578661.py:4 Graph Break Reason: Call to `torch._dynamo.graph_break()` Explanation: User-inserted graph break. Message: None Hint: Remove the `torch._dynamo.graph_break()` call. Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}` For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html User code traceback: File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 196, in _run_module_as_main return _run_code(code, main_globals, None, File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 86, in _run_code exec(code, run_globals) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py\&#34;, line 18, in &lt;module&gt; app.launch_new_instance() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py\&#34;, line 1075, in launch_instance app.start() Fi..."
        }
    </script>
 

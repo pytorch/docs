@@ -133,7 +133,7 @@
    fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git093f064 )');
+   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git8e3fd3d )');
  </script>
 <noscript>
    <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
@@ -3399,8 +3399,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4450,7 +4450,7 @@ or other compiler error. In many of these cases, <code class="docutils literal n
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ChromiumEventLogger initialized with id 3bfa0d5a-03a9-483c-abb6-8494cc90fa0a
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ChromiumEventLogger initialized with id 2af87f26-0c8e-4d34-8735-90ff955074a4
 torchdynamo start compiling fn /tmp/ipykernel_1124/2126697152.py:5, stack (elided 5 frames):
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 196, in _run_module_as_main
     return _run_code(code, main_globals, None,
@@ -4506,7 +4506,7 @@ TRACE starts_line /tmp/ipykernel_1124/2126697152.py:7 in fn
 TRACE LOAD_GLOBAL inner1 []
 TRACE LOAD_FAST x [LazyVariableTracker()]
 TRACE CALL_FUNCTION 1 [LazyVariableTracker(), LazyVariableTracker()]
-INLINING &lt;code object inner1 at 0x7f2cfc2f0450, file &quot;/tmp/ipykernel_1124/2126697152.py&quot;, line 1&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object inner1 at 0x7f3c30241dc0, file &quot;/tmp/ipykernel_1124/2126697152.py&quot;, line 1&gt;, inlined according trace_rules.lookup inlined by default
 wrap_to_fake L[&#39;x&#39;] (3,) StatefulSymbolicContext(dynamic_sizes=[&lt;DimDynamic.STATIC: 2&gt;], dynamic_strides=[&lt;DimDynamic.INFER_STRIDE: 4&gt;], constraint_sizes=[None], constraint_strides=[None], specialize_on=[[]], view_base_context=None, tensor_source=LocalSource(local_name=&#39;x&#39;, is_input=True, dynamism=None, is_derefed_cell_contents=False), shape_env_to_source_to_symbol_cache={}) &lt;class &#39;torch.Tensor&#39;&gt;
 create_graph_input L_x_ L[&#39;x&#39;] FakeTensor(..., size=(3,)) at debug_level 0 before=False
 TRACE starts_line /tmp/ipykernel_1124/2126697152.py:2 in inner1 (inline depth: 1)
@@ -4515,7 +4515,7 @@ TRACE LOAD_FAST x []
 TRACE LOAD_CONST 1 [TensorVariable()]
 TRACE BINARY_ADD None [TensorVariable(), ConstantVariable(int: 1)]
 TRACE RETURN_VALUE None [TensorVariable()]
-DONE INLINING &lt;code object inner1 at 0x7f2cfc2f0450, file &quot;/tmp/ipykernel_1124/2126697152.py&quot;, line 1&gt;
+DONE INLINING &lt;code object inner1 at 0x7f3c30241dc0, file &quot;/tmp/ipykernel_1124/2126697152.py&quot;, line 1&gt;
 TRACE STORE_FAST x [TensorVariable()]
 TRACE starts_line /tmp/ipykernel_1124/2126697152.py:8 in fn
         torch._dynamo.skip_frame()
@@ -4573,7 +4573,7 @@ torchdynamo start compiling inner1 /tmp/ipykernel_1124/2126697152.py:1, stack (e
     exec(code_obj, self.user_global_ns, self.user_ns)
   File &quot;/tmp/ipykernel_1124/2126697152.py&quot;, line 10, in &lt;module&gt;
     fn(torch.randn(3))
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 887, in compile_wrapper
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 886, in compile_wrapper
     return fn(*args, **kwargs)
 
 Step 1: torchdynamo start tracing inner1 /tmp/ipykernel_1124/2126697152.py:1
@@ -4590,7 +4590,7 @@ Step 1: torchdynamo done tracing inner1 (RETURN_VALUE)
 RETURN_VALUE triggered compile
 COMPILING GRAPH due to GraphCompileReason(reason=&#39;return_value&#39;, user_stack=[&lt;FrameSummary file /tmp/ipykernel_1124/2126697152.py, line 2 in inner1&gt;], graph_break=False)
 TRACED GRAPH
- ===== __compiled_fn_2_511d4a35_411e_4445_8389_673d4a1c0aec =====
+ ===== __compiled_fn_2_7ceec533_4433_4a4f_8574_89abb024485f =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
@@ -4613,15 +4613,15 @@ GUARDS:
 
 TREE_GUARD_MANAGER:
 +- RootGuardManager
-| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:696 in init_ambient_guards
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:684 in init_ambient_guards
+| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:788 in init_ambient_guards
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:776 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 | +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=0), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
 | | +- TENSOR_MATCH: check_tensor(L[&#39;x&#39;], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[3], stride=[1])  # return x + 1  # mp/ipykernel_1124/2126697152.py:2 in inner1
 | | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # return x + 1  # mp/ipykernel_1124/2126697152.py:2 in inner1
 
-Guard eval latency = 1166.74 us
+Guard eval latency = 102.51 us
 put_code_state: no cache key, skipping
 run_gc_after_compile: running gc
 skipping: inner (reason: in skipfiles, file: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_compile.py)
@@ -4680,7 +4680,7 @@ torchdynamo start compiling inner2 /tmp/ipykernel_1124/2126697152.py:3, stack (e
     exec(code_obj, self.user_global_ns, self.user_ns)
   File &quot;/tmp/ipykernel_1124/2126697152.py&quot;, line 10, in &lt;module&gt;
     fn(torch.randn(3))
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 887, in compile_wrapper
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 886, in compile_wrapper
     return fn(*args, **kwargs)
 
 Step 1: torchdynamo start tracing inner2 /tmp/ipykernel_1124/2126697152.py:3
@@ -4697,7 +4697,7 @@ Step 1: torchdynamo done tracing inner2 (RETURN_VALUE)
 RETURN_VALUE triggered compile
 COMPILING GRAPH due to GraphCompileReason(reason=&#39;return_value&#39;, user_stack=[&lt;FrameSummary file /tmp/ipykernel_1124/2126697152.py, line 4 in inner2&gt;], graph_break=False)
 TRACED GRAPH
- ===== __compiled_fn_4_36d71358_335b_4f3d_8a73_81223b65a585 =====
+ ===== __compiled_fn_4_83370d8f_df6c_4dce_80fb_e8def9474285 =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
@@ -4720,15 +4720,15 @@ GUARDS:
 
 TREE_GUARD_MANAGER:
 +- RootGuardManager
-| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:696 in init_ambient_guards
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:684 in init_ambient_guards
+| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:788 in init_ambient_guards
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:776 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 | +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=0), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
 | | +- TENSOR_MATCH: check_tensor(L[&#39;x&#39;], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[3], stride=[1])  # return x + 2  # mp/ipykernel_1124/2126697152.py:4 in inner2
 | | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # return x + 2  # mp/ipykernel_1124/2126697152.py:4 in inner2
 
-Guard eval latency = 63.27 us
+Guard eval latency = 940.45 us
 put_code_state: no cache key, skipping
 run_gc_after_compile: running gc
 skipping: remove (reason: in skipfiles, file: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/utils/weak.py)
@@ -4960,7 +4960,7 @@ run_gc_after_compile: running gc
 skipping: graph_break (reason: in skipfiles, file: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/decorators.py)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([2.8840, 5.1566, 6.2395])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([3.9201, 4.4175, 6.2395])
 </pre></div>
 </div>
 </div>
@@ -5040,16 +5040,16 @@ TRACE starts_line /tmp/ipykernel_1124/617960493.py:3 in fn
         def inner(i):
 TRACE LOAD_CLOSURE x []
 TRACE BUILD_TUPLE 1 [CellVariable()]
-TRACE LOAD_CONST &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt; [TupleVariable(length=1)]
-TRACE LOAD_CONST fn.&lt;locals&gt;.inner [TupleVariable(length=1), ConstantVariable(code: &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;)]
-TRACE MAKE_FUNCTION 8 [TupleVariable(length=1), ConstantVariable(code: &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;), ConstantVariable(str: &#39;fn.&lt;locals&gt;.inner&#39;)]
+TRACE LOAD_CONST &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt; [TupleVariable(length=1)]
+TRACE LOAD_CONST fn.&lt;locals&gt;.inner [TupleVariable(length=1), ConstantVariable(code: &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;)]
+TRACE MAKE_FUNCTION 8 [TupleVariable(length=1), ConstantVariable(code: &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;), ConstantVariable(str: &#39;fn.&lt;locals&gt;.inner&#39;)]
 TRACE STORE_FAST inner [NestedUserFunctionVariable()]
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:8 in fn
         inner(0)
 TRACE LOAD_FAST inner []
 TRACE LOAD_CONST 0 [NestedUserFunctionVariable()]
 TRACE CALL_FUNCTION 1 [NestedUserFunctionVariable(), ConstantVariable(int: 0)]
-INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:5 in inner (inline depth: 1)
             x = x + 1
 TRACE LOAD_DEREF x []
@@ -5066,14 +5066,14 @@ TRACE COMPARE_OP == [ConstantVariable(int: 0), ConstantVariable(int: 3)]
 TRACE POP_JUMP_IF_FALSE 30 [ConstantVariable(bool: False)]
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
-DONE INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
+DONE INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
 TRACE POP_TOP None [ConstantVariable(NoneType: None)]
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:9 in fn
         inner(1)
 TRACE LOAD_FAST inner []
 TRACE LOAD_CONST 1 [NestedUserFunctionVariable()]
 TRACE CALL_FUNCTION 1 [NestedUserFunctionVariable(), ConstantVariable(int: 1)]
-INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:5 in inner (inline depth: 1)
             x = x + 1
 TRACE LOAD_DEREF x []
@@ -5088,14 +5088,14 @@ TRACE COMPARE_OP == [ConstantVariable(int: 1), ConstantVariable(int: 3)]
 TRACE POP_JUMP_IF_FALSE 30 [ConstantVariable(bool: False)]
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
-DONE INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
+DONE INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
 TRACE POP_TOP None [ConstantVariable(NoneType: None)]
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:10 in fn
         inner(2)
 TRACE LOAD_FAST inner []
 TRACE LOAD_CONST 2 [NestedUserFunctionVariable()]
 TRACE CALL_FUNCTION 1 [NestedUserFunctionVariable(), ConstantVariable(int: 2)]
-INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:5 in inner (inline depth: 1)
             x = x + 1
 TRACE LOAD_DEREF x []
@@ -5110,14 +5110,14 @@ TRACE COMPARE_OP == [ConstantVariable(int: 2), ConstantVariable(int: 3)]
 TRACE POP_JUMP_IF_FALSE 30 [ConstantVariable(bool: False)]
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
-DONE INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
+DONE INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
 TRACE POP_TOP None [ConstantVariable(NoneType: None)]
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:11 in fn
         inner(3)
 TRACE LOAD_FAST inner []
 TRACE LOAD_CONST 3 [NestedUserFunctionVariable()]
 TRACE CALL_FUNCTION 1 [NestedUserFunctionVariable(), ConstantVariable(int: 3)]
-INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:5 in inner (inline depth: 1)
             x = x + 1
 TRACE LOAD_DEREF x []
@@ -5137,7 +5137,7 @@ TRACE LOAD_ATTR _dynamo [LazyVariableTracker()]
 TRACE LOAD_ATTR graph_break [LazyVariableTracker()]
 TRACE CALL_FUNCTION 0 [LazyVariableTracker()]
 empty checkpoint
-FAILED INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
+FAILED INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
 Graph break in user code at /tmp/ipykernel_1124/617960493.py:7
 Graph Break Reason: Call to `torch._dynamo.graph_break()`
   Explanation: User-inserted graph break. Message: None
@@ -5205,16 +5205,16 @@ TRACE starts_line /tmp/ipykernel_1124/617960493.py:3 in fn
         def inner(i):
 TRACE LOAD_CLOSURE x []
 TRACE BUILD_TUPLE 1 [CellVariable()]
-TRACE LOAD_CONST &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt; [TupleVariable(length=1)]
-TRACE LOAD_CONST fn.&lt;locals&gt;.inner [TupleVariable(length=1), ConstantVariable(code: &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;)]
-TRACE MAKE_FUNCTION 8 [TupleVariable(length=1), ConstantVariable(code: &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;), ConstantVariable(str: &#39;fn.&lt;locals&gt;.inner&#39;)]
+TRACE LOAD_CONST &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt; [TupleVariable(length=1)]
+TRACE LOAD_CONST fn.&lt;locals&gt;.inner [TupleVariable(length=1), ConstantVariable(code: &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;)]
+TRACE MAKE_FUNCTION 8 [TupleVariable(length=1), ConstantVariable(code: &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;), ConstantVariable(str: &#39;fn.&lt;locals&gt;.inner&#39;)]
 TRACE STORE_FAST inner [NestedUserFunctionVariable()]
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:8 in fn
         inner(0)
 TRACE LOAD_FAST inner []
 TRACE LOAD_CONST 0 [NestedUserFunctionVariable()]
 TRACE CALL_FUNCTION 1 [NestedUserFunctionVariable(), ConstantVariable(int: 0)]
-INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:5 in inner (inline depth: 1)
             x = x + 1
 TRACE LOAD_DEREF x []
@@ -5231,14 +5231,14 @@ TRACE COMPARE_OP == [ConstantVariable(int: 0), ConstantVariable(int: 3)]
 TRACE POP_JUMP_IF_FALSE 30 [ConstantVariable(bool: False)]
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
-DONE INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
+DONE INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
 TRACE POP_TOP None [ConstantVariable(NoneType: None)]
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:9 in fn
         inner(1)
 TRACE LOAD_FAST inner []
 TRACE LOAD_CONST 1 [NestedUserFunctionVariable()]
 TRACE CALL_FUNCTION 1 [NestedUserFunctionVariable(), ConstantVariable(int: 1)]
-INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:5 in inner (inline depth: 1)
             x = x + 1
 TRACE LOAD_DEREF x []
@@ -5253,14 +5253,14 @@ TRACE COMPARE_OP == [ConstantVariable(int: 1), ConstantVariable(int: 3)]
 TRACE POP_JUMP_IF_FALSE 30 [ConstantVariable(bool: False)]
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
-DONE INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
+DONE INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
 TRACE POP_TOP None [ConstantVariable(NoneType: None)]
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:10 in fn
         inner(2)
 TRACE LOAD_FAST inner []
 TRACE LOAD_CONST 2 [NestedUserFunctionVariable()]
 TRACE CALL_FUNCTION 1 [NestedUserFunctionVariable(), ConstantVariable(int: 2)]
-INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:5 in inner (inline depth: 1)
             x = x + 1
 TRACE LOAD_DEREF x []
@@ -5275,7 +5275,7 @@ TRACE COMPARE_OP == [ConstantVariable(int: 2), ConstantVariable(int: 3)]
 TRACE POP_JUMP_IF_FALSE 30 [ConstantVariable(bool: False)]
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
-DONE INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
+DONE INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
 TRACE POP_TOP None [ConstantVariable(NoneType: None)]
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:11 in fn
         inner(3)
@@ -5284,7 +5284,7 @@ TRACE LOAD_CONST 3 [NestedUserFunctionVariable()]
 TRACE CALL_FUNCTION 1 [NestedUserFunctionVariable(), ConstantVariable(int: 3)]
 COMPILING GRAPH due to GraphCompileReason(reason=&#39;Call to `torch._dynamo.graph_break()`\n  Explanation: User-inserted graph break. Message: None\n  Hint: Remove the `torch._dynamo.graph_break()` call.\n\n  Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}`\n\n For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html&#39;, user_stack=[&lt;FrameSummary file /tmp/ipykernel_1124/617960493.py, line 11 in fn&gt;, &lt;FrameSummary file /tmp/ipykernel_1124/617960493.py, line 7 in inner&gt;], graph_break=True)
 TRACED GRAPH
- ===== __compiled_fn_8_075cc38c_a2b5_49c1_8979_6b5be194dfb5 =====
+ ===== __compiled_fn_8_d3d162e3_80c0_4915_9f28_d8cb69832084 =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
@@ -5313,15 +5313,15 @@ GUARDS:
 
 TREE_GUARD_MANAGER:
 +- RootGuardManager
-| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:696 in init_ambient_guards
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:684 in init_ambient_guards
+| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:788 in init_ambient_guards
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:776 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 | +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=2), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
 | | +- TENSOR_MATCH: check_tensor(L[&#39;x&#39;], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[3], stride=[1])  # x = x + 1  # mp/ipykernel_1124/617960493.py:5 in inner
 | | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # x = x + 1  # mp/ipykernel_1124/617960493.py:5 in inner
 
-Guard eval latency = 67.20 us
+Guard eval latency = 92.49 us
 put_code_state: no cache key, skipping
 run_gc_after_compile: running gc
 skipping: _create_nested_fn (reason: in skipfiles, file: /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/variables/functions.py)
@@ -5372,7 +5372,7 @@ torchdynamo start compiling inner /tmp/ipykernel_1124/617960493.py:3, stack (eli
     exec(code_obj, self.user_global_ns, self.user_ns)
   File &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 14, in &lt;module&gt;
     fn(torch.randn(3))
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 887, in compile_wrapper
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 886, in compile_wrapper
     return fn(*args, **kwargs)
 
 Step 1: torchdynamo start tracing inner /tmp/ipykernel_1124/617960493.py:3
@@ -5430,7 +5430,7 @@ TRACE LOAD_ATTR graph_break [LazyVariableTracker()]
 TRACE CALL_FUNCTION 0 [LazyVariableTracker()]
 COMPILING GRAPH due to GraphCompileReason(reason=&#39;Call to `torch._dynamo.graph_break()`\n  Explanation: User-inserted graph break. Message: None\n  Hint: Remove the `torch._dynamo.graph_break()` call.\n\n  Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}`\n\n For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html&#39;, user_stack=[&lt;FrameSummary file /tmp/ipykernel_1124/617960493.py, line 7 in inner&gt;], graph_break=True)
 TRACED GRAPH
- ===== __compiled_fn_12_40f69ad1_874c_4b9f_b879_d00ce9b8f23c =====
+ ===== __compiled_fn_12_2abf13c2_2811_4b83_a8c8_b9a80427bfc5 =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
@@ -5453,8 +5453,8 @@ GUARDS:
 
 TREE_GUARD_MANAGER:
 +- RootGuardManager
-| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:696 in init_ambient_guards
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:684 in init_ambient_guards
+| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:788 in init_ambient_guards
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:776 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 | +- GuardManager: source=L[&#39;i&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;i&#39;, framelocals_idx=0), type=&lt;class &#39;int&#39;&gt;, tag_safe=(True, False)
@@ -5464,14 +5464,14 @@ TREE_GUARD_MANAGER:
 | | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # x = x + 1  # mp/ipykernel_1124/617960493.py:5 in inner
 | +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor, type=&lt;class &#39;dict&#39;&gt;, tag_safe=(False, False)
 | | +- GuardManager: source=G[&#39;torch&#39;], accessed_by=DictGetItemGuardAccessor(&#39;torch&#39;), type=&lt;class &#39;module&#39;&gt;, tag_safe=(False, False)
-| | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;], 139831185812800)                  # torch._dynamo.graph_break()  # mp/ipykernel_1124/617960493.py:7 in inner
+| | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;], 139896484266448)                  # torch._dynamo.graph_break()  # mp/ipykernel_1124/617960493.py:7 in inner
 | | | +- GuardManager: source=G[&#39;torch&#39;]._dynamo, accessed_by=GetAttrGuardAccessor(_dynamo), type=&lt;class &#39;module&#39;&gt;, tag_safe=(False, False)
-| | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo, 139829940593632)          # torch._dynamo.graph_break()  # mp/ipykernel_1124/617960493.py:7 in inner
+| | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo, 139895138919792)          # torch._dynamo.graph_break()  # mp/ipykernel_1124/617960493.py:7 in inner
 | | | | +- GuardManager: source=G[&#39;torch&#39;]._dynamo.graph_break, accessed_by=GetAttrGuardAccessor(graph_break), type=&lt;class &#39;function&#39;&gt;, tag_safe=(True, False)
 | | | | | +- GuardManager: source=G[&#39;torch&#39;]._dynamo.graph_break.__code__, accessed_by=CodeGuardAccessor, type=&lt;class &#39;code&#39;&gt;, tag_safe=(True, False)
-| | | | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo.graph_break.__code__, 139829753521312)  # torch._dynamo.graph_break()  # mp/ipykernel_1124/617960493.py:7 in inner
+| | | | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo.graph_break.__code__, 139894953406368)  # torch._dynamo.graph_break()  # mp/ipykernel_1124/617960493.py:7 in inner
 
-Guard eval latency = 1265.63 us
+Guard eval latency = 98.52 us
 put_code_state: no cache key, skipping
 run_gc_after_compile: running gc
 torchdynamo start compiling torch_dynamo_resume_in_inner_at_7 /tmp/ipykernel_1124/617960493.py:7, stack (elided 5 frames):
@@ -5521,7 +5521,7 @@ torchdynamo start compiling torch_dynamo_resume_in_inner_at_7 /tmp/ipykernel_112
     exec(code_obj, self.user_global_ns, self.user_ns)
   File &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 14, in &lt;module&gt;
     fn(torch.randn(3))
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 887, in compile_wrapper
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 886, in compile_wrapper
     return fn(*args, **kwargs)
   File &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 11, in fn
     inner(3)
@@ -5589,7 +5589,7 @@ torchdynamo start compiling torch_dynamo_resume_in_fn_at_11 /tmp/ipykernel_1124/
     exec(code_obj, self.user_global_ns, self.user_ns)
   File &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 14, in &lt;module&gt;
     fn(torch.randn(3))
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 887, in compile_wrapper
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 886, in compile_wrapper
     return fn(*args, **kwargs)
 
 Step 1: torchdynamo start tracing torch_dynamo_resume_in_fn_at_11 /tmp/ipykernel_1124/617960493.py:11
@@ -5608,7 +5608,7 @@ TRACE starts_line /tmp/ipykernel_1124/617960493.py:12 in torch_dynamo_resume_in_
 TRACE LOAD_FAST inner []
 TRACE LOAD_CONST 4 [LazyVariableTracker()]
 TRACE CALL_FUNCTION 1 [LazyVariableTracker(), ConstantVariable(int: 4)]
-INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:5 in inner (inline depth: 1)
             x = x + 1
 TRACE LOAD_DEREF x []
@@ -5625,7 +5625,7 @@ TRACE COMPARE_OP == [ConstantVariable(int: 4), ConstantVariable(int: 3)]
 TRACE POP_JUMP_IF_FALSE 30 [ConstantVariable(bool: False)]
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
-DONE INLINING &lt;code object inner at 0x7f2cfc2f1dc0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
+DONE INLINING &lt;code object inner at 0x7f3bd2cdf5d0, file &quot;/tmp/ipykernel_1124/617960493.py&quot;, line 3&gt;
 TRACE POP_TOP None [ConstantVariable(NoneType: None)]
 TRACE starts_line /tmp/ipykernel_1124/617960493.py:13 in torch_dynamo_resume_in_fn_at_11
         return x
@@ -5635,7 +5635,7 @@ Step 1: torchdynamo done tracing torch_dynamo_resume_in_fn_at_11 (RETURN_VALUE)
 RETURN_VALUE triggered compile
 COMPILING GRAPH due to GraphCompileReason(reason=&#39;return_value&#39;, user_stack=[&lt;FrameSummary file /tmp/ipykernel_1124/617960493.py, line 13 in torch_dynamo_resume_in_fn_at_11&gt;], graph_break=False)
 TRACED GRAPH
- ===== __compiled_fn_16_0060ea3b_39ec_4359_bb1f_769ff0722cf1 =====
+ ===== __compiled_fn_16_befcd6d6_e5af_4359_8f4d_bcdb7925c96a =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
@@ -5658,8 +5658,8 @@ GUARDS:
 
 TREE_GUARD_MANAGER:
 +- RootGuardManager
-| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:696 in init_ambient_guards
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:684 in init_ambient_guards
+| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:788 in init_ambient_guards
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:776 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 | +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=6), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
@@ -5667,15 +5667,15 @@ TREE_GUARD_MANAGER:
 | | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # x = x + 1  # mp/ipykernel_1124/617960493.py:5 in inner
 | +- GuardManager: source=L[&#39;inner&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;inner&#39;, framelocals_idx=3), type=&lt;class &#39;function&#39;&gt;, tag_safe=(True, False)
 | | +- GuardManager: source=L[&#39;inner&#39;].__code__, accessed_by=CodeGuardAccessor, type=&lt;class &#39;code&#39;&gt;, tag_safe=(True, False)
-| | | +- ID_MATCH: ___check_obj_id(L[&#39;inner&#39;].__code__, 139831186234816)         # inner(4)  # mp/ipykernel_1124/617960493.py:12 in torch_dynamo_resume_in_fn_at_11
+| | | +- ID_MATCH: ___check_obj_id(L[&#39;inner&#39;].__code__, 139894916511184)         # inner(4)  # mp/ipykernel_1124/617960493.py:12 in torch_dynamo_resume_in_fn_at_11
 
-Guard eval latency = 68.34 us
+Guard eval latency = 96.37 us
 put_code_state: no cache key, skipping
 run_gc_after_compile: running gc
 skipping because no torch.* remove             /opt/conda/envs/py_3.10/lib/python3.10/weakref.py 370
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([3.6301, 6.5406, 3.8936])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([6.0457, 6.2635, 3.6776])
 </pre></div>
 </div>
 </div>
@@ -5758,12 +5758,12 @@ TRACE starts_line /tmp/ipykernel_1124/4148913404.py:8 in fn
 TRACE LOAD_GLOBAL CustomCtxManager []
 TRACE CALL_FUNCTION 0 [LazyVariableTracker()]
 TRACE SETUP_WITH 48 [GenericContextWrappingVariable(CustomCtxManager)]
-INLINING &lt;code object __enter__ at 0x7f2d084863f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object __enter__ at 0x7f3c366e63f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/4148913404.py:3 in __enter__ (inline depth: 1)
             pass
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
-DONE INLINING &lt;code object __enter__ at 0x7f2d084863f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;
+DONE INLINING &lt;code object __enter__ at 0x7f3c366e63f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;
 TRACE POP_TOP None [WithExitFunctionVariable(), ConstantVariable(NoneType: None)]
 TRACE starts_line /tmp/ipykernel_1124/4148913404.py:9 in fn
             x = x + 1
@@ -5808,23 +5808,23 @@ torch._dynamo.exc.Unsupported: Call to `torch._dynamo.graph_break()`
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1631, in __call__
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1748, in __call__
     result = self._inner_convert(
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 689, in __call__
     result = _compile(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1440, in _compile
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1557, in _compile
     guarded_code, tracer_output = compile_inner(code, one_graph, hooks)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_utils_internal.py&quot;, line 92, in wrapper_function
     return function(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1122, in compile_inner
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1239, in compile_inner
     return _compile_inner(code, one_graph, hooks)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1156, in _compile_inner
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1273, in _compile_inner
     dynamo_output = compile_frame(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1037, in compile_frame
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1154, in compile_frame
     bytecode, tracer_output = transform_code_object(code, transform)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/bytecode_transformation.py&quot;, line 1592, in transform_code_object
     tracer_output = transformations(instructions, code_options)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1009, in transform
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1126, in transform
     tracer_output = trace_frame(
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 313, in _fn
     return fn(*args, **kwargs)
@@ -5881,23 +5881,23 @@ torch._dynamo.exc.Unsupported: Call to `torch._dynamo.graph_break()`
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1631, in __call__
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1748, in __call__
     result = self._inner_convert(
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 689, in __call__
     result = _compile(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1440, in _compile
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1557, in _compile
     guarded_code, tracer_output = compile_inner(code, one_graph, hooks)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_utils_internal.py&quot;, line 92, in wrapper_function
     return function(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1122, in compile_inner
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1239, in compile_inner
     return _compile_inner(code, one_graph, hooks)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1156, in _compile_inner
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1273, in _compile_inner
     dynamo_output = compile_frame(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1037, in compile_frame
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1154, in compile_frame
     bytecode, tracer_output = transform_code_object(code, transform)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/bytecode_transformation.py&quot;, line 1592, in transform_code_object
     tracer_output = transformations(instructions, code_options)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1009, in transform
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1126, in transform
     tracer_output = trace_frame(
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 313, in _fn
     return fn(*args, **kwargs)
@@ -5952,23 +5952,23 @@ torch._dynamo.exc.Unsupported: Call to `torch._dynamo.graph_break()`
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1631, in __call__
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1748, in __call__
     result = self._inner_convert(
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 689, in __call__
     result = _compile(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1440, in _compile
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1557, in _compile
     guarded_code, tracer_output = compile_inner(code, one_graph, hooks)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_utils_internal.py&quot;, line 92, in wrapper_function
     return function(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1122, in compile_inner
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1239, in compile_inner
     return _compile_inner(code, one_graph, hooks)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1156, in _compile_inner
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1273, in _compile_inner
     dynamo_output = compile_frame(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1037, in compile_frame
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1154, in compile_frame
     bytecode, tracer_output = transform_code_object(code, transform)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/bytecode_transformation.py&quot;, line 1592, in transform_code_object
     tracer_output = transformations(instructions, code_options)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1009, in transform
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1126, in transform
     tracer_output = trace_frame(
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 313, in _fn
     return fn(*args, **kwargs)
@@ -6003,7 +6003,7 @@ skipping because no torch.* __enter__             /tmp/ipykernel_1124/4148913404
 skipping because no torch.* __exit__             /tmp/ipykernel_1124/4148913404.py 4
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([1.9241, 2.2569, 0.6804])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([1.7041, 0.4427, 1.8739])
 </pre></div>
 </div>
 </div>
@@ -6078,12 +6078,12 @@ TRACE starts_line /tmp/ipykernel_1124/2124425154.py:3 in fn
 TRACE LOAD_GLOBAL CustomCtxManager []
 TRACE CALL_FUNCTION 0 [LazyVariableTracker()]
 TRACE SETUP_WITH 30 [GenericContextWrappingVariable(CustomCtxManager)]
-INLINING &lt;code object __enter__ at 0x7f2d084863f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object __enter__ at 0x7f3c366e63f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/4148913404.py:3 in __enter__ (inline depth: 1)
             pass
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
-DONE INLINING &lt;code object __enter__ at 0x7f2d084863f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;
+DONE INLINING &lt;code object __enter__ at 0x7f3c366e63f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;
 TRACE POP_TOP None [WithExitFunctionVariable(), ConstantVariable(NoneType: None)]
 TRACE starts_line /tmp/ipykernel_1124/2124425154.py:4 in fn
             x = x + 1
@@ -6100,12 +6100,12 @@ TRACE LOAD_CONST None [WithExitFunctionVariable()]
 TRACE DUP_TOP None [WithExitFunctionVariable(), ConstantVariable(NoneType: None)]
 TRACE DUP_TOP None [WithExitFunctionVariable(), ConstantVariable(NoneType: None), ConstantVariable(NoneType: None)]
 TRACE CALL_FUNCTION 3 [WithExitFunctionVariable(), ConstantVariable(NoneType: None), ConstantVariable(NoneType: None), ConstantVariable(NoneType: None)]
-INLINING &lt;code object __exit__ at 0x7f2cfc2d3ec0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 4&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object __exit__ at 0x7f3c3041b9f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 4&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/4148913404.py:5 in __exit__ (inline depth: 1)
             pass
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
-DONE INLINING &lt;code object __exit__ at 0x7f2cfc2d3ec0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 4&gt;
+DONE INLINING &lt;code object __exit__ at 0x7f3c3041b9f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 4&gt;
 TRACE POP_TOP None [ConstantVariable(NoneType: None)]
 TRACE JUMP_FORWARD 46 []
 TRACE starts_line /tmp/ipykernel_1124/2124425154.py:5 in fn
@@ -6180,12 +6180,12 @@ TRACE starts_line /tmp/ipykernel_1124/2124425154.py:3 in fn
 TRACE LOAD_GLOBAL CustomCtxManager []
 TRACE CALL_FUNCTION 0 [LazyVariableTracker()]
 TRACE SETUP_WITH 30 [GenericContextWrappingVariable(CustomCtxManager)]
-INLINING &lt;code object __enter__ at 0x7f2d084863f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object __enter__ at 0x7f3c366e63f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/4148913404.py:3 in __enter__ (inline depth: 1)
             pass
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
-DONE INLINING &lt;code object __enter__ at 0x7f2d084863f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;
+DONE INLINING &lt;code object __enter__ at 0x7f3c366e63f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;
 TRACE POP_TOP None [WithExitFunctionVariable(), ConstantVariable(NoneType: None)]
 TRACE starts_line /tmp/ipykernel_1124/2124425154.py:4 in fn
             x = x + 1
@@ -6202,12 +6202,12 @@ TRACE LOAD_CONST None [WithExitFunctionVariable()]
 TRACE DUP_TOP None [WithExitFunctionVariable(), ConstantVariable(NoneType: None)]
 TRACE DUP_TOP None [WithExitFunctionVariable(), ConstantVariable(NoneType: None), ConstantVariable(NoneType: None)]
 TRACE CALL_FUNCTION 3 [WithExitFunctionVariable(), ConstantVariable(NoneType: None), ConstantVariable(NoneType: None), ConstantVariable(NoneType: None)]
-INLINING &lt;code object __exit__ at 0x7f2cfc2d3ec0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 4&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object __exit__ at 0x7f3c3041b9f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 4&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/4148913404.py:5 in __exit__ (inline depth: 1)
             pass
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
-DONE INLINING &lt;code object __exit__ at 0x7f2cfc2d3ec0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 4&gt;
+DONE INLINING &lt;code object __exit__ at 0x7f3c3041b9f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 4&gt;
 TRACE POP_TOP None [ConstantVariable(NoneType: None)]
 TRACE JUMP_FORWARD 46 []
 TRACE starts_line /tmp/ipykernel_1124/2124425154.py:5 in fn
@@ -6218,7 +6218,7 @@ TRACE LOAD_ATTR graph_break [LazyVariableTracker()]
 TRACE CALL_FUNCTION 0 [LazyVariableTracker()]
 COMPILING GRAPH due to GraphCompileReason(reason=&#39;Call to `torch._dynamo.graph_break()`\n  Explanation: User-inserted graph break. Message: None\n  Hint: Remove the `torch._dynamo.graph_break()` call.\n\n  Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}`\n\n For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html&#39;, user_stack=[&lt;FrameSummary file /tmp/ipykernel_1124/2124425154.py, line 5 in fn&gt;], graph_break=True)
 TRACED GRAPH
- ===== __compiled_fn_20_bb111037_5e20_4dce_9798_8597ef0836ee =====
+ ===== __compiled_fn_20_0783151a_f75a_420b_a248_1362831a5bc0 =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
@@ -6241,8 +6241,8 @@ GUARDS:
 
 TREE_GUARD_MANAGER:
 +- RootGuardManager
-| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:696 in init_ambient_guards
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:684 in init_ambient_guards
+| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:788 in init_ambient_guards
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:776 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 | +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=0), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
@@ -6250,16 +6250,16 @@ TREE_GUARD_MANAGER:
 | | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # x = x + 1  # mp/ipykernel_1124/2124425154.py:4 in fn
 | +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor, type=&lt;class &#39;dict&#39;&gt;, tag_safe=(False, False)
 | | +- GuardManager: source=G[&#39;torch&#39;], accessed_by=DictGetItemGuardAccessor(&#39;torch&#39;), type=&lt;class &#39;module&#39;&gt;, tag_safe=(False, False)
-| | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;], 139831185812800)                  # torch._dynamo.graph_break()  # mp/ipykernel_1124/2124425154.py:5 in fn
+| | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;], 139896484266448)                  # torch._dynamo.graph_break()  # mp/ipykernel_1124/2124425154.py:5 in fn
 | | | +- GuardManager: source=G[&#39;torch&#39;]._dynamo, accessed_by=GetAttrGuardAccessor(_dynamo), type=&lt;class &#39;module&#39;&gt;, tag_safe=(False, False)
-| | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo, 139829940593632)          # torch._dynamo.graph_break()  # mp/ipykernel_1124/2124425154.py:5 in fn
+| | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo, 139895138919792)          # torch._dynamo.graph_break()  # mp/ipykernel_1124/2124425154.py:5 in fn
 | | | | +- GuardManager: source=G[&#39;torch&#39;]._dynamo.graph_break, accessed_by=GetAttrGuardAccessor(graph_break), type=&lt;class &#39;function&#39;&gt;, tag_safe=(True, False)
 | | | | | +- GuardManager: source=G[&#39;torch&#39;]._dynamo.graph_break.__code__, accessed_by=CodeGuardAccessor, type=&lt;class &#39;code&#39;&gt;, tag_safe=(True, False)
-| | | | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo.graph_break.__code__, 139829753521312)  # torch._dynamo.graph_break()  # mp/ipykernel_1124/2124425154.py:5 in fn
+| | | | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo.graph_break.__code__, 139894953406368)  # torch._dynamo.graph_break()  # mp/ipykernel_1124/2124425154.py:5 in fn
 | | +- GuardManager: source=G[&#39;CustomCtxManager&#39;], accessed_by=DictGetItemGuardAccessor(&#39;CustomCtxManager&#39;), type=&lt;class &#39;type&#39;&gt;, tag_safe=(True, False)
-| | | +- ID_MATCH: ___check_obj_id(G[&#39;CustomCtxManager&#39;], 94576490718736)        # with CustomCtxManager():  # mp/ipykernel_1124/2124425154.py:3 in fn
+| | | +- ID_MATCH: ___check_obj_id(G[&#39;CustomCtxManager&#39;], 93862541686560)        # with CustomCtxManager():  # mp/ipykernel_1124/2124425154.py:3 in fn
 
-Guard eval latency = 61.83 us
+Guard eval latency = 145.93 us
 put_code_state: no cache key, skipping
 run_gc_after_compile: running gc
 torchdynamo start compiling torch_dynamo_resume_in_fn_at_5 /tmp/ipykernel_1124/2124425154.py:5, stack (elided 5 frames):
@@ -6309,7 +6309,7 @@ torchdynamo start compiling torch_dynamo_resume_in_fn_at_5 /tmp/ipykernel_1124/2
     exec(code_obj, self.user_global_ns, self.user_ns)
   File &quot;/tmp/ipykernel_1124/2124425154.py&quot;, line 8, in &lt;module&gt;
     fn(torch.randn(3))
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 887, in compile_wrapper
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 886, in compile_wrapper
     return fn(*args, **kwargs)
 
 Step 1: torchdynamo start tracing torch_dynamo_resume_in_fn_at_5 /tmp/ipykernel_1124/2124425154.py:5
@@ -6328,12 +6328,12 @@ TRACE starts_line /tmp/ipykernel_1124/2124425154.py:6 in torch_dynamo_resume_in_
 TRACE LOAD_GLOBAL CustomCtxManager []
 TRACE CALL_FUNCTION 0 [LazyVariableTracker()]
 TRACE SETUP_WITH 98 [GenericContextWrappingVariable(CustomCtxManager)]
-INLINING &lt;code object __enter__ at 0x7f2d084863f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object __enter__ at 0x7f3c366e63f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/4148913404.py:3 in __enter__ (inline depth: 1)
             pass
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
-DONE INLINING &lt;code object __enter__ at 0x7f2d084863f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;
+DONE INLINING &lt;code object __enter__ at 0x7f3c366e63f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 2&gt;
 TRACE POP_TOP None [WithExitFunctionVariable(), ConstantVariable(NoneType: None)]
 TRACE starts_line /tmp/ipykernel_1124/2124425154.py:7 in torch_dynamo_resume_in_fn_at_5
             return x + 1
@@ -6350,19 +6350,19 @@ TRACE LOAD_CONST None [TensorVariable(), WithExitFunctionVariable()]
 TRACE DUP_TOP None [TensorVariable(), WithExitFunctionVariable(), ConstantVariable(NoneType: None)]
 TRACE DUP_TOP None [TensorVariable(), WithExitFunctionVariable(), ConstantVariable(NoneType: None), ConstantVariable(NoneType: None)]
 TRACE CALL_FUNCTION 3 [TensorVariable(), WithExitFunctionVariable(), ConstantVariable(NoneType: None), ConstantVariable(NoneType: None), ConstantVariable(NoneType: None)]
-INLINING &lt;code object __exit__ at 0x7f2cfc2d3ec0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 4&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object __exit__ at 0x7f3c3041b9f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 4&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/4148913404.py:5 in __exit__ (inline depth: 1)
             pass
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
-DONE INLINING &lt;code object __exit__ at 0x7f2cfc2d3ec0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 4&gt;
+DONE INLINING &lt;code object __exit__ at 0x7f3c3041b9f0, file &quot;/tmp/ipykernel_1124/4148913404.py&quot;, line 4&gt;
 TRACE POP_TOP None [TensorVariable(), ConstantVariable(NoneType: None)]
 TRACE RETURN_VALUE None [TensorVariable()]
 Step 1: torchdynamo done tracing torch_dynamo_resume_in_fn_at_5 (RETURN_VALUE)
 RETURN_VALUE triggered compile
 COMPILING GRAPH due to GraphCompileReason(reason=&#39;return_value&#39;, user_stack=[&lt;FrameSummary file /tmp/ipykernel_1124/2124425154.py, line 6 in torch_dynamo_resume_in_fn_at_5&gt;], graph_break=False)
 TRACED GRAPH
- ===== __compiled_fn_23_7a2cafe0_09fc_414d_9a4f_5116bd9fba73 =====
+ ===== __compiled_fn_23_376178d4_aca8_446c_acfa_31708a7edc04 =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
@@ -6385,8 +6385,8 @@ GUARDS:
 
 TREE_GUARD_MANAGER:
 +- RootGuardManager
-| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:696 in init_ambient_guards
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:684 in init_ambient_guards
+| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:788 in init_ambient_guards
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:776 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 | +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=3), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
@@ -6394,14 +6394,14 @@ TREE_GUARD_MANAGER:
 | | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # return x + 1  # mp/ipykernel_1124/2124425154.py:7 in torch_dynamo_resume_in_fn_at_5
 | +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor, type=&lt;class &#39;dict&#39;&gt;, tag_safe=(True, False)
 | | +- GuardManager: source=G[&#39;CustomCtxManager&#39;], accessed_by=DictGetItemGuardAccessor(&#39;CustomCtxManager&#39;), type=&lt;class &#39;type&#39;&gt;, tag_safe=(True, False)
-| | | +- ID_MATCH: ___check_obj_id(G[&#39;CustomCtxManager&#39;], 94576490718736)        # with CustomCtxManager():  # mp/ipykernel_1124/2124425154.py:6 in torch_dynamo_resume_in_fn_at_5
+| | | +- ID_MATCH: ___check_obj_id(G[&#39;CustomCtxManager&#39;], 93862541686560)        # with CustomCtxManager():  # mp/ipykernel_1124/2124425154.py:6 in torch_dynamo_resume_in_fn_at_5
 
-Guard eval latency = 1145.85 us
+Guard eval latency = 80.26 us
 put_code_state: no cache key, skipping
 run_gc_after_compile: running gc
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([1.6184, 1.6560, 1.2917])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([2.7998, 1.8703, 3.6157])
 </pre></div>
 </div>
 </div>
@@ -6594,7 +6594,7 @@ TRACE LOAD_ATTR graph_break [WithExitFunctionVariable(), WithExitFunctionVariabl
 TRACE CALL_FUNCTION 0 [WithExitFunctionVariable(), WithExitFunctionVariable(), LazyVariableTracker()]
 COMPILING GRAPH due to GraphCompileReason(reason=&#39;Call to `torch._dynamo.graph_break()`\n  Explanation: User-inserted graph break. Message: None\n  Hint: Remove the `torch._dynamo.graph_break()` call.\n\n  Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}`\n\n For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html&#39;, user_stack=[&lt;FrameSummary file /tmp/ipykernel_1124/3152636365.py, line 7 in fn&gt;], graph_break=True)
 TRACED GRAPH
- ===== __compiled_fn_26_f948426b_57fa_428f_8d2a_ed3db5476d1e =====
+ ===== __compiled_fn_26_5bd80c03_7b9b_4e88_b5b5_9e2c217269ff =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
@@ -6623,8 +6623,8 @@ GUARDS:
 
 TREE_GUARD_MANAGER:
 +- RootGuardManager
-| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:696 in init_ambient_guards
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:684 in init_ambient_guards
+| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:788 in init_ambient_guards
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:776 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 | +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=0), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
@@ -6632,20 +6632,20 @@ TREE_GUARD_MANAGER:
 | | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # x = x + 1  # mp/ipykernel_1124/3152636365.py:6 in fn
 | +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor, type=&lt;class &#39;dict&#39;&gt;, tag_safe=(False, False)
 | | +- GuardManager: source=G[&#39;torch&#39;], accessed_by=DictGetItemGuardAccessor(&#39;torch&#39;), type=&lt;class &#39;module&#39;&gt;, tag_safe=(False, False)
-| | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;], 139831185812800)                  # with torch.no_grad():  # mp/ipykernel_1124/3152636365.py:5 in fn
+| | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;], 139896484266448)                  # with torch.no_grad():  # mp/ipykernel_1124/3152636365.py:5 in fn
 | | | +- GuardManager: source=G[&#39;torch&#39;]._dynamo, accessed_by=GetAttrGuardAccessor(_dynamo), type=&lt;class &#39;module&#39;&gt;, tag_safe=(False, False)
-| | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo, 139829940593632)          # torch._dynamo.graph_break()  # mp/ipykernel_1124/3152636365.py:7 in fn
+| | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo, 139895138919792)          # torch._dynamo.graph_break()  # mp/ipykernel_1124/3152636365.py:7 in fn
 | | | | +- GuardManager: source=G[&#39;torch&#39;]._dynamo.graph_break, accessed_by=GetAttrGuardAccessor(graph_break), type=&lt;class &#39;function&#39;&gt;, tag_safe=(True, False)
 | | | | | +- GuardManager: source=G[&#39;torch&#39;]._dynamo.graph_break.__code__, accessed_by=CodeGuardAccessor, type=&lt;class &#39;code&#39;&gt;, tag_safe=(True, False)
-| | | | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo.graph_break.__code__, 139829753521312)  # torch._dynamo.graph_break()  # mp/ipykernel_1124/3152636365.py:7 in fn
+| | | | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo.graph_break.__code__, 139894953406368)  # torch._dynamo.graph_break()  # mp/ipykernel_1124/3152636365.py:7 in fn
 | | | +- GuardManager: source=G[&#39;torch&#39;].no_grad, accessed_by=GetAttrGuardAccessor(no_grad), type=&lt;class &#39;type&#39;&gt;, tag_safe=(True, False)
-| | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;].no_grad, 94576453285184)           # with torch.no_grad():  # mp/ipykernel_1124/3152636365.py:5 in fn
+| | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;].no_grad, 93862504530752)           # with torch.no_grad():  # mp/ipykernel_1124/3152636365.py:5 in fn
 | | +- GuardManager: source=G[&#39;contextlib&#39;], accessed_by=DictGetItemGuardAccessor(&#39;contextlib&#39;), type=&lt;class &#39;module&#39;&gt;, tag_safe=(False, False)
-| | | +- ID_MATCH: ___check_obj_id(G[&#39;contextlib&#39;], 139831398061120)             # with contextlib.nullcontext():  # mp/ipykernel_1124/3152636365.py:4 in fn
+| | | +- ID_MATCH: ___check_obj_id(G[&#39;contextlib&#39;], 139896596812864)             # with contextlib.nullcontext():  # mp/ipykernel_1124/3152636365.py:4 in fn
 | | | +- GuardManager: source=G[&#39;contextlib&#39;].nullcontext, accessed_by=GetAttrGuardAccessor(nullcontext), type=&lt;class &#39;abc.ABCMeta&#39;&gt;, tag_safe=(True, False)
-| | | | +- ID_MATCH: ___check_obj_id(G[&#39;contextlib&#39;].nullcontext, 94576378634032)  # with contextlib.nullcontext():  # mp/ipykernel_1124/3152636365.py:4 in fn
+| | | | +- ID_MATCH: ___check_obj_id(G[&#39;contextlib&#39;].nullcontext, 93862429703984)  # with contextlib.nullcontext():  # mp/ipykernel_1124/3152636365.py:4 in fn
 
-Guard eval latency = 228.89 us
+Guard eval latency = 92.94 us
 put_code_state: no cache key, skipping
 run_gc_after_compile: running gc
 skipping because no torch.* __init__             /opt/conda/envs/py_3.10/lib/python3.10/contextlib.py 732
@@ -6701,7 +6701,7 @@ torchdynamo start compiling torch_dynamo_resume_in_fn_at_7 /tmp/ipykernel_1124/3
     exec(code_obj, self.user_global_ns, self.user_ns)
   File &quot;/tmp/ipykernel_1124/3152636365.py&quot;, line 9, in &lt;module&gt;
     fn(torch.randn(3))
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 887, in compile_wrapper
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 886, in compile_wrapper
     return fn(*args, **kwargs)
 
 Step 1: torchdynamo start tracing torch_dynamo_resume_in_fn_at_7 /tmp/ipykernel_1124/3152636365.py:7
@@ -6758,7 +6758,7 @@ Step 1: torchdynamo done tracing torch_dynamo_resume_in_fn_at_7 (RETURN_VALUE)
 RETURN_VALUE triggered compile
 COMPILING GRAPH due to GraphCompileReason(reason=&#39;return_value&#39;, user_stack=[&lt;FrameSummary file /tmp/ipykernel_1124/3152636365.py, line 4 in torch_dynamo_resume_in_fn_at_7&gt;], graph_break=False)
 TRACED GRAPH
- ===== __compiled_fn_31_b8082f32_af99_4eed_8e42_7fce262d0873 =====
+ ===== __compiled_fn_31_9518f838_82de_4bad_9b4c_d4e13b6368f4 =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
@@ -6787,24 +6787,24 @@ GUARDS:
 
 TREE_GUARD_MANAGER:
 +- RootGuardManager
-| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:696 in init_ambient_guards
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:684 in init_ambient_guards
+| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:788 in init_ambient_guards
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:776 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 | +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=5), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
 | | +- TENSOR_MATCH: check_tensor(L[&#39;x&#39;], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[3], stride=[1])  # return x + 1  # mp/ipykernel_1124/3152636365.py:8 in torch_dynamo_resume_in_fn_at_7
 | | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # return x + 1  # mp/ipykernel_1124/3152636365.py:8 in torch_dynamo_resume_in_fn_at_7
 | +- GuardManager: source=L[&#39;___stack0&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;___stack0&#39;, framelocals_idx=2), type=&lt;class &#39;abc.ABCMeta&#39;&gt;, tag_safe=(True, False)
-| | +- ID_MATCH: ___check_obj_id(L[&#39;___stack0&#39;], 94576378634032)               # torch._dynamo.graph_break()  # mp/ipykernel_1124/3152636365.py:7 in torch_dynamo_resume_in_fn_at_7
+| | +- ID_MATCH: ___check_obj_id(L[&#39;___stack0&#39;], 93862429703984)               # torch._dynamo.graph_break()  # mp/ipykernel_1124/3152636365.py:7 in torch_dynamo_resume_in_fn_at_7
 | +- GuardManager: source=L[&#39;___stack1&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;___stack1&#39;, framelocals_idx=3), type=&lt;class &#39;type&#39;&gt;, tag_safe=(True, False)
-| | +- ID_MATCH: ___check_obj_id(L[&#39;___stack1&#39;], 94576453449392)               # torch._dynamo.graph_break()  # mp/ipykernel_1124/3152636365.py:7 in torch_dynamo_resume_in_fn_at_7
+| | +- ID_MATCH: ___check_obj_id(L[&#39;___stack1&#39;], 93862504535808)               # torch._dynamo.graph_break()  # mp/ipykernel_1124/3152636365.py:7 in torch_dynamo_resume_in_fn_at_7
 
-Guard eval latency = 59.46 us
+Guard eval latency = 220.90 us
 put_code_state: no cache key, skipping
 run_gc_after_compile: running gc
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([2.9690, 0.8372, 1.9402])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([-0.0312,  0.5212,  1.8681])
 </pre></div>
 </div>
 </div>
@@ -6901,23 +6901,23 @@ Graph break: skip: from user code at:
   File &quot;/tmp/ipykernel_1124/2546874632.py&quot;, line 5, in fn
     torch._dynamo.graph_break()
 Traceback (most recent call last):
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1631, in __call__
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1748, in __call__
     result = self._inner_convert(
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 689, in __call__
     result = _compile(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1440, in _compile
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1557, in _compile
     guarded_code, tracer_output = compile_inner(code, one_graph, hooks)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_utils_internal.py&quot;, line 92, in wrapper_function
     return function(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1122, in compile_inner
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1239, in compile_inner
     return _compile_inner(code, one_graph, hooks)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1156, in _compile_inner
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1273, in _compile_inner
     dynamo_output = compile_frame(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1037, in compile_frame
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1154, in compile_frame
     bytecode, tracer_output = transform_code_object(code, transform)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/bytecode_transformation.py&quot;, line 1592, in transform_code_object
     tracer_output = transformations(instructions, code_options)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1009, in transform
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1126, in transform
     tracer_output = trace_frame(
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 313, in _fn
     return fn(*args, **kwargs)
@@ -6958,23 +6958,23 @@ Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especiall
 WON&#39;T CONVERT fn /tmp/ipykernel_1124/2546874632.py line 1 
 due to: 
 Traceback (most recent call last):
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1631, in __call__
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1748, in __call__
     result = self._inner_convert(
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 689, in __call__
     result = _compile(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1440, in _compile
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1557, in _compile
     guarded_code, tracer_output = compile_inner(code, one_graph, hooks)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_utils_internal.py&quot;, line 92, in wrapper_function
     return function(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1122, in compile_inner
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1239, in compile_inner
     return _compile_inner(code, one_graph, hooks)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1156, in _compile_inner
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1273, in _compile_inner
     dynamo_output = compile_frame(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1037, in compile_frame
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1154, in compile_frame
     bytecode, tracer_output = transform_code_object(code, transform)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/bytecode_transformation.py&quot;, line 1592, in transform_code_object
     tracer_output = transformations(instructions, code_options)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1009, in transform
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1126, in transform
     tracer_output = trace_frame(
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 313, in _fn
     return fn(*args, **kwargs)
@@ -7013,23 +7013,23 @@ from user code:
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
 
 Traceback (most recent call last):
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1631, in __call__
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1748, in __call__
     result = self._inner_convert(
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 689, in __call__
     result = _compile(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1440, in _compile
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1557, in _compile
     guarded_code, tracer_output = compile_inner(code, one_graph, hooks)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_utils_internal.py&quot;, line 92, in wrapper_function
     return function(*args, **kwargs)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1122, in compile_inner
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1239, in compile_inner
     return _compile_inner(code, one_graph, hooks)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1156, in _compile_inner
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1273, in _compile_inner
     dynamo_output = compile_frame(
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1037, in compile_frame
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1154, in compile_frame
     bytecode, tracer_output = transform_code_object(code, transform)
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/bytecode_transformation.py&quot;, line 1592, in transform_code_object
     tracer_output = transformations(instructions, code_options)
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1009, in transform
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 1126, in transform
     tracer_output = trace_frame(
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py&quot;, line 313, in _fn
     return fn(*args, **kwargs)
@@ -7068,7 +7068,7 @@ from user code:
 Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you&#39;re reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0.1618, 1.5471, 2.6191])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([1.1761, 0.7823, 4.0605])
 </pre></div>
 </div>
 </div>
@@ -7243,7 +7243,7 @@ TRACE LOAD_ATTR graph_break [LazyVariableTracker()]
 TRACE CALL_FUNCTION 0 [LazyVariableTracker()]
 COMPILING GRAPH due to GraphCompileReason(reason=&#39;Call to `torch._dynamo.graph_break()`\n  Explanation: User-inserted graph break. Message: None\n  Hint: Remove the `torch._dynamo.graph_break()` call.\n\n  Developer debug context: Called `torch._dynamo.graph_break()` with args `[]`, kwargs `{}`\n\n For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0025.html&#39;, user_stack=[&lt;FrameSummary file /tmp/ipykernel_1124/3015389759.py, line 7 in fn&gt;], graph_break=True)
 TRACED GRAPH
- ===== __compiled_fn_35_707861d4_ec05_4979_8fb5_7a7436945994 =====
+ ===== __compiled_fn_35_29f469aa_13aa_4dbe_ae1b_29642d57eaab =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
@@ -7266,8 +7266,8 @@ GUARDS:
 
 TREE_GUARD_MANAGER:
 +- RootGuardManager
-| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:696 in init_ambient_guards
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:684 in init_ambient_guards
+| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:788 in init_ambient_guards
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:776 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 | +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=0), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
@@ -7275,14 +7275,14 @@ TREE_GUARD_MANAGER:
 | | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # x = x + 1  # mp/ipykernel_1124/3015389759.py:4 in fn
 | +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor, type=&lt;class &#39;dict&#39;&gt;, tag_safe=(False, False)
 | | +- GuardManager: source=G[&#39;torch&#39;], accessed_by=DictGetItemGuardAccessor(&#39;torch&#39;), type=&lt;class &#39;module&#39;&gt;, tag_safe=(False, False)
-| | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;], 139831185812800)                  # torch._dynamo.graph_break()  # mp/ipykernel_1124/3015389759.py:7 in fn
+| | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;], 139896484266448)                  # torch._dynamo.graph_break()  # mp/ipykernel_1124/3015389759.py:7 in fn
 | | | +- GuardManager: source=G[&#39;torch&#39;]._dynamo, accessed_by=GetAttrGuardAccessor(_dynamo), type=&lt;class &#39;module&#39;&gt;, tag_safe=(False, False)
-| | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo, 139829940593632)          # torch._dynamo.graph_break()  # mp/ipykernel_1124/3015389759.py:7 in fn
+| | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo, 139895138919792)          # torch._dynamo.graph_break()  # mp/ipykernel_1124/3015389759.py:7 in fn
 | | | | +- GuardManager: source=G[&#39;torch&#39;]._dynamo.graph_break, accessed_by=GetAttrGuardAccessor(graph_break), type=&lt;class &#39;function&#39;&gt;, tag_safe=(True, False)
 | | | | | +- GuardManager: source=G[&#39;torch&#39;]._dynamo.graph_break.__code__, accessed_by=CodeGuardAccessor, type=&lt;class &#39;code&#39;&gt;, tag_safe=(True, False)
-| | | | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo.graph_break.__code__, 139829753521312)  # torch._dynamo.graph_break()  # mp/ipykernel_1124/3015389759.py:7 in fn
+| | | | | | +- ID_MATCH: ___check_obj_id(G[&#39;torch&#39;]._dynamo.graph_break.__code__, 139894953406368)  # torch._dynamo.graph_break()  # mp/ipykernel_1124/3015389759.py:7 in fn
 
-Guard eval latency = 1372.78 us
+Guard eval latency = 206.46 us
 put_code_state: no cache key, skipping
 run_gc_after_compile: running gc
 torchdynamo start compiling torch_dynamo_resume_in_fn_at_7 /tmp/ipykernel_1124/3015389759.py:7, stack (elided 5 frames):
@@ -7332,7 +7332,7 @@ torchdynamo start compiling torch_dynamo_resume_in_fn_at_7 /tmp/ipykernel_1124/3
     exec(code_obj, self.user_global_ns, self.user_ns)
   File &quot;/tmp/ipykernel_1124/3015389759.py&quot;, line 12, in &lt;module&gt;
     fn(torch.randn(3))
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 887, in compile_wrapper
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 886, in compile_wrapper
     return fn(*args, **kwargs)
 
 Step 1: torchdynamo start tracing torch_dynamo_resume_in_fn_at_7 /tmp/ipykernel_1124/3015389759.py:7
@@ -7362,7 +7362,7 @@ Step 1: torchdynamo done tracing torch_dynamo_resume_in_fn_at_7 (RETURN_VALUE)
 RETURN_VALUE triggered compile
 COMPILING GRAPH due to GraphCompileReason(reason=&#39;return_value&#39;, user_stack=[&lt;FrameSummary file /tmp/ipykernel_1124/3015389759.py, line 9 in torch_dynamo_resume_in_fn_at_7&gt;], graph_break=False)
 TRACED GRAPH
- ===== __compiled_fn_38_a10355c0_336c_4623_b6a1_4889019866d9 =====
+ ===== __compiled_fn_38_ca17409d_fd60_41a0_ac7a_0e3883eadab2 =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
@@ -7385,20 +7385,20 @@ GUARDS:
 
 TREE_GUARD_MANAGER:
 +- RootGuardManager
-| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:696 in init_ambient_guards
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:684 in init_ambient_guards
+| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:788 in init_ambient_guards
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:776 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 | +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=3), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
 | | +- TENSOR_MATCH: check_tensor(L[&#39;x&#39;], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=False, size=[3], stride=[1])  # return x + 1  # mp/ipykernel_1124/3015389759.py:9 in torch_dynamo_resume_in_fn_at_7
 | | +- NO_HASATTR: hasattr(L[&#39;x&#39;], &#39;_dynamo_dynamic_indices&#39;) == False           # return x + 1  # mp/ipykernel_1124/3015389759.py:9 in torch_dynamo_resume_in_fn_at_7
 
-Guard eval latency = 67.08 us
+Guard eval latency = 99.04 us
 put_code_state: no cache key, skipping
 run_gc_after_compile: running gc
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0.7563, 1.4579, 2.3361])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([2.3356, 1.2247, 2.3736])
 </pre></div>
 </div>
 </div>
@@ -7492,7 +7492,7 @@ TRACE starts_line /tmp/ipykernel_1124/273153676.py:7 in fn
 TRACE LOAD_GLOBAL inner1 []
 TRACE LOAD_FAST x [LazyVariableTracker()]
 TRACE CALL_FUNCTION 1 [LazyVariableTracker(), LazyVariableTracker()]
-INLINING &lt;code object inner1 at 0x7f2ca485dc60, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 1&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object inner1 at 0x7f3bd298db00, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 1&gt;, inlined according trace_rules.lookup inlined by default
 wrap_to_fake L[&#39;x&#39;] (3,) StatefulSymbolicContext(dynamic_sizes=[&lt;DimDynamic.STATIC: 2&gt;], dynamic_strides=[&lt;DimDynamic.INFER_STRIDE: 4&gt;], constraint_sizes=[None], constraint_strides=[None], specialize_on=[[]], view_base_context=None, tensor_source=LocalSource(local_name=&#39;x&#39;, is_input=True, dynamism=None, is_derefed_cell_contents=False), shape_env_to_source_to_symbol_cache={}) &lt;class &#39;torch.Tensor&#39;&gt;
 create_graph_input L_x_ L[&#39;x&#39;] FakeTensor(..., size=(3,)) at debug_level 0 before=False
 TRACE starts_line /tmp/ipykernel_1124/273153676.py:2 in inner1 (inline depth: 1)
@@ -7501,28 +7501,28 @@ TRACE LOAD_FAST x []
 TRACE LOAD_CONST 1 [TensorVariable()]
 TRACE BINARY_ADD None [TensorVariable(), ConstantVariable(int: 1)]
 TRACE RETURN_VALUE None [TensorVariable()]
-DONE INLINING &lt;code object inner1 at 0x7f2ca485dc60, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 1&gt;
+DONE INLINING &lt;code object inner1 at 0x7f3bd298db00, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 1&gt;
 TRACE STORE_FAST x [TensorVariable()]
 TRACE starts_line /tmp/ipykernel_1124/273153676.py:8 in fn
         def problematic_code():
-TRACE LOAD_CONST &lt;code object problematic_code at 0x7f2ca485e970, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt; []
-TRACE LOAD_CONST fn.&lt;locals&gt;.problematic_code [ConstantVariable(code: &lt;code object problematic_code at 0x7f2ca485e970, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;)]
-TRACE MAKE_FUNCTION 0 [ConstantVariable(code: &lt;code object problematic_code at 0x7f2ca485e970, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;), ConstantVariable(str: &#39;fn.&lt;locals&gt;.problematic_code&#39;)]
+TRACE LOAD_CONST &lt;code object problematic_code at 0x7f3c367054d0, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt; []
+TRACE LOAD_CONST fn.&lt;locals&gt;.problematic_code [ConstantVariable(code: &lt;code object problematic_code at 0x7f3c367054d0, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;)]
+TRACE MAKE_FUNCTION 0 [ConstantVariable(code: &lt;code object problematic_code at 0x7f3c367054d0, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;), ConstantVariable(str: &#39;fn.&lt;locals&gt;.problematic_code&#39;)]
 TRACE STORE_FAST problematic_code [NestedUserFunctionVariable()]
 TRACE starts_line /tmp/ipykernel_1124/273153676.py:10 in fn
         problematic_code()
 TRACE LOAD_FAST problematic_code []
 TRACE CALL_FUNCTION 0 [NestedUserFunctionVariable()]
-INLINING &lt;code object problematic_code at 0x7f2ca485e970, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object problematic_code at 0x7f3c367054d0, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;, inlined according trace_rules.lookup inlined by default
 TRACE starts_line /tmp/ipykernel_1124/273153676.py:9 in problematic_code (inline depth: 1)
             torch._dynamo.skip_frame()
 TRACE LOAD_GLOBAL torch []
 TRACE LOAD_ATTR _dynamo [LazyVariableTracker()]
 TRACE LOAD_ATTR skip_frame [LazyVariableTracker()]
 TRACE CALL_FUNCTION 0 [LazyVariableTracker()]
-SKIPPED INLINING &lt;code object problematic_code at 0x7f2ca485e970, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;: Skip frame due to `torch._dynamo.skip_frame()`. Message: None
+SKIPPED INLINING &lt;code object problematic_code at 0x7f3c367054d0, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;: Skip frame due to `torch._dynamo.skip_frame()`. Message: None
 Graph break in user code at /tmp/ipykernel_1124/273153676.py:10
-Graph Break Reason: SKIPPED INLINING &lt;code object problematic_code at 0x7f2ca485e970, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;: Skip frame due to `torch._dynamo.skip_frame()`. Message: None
+Graph Break Reason: SKIPPED INLINING &lt;code object problematic_code at 0x7f3c367054d0, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;: Skip frame due to `torch._dynamo.skip_frame()`. Message: None
 User code traceback:
   File &quot;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py&quot;, line 196, in _run_module_as_main
     return _run_code(code, main_globals, None,
@@ -7581,7 +7581,7 @@ TRACE starts_line /tmp/ipykernel_1124/273153676.py:7 in fn
 TRACE LOAD_GLOBAL inner1 []
 TRACE LOAD_FAST x [LazyVariableTracker()]
 TRACE CALL_FUNCTION 1 [LazyVariableTracker(), LazyVariableTracker()]
-INLINING &lt;code object inner1 at 0x7f2ca485dc60, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 1&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object inner1 at 0x7f3bd298db00, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 1&gt;, inlined according trace_rules.lookup inlined by default
 wrap_to_fake L[&#39;x&#39;] (3,) StatefulSymbolicContext(dynamic_sizes=[&lt;DimDynamic.STATIC: 2&gt;], dynamic_strides=[&lt;DimDynamic.INFER_STRIDE: 4&gt;], constraint_sizes=[None], constraint_strides=[None], specialize_on=[[]], view_base_context=None, tensor_source=LocalSource(local_name=&#39;x&#39;, is_input=True, dynamism=None, is_derefed_cell_contents=False), shape_env_to_source_to_symbol_cache={}) &lt;class &#39;torch.Tensor&#39;&gt;
 create_graph_input L_x_ L[&#39;x&#39;] FakeTensor(..., size=(3,)) at debug_level 0 before=False
 TRACE starts_line /tmp/ipykernel_1124/273153676.py:2 in inner1 (inline depth: 1)
@@ -7590,21 +7590,21 @@ TRACE LOAD_FAST x []
 TRACE LOAD_CONST 1 [TensorVariable()]
 TRACE BINARY_ADD None [TensorVariable(), ConstantVariable(int: 1)]
 TRACE RETURN_VALUE None [TensorVariable()]
-DONE INLINING &lt;code object inner1 at 0x7f2ca485dc60, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 1&gt;
+DONE INLINING &lt;code object inner1 at 0x7f3bd298db00, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 1&gt;
 TRACE STORE_FAST x [TensorVariable()]
 TRACE starts_line /tmp/ipykernel_1124/273153676.py:8 in fn
         def problematic_code():
-TRACE LOAD_CONST &lt;code object problematic_code at 0x7f2ca485e970, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt; []
-TRACE LOAD_CONST fn.&lt;locals&gt;.problematic_code [ConstantVariable(code: &lt;code object problematic_code at 0x7f2ca485e970, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;)]
-TRACE MAKE_FUNCTION 0 [ConstantVariable(code: &lt;code object problematic_code at 0x7f2ca485e970, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;), ConstantVariable(str: &#39;fn.&lt;locals&gt;.problematic_code&#39;)]
+TRACE LOAD_CONST &lt;code object problematic_code at 0x7f3c367054d0, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt; []
+TRACE LOAD_CONST fn.&lt;locals&gt;.problematic_code [ConstantVariable(code: &lt;code object problematic_code at 0x7f3c367054d0, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;)]
+TRACE MAKE_FUNCTION 0 [ConstantVariable(code: &lt;code object problematic_code at 0x7f3c367054d0, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;), ConstantVariable(str: &#39;fn.&lt;locals&gt;.problematic_code&#39;)]
 TRACE STORE_FAST problematic_code [NestedUserFunctionVariable()]
 TRACE starts_line /tmp/ipykernel_1124/273153676.py:10 in fn
         problematic_code()
 TRACE LOAD_FAST problematic_code []
 TRACE CALL_FUNCTION 0 [NestedUserFunctionVariable()]
-COMPILING GRAPH due to GraphCompileReason(reason=&#39;SKIPPED INLINING &lt;code object problematic_code at 0x7f2ca485e970, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;: Skip frame due to `torch._dynamo.skip_frame()`. Message: None&#39;, user_stack=[&lt;FrameSummary file /tmp/ipykernel_1124/273153676.py, line 10 in fn&gt;], graph_break=True)
+COMPILING GRAPH due to GraphCompileReason(reason=&#39;SKIPPED INLINING &lt;code object problematic_code at 0x7f3c367054d0, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 8&gt;: Skip frame due to `torch._dynamo.skip_frame()`. Message: None&#39;, user_stack=[&lt;FrameSummary file /tmp/ipykernel_1124/273153676.py, line 10 in fn&gt;], graph_break=True)
 TRACED GRAPH
- ===== __compiled_fn_41_e6413802_7154_4d92_9f38_0f7ef211b1d4 =====
+ ===== __compiled_fn_41_fb88b33d_43c4_48f0_a193_dd840421c39b =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
@@ -7627,8 +7627,8 @@ GUARDS:
 
 TREE_GUARD_MANAGER:
 +- RootGuardManager
-| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:696 in init_ambient_guards
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:684 in init_ambient_guards
+| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:788 in init_ambient_guards
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:776 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 | +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=0), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
@@ -7637,9 +7637,9 @@ TREE_GUARD_MANAGER:
 | +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor, type=&lt;class &#39;dict&#39;&gt;, tag_safe=(True, False)
 | | +- GuardManager: source=G[&#39;inner1&#39;], accessed_by=DictGetItemGuardAccessor(&#39;inner1&#39;), type=&lt;class &#39;function&#39;&gt;, tag_safe=(True, False)
 | | | +- GuardManager: source=G[&#39;inner1&#39;].__code__, accessed_by=CodeGuardAccessor, type=&lt;class &#39;code&#39;&gt;, tag_safe=(True, False)
-| | | | +- ID_MATCH: ___check_obj_id(G[&#39;inner1&#39;].__code__, 139829715524704)        # x = inner1(x)  # mp/ipykernel_1124/273153676.py:7 in fn
+| | | | +- ID_MATCH: ___check_obj_id(G[&#39;inner1&#39;].__code__, 139894913030912)        # x = inner1(x)  # mp/ipykernel_1124/273153676.py:7 in fn
 
-Guard eval latency = 1114.23 us
+Guard eval latency = 906.80 us
 put_code_state: no cache key, skipping
 run_gc_after_compile: running gc
 torchdynamo start compiling problematic_code /tmp/ipykernel_1124/273153676.py:8, stack (elided 5 frames):
@@ -7689,7 +7689,7 @@ torchdynamo start compiling problematic_code /tmp/ipykernel_1124/273153676.py:8,
     exec(code_obj, self.user_global_ns, self.user_ns)
   File &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 12, in &lt;module&gt;
     fn(torch.randn(3))
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 887, in compile_wrapper
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 886, in compile_wrapper
     return fn(*args, **kwargs)
 
 Step 1: torchdynamo start tracing problematic_code /tmp/ipykernel_1124/273153676.py:8
@@ -7750,7 +7750,7 @@ torchdynamo start compiling torch_dynamo_resume_in_fn_at_10 /tmp/ipykernel_1124/
     exec(code_obj, self.user_global_ns, self.user_ns)
   File &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 12, in &lt;module&gt;
     fn(torch.randn(3))
-  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 887, in compile_wrapper
+  File &quot;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py&quot;, line 886, in compile_wrapper
     return fn(*args, **kwargs)
 
 Step 1: torchdynamo start tracing torch_dynamo_resume_in_fn_at_10 /tmp/ipykernel_1124/273153676.py:10
@@ -7769,7 +7769,7 @@ TRACE starts_line /tmp/ipykernel_1124/273153676.py:11 in torch_dynamo_resume_in_
 TRACE LOAD_GLOBAL inner2 []
 TRACE LOAD_FAST x [LazyVariableTracker()]
 TRACE CALL_FUNCTION 1 [LazyVariableTracker(), LazyVariableTracker()]
-INLINING &lt;code object inner2 at 0x7f2ca48f6810, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
+INLINING &lt;code object inner2 at 0x7f3bd2c3f260, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 3&gt;, inlined according trace_rules.lookup inlined by default
 wrap_to_fake L[&#39;x&#39;] (3,) StatefulSymbolicContext(dynamic_sizes=[&lt;DimDynamic.STATIC: 2&gt;], dynamic_strides=[&lt;DimDynamic.INFER_STRIDE: 4&gt;], constraint_sizes=[None], constraint_strides=[None], specialize_on=[[]], view_base_context=None, tensor_source=LocalSource(local_name=&#39;x&#39;, is_input=True, dynamism=None, is_derefed_cell_contents=False), shape_env_to_source_to_symbol_cache={}) &lt;class &#39;torch.Tensor&#39;&gt;
 create_graph_input L_x_ L[&#39;x&#39;] FakeTensor(..., size=(3,)) at debug_level 0 before=False
 TRACE starts_line /tmp/ipykernel_1124/273153676.py:4 in inner2 (inline depth: 1)
@@ -7778,7 +7778,7 @@ TRACE LOAD_FAST x []
 TRACE LOAD_CONST 2 [TensorVariable()]
 TRACE BINARY_ADD None [TensorVariable(), ConstantVariable(int: 2)]
 TRACE RETURN_VALUE None [TensorVariable()]
-DONE INLINING &lt;code object inner2 at 0x7f2ca48f6810, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 3&gt;
+DONE INLINING &lt;code object inner2 at 0x7f3bd2c3f260, file &quot;/tmp/ipykernel_1124/273153676.py&quot;, line 3&gt;
 TRACE STORE_FAST x [TensorVariable()]
 TRACE LOAD_CONST None []
 TRACE RETURN_VALUE None [ConstantVariable(NoneType: None)]
@@ -7786,7 +7786,7 @@ Step 1: torchdynamo done tracing torch_dynamo_resume_in_fn_at_10 (RETURN_VALUE)
 RETURN_VALUE triggered compile
 COMPILING GRAPH due to GraphCompileReason(reason=&#39;return_value&#39;, user_stack=[&lt;FrameSummary file /tmp/ipykernel_1124/273153676.py, line 11 in torch_dynamo_resume_in_fn_at_10&gt;], graph_break=False)
 TRACED GRAPH
- ===== __compiled_fn_45_b2a00f4f_b267_462d_a189_158cc5e25bff =====
+ ===== __compiled_fn_45_df83e8d8_2688_47df_bf26_55096f517389 =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[3][1]cpu&quot;):
         l_x_ = L_x_
@@ -7809,8 +7809,8 @@ GUARDS:
 
 TREE_GUARD_MANAGER:
 +- RootGuardManager
-| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:696 in init_ambient_guards
-| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:684 in init_ambient_guards
+| +- LAMBDA_GUARD_NO_ARGS: torch._functorch.aot_autograd.utils.top_saved_tensors_hooks ids == None  # _dynamo/output_graph.py:788 in init_ambient_guards
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:776 in init_ambient_guards
 | +- GLOBAL_STATE: ___check_global_state()
 | +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 | +- GuardManager: source=L[&#39;x&#39;], accessed_by=FrameLocalsGuardAccessor(key=&#39;x&#39;, framelocals_idx=3), type=&lt;class &#39;torch.Tensor&#39;&gt;, tag_safe=(True, False)
@@ -7819,9 +7819,9 @@ TREE_GUARD_MANAGER:
 | +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor, type=&lt;class &#39;dict&#39;&gt;, tag_safe=(True, False)
 | | +- GuardManager: source=G[&#39;inner2&#39;], accessed_by=DictGetItemGuardAccessor(&#39;inner2&#39;), type=&lt;class &#39;function&#39;&gt;, tag_safe=(True, False)
 | | | +- GuardManager: source=G[&#39;inner2&#39;].__code__, accessed_by=CodeGuardAccessor, type=&lt;class &#39;code&#39;&gt;, tag_safe=(True, False)
-| | | | +- ID_MATCH: ___check_obj_id(G[&#39;inner2&#39;].__code__, 139829716150288)        # x = inner2(x)  # mp/ipykernel_1124/273153676.py:11 in torch_dynamo_resume_in_fn_at_10
+| | | | +- ID_MATCH: ___check_obj_id(G[&#39;inner2&#39;].__code__, 139894915854944)        # x = inner2(x)  # mp/ipykernel_1124/273153676.py:11 in torch_dynamo_resume_in_fn_at_10
 
-Guard eval latency = 70.99 us
+Guard eval latency = 89.77 us
 put_code_state: no cache key, skipping
 run_gc_after_compile: running gc
 </pre></div>
@@ -8180,7 +8180,7 @@ run_gc_after_compile: running gc
          },
         "datePublished": "Jul 28, 2025T00:00:00Z",
          "dateModified": "Jul 29, 2025T00:00:00Z",
-         "articleBody": "Skipped Functions# Created On: Jul 28, 2025 | Last Updated On: Jul 29, 2025 Summary: Sometimes, torch.compile completely gives up compiling a function and runs it eagerly instead, resulting in potentially lost optimization opportunities. There are ways to work around skipped functions in order to re-enable tracing around the problematic code. Sometimes, torch.compile with fullgraph=False is unable to resume tracing when encountering a graph break or other compiler error. In many of these cases, torch.compile will skip compiling the function entirely and run it eagerly. Note that the skip is only applied to the current function and NOT any nested function calls. torch.compile will still attempt to compile nested calls. def inner1(x): return x + 1 def inner2(x): return x + 2 @torch.compile def fn(x): x = inner1(x) torch._dynamo.skip_frame() x = inner2(x) fn(torch.randn(3)) ChromiumEventLogger initialized with id 3bfa0d5a-03a9-483c-abb6-8494cc90fa0a torchdynamo start compiling fn /tmp/ipykernel_1124/2126697152.py:5, stack (elided 5 frames): File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 196, in _run_module_as_main return _run_code(code, main_globals, None, File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 86, in _run_code exec(code, run_globals) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py\&#34;, line 18, in &lt;module&gt; app.launch_new_instance() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py\&#34;, line 1075, in launch_instance app.start() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py\&#34;, line 739, in start self.io_loop.start() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py\&#34;, line 211, in start self.asyncio_loop.run_forever() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\&#34;, line 603, in run_forever self._run_once() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\&#34;, line 1909, in _run_once handle._run() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py\&#34;, line 80, in _run self._context.run(self._callback, *self._args) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 519, in dispatch_queue await self.process_one() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 508, in process_one await dispatch(*args) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 400, in dispatch_shell await result File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\&#34;, line 368, in execute_request await super().execute_request(stream, ident, parent) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 767, in execute_request reply_content = await reply_content File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\&#34;, line 455, in do_execute res = shell.r..."
+         "articleBody": "Skipped Functions# Created On: Jul 28, 2025 | Last Updated On: Jul 29, 2025 Summary: Sometimes, torch.compile completely gives up compiling a function and runs it eagerly instead, resulting in potentially lost optimization opportunities. There are ways to work around skipped functions in order to re-enable tracing around the problematic code. Sometimes, torch.compile with fullgraph=False is unable to resume tracing when encountering a graph break or other compiler error. In many of these cases, torch.compile will skip compiling the function entirely and run it eagerly. Note that the skip is only applied to the current function and NOT any nested function calls. torch.compile will still attempt to compile nested calls. def inner1(x): return x + 1 def inner2(x): return x + 2 @torch.compile def fn(x): x = inner1(x) torch._dynamo.skip_frame() x = inner2(x) fn(torch.randn(3)) ChromiumEventLogger initialized with id 2af87f26-0c8e-4d34-8735-90ff955074a4 torchdynamo start compiling fn /tmp/ipykernel_1124/2126697152.py:5, stack (elided 5 frames): File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 196, in _run_module_as_main return _run_code(code, main_globals, None, File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/runpy.py\&#34;, line 86, in _run_code exec(code, run_globals) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel_launcher.py\&#34;, line 18, in &lt;module&gt; app.launch_new_instance() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/traitlets/config/application.py\&#34;, line 1075, in launch_instance app.start() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelapp.py\&#34;, line 739, in start self.io_loop.start() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/tornado/platform/asyncio.py\&#34;, line 211, in start self.asyncio_loop.run_forever() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\&#34;, line 603, in run_forever self._run_once() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/base_events.py\&#34;, line 1909, in _run_once handle._run() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/asyncio/events.py\&#34;, line 80, in _run self._context.run(self._callback, *self._args) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 519, in dispatch_queue await self.process_one() File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 508, in process_one await dispatch(*args) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 400, in dispatch_shell await result File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\&#34;, line 368, in execute_request await super().execute_request(stream, ident, parent) File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/kernelbase.py\&#34;, line 767, in execute_request reply_content = await reply_content File \&#34;/opt/conda/envs/py_3.10/lib/python3.10/site-packages/ipykernel/ipkernel.py\&#34;, line 455, in do_execute res = shell.r..."
        }
    </script>
 
