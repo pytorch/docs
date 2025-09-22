@@ -1,0 +1,6 @@
+﻿torch.cuda.random.seed
+======================
+
+.. currentmodule:: torch.cuda.random
+
+.. autofunction:: seed
