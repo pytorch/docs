@@ -1,8 +1,13 @@
 [
   {
-    "name": "v2.9.0 (unstable)",
+    "name": "v2.10.0 (unstable)",
     "version": "main",
     "url": "https://docs.pytorch.org/docs/main/"
+  },
+  {
+    "name": "v2.9.0 (release candidate)",
+    "version": "2.9",
+    "url": "https://docs.pytorch.org/docs/2.9/"
   },
   {
     "name": "v2.8.0 (stable)",
