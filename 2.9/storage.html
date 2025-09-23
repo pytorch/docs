@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/storage.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', '2.9');
- </script>
+  document.documentElement.setAttribute('data-version', '2.9');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -180,8 +190,10 @@
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -518,7 +530,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -526,7 +539,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -3388,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4354,23 +4367,24 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="pytorch-api.html">
-          <meta itemprop="name" content="Reference API">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="pytorch-api.html">
+        <meta itemprop="name" content="Reference API">
+        <meta itemprop="position" content="1">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="torch.Storage">
         <meta itemprop="position" content="2">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -5486,7 +5500,7 @@ the <code class="docutils literal notranslate"><span class="pre">non_blocking</s
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -5848,91 +5862,124 @@ the <code class="docutils literal notranslate"><span class="pre">non_blocking</s
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -5940,8 +5987,7 @@ the <code class="docutils literal notranslate"><span class="pre">non_blocking</s
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -5981,28 +6027,47 @@ the <code class="docutils literal notranslate"><span class="pre">non_blocking</s
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "torch.Storage",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/storage.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/storage.html"
-         },
-        "datePublished": "Dec 30, 2016T00:00:00Z",
-         "dateModified": "Apr 14, 2025T00:00:00Z",
-         "articleBody": "torch.Storage# Created On: Dec 30, 2016 | Last Updated On: Apr 14, 2025 In PyTorch, a regular tensor is a multi-dimensional array that is defined by the following components: Storage: The actual data of the tensor, stored as a contiguous, one-dimensional array of bytes. dtype: The data type of the elements in the tensor, such as torch.float32 or torch.int64. shape: A tuple indicating the size of the tensor in each dimension. Stride: The step size needed to move from one element to the next in each dimension. Offset: The starting point in the storage from which the tensor data begins. This will usually be 0 for newly created tensors. These components together define the structure and data of a tensor, with the storage holding the actual data and the rest serving as metadata. Untyped Storage API# A torch.UntypedStorage is a contiguous, one-dimensional array of elements. Its length is equal to the number of bytes of the tensor. The storage serves as the underlying data container for tensors. In general, a tensor created in PyTorch using regular constructors such as zeros(), zeros_like() or new_zeros() will produce tensors where there is a one-to-one correspondence between the tensor storage and the tensor itself. However, a storage is allowed to be shared by multiple tensors. For instance, any view of a tensor (obtained through view() or some, but not all, kinds of indexing like integers and slices) will point to the same underlying storage as the original tensor. When serializing and deserializing tensors that share a common storage, the relationship is preserved, and the tensors continue to point to the same storage. Interestingly, deserializing multiple tensors that point to a single storage can be faster than deserializing multiple independent tensors. A tensor storage can be accessed through the untyped_storage() method. This will return an object of type torch.UntypedStorage. Fortunately, storages have a unique identifier accessed through the torch.UntypedStorage.data_ptr() method. In regular settings, two tensors with the same data storage will have the same storage data_ptr. However, tensors themselves can point to two separate storages, one for its data attribute and another for its grad attribute. Each will require a data_ptr() of its own. In general, there is no guarantee that a torch.Tensor.data_ptr() and torch.UntypedStorage.data_ptr() match and this should not be assumed to be true. Untyped storages are somewhat independent of the tensors that are built on them. Practically, this means that tensors with different dtypes or shape can point to the same storage. It also implies that a tensor storage can be changed, as the following example shows: &gt;&gt;&gt; t = torch.ones(3) &gt;&gt;&gt; s0 = t.untyped_storage() &gt;&gt;&gt; s0 0 0 128 63 0 0 128 63 0 0 128 63 [torch.storage.UntypedStorage(device=cpu) of size 12] &gt;&gt;&gt; s1 = s0.clone() &gt;&gt;&gt; s1.fill_(0) 0 0 0 0 0 0 0 0 0 0 0 0 [torch.storage.UntypedStorage(device=cpu) of size 12] &gt;&gt;&gt; # Fill the tensor with a zeroed..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "torch.Storage",
+       "headline": "torch.Storage",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/storage.html",
+       "articleBody": "torch.Storage# Created On: Dec 30, 2016 | Last Updated On: Apr 14, 2025 In PyTorch, a regular tensor is a multi-dimensional array that is defined by the following components: Storage: The actual data of the tensor, stored as a contiguous, one-dimensional array of bytes. dtype: The data type of the elements in the tensor, such as torch.float32 or torch.int64. shape: A tuple indicating the size of the tensor in each dimension. Stride: The step size needed to move from one element to the next in each dimension. Offset: The starting point in the storage from which the tensor data begins. This will usually be 0 for newly created tensors. These components together define the structure and data of a tensor, with the storage holding the actual data and the rest serving as metadata. Untyped Storage API# A torch.UntypedStorage is a contiguous, one-dimensional array of elements. Its length is equal to the number of bytes of the tensor. The storage serves as the underlying data container for tensors. In general, a tensor created in PyTorch using regular constructors such as zeros(), zeros_like() or new_zeros() will produce tensors where there is a one-to-one correspondence between the tensor storage and the tensor itself. However, a storage is allowed to be shared by multiple tensors. For instance, any view of a tensor (obtained through view() or some, but not all, kinds of indexing like integers and slices) will point to the same underlying storage as the original tensor. When serializing and deserializing tensors that share a common storage, the relationship is preserved, and the tensors continue to point to the same storage. Interestingly, deserializing multiple tensors that point to a single storage can be faster than deserializing multiple independent tensors. A tensor storage can be accessed through the untyped_storage() method. This will return an object of type torch.UntypedStorage. Fortunately, storages have a unique identifier accessed through the torch.UntypedStorage.data_ptr() method. In regular settings, two tensors with the same data storage will have the same storage data_ptr. However, tensors themselves can point to two separate storages, one for its data attribute and another for its grad attribute. Each will require a data_ptr() of its own. In general, there is no guarantee that a torch.Tensor.data_ptr() and torch.UntypedStorage.data_ptr() match and this should not be assumed to be true. Untyped storages are somewhat independent of the tensors that are built on them. Practically, this means that tensors with different dtypes or shape can point to the same storage. It also implies that a tensor storage can be changed, as the following example shows: \u003e\u003e\u003e t = torch.ones(3) \u003e\u003e\u003e s0 = t.untyped_storage() \u003e\u003e\u003e s0 0 0 128 63 0 0 128 63 0 0 128 63 [torch.storage.UntypedStorage(device=cpu) of size 12] \u003e\u003e\u003e s1 = s0.clone() \u003e\u003e\u003e s1.fill_(0) 0 0 0 0 0 0 0 0 0 0 0 0 [torch.storage.UntypedStorage(device=cpu) of size 12] \u003e\u003e\u003e # Fill the tensor with a zeroed storage \u003e\u003e\u003e t.set_(s1, storage_offset=t.storage_offset(), stride=t.stride(), size=t.size()) tensor([0., 0., 0.]) Warning Please note that directly modifying a tensor\u2019s storage as shown in this example is not a recommended practice. This low-level manipulation is illustrated solely for educational purposes, to demonstrate the relationship between tensors and their underlying storages. In general, it\u2019s more efficient and safer to use standard torch.Tensor methods, such as clone() and fill_(), to achieve the same results. Other than data_ptr, untyped storage also have other attributes such as filename (in case the storage points to a file on disk), device or is_cuda for device checks. A storage can also be manipulated in-place or out-of-place with methods like copy_, fill_ or pin_memory. FOr more information, check the API reference below. Keep in mind that modifying storages is a low-level API and comes with risks! Most of these APIs also exist on the tensor level: if present, they should be prioritized over their storage counterparts. Special cases# We mentioned that a tensor that has a non-None grad attribute has actually two pieces of data within it. In this case, untyped_storage() will return the storage of the data attribute, whereas the storage of the gradient can be obtained through tensor.grad.untyped_storage(). \u003e\u003e\u003e t = torch.zeros(3, requires_grad=True) \u003e\u003e\u003e t.sum().backward() \u003e\u003e\u003e assert list(t.untyped_storage()) == [0] * 12 # the storage of the tensor is just 0s \u003e\u003e\u003e assert list(t.grad.untyped_storage()) != [0] * 12 # the storage of the gradient isn\u0027t There are also special cases where tensors do not have a typical storage, or no storage at all: Tensors on \"meta\" device: Tensors on the \"meta\" device are used for shape inference and do not hold actual data. Fake Tensors: Another internal tool used by PyTorch\u2019s compiler is FakeTensor which is based on a similar idea. Tensor subclasses or tensor-like objects can also display unusual behaviours. In general, we do not expect many use cases to require operating at the Storage level! class torch.UntypedStorage(*args, **kwargs)[source]# bfloat16()[source]# Casts this storage to bfloat16 type. bool()[source]# Casts this storage to bool type. byte()[source]# Casts this storage to byte type. byteswap(dtype)[source]# Swap bytes in underlying data. char()[source]# Casts this storage to char type. clone()[source]# Return a copy of this storage. complex_double()[source]# Casts this storage to complex double type. complex_float()[source]# Casts this storage to complex float type. copy_()# cpu()[source]# Return a CPU copy of this storage if it\u2019s not already on the CPU. cuda(device=None, non_blocking=False)[source]# Returns a copy of this object in CUDA memory. If this object is already in CUDA memory and on the correct device, then no copy is performed and the original object is returned. Parameters device (int) \u2013 The destination GPU id. Defaults to the current device. non_blocking (bool) \u2013 If True and the source is in pinned memory, the copy will be asynchronous with respect to the host. Otherwise, the argument has no effect. Return type Union[_StorageBase, TypedStorage] data_ptr()# device: device# double()[source]# Casts this storage to double type. element_size()# property filename: Optional[str]# Returns the file name associated with this storage. The file name will be a string if the storage is on CPU and was created via from_file() with shared as True. This attribute is None otherwise. fill_()# float()[source]# Casts this storage to float type. float8_e4m3fn()[source]# Casts this storage to float8_e4m3fn type float8_e4m3fnuz()[source]# Casts this storage to float8_e4m3fnuz type float8_e5m2()[source]# Casts this storage to float8_e5m2 type float8_e5m2fnuz()[source]# Casts this storage to float8_e5m2fnuz type static from_buffer()# static from_file(filename, shared=False, nbytes=0) \u2192 Storage# Creates a CPU storage backed by a memory-mapped file. If shared is True, then memory is shared between all processes. All changes are written to the file. If shared is False, then the changes on the storage do not affect the file. nbytes is the number of bytes of storage. If shared is False, then the file must contain at least nbytes bytes. If shared is True the file will be created if needed. (Note that for UntypedStorage this argument differs from that of TypedStorage.from_file) Parameters filename (str) \u2013 file name to map shared (bool) \u2013 whether to share memory (whether MAP_SHARED or MAP_PRIVATE is passed to the underlying mmap(2) call) nbytes (int) \u2013 number of bytes of storage get_device()[source]# Return type int half()[source]# Casts this storage to half type. hpu(device=None, non_blocking=False)[source]# Returns a copy of this object in HPU memory. If this object is already in HPU memory and on the correct device, then no copy is performed and the original object is returned. Parameters device (int) \u2013 The destination HPU id. Defaults to the current device. non_blocking (bool) \u2013 If True and the source is in pinned memory, the copy will be asynchronous with respect to the host. Otherwise, the argument has no effect. Return type Union[_StorageBase, TypedStorage] int()[source]# Casts this storage to int type. property is_cuda# property is_hpu# is_pinned(device=\u0027cuda\u0027)[source]# Determine whether the CPU storage is already pinned on device. Parameters device (str or torch.device) \u2013 The device to pin memory on (default: \u0027cuda\u0027). This argument is discouraged and subject to deprecated. Returns A boolean variable. is_shared()# is_sparse: bool = False# is_sparse_csr: bool = False# long()[source]# Casts this storage to long type. mps()[source]# Return a MPS copy of this storage if it\u2019s not already on the MPS. nbytes()# new()# pin_memory(device=\u0027cuda\u0027)[source]# Copy the CPU storage to pinned memory, if it\u2019s not already pinned. Parameters device (str or torch.device) \u2013 The device to pin memory on (default: \u0027cuda\u0027). This argument is discouraged and subject to deprecated. Returns A pinned CPU storage. resizable()# resize_()# share_memory_(*args, **kwargs)[source]# Moves the storage to shared memory. This is a no-op for storages already in shared memory and for CUDA storages, which do not need to be moved for sharing across processes. Storages in shared memory cannot be resized. Note that to mitigate issues like this it is thread safe to call this function from multiple threads on the same object. It is NOT thread safe though to call any other function on self without proper synchronization. Please see Multiprocessing best practices for more details. Note When all references to a storage in shared memory are deleted, the associated shared memory object will also be deleted. PyTorch has a special cleanup process to ensure that this happens even if the current process exits unexpectedly. It is worth noting the difference between share_memory_() and from_file() with shared = True share_memory_ uses shm_open(3) to create a POSIX shared memory object while from_file() uses open(2) to open the filename passed by the user. Both use an mmap(2) call with MAP_SHARED to map the file/object into the current virtual address space share_memory_ will call shm_unlink(3) on the object after mapping it to make sure the shared memory object is freed when no process has the object open. torch.from_file(shared=True) does not unlink the file. This file is persistent and will remain until it is deleted by the user. Returns self short()[source]# Casts this storage to short type. size()[source]# Return type int to(*, device, non_blocking=False)[source]# tolist()[source]# Return a list containing the elements of this storage. type(dtype=None, non_blocking=False)[source]# Return type Union[_StorageBase, TypedStorage] untyped()[source]# Legacy Typed Storage# Warning For historical context, PyTorch previously used typed storage classes, which are now deprecated and should be avoided. The following details this API in case you should encounter it, although its usage is highly discouraged. All storage classes except for torch.UntypedStorage will be removed in the future, and torch.UntypedStorage will be used in all cases. torch.Storage is an alias for the storage class that corresponds with the default data type (torch.get_default_dtype()). For example, if the default data type is torch.float, torch.Storage resolves to torch.FloatStorage. The torch.\u003ctype\u003eStorage and torch.cuda.\u003ctype\u003eStorage classes, like torch.FloatStorage, torch.IntStorage, etc., are not actually ever instantiated. Calling their constructors creates a torch.TypedStorage with the appropriate torch.dtype and torch.device. torch.\u003ctype\u003eStorage classes have all of the same class methods that torch.TypedStorage has. A torch.TypedStorage is a contiguous, one-dimensional array of elements of a particular torch.dtype. It can be given any torch.dtype, and the internal data will be interpreted appropriately. torch.TypedStorage contains a torch.UntypedStorage which holds the data as an untyped array of bytes. Every strided torch.Tensor contains a torch.TypedStorage, which stores all of the data that the torch.Tensor views. class torch.TypedStorage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# bfloat16()[source]# Casts this storage to bfloat16 type. bool()[source]# Casts this storage to bool type. byte()[source]# Casts this storage to byte type. char()[source]# Casts this storage to char type. clone()[source]# Return a copy of this storage. complex_double()[source]# Casts this storage to complex double type. complex_float()[source]# Casts this storage to complex float type. copy_(source, non_blocking=None)[source]# cpu()[source]# Return a CPU copy of this storage if it\u2019s not already on the CPU. cuda(device=None, non_blocking=False)[source]# Returns a copy of this object in CUDA memory. If this object is already in CUDA memory and on the correct device, then no copy is performed and the original object is returned. Parameters device (int) \u2013 The destination GPU id. Defaults to the current device. non_blocking (bool) \u2013 If True and the source is in pinned memory, the copy will be asynchronous with respect to the host. Otherwise, the argument has no effect. Return type Self data_ptr()[source]# property device# double()[source]# Casts this storage to double type. dtype: dtype# element_size()[source]# property filename: Optional[str]# Returns the file name associated with this storage if the storage was memory mapped from a file. or None if the storage was not created by memory mapping a file. fill_(value)[source]# float()[source]# Casts this storage to float type. float8_e4m3fn()[source]# Casts this storage to float8_e4m3fn type float8_e4m3fnuz()[source]# Casts this storage to float8_e4m3fnuz type float8_e5m2()[source]# Casts this storage to float8_e5m2 type float8_e5m2fnuz()[source]# Casts this storage to float8_e5m2fnuz type classmethod from_buffer(*args, **kwargs)[source]# classmethod from_file(filename, shared=False, size=0) \u2192 Storage[source]# Creates a CPU storage backed by a memory-mapped file. If shared is True, then memory is shared between all processes. All changes are written to the file. If shared is False, then the changes on the storage do not affect the file. size is the number of elements in the storage. If shared is False, then the file must contain at least size * sizeof(Type) bytes (Type is the type of storage). If shared is True the file will be created if needed. Parameters filename (str) \u2013 file name to map shared (bool) \u2013 whether to share memory (whether MAP_SHARED or MAP_PRIVATE is passed to the underlying mmap(2) call) size (int) \u2013 number of elements in the storage get_device()[source]# Return type int half()[source]# Casts this storage to half type. hpu(device=None, non_blocking=False)[source]# Returns a copy of this object in HPU memory. If this object is already in HPU memory and on the correct device, then no copy is performed and the original object is returned. Parameters device (int) \u2013 The destination HPU id. Defaults to the current device. non_blocking (bool) \u2013 If True and the source is in pinned memory, the copy will be asynchronous with respect to the host. Otherwise, the argument has no effect. Return type Self int()[source]# Casts this storage to int type. property is_cuda# property is_hpu# is_pinned(device=\u0027cuda\u0027)[source]# Determine whether the CPU TypedStorage is already pinned on device. Parameters device (str or torch.device) \u2013 The device to pin memory on (default: \u0027cuda\u0027). This argument is discouraged and subject to deprecated. Returns A boolean variable. is_shared()[source]# is_sparse: bool = False# long()[source]# Casts this storage to long type. nbytes()[source]# pickle_storage_type()[source]# pin_memory(device=\u0027cuda\u0027)[source]# Copy the CPU TypedStorage to pinned memory, if it\u2019s not already pinned. Parameters device (str or torch.device) \u2013 The device to pin memory on (default: \u0027cuda\u0027). This argument is discouraged and subject to deprecated. Returns A pinned CPU storage. resizable()[source]# resize_(size)[source]# share_memory_()[source]# See torch.UntypedStorage.share_memory_() short()[source]# Casts this storage to short type. size()[source]# to(*, device, non_blocking=False)[source]# Returns a copy of this object in device memory. If this object is already on the correct device, then no copy is performed and the original object is returned. Parameters device (int) \u2013 The destination device. non_blocking (bool) \u2013 If True and the source is in pinned memory, the copy will be asynchronous with respect to the host. Otherwise, the argument has no effect. Return type Self tolist()[source]# Return a list containing the elements of this storage. type(dtype=None, non_blocking=False)[source]# Returns the type if dtype is not provided, else casts this object to the specified type. If this is already of the correct type, no copy is performed and the original object is returned. Parameters dtype (type or string) \u2013 The desired type non_blocking (bool) \u2013 If True, and the source is in pinned memory and destination is on the GPU or vice versa, the copy is performed asynchronously with respect to the host. Otherwise, the argument has no effect. **kwargs \u2013 For compatibility, may contain the key async in place of the non_blocking argument. The async arg is deprecated. Return type Union[_StorageBase, TypedStorage, str] untyped()[source]# Return the internal torch.UntypedStorage. class torch.DoubleStorage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.float64# class torch.FloatStorage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.float32# class torch.HalfStorage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.float16# class torch.LongStorage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.int64# class torch.IntStorage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.int32# class torch.ShortStorage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.int16# class torch.CharStorage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.int8# class torch.ByteStorage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.uint8# class torch.BoolStorage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.bool# class torch.BFloat16Storage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.bfloat16# class torch.ComplexDoubleStorage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.complex128# class torch.ComplexFloatStorage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.complex64# class torch.QUInt8Storage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.quint8# class torch.QInt8Storage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.qint8# class torch.QInt32Storage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.qint32# class torch.QUInt4x2Storage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.quint4x2# class torch.QUInt2x4Storage(*args, wrap_storage=None, dtype=None, device=None, _internal=False)[source]# dtype: torch.dtype = torch.quint2x4#",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/storage.html"
+       },
+       "datePublished": "Dec 30, 2016T00:00:00Z",
+       "dateModified": "Apr 14, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

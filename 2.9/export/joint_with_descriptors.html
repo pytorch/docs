@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/export/joint_with_descriptors.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="../_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', '2.9');
- </script>
+  document.documentElement.setAttribute('data-version', '2.9');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -180,8 +190,10 @@
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -518,7 +530,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -526,7 +539,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -3388,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4357,29 +4370,30 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../pytorch-api.html">
-          <meta itemprop="name" content="Reference API">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../pytorch-api.html">
+        <meta itemprop="name" content="Reference API">
+        <meta itemprop="position" content="1">
+      </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../export.html">
-          <meta itemprop="name" content="torch.export">
-          <meta itemprop="position" content="2">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../export.html">
+        <meta itemprop="name" content="torch.export">
+        <meta itemprop="position" content="2">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="Joint with descriptors">
         <meta itemprop="position" content="3">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -5009,7 +5023,7 @@ before buffers).</p>
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -5249,91 +5263,124 @@ before buffers).</p>
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -5341,8 +5388,7 @@ before buffers).</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -5382,28 +5428,47 @@ before buffers).</p>
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "Joint with descriptors",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/export/joint_with_descriptors.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "../_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/export/joint_with_descriptors.html"
-         },
-        "datePublished": "Aug 11, 2025T00:00:00Z",
-         "dateModified": "Aug 11, 2025T00:00:00Z",
-         "articleBody": "Joint with descriptors# Created On: Aug 11, 2025 | Last Updated On: Aug 11, 2025 Joint with descriptors is an experimental API for exporting a traced joint graph that supports all of torch.compile’s features in full generality and, after processing, can be converted back into a differentiable callable that can be executed as normal. For example, it is used to implement autoparallel, a system that takes a model and reshards inputs and parameters to make it a distributed SPMD program. torch._functorch.aot_autograd.aot_export_joint_with_descriptors(stack, mod, args, kwargs=None, *, decompositions=None, keep_inference_input_mutations=False, ignore_shape_env=False, fw_compiler=&lt;function boxed_nop_preserve_node_meta&gt;, bw_compiler=&lt;function boxed_nop_preserve_node_meta&gt;)[source]# This API captures the joint graph for an nn.Module. However, unlike aot_export_joint_simple or aot_export_module(trace_joint=True), the calling convention of the produced joint graph follows no fixed positional schema; for example, you cannot rely on the second argument of the traced joint graph to correspond to the second argument of the module you traced. However, the inputs and outputs of the traced graph are schematized with descriptors, annotated on meta[‘desc’] on the placeholder and return FX nodes, which you can use to determine the meaning of arguments. The major benefit of using this export rather than aot_export_joint_simple is that we have feature parity with all situations that torch.compile supports (via aot_module_simplified), including handling for more complicated cases such as multiple differentiable outputs, input mutations that must be handled outside of the graph, tensor subclasses, etc. What can you do with one of these joint graphs with descriptors? The motivating use case (autoparallel) involves taking the joint graph, doing optimizations on it, and then turning it back into a callable so it can be torch.compile’d at a later point in time. This cannot be done as a traditional torch.compile joint graph pass for two reasons: The sharding of parameters must be decided before parameter initialization / checkpoint load, far before torch.compile would ordinarily run. We need to change the meaning of parameters (e.g., we might replace a replicated parameter with a sharded version of it, changing its input size). torch.compile is ordinarily semantics preserving, and not allowed to change the meaning of inputs. Some descriptors can be quite exotic, so we recommend thinking carefully if there is a safe fallback you can apply to descriptors you don’t understand. For example, you should have some way to handle not finding a particular input exactly as is in the final FX graph inputs. Note: When using this API, you must create and enter an ExitStack context manager, which will be passed into this function. This context manager must remain active if you call the compile function to finish compilation. (TODO: We may relax this requirement by having AOTAutograd keep ..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "Joint with descriptors",
+       "headline": "Joint with descriptors",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/export/joint_with_descriptors.html",
+       "articleBody": "Joint with descriptors# Created On: Aug 11, 2025 | Last Updated On: Aug 11, 2025 Joint with descriptors is an experimental API for exporting a traced joint graph that supports all of torch.compile\u2019s features in full generality and, after processing, can be converted back into a differentiable callable that can be executed as normal. For example, it is used to implement autoparallel, a system that takes a model and reshards inputs and parameters to make it a distributed SPMD program. torch._functorch.aot_autograd.aot_export_joint_with_descriptors(stack, mod, args, kwargs=None, *, decompositions=None, keep_inference_input_mutations=False, ignore_shape_env=False, fw_compiler=\u003cfunction boxed_nop_preserve_node_meta\u003e, bw_compiler=\u003cfunction boxed_nop_preserve_node_meta\u003e)[source]# This API captures the joint graph for an nn.Module. However, unlike aot_export_joint_simple or aot_export_module(trace_joint=True), the calling convention of the produced joint graph follows no fixed positional schema; for example, you cannot rely on the second argument of the traced joint graph to correspond to the second argument of the module you traced. However, the inputs and outputs of the traced graph are schematized with descriptors, annotated on meta[\u2018desc\u2019] on the placeholder and return FX nodes, which you can use to determine the meaning of arguments. The major benefit of using this export rather than aot_export_joint_simple is that we have feature parity with all situations that torch.compile supports (via aot_module_simplified), including handling for more complicated cases such as multiple differentiable outputs, input mutations that must be handled outside of the graph, tensor subclasses, etc. What can you do with one of these joint graphs with descriptors? The motivating use case (autoparallel) involves taking the joint graph, doing optimizations on it, and then turning it back into a callable so it can be torch.compile\u2019d at a later point in time. This cannot be done as a traditional torch.compile joint graph pass for two reasons: The sharding of parameters must be decided before parameter initialization / checkpoint load, far before torch.compile would ordinarily run. We need to change the meaning of parameters (e.g., we might replace a replicated parameter with a sharded version of it, changing its input size). torch.compile is ordinarily semantics preserving, and not allowed to change the meaning of inputs. Some descriptors can be quite exotic, so we recommend thinking carefully if there is a safe fallback you can apply to descriptors you don\u2019t understand. For example, you should have some way to handle not finding a particular input exactly as is in the final FX graph inputs. Note: When using this API, you must create and enter an ExitStack context manager, which will be passed into this function. This context manager must remain active if you call the compile function to finish compilation. (TODO: We may relax this requirement by having AOTAutograd keep track of how to reconstruct all the context managers at a later point in time.) NB: You\u2019re not obligated to do a /full/ compile in stage2; instead you can leave the forward/backward compilers unspecified in which case the partitioned FX graphs will directly run. The overall autograd Function can be allowed in graph so you can reprocess it in the context of a (potentially larger) compiled region later. NB: These APIs do NOT hit cache, as we only ever cache the final compile results, not the intermediate export result. NB: If the passed nn.Module has parameters and buffers on it, we will generate extra implicit parameter/buffer arguments and assign ParamAOTInput and BufferAOTInput descriptors to them. However, if you generate the input nn.Module from a mechanism like Dynamo, you will NOT get these descriptors (because Dynamo will already have taken care of lifting the parameters/buffers into arguments!) In that case, it would be necessary to analyze the Sources of the inputs to determine if inputs are parameters and their FQNs. Return type JointWithDescriptors torch._functorch.aot_autograd.aot_compile_joint_with_descriptors(jd)[source]# Companion function for aot_export_joint_with_descriptors which compiles the joint graph into a callable function that follows a standard calling convention. params_flat all are arguments. Note: We do NOT instantiate the module; this gives you the flexibility to subclass it and customize its behavior without having to worry about FQN rebinding. TODO: Consider if we should allow_in_graph the result by default. Return type callable Descriptors# class torch._functorch._aot_autograd.descriptors.AOTInput[source]# Describes where an input from an AOTAutograd produced FX graph comes from is_buffer()[source]# True if this input is a buffer or derived from a buffer (e.g., subclass attr) Return type bool is_param()[source]# True if this input is a parameter or derived from a parameter (e.g., subclass attr) Return type bool is_tangent()[source]# True if this input is a tangent or derived from a tangent (e.g., subclass attr) Return type bool class torch._functorch._aot_autograd.descriptors.AOTOutput[source]# Describes where an output from an AOTAutograd produced FX graph will eventually be bundled into the final output is_grad()[source]# True if this output is a grad or derived from a grad (e.g., subclass attr) Return type bool class torch._functorch._aot_autograd.descriptors.BackwardTokenAOTInput(idx)[source]# The world token which is threaded through side-effectful operations, for backwards class torch._functorch._aot_autograd.descriptors.BackwardTokenAOTOutput(idx)[source]# The world token output for side-effectful calls, returned so we cannot DCE it, backward only class torch._functorch._aot_autograd.descriptors.BufferAOTInput(target)[source]# The input is a buffer, whose FQN is target class torch._functorch._aot_autograd.descriptors.DummyAOTInput(idx)[source]# In some circumstances, we want to call into a function that expects AOTInput, but we don\u2019t actually care about that logic (most typically, because some code is being used for both compile-time and run-time; AOTInput processing is not needed in this situation. Pass a dummy in this situation; but it is better to just have a version of the function that doesn\u2019t have this at all. class torch._functorch._aot_autograd.descriptors.DummyAOTOutput(idx)[source]# For cases when you don\u2019t actually care about descriptor propagation, do not use under normal circumstances. class torch._functorch._aot_autograd.descriptors.GradAOTOutput(grad_of)[source]# An output representing the computed gradient for a differentiable input, in the joint graph class torch._functorch._aot_autograd.descriptors.InputMutationAOTOutput(mutated_input)[source]# The mutated value of an input tensor, returned so we can appropriately propagate autograd. class torch._functorch._aot_autograd.descriptors.IntermediateBaseAOTOutput(base_of)[source]# An intermediate base of multiple outputs which alias each other. We only report ONE of the outputs that contributed to this base class torch._functorch._aot_autograd.descriptors.ParamAOTInput(target)[source]# The input is a parameter, whose FQN is target class torch._functorch._aot_autograd.descriptors.PhiloxBackwardBaseOffsetAOTInput[source]# The offset for functionalized Philox RNG calls, specifically for backward graph. class torch._functorch._aot_autograd.descriptors.PhiloxBackwardSeedAOTInput[source]# The seed for functionalized Philox RNG calls, specifically for backward graph. class torch._functorch._aot_autograd.descriptors.PhiloxForwardBaseOffsetAOTInput[source]# The offset for functionalized Philox RNG calls, specifically for forward graph. class torch._functorch._aot_autograd.descriptors.PhiloxForwardSeedAOTInput[source]# The seed for functionalized Philox RNG calls, specifically for forward graph. class torch._functorch._aot_autograd.descriptors.PhiloxUpdatedBackwardOffsetAOTOutput[source]# The final offset from the functionalized RNG calls, backward only class torch._functorch._aot_autograd.descriptors.PhiloxUpdatedForwardOffsetAOTOutput[source]# The final offset from the functionalized RNG calls, forward only class torch._functorch._aot_autograd.descriptors.PlainAOTInput(idx)[source]# The input is a plain input, corresponding to a particular positional index. Note that AOTInput is always relative to a function with a flat calling convention, e.g., as accepted by aot_module_simplified. There are some AOTAutograd APIs that flatten pytrees, and we don\u2019t record PyTree key paths from the flattening (but we could and should!) class torch._functorch._aot_autograd.descriptors.PlainAOTOutput(idx)[source]# A plain tensor output at position idx of the output tuple class torch._functorch._aot_autograd.descriptors.SavedForBackwardsAOTOutput(idx: int)[source]# class torch._functorch._aot_autograd.descriptors.SubclassGetAttrAOTInput(base, attr)[source]# Subclass inputs get unpacked into their constituent pieces before going into an FX graph. This tells you which particular attribute of the subclass this particular input corresponds to (of the \u2018base\u2019 originally subclass argument.) class torch._functorch._aot_autograd.descriptors.SubclassGetAttrAOTOutput(base, attr)[source]# This output will be bundled into a subclass at this location class torch._functorch._aot_autograd.descriptors.SubclassSizeAOTInput(base, idx)[source]# Which subclass this particular outer size SymInt input (at dim idx) came from. class torch._functorch._aot_autograd.descriptors.SubclassSizeAOTOutput(base, idx)[source]# This output size will be bundled into a subclass at this location class torch._functorch._aot_autograd.descriptors.SubclassStrideAOTInput(base, idx)[source]# Which subclass this particular outer stride SymInt input (at dim idx) came from. class torch._functorch._aot_autograd.descriptors.SubclassStrideAOTOutput(base, idx)[source]# This output stride will be bundled into a subclass at this location class torch._functorch._aot_autograd.descriptors.SyntheticBaseAOTInput(base_of)[source]# This is similar to ViewBaseAOTInput, but this happens when none of the views were differentiable, so we weren\u2019t able to get our hands on the true original view and constructed a synthetic one instead for the sake of autograd. class torch._functorch._aot_autograd.descriptors.ViewBaseAOTInput(base_of)[source]# When multiple differentiable inputs are views of the same input, AOTAutograd will replace all of these views with a single input representing the base. If this is undesirable, you can clone the views example inputs before passing them into AOTAutograd. TODO: In principle we could report ALL of the inputs who this is a base of. FX utilities# This module contains utility functions for working with joint FX graphs with descriptors that are produced by AOTAutograd. They will NOT work on generic FX graphs. See also torch._functorch.aot_autograd.aot_export_joint_with_descriptors(). We also recommend reading :mod:torch._functorch._aot_autograd.descriptors`. torch._functorch._aot_autograd.fx_utils.get_all_input_and_grad_nodes(g)[source]# Given a joint graph with descriptors (meta[\u2018desc\u2019] on placeholders and output), returns the node for every input and its corresponding grad output node if it exists. These tuples are in a dict that is indexed by the AOTInput descriptor that describes the input. NB: all forward tensor inputs are returned, including non-differentiable inputs (which simply have a None grad), so it is safe to use this function to perform operations on all inputs. (Non-tensor inputs like symbolic integers, tokens or RNG state are NOT traversed by this function.) Parameters g (Graph) \u2013 The FX joint graph with descriptors Returns A dictionary mapping each DifferentiableAOTInput descriptor to a tuple containing: - The input node itself - The grad (output) node if it exists, None otherwise Raises RuntimeError \u2013 If the joint graph has subclass tensor inputs/outputs; this is not supported by API as there is not necessarily a 1-1 correspondence \u2013 between inputs and grads when subclasses are involved. \u2013 Return type dict[torch._functorch._aot_autograd.descriptors.DifferentiableAOTInput, tuple[torch.fx.node.Node, Optional[torch.fx.node.Node]]] torch._functorch._aot_autograd.fx_utils.get_all_output_and_tangent_nodes(g)[source]# Get all output nodes and their corresponding tangent nodes from a joint graph. Similar to get_all_input_and_grad_nodes, but returns output nodes paired with their tangent nodes (if they exist). This function traverses the graph to find all differentiable outputs and matches them with their corresponding tangent inputs used in forward-mode autodiff. NB: all forward tensor output sare turned, including non-differentiable outputs, so you can use this function to perform operations on all outputs. Parameters g (Graph) \u2013 The FX joint graph with descriptors Returns A dictionary mapping each DifferentiableAOTOutput descriptor to a tuple containing: - The output node itself - The tangent (input) node if it exists, None otherwise Raises RuntimeError \u2013 If the joint graph has subclass tensor inputs/outputs; this is not supported by API as there is not necessarily a 1-1 correspondence \u2013 between outputs and tangents when subclasses are involved. \u2013 Return type dict[torch._functorch._aot_autograd.descriptors.DifferentiableAOTOutput, tuple[torch.fx.node.Node, Optional[torch.fx.node.Node]]] torch._functorch._aot_autograd.fx_utils.get_buffer_nodes(graph)[source]# Get all buffer nodes from a graph as a list. You can rely on this providing the correct order of buffers you need to feed into the joint graph (after parameters). Parameters graph (Graph) \u2013 The FX joint graph with descriptors Returns A list of FX nodes representing all buffers in the graph. Raises RuntimeError \u2013 If subclass tensors are encountered (not yet supported), as it is not clear if you wanted each individual constituent piece of the \u2013 subclasses, or have them grouped up in some way. \u2013 Return type list[torch.fx.node.Node] torch._functorch._aot_autograd.fx_utils.get_named_buffer_nodes(graph)[source]# Get buffer nodes mapped by their fully qualified names. This function traverses the graph to find all buffer input nodes and returns them in a dictionary where keys are the buffer names (FQNs) and values are the corresponding FX nodes. Parameters graph (Graph) \u2013 The FX joint graph with descriptors Returns A dictionary mapping buffer names (str) to their corresponding FX nodes. Raises RuntimeError \u2013 If subclass tensors are encountered (not yet supported), as with subclasses a FQN does not necessarily map to a single plain tensor. \u2013 Return type dict[str, torch.fx.node.Node] torch._functorch._aot_autograd.fx_utils.get_named_param_nodes(graph)[source]# Get parameter nodes mapped by their fully qualified names. This function traverses the graph to find all parameter input nodes and returns them in a dictionary where keys are the parameter names (FQNs) and values are the corresponding FX nodes. Parameters graph (Graph) \u2013 The FX joint graph with descriptors Returns A dictionary mapping parameter names (str) to their corresponding FX nodes. Raises RuntimeError \u2013 If subclass tensors are encountered (not yet supported), as with subclasses a FQN does not necessarily map to a single plain tensor. \u2013 Return type dict[str, torch.fx.node.Node] torch._functorch._aot_autograd.fx_utils.get_param_and_grad_nodes(graph)[source]# Get parameter nodes and their corresponding gradient nodes from a joint graph. Parameters graph (Graph) \u2013 The FX joint graph with descriptors Returns The parameter input node The gradient (output) node if it exists, None otherwise Return type A dictionary mapping each ParamAOTInput descriptor to a tuple containing torch._functorch._aot_autograd.fx_utils.get_param_nodes(graph)[source]# Get all parameter nodes from a graph as a list. You can rely on this providing the correct order of parameters you need to feed into the joint graph (at the very beginning of the argument list, before buffers). Parameters graph (Graph) \u2013 The FX joint graph with descriptors Returns A list of FX nodes representing all parameters in the graph. Raises RuntimeError \u2013 If subclass tensors are encountered (not yet supported), as it is not clear if you wanted each individual constituent piece of the \u2013 subclasses, or have them grouped up in some way. \u2013 Return type list[torch.fx.node.Node] torch._functorch._aot_autograd.fx_utils.get_plain_input_and_grad_nodes(graph)[source]# Get plain input nodes and their corresponding gradient nodes from a joint graph. Parameters graph (Graph) \u2013 The FX joint graph with descriptors Returns The plain input node The gradient (output) node if it exists, None otherwise Return type A dictionary mapping each PlainAOTInput descriptor to a tuple containing torch._functorch._aot_autograd.fx_utils.get_plain_output_and_tangent_nodes(graph)[source]# Get plain output nodes and their corresponding tangent nodes from a joint graph. Parameters graph (Graph) \u2013 The FX joint graph with descriptors Returns The plain output node The tangent (input) node if it exists, None otherwise Return type A dictionary mapping each PlainAOTOutput descriptor to a tuple containing",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "../_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/export/joint_with_descriptors.html"
+       },
+       "datePublished": "Aug 11, 2025T00:00:00Z",
+       "dateModified": "Aug 11, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

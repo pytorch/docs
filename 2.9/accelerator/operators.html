@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/accelerator/operators.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="../_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', '2.9');
- </script>
+  document.documentElement.setAttribute('data-version', '2.9');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -180,8 +190,10 @@
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -518,7 +530,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -526,7 +539,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -1649,29 +1662,30 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../user_guide/index.html">
-          <meta itemprop="name" content="User Guide">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../user_guide/index.html">
+        <meta itemprop="name" content="User Guide">
+        <meta itemprop="position" content="1">
+      </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="index.html">
-          <meta itemprop="name" content="Accelerator Integration">
-          <meta itemprop="position" content="2">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="index.html">
+        <meta itemprop="name" content="Accelerator Integration">
+        <meta itemprop="position" content="2">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="Operator Registration">
         <meta itemprop="position" content="3">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -2203,7 +2217,7 @@ _dispatch_key_set
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -2410,91 +2424,124 @@ _dispatch_key_set
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -2502,8 +2549,7 @@ _dispatch_key_set
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -2543,28 +2589,47 @@ _dispatch_key_set
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "Operator Registration",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/accelerator/operators.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "../_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/accelerator/operators.html"
-         },
-        "datePublished": "Aug 27, 2025T00:00:00Z",
-         "dateModified": "Sep 02, 2025T00:00:00Z",
-         "articleBody": "Operator Registration# Created On: Aug 27, 2025 | Last Updated On: Sep 02, 2025 For new accelerators, one of the most important and fundamental aspects of integration is supporting high-performance operators. To facilitate operator adaptation for users and accelerator developers, PyTorch provides multiple methods for developing and registering operators in both Python and C++. The following sections detail some of PyTorch’s fundamental capabilities for operator registration. Note Dispatch Key is used to uniquely identify accelerator within PyTorch, such as CPU, CUDA, MPS, and PrivateUse1. In theory, all subsequent new accelerators will share PrivateUse1, leveraging its built-in comprehensive scaffolding capabilities to complete the integration of new accelerators. Please refer to Let’s talk about the PyTorch dispatcher if you are interested with dispatcher. Operator Set# PyTorch currently has over 3500 built-in operators (including related operator variants). This represents a significant workload from any perspective, and supporting this massive number of operators in a short period of time is no easy task. Therefore, as the first step in developing new backend operators, our goal should be to focus on the essential operators. For other operators, we can first use the community’s fallback mechanism to support the feature as the first priority. After that, we can gradually complete other operators to improve the performance of the new backend. The required operator set is listed below, primarily consisting of low-level operators required by factory functions and fallback operators: Operator Name Dispatch Key Description empty.memory_format PrivateUse1 Create an uninitialized Tensor with the specified shape and memory layout (the stride is automatically calculated) empty_strided PrivateUse1 Create an uninitialized Tensor of the specified shape and stride (more degrees of freedom) as_strided PrivateUse1 Create a shared view of the input Tensor with new shape, stride, and offset (without allocating new memory) view PrivateUse1 Create a shared view of the input Tensor with new shape, but the original Tensor must be memory-contiguous _reshape_alias PrivateUse1 Creates a shared view without safety checks(Internal version of reshape) resize_ PrivateUse1 Modify the shape of the Tensor in place and reallocate memory if capacity is insufficient _copy_from PrivateUse1 The underlying core function of Tensor.copy_ is responsible for the actual cross-device data copying _copy_from_and_resize PrivateUse1 Combine resize_ and _copy_from to resize first and then copy _local_scalar_dense PrivateUse1 The underlying implementation of .item(), extracting values from Tensor to CPU scalars set_.source_Tensor PrivateUse1 Set the current Tensor using the specified Tensor set_.source_Storage PrivateUse1 Set the current Tensor using the specified Storage set_.source_Storage_storage_offset PrivateUse1 Set the current Tensor using the specified Storage with the storage off..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "Operator Registration",
+       "headline": "Operator Registration",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/accelerator/operators.html",
+       "articleBody": "Operator Registration# Created On: Aug 27, 2025 | Last Updated On: Sep 02, 2025 For new accelerators, one of the most important and fundamental aspects of integration is supporting high-performance operators. To facilitate operator adaptation for users and accelerator developers, PyTorch provides multiple methods for developing and registering operators in both Python and C++. The following sections detail some of PyTorch\u2019s fundamental capabilities for operator registration. Note Dispatch Key is used to uniquely identify accelerator within PyTorch, such as CPU, CUDA, MPS, and PrivateUse1. In theory, all subsequent new accelerators will share PrivateUse1, leveraging its built-in comprehensive scaffolding capabilities to complete the integration of new accelerators. Please refer to Let\u2019s talk about the PyTorch dispatcher if you are interested with dispatcher. Operator Set# PyTorch currently has over 3500 built-in operators (including related operator variants). This represents a significant workload from any perspective, and supporting this massive number of operators in a short period of time is no easy task. Therefore, as the first step in developing new backend operators, our goal should be to focus on the essential operators. For other operators, we can first use the community\u2019s fallback mechanism to support the feature as the first priority. After that, we can gradually complete other operators to improve the performance of the new backend. The required operator set is listed below, primarily consisting of low-level operators required by factory functions and fallback operators: Operator Name Dispatch Key Description empty.memory_format PrivateUse1 Create an uninitialized Tensor with the specified shape and memory layout (the stride is automatically calculated) empty_strided PrivateUse1 Create an uninitialized Tensor of the specified shape and stride (more degrees of freedom) as_strided PrivateUse1 Create a shared view of the input Tensor with new shape, stride, and offset (without allocating new memory) view PrivateUse1 Create a shared view of the input Tensor with new shape, but the original Tensor must be memory-contiguous _reshape_alias PrivateUse1 Creates a shared view without safety checks(Internal version of reshape) resize_ PrivateUse1 Modify the shape of the Tensor in place and reallocate memory if capacity is insufficient _copy_from PrivateUse1 The underlying core function of Tensor.copy_ is responsible for the actual cross-device data copying _copy_from_and_resize PrivateUse1 Combine resize_ and _copy_from to resize first and then copy _local_scalar_dense PrivateUse1 The underlying implementation of .item(), extracting values from Tensor to CPU scalars set_.source_Tensor PrivateUse1 Set the current Tensor using the specified Tensor set_.source_Storage PrivateUse1 Set the current Tensor using the specified Storage set_.source_Storage_storage_offset PrivateUse1 Set the current Tensor using the specified Storage with the storage offset fallback PrivateUse1 Fallback to CPU Basics# Now that we have defined the initial scope of operator support, we can begin developing operator adaptations. This section will explain these implementations in Python and C++ based on actual scenarios. Step 1# The operators mentioned above share a common characteristic: They are built-in PyTorch operators with defined namespaces and Schemas, and these operators\u2019 built-in accelerators (CPU, CUDA, etc.) have been implemented. What we have to do next is to implement these operators for the new accelerators. C++ 1at::Tensor empty_memory_format( 2 c10::IntArrayRef size, 3 std::optional\u003cc10::ScalarType\u003e dtype_opt, 4 std::optional\u003cc10::Layout\u003e layout_opt, 5 std::optional\u003cc10::Device\u003e device_opt, 6 std::optional\u003cbool\u003e pin_memory_opt, 7 std::optional\u003cc10::MemoryFormat\u003e memory_format_opt) { 8 const auto device = c10::device_or_default(device_opt); 9 const auto dtype = c10::dtype_or_default(dtype_opt); 10 TORCH_CHECK(device.is_privateuseone()); 11 TORCH_CHECK( 12 c10::layout_or_default(layout_opt) == c10::Layout::Strided, 13 \"Non strided layout not supported\"); 14 TORCH_CHECK( 15 !c10::pinned_memory_or_default(pin_memory_opt), 16 \"Pin memory can only be on CPU\"); 17 const c10::DeviceGuard device_guard(device); 18 constexpr c10::DispatchKeySet pu1_dks(c10::DispatchKey::PrivateUse1); 19 auto allocator = at::GetAllocator(at::kPrivateUse1); 20 return at::detail::empty_generic( 21 size, allocator, pu1_dks, dtype, memory_format_opt); 22} 1at::Tensor wrapper_empty_memory_format( 2 c10::IntArrayRef size, 3 std::optional\u003cc10::ScalarType\u003e dtype_opt, 4 std::optional\u003cc10::Layout\u003e layout_opt, 5 std::optional\u003cc10::Device\u003e device_opt, 6 std::optional\u003cbool\u003e pin_memory_opt, 7 std::optional\u003cc10::MemoryFormat\u003e memory_format_opt) { 8 return at::native::openreg::empty_memory_format( 9 size, 10 dtype_opt, 11 layout_opt, 12 device_opt, 13 pin_memory_opt, 14 memory_format_opt); 15} Taking the empty.memory_format operator as an example, we first need to query the operator\u2019s schema information in native_functions.yaml, which contains detailed signature information. Then, we can implement the operator based on the capabilities of the new accelerator. - func: empty.memory_format(SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, MemoryFormat? memory_format=None) -\u003e Tensor dispatch: CPU: empty_cpu CUDA: empty_cuda ... C++ 1TORCH_LIBRARY_IMPL(aten, PrivateUse1, m) { 2 m.impl(\"empty.memory_format\", wrapper_empty_memory_format); 3 m.impl(\"empty_strided\", wrapper_empty_strided); 4 m.impl(\"as_strided\", wrapper_as_strided); 5 m.impl(\"resize_\", wrapper_resize_); 6 m.impl(\"_reshape_alias\", wrapper__reshape_alias); 7 m.impl(\"_copy_from\", wrapper__copy_from); 8 m.impl(\"_copy_from_and_resize\", wrapper__copy_from_and_resize); 9 m.impl(\"_local_scalar_dense\", wrapper__local_scalar_densor); 10 m.impl(\"set_.source_Tensor\", wrapper_set_source_Tensor_); 11 m.impl(\"set_.source_Storage\", wrapper_set_source_Storage_); 12 m.impl( 13 \"set_.source_Storage_storage_offset\", 14 wrapper_set_source_Storage_storage_offsetset_); 15 m.impl(\"view\", wrapper_view); 16} After completing the wrapper_empty_memory_format, we can register aten::empty.memory_format for PrivateUse1 through TORCH_LIBRARY_IMPL. Step 2# By following Step 1, we can complete the development and registration of all operators except fallback. Next, to support operators related to operations (such as mathematical operations and convolution operations), we need to implement the registration of fallback semantics. This is a built-in capability provided by the PyTorch framework that can fallback some operations that are not supported by new accelerators to the CPU for execution. For new backends in development, this is an extremely effective way to ensure functionality at the expense of performance. C++ 1void cpu_fallback(const c10::OperatorHandle\u0026 op, torch::jit::Stack* stack) { 2 static const std::unordered_set\u003cc10::OperatorName\u003e cpu_fallback_blocklist = { 3 c10::OperatorName(\"aten::abs\", \"\"), 4 c10::OperatorName(\"aten::abs\", \"out\"), 5 }; 6 7 const auto\u0026 op_name = op.schema().operator_name(); 8 if (cpu_fallback_blocklist.count(op_name)) { 9 TORCH_CHECK( 10 false, 11 \"Operator \u0027\", 12 op_name, 13 \"\u0027 is not implemented for device openreg.\"); 14 } else { 15 at::native::cpu_fallback(op, stack); 16 } 17} 1void wrapper_cpu_fallback( 2 const c10::OperatorHandle\u0026 op, 3 torch::jit::Stack* stack) { 4 at::native::openreg::cpu_fallback(op, stack); 5} 1TORCH_LIBRARY_IMPL(_, PrivateUse1, m) { 2 m.fallback( 3 torch::CppFunction::makeFromBoxedFunction\u003c\u0026wrapper_cpu_fallback\u003e()); 4} wrapper_cpu_fallback wraps the at::native::cpu_fallback method provided by PyTorch and is registered with PrivateUse1 in PyTorch via TORCH_LIBRARY_IMPL. Subsequent operations not supported by the new backend will automatically fall back to the CPU for execution, and the results will be passed back to the new backend after execution. Advanced# Selective Fallback# Enabling the fallback mechanism only for certain operators, while following PyTorch\u2019s default behavior for other operators (an error will be reported if the accelerator does not have a corresponding operator implementation), this is a very reasonable scenario as well. C++ 1void wrapper_cpu_fallback( 2 const c10::OperatorHandle\u0026 op, 3 torch::jit::Stack* stack) { 4 at::native::openreg::cpu_fallback(op, stack); 5} 1TORCH_LIBRARY_IMPL(aten, PrivateUse1, m) { 2 m.impl( 3 \"sub.Tensor\", 4 torch::CppFunction::makeFromBoxedFunction\u003c\u0026wrapper_cpu_fallback\u003e()); 5} Per-operator fallbacks are very similar to global fallbacks, the only difference being the registration method: calling m.impl registers an implementation for a specific operator, while m.fallback registers a default implementation for all operators. C++ 1void cpu_fallback(const c10::OperatorHandle\u0026 op, torch::jit::Stack* stack) { 2 static const std::unordered_set\u003cc10::OperatorName\u003e cpu_fallback_blocklist = { 3 c10::OperatorName(\"aten::abs\", \"\"), 4 c10::OperatorName(\"aten::abs\", \"out\"), 5 }; 6 7 const auto\u0026 op_name = op.schema().operator_name(); 8 if (cpu_fallback_blocklist.count(op_name)) { 9 TORCH_CHECK( 10 false, 11 \"Operator \u0027\", 12 op_name, 13 \"\u0027 is not implemented for device openreg.\"); 14 } else { 15 at::native::cpu_fallback(op, stack); 16 } 17} Of course, global fallbacks can also be combined with a blacklist of fallbacks, which is a common approach, especially when only a few operators do not support fallbacks. PyTorch STUB# PyTorch also provides another approach for built-in operators: STUB. This method is essentially based on the Step 1\u003cstep-one\u003e approach, but adds secondary scheduling capabilities (for example, scheduling based on CPU characteristics). Note The STUB method currently supports only a limited set of operators. For new accelerator devices, the advantage of the STUB method is that it significantly reduces the cost of development at the cost of a small performance overhead. PyTorch currently does not clearly list the set of operators that can be registered through STUB. Due to the large number of related operators, only the query method for the supported operator list is provided here. pushd ${TORCH_ROOT} find aten -type f -a -name \"*.h\" | xargs -I {} grep -wl \"^DECLARE_DISPATCH\" {} popd DECLARE_DISPATCH is a macro used to explicitly declare STUB. It is currently distributed in the aten directory. Based on this macro, you can find all operators that can be integrated using the STUB method. ... aten/src/ATen/native/Activation.h aten/src/ATen/native/FusedSGD.h aten/src/ATen/native/nested/NestedTensorBinaryOps.h aten/src/ATen/native/TensorCompare.h aten/src/ATen/native/Sorting.h ... using unary_fn = void(*)(TensorIteratorBase\u0026); DECLARE_DISPATCH(unary_fn, abs_stub) The above listing contains the file that declares the STUB operator, where you can clearly see the STUB name and the associated function signature. Next, we will take abs_stub as an example to briefly introduce the path to support operators through STUB. C++ 1void abs_kernel(at::TensorIteratorBase\u0026 iter) { 2 TORCH_CHECK(iter.ntensors() == 2, \"Abs kernel expects 2 tensors\"); 3 TORCH_CHECK( 4 iter.common_dtype() == at::ScalarType::Float, 5 \"Abs kernel only supports float type\"); 6 7 auto\u0026 output_tensor = iter.tensor(0); 8 auto\u0026 input_tensor = iter.tensor(1); 9 10 TORCH_CHECK( 11 input_tensor.sizes() == output_tensor.sizes(), 12 \"Input and output tensor sizes must match.\"); 13 14 auto abs_loop = [](float* out_ptr, const float* in_ptr, int64_t n) { 15 for (int64_t i = 0; i \u003c n; ++i) { 16 out_ptr[i] = std::abs(in_ptr[i]); 17 } 18 }; 19 20 MemoryGuard guard(input_tensor, output_tensor); 21 22 if (iter.is_contiguous()) { 23 abs_loop( 24 static_cast\u003cfloat*\u003e(iter.data_ptr(0)), 25 static_cast\u003cfloat*\u003e(iter.data_ptr(1)), 26 iter.numel()); 27 } else { 28 TORCH_CHECK( 29 input_tensor.is_contiguous(), \"Input tensor must be contiguous.\") 30 31 auto output = at::empty( 32 input_tensor.sizes(), 33 input_tensor.options().memory_format( 34 input_tensor.suggest_memory_format())); 35 36 MemoryGuard guard(output); 37 38 abs_loop( 39 static_cast\u003cfloat*\u003e(output.data_ptr()), 40 static_cast\u003cfloat*\u003e(iter.data_ptr(1)), 41 iter.numel()); 42 43 output_tensor.copy_(output); 44 } 45} 1REGISTER_PRIVATEUSE1_DISPATCH(abs_stub, \u0026wrapper_abs_stub); 2REGISTER_PRIVATEUSE1_DISPATCH( 3 quantize_tensor_per_tensor_affine_stub, 4 \u0026wrapper_quantize_tensor_per_tensor_affine_stub); 5REGISTER_PRIVATEUSE1_DISPATCH( 6 _fused_sdp_choice_stub, 7 \u0026wrapper__fused_sdp_choice); From the signature, we can see that the input of abs_stub is TensorIteratorBase, a powerful helper class provided by PyTorch that contains all input and output operators, as well as some other auxiliary methods. Based on it, we can develop the abs_kernel operator and then call REGISTER_PRIVATEUSE1_DISPATCH to specify abs_stub to complete the registration. Custom Operators# In addition to PyTorch\u2019s built-in operators, custom accelerator operators are also very common to improve performance in specific scenarios. These can be categorized into three main approaches: Forward-only Forward and backward: Separate registration Forward and backward: Implemented using torch.autograd.Function Note There are more details in PyTorch tutorials, so refer to PyTorch Custom Operators if you are interested. Forward Only# Here, we\u2019ll briefly introduce the implementation process of custom operators, focusing on the forward-only approach. The implementation can be summarized into the following three points: Define Schema: C++ 1TORCH_LIBRARY(openreg, m) { 2 m.def(\"custom_abs(Tensor input)-\u003e Tensor\"); 3} Namespace Name: openreg Function Name: custom_abs Input Parameters: Type: Tensor Name: input Output Type: Tensor Register Operator\u0026Autograd Fallback: C++ 1TORCH_LIBRARY_IMPL(openreg, PrivateUse1, m) { 2 m.impl(\"custom_abs\", \u0026wrapper_custom_abs); 3} 1TORCH_LIBRARY_IMPL(_, AutogradPrivateUse1, m) { 2 m.fallback(torch::autograd::autogradNotImplementedFallback()); 3} Use TORCH_LIBRARY_IMPL to register the wrapper_custom_abs implementation for the custom_abs operator in PrivateUse1. However, because Autograd is always enabled in PyTorch, PyTorch defaults to finding and executing the corresponding backward implementation even if only forward computation is required(will fallthrough in backward implementation). Therefore, we also need to register the corresponding implementation for AutogradPrivateUse1 of the custom_abs operator. Fortunately, PyTorch also provides a general Autograd Fallback mechanism named torch::autograd::autogradNotImplementedFallback, if only forward computation is involved, it is equivalent to a fallthrough operation, selecting the next DispatchKey for computation; if backward computation is involved, an error is thrown. Register Metadata(optional, but required by the graph mode, etc.): PYTHON 1lib = torch.library.Library(\"openreg\", \"IMPL\", \"Meta\") # noqa: TOR901 2 3 4@torch.library.impl(lib, \"custom_abs\") 5def custom_abs(self): 6 return torch.empty_like(self) 7 8 PyTorch supports registering Meta in both C++ and Python. Since Python registration is simpler, Python is used as an example here. Similar to the TORCH_LIBRARY_IMPL function in C++, Python provides the more user-friendly torch.library.impl decorator. Tools# Operator registration in PyTorch is complex, with diverse registration methods and numerous scenarios. Therefore, the PyTorch community has provided a number of tools to help developers quickly understand the underlying principles and assist in troubleshooting. Here we briefly introduce several commonly used tools: Commands# PyTorch provides a set of commands prefixed with torch._C._dispatch_ around its Dispatch feature. You can query all related interfaces using the following command: python -c \u0027import torch; print(\"\\n\".join([x for x in dir(torch._C) if x.startswith(\"_dispatch_\")]))\u0027 ... _dispatch_dump _dispatch_dump_table _dispatch_has_kernel _dispatch_has_kernel_for_any_dispatch_key _dispatch_has_kernel_for_dispatch_key _dispatch_isTensorSubclassLike _dispatch_is_alias_key _dispatch_is_included_in_alias _dispatch_is_main_interpreter _dispatch_kernel_for_dispatch_key_is_fallthrough _dispatch_key_for_device _dispatch_key_name _dispatch_key_parse _dispatch_key_set ... Here are explanations for several commonly used commands: torch._C._dispatch_key_set: Displays the DispatchKey of the current Tensor, with priority increasing from left to right. \u003e\u003e\u003e import torch \u003e\u003e\u003e a = torch.randn(3,3,device=\"cuda\") \u003e\u003e\u003e torch._C._dispatch_key_set(a) \u0027DispatchKeySet(CUDA, ADInplaceOrView, AutogradCUDA, AutocastCUDA)\u0027 torch._C._dispatch_dump_table: Queries the support status of a given operator across different Dispatch Keys, making it easy to locate the corresponding implementation code. \u003e\u003e\u003e import torch \u003e\u003e\u003e print(torch._C._dispatch_dump_table(\"aten::add.Tensor\")) \u003e\u003e\u003e ... CPU: registered at ./build/aten/src/ATen/RegisterCPU_0.cpp:1309 [kernel] CUDA: registered at ./build/aten/src/ATen/RegisterCUDA_0.cpp:2420 [kernel] HIP: registered at ./build/aten/src/ATen/RegisterCompositeExplicitAutogradNonFunctional_0.cpp:1373 [default backend kernel] MPS: registered at ./build/aten/src/ATen/RegisterCompositeExplicitAutogradNonFunctional_0.cpp:1373 [default backend kernel] IPU: registered at ./build/aten/src/ATen/RegisterCompositeExplicitAutogradNonFunctional_0.cpp:1373 [default backend kernel] XPU: registered at ./build/aten/src/ATen/RegisterCompositeExplicitAutogradNonFunctional_0.cpp:1373 [default backend kernel] HPU: registered at ./build/aten/src/ATen/RegisterCompositeExplicitAutogradNonFunctional_0.cpp:1373 [default backend kernel] VE: registered at ./build/aten/src/ATen/RegisterCompositeExplicitAutogradNonFunctional_0.cpp:1373 [default backend kernel] MTIA: registered at ./build/aten/src/ATen/RegisterCompositeExplicitAutogradNonFunctional_0.cpp:1373 [default backend kernel] MAIA: registered at ./build/aten/src/ATen/RegisterCompositeExplicitAutogradNonFunctional_0.cpp:1373 [default backend kernel] PrivateUse1: registered at ./build/aten/src/ATen/RegisterCompositeExplicitAutogradNonFunctional_0.cpp:1373 [default backend kernel] ... You can easily query the corresponding implementation of the aten::add.Tensor operator on other platforms, so that you can track the entire operator calling process from the source code level. Environment Variables# PyTorch also provides some dispatcher-related environment variables that can help with learning and quickly locating issues. TORCH_SHOW_DISPATCH_TRACE Displays detailed internal dispatch key scheduling during PyTorch execution. export TORCH_SHOW_DISPATCH_TRACE=1 \u003e\u003e\u003e import torch \u003e\u003e\u003e a = torch.randn(3,3) [call] op=[aten::randn], key=[BackendSelect] [redispatch] op=[aten::randn], key=[CPU] [call] op=[aten::empty.memory_format], key=[BackendSelect] [redispatch] op=[aten::empty.memory_format], key=[CPU] [call] op=[aten::normal_], key=[CPU] You can clearly see all the underlying operators called by Python-level operators within PyTorch: including the operator name, calling hierarchy, and corresponding Dispatch Key.",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "../_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/accelerator/operators.html"
+       },
+       "datePublished": "Aug 27, 2025T00:00:00Z",
+       "dateModified": "Sep 02, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

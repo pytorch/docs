@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/elastic/rendezvous.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="../_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', '2.9');
- </script>
+  document.documentElement.setAttribute('data-version', '2.9');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -180,8 +190,10 @@
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -518,7 +530,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -526,7 +539,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -3388,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4357,29 +4370,30 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../pytorch-api.html">
-          <meta itemprop="name" content="Reference API">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../pytorch-api.html">
+        <meta itemprop="name" content="Reference API">
+        <meta itemprop="position" content="1">
+      </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../distributed.elastic.html">
-          <meta itemprop="name" content="Torch Distributed Elastic">
-          <meta itemprop="position" content="2">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../distributed.elastic.html">
+        <meta itemprop="name" content="Torch Distributed Elastic">
+        <meta itemprop="position" content="2">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="Rendezvous">
         <meta itemprop="position" content="3">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -5382,7 +5396,7 @@ calling the <code class="docutils literal notranslate"><span class="pre">stop()<
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -5673,91 +5687,124 @@ calling the <code class="docutils literal notranslate"><span class="pre">stop()<
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -5765,8 +5812,7 @@ calling the <code class="docutils literal notranslate"><span class="pre">stop()<
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -5806,28 +5852,47 @@ calling the <code class="docutils literal notranslate"><span class="pre">stop()<
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "Rendezvous",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/elastic/rendezvous.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "../_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/elastic/rendezvous.html"
-         },
-        "datePublished": "May 04, 2021T00:00:00Z",
-         "dateModified": "May 22, 2024T00:00:00Z",
-         "articleBody": "Rendezvous# Created On: May 04, 2021 | Last Updated On: May 22, 2024 In the context of Torch Distributed Elastic we use the term rendezvous to refer to a particular functionality that combines a distributed synchronization primitive with peer discovery. It is used by Torch Distributed Elastic to gather participants of a training job (i.e. nodes) such that they all agree on the same list of participants and everyone’s roles, as well as make a consistent collective decision on when training can begin/resume. Torch Distributed Elastic rendezvous provides the following critical functionalities: Barrier: Nodes performing rendezvous will all block until the rendezvous is considered complete - this happens when at least min total number of nodes have joined the rendezvous barrier (for the same job). This also implies the barrier is not necessarily of fixed size. There’s an additional small waiting time after reaching min number of nodes - this is used to ensure the rendezvous is not completed “too quickly” (which could potentially exclude additional nodes attempting to join at approximately the same time). If max number of nodes is gathered at the barrier, the rendezvous is completed immediately. There’s also an overall timeout which causes the rendezvous to fail if min number of nodes is never reached - this is meant to be a simple fail-safe to help release partially allocated job resources, in case there’s a problem with the resource manager, and is meant to be interpreted as non-retryable. Exclusivity: A simple distributed barrier would not be sufficient, as we also need to ensure that only one group of nodes exists at any given time (for a given job). In other words, new nodes (i.e. joining late) should not be able to form a parallel independent group of workers for the same job. Torch Distributed Elastic rendezvous ensures that if a group of nodes has already completed a rendezvous (and hence might already be training), then additional “late” nodes attempting to rendezvous will only announce themselves as waiting, and will have to wait until the (previously completed) existing rendezvous is destroyed first. Consistency: When a rendezvous is completed, all its members will agree on the job membership and everyone’s role in it. This role is represented using an integer, called rank, that is between between 0 and world size. Note that ranks are not stable, in the sense that the same node can be assigned a different rank in the next (re-)rendezvous. Fault-tolerance: Torch Distributed Elastic rendezvous is designed to tolerate node failures during the rendezvous process. Should a process crash (or lose network connectivity, etc), between joining the rendezvous and it being completed, then a re-rendezvous with remaining healthy nodes will happen automatically. A node can also fail after it has completed (or has been observed by other nodes to have completed) the rendezvous - this scenario will be handled by the Torch Distributed Elastic train_loop ins..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "Rendezvous",
+       "headline": "Rendezvous",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/elastic/rendezvous.html",
+       "articleBody": "Rendezvous# Created On: May 04, 2021 | Last Updated On: May 22, 2024 In the context of Torch Distributed Elastic we use the term rendezvous to refer to a particular functionality that combines a distributed synchronization primitive with peer discovery. It is used by Torch Distributed Elastic to gather participants of a training job (i.e. nodes) such that they all agree on the same list of participants and everyone\u2019s roles, as well as make a consistent collective decision on when training can begin/resume. Torch Distributed Elastic rendezvous provides the following critical functionalities: Barrier: Nodes performing rendezvous will all block until the rendezvous is considered complete - this happens when at least min total number of nodes have joined the rendezvous barrier (for the same job). This also implies the barrier is not necessarily of fixed size. There\u2019s an additional small waiting time after reaching min number of nodes - this is used to ensure the rendezvous is not completed \u201ctoo quickly\u201d (which could potentially exclude additional nodes attempting to join at approximately the same time). If max number of nodes is gathered at the barrier, the rendezvous is completed immediately. There\u2019s also an overall timeout which causes the rendezvous to fail if min number of nodes is never reached - this is meant to be a simple fail-safe to help release partially allocated job resources, in case there\u2019s a problem with the resource manager, and is meant to be interpreted as non-retryable. Exclusivity: A simple distributed barrier would not be sufficient, as we also need to ensure that only one group of nodes exists at any given time (for a given job). In other words, new nodes (i.e. joining late) should not be able to form a parallel independent group of workers for the same job. Torch Distributed Elastic rendezvous ensures that if a group of nodes has already completed a rendezvous (and hence might already be training), then additional \u201clate\u201d nodes attempting to rendezvous will only announce themselves as waiting, and will have to wait until the (previously completed) existing rendezvous is destroyed first. Consistency: When a rendezvous is completed, all its members will agree on the job membership and everyone\u2019s role in it. This role is represented using an integer, called rank, that is between between 0 and world size. Note that ranks are not stable, in the sense that the same node can be assigned a different rank in the next (re-)rendezvous. Fault-tolerance: Torch Distributed Elastic rendezvous is designed to tolerate node failures during the rendezvous process. Should a process crash (or lose network connectivity, etc), between joining the rendezvous and it being completed, then a re-rendezvous with remaining healthy nodes will happen automatically. A node can also fail after it has completed (or has been observed by other nodes to have completed) the rendezvous - this scenario will be handled by the Torch Distributed Elastic train_loop instead (where it will also trigger a re-rendezvous). Shared key-value store: When the rendezvous is completed, a shared key-value store is created and returned. This store implements a torch.distributed.Store API (see distributed communication docs). This store is only shared by the members of the completed rendezvous. It is intended to be used by Torch Distributed Elastic to exchange information necessary to initialize job control and data-planes. Waiting workers and rendezvous closing: Torch Distributed Elastic rendezvous handler object provides additional functionalities, which are technically not part of the rendezvous process: Querying how many workers arrived late at the barrier, who can participate in next rendezvous. Setting the rendezvous closed to signal all nodes not to participate in next rendezvous. DynamicRendezvousHandler: Torch Distributed Elastic comes with the DynamicRendezvousHandler class that implements the rendezvous mechanism described above. It is a backend- agnostic type that expects a particular RendezvousBackend instance to be specified during construction. Torch distributed users can either implement their own backend type or use one of the following implementations that come with PyTorch: C10dRendezvousBackend: Uses a C10d store (by default TCPStore) as the rendezvous backend. The main advantage of using a C10d store is that it requires no 3rd-party dependency (such as etcd) to establish a rendezvous. EtcdRendezvousBackend: Supersedes the legacy EtcdRendezvousHandler class. Passing an EtcdRendezvousBackend instance to DynamicRendezvousHandler is functionally equivalent to instantiating an EtcdRendezvousHandler. store = TCPStore(\"localhost\") backend = C10dRendezvousBackend(store, \"my_run_id\") rdzv_handler = DynamicRendezvousHandler.from_backend( run_id=\"my_run_id\", store=store, backend=backend, min_nodes=2, max_nodes=4 ) Below is a state diagram describing how rendezvous works. Registry# class torch.distributed.elastic.rendezvous.RendezvousParameters(backend, endpoint, run_id, min_nodes, max_nodes, local_addr=None, **kwargs)[source]# Hold the parameters to construct a RendezvousHandler. Parameters backend (str) \u2013 The name of the backend to use to handle the rendezvous. endpoint (str) \u2013 The endpoint of the rendezvous, usually in form \u003chostname\u003e[:\u003cport\u003e]. run_id (str) \u2013 The id of the rendezvous. min_nodes (int) \u2013 The minimum number of nodes to admit to the rendezvous. max_nodes (int) \u2013 The maximum number of nodes to admit to the rendezvous. local_addr (Optional[str]) \u2013 The address of the local node. **kwargs \u2013 Additional parameters for the specified backend. get(key, default=None)[source]# Return the value for key if key exists, else default. Return type Any get_as_bool(key, default=None)[source]# Return the value for key as a bool. Return type Optional[bool] get_as_int(key, default=None)[source]# Return the value for key as an int. Return type Optional[int] class torch.distributed.elastic.rendezvous.RendezvousHandlerRegistry[source]# Represent a registry of RendezvousHandler backends. Handler# class torch.distributed.elastic.rendezvous.RendezvousHandler[source]# Main rendezvous interface. Note Distributed Torch users normally do not need to implement their own RendezvousHandler. An implementation based on C10d Store is already provided, and is recommended for most users. abstract get_backend()[source]# Return the name of the rendezvous backend. Return type str abstract get_run_id()[source]# Return the run id of the rendezvous. The run id is a user-defined id that uniquely identifies an instance of a distributed application. It typically maps to a job id and is used to allow nodes to join the correct distributed application. Return type str abstract is_closed()[source]# Check whether the rendezvous has been closed. A closed rendezvous means all future attempts to re-rendezvous within same job will fail. is_closed() and set_closed() have semantics of eventual propagation and should not be used for synchronization. The intention is that if at least one node decides the job is finished, it will close the rendezvous, and other nodes will soon observe this and stop running as well. Return type bool abstract next_rendezvous()[source]# Main entry-point into the rendezvous barrier. Blocks until the rendezvous is complete and the current process is included in the formed worker group, or a timeout occurs, or the rendezvous was marked closed. Returns Instance of RendezvousInfo. Raises RendezvousClosedError \u2013 The rendezvous is closed. RendezvousConnectionError \u2013 The connection to the rendezvous backend has failed. RendezvousStateError \u2013 The rendezvous state is corrupt. RendezvousTimeoutError \u2013 The rendezvous did not complete on time. Return type RendezvousInfo abstract num_nodes_waiting()[source]# Return the number of nodes who arrived late at the rendezvous barrier, hence were not included in the current worker group. Callers should periodically call this method to check whether new nodes are waiting to join the job and if so admit them by calling next_rendezvous() (re-rendezvous). Return type int abstract set_closed()[source]# Mark the rendezvous as closed. abstract shutdown()[source]# Close all resources that were open for the rendezvous. Example: rdzv_handler = ... try: store, rank, world_size = rdzv_handler.next_rendezvous() finally: rdzv_handler.shutdown() Return type bool property use_agent_store: bool# Indicates that store reference returned by next_rendezvous() can be shared with user applications and will be available during application lifecycle. Rendezvous handler impl will share store details as instance of RendezvousStoreInfo. Applications as a convention use MASTER_ADDR/MASTER_PORT env variables to lookup the store. Dataclasses# class torch.distributed.elastic.rendezvous.RendezvousInfo(store, rank, world_size, bootstrap_store_info)[source]# Holds the information about the rendezvous. class torch.distributed.elastic.rendezvous.api.RendezvousStoreInfo(master_addr, master_port)[source]# Store address and port that can be used to bootstrap trainer distributed comms static build(rank, store)[source]# Factory method, finds unused new port on rank0 host and addr/port info with all ranks. If master_addr/master_port is knowns (useful when sharing existing tcp store server) use the constructor. Parameters rank (int) \u2013 rank of the current node store (Store) \u2013 store to use for rendezvous local_addr (Optional[str]) \u2013 address of the current node, if not provided will be resolved from hostname server_port (Optional[int]) \u2013 port of the TCPStore server, when the TCPStore is shared. Return type RendezvousStoreInfo Exceptions# class torch.distributed.elastic.rendezvous.api.RendezvousError[source]# Represents the base type for rendezvous errors. class torch.distributed.elastic.rendezvous.api.RendezvousClosedError[source]# Raised when a rendezvous is closed. class torch.distributed.elastic.rendezvous.api.RendezvousTimeoutError[source]# Raised when a rendezvous did not complete on time. class torch.distributed.elastic.rendezvous.api.RendezvousConnectionError[source]# Raised when the connection to a rendezvous backend has failed. class torch.distributed.elastic.rendezvous.api.RendezvousStateError[source]# Raised when the state of a rendezvous is corrupt. class torch.distributed.elastic.rendezvous.api.RendezvousGracefulExitError[source]# Raised when node wasn\u2019t not included in rendezvous and gracefully exits. Exception is a mechanism to exit the stack, however does not mean a failure. Implementations# Dynamic Rendezvous# torch.distributed.elastic.rendezvous.dynamic_rendezvous.create_handler(store, backend, params)[source]# Create a new DynamicRendezvousHandler from the specified parameters. Parameters store (Store) \u2013 The C10d store to return as part of the rendezvous. backend (RendezvousBackend) \u2013 The backend to use to hold the rendezvous state. Return type DynamicRendezvousHandler Parameter Description join_timeout The total time, in seconds, within which the rendezvous is expected to complete. Defaults to 600 seconds. last_call_timeout An additional wait amount, in seconds, before completing the rendezvous once the minimum number of nodes has been reached. Defaults to 30 seconds. close_timeout The time, in seconds, within which the rendezvous is expected to close after a call to RendezvousHandler.set_closed() or RendezvousHandler.shutdown(). Defaults to 30 seconds. heartbeat The time, in seconds, within which a keep-alive heartbeat is expected to complete class torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler[source]# Represent a handler that sets up a rendezvous among a set of nodes. classmethod from_backend(run_id, store, backend, min_nodes, max_nodes, local_addr=None, timeout=None, keep_alive_interval=5, keep_alive_max_attempt=3)[source]# Create a new DynamicRendezvousHandler. Parameters run_id (str) \u2013 The run id of the rendezvous. store (Store) \u2013 The C10d store to return as part of the rendezvous. backend (RendezvousBackend) \u2013 The backend to use to hold the rendezvous state. min_nodes (int) \u2013 The minimum number of nodes to admit to the rendezvous. max_nodes (int) \u2013 The maximum number of nodes to admit to the rendezvous. local_addr (Optional[str]) \u2013 The local node address. timeout (Optional[RendezvousTimeout]) \u2013 The timeout configuration of the rendezvous. keep_alive_interval (int) \u2013 The amount of time a node waits before sending a heartbeat to keep it alive in the rendezvous. keep_alive_max_attempt (int) \u2013 The maximum number of failed heartbeat attempts after which a node is considered dead. class torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousBackend[source]# Represent a backend that holds the rendezvous state. abstract get_state()[source]# Get the rendezvous state. Returns A tuple of the encoded rendezvous state and its fencing token or None if no state is found in the backend. Raises RendezvousConnectionError \u2013 The connection to the backend has failed. RendezvousStateError \u2013 The rendezvous state is corrupt. Return type Optional[tuple[bytes, Any]] abstract property name: str# Get the name of the backend. abstract set_state(state, token=None)[source]# Set the rendezvous state. The new rendezvous state is set conditionally: If the specified token matches the fencing token stored in the backend, the state will be updated. The new state will be returned to the caller along with its fencing token. If the specified token does not match the fencing token stored in the backend, the state won\u2019t be updated; instead the existing state along with its fencing token will be returned to the caller. If the specified token is None, the new state will be set only if there is no existing state in the backend. Either the new state or the existing state along with its fencing token will be returned to the caller. Parameters state (bytes) \u2013 The encoded rendezvous state. token (Optional[Any]) \u2013 An optional fencing token that was retrieved by a previous call to get_state() or set_state(). Returns A tuple of the serialized rendezvous state, its fencing token, and a boolean value indicating whether our set attempt succeeded. Raises RendezvousConnectionError \u2013 The connection to the backend has failed. RendezvousStateError \u2013 The rendezvous state is corrupt. Return type Optional[tuple[bytes, Any, bool]] class torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousTimeout(join=None, last_call=None, close=None, heartbeat=None)[source]# Hold the timeout configuration of a rendezvous. Parameters join (Optional[timedelta]) \u2013 The time within which the rendezvous is expected to complete. last_call (Optional[timedelta]) \u2013 An additional wait amount before completing the rendezvous once the rendezvous has the minimum number of required participants. close (Optional[timedelta]) \u2013 The time within which the rendezvous is expected to close after a call to RendezvousHandler.set_closed() or RendezvousHandler.shutdown(). heartbeat (Optional[timedelta]) \u2013 The time within which a keep-alive heartbeat is expected to complete. property close: timedelta# Get the close timeout. property heartbeat: timedelta# Get the keep-alive heartbeat timeout. property join: timedelta# Get the join timeout. property last_call: timedelta# Get the last call timeout. C10d Backend# torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.create_backend(params)[source]# Create a new C10dRendezvousBackend from the specified parameters. Parameter Description store_type The type of the C10d store. The currently supported types are \u201ctcp\u201d and \u201cfile\u201d which correspond to torch.distributed.TCPStore and torch.distributed.FileStore, respectively. Defaults to \u201ctcp\u201d. read_timeout The read timeout, in seconds, for store operations. Defaults to 60 seconds. Note this only applies to torch.distributed.TCPStore. It is not relevant to torch.distributed.FileStore which does not take in timeout as a parameter. is_host A boolean value indicating whether this backend instance will host the C10d store. If not specified it will be inferred heuristically by matching the hostname or the IP address of this machine against the specified rendezvous endpoint. Defaults to None. Note that this configuration option only applies to torch.distributed.TCPStore. In normal circumstances you can safely skip it; the only time when it is needed is if its value cannot be correctly determined (e.g. the rendezvous endpoint has a CNAME as the hostname or does not match the FQDN of the machine). Return type tuple[torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend, torch.distributed.distributed_c10d.Store] class torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend(store, run_id)[source]# Represents a C10d-backed rendezvous backend. Parameters store (Store) \u2013 The torch.distributed.Store instance to use to communicate with the C10d store. run_id (str) \u2013 The run id of the rendezvous. get_state()[source]# See base class. Return type Optional[tuple[bytes, Any]] property name: str# See base class. set_state(state, token=None)[source]# See base class. Return type Optional[tuple[bytes, Any, bool]] Etcd Backend# torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.create_backend(params)[source]# Create a new EtcdRendezvousBackend from the specified parameters. Parameter Description read_timeout The read timeout, in seconds, for etcd operations. Defaults to 60 seconds. protocol The protocol to use to communicate with etcd. Valid values are \u201chttp\u201d and \u201chttps\u201d. Defaults to \u201chttp\u201d. ssl_cert The path to the SSL client certificate to use along with HTTPS. Defaults to None. ssl_cert_key The path to the private key of the SSL client certificate to use along with HTTPS. Defaults to None. ca_cert The path to the rool SSL authority certificate. Defaults to None. Return type tuple[torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend, torch.distributed.distributed_c10d.Store] class torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend(client, run_id, key_prefix=None, ttl=None)[source]# Represents an etcd-based rendezvous backend. Parameters client (Client) \u2013 The etcd.Client instance to use to communicate with etcd. run_id (str) \u2013 The run id of the rendezvous. key_prefix (Optional[str]) \u2013 The path under which to store the rendezvous state in etcd. ttl (Optional[int]) \u2013 The TTL of the rendezvous state. If not specified, defaults to two hours. get_state()[source]# See base class. Return type Optional[tuple[bytes, Any]] property name: str# See base class. set_state(state, token=None)[source]# See base class. Return type Optional[tuple[bytes, Any, bool]] Etcd Rendezvous (Legacy)# Warning The DynamicRendezvousHandler class supersedes the EtcdRendezvousHandler class, and is recommended for most users. EtcdRendezvousHandler is in maintenance mode and will be deprecated in the future. class torch.distributed.elastic.rendezvous.etcd_rendezvous.EtcdRendezvousHandler(rdzv_impl, local_addr)[source]# Implements a torch.distributed.elastic.rendezvous.RendezvousHandler interface backed by torch.distributed.elastic.rendezvous.etcd_rendezvous.EtcdRendezvous. EtcdRendezvousHandler uses a URL to configure the type of rendezvous to use and to pass implementation specific configurations to the rendezvous module. The basic etcd rendezvous configuration URL looks like the following etcd://\u003cetcd_address\u003e:\u003cport\u003e/\u003cjob_id\u003e?min_workers=\u003cmin_workers\u003e\u0026max_workers=\u003cmax_workers\u003e # noqa: W605 -- example -- etcd://localhost:2379/1234?min_workers=1\u0026max_workers=3 The URL above is interpreted as follows: Use the rendezvous handler that is registered with the etcd scheme The etcd endpoint to use is localhost:2379 job_id == 1234 is used as the prefix in etcd (this allows one to share a common etcd server for multiple jobs so long as the job_ids are guaranteed to be unique). Note that the job id can be any string (e.g. does not need to be a number) as long as it is unique. min_workers=1 and max_workers=3 specifies a range for membership size - Torch Distributed Elastic starts running the job as long as the cluster size is greater than or equal to min_workers and admits up to max_workers into the cluster. Below are a full list of the parameters that can be passed to etcd rendezvous: Parameter Description min_workers minimum number of workers for the rendezvous to be valid max_workers maximum number of workers to admit timeout total timeout within which next_rendezvous is expected to succeed (default 600s) last_call_timeout additional wait amount (\u201clast call\u201d) after min number of workers has been reached (defaults to 30s) etcd_prefix path prefix (from etcd root), inside which all etcd nodes will be created (defaults to /torchelastic/p2p) Etcd Store# The EtcdStore is the C10d Store instance type returned by next_rendezvous() when etcd is used as the rendezvous backend. class torch.distributed.elastic.rendezvous.etcd_store.EtcdStore(etcd_client, etcd_store_prefix, timeout=None)[source]# Implement a c10 Store interface by piggybacking on the rendezvous etcd instance. This is the store object returned by EtcdRendezvous. add(key, num)[source]# Atomically increment a value by an integer amount. The integer is represented as a string using base 10. If key is not present, a default value of 0 will be assumed. Returns the new (incremented) value Return type int check(keys)[source]# Check if all of the keys are immediately present (without waiting). Return type bool get(key)[source]# Get a value by key, possibly doing a blocking wait. If key is not immediately present, will do a blocking wait for at most timeout duration or until the key is published. Returns value (bytes) Raises LookupError - If key still not published after timeout \u2013 Return type bytes set(key, value)[source]# Write a key/value pair into EtcdStore. Both key and value may be either Python str or bytes. wait(keys, override_timeout=None)[source]# Wait until all of the keys are published, or until timeout. Raises LookupError - if timeout occurs \u2013 Etcd Server# The EtcdServer is a convenience class that makes it easy for you to start and stop an etcd server on a subprocess. This is useful for testing or single-node (multi-worker) deployments where manually setting up an etcd server on the side is cumbersome. Warning For production and multi-node deployments please consider properly deploying a highly available etcd server as this is the single point of failure for your distributed jobs. class torch.distributed.elastic.rendezvous.etcd_server.EtcdServer(data_dir=None)[source]# Note tested on etcd server v3.4.3. Starts and stops a local standalone etcd server on a random free port. Useful for single node, multi-worker launches or testing, where a sidecar etcd server is more convenient than having to separately setup an etcd server. This class registers a termination handler to shutdown the etcd subprocess on exit. This termination handler is NOT a substitute for calling the stop() method. The following fallback mechanism is used to find the etcd binary: Uses env var TORCHELASTIC_ETCD_BINARY_PATH Uses \u003cthis file root\u003e/bin/etcd if one exists Uses etcd from PATH Usage server = EtcdServer(\"/usr/bin/etcd\", 2379, \"/tmp/default.etcd\") server.start() client = server.get_client() # use client server.stop() Parameters etcd_binary_path \u2013 path of etcd server binary (see above for fallback path)",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "../_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/elastic/rendezvous.html"
+       },
+       "datePublished": "May 04, 2021T00:00:00Z",
+       "dateModified": "May 22, 2024T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

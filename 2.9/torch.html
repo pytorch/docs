@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/torch.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', '2.9');
- </script>
+  document.documentElement.setAttribute('data-version', '2.9');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -180,8 +190,10 @@
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -518,7 +530,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -526,7 +539,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -3388,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4354,23 +4367,24 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="pytorch-api.html">
-          <meta itemprop="name" content="Reference API">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="pytorch-api.html">
+        <meta itemprop="name" content="Reference API">
+        <meta itemprop="position" content="1">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="torch">
         <meta itemprop="position" content="2">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -6344,7 +6358,7 @@ generated/exportdb/index</p>
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -6584,91 +6598,124 @@ generated/exportdb/index</p>
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -6676,8 +6723,7 @@ generated/exportdb/index</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -6717,28 +6763,47 @@ generated/exportdb/index</p>
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "torch",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/torch.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/torch.html"
-         },
-        "datePublished": "Dec 23, 2016T00:00:00Z",
-         "dateModified": "Jul 22, 2025T00:00:00Z",
-         "articleBody": "torch# Created On: Dec 23, 2016 | Last Updated On: Jul 22, 2025 The torch package contains data structures for multi-dimensional tensors and defines mathematical operations over these tensors. Additionally, it provides many utilities for efficient serialization of Tensors and arbitrary types, and other useful utilities. It has a CUDA counterpart, that enables you to run your tensor computations on an NVIDIA GPU with compute capability &gt;= 3.0. Tensors# is_tensor Returns True if obj is a PyTorch tensor. is_storage Returns True if obj is a PyTorch storage object. is_complex Returns True if the data type of input is a complex data type i.e., one of torch.complex64, and torch.complex128. is_conj Returns True if the input is a conjugated tensor, i.e. its conjugate bit is set to True. is_floating_point Returns True if the data type of input is a floating point data type i.e., one of torch.float64, torch.float32, torch.float16, and torch.bfloat16. is_nonzero Returns True if the input is a single element tensor which is not equal to zero after type conversions. set_default_dtype Sets the default floating point dtype to d. get_default_dtype Get the current default floating point torch.dtype. set_default_device Sets the default torch.Tensor to be allocated on device. get_default_device Gets the default torch.Tensor to be allocated on device set_default_tensor_type numel Returns the total number of elements in the input tensor. set_printoptions Set options for printing. set_flush_denormal Disables denormal floating numbers on CPU. Creation Ops# Note Random sampling creation ops are listed under Random sampling and include: torch.rand() torch.rand_like() torch.randn() torch.randn_like() torch.randint() torch.randint_like() torch.randperm() You may also use torch.empty() with the In-place random sampling methods to create torch.Tensor s with values sampled from a broader range of distributions. tensor Constructs a tensor with no autograd history (also known as a \&#34;leaf tensor\&#34;, see Autograd mechanics) by copying data. sparse_coo_tensor Constructs a sparse tensor in COO(rdinate) format with specified values at the given indices. sparse_csr_tensor Constructs a sparse tensor in CSR (Compressed Sparse Row) with specified values at the given crow_indices and col_indices. sparse_csc_tensor Constructs a sparse tensor in CSC (Compressed Sparse Column) with specified values at the given ccol_indices and row_indices. sparse_bsr_tensor Constructs a sparse tensor in BSR (Block Compressed Sparse Row)) with specified 2-dimensional blocks at the given crow_indices and col_indices. sparse_bsc_tensor Constructs a sparse tensor in BSC (Block Compressed Sparse Column)) with specified 2-dimensional blocks at the given ccol_indices and row_indices. asarray Converts obj to a tensor. as_tensor Converts data into a tensor, sharing data and preserving autograd history if possible. as_strided Create a view of an existing torch.Tensor input with specified size, stride and storage_offs..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "torch",
+       "headline": "torch",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/torch.html",
+       "articleBody": "torch# Created On: Dec 23, 2016 | Last Updated On: Jul 22, 2025 The torch package contains data structures for multi-dimensional tensors and defines mathematical operations over these tensors. Additionally, it provides many utilities for efficient serialization of Tensors and arbitrary types, and other useful utilities. It has a CUDA counterpart, that enables you to run your tensor computations on an NVIDIA GPU with compute capability \u003e= 3.0. Tensors# is_tensor Returns True if obj is a PyTorch tensor. is_storage Returns True if obj is a PyTorch storage object. is_complex Returns True if the data type of input is a complex data type i.e., one of torch.complex64, and torch.complex128. is_conj Returns True if the input is a conjugated tensor, i.e. its conjugate bit is set to True. is_floating_point Returns True if the data type of input is a floating point data type i.e., one of torch.float64, torch.float32, torch.float16, and torch.bfloat16. is_nonzero Returns True if the input is a single element tensor which is not equal to zero after type conversions. set_default_dtype Sets the default floating point dtype to d. get_default_dtype Get the current default floating point torch.dtype. set_default_device Sets the default torch.Tensor to be allocated on device. get_default_device Gets the default torch.Tensor to be allocated on device set_default_tensor_type numel Returns the total number of elements in the input tensor. set_printoptions Set options for printing. set_flush_denormal Disables denormal floating numbers on CPU. Creation Ops# Note Random sampling creation ops are listed under Random sampling and include: torch.rand() torch.rand_like() torch.randn() torch.randn_like() torch.randint() torch.randint_like() torch.randperm() You may also use torch.empty() with the In-place random sampling methods to create torch.Tensor s with values sampled from a broader range of distributions. tensor Constructs a tensor with no autograd history (also known as a \"leaf tensor\", see Autograd mechanics) by copying data. sparse_coo_tensor Constructs a sparse tensor in COO(rdinate) format with specified values at the given indices. sparse_csr_tensor Constructs a sparse tensor in CSR (Compressed Sparse Row) with specified values at the given crow_indices and col_indices. sparse_csc_tensor Constructs a sparse tensor in CSC (Compressed Sparse Column) with specified values at the given ccol_indices and row_indices. sparse_bsr_tensor Constructs a sparse tensor in BSR (Block Compressed Sparse Row)) with specified 2-dimensional blocks at the given crow_indices and col_indices. sparse_bsc_tensor Constructs a sparse tensor in BSC (Block Compressed Sparse Column)) with specified 2-dimensional blocks at the given ccol_indices and row_indices. asarray Converts obj to a tensor. as_tensor Converts data into a tensor, sharing data and preserving autograd history if possible. as_strided Create a view of an existing torch.Tensor input with specified size, stride and storage_offset. from_file Creates a CPU tensor with a storage backed by a memory-mapped file. from_numpy Creates a Tensor from a numpy.ndarray. from_dlpack Converts a tensor from an external library into a torch.Tensor. frombuffer Creates a 1-dimensional Tensor from an object that implements the Python buffer protocol. zeros Returns a tensor filled with the scalar value 0, with the shape defined by the variable argument size. zeros_like Returns a tensor filled with the scalar value 0, with the same size as input. ones Returns a tensor filled with the scalar value 1, with the shape defined by the variable argument size. ones_like Returns a tensor filled with the scalar value 1, with the same size as input. arange Returns a 1-D tensor of size \u2308end\u2212startstep\u2309\\left\\lceil \\frac{\\text{end} - \\text{start}}{\\text{step}} \\right\\rceil\u2308stepend\u2212start\u200b\u2309 with values from the interval [start, end) taken with common difference step beginning from start. range Returns a 1-D tensor of size \u230aend\u2212startstep\u230b+1\\left\\lfloor \\frac{\\text{end} - \\text{start}}{\\text{step}} \\right\\rfloor + 1\u230astepend\u2212start\u200b\u230b+1 with values from start to end with step step. linspace Creates a one-dimensional tensor of size steps whose values are evenly spaced from start to end, inclusive. logspace Creates a one-dimensional tensor of size steps whose values are evenly spaced from basestart{{\\text{{base}}}}^{{\\text{{start}}}}basestart to baseend{{\\text{{base}}}}^{{\\text{{end}}}}baseend, inclusive, on a logarithmic scale with base base. eye Returns a 2-D tensor with ones on the diagonal and zeros elsewhere. empty Returns a tensor filled with uninitialized data. empty_like Returns an uninitialized tensor with the same size as input. empty_strided Creates a tensor with the specified size and stride and filled with undefined data. full Creates a tensor of size size filled with fill_value. full_like Returns a tensor with the same size as input filled with fill_value. quantize_per_tensor Converts a float tensor to a quantized tensor with given scale and zero point. quantize_per_channel Converts a float tensor to a per-channel quantized tensor with given scales and zero points. dequantize Returns an fp32 Tensor by dequantizing a quantized Tensor complex Constructs a complex tensor with its real part equal to real and its imaginary part equal to imag. polar Constructs a complex tensor whose elements are Cartesian coordinates corresponding to the polar coordinates with absolute value abs and angle angle. heaviside Computes the Heaviside step function for each element in input. Indexing, Slicing, Joining, Mutating Ops# adjoint Returns a view of the tensor conjugated and with the last two dimensions transposed. argwhere Returns a tensor containing the indices of all non-zero elements of input. cat Concatenates the given sequence of tensors in tensors in the given dimension. concat Alias of torch.cat(). concatenate Alias of torch.cat(). conj Returns a view of input with a flipped conjugate bit. chunk Attempts to split a tensor into the specified number of chunks. dsplit Splits input, a tensor with three or more dimensions, into multiple tensors depthwise according to indices_or_sections. column_stack Creates a new tensor by horizontally stacking the tensors in tensors. dstack Stack tensors in sequence depthwise (along third axis). gather Gathers values along an axis specified by dim. hsplit Splits input, a tensor with one or more dimensions, into multiple tensors horizontally according to indices_or_sections. hstack Stack tensors in sequence horizontally (column wise). index_add See index_add_() for function description. index_copy See index_add_() for function description. index_reduce See index_reduce_() for function description. index_select Returns a new tensor which indexes the input tensor along dimension dim using the entries in index which is a LongTensor. masked_select Returns a new 1-D tensor which indexes the input tensor according to the boolean mask mask which is a BoolTensor. movedim Moves the dimension(s) of input at the position(s) in source to the position(s) in destination. moveaxis Alias for torch.movedim(). narrow Returns a new tensor that is a narrowed version of input tensor. narrow_copy Same as Tensor.narrow() except this returns a copy rather than shared storage. nonzero permute Returns a view of the original tensor input with its dimensions permuted. reshape Returns a tensor with the same data and number of elements as input, but with the specified shape. row_stack Alias of torch.vstack(). select Slices the input tensor along the selected dimension at the given index. scatter Out-of-place version of torch.Tensor.scatter_() diagonal_scatter Embeds the values of the src tensor into input along the diagonal elements of input, with respect to dim1 and dim2. select_scatter Embeds the values of the src tensor into input at the given index. slice_scatter Embeds the values of the src tensor into input at the given dimension. scatter_add Out-of-place version of torch.Tensor.scatter_add_() scatter_reduce Out-of-place version of torch.Tensor.scatter_reduce_() segment_reduce Perform a segment reduction operation on the input tensor along the specified axis. split Splits the tensor into chunks. squeeze Returns a tensor with all specified dimensions of input of size 1 removed. stack Concatenates a sequence of tensors along a new dimension. swapaxes Alias for torch.transpose(). swapdims Alias for torch.transpose(). t Expects input to be \u003c= 2-D tensor and transposes dimensions 0 and 1. take Returns a new tensor with the elements of input at the given indices. take_along_dim Selects values from input at the 1-dimensional indices from indices along the given dim. tensor_split Splits a tensor into multiple sub-tensors, all of which are views of input, along dimension dim according to the indices or number of sections specified by indices_or_sections. tile Constructs a tensor by repeating the elements of input. transpose Returns a tensor that is a transposed version of input. unbind Removes a tensor dimension. unravel_index Converts a tensor of flat indices into a tuple of coordinate tensors that index into an arbitrary tensor of the specified shape. unsqueeze Returns a new tensor with a dimension of size one inserted at the specified position. vsplit Splits input, a tensor with two or more dimensions, into multiple tensors vertically according to indices_or_sections. vstack Stack tensors in sequence vertically (row wise). where Return a tensor of elements selected from either input or other, depending on condition. Accelerators# Within the PyTorch repo, we define an \u201cAccelerator\u201d as a torch.device that is being used alongside a CPU to speed up computation. These device use an asynchronous execution scheme, using torch.Stream and torch.Event as their main way to perform synchronization. We also assume that only one such accelerator can be available at once on a given host. This allows us to use the current accelerator as the default device for relevant concepts such as pinned memory, Stream device_type, FSDP, etc. As of today, accelerator devices are (in no particular order) \u201cCUDA\u201d, \u201cMTIA\u201d, \u201cXPU\u201d, \u201cMPS\u201d, \u201cHPU\u201d, and PrivateUse1 (many device not in the PyTorch repo itself). Many tools in the PyTorch Ecosystem use fork to create subprocesses (for example dataloading or intra-op parallelism), it is thus important to delay as much as possible any operation that would prevent further forks. This is especially important here as most accelerator\u2019s initialization has such effect. In practice, you should keep in mind that checking torch.accelerator.current_accelerator() is a compile-time check by default, it is thus always fork-safe. On the contrary, passing the check_available=True flag to this function or calling torch.accelerator.is_available() will usually prevent later fork. Some backends provide an experimental opt-in option to make the runtime availability check fork-safe. When using the CUDA device PYTORCH_NVML_BASED_CUDA_CHECK=1 can be used for example. Stream An in-order queue of executing the respective tasks asynchronously in first in first out (FIFO) order. Event Query and record Stream status to identify or control dependencies across Stream and measure timing. Generators# Generator Creates and returns a generator object that manages the state of the algorithm which produces pseudo random numbers. Random sampling# seed Sets the seed for generating random numbers to a non-deterministic random number on all devices. manual_seed Sets the seed for generating random numbers on all devices. initial_seed Returns the initial seed for generating random numbers as a Python long. get_rng_state Returns the random number generator state as a torch.ByteTensor. set_rng_state Sets the random number generator state. torch.default_generator Returns the default CPU torch.Generator# bernoulli Draws binary random numbers (0 or 1) from a Bernoulli distribution. multinomial Returns a tensor where each row contains num_samples indices sampled from the multinomial (a stricter definition would be multivariate, refer to torch.distributions.multinomial.Multinomial for more details) probability distribution located in the corresponding row of tensor input. normal Returns a tensor of random numbers drawn from separate normal distributions whose mean and standard deviation are given. poisson Returns a tensor of the same size as input with each element sampled from a Poisson distribution with rate parameter given by the corresponding element in input i.e., rand Returns a tensor filled with random numbers from a uniform distribution on the interval [0,1)[0, 1)[0,1) rand_like Returns a tensor with the same size as input that is filled with random numbers from a uniform distribution on the interval [0,1)[0, 1)[0,1). randint Returns a tensor filled with random integers generated uniformly between low (inclusive) and high (exclusive). randint_like Returns a tensor with the same shape as Tensor input filled with random integers generated uniformly between low (inclusive) and high (exclusive). randn Returns a tensor filled with random numbers from a normal distribution with mean 0 and variance 1 (also called the standard normal distribution). randn_like Returns a tensor with the same size as input that is filled with random numbers from a normal distribution with mean 0 and variance 1. randperm Returns a random permutation of integers from 0 to n - 1. In-place random sampling# There are a few more in-place random sampling functions defined on Tensors as well. Click through to refer to their documentation: torch.Tensor.bernoulli_() - in-place version of torch.bernoulli() torch.Tensor.cauchy_() - numbers drawn from the Cauchy distribution torch.Tensor.exponential_() - numbers drawn from the exponential distribution torch.Tensor.geometric_() - elements drawn from the geometric distribution torch.Tensor.log_normal_() - samples from the log-normal distribution torch.Tensor.normal_() - in-place version of torch.normal() torch.Tensor.random_() - numbers sampled from the discrete uniform distribution torch.Tensor.uniform_() - numbers sampled from the continuous uniform distribution Quasi-random sampling# quasirandom.SobolEngine The torch.quasirandom.SobolEngine is an engine for generating (scrambled) Sobol sequences. Serialization# save Saves an object to a disk file. load Loads an object saved with torch.save() from a file. Parallelism# get_num_threads Returns the number of threads used for parallelizing CPU operations set_num_threads Sets the number of threads used for intraop parallelism on CPU. get_num_interop_threads Returns the number of threads used for inter-op parallelism on CPU (e.g. set_num_interop_threads Sets the number of threads used for interop parallelism (e.g. Locally disabling gradient computation# The context managers torch.no_grad(), torch.enable_grad(), and torch.set_grad_enabled() are helpful for locally disabling and enabling gradient computation. See Locally disabling gradient computation for more details on their usage. These context managers are thread local, so they won\u2019t work if you send work to another thread using the threading module, etc. Examples: \u003e\u003e\u003e x = torch.zeros(1, requires_grad=True) \u003e\u003e\u003e with torch.no_grad(): ... y = x * 2 \u003e\u003e\u003e y.requires_grad False \u003e\u003e\u003e is_train = False \u003e\u003e\u003e with torch.set_grad_enabled(is_train): ... y = x * 2 \u003e\u003e\u003e y.requires_grad False \u003e\u003e\u003e torch.set_grad_enabled(True) # this can also be used as a function \u003e\u003e\u003e y = x * 2 \u003e\u003e\u003e y.requires_grad True \u003e\u003e\u003e torch.set_grad_enabled(False) \u003e\u003e\u003e y = x * 2 \u003e\u003e\u003e y.requires_grad False no_grad Context-manager that disables gradient calculation. enable_grad Context-manager that enables gradient calculation. autograd.grad_mode.set_grad_enabled Context-manager that sets gradient calculation on or off. is_grad_enabled Returns True if grad mode is currently enabled. autograd.grad_mode.inference_mode Context manager that enables or disables inference mode. is_inference_mode_enabled Returns True if inference mode is currently enabled. Math operations# Constants# inf A floating-point positive infinity. Alias for math.inf. nan A floating-point \u201cnot a number\u201d value. This value is not a legal number. Alias for math.nan. Pointwise Ops# abs Computes the absolute value of each element in input. absolute Alias for torch.abs() acos Computes the inverse cosine of each element in input. arccos Alias for torch.acos(). acosh Returns a new tensor with the inverse hyperbolic cosine of the elements of input. arccosh Alias for torch.acosh(). add Adds other, scaled by alpha, to input. addcdiv Performs the element-wise division of tensor1 by tensor2, multiplies the result by the scalar value and adds it to input. addcmul Performs the element-wise multiplication of tensor1 by tensor2, multiplies the result by the scalar value and adds it to input. angle Computes the element-wise angle (in radians) of the given input tensor. asin Returns a new tensor with the arcsine of the elements of input. arcsin Alias for torch.asin(). asinh Returns a new tensor with the inverse hyperbolic sine of the elements of input. arcsinh Alias for torch.asinh(). atan Returns a new tensor with the arctangent of the elements of input. arctan Alias for torch.atan(). atanh Returns a new tensor with the inverse hyperbolic tangent of the elements of input. arctanh Alias for torch.atanh(). atan2 Element-wise arctangent of inputi/otheri\\text{input}_{i} / \\text{other}_{i}inputi\u200b/otheri\u200b with consideration of the quadrant. arctan2 Alias for torch.atan2(). bitwise_not Computes the bitwise NOT of the given input tensor. bitwise_and Computes the bitwise AND of input and other. bitwise_or Computes the bitwise OR of input and other. bitwise_xor Computes the bitwise XOR of input and other. bitwise_left_shift Computes the left arithmetic shift of input by other bits. bitwise_right_shift Computes the right arithmetic shift of input by other bits. ceil Returns a new tensor with the ceil of the elements of input, the smallest integer greater than or equal to each element. clamp Clamps all elements in input into the range [ min, max ]. clip Alias for torch.clamp(). conj_physical Computes the element-wise conjugate of the given input tensor. copysign Create a new floating-point tensor with the magnitude of input and the sign of other, elementwise. cos Returns a new tensor with the cosine of the elements of input. cosh Returns a new tensor with the hyperbolic cosine of the elements of input. deg2rad Returns a new tensor with each of the elements of input converted from angles in degrees to radians. div Divides each element of the input input by the corresponding element of other. divide Alias for torch.div(). digamma Alias for torch.special.digamma(). erf Alias for torch.special.erf(). erfc Alias for torch.special.erfc(). erfinv Alias for torch.special.erfinv(). exp Returns a new tensor with the exponential of the elements of the input tensor input. exp2 Alias for torch.special.exp2(). expm1 Alias for torch.special.expm1(). fake_quantize_per_channel_affine Returns a new tensor with the data in input fake quantized per channel using scale, zero_point, quant_min and quant_max, across the channel specified by axis. fake_quantize_per_tensor_affine Returns a new tensor with the data in input fake quantized using scale, zero_point, quant_min and quant_max. fix Alias for torch.trunc() float_power Raises input to the power of exponent, elementwise, in double precision. floor Returns a new tensor with the floor of the elements of input, the largest integer less than or equal to each element. floor_divide fmod Applies C++\u0027s std::fmod entrywise. frac Computes the fractional portion of each element in input. frexp Decomposes input into mantissa and exponent tensors such that input=mantissa\u00d72exponent\\text{input} = \\text{mantissa} \\times 2^{\\text{exponent}}input=mantissa\u00d72exponent. gradient Estimates the gradient of a function g:Rn\u2192Rg : \\mathbb{R}^n \\rightarrow \\mathbb{R}g:Rn\u2192R in one or more dimensions using the second-order accurate central differences method and either first or second order estimates at the boundaries. imag Returns a new tensor containing imaginary values of the self tensor. ldexp Multiplies input by 2 ** other. lerp Does a linear interpolation of two tensors start (given by input) and end based on a scalar or tensor weight and returns the resulting out tensor. lgamma Computes the natural logarithm of the absolute value of the gamma function on input. log Returns a new tensor with the natural logarithm of the elements of input. log10 Returns a new tensor with the logarithm to the base 10 of the elements of input. log1p Returns a new tensor with the natural logarithm of (1 + input). log2 Returns a new tensor with the logarithm to the base 2 of the elements of input. logaddexp Logarithm of the sum of exponentiations of the inputs. logaddexp2 Logarithm of the sum of exponentiations of the inputs in base-2. logical_and Computes the element-wise logical AND of the given input tensors. logical_not Computes the element-wise logical NOT of the given input tensor. logical_or Computes the element-wise logical OR of the given input tensors. logical_xor Computes the element-wise logical XOR of the given input tensors. logit Alias for torch.special.logit(). hypot Given the legs of a right triangle, return its hypotenuse. i0 Alias for torch.special.i0(). igamma Alias for torch.special.gammainc(). igammac Alias for torch.special.gammaincc(). mul Multiplies input by other. multiply Alias for torch.mul(). mvlgamma Alias for torch.special.multigammaln(). nan_to_num Replaces NaN, positive infinity, and negative infinity values in input with the values specified by nan, posinf, and neginf, respectively. neg Returns a new tensor with the negative of the elements of input. negative Alias for torch.neg() nextafter Return the next floating-point value after input towards other, elementwise. polygamma Alias for torch.special.polygamma(). positive Returns input. pow Takes the power of each element in input with exponent and returns a tensor with the result. quantized_batch_norm Applies batch normalization on a 4D (NCHW) quantized tensor. quantized_max_pool1d Applies a 1D max pooling over an input quantized tensor composed of several input planes. quantized_max_pool2d Applies a 2D max pooling over an input quantized tensor composed of several input planes. rad2deg Returns a new tensor with each of the elements of input converted from angles in radians to degrees. real Returns a new tensor containing real values of the self tensor. reciprocal Returns a new tensor with the reciprocal of the elements of input remainder Computes Python\u0027s modulus operation entrywise. round Rounds elements of input to the nearest integer. rsqrt Returns a new tensor with the reciprocal of the square-root of each of the elements of input. sigmoid Alias for torch.special.expit(). sign Returns a new tensor with the signs of the elements of input. sgn This function is an extension of torch.sign() to complex tensors. signbit Tests if each element of input has its sign bit set or not. sin Returns a new tensor with the sine of the elements of input. sinc Alias for torch.special.sinc(). sinh Returns a new tensor with the hyperbolic sine of the elements of input. softmax Alias for torch.nn.functional.softmax(). sqrt Returns a new tensor with the square-root of the elements of input. square Returns a new tensor with the square of the elements of input. sub Subtracts other, scaled by alpha, from input. subtract Alias for torch.sub(). tan Returns a new tensor with the tangent of the elements of input. tanh Returns a new tensor with the hyperbolic tangent of the elements of input. true_divide Alias for torch.div() with rounding_mode=None. trunc Returns a new tensor with the truncated integer values of the elements of input. xlogy Alias for torch.special.xlogy(). Reduction Ops# argmax Returns the indices of the maximum value of all elements in the input tensor. argmin Returns the indices of the minimum value(s) of the flattened tensor or along a dimension amax Returns the maximum value of each slice of the input tensor in the given dimension(s) dim. amin Returns the minimum value of each slice of the input tensor in the given dimension(s) dim. aminmax Computes the minimum and maximum values of the input tensor. all Tests if all elements in input evaluate to True. any Tests if any element in input evaluates to True. max Returns the maximum value of all elements in the input tensor. min Returns the minimum value of all elements in the input tensor. dist Returns the p-norm of (input - other) logsumexp Returns the log of summed exponentials of each row of the input tensor in the given dimension dim. mean nanmean Computes the mean of all non-NaN elements along the specified dimensions. median Returns the median of the values in input. nanmedian Returns the median of the values in input, ignoring NaN values. mode Returns a namedtuple (values, indices) where values is the mode value of each row of the input tensor in the given dimension dim, i.e. a value which appears most often in that row, and indices is the index location of each mode value found. norm Returns the matrix norm or vector norm of a given tensor. nansum Returns the sum of all elements, treating Not a Numbers (NaNs) as zero. prod Returns the product of all elements in the input tensor. quantile Computes the q-th quantiles of each row of the input tensor along the dimension dim. nanquantile This is a variant of torch.quantile() that \"ignores\" NaN values, computing the quantiles q as if NaN values in input did not exist. std Calculates the standard deviation over the dimensions specified by dim. std_mean Calculates the standard deviation and mean over the dimensions specified by dim. sum Returns the sum of all elements in the input tensor. unique Returns the unique elements of the input tensor. unique_consecutive Eliminates all but the first element from every consecutive group of equivalent elements. var Calculates the variance over the dimensions specified by dim. var_mean Calculates the variance and mean over the dimensions specified by dim. count_nonzero Counts the number of non-zero values in the tensor input along the given dim. hash_tensor Returns a hash of all elements in the input tensor. Comparison Ops# allclose This function checks if input and other satisfy the condition: argsort Returns the indices that sort a tensor along a given dimension in ascending order by value. eq Computes element-wise equality equal True if two tensors have the same size and elements, False otherwise. ge Computes input\u2265other\\text{input} \\geq \\text{other}input\u2265other element-wise. greater_equal Alias for torch.ge(). gt Computes input\u003eother\\text{input} \u003e \\text{other}input\u003eother element-wise. greater Alias for torch.gt(). isclose Returns a new tensor with boolean elements representing if each element of input is \"close\" to the corresponding element of other. isfinite Returns a new tensor with boolean elements representing if each element is finite or not. isin Tests if each element of elements is in test_elements. isinf Tests if each element of input is infinite (positive or negative infinity) or not. isposinf Tests if each element of input is positive infinity or not. isneginf Tests if each element of input is negative infinity or not. isnan Returns a new tensor with boolean elements representing if each element of input is NaN or not. isreal Returns a new tensor with boolean elements representing if each element of input is real-valued or not. kthvalue Returns a namedtuple (values, indices) where values is the k th smallest element of each row of the input tensor in the given dimension dim. le Computes input\u2264other\\text{input} \\leq \\text{other}input\u2264other element-wise. less_equal Alias for torch.le(). lt Computes input\u003cother\\text{input} \u003c \\text{other}input\u003cother element-wise. less Alias for torch.lt(). maximum Computes the element-wise maximum of input and other. minimum Computes the element-wise minimum of input and other. fmax Computes the element-wise maximum of input and other. fmin Computes the element-wise minimum of input and other. ne Computes input\u2260other\\text{input} \\neq \\text{other}input\ue020=other element-wise. not_equal Alias for torch.ne(). sort Sorts the elements of the input tensor along a given dimension in ascending order by value. topk Returns the k largest elements of the given input tensor along a given dimension. msort Sorts the elements of the input tensor along its first dimension in ascending order by value. Spectral Ops# stft Short-time Fourier transform (STFT). istft Inverse short time Fourier Transform. bartlett_window Bartlett window function. blackman_window Blackman window function. hamming_window Hamming window function. hann_window Hann window function. kaiser_window Computes the Kaiser window with window length window_length and shape parameter beta. Other Operations# atleast_1d Returns a 1-dimensional view of each input tensor with zero dimensions. atleast_2d Returns a 2-dimensional view of each input tensor with zero dimensions. atleast_3d Returns a 3-dimensional view of each input tensor with zero dimensions. bincount Count the frequency of each value in an array of non-negative ints. block_diag Create a block diagonal matrix from provided tensors. broadcast_tensors Broadcasts the given tensors according to Broadcasting semantics. broadcast_to Broadcasts input to the shape shape. broadcast_shapes Similar to broadcast_tensors() but for shapes. bucketize Returns the indices of the buckets to which each value in the input belongs, where the boundaries of the buckets are set by boundaries. cartesian_prod Do cartesian product of the given sequence of tensors. cdist Computes batched the p-norm distance between each pair of the two collections of row vectors. clone Returns a copy of input. combinations Compute combinations of length rrr of the given tensor. corrcoef Estimates the Pearson product-moment correlation coefficient matrix of the variables given by the input matrix, where rows are the variables and columns are the observations. cov Estimates the covariance matrix of the variables given by the input matrix, where rows are the variables and columns are the observations. cross Returns the cross product of vectors in dimension dim of input and other. cummax Returns a namedtuple (values, indices) where values is the cumulative maximum of elements of input in the dimension dim. cummin Returns a namedtuple (values, indices) where values is the cumulative minimum of elements of input in the dimension dim. cumprod Returns the cumulative product of elements of input in the dimension dim. cumsum Returns the cumulative sum of elements of input in the dimension dim. diag If input is a vector (1-D tensor), then returns a 2-D square tensor diag_embed Creates a tensor whose diagonals of certain 2D planes (specified by dim1 and dim2) are filled by input. diagflat If input is a vector (1-D tensor), then returns a 2-D square tensor diagonal Returns a partial view of input with the its diagonal elements with respect to dim1 and dim2 appended as a dimension at the end of the shape. diff Computes the n-th forward difference along the given dimension. einsum Sums the product of the elements of the input operands along dimensions specified using a notation based on the Einstein summation convention. flatten Flattens input by reshaping it into a one-dimensional tensor. flip Reverse the order of an n-D tensor along given axis in dims. fliplr Flip tensor in the left/right direction, returning a new tensor. flipud Flip tensor in the up/down direction, returning a new tensor. kron Computes the Kronecker product, denoted by \u2297\\otimes\u2297, of input and other. rot90 Rotate an n-D tensor by 90 degrees in the plane specified by dims axis. gcd Computes the element-wise greatest common divisor (GCD) of input and other. histc Computes the histogram of a tensor. histogram Computes a histogram of the values in a tensor. histogramdd Computes a multi-dimensional histogram of the values in a tensor. meshgrid Creates grids of coordinates specified by the 1D inputs in attr:tensors. lcm Computes the element-wise least common multiple (LCM) of input and other. logcumsumexp Returns the logarithm of the cumulative summation of the exponentiation of elements of input in the dimension dim. ravel Return a contiguous flattened tensor. renorm Returns a tensor where each sub-tensor of input along dimension dim is normalized such that the p-norm of the sub-tensor is lower than the value maxnorm repeat_interleave Repeat elements of a tensor. roll Roll the tensor input along the given dimension(s). searchsorted Find the indices from the innermost dimension of sorted_sequence such that, if the corresponding values in values were inserted before the indices, when sorted, the order of the corresponding innermost dimension within sorted_sequence would be preserved. tensordot Returns a contraction of a and b over multiple dimensions. trace Returns the sum of the elements of the diagonal of the input 2-D matrix. tril Returns the lower triangular part of the matrix (2-D tensor) or batch of matrices input, the other elements of the result tensor out are set to 0. tril_indices Returns the indices of the lower triangular part of a row-by- col matrix in a 2-by-N Tensor, where the first row contains row coordinates of all indices and the second row contains column coordinates. triu Returns the upper triangular part of a matrix (2-D tensor) or batch of matrices input, the other elements of the result tensor out are set to 0. triu_indices Returns the indices of the upper triangular part of a row by col matrix in a 2-by-N Tensor, where the first row contains row coordinates of all indices and the second row contains column coordinates. unflatten Expands a dimension of the input tensor over multiple dimensions. vander Generates a Vandermonde matrix. view_as_real Returns a view of input as a real tensor. view_as_complex Returns a view of input as a complex tensor. resolve_conj Returns a new tensor with materialized conjugation if input\u0027s conjugate bit is set to True, else returns input. resolve_neg Returns a new tensor with materialized negation if input\u0027s negative bit is set to True, else returns input. BLAS and LAPACK Operations# addbmm Performs a batch matrix-matrix product of matrices stored in batch1 and batch2, with a reduced add step (all matrix multiplications get accumulated along the first dimension). addmm Performs a matrix multiplication of the matrices mat1 and mat2. addmv Performs a matrix-vector product of the matrix mat and the vector vec. addr Performs the outer-product of vectors vec1 and vec2 and adds it to the matrix input. baddbmm Performs a batch matrix-matrix product of matrices in batch1 and batch2. bmm Performs a batch matrix-matrix product of matrices stored in input and mat2. chain_matmul Returns the matrix product of the NNN 2-D tensors. cholesky Computes the Cholesky decomposition of a symmetric positive-definite matrix AAA or for batches of symmetric positive-definite matrices. cholesky_inverse Computes the inverse of a complex Hermitian or real symmetric positive-definite matrix given its Cholesky decomposition. cholesky_solve Computes the solution of a system of linear equations with complex Hermitian or real symmetric positive-definite lhs given its Cholesky decomposition. dot Computes the dot product of two 1D tensors. geqrf This is a low-level function for calling LAPACK\u0027s geqrf directly. ger Alias of torch.outer(). inner Computes the dot product for 1D tensors. inverse Alias for torch.linalg.inv() det Alias for torch.linalg.det() logdet Calculates log determinant of a square matrix or batches of square matrices. slogdet Alias for torch.linalg.slogdet() lu Computes the LU factorization of a matrix or batches of matrices A. lu_solve Returns the LU solve of the linear system Ax=bAx = bAx=b using the partially pivoted LU factorization of A from lu_factor(). lu_unpack Unpacks the LU decomposition returned by lu_factor() into the P, L, U matrices. matmul Matrix product of two tensors. matrix_power Alias for torch.linalg.matrix_power() matrix_exp Alias for torch.linalg.matrix_exp(). mm Performs a matrix multiplication of the matrices input and mat2. mv Performs a matrix-vector product of the matrix input and the vector vec. orgqr Alias for torch.linalg.householder_product(). ormqr Computes the matrix-matrix multiplication of a product of Householder matrices with a general matrix. outer Outer product of input and vec2. pinverse Alias for torch.linalg.pinv() qr Computes the QR decomposition of a matrix or a batch of matrices input, and returns a namedtuple (Q, R) of tensors such that input=QR\\text{input} = Q Rinput=QR with QQQ being an orthogonal matrix or batch of orthogonal matrices and RRR being an upper triangular matrix or batch of upper triangular matrices. svd Computes the singular value decomposition of either a matrix or batch of matrices input. svd_lowrank Return the singular value decomposition (U, S, V) of a matrix, batches of matrices, or a sparse matrix AAA such that A\u2248Udiag\u2061(S)VHA \\approx U \\operatorname{diag}(S) V^{\\text{H}}A\u2248Udiag(S)VH. pca_lowrank Performs linear Principal Component Analysis (PCA) on a low-rank matrix, batches of such matrices, or sparse matrix. lobpcg Find the k largest (or smallest) eigenvalues and the corresponding eigenvectors of a symmetric positive definite generalized eigenvalue problem using matrix-free LOBPCG methods. trapz Alias for torch.trapezoid(). trapezoid Computes the trapezoidal rule along dim. cumulative_trapezoid Cumulatively computes the trapezoidal rule along dim. triangular_solve Solves a system of equations with a square upper or lower triangular invertible matrix AAA and multiple right-hand sides bbb. vdot Computes the dot product of two 1D vectors along a dimension. Foreach Operations# Warning This API is in beta and subject to future changes. Forward-mode AD is not supported. _foreach_abs Apply torch.abs() to each Tensor of the input list. _foreach_abs_ Apply torch.abs() to each Tensor of the input list. _foreach_acos Apply torch.acos() to each Tensor of the input list. _foreach_acos_ Apply torch.acos() to each Tensor of the input list. _foreach_asin Apply torch.asin() to each Tensor of the input list. _foreach_asin_ Apply torch.asin() to each Tensor of the input list. _foreach_atan Apply torch.atan() to each Tensor of the input list. _foreach_atan_ Apply torch.atan() to each Tensor of the input list. _foreach_ceil Apply torch.ceil() to each Tensor of the input list. _foreach_ceil_ Apply torch.ceil() to each Tensor of the input list. _foreach_cos Apply torch.cos() to each Tensor of the input list. _foreach_cos_ Apply torch.cos() to each Tensor of the input list. _foreach_cosh Apply torch.cosh() to each Tensor of the input list. _foreach_cosh_ Apply torch.cosh() to each Tensor of the input list. _foreach_erf Apply torch.erf() to each Tensor of the input list. _foreach_erf_ Apply torch.erf() to each Tensor of the input list. _foreach_erfc Apply torch.erfc() to each Tensor of the input list. _foreach_erfc_ Apply torch.erfc() to each Tensor of the input list. _foreach_exp Apply torch.exp() to each Tensor of the input list. _foreach_exp_ Apply torch.exp() to each Tensor of the input list. _foreach_expm1 Apply torch.expm1() to each Tensor of the input list. _foreach_expm1_ Apply torch.expm1() to each Tensor of the input list. _foreach_floor Apply torch.floor() to each Tensor of the input list. _foreach_floor_ Apply torch.floor() to each Tensor of the input list. _foreach_log Apply torch.log() to each Tensor of the input list. _foreach_log_ Apply torch.log() to each Tensor of the input list. _foreach_log10 Apply torch.log10() to each Tensor of the input list. _foreach_log10_ Apply torch.log10() to each Tensor of the input list. _foreach_log1p Apply torch.log1p() to each Tensor of the input list. _foreach_log1p_ Apply torch.log1p() to each Tensor of the input list. _foreach_log2 Apply torch.log2() to each Tensor of the input list. _foreach_log2_ Apply torch.log2() to each Tensor of the input list. _foreach_neg Apply torch.neg() to each Tensor of the input list. _foreach_neg_ Apply torch.neg() to each Tensor of the input list. _foreach_tan Apply torch.tan() to each Tensor of the input list. _foreach_tan_ Apply torch.tan() to each Tensor of the input list. _foreach_sin Apply torch.sin() to each Tensor of the input list. _foreach_sin_ Apply torch.sin() to each Tensor of the input list. _foreach_sinh Apply torch.sinh() to each Tensor of the input list. _foreach_sinh_ Apply torch.sinh() to each Tensor of the input list. _foreach_round Apply torch.round() to each Tensor of the input list. _foreach_round_ Apply torch.round() to each Tensor of the input list. _foreach_sqrt Apply torch.sqrt() to each Tensor of the input list. _foreach_sqrt_ Apply torch.sqrt() to each Tensor of the input list. _foreach_lgamma Apply torch.lgamma() to each Tensor of the input list. _foreach_lgamma_ Apply torch.lgamma() to each Tensor of the input list. _foreach_frac Apply torch.frac() to each Tensor of the input list. _foreach_frac_ Apply torch.frac() to each Tensor of the input list. _foreach_reciprocal Apply torch.reciprocal() to each Tensor of the input list. _foreach_reciprocal_ Apply torch.reciprocal() to each Tensor of the input list. _foreach_sigmoid Apply torch.sigmoid() to each Tensor of the input list. _foreach_sigmoid_ Apply torch.sigmoid() to each Tensor of the input list. _foreach_trunc Apply torch.trunc() to each Tensor of the input list. _foreach_trunc_ Apply torch.trunc() to each Tensor of the input list. _foreach_zero_ Apply torch.zero() to each Tensor of the input list. Utilities# compiled_with_cxx11_abi Returns whether PyTorch was built with _GLIBCXX_USE_CXX11_ABI=1 result_type Returns the torch.dtype that would result from performing an arithmetic operation on the provided input tensors. can_cast Determines if a type conversion is allowed under PyTorch casting rules described in the type promotion documentation. promote_types Returns the torch.dtype with the smallest size and scalar kind that is not smaller nor of lower kind than either type1 or type2. use_deterministic_algorithms Sets whether PyTorch operations must use \"deterministic\" algorithms. are_deterministic_algorithms_enabled Returns True if the global deterministic flag is turned on. is_deterministic_algorithms_warn_only_enabled Returns True if the global deterministic flag is set to warn only. set_deterministic_debug_mode Sets the debug mode for deterministic operations. get_deterministic_debug_mode Returns the current value of the debug mode for deterministic operations. set_float32_matmul_precision Sets the internal precision of float32 matrix multiplications. get_float32_matmul_precision Returns the current value of float32 matrix multiplication precision. set_warn_always When this flag is False (default) then some PyTorch warnings may only appear once per process. get_device_module Returns the module associated with a given device(e.g., torch.device(\u0027cuda\u0027), \"mtia:0\", \"xpu\", ...). is_warn_always_enabled Returns True if the global warn_always flag is turned on. vmap vmap is the vectorizing map; vmap(func) returns a new function that maps func over some dimension of the inputs. _assert A wrapper around Python\u0027s assert which is symbolically traceable. Symbolic Numbers# class torch.SymInt(node)[source]# Like an int (including magic methods), but redirects all operations on the wrapped node. This is used in particular to symbolically record operations in the symbolic shape workflow. as_integer_ratio()[source]# Represent this int as an exact integer ratio Return type tuple[\u2018SymInt\u2019, int] class torch.SymFloat(node)[source]# Like a float (including magic methods), but redirects all operations on the wrapped node. This is used in particular to symbolically record operations in the symbolic shape workflow. as_integer_ratio()[source]# Represent this float as an exact integer ratio Return type tuple[int, int] conjugate()[source]# Returns the complex conjugate of the float. Return type SymFloat hex()[source]# Returns the hexadecimal representation of the float. Return type str is_integer()[source]# Return True if the float is an integer. class torch.SymBool(node)[source]# Like a bool (including magic methods), but redirects all operations on the wrapped node. This is used in particular to symbolically record operations in the symbolic shape workflow. Unlike regular bools, regular boolean operators will force extra guards instead of symbolically evaluate. Use the bitwise operators instead to handle this. sym_float SymInt-aware utility for float casting. sym_fresh_size sym_int SymInt-aware utility for int casting. sym_max SymInt-aware utility for max which avoids branching on a \u003c b. sym_min SymInt-aware utility for min(). sym_not SymInt-aware utility for logical negation. sym_ite SymInt-aware utility for ternary operator (t if b else f.) sym_sum N-ary add which is faster to compute for long lists than iterated binary addition. Export Path# Warning This feature is a prototype and may have compatibility breaking changes in the future. export generated/exportdb/index Control Flow# Warning This feature is a prototype and may have compatibility breaking changes in the future. cond Conditionally applies true_fn or false_fn. Optimizations# compile Optimizes given model/function using TorchDynamo and specified backend. torch.compile documentation Operator Tags# class torch.Tag# Members: core cudagraph_unsafe data_dependent_output dynamic_output_shape flexible_layout generated inplace_view maybe_aliasing_or_mutating needs_contiguous_strides needs_exact_strides needs_fixed_stride_order nondeterministic_bitwise nondeterministic_seeded pointwise pt2_compliant_tag view_copy property name#",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/torch.html"
+       },
+       "datePublished": "Dec 23, 2016T00:00:00Z",
+       "dateModified": "Jul 22, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

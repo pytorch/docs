@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/export/programming_model.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="../_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', '2.9');
- </script>
+  document.documentElement.setAttribute('data-version', '2.9');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -180,8 +190,10 @@
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -518,7 +530,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -526,7 +539,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -3388,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4357,29 +4370,30 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../pytorch-api.html">
-          <meta itemprop="name" content="Reference API">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../pytorch-api.html">
+        <meta itemprop="name" content="Reference API">
+        <meta itemprop="position" content="1">
+      </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../export.html">
-          <meta itemprop="name" content="torch.export">
-          <meta itemprop="position" content="2">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../export.html">
+        <meta itemprop="name" content="torch.export">
+        <meta itemprop="position" content="2">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="torch.export Programming Model">
         <meta itemprop="position" content="3">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -4886,7 +4900,7 @@ attributes.</p>
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -5114,91 +5128,124 @@ attributes.</p>
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -5206,8 +5253,7 @@ attributes.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -5247,28 +5293,47 @@ attributes.</p>
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "torch.export Programming Model",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/export/programming_model.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "../_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/export/programming_model.html"
-         },
-        "datePublished": "Dec 18, 2024T00:00:00Z",
-         "dateModified": "Jul 16, 2025T00:00:00Z",
-         "articleBody": "torch.export Programming Model# Created On: Dec 18, 2024 | Last Updated On: Jul 16, 2025 This document aims to explain the behaviors and capabilities of torch.export.export(). It is intended to help build your intuition for how torch.export.export() handles code. Basics of Tracing# torch.export.export() captures a graph representing your model by tracing its execution on “example” inputs and recording the PyTorch operations and conditions observed along the traced path. This graph can then be run on different inputs as long as they satisfy the same conditions. The basic output of torch.export.export() is a single graph of PyTorch operations, with associated metadata. The exact format of this output is covered in the export IR spec. Strict vs. Non-Strict Tracing# torch.export.export() provides two modes of tracing. In non-strict mode, we trace through the program using the normal Python interpreter. Your code executes exactly as it would in eager mode; the only difference is that all Tensors are replaced by fake Tensors, which have shapes and other forms of metadata but no data, wrapped in Proxy objects that record all operations on them into a graph. We also capture conditions on Tensor shapes that guard the correctness of the generated code. In strict mode, we first trace through the program using TorchDynamo, a Python bytecode analysis engine. TorchDynamo does not actually execute your Python code. Instead, it symbolically analyzes it and builds a graph based on the results. On the one hand, this analysis allows torch.export.export() to provide additional guarantees on Python-level safety (beyond capturing conditions on Tensor shapes, as in non-strict mode). On the other hand, not all Python features are supported by this analysis. Although currently the default mode of tracing is strict, we strongly recommend using non-strict, which will soon become the default. For most models, conditions on Tensor shapes are enough for soundness, and the additional guarantees on Python-level safety have no impact; at the same time, the possibility of hitting unsupported Python features in TorchDynamo presents an unnecessary risk. In the rest of this document we assume we are tracing in non-strict mode; in particular, we assume that all Python features are supported. Values: Static vs. Dynamic# A key concept in understanding the behavior of torch.export.export() is the difference between static and dynamic values. Static Values# A static value is a value that is fixed at export time and cannot change between executions of the exported program. When the value is encountered during tracing, we treat it as a constant and hard-code it into the graph. When an operation is performed (e.g. x + y) and all inputs are static, the output of the operation is directly hard-coded into the graph and the operation does not show up (i.e. it gets “constant-folded”). When a value has been hard-coded into the graph, we say that the graph has been specialized to that value. Fo..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "torch.export Programming Model",
+       "headline": "torch.export Programming Model",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/export/programming_model.html",
+       "articleBody": "torch.export Programming Model# Created On: Dec 18, 2024 | Last Updated On: Jul 16, 2025 This document aims to explain the behaviors and capabilities of torch.export.export(). It is intended to help build your intuition for how torch.export.export() handles code. Basics of Tracing# torch.export.export() captures a graph representing your model by tracing its execution on \u201cexample\u201d inputs and recording the PyTorch operations and conditions observed along the traced path. This graph can then be run on different inputs as long as they satisfy the same conditions. The basic output of torch.export.export() is a single graph of PyTorch operations, with associated metadata. The exact format of this output is covered in the export IR spec. Strict vs. Non-Strict Tracing# torch.export.export() provides two modes of tracing. In non-strict mode, we trace through the program using the normal Python interpreter. Your code executes exactly as it would in eager mode; the only difference is that all Tensors are replaced by fake Tensors, which have shapes and other forms of metadata but no data, wrapped in Proxy objects that record all operations on them into a graph. We also capture conditions on Tensor shapes that guard the correctness of the generated code. In strict mode, we first trace through the program using TorchDynamo, a Python bytecode analysis engine. TorchDynamo does not actually execute your Python code. Instead, it symbolically analyzes it and builds a graph based on the results. On the one hand, this analysis allows torch.export.export() to provide additional guarantees on Python-level safety (beyond capturing conditions on Tensor shapes, as in non-strict mode). On the other hand, not all Python features are supported by this analysis. Although currently the default mode of tracing is strict, we strongly recommend using non-strict, which will soon become the default. For most models, conditions on Tensor shapes are enough for soundness, and the additional guarantees on Python-level safety have no impact; at the same time, the possibility of hitting unsupported Python features in TorchDynamo presents an unnecessary risk. In the rest of this document we assume we are tracing in non-strict mode; in particular, we assume that all Python features are supported. Values: Static vs. Dynamic# A key concept in understanding the behavior of torch.export.export() is the difference between static and dynamic values. Static Values# A static value is a value that is fixed at export time and cannot change between executions of the exported program. When the value is encountered during tracing, we treat it as a constant and hard-code it into the graph. When an operation is performed (e.g. x + y) and all inputs are static, the output of the operation is directly hard-coded into the graph and the operation does not show up (i.e. it gets \u201cconstant-folded\u201d). When a value has been hard-coded into the graph, we say that the graph has been specialized to that value. For example: import torch class MyMod(torch.nn.Module): def forward(self, x, y): z = y + 7 return x + z m = torch.export.export(MyMod(), (torch.randn(1), 3)) print(m.graph_module.code) \"\"\" def forward(self, arg0_1, arg1_1): add = torch.ops.aten.add.Tensor(arg0_1, 10); arg0_1 = None return (add,) \"\"\" Here, we provide 3 as the traced value for y; it is treated as a static value and added to 7, burning in the static value 10 in the graph. Dynamic Values# A dynamic value is one that can change from run to run. It behaves just like a \u201cnormal\u201d function argument: you can pass different inputs and expect your function to do the right thing. Which values are static vs. dynamic?# Whether a value is static or dynamic depends on its type: For Tensor: Tensor data is treated as dynamic. Tensor shapes can be treated by the system as static or dynamic. By default, shapes of all input Tensors are considered static. The user can override this behavior for any input Tensor by specifying a dynamic shape for it. Tensors that are part of module state, i.e., parameters and buffers, always have static shapes. Other forms of Tensor metadata (e.g. device, dtype) are static. Python primitives (int, float, bool, str, None) are static. There are dynamic variants for some primitive types (SymInt, SymFloat, SymBool). Typically users do not have to deal with them. Users can specify integer inputs as dynamic by specifying a dynamic shape for it. For Python standard containers (list, tuple, dict, namedtuple): The structure (i.e., length for list and tuple values, and key sequence for dict and namedtuple values) is static. The contained elements have these rules applied to them recursively (basically the PyTree scheme) with leaves that are either Tensor or primitive types. Other classes (including data classes) can be registered with PyTree (see below), and follow the same rules as the standard containers. Input types# Inputs will be treated as either static or dynamic, based on their type (as explained above). A static input will get hard-coded into the graph, and passing a different value at run time will result in an error. Recall that these are mostly values of primitive types. A dynamic input behaves like a \u201cnormal\u201d function input. Recall that these are mostly values of Tensor types. By default, the types of inputs you can use for your program are: Tensor Python primitives (int, float, bool, str, None) Python standard containers (list, tuple, dict, namedtuple) Custom Input Types (PyTree)# In addition, you can also define your own (custom) class and use it as an input type, but you will need to register such a class as a PyTree. Here\u2019s an example of using an utility to register a dataclass that is used as an input type. @dataclass class Input: f: torch.Tensor p: torch.Tensor import torch.utils._pytree as pytree pytree.register_dataclass(Input) class M(torch.nn.Module): def forward(self, x: Input): return x.f + 1 torch.export.export(M(), (Input(f=torch.ones(10, 4), p=torch.zeros(10, 4)),)) Optional input types# For optional inputs to the program that are not passed in, torch.export.export() will specialize to their default values. As a result, the exported program will require users to explicitly pass in all arguments, and will lose the defaulting behavior. For example: class M(torch.nn.Module): def forward(self, x, y=None): if y is not None: return y * x return x + x # Optional input is passed in ep = torch.export.export(M(), (torch.randn(3, 3), torch.randn(3, 3))) print(ep) \"\"\" ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 3]\", y: \"f32[3, 3]\"): # File: /data/users/angelayi/pytorch/moo.py:15 in forward, code: return y * x mul: \"f32[3, 3]\" = torch.ops.aten.mul.Tensor(y, x); y = x = None return (mul,) \"\"\" # Optional input is not passed in ep = torch.export.export(M(), (torch.randn(3, 3),)) print(ep) \"\"\" ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 3]\", y): # File: /data/users/angelayi/pytorch/moo.py:16 in forward, code: return x + x add: \"f32[3, 3]\" = torch.ops.aten.add.Tensor(x, x); x = None return (add,) \"\"\" Control Flow: Static vs. Dynamic# Control flow is supported by torch.export.export(). The behavior of control flow depends on whether the value you are branching on is static or dynamic. Static Control Flow# Python control flow over static values is supported transparently. (Recall that static values include static shapes, so control flow over static shapes is also covered by this case.) As mentioned above, we \u201cburn in\u201d static values, so the exported graph will never see any control flow over static values. In the case of an if statement, we will continue tracing the branch taken at export time. In the case of a for or while statement, we will continue tracing by unrolling the loop. Dynamic Control Flow: Shape-Dependent vs. Data-Dependent# When the value involved in a control flow is dynamic, it could depend on dynamic shapes or dynamic data. Given that the compiler traces with information on shapes rather than data, the implications on the programming model are different in these cases. Dynamic Shape-Dependent Control Flow# When the value involved in a control flow is a dynamic shape, in most cases we will also know the concrete value of the dynamic shape during tracing: see the following section for more details on how the compiler tracks this information. In these cases we say that the control flow is shape-dependent. We use the concrete value of the dynamic shape to evaluate the condition to either True or False and continue tracing (as discussed above), additionally emitting a guard corresponding to the condition just evaluated. Otherwise the control flow is considered data-dependent. We cannot evaluate the condition to either True or False, so cannot continue tracing and have to raise an error at export time. See next section. Dynamic Data-Dependent Control Flow# Data-dependent control flow over dynamic values is supported, but you must use one of PyTorch\u2019s explicit operators to continue tracing. Using Python control flow statements over dynamic values is not permitted, because the compiler cannot evaluate the conditions necessary to continue tracing and thus an error must be raised at export time. We provide operators to express general conditionals and loops over dynamic values, e.g., torch.cond, torch.map. Note that you only need to use these if you truly want data-dependent control flow. Here\u2019s an example of an if statement on a data-dependent condition, x.sum() \u003e 0, where x is an input Tensor, rewritten using torch.cond. Instead of having to decide which branch to trace, now both branches are traced. class M_old(torch.nn.Module): def forward(self, x): if x.sum() \u003e 0: return x.sin() else: return x.cos() class M_new(torch.nn.Module): def forward(self, x): return torch.cond( pred=x.sum() \u003e 0, true_fn=lambda x: x.sin(), false_fn=lambda x: x.cos(), operands=(x,), ) A special case of data-dependent control flow is where it involves a data-dependent dynamic shape: typically, the shape of some intermediate Tensor that depends on input data rather than on input shapes (thus not shape-dependent). Instead of using a control flow operator, in this case you can provide an assertion that decides whether the condition is True or False. Given such an assertion, we can continue tracing, emitting a guard as above. We provide operators to express assertions on dynamic shapes, e.g., torch._check. Note that you only need to use this when there is control flow on data-dependent dynamic shapes. Here\u2019s an example of an if statement on a condition involving a data-dependent dynamic shape, nz.shape[0] \u003e 0, where nz is the result of calling torch.nonzero(), an operator whose output shape depends on input data. Instead of rewriting it, you can add an assertion using torch._check to effectively decide which branch to trace. class M_old(torch.nn.Module): def forward(self, x): nz = x.nonzero() if nz.shape[0] \u003e 0: return x.sin() else: return x.cos() class M_new(torch.nn.Module): def forward(self, x): nz = x.nonzero() torch._check(nz.shape[0] \u003e 0) if nz.shape[0] \u003e 0: return x.sin() else: return x.cos() Basics of Symbolic Shapes# During tracing, dynamic Tensor shapes and conditions over them are encoded as \u201csymbolic expressions.\u201d (In contrast, static Tensor shapes and conditions over them are simply int and bool values.) A symbol is like a variable; it describes a dynamic Tensor shape. As tracing proceeds, shapes of intermediate Tensors may be described by more general expressions, typically involving integer arithmetic operators. This is because for most PyTorch operators, shapes of output Tensors can be described as functions of shapes of input Tensors. For example, the shape of the output of torch.cat() is the sum of the shapes of its inputs. Moreover, as we encounter control flow in the program, we create boolean expressions, typically involving relational operators, describing conditions along the traced path. These expressions are evaluated to decide which path to trace through the program, and recorded in a shape environment to guard the correctness of the traced path and to evaluate subsequently created expressions. We briefly introduce these subsystems next. Fake Implementations of PyTorch Operators# Recall that during tracing, we are executing the program with fake Tensors, which have no data. In general we cannot call the actual implementations of PyTorch operators with fake Tensors. Thus each operator needs to have an additional fake (a.k.a. \u201cmeta\u201d) implementation, which inputs and outputs fake Tensors, that matches the behavior of the actual implementation in terms of shapes and other forms of metadata carried by fake Tensors. For example, note how the fake implementation of torch.index_select() computes the shape of the output using the shape of the input (while ignoring input data and returning empty output data). def meta_index_select(self, dim, index): result_size = list(self.size()) if self.dim() \u003e 0: result_size[dim] = index.numel() return self.new_empty(result_size) Shape Propagation: Backed vs. Unbacked Dynamic Shapes# Shapes are propagated using fake implementations of PyTorch operators. A key concept to understand the propagation of dynamic shapes in particular is the difference between backed and unbacked dynamic shapes: we know the concrete values of the former but not the latter. Propagation of shapes, including tracking backed and unbacked dynamic shapes, proceeds as follows: The shapes of Tensors representing inputs can be static or dynamic. When dynamic, they are described by symbols; moreover, such symbols are backed since we also know their concrete values given the \u201creal\u201d example inputs provided by the user at export time. The output shape of an operator is computed by its fake implementation, and is either static or dynamic. When dynamic, in general it is described by a symbolic expression. Moreover: If the output shape depends only on input shapes, it is either static or backed dynamic whenever the input shapes are all static or backed dynamic. On the other hand, if the output shape depends on input data, it is necessarily dynamic, and moreover, because we cannot know its concrete value it is unbacked. Control Flow: Guards and Assertions# When a condition on shapes is encountered, it either involves only static shapes, in which case it is a bool, or it involves dynamic shapes, in which case it is a symbolic boolean expression. For the latter: When the condition involves only backed dynamic shapes, we can use the concrete values of those dynamic shapes to evaluate the condition to True or False. We can then add a guard to the shape environment that states that the corresponding symbolic boolean expression is True or False, and continue tracing. Otherwise the condition involves unbacked dynamic shapes. In general we cannot evaluate such a condition without additional information; thus we cannot continue tracing, and we must raise an error at export time. The user is expected to use an explicit PyTorch operator for tracing to continue. This information is added as a guard in the shape environment, and can also possibly help evaluate other subsequently encountered conditions to True or False. Once the model is exported, any guards on backed dynamic shapes can be understood as conditions on input dynamic shapes. These are verified against a dynamic shape specification that must have been provided to export, describing conditions on dynamic shapes that not only example inputs but also all future inputs are expected to satisfy for the generated code to be correct. More precisely, the dynamic shape specification must logically imply the generated guards, otherwise an error is raised at export time (along with suggested fixes to the dynamic shape specification). On the other hand, when there are no generated guards on backed dynamic shapes (in particular, when all shapes are static) no dynamic shape specification needs to be provided to export. In general, the dynamic shape specification is converted to runtime assertions on the inputs of the generated code. Finally, any guards on unbacked dynamic shapes are converted to \u201cinline\u201d runtime assertions. These are added in the generated code at the locations where those unbacked dynamic shapes were created: typically, right after data-dependent operator calls. Allowed PyTorch operators# All PyTorch operators are permitted. Custom operators# In addition, you can define and use custom operators. Defining a custom operator includes defining a fake implementation for it, just like any other PyTorch operator (see previous section). Here\u2019s an example of a custom sin operator that wraps NumPy, and its registered (trivial) fake implementation. @torch.library.custom_op(\"mylib::sin\", mutates_args=()) def sin(x: Tensor) -\u003e Tensor: x_np = x.numpy() y_np = np.sin(x_np) return torch.from_numpy(y_np) @torch.library.register_fake(\"mylib::sin\") def _(x: Tensor) -\u003e Tensor: return torch.empty_like(x) Sometimes your custom operator\u2019s fake implementation will involve data-dependent shapes. Here\u2019s how a fake implementation for a custom nonzero might look like. ... @torch.library.register_fake(\"mylib::custom_nonzero\") def _(x): nnz = torch.library.get_ctx().new_dynamic_size() shape = [nnz, x.dim()] return x.new_empty(shape, dtype=torch.int64) Module State: Reads vs. Updates# Module states include parameters, buffers, and regular attributes. A regular attribute can be of any type. On the other hand, parameters and buffers are always Tensors. Module states can be dynamic or static, based on their types as outlined above. For example, self.training is a bool, which means it is static; on the other hand, any parameter or buffer is dynamic. The shapes of any Tensors contained in module states cannot be dynamic, i.e., those shapes are fixed at export time, and cannot change between executions of the exported program. Access rules# All module states must be initialized. Accessing a module state that is not already initialized causes an error to be raised at export time. Reading module states is always permitted. Updating module states is possible, but must follow the rules below: A static regular attribute (e.g., of primitive type) can be updated. Reads and updates can be freely interleaved, and as expected, any reads will always see the values of the latest updates. Because these attributes are static, we will also burn the values in, so the generated code will not have any instructions to actually \u201cget\u201d or \u201cset\u201d such attributes. A dynamic regular attribute (e.g., of Tensor type) cannot be updated. To do so, it must be registered as a buffer during module initialization. A buffer can be updated, where the updating can be in-place (e.g., self.buffer[:] = ...) or not (e.g., self.buffer = ...). A parameter cannot be updated. Typically parameters are updated only during training, not during inference. We recommend exporting with torch.no_grad() to avoid parameter updates at export time. Effects of functionalization# Any dynamic module state that is read and/or updated is \u201clifted\u201d (respectively) as an input and/or output of the generated code. The exported program stores, along with the generated code, the initial values of parameters and buffers and the constant values of other Tensor attributes.",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "../_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/export/programming_model.html"
+       },
+       "datePublished": "Dec 18, 2024T00:00:00Z",
+       "dateModified": "Jul 16, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

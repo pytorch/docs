@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/torch.compiler_ir.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', '2.9');
- </script>
+  document.documentElement.setAttribute('data-version', '2.9');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -180,8 +190,10 @@
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -518,7 +530,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -526,7 +539,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -3388,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4357,29 +4370,30 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="pytorch-api.html">
-          <meta itemprop="name" content="Reference API">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="pytorch-api.html">
+        <meta itemprop="name" content="Reference API">
+        <meta itemprop="position" content="1">
+      </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="export.html">
-          <meta itemprop="name" content="torch.export">
-          <meta itemprop="position" content="2">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="export.html">
+        <meta itemprop="name" content="torch.export">
+        <meta itemprop="position" content="2">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="IRs">
         <meta itemprop="position" content="3">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -5384,7 +5398,7 @@ This opset is designed to interface with compiler backends.</p>
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -5573,91 +5587,124 @@ This opset is designed to interface with compiler backends.</p>
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -5665,8 +5712,7 @@ This opset is designed to interface with compiler backends.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -5706,28 +5752,47 @@ This opset is designed to interface with compiler backends.</p>
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "IRs",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/torch.compiler_ir.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/torch.compiler_ir.html"
-         },
-        "datePublished": "Dec 13, 2022T00:00:00Z",
-         "dateModified": "Jul 16, 2025T00:00:00Z",
-         "articleBody": "IRs# Created On: Dec 13, 2022 | Last Updated On: Jul 16, 2025 PyTorch 2.0 offers two set of IRs for backends to interface with: Core Aten IR and Prims IR. Core Aten IR# Core aten ops is the core subset of aten operators that can be used to compose other operators. Core aten IR is fully functional, and there is no inplace or _out variants in this opset. In contrast to Prims IR, core aten ops reuses the existing aten ops in “native_functions.yaml”, and it doesn’t further decompose ops into explicit type promotion and broadcasting ops. This opset is designed to serve as the functional IR to interface with backends. Warning This opset is still under active development, more ops will be added in the future. Operator Schema aten._adaptive_avg_pool2d _adaptive_avg_pool2d(Tensor self, SymInt[2] output_size) -&gt; Tensor aten._adaptive_avg_pool2d_backward _adaptive_avg_pool2d_backward(Tensor grad_output, Tensor self) -&gt; Tensor aten._adaptive_avg_pool3d _adaptive_avg_pool3d(Tensor self, SymInt[3] output_size) -&gt; Tensor aten._cdist_forward _cdist_forward(Tensor x1, Tensor x2, float p, int? compute_mode) -&gt; Tensor aten._embedding_bag _embedding_bag(Tensor weight, Tensor indices, Tensor offsets, bool scale_grad_by_freq=False, int mode=0, bool sparse=False, Tensor? per_sample_weights=None, bool include_last_offset=False, int padding_idx=-1) -&gt; (Tensor, Tensor, Tensor, Tensor) aten._fft_r2c _fft_r2c(Tensor self, int[] dim, int normalization, bool onesided) -&gt; Tensor aten._local_scalar_dense _local_scalar_dense(Tensor self) -&gt; Scalar aten._log_softmax _log_softmax(Tensor self, int dim, bool half_to_float) -&gt; Tensor aten._native_batch_norm_legit _native_batch_norm_legit(Tensor input, Tensor? weight, Tensor? bias, Tensor(a!) running_mean, Tensor(b!) running_var, bool training, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor) aten._native_batch_norm_legit.no_stats _native_batch_norm_legit.no_stats(Tensor input, Tensor? weight, Tensor? bias, bool training, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor) aten._native_batch_norm_legit_no_training _native_batch_norm_legit_no_training(Tensor input, Tensor? weight, Tensor? bias, Tensor running_mean, Tensor running_var, float momentum, float eps) -&gt; (Tensor, Tensor, Tensor) aten._pdist_forward _pdist_forward(Tensor self, float p=2) -&gt; Tensor aten._softmax _softmax(Tensor self, int dim, bool half_to_float) -&gt; Tensor aten._to_copy _to_copy(Tensor self, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool non_blocking=False, MemoryFormat? memory_format=None) -&gt; Tensor aten.abs abs(Tensor self) -&gt; Tensor aten.acos acos(Tensor self) -&gt; Tensor aten.acosh acosh(Tensor self) -&gt; Tensor aten.adaptive_avg_pool1d adaptive_avg_pool1d(Tensor self, int[1] output_size) -&gt; Tensor aten.add.Scalar add.Scalar(Tensor self, Scalar other, Scalar alpha=1) -&gt; Tensor aten.add.Tensor add.Tensor(Tensor self, Tensor other, *, Scalar alpha=1) -&gt; Tensor aten.addmm addmm(Tensor self, Tensor mat1, ..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "IRs",
+       "headline": "IRs",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/torch.compiler_ir.html",
+       "articleBody": "IRs# Created On: Dec 13, 2022 | Last Updated On: Jul 16, 2025 PyTorch 2.0 offers two set of IRs for backends to interface with: Core Aten IR and Prims IR. Core Aten IR# Core aten ops is the core subset of aten operators that can be used to compose other operators. Core aten IR is fully functional, and there is no inplace or _out variants in this opset. In contrast to Prims IR, core aten ops reuses the existing aten ops in \u201cnative_functions.yaml\u201d, and it doesn\u2019t further decompose ops into explicit type promotion and broadcasting ops. This opset is designed to serve as the functional IR to interface with backends. Warning This opset is still under active development, more ops will be added in the future. Operator Schema aten._adaptive_avg_pool2d _adaptive_avg_pool2d(Tensor self, SymInt[2] output_size) -\u003e Tensor aten._adaptive_avg_pool2d_backward _adaptive_avg_pool2d_backward(Tensor grad_output, Tensor self) -\u003e Tensor aten._adaptive_avg_pool3d _adaptive_avg_pool3d(Tensor self, SymInt[3] output_size) -\u003e Tensor aten._cdist_forward _cdist_forward(Tensor x1, Tensor x2, float p, int? compute_mode) -\u003e Tensor aten._embedding_bag _embedding_bag(Tensor weight, Tensor indices, Tensor offsets, bool scale_grad_by_freq=False, int mode=0, bool sparse=False, Tensor? per_sample_weights=None, bool include_last_offset=False, int padding_idx=-1) -\u003e (Tensor, Tensor, Tensor, Tensor) aten._fft_r2c _fft_r2c(Tensor self, int[] dim, int normalization, bool onesided) -\u003e Tensor aten._local_scalar_dense _local_scalar_dense(Tensor self) -\u003e Scalar aten._log_softmax _log_softmax(Tensor self, int dim, bool half_to_float) -\u003e Tensor aten._native_batch_norm_legit _native_batch_norm_legit(Tensor input, Tensor? weight, Tensor? bias, Tensor(a!) running_mean, Tensor(b!) running_var, bool training, float momentum, float eps) -\u003e (Tensor, Tensor, Tensor) aten._native_batch_norm_legit.no_stats _native_batch_norm_legit.no_stats(Tensor input, Tensor? weight, Tensor? bias, bool training, float momentum, float eps) -\u003e (Tensor, Tensor, Tensor) aten._native_batch_norm_legit_no_training _native_batch_norm_legit_no_training(Tensor input, Tensor? weight, Tensor? bias, Tensor running_mean, Tensor running_var, float momentum, float eps) -\u003e (Tensor, Tensor, Tensor) aten._pdist_forward _pdist_forward(Tensor self, float p=2) -\u003e Tensor aten._softmax _softmax(Tensor self, int dim, bool half_to_float) -\u003e Tensor aten._to_copy _to_copy(Tensor self, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool non_blocking=False, MemoryFormat? memory_format=None) -\u003e Tensor aten.abs abs(Tensor self) -\u003e Tensor aten.acos acos(Tensor self) -\u003e Tensor aten.acosh acosh(Tensor self) -\u003e Tensor aten.adaptive_avg_pool1d adaptive_avg_pool1d(Tensor self, int[1] output_size) -\u003e Tensor aten.add.Scalar add.Scalar(Tensor self, Scalar other, Scalar alpha=1) -\u003e Tensor aten.add.Tensor add.Tensor(Tensor self, Tensor other, *, Scalar alpha=1) -\u003e Tensor aten.addmm addmm(Tensor self, Tensor mat1, Tensor mat2, *, Scalar beta=1, Scalar alpha=1) -\u003e Tensor aten.alias alias(Tensor(a) self) -\u003e Tensor(a) aten.amax amax(Tensor self, int[1] dim=[], bool keepdim=False) -\u003e Tensor aten.amin amin(Tensor self, int[1] dim=[], bool keepdim=False) -\u003e Tensor aten.any any(Tensor self) -\u003e Tensor aten.any.dim any.dim(Tensor self, int dim, bool keepdim=False) -\u003e Tensor aten.any.dims any.dims(Tensor self, int[]? dim=None, bool keepdim=False) -\u003e Tensor aten.arange.start_step arange.start_step(Scalar start, Scalar end, Scalar step=1, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -\u003e Tensor aten.argmax argmax(Tensor self, int? dim=None, bool keepdim=False) -\u003e Tensor aten.argmin argmin(Tensor self, int? dim=None, bool keepdim=False) -\u003e Tensor aten.as_strided as_strided(Tensor(a) self, SymInt[] size, SymInt[] stride, SymInt? storage_offset=None) -\u003e Tensor(a) aten.asin asin(Tensor self) -\u003e Tensor aten.asinh asinh(Tensor self) -\u003e Tensor aten.atan atan(Tensor self) -\u003e Tensor aten.atan2 atan2(Tensor self, Tensor other) -\u003e Tensor aten.atan2.out atan2.out(Tensor self, Tensor other, *, Tensor(a!) out) -\u003e Tensor(a!) aten.atanh atanh(Tensor self) -\u003e Tensor aten.avg_pool1d avg_pool1d(Tensor self, int[1] kernel_size, int[1] stride=[], int[1] padding=0, bool ceil_mode=False, bool count_include_pad=True) -\u003e Tensor aten.avg_pool2d avg_pool2d(Tensor self, int[2] kernel_size, int[2] stride=[], int[2] padding=0, bool ceil_mode=False, bool count_include_pad=True, int? divisor_override=None) -\u003e Tensor aten.avg_pool2d_backward avg_pool2d_backward(Tensor grad_output, Tensor self, int[2] kernel_size, int[2] stride, int[2] padding, bool ceil_mode, bool count_include_pad, int? divisor_override) -\u003e Tensor aten.avg_pool3d avg_pool3d(Tensor self, int[3] kernel_size, int[3] stride=[], int[3] padding=0, bool ceil_mode=False, bool count_include_pad=True, int? divisor_override=None) -\u003e Tensor aten.bitwise_and.Scalar bitwise_and.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.bitwise_and.Tensor bitwise_and.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.bitwise_not bitwise_not(Tensor self) -\u003e Tensor aten.bitwise_or.Scalar bitwise_or.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.bitwise_or.Tensor bitwise_or.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.bitwise_xor.Scalar bitwise_xor.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.bitwise_xor.Tensor bitwise_xor.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.bmm bmm(Tensor self, Tensor mat2) -\u003e Tensor aten.cat cat(Tensor[] tensors, int dim=0) -\u003e Tensor aten.ceil ceil(Tensor self) -\u003e Tensor aten.clamp clamp(Tensor self, Scalar? min=None, Scalar? max=None) -\u003e Tensor aten.clamp.Tensor clamp.Tensor(Tensor self, Tensor? min=None, Tensor? max=None) -\u003e Tensor aten.clone clone(Tensor self, *, MemoryFormat? memory_format=None) -\u003e Tensor aten.col2im col2im(Tensor self, SymInt[2] output_size, int[2] kernel_size, int[2] dilation, int[2] padding, int[2] stride) -\u003e Tensor aten.constant_pad_nd constant_pad_nd(Tensor self, SymInt[] pad, Scalar value=0) -\u003e Tensor aten.convolution convolution(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups) -\u003e Tensor aten.convolution_backward convolution_backward(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask) -\u003e (Tensor, Tensor, Tensor) aten.copy copy(Tensor self, Tensor src, bool non_blocking=False) -\u003e Tensor aten.cos cos(Tensor self) -\u003e Tensor aten.cosh cosh(Tensor self) -\u003e Tensor aten.cumsum cumsum(Tensor self, int dim, *, ScalarType? dtype=None) -\u003e Tensor aten.diagonal diagonal(Tensor(a) self, int offset=0, int dim1=0, int dim2=1) -\u003e Tensor(a) aten.div.Scalar div.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.div.Scalar_mode div.Scalar_mode(Tensor self, Scalar other, *, str? rounding_mode) -\u003e Tensor aten.div.Tensor div.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.div.Tensor_mode div.Tensor_mode(Tensor self, Tensor other, *, str? rounding_mode) -\u003e Tensor aten.elu elu(Tensor self, Scalar alpha=1, Scalar scale=1, Scalar input_scale=1) -\u003e Tensor aten.embedding embedding(Tensor weight, Tensor indices, SymInt padding_idx=-1, bool scale_grad_by_freq=False, bool sparse=False) -\u003e Tensor aten.embedding_dense_backward embedding_dense_backward(Tensor grad_output, Tensor indices, SymInt num_weights, SymInt padding_idx, bool scale_grad_by_freq) -\u003e Tensor aten.empty.memory_format empty.memory_format(SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, MemoryFormat? memory_format=None) -\u003e Tensor aten.empty_strided empty_strided(SymInt[] size, SymInt[] stride, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -\u003e Tensor aten.eq.Scalar eq.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.eq.Tensor eq.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.erf erf(Tensor self) -\u003e Tensor aten.exp exp(Tensor self) -\u003e Tensor aten.expand expand(Tensor(a) self, SymInt[] size, *, bool implicit=False) -\u003e Tensor(a) aten.expm1 expm1(Tensor self) -\u003e Tensor aten.fill.Scalar fill.Scalar(Tensor self, Scalar value) -\u003e Tensor aten.flip flip(Tensor self, int[] dims) -\u003e Tensor aten.floor floor(Tensor self) -\u003e Tensor aten.fmod.Scalar fmod.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.fmod.Tensor fmod.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.full full(SymInt[] size, Scalar fill_value, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -\u003e Tensor aten.full_like full_like(Tensor self, Scalar fill_value, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, MemoryFormat? memory_format=None) -\u003e Tensor aten.gather gather(Tensor self, int dim, Tensor index, *, bool sparse_grad=False) -\u003e Tensor aten.ge.Scalar ge.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.ge.Tensor ge.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.gelu gelu(Tensor self, *, str approximate=\u2019none\u2019) -\u003e Tensor aten.grid_sampler_2d grid_sampler_2d(Tensor input, Tensor grid, int interpolation_mode, int padding_mode, bool align_corners) -\u003e Tensor aten.gt.Scalar gt.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.gt.Tensor gt.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.hardtanh hardtanh(Tensor self, Scalar min_val=-1, Scalar max_val=1) -\u003e Tensor aten.index.Tensor index.Tensor(Tensor self, Tensor?[] indices) -\u003e Tensor aten.index_put index_put(Tensor self, Tensor?[] indices, Tensor values, bool accumulate=False) -\u003e Tensor aten.index_select index_select(Tensor self, int dim, Tensor index) -\u003e Tensor aten.isinf isinf(Tensor self) -\u003e Tensor aten.isnan isnan(Tensor self) -\u003e Tensor aten.le.Scalar le.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.le.Tensor le.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.leaky_relu leaky_relu(Tensor self, Scalar negative_slope=0.01) -\u003e Tensor aten.log log(Tensor self) -\u003e Tensor aten.log10 log10(Tensor self) -\u003e Tensor aten.log1p log1p(Tensor self) -\u003e Tensor aten.log2 log2(Tensor self) -\u003e Tensor aten.logical_and logical_and(Tensor self, Tensor other) -\u003e Tensor aten.logical_not logical_not(Tensor self) -\u003e Tensor aten.logical_or logical_or(Tensor self, Tensor other) -\u003e Tensor aten.logical_xor logical_xor(Tensor self, Tensor other) -\u003e Tensor aten.lt.Scalar lt.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.lt.Tensor lt.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.masked_scatter masked_scatter(Tensor self, Tensor mask, Tensor source) -\u003e Tensor aten.max.dim max.dim(Tensor self, int dim, bool keepdim=False) -\u003e (Tensor values, Tensor indices) aten.max_pool2d_with_indices max_pool2d_with_indices(Tensor self, int[2] kernel_size, int[2] stride=[], int[2] padding=0, int[2] dilation=1, bool ceil_mode=False) -\u003e (Tensor, Tensor) aten.max_pool2d_with_indices_backward max_pool2d_with_indices_backward(Tensor grad_output, Tensor self, int[2] kernel_size, int[2] stride, int[2] padding, int[2] dilation, bool ceil_mode, Tensor indices) -\u003e Tensor aten.max_pool3d_with_indices max_pool3d_with_indices(Tensor self, int[3] kernel_size, int[3] stride=[], int[3] padding=0, int[3] dilation=1, bool ceil_mode=False) -\u003e (Tensor, Tensor) aten.maximum maximum(Tensor self, Tensor other) -\u003e Tensor aten.mean mean(Tensor self, *, ScalarType? dtype=None) -\u003e Tensor aten.mean.dim mean.dim(Tensor self, int[1]? dim, bool keepdim=False, *, ScalarType? dtype=None) -\u003e Tensor aten.min.dim min.dim(Tensor self, int dim, bool keepdim=False) -\u003e (Tensor values, Tensor indices) aten.minimum minimum(Tensor self, Tensor other) -\u003e Tensor aten.mm mm(Tensor self, Tensor mat2) -\u003e Tensor aten.mul.Scalar mul.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.mul.Tensor mul.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.native_dropout native_dropout(Tensor input, float p, bool? train) -\u003e (Tensor, Tensor) aten.native_group_norm native_group_norm(Tensor input, Tensor? weight, Tensor? bias, SymInt N, SymInt C, SymInt HxW, int group, float eps) -\u003e (Tensor, Tensor, Tensor) aten.native_group_norm_backward native_group_norm_backward(Tensor grad_out, Tensor input, Tensor mean, Tensor rstd, Tensor? weight, SymInt N, SymInt C, SymInt HxW, int group, bool[3] output_mask) -\u003e (Tensor, Tensor, Tensor) aten.native_layer_norm native_layer_norm(Tensor input, SymInt[] normalized_shape, Tensor? weight, Tensor? bias, float eps) -\u003e (Tensor, Tensor, Tensor) aten.native_layer_norm_backward native_layer_norm_backward(Tensor grad_out, Tensor input, SymInt[] normalized_shape, Tensor mean, Tensor rstd, Tensor? weight, Tensor? bias, bool[3] output_mask) -\u003e (Tensor, Tensor, Tensor) aten.ne.Scalar ne.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.ne.Tensor ne.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.neg neg(Tensor self) -\u003e Tensor aten.nonzero nonzero(Tensor self) -\u003e Tensor aten.permute permute(Tensor(a) self, int[] dims) -\u003e Tensor(a) aten.pow.Scalar pow.Scalar(Scalar self, Tensor exponent) -\u003e Tensor aten.pow.Tensor_Scalar pow.Tensor_Scalar(Tensor self, Scalar exponent) -\u003e Tensor aten.pow.Tensor_Tensor pow.Tensor_Tensor(Tensor self, Tensor exponent) -\u003e Tensor aten.prod prod(Tensor self, *, ScalarType? dtype=None) -\u003e Tensor aten.prod.dim_int prod.dim_int(Tensor self, int dim, bool keepdim=False, *, ScalarType? dtype=None) -\u003e Tensor aten.rand rand(SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -\u003e Tensor aten.randn randn(SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -\u003e Tensor aten.randperm randperm(SymInt n, *, ScalarType? dtype=long, Layout? layout=None, Device? device=None, bool? pin_memory=None) -\u003e Tensor aten.reciprocal reciprocal(Tensor self) -\u003e Tensor aten.reflection_pad1d reflection_pad1d(Tensor self, SymInt[2] padding) -\u003e Tensor aten.reflection_pad2d reflection_pad2d(Tensor self, SymInt[4] padding) -\u003e Tensor aten.reflection_pad3d reflection_pad3d(Tensor self, SymInt[6] padding) -\u003e Tensor aten.relu relu(Tensor self) -\u003e Tensor aten.remainder.Scalar remainder.Scalar(Tensor self, Scalar other) -\u003e Tensor aten.remainder.Tensor remainder.Tensor(Tensor self, Tensor other) -\u003e Tensor aten.repeat repeat(Tensor self, SymInt[] repeats) -\u003e Tensor aten.replication_pad2d replication_pad2d(Tensor self, SymInt[4] padding) -\u003e Tensor aten.replication_pad3d replication_pad3d(Tensor self, SymInt[6] padding) -\u003e Tensor aten.resize_ resize_(Tensor(a!) self, SymInt[] size, *, MemoryFormat? memory_format=None) -\u003e Tensor(a!) aten.round round(Tensor self) -\u003e Tensor aten.rsqrt rsqrt(Tensor self) -\u003e Tensor aten.scalar_tensor scalar_tensor(Scalar s, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -\u003e Tensor aten.scatter.src scatter.src(Tensor self, int dim, Tensor index, Tensor src) -\u003e Tensor aten.scatter.value scatter.value(Tensor self, int dim, Tensor index, Scalar value) -\u003e Tensor aten.scatter_add scatter_add(Tensor self, int dim, Tensor index, Tensor src) -\u003e Tensor aten.scatter_reduce.two scatter_reduce.two(Tensor self, int dim, Tensor index, Tensor src, str reduce, *, bool include_self=True) -\u003e Tensor aten.select.int select.int(Tensor(a) self, int dim, SymInt index) -\u003e Tensor(a) aten.select_scatter select_scatter(Tensor self, Tensor src, int dim, SymInt index) -\u003e Tensor aten.sigmoid sigmoid(Tensor self) -\u003e Tensor aten.sign sign(Tensor self) -\u003e Tensor aten.sin sin(Tensor self) -\u003e Tensor aten.sinh sinh(Tensor self) -\u003e Tensor aten.slice.Tensor slice.Tensor(Tensor(a) self, int dim=0, SymInt? start=None, SymInt? end=None, SymInt step=1) -\u003e Tensor(a) aten.slice_scatter slice_scatter(Tensor self, Tensor src, int dim=0, SymInt? start=None, SymInt? end=None, SymInt step=1) -\u003e Tensor aten.sort sort(Tensor self, int dim=-1, bool descending=False) -\u003e (Tensor values, Tensor indices) aten.split_with_sizes split_with_sizes(Tensor(a -\u003e *) self, SymInt[] split_sizes, int dim=0) -\u003e Tensor(a)[] aten.sqrt sqrt(Tensor self) -\u003e Tensor aten.squeeze.dim squeeze.dim(Tensor(a) self, int dim) -\u003e Tensor(a) aten.squeeze.dims squeeze.dims(Tensor(a) self, int[] dim) -\u003e Tensor(a) aten.sub.Scalar sub.Scalar(Tensor self, Scalar other, Scalar alpha=1) -\u003e Tensor aten.sub.Tensor sub.Tensor(Tensor self, Tensor other, *, Scalar alpha=1) -\u003e Tensor aten.sum.dim_IntList sum.dim_IntList(Tensor self, int[1]? dim, bool keepdim=False, *, ScalarType? dtype=None) -\u003e Tensor aten.sym_is_contiguous sym_is_contiguous(Tensor self, MemoryFormat memory_format=contiguous_format) -\u003e SymBool aten.sym_numel sym_numel(Tensor self) -\u003e SymInt aten.sym_size.int sym_size.int(Tensor self, int dim) -\u003e SymInt aten.sym_storage_offset sym_storage_offset(Tensor self) -\u003e SymInt aten.sym_stride.int sym_stride.int(Tensor self, int dim) -\u003e SymInt aten.tan tan(Tensor self) -\u003e Tensor aten.tanh tanh(Tensor self) -\u003e Tensor aten.topk topk(Tensor self, SymInt k, int dim=-1, bool largest=True, bool sorted=True) -\u003e (Tensor values, Tensor indices) aten.trunc trunc(Tensor self) -\u003e Tensor aten.unsqueeze unsqueeze(Tensor(a) self, int dim) -\u003e Tensor(a) aten.upsample_bilinear2d.vec upsample_bilinear2d.vec(Tensor input, SymInt[]? output_size, bool align_corners, float[]? scale_factors) -\u003e Tensor aten.upsample_nearest2d.vec upsample_nearest2d.vec(Tensor input, SymInt[]? output_size, float[]? scale_factors) -\u003e Tensor aten.var.correction var.correction(Tensor self, int[1]? dim=None, *, Scalar? correction=None, bool keepdim=False) -\u003e Tensor aten.var.dim var.dim(Tensor self, int[1]? dim, bool unbiased=True, bool keepdim=False) -\u003e Tensor aten.view view(Tensor(a) self, SymInt[] size) -\u003e Tensor(a) aten.where.self where.self(Tensor condition, Tensor self, Tensor other) -\u003e Tensor Prims IR# Prims IR is a set of primitive operators that can be used to compose other operators. Prims IR is a lower level opset than core aten IR, and it further decomposes ops into explicit type promotion and broadcasting ops: prims.convert_element_type and prims.broadcast_in_dim. This opset is designed to interface with compiler backends. Warning This opset is still under active development, more ops will be added in the future. Operator Schema prims.abs (Tensor self) -\u003e Tensor prims.acos (Tensor self) -\u003e Tensor prims.acosh (Tensor self) -\u003e Tensor prims.asin (Tensor self) -\u003e Tensor prims.asinh (Tensor self) -\u003e Tensor prims.atan (Tensor self) -\u003e Tensor prims.atanh (Tensor self) -\u003e Tensor prims.cos (Tensor self) -\u003e Tensor prims.cosh (Tensor self) -\u003e Tensor prims.bessel_i0 (Tensor self) -\u003e Tensor prims.bessel_i0e (Tensor self) -\u003e Tensor prims.bessel_i1 (Tensor self) -\u003e Tensor prims.bessel_i1e (Tensor self) -\u003e Tensor prims.bessel_j0 (Tensor self) -\u003e Tensor prims.bessel_j1 (Tensor self) -\u003e Tensor prims.bitwise_not (Tensor self) -\u003e Tensor prims.cbrt (Tensor self) -\u003e Tensor prims.ceil (Tensor self) -\u003e Tensor prims.conj_physical (Tensor self) -\u003e Tensor prims.digamma (Tensor self) -\u003e Tensor prims.erf (Tensor self) -\u003e Tensor prims.erf_inv (Tensor self) -\u003e Tensor prims.erfc (Tensor self) -\u003e Tensor prims.erfcx (Tensor self) -\u003e Tensor prims.exp (Tensor self) -\u003e Tensor prims.expm1 (Tensor self) -\u003e Tensor prims.exp2 (Tensor self) -\u003e Tensor prims.fill (Tensor self, Scalar value) -\u003e Tensor prims.floor (Tensor self) -\u003e Tensor prims.imag (Tensor(a) self) -\u003e Tensor(a) prims.isfinite (Tensor self) -\u003e Tensor prims.lgamma (Tensor self) -\u003e Tensor prims.log (Tensor self) -\u003e Tensor prims.log1p (Tensor self) -\u003e Tensor prims.log2 (Tensor self) -\u003e Tensor prims.log10 (Tensor self) -\u003e Tensor prims.ndtri (Tensor self) -\u003e Tensor prims.neg (Tensor self) -\u003e Tensor prims.real (Tensor(a) self) -\u003e Tensor(a) prims.reciprocal (Tensor self) -\u003e Tensor prims.round (Tensor self) -\u003e Tensor prims.sign (Tensor self) -\u003e Tensor prims.signbit (Tensor self) -\u003e Tensor prims.sin (Tensor self) -\u003e Tensor prims.sinh (Tensor self) -\u003e Tensor prims.spherical_bessel_j0 (Tensor self) -\u003e Tensor prims.sqrt (Tensor self) -\u003e Tensor prims.tan (Tensor self) -\u003e Tensor prims.tanh (Tensor self) -\u003e Tensor prims.trunc (Tensor self) -\u003e Tensor prims.add (Tensor self, Tensor other) -\u003e Tensor prims.atan2 (Tensor self, Tensor other) -\u003e Tensor prims.bitwise_and (Tensor self, Tensor other) -\u003e Tensor prims.bitwise_or (Tensor self, Tensor other) -\u003e Tensor prims.bitwise_xor (Tensor self, Tensor other) -\u003e Tensor prims.div (Tensor self, Tensor other) -\u003e Tensor prims.eq (Tensor self, Tensor other) -\u003e Tensor prims.fmax (Tensor self, Tensor other) -\u003e Tensor prims.fmin (Tensor self, Tensor other) -\u003e Tensor prims.fmod (Tensor self, Tensor other) -\u003e Tensor prims.frexp (Tensor self) -\u003e (Tensor mantissa, Tensor exponent) prims.gcd (Tensor self, Tensor other) -\u003e Tensor prims.ge (Tensor self, Tensor other) -\u003e Tensor prims.gt (Tensor self, Tensor other) -\u003e Tensor prims.hypot (Tensor self, Tensor other) -\u003e Tensor prims.igamma (Tensor self, Tensor other) -\u003e Tensor prims.igammac (Tensor self, Tensor other) -\u003e Tensor prims.le (Tensor self, Tensor other) -\u003e Tensor prims.lt (Tensor self, Tensor other) -\u003e Tensor prims.maximum (Tensor self, Tensor other) -\u003e Tensor prims.minimum (Tensor self, Tensor other) -\u003e Tensor prims.mul (Tensor self, Tensor other) -\u003e Tensor prims.ne (Tensor self, Tensor other) -\u003e Tensor prims.nextafter (Tensor self, Tensor other) -\u003e Tensor prims.pow (Tensor self, Tensor other) -\u003e Tensor prims.remainder (Tensor self, Tensor other) -\u003e Tensor prims.rsqrt (Tensor self) -\u003e Tensor prims.shift_left (Tensor self, Tensor other) -\u003e Tensor prims.shift_right_arithmetic (Tensor self, Tensor other) -\u003e Tensor prims.sub (Tensor self, Tensor other) -\u003e Tensor prims.zeta (Tensor self, Tensor other) -\u003e Tensor prims.as_strided (Tensor(a!) a, SymInt[] size, SymInt[] stride, SymInt storage_offset) -\u003e Tensor(a!) prims.broadcast_in_dim (Tensor(a) a, SymInt[] shape, int[] broadcast_dimensions) -\u003e Tensor(a) prims.collapse_view (Tensor(a) a, int start, int end) -\u003e Tensor(a) prims.conj (Tensor(a) a) -\u003e Tensor(a) prims.split_dim (Tensor(a) a, int dim, SymInt outer_length) -\u003e Tensor(a) prims.squeeze (Tensor(a) a, int[] dimensions) -\u003e Tensor(a) prims.transpose (Tensor(a) a, int[] permutation) -\u003e Tensor(a) prims.view_of (Tensor(a) a) -\u003e Tensor(a) prims.view_of_dtype (Tensor(a) a, ScalarType dtype) -\u003e Tensor(a) prims.as_strided_scatter (Tensor self, Tensor src, SymInt[] size, SymInt[] stride, SymInt storage_offset) -\u003e Tensor prims.collapse (Tensor a, int start, int end) -\u003e Tensor prims.cat (Tensor[] tensors, int dim) -\u003e Tensor prims.reshape (Tensor a, SymInt[] shape) -\u003e Tensor prims.rev (Tensor a, int[] dims) -\u003e Tensor prims.where (Tensor pred, Tensor a, Tensor b) -\u003e Tensor prims.clone (Tensor self, *, MemoryFormat? memory_format=None) -\u003e Tensor prims.convert_element_type (Tensor a, ScalarType dtype) -\u003e Tensor prims.device_put (Tensor a, Device device, bool non_blocking=False) -\u003e Tensor prims.item (Tensor a) -\u003e Scalar prims.maximum_value (ScalarType dtype) -\u003e Scalar prims.minimum_value (ScalarType dtype) -\u003e Scalar prims.copy_strided (Tensor a, SymInt[] stride) -\u003e Tensor prims.copy_to (Tensor(a!) a, Tensor b) -\u003e Tensor(a!) prims.resize (Tensor(a!) a, SymInt[] shape) -\u003e Tensor(a!) prims.amax (Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -\u003e Tensor prims.amin (Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -\u003e Tensor prims.prod (Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -\u003e Tensor prims.sum (Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -\u003e Tensor prims.xor_sum (Tensor inp, int[]? dims, *, ScalarType? output_dtype=None) -\u003e Tensor prims.var (Tensor inp, int[]? dims, float? correction=1, *, ScalarType? output_dtype=None) -\u003e Tensor prims.empty_strided (SymInt[] shape, SymInt[] strides, *, ScalarType dtype, Device device, bool requires_grad) -\u003e Tensor prims.empty_permuted (SymInt[] shape, int[] physical_layout, *, ScalarType dtype, Device device, bool requires_grad) -\u003e Tensor prims.scalar_tensor (Scalar s, *, ScalarType? dtype=None, Device? device=None) -\u003e Tensor prims.iota (SymInt length, *, SymInt start, SymInt step, ScalarType dtype, Device device, bool requires_grad) -\u003e Tensor prims.svd (Tensor A, *, bool full_matrices) -\u003e (Tensor U, Tensor S, Tensor Vh) prims.normal (SymInt[] shape, *, Scalar mean, Scalar std, ScalarType dtype, Device device, bool requires_grad, Generator? generator=None) -\u003e Tensor prims.uniform (SymInt[] shape, *, Scalar low, Scalar high, ScalarType dtype, Device device, Generator? generator=None) -\u003e Tensor prims.fft_r2c (Tensor self, *, int[] dim, bool onesided) -\u003e Tensor prims.fft_c2c (Tensor self, *, int[] dim, bool forward) -\u003e Tensor prims.fft_c2r (Tensor self, *, int[] dim, SymInt last_dim_size) -\u003e Tensor prims._make_token () -\u003e Tensor prims._sink_tokens (Tensor[] tokens) -\u003e ()",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/torch.compiler_ir.html"
+       },
+       "datePublished": "Dec 13, 2022T00:00:00Z",
+       "dateModified": "Jul 16, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

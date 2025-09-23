@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/nested.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', '2.9');
- </script>
+  document.documentElement.setAttribute('data-version', '2.9');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -180,8 +190,10 @@
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -518,7 +530,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -526,7 +539,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -3388,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4354,23 +4367,24 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="pytorch-api.html">
-          <meta itemprop="name" content="Reference API">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="pytorch-api.html">
+        <meta itemprop="name" content="Reference API">
+        <meta itemprop="position" content="1">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="torch.nested">
         <meta itemprop="position" content="2">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -5128,7 +5142,7 @@ Only strided and jagged layouts are supported. Default: if None, the strided lay
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -5344,91 +5358,124 @@ Only strided and jagged layouts are supported. Default: if None, the strided lay
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -5436,8 +5483,7 @@ Only strided and jagged layouts are supported. Default: if None, the strided lay
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -5477,28 +5523,47 @@ Only strided and jagged layouts are supported. Default: if None, the strided lay
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "torch.nested",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/nested.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/nested.html"
-         },
-        "datePublished": "Mar 02, 2022T00:00:00Z",
-         "dateModified": "Jun 14, 2025T00:00:00Z",
-         "articleBody": "torch.nested# Created On: Mar 02, 2022 | Last Updated On: Jun 14, 2025 Introduction# Warning The PyTorch API of nested tensors is in prototype stage and will change in the near future. Nested tensors allow for ragged-shaped data to be contained within and operated upon as a single tensor. Such data is stored underneath in an efficient packed representation, while exposing a standard PyTorch tensor interface for applying operations. A common application of nested tensors is for expressing batches of variable-length sequential data present in various domains, such as varying sentence lengths, image sizes, and audio / video clip lengths. Traditionally, such data has been handled by padding sequences to that of the max length within a batch, performing computation on the padded form, and subsequently masking to remove padding. This is inefficient and error-prone, and nested tensors exist to address these problems. The API for calling operations on a nested tensor is no different from that of a regular torch.Tensor, allowing for seamless integration with existing models, with the main difference being construction of the inputs. As this is a prototype feature, the set of operations supported is limited, but growing. We welcome issues, feature requests, and contributions. More information on contributing can be found in this Readme. Construction# Note There are two forms of nested tensors present within PyTorch, distinguished by layout as specified during construction. Layout can be one of torch.strided or torch.jagged. We recommend utilizing the torch.jagged layout whenever possible. While it currently only supports a single ragged dimension, it has better op coverage, receives active development, and integrates well with torch.compile. These docs adhere to this recommendation and refer to nested tensors with the torch.jagged layout as “NJTs” for brevity throughout. Construction is straightforward and involves passing a list of tensors to the torch.nested.nested_tensor constructor. A nested tensor with the torch.jagged layout (AKA an “NJT”) supports a single ragged dimension. This constructor will copy the input tensors into a packed, contiguous block of memory according to the layout described in the data_layout_ section below. &gt;&gt;&gt; a, b = torch.arange(3), torch.arange(5) + 3 &gt;&gt;&gt; a tensor([0, 1, 2]) &gt;&gt;&gt; b tensor([3, 4, 5, 6, 7]) &gt;&gt;&gt; nt = torch.nested.nested_tensor([a, b], layout=torch.jagged) &gt;&gt;&gt; print([component for component in nt]) [tensor([0, 1, 2]), tensor([3, 4, 5, 6, 7])] Each tensor in the list must have the same number of dimensions, but the shapes can otherwise vary along a single dimension. If the dimensionalities of the input components don’t match, the constructor throws an error. &gt;&gt;&gt; a = torch.randn(50, 128) # 2D tensor &gt;&gt;&gt; b = torch.randn(2, 50, 128) # 3D tensor &gt;&gt;&gt; nt = torch.nested.nested_tensor([a, b], layout=torch.jagged) ... RuntimeError: When constructing a nested tensor, all tensors in list must have the same dim During constr..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "torch.nested",
+       "headline": "torch.nested",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/nested.html",
+       "articleBody": "torch.nested# Created On: Mar 02, 2022 | Last Updated On: Jun 14, 2025 Introduction# Warning The PyTorch API of nested tensors is in prototype stage and will change in the near future. Nested tensors allow for ragged-shaped data to be contained within and operated upon as a single tensor. Such data is stored underneath in an efficient packed representation, while exposing a standard PyTorch tensor interface for applying operations. A common application of nested tensors is for expressing batches of variable-length sequential data present in various domains, such as varying sentence lengths, image sizes, and audio / video clip lengths. Traditionally, such data has been handled by padding sequences to that of the max length within a batch, performing computation on the padded form, and subsequently masking to remove padding. This is inefficient and error-prone, and nested tensors exist to address these problems. The API for calling operations on a nested tensor is no different from that of a regular torch.Tensor, allowing for seamless integration with existing models, with the main difference being construction of the inputs. As this is a prototype feature, the set of operations supported is limited, but growing. We welcome issues, feature requests, and contributions. More information on contributing can be found in this Readme. Construction# Note There are two forms of nested tensors present within PyTorch, distinguished by layout as specified during construction. Layout can be one of torch.strided or torch.jagged. We recommend utilizing the torch.jagged layout whenever possible. While it currently only supports a single ragged dimension, it has better op coverage, receives active development, and integrates well with torch.compile. These docs adhere to this recommendation and refer to nested tensors with the torch.jagged layout as \u201cNJTs\u201d for brevity throughout. Construction is straightforward and involves passing a list of tensors to the torch.nested.nested_tensor constructor. A nested tensor with the torch.jagged layout (AKA an \u201cNJT\u201d) supports a single ragged dimension. This constructor will copy the input tensors into a packed, contiguous block of memory according to the layout described in the data_layout_ section below. \u003e\u003e\u003e a, b = torch.arange(3), torch.arange(5) + 3 \u003e\u003e\u003e a tensor([0, 1, 2]) \u003e\u003e\u003e b tensor([3, 4, 5, 6, 7]) \u003e\u003e\u003e nt = torch.nested.nested_tensor([a, b], layout=torch.jagged) \u003e\u003e\u003e print([component for component in nt]) [tensor([0, 1, 2]), tensor([3, 4, 5, 6, 7])] Each tensor in the list must have the same number of dimensions, but the shapes can otherwise vary along a single dimension. If the dimensionalities of the input components don\u2019t match, the constructor throws an error. \u003e\u003e\u003e a = torch.randn(50, 128) # 2D tensor \u003e\u003e\u003e b = torch.randn(2, 50, 128) # 3D tensor \u003e\u003e\u003e nt = torch.nested.nested_tensor([a, b], layout=torch.jagged) ... RuntimeError: When constructing a nested tensor, all tensors in list must have the same dim During construction, dtype, device, and whether gradients are required can be chosen via the usual keyword arguments. \u003e\u003e\u003e nt = torch.nested.nested_tensor([a, b], layout=torch.jagged, dtype=torch.float32, device=\"cuda\", requires_grad=True) \u003e\u003e\u003e print([component for component in nt]) [tensor([0., 1., 2.], device=\u0027cuda:0\u0027, grad_fn=\u003cUnbindBackwardAutogradNestedTensor0\u003e), tensor([3., 4., 5., 6., 7.], device=\u0027cuda:0\u0027, grad_fn=\u003cUnbindBackwardAutogradNestedTensor0\u003e)] torch.nested.as_nested_tensor can be used to preserve autograd history from the tensors passed to the constructor. When this constructor is utilized, gradients will flow through the nested tensor back into the original components. Note that this constructor still copies the input components into a packed, contiguous block of memory. \u003e\u003e\u003e a = torch.randn(12, 512, requires_grad=True) \u003e\u003e\u003e b = torch.randn(23, 512, requires_grad=True) \u003e\u003e\u003e nt = torch.nested.as_nested_tensor([a, b], layout=torch.jagged, dtype=torch.float32) \u003e\u003e\u003e nt.sum().backward() \u003e\u003e\u003e a.grad tensor([[1., 1., 1., ..., 1., 1., 1.], [1., 1., 1., ..., 1., 1., 1.], [1., 1., 1., ..., 1., 1., 1.], ..., [1., 1., 1., ..., 1., 1., 1.], [1., 1., 1., ..., 1., 1., 1.], [1., 1., 1., ..., 1., 1., 1.]]) \u003e\u003e\u003e b.grad tensor([[1., 1., 1., ..., 1., 1., 1.], [1., 1., 1., ..., 1., 1., 1.], [1., 1., 1., ..., 1., 1., 1.], ..., [1., 1., 1., ..., 1., 1., 1.], [1., 1., 1., ..., 1., 1., 1.], [1., 1., 1., ..., 1., 1., 1.]]) The above functions all create contiguous NJTs, where a chunk of memory is allocated to store a packed form of the underlying components (see the data_layout_ section below for more details). It is also possible to create a non-contiguous NJT view over a pre-existing dense tensor with padding, avoiding the memory allocation and copying. torch.nested.narrow() is the tool for accomplishing this. \u003e\u003e\u003e padded = torch.randn(3, 5, 4) \u003e\u003e\u003e seq_lens = torch.tensor([3, 2, 5], dtype=torch.int64) \u003e\u003e\u003e nt = torch.nested.narrow(padded, dim=1, start=0, length=seq_lens, layout=torch.jagged) \u003e\u003e\u003e nt.shape torch.Size([3, j1, 4]) \u003e\u003e\u003e nt.is_contiguous() False Note that the nested tensor acts as a view over the original padded dense tensor, referencing the same memory without copying / allocation. Operation support for non-contiguous NJTs is somewhat more limited, so if you run into support gaps, it\u2019s always possible to convert to a contiguous NJT using contiguous(). Data Layout and Shape# For efficiency, nested tensors generally pack their tensor components into a contiguous chunk of memory and maintain additional metadata to specify batch item boundaries. For the torch.jagged layout, the contiguous chunk of memory is stored in the values component, with the offsets component delineating batch item boundaries for the ragged dimension. It\u2019s possible to directly access the underlying NJT components when necessary. \u003e\u003e\u003e a = torch.randn(50, 128) # text 1 \u003e\u003e\u003e b = torch.randn(32, 128) # text 2 \u003e\u003e\u003e nt = torch.nested.nested_tensor([a, b], layout=torch.jagged, dtype=torch.float32) \u003e\u003e\u003e nt.values().shape # note the \"packing\" of the ragged dimension; no padding needed torch.Size([82, 128]) \u003e\u003e\u003e nt.offsets() tensor([ 0, 50, 82]) It can also be useful to construct an NJT from the jagged values and offsets constituents directly; the torch.nested.nested_tensor_from_jagged() constructor serves this purpose. \u003e\u003e\u003e values = torch.randn(82, 128) \u003e\u003e\u003e offsets = torch.tensor([0, 50, 82], dtype=torch.int64) \u003e\u003e\u003e nt = torch.nested.nested_tensor_from_jagged(values=values, offsets=offsets) An NJT has a well-defined shape with dimensionality 1 greater than that of its components. The underlying structure of the ragged dimension is represented by a symbolic value (j1 in the example below). \u003e\u003e\u003e a = torch.randn(50, 128) \u003e\u003e\u003e b = torch.randn(32, 128) \u003e\u003e\u003e nt = torch.nested.nested_tensor([a, b], layout=torch.jagged, dtype=torch.float32) \u003e\u003e\u003e nt.dim() 3 \u003e\u003e\u003e nt.shape torch.Size([2, j1, 128]) NJTs must have the same ragged structure to be compatible with each other. For example, to run a binary operation involving two NJTs, the ragged structures must match (i.e. they must have the same ragged shape symbol in their shapes). In the details, each symbol corresponds with an exact offsets tensor, so both NJTs must have the same offsets tensor to be compatible with each other. \u003e\u003e\u003e a = torch.randn(50, 128) \u003e\u003e\u003e b = torch.randn(32, 128) \u003e\u003e\u003e nt1 = torch.nested.nested_tensor([a, b], layout=torch.jagged, dtype=torch.float32) \u003e\u003e\u003e nt2 = torch.nested.nested_tensor([a, b], layout=torch.jagged, dtype=torch.float32) \u003e\u003e\u003e nt1.offsets() is nt2.offsets() False \u003e\u003e\u003e nt3 = nt1 + nt2 RuntimeError: cannot call binary pointwise function add.Tensor with inputs of shapes (2, j2, 128) and (2, j3, 128) In the above example, even though the conceptual shapes of the two NJTs are the same, they don\u2019t share a reference to the same offsets tensor, so their shapes differ, and they are not compatible. We recognize that this behavior is unintuitive and are working hard to relax this restriction for the beta release of nested tensors. For a workaround, see the Troubleshooting section of this document. In addition to the offsets metadata, NJTs can also compute and cache the minimum and maximum sequence lengths for its components, which can be useful for invoking particular kernels (e.g. SDPA). There are currently no public APIs for accessing these, but this will change for the beta release. Supported Operations# This section contains a list of common operations over nested tensors that you may find useful. It is not comprehensive, as there are on the order of a couple thousand ops within PyTorch. While a sizeable subset of these are supported for nested tensors today, full support is a large task. The ideal state for nested tensors is full support of all PyTorch operations that are available for non-nested tensors. To help us accomplish this, please consider: Requesting particular ops needed for your use case here to help us prioritize. Contributing! It\u2019s not too hard to add nested tensor support for a given PyTorch op; see the Contributions section below for details. Viewing nested tensor constituents# unbind() allows you to retrieve a view of the nested tensor\u2019s constituents. \u003e\u003e\u003e import torch \u003e\u003e\u003e a = torch.randn(2, 3) \u003e\u003e\u003e b = torch.randn(3, 3) \u003e\u003e\u003e nt = torch.nested.nested_tensor([a, b], layout=torch.jagged) \u003e\u003e\u003e nt.unbind() (tensor([[-0.9916, -0.3363, -0.2799], [-2.3520, -0.5896, -0.4374]]), tensor([[-2.0969, -1.0104, 1.4841], [ 2.0952, 0.2973, 0.2516], [ 0.9035, 1.3623, 0.2026]])) \u003e\u003e\u003e nt.unbind()[0] is not a True \u003e\u003e\u003e nt.unbind()[0].mul_(3) tensor([[ 3.6858, -3.7030, -4.4525], [-2.3481, 2.0236, 0.1975]]) \u003e\u003e\u003e nt.unbind() (tensor([[-2.9747, -1.0089, -0.8396], [-7.0561, -1.7688, -1.3122]]), tensor([[-2.0969, -1.0104, 1.4841], [ 2.0952, 0.2973, 0.2516], [ 0.9035, 1.3623, 0.2026]])) Note that nt.unbind()[0] is not a copy, but rather a slice of the underlying memory, which represents the first entry or constituent of the nested tensor. Conversions to / from padded# torch.nested.to_padded_tensor() converts an NJT to a padded dense tensor with the specified padding value. The ragged dimension will be padded out to the size of the maximum sequence length. \u003e\u003e\u003e import torch \u003e\u003e\u003e a = torch.randn(2, 3) \u003e\u003e\u003e b = torch.randn(6, 3) \u003e\u003e\u003e nt = torch.nested.nested_tensor([a, b], layout=torch.jagged) \u003e\u003e\u003e padded = torch.nested.to_padded_tensor(nt, padding=4.2) \u003e\u003e\u003e padded tensor([[[ 1.6107, 0.5723, 0.3913], [ 0.0700, -0.4954, 1.8663], [ 4.2000, 4.2000, 4.2000], [ 4.2000, 4.2000, 4.2000], [ 4.2000, 4.2000, 4.2000], [ 4.2000, 4.2000, 4.2000]], [[-0.0479, -0.7610, -0.3484], [ 1.1345, 1.0556, 0.3634], [-1.7122, -0.5921, 0.0540], [-0.5506, 0.7608, 2.0606], [ 1.5658, -1.1934, 0.3041], [ 0.1483, -1.1284, 0.6957]]]) This can be useful as an escape hatch to work around NJT support gaps, but ideally such conversions should be avoided when possible for optimal memory usage and performance, as the more efficient nested tensor layout does not materialize padding. The reverse conversion can be accomplished using torch.nested.narrow(), which applies ragged structure to a given dense tensor to produce an NJT. Note that by default, this operation does not copy the underlying data, and thus the output NJT is generally non-contiguous. It may be useful to explicitly call contiguous() here if a contiguous NJT is desired. \u003e\u003e\u003e padded = torch.randn(3, 5, 4) \u003e\u003e\u003e seq_lens = torch.tensor([3, 2, 5], dtype=torch.int64) \u003e\u003e\u003e nt = torch.nested.narrow(padded, dim=1, length=seq_lens, layout=torch.jagged) \u003e\u003e\u003e nt.shape torch.Size([3, j1, 4]) \u003e\u003e\u003e nt = nt.contiguous() \u003e\u003e\u003e nt.shape torch.Size([3, j2, 4]) Shape manipulations# Nested tensors support a wide array of operations for shape manipulation, including views. \u003e\u003e\u003e a = torch.randn(2, 6) \u003e\u003e\u003e b = torch.randn(4, 6) \u003e\u003e\u003e nt = torch.nested.nested_tensor([a, b], layout=torch.jagged) \u003e\u003e\u003e nt.shape torch.Size([2, j1, 6]) \u003e\u003e\u003e nt.unsqueeze(-1).shape torch.Size([2, j1, 6, 1]) \u003e\u003e\u003e nt.unflatten(-1, [2, 3]).shape torch.Size([2, j1, 2, 3]) \u003e\u003e\u003e torch.cat([nt, nt], dim=2).shape torch.Size([2, j1, 12]) \u003e\u003e\u003e torch.stack([nt, nt], dim=2).shape torch.Size([2, j1, 2, 6]) \u003e\u003e\u003e nt.transpose(-1, -2).shape torch.Size([2, 6, j1]) Attention mechanisms# As variable-length sequences are common inputs to attention mechanisms, nested tensors support important attention operators Scaled Dot Product Attention (SDPA) and FlexAttention. See here for usage examples of NJT with SDPA and here for usage examples of NJT with FlexAttention. Usage with torch.compile# NJTs are designed to be used with torch.compile() for optimal performance, and we always recommend utilizing torch.compile() with NJTs when possible. NJTs work out-of-the-box and graph-break-free both when passed as inputs to a compiled function or module OR when instantiated in-line within the function. Note If you\u0027re not able to utilize ``torch.compile()`` for your use case, performance and memory usage may still benefit from the use of NJTs, but it\u0027s not as clear-cut whether this will be the case. It is important that the tensors being operated on are large enough so the performance gains are not outweighed by the overhead of python tensor subclasses. \u003e\u003e\u003e import torch \u003e\u003e\u003e a = torch.randn(2, 3) \u003e\u003e\u003e b = torch.randn(4, 3) \u003e\u003e\u003e nt = torch.nested.nested_tensor([a, b], layout=torch.jagged) \u003e\u003e\u003e def f(x): return x.sin() + 1 ... \u003e\u003e\u003e compiled_f = torch.compile(f, fullgraph=True) \u003e\u003e\u003e output = compiled_f(nt) \u003e\u003e\u003e output.shape torch.Size([2, j1, 3]) \u003e\u003e\u003e def g(values, offsets): return torch.nested.nested_tensor_from_jagged(values, offsets) * 2. ... \u003e\u003e\u003e compiled_g = torch.compile(g, fullgraph=True) \u003e\u003e\u003e output2 = compiled_g(nt.values(), nt.offsets()) \u003e\u003e\u003e output2.shape torch.Size([2, j1, 3]) Note that NJTs support Dynamic Shapes to avoid unnecessary recompiles with changing ragged structure. \u003e\u003e\u003e a = torch.randn(2, 3) \u003e\u003e\u003e b = torch.randn(4, 3) \u003e\u003e\u003e c = torch.randn(5, 3) \u003e\u003e\u003e d = torch.randn(6, 3) \u003e\u003e\u003e nt1 = torch.nested.nested_tensor([a, b], layout=torch.jagged) \u003e\u003e\u003e nt2 = torch.nested.nested_tensor([c, d], layout=torch.jagged) \u003e\u003e\u003e def f(x): return x.sin() + 1 ... \u003e\u003e\u003e compiled_f = torch.compile(f, fullgraph=True) \u003e\u003e\u003e output1 = compiled_f(nt1) \u003e\u003e\u003e output2 = compiled_f(nt2) # NB: No recompile needed even though ragged structure differs If you run into problems or arcane errors when utilizing NJT + torch.compile, please file a PyTorch issue. Full subclass support within torch.compile is a long-term effort and there may be some rough edges at this time. Troubleshooting# This section contains common errors that you may run into when utilizing nested tensors, alongside the reason for these errors and suggestions for how to address them. Unimplemented ops# This error is becoming rarer as nested tensor op support grows, but it\u2019s still possible to hit it today given that there are a couple thousand ops within PyTorch. NotImplementedError: aten.view_as_real.default The error is straightforward; we haven\u2019t gotten around to adding op support for this particular op yet. If you\u2019d like, you can contribute an implementation yourself OR simply request that we add support for this op in a future PyTorch release. Ragged structure incompatibility# RuntimeError: cannot call binary pointwise function add.Tensor with inputs of shapes (2, j2, 128) and (2, j3, 128) This error occurs when calling an op that operates over multiple NJTs with incompatible ragged structures. Currently, it is required that input NJTs have the exact same offsets constituent in order to have the same symbolic ragged structure symbol (e.g. j1). As a workaround for this situation, it is possible to construct NJTs from the values and offsets components directly. With both NJTs referencing the same offsets components, they are considered to have the same ragged structure and are thus compatible. \u003e\u003e\u003e a = torch.randn(50, 128) \u003e\u003e\u003e b = torch.randn(32, 128) \u003e\u003e\u003e nt1 = torch.nested.nested_tensor([a, b], layout=torch.jagged, dtype=torch.float32) \u003e\u003e\u003e nt2 = torch.nested.nested_tensor_from_jagged(values=torch.randn(82, 128), offsets=nt1.offsets()) \u003e\u003e\u003e nt3 = nt1 + nt2 \u003e\u003e\u003e nt3.shape torch.Size([2, j1, 128]) Data dependent operation within torch.compile# torch._dynamo.exc.Unsupported: data dependent operator: aten._local_scalar_dense.default; to enable, set torch._dynamo.config.capture_scalar_outputs = True This error occurs when calling an op that does data-dependent operation within torch.compile; this commonly occurs for ops that need to examine the values of the NJT\u2019s offsets to determine the output shape. For example: \u003e\u003e\u003e a = torch.randn(50, 128) \u003e\u003e\u003e b = torch.randn(32, 128) \u003e\u003e\u003e nt = torch.nested.nested_tensor([a, b], layout=torch.jagged, dtype=torch.float32) \u003e\u003e\u003e def f(nt): return nt.chunk(2, dim=0)[0] ... \u003e\u003e\u003e compiled_f = torch.compile(f, fullgraph=True) \u003e\u003e\u003e output = compiled_f(nt) In this example, calling chunk() on the batch dimension of the NJT requires examination of the NJT\u2019s offsets data to delineate batch item boundaries within the packed ragged dimension. As a workaround, there are a couple torch.compile flags that can be set: \u003e\u003e\u003e torch._dynamo.config.capture_dynamic_output_shape_ops = True \u003e\u003e\u003e torch._dynamo.config.capture_scalar_outputs = True If, after setting these, you still see data-dependent operator errors, please file an issue with PyTorch. This area of torch.compile() is still in heavy development and certain aspects of NJT support may be incomplete. Contributions# If you\u2019d like to contribute to nested tensor development, one of the most impactful ways to do so is to add nested tensor support for a currently-unsupported PyTorch op. This process generally consists of a couple simple steps: Determine the name of the op to add; this should be something like aten.view_as_real.default. The signature for this op can be found in aten/src/ATen/native/native_functions.yaml. Register an op implementation in torch/nested/_internal/ops.py, following the pattern established there for other ops. Use the signature from native_functions.yaml for schema validation. The most common way to implement an op is to unwrap the NJT into its constituents, redispatch the op on the underlying values buffer, and propagate the relevant NJT metadata (including offsets) to a new output NJT. If the output of the op is expected to have a different shape from the input, new offsets, etc. metadata must be computed. When an op is applied over the batch or ragged dimension, these tricks can help quickly get a working implementation: For non-batchwise operation, an unbind()-based fallback should work. For operation on the ragged dimension, consider converting to padded dense with a properly-selected padding value that won\u2019t negatively bias the output, running the op, and converting back to NJT. Within torch.compile, these conversions can be fused to avoid materializing the padded intermediate. Detailed Docs for Construction and Conversion Functions# torch.nested.nested_tensor(tensor_list, *, dtype=None, layout=None, device=None, requires_grad=False, pin_memory=False)[source]# Constructs a nested tensor with no autograd history (also known as a \u201cleaf tensor\u201d, see Autograd mechanics) from tensor_list a list of tensors. Parameters tensor_list (List[array_like]) \u2013 a list of tensors, or anything that can be passed to torch.tensor, dimensionality. (where each element of the list has the same) \u2013 Keyword Arguments dtype (torch.dtype, optional) \u2013 the desired type of returned nested tensor. Default: if None, same torch.dtype as leftmost tensor in the list. layout (torch.layout, optional) \u2013 the desired layout of returned nested tensor. Only strided and jagged layouts are supported. Default: if None, the strided layout. device (torch.device, optional) \u2013 the desired device of returned nested tensor. Default: if None, same torch.device as leftmost tensor in the list requires_grad (bool, optional) \u2013 If autograd should record operations on the returned nested tensor. Default: False. pin_memory (bool, optional) \u2013 If set, returned nested tensor would be allocated in the pinned memory. Works only for CPU tensors. Default: False. Return type Tensor Example: \u003e\u003e\u003e a = torch.arange(3, dtype=torch.float, requires_grad=True) \u003e\u003e\u003e b = torch.arange(5, dtype=torch.float, requires_grad=True) \u003e\u003e\u003e nt = torch.nested.nested_tensor([a, b], requires_grad=True) \u003e\u003e\u003e nt.is_leaf True torch.nested.nested_tensor_from_jagged(values, offsets=None, lengths=None, jagged_dim=None, min_seqlen=None, max_seqlen=None)[source]# Constructs a jagged layout nested tensor from the given jagged components. The jagged layout consists of a required values buffer with the jagged dimension packed into a single dimension. The offsets / lengths metadata determines how this dimension is split into batch elements and are expected to be allocated on the same device as the values buffer. Expected metadata formats: offsets: Indices within the packed dimension splitting it into heterogeneously-sized batch elements. Example: [0, 2, 3, 6] indicates that a packed jagged dim of size 6 should be conceptually split into batch elements of length [2, 1, 3]. Note that both the beginning and ending offsets are required for kernel convenience (i.e. shape batch_size + 1). lengths: Lengths of the individual batch elements; shape == batch_size. Example: [2, 1, 3] indicates that a packed jagged dim of size 6 should be conceptually split into batch elements of length [2, 1, 3]. Note that it can be useful to provide both offsets and lengths. This describes a nested tensor with \u201choles\u201d, where the offsets indicate the start position of each batch item and the length specifies the total number of elements (see example below). The returned jagged layout nested tensor will be a view of the input values tensor. Parameters values (torch.Tensor) \u2013 The underlying buffer in the shape of (sum_B(*), D_1, \u2026, D_N). The jagged dimension is packed into a single dimension, with the offsets / lengths metadata used to distinguish batch elements. offsets (optional torch.Tensor) \u2013 Offsets into the jagged dimension of shape B + 1. lengths (optional torch.Tensor) \u2013 Lengths of the batch elements of shape B. jagged_dim (optional python:int) \u2013 Indicates which dimension in values is the packed jagged dimension. Must be \u003e= 1 as the batch dimension (dim=0) cannot be ragged. If None, this is set to dim=1 (i.e. the dimension immediately following the batch dimension). Default: None min_seqlen (optional python:int) \u2013 If set, uses the specified value as the cached minimum sequence length for the returned nested tensor. This can be a useful alternative to computing this value on-demand, possibly avoiding a GPU -\u003e CPU sync. Default: None max_seqlen (optional python:int) \u2013 If set, uses the specified value as the cached maximum sequence length for the returned nested tensor. This can be a useful alternative to computing this value on-demand, possibly avoiding a GPU -\u003e CPU sync. Default: None Return type Tensor Example: \u003e\u003e\u003e values = torch.randn(12, 5) \u003e\u003e\u003e offsets = torch.tensor([0, 3, 5, 6, 10, 12]) \u003e\u003e\u003e nt = nested_tensor_from_jagged(values, offsets) \u003e\u003e\u003e # 3D shape with the middle dimension jagged \u003e\u003e\u003e nt.shape torch.Size([5, j2, 5]) \u003e\u003e\u003e # Length of each item in the batch: \u003e\u003e\u003e offsets.diff() tensor([3, 2, 1, 4, 2]) \u003e\u003e\u003e values = torch.randn(6, 5) \u003e\u003e\u003e offsets = torch.tensor([0, 2, 3, 6]) \u003e\u003e\u003e lengths = torch.tensor([1, 1, 2]) \u003e\u003e\u003e # NT with holes \u003e\u003e\u003e nt = nested_tensor_from_jagged(values, offsets, lengths) \u003e\u003e\u003e a, b, c = nt.unbind() \u003e\u003e\u003e # Batch item 1 consists of indices [0, 1) \u003e\u003e\u003e torch.equal(a, values[0:1, :]) True \u003e\u003e\u003e # Batch item 2 consists of indices [2, 3) \u003e\u003e\u003e torch.equal(b, values[2:3, :]) True \u003e\u003e\u003e # Batch item 3 consists of indices [3, 5) \u003e\u003e\u003e torch.equal(c, values[3:5, :]) True torch.nested.as_nested_tensor(ts, dtype=None, device=None, layout=None)[source]# Constructs a nested tensor preserving autograd history from a tensor or a list / tuple of tensors. If a nested tensor is passed, it will be returned directly unless the device / dtype / layout differ. Note that converting device / dtype will result in a copy, while converting layout is not currently supported by this function. If a non-nested tensor is passed, it is treated as a batch of constituents of consistent size. A copy will be incurred if the passed device / dtype differ from those of the input OR if the input is non-contiguous. Otherwise, the input\u2019s storage will be used directly. If a tensor list is provided, tensors in the list are always copied during construction of the nested tensor. Parameters ts (Tensor or List[Tensor] or Tuple[Tensor]) \u2013 a tensor to treat as a nested tensor OR a list / tuple of tensors with the same ndim Keyword Arguments dtype (torch.dtype, optional) \u2013 the desired type of returned nested tensor. Default: if None, same torch.dtype as leftmost tensor in the list. device (torch.device, optional) \u2013 the desired device of returned nested tensor. Default: if None, same torch.device as leftmost tensor in the list layout (torch.layout, optional) \u2013 the desired layout of returned nested tensor. Only strided and jagged layouts are supported. Default: if None, the strided layout. Return type Tensor Example: \u003e\u003e\u003e a = torch.arange(3, dtype=torch.float, requires_grad=True) \u003e\u003e\u003e b = torch.arange(5, dtype=torch.float, requires_grad=True) \u003e\u003e\u003e nt = torch.nested.as_nested_tensor([a, b]) \u003e\u003e\u003e nt.is_leaf False \u003e\u003e\u003e fake_grad = torch.nested.nested_tensor([torch.ones_like(a), torch.zeros_like(b)]) \u003e\u003e\u003e nt.backward(fake_grad) \u003e\u003e\u003e a.grad tensor([1., 1., 1.]) \u003e\u003e\u003e b.grad tensor([0., 0., 0., 0., 0.]) \u003e\u003e\u003e c = torch.randn(3, 5, requires_grad=True) \u003e\u003e\u003e nt2 = torch.nested.as_nested_tensor(c) torch.nested.to_padded_tensor(input, padding, output_size=None, out=None) \u2192 Tensor# Returns a new (non-nested) Tensor by padding the input nested tensor. The leading entries will be filled with the nested data, while the trailing entries will be padded. Warning to_padded_tensor() always copies the underlying data, since the nested and the non-nested tensors differ in memory layout. Parameters padding (float) \u2013 The padding value for the trailing entries. Keyword Arguments output_size (Tuple[int]) \u2013 The size of the output tensor. If given, it must be large enough to contain all nested data; else, will infer by taking the max size of each nested sub-tensor along each dimension. out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e nt = torch.nested.nested_tensor([torch.randn((2, 5)), torch.randn((3, 4))]) nested_tensor([ tensor([[ 1.6862, -1.1282, 1.1031, 0.0464, -1.3276], [-1.9967, -1.0054, 1.8972, 0.9174, -1.4995]]), tensor([[-1.8546, -0.7194, -0.2918, -0.1846], [ 0.2773, 0.8793, -0.5183, -0.6447], [ 1.8009, 1.8468, -0.9832, -1.5272]]) ]) \u003e\u003e\u003e pt_infer = torch.nested.to_padded_tensor(nt, 0.0) tensor([[[ 1.6862, -1.1282, 1.1031, 0.0464, -1.3276], [-1.9967, -1.0054, 1.8972, 0.9174, -1.4995], [ 0.0000, 0.0000, 0.0000, 0.0000, 0.0000]], [[-1.8546, -0.7194, -0.2918, -0.1846, 0.0000], [ 0.2773, 0.8793, -0.5183, -0.6447, 0.0000], [ 1.8009, 1.8468, -0.9832, -1.5272, 0.0000]]]) \u003e\u003e\u003e pt_large = torch.nested.to_padded_tensor(nt, 1.0, (2, 4, 6)) tensor([[[ 1.6862, -1.1282, 1.1031, 0.0464, -1.3276, 1.0000], [-1.9967, -1.0054, 1.8972, 0.9174, -1.4995, 1.0000], [ 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000], [ 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000]], [[-1.8546, -0.7194, -0.2918, -0.1846, 1.0000, 1.0000], [ 0.2773, 0.8793, -0.5183, -0.6447, 1.0000, 1.0000], [ 1.8009, 1.8468, -0.9832, -1.5272, 1.0000, 1.0000], [ 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000]]]) \u003e\u003e\u003e pt_small = torch.nested.to_padded_tensor(nt, 2.0, (2, 2, 2)) RuntimeError: Value in output_size is less than NestedTensor padded size. Truncation is not supported. torch.nested.masked_select(tensor, mask)[source]# Constructs a nested tensor given a strided tensor input and a strided mask, the resulting jagged layout nested tensor will have values retain values where the mask is equal to True. The dimensionality of the mask is preserved and is represented with the offsets, this is unlike masked_select() where the output is collapsed to a 1D tensor. Args: tensor (torch.Tensor): a strided tensor from which the jagged layout nested tensor is constructed from. mask (torch.Tensor): a strided mask tensor which is applied to the tensor input Example: \u003e\u003e\u003e tensor = torch.randn(3, 3) \u003e\u003e\u003e mask = torch.tensor([[False, False, True], [True, False, True], [False, False, True]]) \u003e\u003e\u003e nt = torch.nested.masked_select(tensor, mask) \u003e\u003e\u003e nt.shape torch.Size([3, j4]) \u003e\u003e\u003e # Length of each item in the batch: \u003e\u003e\u003e nt.offsets().diff() tensor([1, 2, 1]) \u003e\u003e\u003e tensor = torch.randn(6, 5) \u003e\u003e\u003e mask = torch.tensor([False]) \u003e\u003e\u003e nt = torch.nested.masked_select(tensor, mask) \u003e\u003e\u003e nt.shape torch.Size([6, j5]) \u003e\u003e\u003e # Length of each item in the batch: \u003e\u003e\u003e nt.offsets().diff() tensor([0, 0, 0, 0, 0, 0]) Return type Tensor torch.nested.narrow(tensor, dim, start, length, layout=torch.strided)[source]# Constructs a nested tensor (which might be a view) from tensor, a strided tensor. This follows similar semantics to torch.Tensor.narrow, where in the dim-th dimension the new nested tensor shows only the elements in the interval [start, start+length). As nested representations allow for a different start and length at each \u2018row\u2019 of that dimension, start and length can also be tensors of shape tensor.shape[0]. There\u2019s some differences depending on the layout you use for the nested tensor. If using strided layout, torch.narrow will do a copy of the narrowed data into a contiguous NT with strided layout, while jagged layout narrow() will create a non-contiguous view of your original strided tensor. This particular representation is really useful for representing kv-caches in Transformer models, as specialized SDPA kernels can deal with format easily, resulting in performance improvements. Parameters tensor (torch.Tensor) \u2013 a strided tensor, which will be used as the underlying data for the nested tensor if using the jagged layout or will be copied for the strided layout. dim (int) \u2013 the dimension where narrow will be applied. Only dim=1 is supported for the jagged layout, while strided supports all dim start (Union[int, torch.Tensor]) \u2013 starting element for the narrow operation length (Union[int, torch.Tensor]) \u2013 number of elements taken during the narrow op Keyword Arguments layout (torch.layout, optional) \u2013 the desired layout of returned nested tensor. Only strided and jagged layouts are supported. Default: if None, the strided layout. Return type Tensor Example: \u003e\u003e\u003e starts = torch.tensor([0, 1, 2, 3, 4], dtype=torch.int64) \u003e\u003e\u003e lengths = torch.tensor([3, 2, 2, 1, 5], dtype=torch.int64) \u003e\u003e\u003e narrow_base = torch.randn(5, 10, 20) \u003e\u003e\u003e nt_narrowed = torch.nested.narrow(narrow_base, 1, starts, lengths, layout=torch.jagged) \u003e\u003e\u003e nt_narrowed.is_contiguous() False See also Accelerating PyTorch Transformers by replacing nn.Transformer with Nested Tensors and torch.compile",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/nested.html"
+       },
+       "datePublished": "Mar 02, 2022T00:00:00Z",
+       "dateModified": "Jun 14, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>
