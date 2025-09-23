@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/onnx_export.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0b59492 )');
- </script>
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -175,19 +185,21 @@
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
 
-   <!--
+<!--
    Search engines should not index the main version of documentation.
    Stable documentation are built without release == 'main'.
    -->
-   <meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -524,7 +536,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -532,7 +545,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -3433,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3458,7 +3471,22 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 </ul>
@@ -3519,6 +3547,22 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.config.html">torch.compiler.config</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fine_grain_apis.html">TorchDynamo APIs for fine-grained tracing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_backward.html"><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has different autograd semantics</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3555,7 +3599,6 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4403,29 +4446,30 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="pytorch-api.html">
-          <meta itemprop="name" content="Reference API">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="pytorch-api.html">
+        <meta itemprop="name" content="Reference API">
+        <meta itemprop="position" content="1">
+      </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="onnx.html">
-          <meta itemprop="name" content="torch.onnx">
-          <meta itemprop="position" content="2">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="onnx.html">
+        <meta itemprop="name" content="torch.onnx">
+        <meta itemprop="position" content="2">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="torch.export-based ONNX Exporter">
         <meta itemprop="position" content="3">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -4650,7 +4694,7 @@ to resolve the issue.</p>
 <h2><a class="toc-backref" href="#id7">API Reference</a><a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.export">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args=()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_names=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_names=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opset_version=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamo=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_data=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_shapes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_translation_table=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verify=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_exported_program=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifacts_dir='.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_params=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_initializers_as_inputs=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_axes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training=&lt;TrainingMode.EVAL:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator_export_type=&lt;OperatorExportTypes.ONNX:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_constant_folding=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_opsets=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_modules_as_functions=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autograd_inlining=True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/onnx/__init__.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.export" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args=()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_names=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_names=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opset_version=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamo=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_data=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_shapes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_translation_table=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verify=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_exported_program=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifacts_dir='.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_params=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_initializers_as_inputs=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_axes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training=&lt;TrainingMode.EVAL:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator_export_type=&lt;OperatorExportTypes.ONNX:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_constant_folding=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_opsets=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_modules_as_functions=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autograd_inlining=True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/onnx/__init__.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.export" title="Permalink to this definition">#</a></dt>
 <dd><p>Exports a model into ONNX format.</p>
 <p>Setting <code class="docutils literal notranslate"><span class="pre">dynamo=True</span></code> enables the new ONNX export logic
 which is based on <a class="reference internal" href="export/api_reference.html#torch.export.ExportedProgram" title="torch.export.ExportedProgram"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.export.ExportedProgram</span></code></a> and a more modern
@@ -4859,7 +4903,7 @@ dynamic (i.e. known only at run-time), set <code class="docutils literal notrans
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.ONNXProgram.apply_weights">
-<span class="sig-name descname"><span class="pre">apply_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/onnx/_internal/exporter/_onnx_program.py#L388"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.apply_weights" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">apply_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/onnx/_internal/exporter/_onnx_program.py#L388"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.apply_weights" title="Permalink to this definition">#</a></dt>
 <dd><p>Apply the weights from the specified state dict to the ONNX model.</p>
 <p>Use this method to replace FakeTensors or other weights.</p>
 <dl class="field-list simple">
@@ -4871,7 +4915,7 @@ dynamic (i.e. known only at run-time), set <code class="docutils literal notrans
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.ONNXProgram.call_reference">
-<span class="sig-name descname"><span class="pre">call_reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/onnx/_internal/exporter/_onnx_program.py#L261"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.call_reference" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">call_reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/onnx/_internal/exporter/_onnx_program.py#L261"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.call_reference" title="Permalink to this definition">#</a></dt>
 <dd><p>Run the ONNX model using the reference backend.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4882,7 +4926,7 @@ dynamic (i.e. known only at run-time), set <code class="docutils literal notrans
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.ONNXProgram.compute_values">
-<span class="sig-name descname"><span class="pre">compute_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/onnx/_internal/exporter/_onnx_program.py#L276"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.compute_values" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">compute_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/onnx/_internal/exporter/_onnx_program.py#L276"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.compute_values" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute the values of the specified names in the ONNX model.</p>
 <p>This method is used to compute the values of the specified names in the ONNX model.
 The values are returned as a dictionary mapping names to tensors.</p>
@@ -4901,7 +4945,7 @@ The values are returned as a dictionary mapping names to tensors.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.ONNXProgram.initialize_inference_session">
-<span class="sig-name descname"><span class="pre">initialize_inference_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initializer=&lt;function</span> <span class="pre">_ort_session_initializer&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/onnx/_internal/exporter/_onnx_program.py#L410"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.initialize_inference_session" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">initialize_inference_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initializer=&lt;function</span> <span class="pre">_ort_session_initializer&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/onnx/_internal/exporter/_onnx_program.py#L410"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.initialize_inference_session" title="Permalink to this definition">#</a></dt>
 <dd><p>Initialize the ONNX Runtime inference session.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4920,7 +4964,7 @@ session with the specified model. By default, it uses the
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.ONNXProgram.optimize">
-<span class="sig-name descname"><span class="pre">optimize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/onnx/_internal/exporter/_onnx_program.py#L313"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.optimize" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">optimize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/onnx/_internal/exporter/_onnx_program.py#L313"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.optimize" title="Permalink to this definition">#</a></dt>
 <dd><p>Optimize the ONNX model.</p>
 <p>This method optimizes the ONNX model by performing constant folding and
 eliminating redundancies in the graph. The optimization is done in-place.</p>
@@ -4930,7 +4974,7 @@ eliminating redundancies in the graph. The optimization is done in-place.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.ONNXProgram.release">
-<span class="sig-name descname"><span class="pre">release</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/onnx/_internal/exporter/_onnx_program.py#L440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.release" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">release</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/onnx/_internal/exporter/_onnx_program.py#L440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.release" title="Permalink to this definition">#</a></dt>
 <dd><p>Release the inference session.</p>
 <p>You may call this method to release the resources used by the inference session.</p>
 <dl class="field-list simple">
@@ -4939,7 +4983,7 @@ eliminating redundancies in the graph. The optimization is done in-place.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.onnx.ONNXProgram.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">destination</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_initializers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_initializers_as_inputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/onnx/_internal/exporter/_onnx_program.py#L321"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.save" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">destination</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_initializers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_initializers_as_inputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/onnx/_internal/exporter/_onnx_program.py#L321"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.save" title="Permalink to this definition">#</a></dt>
 <dd><p>Save the ONNX model to the specified destination.</p>
 <p>When <code class="docutils literal notranslate"><span class="pre">external_data</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> or the model is larger than 2GB,
 the weights are saved as external data in a separate file.</p>
@@ -4981,7 +5025,7 @@ by providing the initializers as model inputs.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.is_in_onnx_export">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">is_in_onnx_export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/onnx/__init__.py#L365"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.is_in_onnx_export" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">is_in_onnx_export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/onnx/__init__.py#L365"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.is_in_onnx_export" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns whether it is in the middle of ONNX export.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -5003,7 +5047,7 @@ by providing the initializers as model inputs.</p></li>
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -5213,91 +5257,124 @@ by providing the initializers as model inputs.</p></li>
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -5305,8 +5382,7 @@ by providing the initializers as model inputs.</p></li>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -5346,28 +5422,47 @@ by providing the initializers as model inputs.</p></li>
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "torch.export-based ONNX Exporter",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/onnx_export.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/onnx_export.html"
-         },
-        "datePublished": "Jun 10, 2025T00:00:00Z",
-         "dateModified": "Aug 22, 2025T00:00:00Z",
-         "articleBody": "torch.export-based ONNX Exporter# Created On: Jun 10, 2025 | Last Updated On: Aug 22, 2025 Overview Dependencies A simple example Inspecting the ONNX model using GUI When the conversion fails Metadata API Reference Overview# torch.export engine is leveraged to produce a traced graph representing only the Tensor computation of the function in an Ahead-of-Time (AOT) fashion. The resulting traced graph (1) produces normalized operators in the functional ATen operator set (as well as any user-specified custom operators), (2) has eliminated all Python control flow and data structures (with certain exceptions), and (3) records the set of shape constraints needed to show that this normalization and control-flow elimination is sound for future inputs, before it is finally translated into an ONNX graph. In addition, during the export process, memory usage is significantly reduced. Dependencies# The ONNX exporter depends on extra Python packages: ONNX ONNX Script They can be installed through pip: pip install --upgrade onnx onnxscript onnxruntime can then be used to execute the model on a large variety of processors. A simple example# See below a demonstration of exporter API in action with a simple Multilayer Perceptron (MLP) as example: import torch import torch.nn as nn class MLPModel(nn.Module): def __init__(self): super().__init__() self.fc0 = nn.Linear(8, 8, bias=True) self.fc1 = nn.Linear(8, 4, bias=True) self.fc2 = nn.Linear(4, 2, bias=True) self.fc3 = nn.Linear(2, 2, bias=True) self.fc_combined = nn.Linear(8 + 8 + 8, 8, bias=True) # Combine all inputs def forward(self, tensor_x: torch.Tensor, input_dict: dict, input_list: list): \&#34;\&#34;\&#34; Forward method that requires all inputs: - tensor_x: A direct tensor input. - input_dict: A dictionary containing the tensor under the key &#39;tensor_x&#39;. - input_list: A list where the first element is the tensor. \&#34;\&#34;\&#34; # Extract tensors from inputs dict_tensor = input_dict[&#39;tensor_x&#39;] list_tensor = input_list[0] # Combine all inputs into a single tensor combined_tensor = torch.cat([tensor_x, dict_tensor, list_tensor], dim=1) # Process the combined tensor through the layers combined_tensor = self.fc_combined(combined_tensor) combined_tensor = torch.sigmoid(combined_tensor) combined_tensor = self.fc0(combined_tensor) combined_tensor = torch.sigmoid(combined_tensor) combined_tensor = self.fc1(combined_tensor) combined_tensor = torch.sigmoid(combined_tensor) combined_tensor = self.fc2(combined_tensor) combined_tensor = torch.sigmoid(combined_tensor) output = self.fc3(combined_tensor) return output model = MLPModel() # Example inputs tensor_input = torch.rand((97, 8), dtype=torch.float32) dict_input = {&#39;tensor_x&#39;: torch.rand((97, 8), dtype=torch.float32)} list_input = [torch.rand((97, 8), dtype=torch.float32)] # The input_names and output_names are used to identify the inputs and outputs of the ONNX model input_names = [&#39;tensor_input&#39;, &#39;tensor_x&#39;, &#39;list_input_index_0&#39;] output_names = [&#39;output&#39;] # Exporting the model with all..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "torch.export-based ONNX Exporter",
+       "headline": "torch.export-based ONNX Exporter",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/onnx_export.html",
+       "articleBody": "torch.export-based ONNX Exporter# Created On: Jun 10, 2025 | Last Updated On: Aug 22, 2025 Overview Dependencies A simple example Inspecting the ONNX model using GUI When the conversion fails Metadata API Reference Overview# torch.export engine is leveraged to produce a traced graph representing only the Tensor computation of the function in an Ahead-of-Time (AOT) fashion. The resulting traced graph (1) produces normalized operators in the functional ATen operator set (as well as any user-specified custom operators), (2) has eliminated all Python control flow and data structures (with certain exceptions), and (3) records the set of shape constraints needed to show that this normalization and control-flow elimination is sound for future inputs, before it is finally translated into an ONNX graph. In addition, during the export process, memory usage is significantly reduced. Dependencies# The ONNX exporter depends on extra Python packages: ONNX ONNX Script They can be installed through pip: pip install --upgrade onnx onnxscript onnxruntime can then be used to execute the model on a large variety of processors. A simple example# See below a demonstration of exporter API in action with a simple Multilayer Perceptron (MLP) as example: import torch import torch.nn as nn class MLPModel(nn.Module): def __init__(self): super().__init__() self.fc0 = nn.Linear(8, 8, bias=True) self.fc1 = nn.Linear(8, 4, bias=True) self.fc2 = nn.Linear(4, 2, bias=True) self.fc3 = nn.Linear(2, 2, bias=True) self.fc_combined = nn.Linear(8 + 8 + 8, 8, bias=True) # Combine all inputs def forward(self, tensor_x: torch.Tensor, input_dict: dict, input_list: list): \"\"\" Forward method that requires all inputs: - tensor_x: A direct tensor input. - input_dict: A dictionary containing the tensor under the key \u0027tensor_x\u0027. - input_list: A list where the first element is the tensor. \"\"\" # Extract tensors from inputs dict_tensor = input_dict[\u0027tensor_x\u0027] list_tensor = input_list[0] # Combine all inputs into a single tensor combined_tensor = torch.cat([tensor_x, dict_tensor, list_tensor], dim=1) # Process the combined tensor through the layers combined_tensor = self.fc_combined(combined_tensor) combined_tensor = torch.sigmoid(combined_tensor) combined_tensor = self.fc0(combined_tensor) combined_tensor = torch.sigmoid(combined_tensor) combined_tensor = self.fc1(combined_tensor) combined_tensor = torch.sigmoid(combined_tensor) combined_tensor = self.fc2(combined_tensor) combined_tensor = torch.sigmoid(combined_tensor) output = self.fc3(combined_tensor) return output model = MLPModel() # Example inputs tensor_input = torch.rand((97, 8), dtype=torch.float32) dict_input = {\u0027tensor_x\u0027: torch.rand((97, 8), dtype=torch.float32)} list_input = [torch.rand((97, 8), dtype=torch.float32)] # The input_names and output_names are used to identify the inputs and outputs of the ONNX model input_names = [\u0027tensor_input\u0027, \u0027tensor_x\u0027, \u0027list_input_index_0\u0027] output_names = [\u0027output\u0027] # Exporting the model with all required inputs onnx_program = torch.onnx.export(model,(tensor_input, dict_input, list_input), dynamic_shapes=({0: \"batch_size\"},{\"tensor_x\": {0: \"batch_size\"}},[{0: \"batch_size\"}]), input_names=input_names, output_names=output_names, dynamo=True,) # Check the exported ONNX model is dynamic assert onnx_program.model.graph.inputs[0].shape == (\"batch_size\", 8) assert onnx_program.model.graph.inputs[1].shape == (\"batch_size\", 8) assert onnx_program.model.graph.inputs[2].shape == (\"batch_size\", 8) As the code above shows, all you need is to provide torch.onnx.export() with an instance of the model and its input. The exporter will then return an instance of torch.onnx.ONNXProgram that contains the exported ONNX graph along with extra information. The in-memory model available through onnx_program.model_proto is an onnx.ModelProto object in compliance with the ONNX IR spec. The ONNX model may then be serialized into a Protobuf file using the torch.onnx.ONNXProgram.save() API. onnx_program.save(\"mlp.onnx\") Inspecting the ONNX model using GUI# You can view the exported model using Netron. When the conversion fails# Function torch.onnx.export() should be called a second time with parameter report=True. A markdown report is generated to help the user to resolve the issue. Metadata# During ONNX export, each ONNX node is annotated with metadata that helps trace its origin and context from the original PyTorch model. This metadata is useful for debugging, model inspection, and understanding the mapping between PyTorch and ONNX graphs. The following metadata fields are added to each ONNX node: namespace A string representing the hierarchical namespace of the node, consisting of a stack trace of modules/methods. Example: __main__.SimpleAddModel/add: aten.add.Tensor pkg.torch.onnx.class_hierarchy A list of class names representing the hierarchy of modules leading to this node. Example: [\u0027__main__.SimpleAddModel\u0027, \u0027aten.add.Tensor\u0027] pkg.torch.onnx.fx_node The string representation of the original FX node, including its name, number of consumers, the targeted torch op, arguments, and keyword arguments. Example: %cat : [num_users=1] = call_function[target=torch.ops.aten.cat.default](args = ([%tensor_x, %input_dict_tensor_x, %input_list_0], 1), kwargs = {}) pkg.torch.onnx.name_scopes A list of name scopes (methods) representing the path to this node in the PyTorch model. Example: [\u0027\u0027, \u0027add\u0027] pkg.torch.onnx.stack_trace The stack trace from the original code where this node was created, if available. Example: File \"simpleadd.py\", line 7, in forward return torch.add(x, y) These metadata fields are stored in the metadata_props attribute of each ONNX node and can be inspected using Netron or programmatically. The overall ONNX graph has the following metadata_props: pkg.torch.export.ExportedProgram.graph_signature This property contains a string representation of the graph_signature from the original PyTorch ExportedProgram. The graph signature describes the structure of the model\u2019s inputs and outputs and how they map to the ONNX graph. The inputs are defined as InputSpec objects, which include the kind of input (e.g., InputKind.PARAMETER for parameters, InputKind.USER_INPUT for user-defined inputs), the argument name, the target (which can be a specific node in the model), and whether the input is persistent. The outputs are defined as OutputSpec objects, which specify the kind of output (e.g., OutputKind.USER_OUTPUT) and the argument name. To read more about the graph signature, please see the torch.export for more information. pkg.torch.export.ExportedProgram.range_constraints This property contains a string representation of any range constraints that were present in the original PyTorch ExportedProgram. Range constraints specify valid ranges for symbolic shapes or values in the model, which can be important for models that use dynamic shapes or symbolic dimensions. Example: s0: VR[2, int_oo], which indicates that the size of the input tensor must be at least 2. To read more about range constraints, please see the torch.export for more information. Each input value in the ONNX graph may have the following metadata property: pkg.torch.export.graph_signature.InputSpec.kind The kind of input, as defined by PyTorch\u2019s InputKind enum. Example values: \u201cUSER_INPUT\u201d: A user-provided input to the model. \u201cPARAMETER\u201d: A model parameter (e.g., weight). \u201cBUFFER\u201d: A model buffer (e.g., running mean in BatchNorm). \u201cCONSTANT_TENSOR\u201d: A constant tensor argument. \u201cCUSTOM_OBJ\u201d: A custom object input. \u201cTOKEN\u201d: A token input. pkg.torch.export.graph_signature.InputSpec.persistent Indicates whether the input is persistent (i.e., should be saved as part of the model\u2019s state). Example values: \u201cTrue\u201d \u201cFalse\u201d Each output value in the ONNX graph may have the following metadata property: pkg.torch.export.graph_signature.OutputSpec.kind The kind of input, as defined by PyTorch\u2019s OutputKind enum. Example values: \u201cUSER_OUTPUT\u201d: A user-visible output. \u201cLOSS_OUTPUT\u201d: A loss value output. \u201cBUFFER_MUTATION\u201d: Indicates a buffer was mutated. \u201cGRADIENT_TO_PARAMETER\u201d: Gradient output for a parameter. \u201cGRADIENT_TO_USER_INPUT\u201d: Gradient output for a user input. \u201cUSER_INPUT_MUTATION\u201d: Indicates a user input was mutated. \u201cTOKEN\u201d: A token output. Each initialized value, input, output has the following metadata: pkg.torch.onnx.original_node_name The original name of the node in the PyTorch FX graph that produced this value in the case where the value was renamed. This helps trace initializers back to their source in the original model. Example: fc1.weight API Reference# torch.onnx.export(model, args=(), f=None, *, kwargs=None, verbose=None, input_names=None, output_names=None, opset_version=None, dynamo=True, external_data=True, dynamic_shapes=None, custom_translation_table=None, report=False, optimize=True, verify=False, profile=False, dump_exported_program=False, artifacts_dir=\u0027.\u0027, fallback=False, export_params=True, keep_initializers_as_inputs=False, dynamic_axes=None, training=\u003cTrainingMode.EVAL: 0\u003e, operator_export_type=\u003cOperatorExportTypes.ONNX: 0\u003e, do_constant_folding=True, custom_opsets=None, export_modules_as_functions=False, autograd_inlining=True)[source]# Exports a model into ONNX format. Setting dynamo=True enables the new ONNX export logic which is based on torch.export.ExportedProgram and a more modern set of translation logic. This is the recommended and default way to export models to ONNX. When dynamo=True: The exporter tries the following strategies to get an ExportedProgram for conversion to ONNX. If the model is already an ExportedProgram, it will be used as-is. Use torch.export.export() and set strict=False. Use torch.export.export() and set strict=True. Parameters model (torch.nn.Module | torch.export.ExportedProgram | torch.jit.ScriptModule | torch.jit.ScriptFunction) \u2013 The model to be exported. args (tuple[Any, ...]) \u2013 Example positional inputs. Any non-Tensor arguments will be hard-coded into the exported model; any Tensor arguments will become inputs of the exported model, in the order they occur in the tuple. f (str | os.PathLike | None) \u2013 Path to the output ONNX model file. E.g. \u201cmodel.onnx\u201d. This argument is kept for backward compatibility. It is recommended to leave unspecified (None) and use the returned torch.onnx.ONNXProgram to serialize the model to a file instead. kwargs (dict[str, Any] | None) \u2013 Optional example keyword inputs. verbose (bool | None) \u2013 Whether to enable verbose logging. input_names (Sequence[str] | None) \u2013 names to assign to the input nodes of the graph, in order. output_names (Sequence[str] | None) \u2013 names to assign to the output nodes of the graph, in order. opset_version (int | None) \u2013 The version of the default (ai.onnx) opset to target. You should set opset_version according to the supported opset versions of the runtime backend or compiler you want to run the exported model with. Leave as default (None) to use the recommended version, or refer to the ONNX operators documentation for more information. dynamo (bool) \u2013 Whether to export the model with torch.export ExportedProgram instead of TorchScript. external_data (bool) \u2013 Whether to save the model weights as an external data file. This is required for models with large weights that exceed the ONNX file size limit (2GB). When False, the weights are saved in the ONNX file with the model architecture. dynamic_shapes (dict[str, Any] | tuple[Any, ...] | list[Any] | None) \u2013 A dictionary or a tuple of dynamic shapes for the model inputs. Refer to torch.export.export() for more details. This is only used (and preferred) when dynamo is True. Note that dynamic_shapes is designed to be used when the model is exported with dynamo=True, while dynamic_axes is used when dynamo=False. custom_translation_table (dict[Callable, Callable | Sequence[Callable]] | None) \u2013 A dictionary of custom decompositions for operators in the model. The dictionary should have the callable target in the fx Node as the key (e.g. torch.ops.aten.stft.default), and the value should be a function that builds that graph using ONNX Script. This option is only valid when dynamo is True. report (bool) \u2013 Whether to generate a markdown report for the export process. This option is only valid when dynamo is True. optimize (bool) \u2013 Whether to optimize the exported model. This option is only valid when dynamo is True. Default is True. verify (bool) \u2013 Whether to verify the exported model using ONNX Runtime. This option is only valid when dynamo is True. profile (bool) \u2013 Whether to profile the export process. This option is only valid when dynamo is True. dump_exported_program (bool) \u2013 Whether to dump the torch.export.ExportedProgram to a file. This is useful for debugging the exporter. This option is only valid when dynamo is True. artifacts_dir (str | os.PathLike) \u2013 The directory to save the debugging artifacts like the report and the serialized exported program. This option is only valid when dynamo is True. fallback (bool) \u2013 Whether to fallback to the TorchScript exporter if the dynamo exporter fails. This option is only valid when dynamo is True. When fallback is enabled, It is recommended to set dynamic_axes even when dynamic_shapes is provided. export_params (bool) \u2013 When ``f`` is specified: If false, parameters (weights) will not be exported. You can also leave it unspecified and use the returned torch.onnx.ONNXProgram to control how initializers are treated when serializing the model. keep_initializers_as_inputs (bool) \u2013 When ``f`` is specified: If True, all the initializers (typically corresponding to model weights) in the exported graph will also be added as inputs to the graph. If False, then initializers are not added as inputs to the graph, and only the user inputs are added as inputs. Set this to True if you intend to supply model weights at runtime. Set it to False if the weights are static to allow for better optimizations (e.g. constant folding) by backends/runtimes. You can also leave it unspecified and use the returned torch.onnx.ONNXProgram to control how initializers are treated when serializing the model. dynamic_axes (Mapping[str, Mapping[int, str]] | Mapping[str, Sequence[int]] | None) \u2013 Prefer specifying dynamic_shapes when dynamo=True and when fallback is not enabled. By default the exported model will have the shapes of all input and output tensors set to exactly match those given in args. To specify axes of tensors as dynamic (i.e. known only at run-time), set dynamic_axes to a dict with schema: KEY (str): an input or output name. Each name must also be provided in input_names oroutput_names. VALUE (dict or list): If a dict, keys are axis indices and values are axis names. If alist, each element is an axis index. For example: class SumModule(torch.nn.Module): def forward(self, x): return torch.sum(x, dim=1) torch.onnx.export( SumModule(), (torch.ones(2, 2),), \"onnx.pb\", input_names=[\"x\"], output_names=[\"sum\"], ) Produces: input { name: \"x\" ... shape { dim { dim_value: 2 # axis 0 } dim { dim_value: 2 # axis 1 ... output { name: \"sum\" ... shape { dim { dim_value: 2 # axis 0 ... While: torch.onnx.export( SumModule(), (torch.ones(2, 2),), \"onnx.pb\", input_names=[\"x\"], output_names=[\"sum\"], dynamic_axes={ # dict value: manually named axes \"x\": {0: \"my_custom_axis_name\"}, # list value: automatic names \"sum\": [0], }, ) Produces: input { name: \"x\" ... shape { dim { dim_param: \"my_custom_axis_name\" # axis 0 } dim { dim_value: 2 # axis 1 ... output { name: \"sum\" ... shape { dim { dim_param: \"sum_dynamic_axes_1\" # axis 0 ... training (_C_onnx.TrainingMode) \u2013 Deprecated option. Instead, set the training mode of the model before exporting. operator_export_type (_C_onnx.OperatorExportTypes) \u2013 Deprecated option. Only ONNX is supported. do_constant_folding (bool) \u2013 Deprecated option. custom_opsets (Mapping[str, int] | None) \u2013 Deprecated option. export_modules_as_functions (bool | Collection[type[torch.nn.Module]]) \u2013 Deprecated option. autograd_inlining (bool) \u2013 Deprecated option. Returns torch.onnx.ONNXProgram if dynamo is True, otherwise None. Return type ONNXProgram | None Changed in version 2.6: training is now deprecated. Instead, set the training mode of the model before exporting. operator_export_type is now deprecated. Only ONNX is supported. do_constant_folding is now deprecated. It is always enabled. export_modules_as_functions is now deprecated. autograd_inlining is now deprecated. Changed in version 2.7: optimize is now True by default. Changed in version 2.9: dynamo is now True by default. class torch.onnx.ONNXProgram(model, exported_program)# A class to represent an ONNX program that is callable with torch tensors. Variables model \u2013 The ONNX model as an ONNX IR model object. exported_program \u2013 The exported program that produced the ONNX model. apply_weights(state_dict)[source]# Apply the weights from the specified state dict to the ONNX model. Use this method to replace FakeTensors or other weights. Parameters state_dict (dict[str, torch.Tensor]) \u2013 The state dict containing the weights to apply to the ONNX model. call_reference(*args, **kwargs)[source]# Run the ONNX model using the reference backend. Return type Sequence[Tensor] compute_values(value_names, args=(), kwargs=None)[source]# Compute the values of the specified names in the ONNX model. This method is used to compute the values of the specified names in the ONNX model. The values are returned as a dictionary mapping names to tensors. Parameters value_names (Sequence[str]) \u2013 The names of the values to compute. Returns A dictionary mapping names to tensors. Return type Sequence[Tensor] initialize_inference_session(initializer=\u003cfunction _ort_session_initializer\u003e)[source]# Initialize the ONNX Runtime inference session. Parameters initializer (Callable[[str | bytes], ort.InferenceSession]) \u2013 The function to initialize the ONNX Runtime inference session with the specified model. By default, it uses the _ort_session_initializer() function. property model_proto: ModelProto# Return the ONNX ModelProto object. optimize()[source]# Optimize the ONNX model. This method optimizes the ONNX model by performing constant folding and eliminating redundancies in the graph. The optimization is done in-place. release()[source]# Release the inference session. You may call this method to release the resources used by the inference session. save(destination, *, include_initializers=True, keep_initializers_as_inputs=False, external_data=None)[source]# Save the ONNX model to the specified destination. When external_data is True or the model is larger than 2GB, the weights are saved as external data in a separate file. Initializer (model weights) serialization behaviors: include_initializers=True, keep_initializers_as_inputs=False (default): The initializers are included in the saved model. include_initializers=True, keep_initializers_as_inputs=True: The initializers are included in the saved model and kept as model inputs. Choose this option if you want the ability to override the model weights during inference. include_initializers=False, keep_initializers_as_inputs=False: The initializers are not included in the saved model and are not listed as model inputs. Choose this option if you want to attach the initializers to the ONNX model in a separate, post-processing, step. include_initializers=False, keep_initializers_as_inputs=True: The initializers are not included in the saved model but are listed as model inputs. Choose this option if you want to supply the initializers during inference and want to minimize the size of the saved model. Parameters destination (str | os.PathLike) \u2013 The path to save the ONNX model to. include_initializers (bool) \u2013 Whether to include the initializers in the saved model. keep_initializers_as_inputs (bool) \u2013 Whether to keep the initializers as inputs in the saved model. If True, the initializers are added as inputs to the model which means they can be overwritten. by providing the initializers as model inputs. external_data (Optional[bool]) \u2013 Whether to save the weights as external data in a separate file. Raises TypeError \u2013 If external_data is True and destination is not a file path. torch.onnx.is_in_onnx_export()[source]# Returns whether it is in the middle of ONNX export. Return type bool class torch.onnx.OnnxExporterError# Errors raised by the ONNX exporter. This is the base class for all exporter errors.",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/onnx_export.html"
+       },
+       "datePublished": "Jun 10, 2025T00:00:00Z",
+       "dateModified": "Aug 22, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

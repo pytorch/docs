@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/torch.compiler_transformations.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0b59492 )');
- </script>
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -175,19 +185,21 @@
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
 
-   <!--
+<!--
    Search engines should not index the main version of documentation.
    Stable documentation are built without release == 'main'.
    -->
-   <meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -524,7 +536,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -532,7 +545,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -3433,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3458,7 +3471,22 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Writing Graph Transformations on ATen IR</a></li>
 </ul>
@@ -3519,6 +3547,22 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.config.html">torch.compiler.config</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fine_grain_apis.html">TorchDynamo APIs for fine-grained tracing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_backward.html"><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has different autograd semantics</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3555,7 +3599,6 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4403,29 +4446,30 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="pytorch-api.html">
-          <meta itemprop="name" content="Reference API">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="pytorch-api.html">
+        <meta itemprop="name" content="Reference API">
+        <meta itemprop="position" content="1">
+      </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="export.html">
-          <meta itemprop="name" content="torch.export">
-          <meta itemprop="position" content="2">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="export.html">
+        <meta itemprop="name" content="torch.export">
+        <meta itemprop="position" content="2">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="Writing Graph Transformations on ATen IR">
         <meta itemprop="position" content="3">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -4825,7 +4869,7 @@ returns False if any of the OperatorSupportBase return False) and
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -5029,91 +5073,124 @@ returns False if any of the OperatorSupportBase return False) and
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -5121,8 +5198,7 @@ returns False if any of the OperatorSupportBase return False) and
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -5162,28 +5238,47 @@ returns False if any of the OperatorSupportBase return False) and
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "Writing Graph Transformations on ATen IR",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/torch.compiler_transformations.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/torch.compiler_transformations.html"
-         },
-        "datePublished": "Jun 11, 2025T00:00:00Z",
-         "dateModified": "Jun 11, 2025T00:00:00Z",
-         "articleBody": "Writing Graph Transformations on ATen IR# Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025 Passes# Since the ATen IR sits at the FX Graph/GraphModule level, any transformations written for FX Graphs can be easily applied onto the ATen IR. If you’re familiar with writing FX graph transformations, then this will be the same. The most direct way of writing transformations is by looping through the given graph and directly manipulating the nodes within the graph. For example, let’s say we want to replace torch.ops.aten.add.Tensor() calls with torch.ops.aten.mul.Tensor() calls: import torch def replace_add_with_mul(gm: torch.fx.GraphModule) -&gt; torch.fx.GraphModule: for node in gm.graph.nodes: if node.op == \&#34;call_function\&#34; and node.target == torch.ops.aten.add.Tensor: node.target = torch.ops.aten.mul.Tensor We can also delete and append new nodes through FX utility functions that can be found in the Graph documentation. For example, if we want to insert a torch.ops.aten.relu.default() after the add call: import torch def insert_relu_after_add(gm: torch.fx.GraphModule) -&gt; torch.fx.GraphModule: for node in gm.graph.nodes: if node.op == \&#34;call_function\&#34; and node.target == torch.ops.aten.add.Tensor: # Specifies the insertion point. Any nodes added to the graph within # this scope will be inserted after `node` with gm.graph.inserting_after(node): # Insert a new `call_function` node with op `torch.ops.aten.relu.default` new_relu_node = gm.graph.call_function(torch.ops.aten.relu.default, args=(node,)) # Replace all the places that use `node` to now use the `new_relu_node` node.replace_all_uses_with(new_relu_node) In general, transformations can be roughly categorized into a couple of axis: Axis A: 1. Creating one-to-X mapping (eg. decomposition) 2. Creating many-to-one mapping (eg. fusion) Axis B: 1. Doing forwards iteration (eg. shape propagation) 2. Doing backwards iteration (eg. dead code elimination) Axis C: 1. Dependent on local node information (eg. out-variant conversion) 2. Dependent on global graph information (eg. memory planning) Our projection on the frequency of these use cases are: 1. A.1, B.1, C.1 2. A.2 3. B.2, C.2 Although we can make all graph transformations through directly manipulating the graph, we also provide some helper utilities for some ease of use for the level 1 and 2 use-cases. Transformer# For level 1 uses cases (creating one-to-X mappings, doing forwards iterations, and looking at local node information), we can utilize the Transformer class to execute each node and recreate a graph, except with the transformations specified. One-to-One Pass# An example for one-to-one mappings, if we wanted to replace an op A with another op B, we can run the GraphModule, and very time we see op A, return op B. An example is: class ReplaceAddWithMul(torch.fx.Transformer): def call_function(self, target, args, kwargs): if target != torch.ops.aten.add.Tensor: return super().call_function(target, args, kwargs) return super().call_functio..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "Writing Graph Transformations on ATen IR",
+       "headline": "Writing Graph Transformations on ATen IR",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/torch.compiler_transformations.html",
+       "articleBody": "Writing Graph Transformations on ATen IR# Created On: Jun 11, 2025 | Last Updated On: Jun 11, 2025 Passes# Since the ATen IR sits at the FX Graph/GraphModule level, any transformations written for FX Graphs can be easily applied onto the ATen IR. If you\u2019re familiar with writing FX graph transformations, then this will be the same. The most direct way of writing transformations is by looping through the given graph and directly manipulating the nodes within the graph. For example, let\u2019s say we want to replace torch.ops.aten.add.Tensor() calls with torch.ops.aten.mul.Tensor() calls: import torch def replace_add_with_mul(gm: torch.fx.GraphModule) -\u003e torch.fx.GraphModule: for node in gm.graph.nodes: if node.op == \"call_function\" and node.target == torch.ops.aten.add.Tensor: node.target = torch.ops.aten.mul.Tensor We can also delete and append new nodes through FX utility functions that can be found in the Graph documentation. For example, if we want to insert a torch.ops.aten.relu.default() after the add call: import torch def insert_relu_after_add(gm: torch.fx.GraphModule) -\u003e torch.fx.GraphModule: for node in gm.graph.nodes: if node.op == \"call_function\" and node.target == torch.ops.aten.add.Tensor: # Specifies the insertion point. Any nodes added to the graph within # this scope will be inserted after `node` with gm.graph.inserting_after(node): # Insert a new `call_function` node with op `torch.ops.aten.relu.default` new_relu_node = gm.graph.call_function(torch.ops.aten.relu.default, args=(node,)) # Replace all the places that use `node` to now use the `new_relu_node` node.replace_all_uses_with(new_relu_node) In general, transformations can be roughly categorized into a couple of axis: Axis A: 1. Creating one-to-X mapping (eg. decomposition) 2. Creating many-to-one mapping (eg. fusion) Axis B: 1. Doing forwards iteration (eg. shape propagation) 2. Doing backwards iteration (eg. dead code elimination) Axis C: 1. Dependent on local node information (eg. out-variant conversion) 2. Dependent on global graph information (eg. memory planning) Our projection on the frequency of these use cases are: 1. A.1, B.1, C.1 2. A.2 3. B.2, C.2 Although we can make all graph transformations through directly manipulating the graph, we also provide some helper utilities for some ease of use for the level 1 and 2 use-cases. Transformer# For level 1 uses cases (creating one-to-X mappings, doing forwards iterations, and looking at local node information), we can utilize the Transformer class to execute each node and recreate a graph, except with the transformations specified. One-to-One Pass# An example for one-to-one mappings, if we wanted to replace an op A with another op B, we can run the GraphModule, and very time we see op A, return op B. An example is: class ReplaceAddWithMul(torch.fx.Transformer): def call_function(self, target, args, kwargs): if target != torch.ops.aten.add.Tensor: return super().call_function(target, args, kwargs) return super().call_function(torch.ops.aten.mul.Tensor, args, kwargs) transformed_graph_module = ReplaceAddWithMul(graph_module).transform() The super().call_function(target, args, kwargs, meta) call creates a call_function FX node, and returns the result of running the operator with the given arguments. One-to-X Pass# If we wanted to do one-to-X mappings, like replacing op A with 2 other ops B and C, we would then make 2 calls to super().call_function to create 2 FX nodes, one with op B and another with op C, and return the result of running op C. For example: class ReplaceAddWithMulSub(torch.fx.Transformer): \"\"\" Original: def f(x, y): return x + y After pass: def f(x, y): z = x * y return z - y \"\"\" def call_function(self, target, args, kwargs): if target != torch.ops.aten.add.Tensor: return super().call_function(target, args, kwargs) x, y = args mul_res = super().call_function(torch.ops.aten.mul.Tensor, args, {}) return super().call_function(torch.ops.aten.sub.Tensor, (mul_res, y), {}) transformed_graph_module = ReplaceAddWithMulSub(graph_module).transform() One-to-None Pass# If we wanted to remove an op, we can just return the value passed into the function: class RemoveDetachPass(torch.fx.Transformer): def call_function(self, target, args, kwargs): if target not in ( torch.ops.aten.detach.default, torch.ops.aten.detach_copy.default, ): return super().call_function(target, args, kwargs, meta) assert len(args) == 1 return args[0] transformed_graph_module = RemoveDetachPass(graph_module).transform() Utilizing Local Information# An example of utilizing local node information is, if we wanted to convert all the scalars within the graph to tensors, we can run the given fx.GraphModule, and for every argument that contains a scalar, we convert it to a tensor. It might look something like: def args_map(target, fn, args, kwargs): assert isinstance(args, tuple) assert isinstance(kwargs, dict) args = list(args) kwargs = kwargs.copy() # Update the argument based on the function passed def update(key, args, schema): args[key] = fn(args[key], schema) # Update each argument in the schema for i, schema in enumerate(target._schema.arguments): if schema.name in kwargs: update(schema.name, kwargs, schema) elif not schema.kwarg_only and i \u003c len(args): update(i, args, schema) return tuple(args), kwargs class ScalarToTensorPass(torch.fx.Transformer): def call_function(self, target, args, kwargs): breakpoint() def try_coerce(value, arg): return ( torch.tensor(value) if isinstance(value, (float, int, bool)) and type(arg.type) == torch.TensorType else value ) args, kwargs = args_map(target, try_coerce, args, kwargs) return super().call_function(target, args, kwargs) transformed_graph_module = ScalarToTensorPass(graph_module).transform() Subgraph Rewriter# For creating many-to-one mappings, we can utilize FX\u2019s subgraph rewriter. Given a pattern, it creates a subgraph of operators matching to the pattern, and then replaces each matched subgraph with the replacement. Note: This is an inplace operation. The pattern and replacement inputs must be callable functions or GraphModules containing the same operators that are used within the graph (ATen ops) so that the subgraph rewriter can find the correct pattern in the graph. Inputs to the pattern/replacement callables will be treated as wildcards when matching. An example: from torch.fx import subgraph_rewriter def replace_patterns(graph_module): def pattern(x, y): x = torch.ops.aten.add.Tensor(x, y) x = torch.ops.aten.mul.Tensor(x, y) return x def replacement(x, y): return torch.ops.aten.sub.Tensor(x, y) replaced_patterns = subgraph_rewriter.replace_pattern_with_filters( traced_module, pattern, replacement ) The subgraph rewriter returns a list of ReplacedPatterns: @dataclass class ReplacedPatterns: # Node from which the match was found anchor: Node # Maps nodes in the pattern subgraph to nodes in the larger graph nodes_map: Dict[Node, Node] # List of nodes that were added into the graph replacements: List[Node] Note: The nodes created by the subgraph rewriter will not have the metadata that is populated in the matched nodes, but you can use `ReplacedPatterns.nodes_map` to find the nodes in the original graph that were matched, and `ReplacedPatterns.replacements` to find the nodes that were replaced in the transformed graph. Pass Manager# The PassManager is a class used to run multiple passes on a given graph module. When initializing a PassManager instance, we pass in a list of passes that we want to run and set a couple of flags. To run the collection of passes on a graph module, we can pass the graph module directly to the PassManager instance. An example: from torch.fx.passes.infra.pass_manager import PassManager pm = PassManager( passes=[replace_add_with_div, replace_div_with_mul], run_checks_after_each_pass=True, suppress_check_failures=False, ) graph_module_out = pm(graph_module) To add a common set of checks that are run after each pass, we can call the function set_checks(check: Callable) which takes in a callable function as input. If the run_checks_after_each_pass flag is set, the check will be called after each pass is run on the graph module. An example: pm = PassManager(passes=[replace_add_with_div, replace_div_with_mul]) def check_div_target(graph_module): for node in graph_module.graph.nodes: if node.op == \"call_function\" and node.target != torch.div: raise ValueError(\"Target should be div!\") pm.add_checks(check_div_target) pm(graph_module) # raises ValueError after replace_div_with_mul pass Partitioner# There are a couple of common FX graph based partitioners we can use to partition the graph. Subgraph Matcher# For finding subgraphs within a graph that match a specific pattern, we can utilize FX\u2019s SubgraphMatcher. Class Attributes: pattern (Graph): The targeted matching pattern. Placeholder nodes in the graph will be treated as wildcards when matching. match_output (bool): If True, output node in the pattern graph will be treated as a part of the targeted pattern. If False, output node is ignored during match. match_placeholder (bool): If True, placeholder node in the pattern graph will be treated as a part of the targeted pattern. If False, placeholder nodes will be used a wildcard. remove_overlapping_matches (bool): If True, in the case of overlapping matches, only the first match will be returned. ignore_literals (bool): If True, will not check if literals are equal and will instead treat them as wildcards. An example: from torch.fx.passes.utils.matcher_utils import SubgraphMatcher class LargeModel(torch.nn.Module): def __init__(self): super().__init__() self._weight = torch.nn.Parameter(torch.ones(3, 3)) self._bias = torch.nn.Parameter(torch.ones(3, 3)) def forward(self, x): return torch.ops.aten.addmm.default(self._bias, x, self._weight) large_model_graph = torch.export(LargeModel(), inputs).graph class PatternModel(torch.nn.Module): def __init__(self): super().__init__() self._weight_1 = torch.nn.Parameter(torch.ones(5, 5)) self._bias_1 = torch.nn.Parameter(torch.ones(5, 5)) def forward(self, x): return torch.ops.aten.addmm.default(self._bias_1, x, self._weight_1) pattern_graph = torch.export(PatternModel(), inputs).graph subgraph_matcher = SubgraphMatcher(pattern_graph) match_result = subgraph_matcher.match(large_model_graph) The match function returns a list of InternalMatch: @dataclass class InternalMatch(): # Nodes from which the match was found anchors: List[Node] # Maps nodes in the pattern subgraph to nodes in the larger graph nodes_map: Dict[Node, Node] = field(default_factory=dict) # Nodes in target graph that are matched placeholder in pattern placeholder_nodes: List[Node] = field(default_factory=list) # Nodes in matched subgraph returned by output returning_nodes: List[Node] = field(default_factory=list) Capability Based Partitioner# To find the largest subgraphs of nodes that support a specific invariant, we can utilize FX\u2019s CapabilityBasedPartitioner. Class Attributes graph_module (torch.fx.GraphModule): The graph module we are partitioning on. operator_support (OperatorSupportBase): The object used to determine if a node in the graph is supported in the partition. allows_single_node_partition (bool): If True, allows single node partitions to be formed. non_compute_ops (Optional[Sequence[str]]): A set of ops that are considered to be \u201cnon-compute\u201d (ex torch.ops.aten.view and _operator.getitem, so that the partitioner will not create graphs that only contain these non-compute ops allowed_single_node_partition_ops (Optional[Sequence[str]]): A set of ops that are allowed to be in a single node partition. The OperatorSupportBase class is used by the partitioner to determine if a specific node in the graph belongs in the partition. This is done by overriding the is_node_supported function. You can chain multiple OperatorSupportBase by using chain (which returns False if any of the OperatorSupportBase return False) and any_chain (which returns True if any of the OperatorSupportBase returns True). An example: from torch.fx.passes.infra.partitioner import CapabilityBasedPartitioner from torch.fx.passes.operator_support import any_chain, OperatorSupportBase class AddMulOperatorSupport(OperatorSupportBase): def is_node_supported(self, submodules, node: torch.fx.Node) -\u003e bool: return node.op == \"call_function\" and node.target in [ torch.ops.aten.add.Tensor, torch.ops.aten.mul.Tensor, ] capability_partitioner = CapabilityBasedPartitioner( graph_module, op_support, ) # Returns a list of partitions (list of nodes that belong in each partition) partition_list = capability_partitioner.propose_partitions() # Fuses the partitions into graph modules and inserts `call_module` nodes in the graph fused_graph_module = capability_partitioner.fuse_partitions(partition_list)",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/torch.compiler_transformations.html"
+       },
+       "datePublished": "Jun 11, 2025T00:00:00Z",
+       "dateModified": "Jun 11, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

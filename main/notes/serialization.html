@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/notes/serialization.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="../_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0b59492 )');
- </script>
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -175,19 +185,21 @@
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
 
-   <!--
+<!--
    Search engines should not index the main version of documentation.
    Stable documentation are built without release == 'main'.
    -->
-   <meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -524,7 +536,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -532,7 +545,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -1634,29 +1647,30 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../user_guide/index.html">
-          <meta itemprop="name" content="User Guide">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../user_guide/index.html">
+        <meta itemprop="name" content="User Guide">
+        <meta itemprop="position" content="1">
+      </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../notes.html">
-          <meta itemprop="name" content="Developer Notes">
-          <meta itemprop="position" content="2">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../notes.html">
+        <meta itemprop="name" content="Developer Notes">
+        <meta itemprop="position" content="2">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="Serialization semantics">
         <meta itemprop="position" content="3">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -1976,7 +1990,7 @@ if <code class="docutils literal notranslate"><span class="pre">weights_only</sp
 <p>The following utility functions are related to serialization:</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.register_package">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">register_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">priority</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tagger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deserializer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/serialization.py#L443"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.register_package" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">register_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">priority</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tagger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deserializer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/serialization.py#L443"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.register_package" title="Permalink to this definition">#</a></dt>
 <dd><p>Registers callables for tagging and deserializing storage objects with an associated priority.
 Tagging associates a device with a storage object at save time while deserializing moves a
 storage object to an appropriate device at load time. <code class="xref py py-attr docutils literal notranslate"><span class="pre">tagger</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">deserializer</span></code>
@@ -2017,7 +2031,7 @@ object on the appropriate device or None.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.get_crc32_options">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_crc32_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/serialization.py#L171"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_crc32_options" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_crc32_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/serialization.py#L171"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_crc32_options" title="Permalink to this definition">#</a></dt>
 <dd><p>Get whether <a class="reference internal" href="../generated/torch.save.html#torch.save" title="torch.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.save()</span></code></a> computes and writes crc32 for each record.</p>
 <p>Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <dl class="field-list simple">
@@ -2029,7 +2043,7 @@ object on the appropriate device or None.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.set_crc32_options">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">set_crc32_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compute_crc32</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/serialization.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.set_crc32_options" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">set_crc32_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compute_crc32</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/serialization.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.set_crc32_options" title="Permalink to this definition">#</a></dt>
 <dd><p>Set whether <a class="reference internal" href="../generated/torch.save.html#torch.save" title="torch.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.save()</span></code></a> computes and writes crc32 for each record.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2046,7 +2060,7 @@ able to load the file.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.get_default_load_endianness">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_default_load_endianness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/serialization.py#L137"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_default_load_endianness" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_default_load_endianness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/serialization.py#L137"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_default_load_endianness" title="Permalink to this definition">#</a></dt>
 <dd><p>Get fallback byte order for loading files</p>
 <p>If byteorder mark is not present in saved checkpoint,
 this byte order is used as fallback.
@@ -2063,7 +2077,7 @@ By default, it’s “native” byte order.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.set_default_load_endianness">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">set_default_load_endianness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endianness</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/serialization.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.set_default_load_endianness" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">set_default_load_endianness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endianness</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/serialization.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.set_default_load_endianness" title="Permalink to this definition">#</a></dt>
 <dd><p>Set fallback byte order for loading files</p>
 <p>If byteorder mark is not present in saved checkpoint,
 this byte order is used as fallback.
@@ -2077,7 +2091,7 @@ By default, it’s “native” byte order.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.get_default_mmap_options">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_default_mmap_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/serialization.py#L199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_default_mmap_options" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_default_mmap_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/serialization.py#L199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_default_mmap_options" title="Permalink to this definition">#</a></dt>
 <dd><p>Get default mmap options for <a class="reference internal" href="../generated/torch.load.html#torch.load" title="torch.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.load()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">mmap=True</span></code>.</p>
 <p>Defaults to <code class="docutils literal notranslate"><span class="pre">mmap.MAP_PRIVATE</span></code>.</p>
 <dl class="field-list simple">
@@ -2092,7 +2106,7 @@ By default, it’s “native” byte order.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.set_default_mmap_options">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">set_default_mmap_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flags</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/serialization.py#L228"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.set_default_mmap_options" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">set_default_mmap_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flags</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/serialization.py#L228"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.set_default_mmap_options" title="Permalink to this definition">#</a></dt>
 <dd><p>Context manager or function to set default mmap options for <a class="reference internal" href="../generated/torch.load.html#torch.load" title="torch.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.load()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">mmap=True</span></code> to flags.</p>
 <p>For now, only either <code class="docutils literal notranslate"><span class="pre">mmap.MAP_PRIVATE</span></code> or <code class="docutils literal notranslate"><span class="pre">mmap.MAP_SHARED</span></code> are supported.
 Please open an issue if you need any other option to be added here.</p>
@@ -2109,7 +2123,7 @@ Please open an issue if you need any other option to be added here.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.add_safe_globals">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">add_safe_globals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">safe_globals</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/serialization.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.add_safe_globals" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">add_safe_globals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">safe_globals</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/serialization.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.add_safe_globals" title="Permalink to this definition">#</a></dt>
 <dd><p>Marks the given globals as safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> load. For example, functions
 added to this list can be called during unpickling, classes could be instantiated
 and have state set.</p>
@@ -2144,7 +2158,7 @@ full path that should match the one in the checkpoint otherwise the default
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.clear_safe_globals">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">clear_safe_globals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/serialization.py#L267"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.clear_safe_globals" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">clear_safe_globals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/serialization.py#L267"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.clear_safe_globals" title="Permalink to this definition">#</a></dt>
 <dd><p>Clears the list of globals that are safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> load.</p>
 <dl class="field-list simple">
 </dl>
@@ -2152,7 +2166,7 @@ full path that should match the one in the checkpoint otherwise the default
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.get_safe_globals">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_safe_globals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/serialization.py#L274"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_safe_globals" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_safe_globals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/serialization.py#L274"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_safe_globals" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the list of user-added globals that are safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> load.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -2163,7 +2177,7 @@ full path that should match the one in the checkpoint otherwise the default
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.get_unsafe_globals_in_checkpoint">
-<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_unsafe_globals_in_checkpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/serialization.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_unsafe_globals_in_checkpoint" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">get_unsafe_globals_in_checkpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/serialization.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.get_unsafe_globals_in_checkpoint" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a list of strings of functions/classes in a <code class="docutils literal notranslate"><span class="pre">torch.save</span></code> object that are not safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code>.</p>
 <p>For a given function or class <code class="docutils literal notranslate"><span class="pre">f</span></code>, the corresponding string will be of the form
 <code class="docutils literal notranslate"><span class="pre">{f.__module__}.{f.__name__}</span></code>.</p>
@@ -2191,7 +2205,7 @@ will not be included in the output.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.serialization.safe_globals">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">safe_globals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">safe_globals</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/serialization.py#L317"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.safe_globals" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">safe_globals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">safe_globals</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/serialization.py#L317"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.safe_globals" title="Permalink to this definition">#</a></dt>
 <dd><p>Context-manager that adds certain globals as safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> load.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2219,7 +2233,7 @@ will not be included in the output.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.serialization.skip_data">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">skip_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">materialize_fake_tensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/serialization.py#L384"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.skip_data" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">skip_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">materialize_fake_tensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/serialization.py#L384"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.skip_data" title="Permalink to this definition">#</a></dt>
 <dd><p>Context-manager that skips writing/reading storage bytes for <code class="docutils literal notranslate"><span class="pre">torch.save</span></code> / <code class="docutils literal notranslate"><span class="pre">torch.load</span></code> calls.</p>
 <p>For the save path, storages will still be saved, but the space that their bytes would usually be written to
 will be empty space. The storage bytes can then be populated in a separate pass.</p>
@@ -2283,7 +2297,7 @@ random reads, which can be helpful when the file is being loaded over a network.
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -2500,91 +2514,124 @@ random reads, which can be helpful when the file is being loaded over a network.
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -2592,8 +2639,7 @@ random reads, which can be helpful when the file is being loaded over a network.
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -2633,28 +2679,47 @@ random reads, which can be helpful when the file is being loaded over a network.
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "Serialization semantics",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/notes/serialization.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "../_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/notes/serialization.html"
-         },
-        "datePublished": "Feb 26, 2017T00:00:00Z",
-         "dateModified": "Jun 23, 2025T00:00:00Z",
-         "articleBody": "Serialization semantics# Created On: Feb 26, 2017 | Last Updated On: Jun 23, 2025 This note describes how you can save and load PyTorch tensors and module states in Python, and how to serialize Python modules so they can be loaded in C++. Table of Contents Serialization semantics Saving and loading tensors Saving and loading tensors preserves views Saving and loading torch.nn.Modules Serialized file format for torch.save Layout Control torch.load with weights_only=True Troubleshooting weights_only Getting unsafe globals Environment Variables Utility functions Config Saving and loading tensors# torch.save() and torch.load() let you easily save and load tensors: &gt;&gt;&gt; t = torch.tensor([1., 2.]) &gt;&gt;&gt; torch.save(t, &#39;tensor.pt&#39;) &gt;&gt;&gt; torch.load(&#39;tensor.pt&#39;) tensor([1., 2.]) By convention, PyTorch files are typically written with a ‘.pt’ or ‘.pth’ extension. torch.save() and torch.load() use Python’s pickle by default, so you can also save multiple tensors as part of Python objects like tuples, lists, and dicts: &gt;&gt;&gt; d = {&#39;a&#39;: torch.tensor([1., 2.]), &#39;b&#39;: torch.tensor([3., 4.])} &gt;&gt;&gt; torch.save(d, &#39;tensor_dict.pt&#39;) &gt;&gt;&gt; torch.load(&#39;tensor_dict.pt&#39;) {&#39;a&#39;: tensor([1., 2.]), &#39;b&#39;: tensor([3., 4.])} Custom data structures that include PyTorch tensors can also be saved if the data structure is pickle-able. Saving and loading tensors preserves views# Saving tensors preserves their view relationships: &gt;&gt;&gt; numbers = torch.arange(1, 10) &gt;&gt;&gt; evens = numbers[1::2] &gt;&gt;&gt; torch.save([numbers, evens], &#39;tensors.pt&#39;) &gt;&gt;&gt; loaded_numbers, loaded_evens = torch.load(&#39;tensors.pt&#39;) &gt;&gt;&gt; loaded_evens *= 2 &gt;&gt;&gt; loaded_numbers tensor([ 1, 4, 3, 8, 5, 12, 7, 16, 9]) Behind the scenes, these tensors share the same “storage.” See Tensor Views for more on views and storage. When PyTorch saves tensors it saves their storage objects and tensor metadata separately. This is an implementation detail that may change in the future, but it typically saves space and lets PyTorch easily reconstruct the view relationships between the loaded tensors. In the above snippet, for example, only a single storage is written to ‘tensors.pt’. In some cases, however, saving the current storage objects may be unnecessary and create prohibitively large files. In the following snippet a storage much larger than the saved tensor is written to a file: &gt;&gt;&gt; large = torch.arange(1, 1000) &gt;&gt;&gt; small = large[0:5] &gt;&gt;&gt; torch.save(small, &#39;small.pt&#39;) &gt;&gt;&gt; loaded_small = torch.load(&#39;small.pt&#39;) &gt;&gt;&gt; loaded_small.storage().size() 999 Instead of saving only the five values in the small tensor to ‘small.pt,’ the 999 values in the storage it shares with large were saved and loaded. When saving tensors with fewer elements than their storage objects, the size of the saved file can be reduced by first cloning the tensors. Cloning a tensor produces a new tensor with a new storage object containing only the values in the tensor: &gt;&gt;&gt; large = torch.arange(1, 1000) &gt;&gt;&gt; small = large[0:5] &gt;&gt;&gt; torch.save(small.clone(), &#39;small.pt&#39;) # saves a cl..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "Serialization semantics",
+       "headline": "Serialization semantics",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/notes/serialization.html",
+       "articleBody": "Serialization semantics# Created On: Feb 26, 2017 | Last Updated On: Jun 23, 2025 This note describes how you can save and load PyTorch tensors and module states in Python, and how to serialize Python modules so they can be loaded in C++. Table of Contents Serialization semantics Saving and loading tensors Saving and loading tensors preserves views Saving and loading torch.nn.Modules Serialized file format for torch.save Layout Control torch.load with weights_only=True Troubleshooting weights_only Getting unsafe globals Environment Variables Utility functions Config Saving and loading tensors# torch.save() and torch.load() let you easily save and load tensors: \u003e\u003e\u003e t = torch.tensor([1., 2.]) \u003e\u003e\u003e torch.save(t, \u0027tensor.pt\u0027) \u003e\u003e\u003e torch.load(\u0027tensor.pt\u0027) tensor([1., 2.]) By convention, PyTorch files are typically written with a \u2018.pt\u2019 or \u2018.pth\u2019 extension. torch.save() and torch.load() use Python\u2019s pickle by default, so you can also save multiple tensors as part of Python objects like tuples, lists, and dicts: \u003e\u003e\u003e d = {\u0027a\u0027: torch.tensor([1., 2.]), \u0027b\u0027: torch.tensor([3., 4.])} \u003e\u003e\u003e torch.save(d, \u0027tensor_dict.pt\u0027) \u003e\u003e\u003e torch.load(\u0027tensor_dict.pt\u0027) {\u0027a\u0027: tensor([1., 2.]), \u0027b\u0027: tensor([3., 4.])} Custom data structures that include PyTorch tensors can also be saved if the data structure is pickle-able. Saving and loading tensors preserves views# Saving tensors preserves their view relationships: \u003e\u003e\u003e numbers = torch.arange(1, 10) \u003e\u003e\u003e evens = numbers[1::2] \u003e\u003e\u003e torch.save([numbers, evens], \u0027tensors.pt\u0027) \u003e\u003e\u003e loaded_numbers, loaded_evens = torch.load(\u0027tensors.pt\u0027) \u003e\u003e\u003e loaded_evens *= 2 \u003e\u003e\u003e loaded_numbers tensor([ 1, 4, 3, 8, 5, 12, 7, 16, 9]) Behind the scenes, these tensors share the same \u201cstorage.\u201d See Tensor Views for more on views and storage. When PyTorch saves tensors it saves their storage objects and tensor metadata separately. This is an implementation detail that may change in the future, but it typically saves space and lets PyTorch easily reconstruct the view relationships between the loaded tensors. In the above snippet, for example, only a single storage is written to \u2018tensors.pt\u2019. In some cases, however, saving the current storage objects may be unnecessary and create prohibitively large files. In the following snippet a storage much larger than the saved tensor is written to a file: \u003e\u003e\u003e large = torch.arange(1, 1000) \u003e\u003e\u003e small = large[0:5] \u003e\u003e\u003e torch.save(small, \u0027small.pt\u0027) \u003e\u003e\u003e loaded_small = torch.load(\u0027small.pt\u0027) \u003e\u003e\u003e loaded_small.storage().size() 999 Instead of saving only the five values in the small tensor to \u2018small.pt,\u2019 the 999 values in the storage it shares with large were saved and loaded. When saving tensors with fewer elements than their storage objects, the size of the saved file can be reduced by first cloning the tensors. Cloning a tensor produces a new tensor with a new storage object containing only the values in the tensor: \u003e\u003e\u003e large = torch.arange(1, 1000) \u003e\u003e\u003e small = large[0:5] \u003e\u003e\u003e torch.save(small.clone(), \u0027small.pt\u0027) # saves a clone of small \u003e\u003e\u003e loaded_small = torch.load(\u0027small.pt\u0027) \u003e\u003e\u003e loaded_small.storage().size() 5 Since the cloned tensors are independent of each other, however, they have none of the view relationships the original tensors did. If both file size and view relationships are important when saving tensors smaller than their storage objects, then care must be taken to construct new tensors that minimize the size of their storage objects but still have the desired view relationships before saving. Saving and loading torch.nn.Modules# See also: Tutorial: Saving and loading modules In PyTorch, a module\u2019s state is frequently serialized using a \u2018state dict.\u2019 A module\u2019s state dict contains all of its parameters and persistent buffers: \u003e\u003e\u003e bn = torch.nn.BatchNorm1d(3, track_running_stats=True) \u003e\u003e\u003e list(bn.named_parameters()) [(\u0027weight\u0027, Parameter containing: tensor([1., 1., 1.], requires_grad=True)), (\u0027bias\u0027, Parameter containing: tensor([0., 0., 0.], requires_grad=True))] \u003e\u003e\u003e list(bn.named_buffers()) [(\u0027running_mean\u0027, tensor([0., 0., 0.])), (\u0027running_var\u0027, tensor([1., 1., 1.])), (\u0027num_batches_tracked\u0027, tensor(0))] \u003e\u003e\u003e bn.state_dict() OrderedDict([(\u0027weight\u0027, tensor([1., 1., 1.])), (\u0027bias\u0027, tensor([0., 0., 0.])), (\u0027running_mean\u0027, tensor([0., 0., 0.])), (\u0027running_var\u0027, tensor([1., 1., 1.])), (\u0027num_batches_tracked\u0027, tensor(0))]) Instead of saving a module directly, for compatibility reasons it is recommended to instead save only its state dict. Python modules even have a function, load_state_dict(), to restore their states from a state dict: \u003e\u003e\u003e torch.save(bn.state_dict(), \u0027bn.pt\u0027) \u003e\u003e\u003e bn_state_dict = torch.load(\u0027bn.pt\u0027) \u003e\u003e\u003e new_bn = torch.nn.BatchNorm1d(3, track_running_stats=True) \u003e\u003e\u003e new_bn.load_state_dict(bn_state_dict) \u003cAll keys matched successfully\u003e Note that the state dict is first loaded from its file with torch.load() and the state then restored with load_state_dict(). Even custom modules and modules containing other modules have state dicts and can use this pattern: # A module with two linear layers \u003e\u003e\u003e class MyModule(torch.nn.Module): def __init__(self): super().__init__() self.l0 = torch.nn.Linear(4, 2) self.l1 = torch.nn.Linear(2, 1) def forward(self, input): out0 = self.l0(input) out0_relu = torch.nn.functional.relu(out0) return self.l1(out0_relu) \u003e\u003e\u003e m = MyModule() \u003e\u003e\u003e m.state_dict() OrderedDict([(\u0027l0.weight\u0027, tensor([[ 0.1400, 0.4563, -0.0271, -0.4406], [-0.3289, 0.2827, 0.4588, 0.2031]])), (\u0027l0.bias\u0027, tensor([ 0.0300, -0.1316])), (\u0027l1.weight\u0027, tensor([[0.6533, 0.3413]])), (\u0027l1.bias\u0027, tensor([-0.1112]))]) \u003e\u003e\u003e torch.save(m.state_dict(), \u0027mymodule.pt\u0027) \u003e\u003e\u003e m_state_dict = torch.load(\u0027mymodule.pt\u0027) \u003e\u003e\u003e new_m = MyModule() \u003e\u003e\u003e new_m.load_state_dict(m_state_dict) \u003cAll keys matched successfully\u003e Serialized file format for torch.save# Since PyTorch 1.6.0, torch.save defaults to returning an uncompressed ZIP64 archive unless the user sets _use_new_zipfile_serialization=False. In this archive, the files are ordered as such checkpoint.pth \u251c\u2500\u2500 data.pkl \u251c\u2500\u2500 byteorder # added in PyTorch 2.1.0 \u251c\u2500\u2500 data/ \u2502 \u251c\u2500\u2500 0 \u2502 \u251c\u2500\u2500 1 \u2502 \u251c\u2500\u2500 2 \u2502 \u2514\u2500\u2500 \u2026 \u2514\u2500\u2500 version The entries are as follows: data.pkl is the result of pickling the object passed to torch.save excluding torch.Storage objects that it contains byteorder contains a string with the sys.byteorder when saving (\u201clittle\u201d or \u201cbig\u201d) data/ contains all the storages in the object, where each storage is a separate file version contains a version number at save time that can be used at load time When saving, PyTorch will ensure that the local file header of each file is padded to an offset that is a multiple of 64 bytes, ensuring that the offset of each file is 64-byte aligned. Note Tensors on certain devices such as XLA are serialized as pickled numpy arrays. As such, their storages are not serialized. In these cases data/ might not exist in the checkpoint. Layout Control# The mmap argument in torch.load() allows for lazy loading of tensor storages. In addition, there are some advanced features that allow for more fine-grained control and manipulation of a torch.save checkpoint. The torch.serialization.skip_data context manager enables Saving a checkpoint with torch.save that includes empty space for data bytes to be written later. Loading a checkpoint with torch.load and filling in the data bytes of tensors later. To inspect tensor metadata in a torch.save checkpoint without allocating memory for storage data, use torch.load within the FakeTensorMode context manager. On top of skipping loading storage data similar to skip_data above, it additionally tags storages with their offset within the checkpoint, enabling direct checkpoint manipulation. import torch.nn as nn from torch._subclasses.fake_tensor import FakeTensorMode m = nn.Linear(10, 10) torch.save(m.state_dict(), \"checkpoint.pt\") with FakeTensorMode() as mode: fake_sd = torch.load(\"checkpoint.pt\") for k, v in fake_sd.items(): print(f\"key={k}, dtype={v.dtype}, shape={v.shape}, stride={v.stride()}, storage_offset={v.storage_offset()}\") # offset of the storage in the checkpoint print(f\"key={k}, checkpoint_offset={v.untyped_storage()._checkpoint_offset}\") For more information, this tutorial offers a comprehensive example of using these features to manipulate a checkpoint. torch.load with weights_only=True# Starting in version 2.6, torch.load will use weights_only=True if the pickle_module argument is not passed. As discussed in the documentation for torch.load(), weights_only=True restricts the unpickler used in torch.load to only executing functions/building classes required for state_dicts of plain torch.Tensors as well as some other primitive types. Further, unlike the default Unpickler provided by the pickle module, the weights_only Unpickler is not allowed to dynamically import anything during unpickling. As mentioned above, saving a module\u2019s state_dict is a best practice when using torch.save. If loading an old checkpoint that contains an nn.Module, we recommend weights_only=False. When loading a checkpoint that contains tensor subclasses, there will likely be functions/classes that need to be allowlisted, see below for further details. If the weights_only Unpickler encounters a function or class that is not allowlisted by default within the pickle file, you should see an actionable error like such _pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, do those steps only if you trust the source of the checkpoint. 1. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source. 2. Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message. WeightsUnpickler error: Unsupported global: GLOBAL {__module__}.{__name__} was not an allowed global by default. Please use `torch.serialization.add_safe_globals([{__name__}])` or the `torch.serialization.safe_globals([{__name__}])` context manager to allowlist this global if you trust this class/function. Please follow the steps in the error message and allowlist the functions or classes only if you trust them. To get all GLOBALs (functions/classes) in the checkpoint that are not yet allowlisted you can use torch.serialization.get_unsafe_globals_in_checkpoint() which will return a list of strings of the form {__module__}.{__name__}. If you trust these functions/classes, you can import them and allowlist them per the error message either via torch.serialization.add_safe_globals() or the context manager torch.serialization.safe_globals. To access the list of user-allowlisted functions/classes you can use torch.serialization.get_safe_globals() and to clear the current list see torch.serialization.clear_safe_globals(). Troubleshooting weights_only# Getting unsafe globals# A caveat is that torch.serialization.get_unsafe_globals_in_checkpoint() analyzes the checkpoint statically, some types might be built dynamically during the unpickling process and hence will not be reported by torch.serialization.get_unsafe_globals_in_checkpoint(). One such example is dtypes in numpy. In numpy \u003c 1.25 after allowlisting all the functions/classes reported by torch.serialization.get_unsafe_globals_in_checkpoint() you might see an error like WeightsUnpickler error: Can only build Tensor, Parameter, OrderedDict or types allowlisted via `add_safe_globals`, but got \u003cclass \u0027numpy.dtype[float32]\u0027\u003e This can be allowlisted via {add_}safe_globals([type(np.dtype(np.float32))]). In numpy \u003e=1.25 you would see WeightsUnpickler error: Can only build Tensor, Parameter, OrderedDict or types allowlisted via `add_safe_globals`, but got \u003cclass \u0027numpy.dtypes.Float32DType\u0027\u003e This can be allowlisted via {add_}safe_globals([np.dtypes.Float32DType]). Environment Variables# There are two environment variables that will influence the behavior of torch.load. These can be helpful if one does not have access to the torch.load callsites. TORCH_FORCE_WEIGHTS_ONLY_LOAD=1 will override all torch.load callsites to use weights_only=True. TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1 will make torch.load callsites use weights_only=False only if weights_only was not passed as an argument. Utility functions# The following utility functions are related to serialization: torch.serialization.register_package(priority, tagger, deserializer)[source]# Registers callables for tagging and deserializing storage objects with an associated priority. Tagging associates a device with a storage object at save time while deserializing moves a storage object to an appropriate device at load time. tagger and deserializer are run in the order given by their priority until a tagger/deserializer returns a value that is not None. To override the deserialization behavior for a device in the global registry, one can register a tagger with a higher priority than the existing tagger. This function can also be used to register a tagger and deserializer for new devices. Parameters priority (int) \u2013 Indicates the priority associated with the tagger and deserializer, where a lower value indicates higher priority. tagger (Callable[[Union[Storage, TypedStorage, UntypedStorage]], Optional[str]]) \u2013 Callable that takes in a storage object and returns its tagged device as a string or None. deserializer (Callable[[Union[Storage, TypedStorage, UntypedStorage], str], Optional[Union[Storage, TypedStorage, UntypedStorage]]]) \u2013 Callable that takes in storage object and a device string and returns a storage object on the appropriate device or None. Returns None Example \u003e\u003e\u003e def ipu_tag(obj): \u003e\u003e\u003e if obj.device.type == \u0027ipu\u0027: \u003e\u003e\u003e return \u0027ipu\u0027 \u003e\u003e\u003e def ipu_deserialize(obj, location): \u003e\u003e\u003e if location.startswith(\u0027ipu\u0027): \u003e\u003e\u003e ipu = getattr(torch, \"ipu\", None) \u003e\u003e\u003e assert ipu is not None, \"IPU device module is not loaded\" \u003e\u003e\u003e assert torch.ipu.is_available(), \"ipu is not available\" \u003e\u003e\u003e return obj.ipu(location) \u003e\u003e\u003e torch.serialization.register_package(11, ipu_tag, ipu_deserialize) torch.serialization.get_crc32_options()[source]# Get whether torch.save() computes and writes crc32 for each record. Defaults to True. Return type bool torch.serialization.set_crc32_options(compute_crc32)[source]# Set whether torch.save() computes and writes crc32 for each record. Note Setting this to False may make unzipping of the torch.save output fail or warn due to corrupted CRC32. However torch.load will be able to load the file. Parameters compute_crc32 (bool) \u2013 set crc32 computation flag torch.serialization.get_default_load_endianness()[source]# Get fallback byte order for loading files If byteorder mark is not present in saved checkpoint, this byte order is used as fallback. By default, it\u2019s \u201cnative\u201d byte order. Returns Optional[LoadEndianness] Return type default_load_endian torch.serialization.set_default_load_endianness(endianness)[source]# Set fallback byte order for loading files If byteorder mark is not present in saved checkpoint, this byte order is used as fallback. By default, it\u2019s \u201cnative\u201d byte order. Parameters endianness \u2013 the new fallback byte order torch.serialization.get_default_mmap_options()[source]# Get default mmap options for torch.load() with mmap=True. Defaults to mmap.MAP_PRIVATE. Returns int Return type default_mmap_options torch.serialization.set_default_mmap_options(flags)[source]# Context manager or function to set default mmap options for torch.load() with mmap=True to flags. For now, only either mmap.MAP_PRIVATE or mmap.MAP_SHARED are supported. Please open an issue if you need any other option to be added here. Note This feature is currently not supported for Windows. Parameters flags (int) \u2013 mmap.MAP_PRIVATE or mmap.MAP_SHARED torch.serialization.add_safe_globals(safe_globals)[source]# Marks the given globals as safe for weights_only load. For example, functions added to this list can be called during unpickling, classes could be instantiated and have state set. Each item in the list can either be a function/class or a tuple of the form (function/class, string) where string is the full path of the function/class. Within the serialized format, each function is identified with its full path as {__module__}.{__qualname__}. When calling this API, you can provide this full path that should match the one in the checkpoint otherwise the default {fn.__module__}.{fn.__qualname__} will be used. Parameters safe_globals (List[Union[Callable, Tuple[Callable, str]]]) \u2013 list of globals to mark as safe Example \u003e\u003e\u003e import tempfile \u003e\u003e\u003e class MyTensor(torch.Tensor): ... pass \u003e\u003e\u003e t = MyTensor(torch.randn(2, 3)) \u003e\u003e\u003e with tempfile.NamedTemporaryFile() as f: ... torch.save(t, f.name) # Running `torch.load(f.name, weights_only=True)` will fail with # Unsupported global: GLOBAL __main__.MyTensor was not an allowed global by default. # Check the code and make sure MyTensor is safe to be used when loaded from an arbitrary checkpoint. ... torch.serialization.add_safe_globals([MyTensor]) ... torch.load(f.name, weights_only=True) # MyTensor([[-0.5024, -1.8152, -0.5455], # [-0.8234, 2.0500, -0.3657]]) torch.serialization.clear_safe_globals()[source]# Clears the list of globals that are safe for weights_only load. torch.serialization.get_safe_globals()[source]# Returns the list of user-added globals that are safe for weights_only load. Return type list[Union[Callable, tuple[Callable, str]]] torch.serialization.get_unsafe_globals_in_checkpoint(f)[source]# Returns a list of strings of functions/classes in a torch.save object that are not safe for weights_only. For a given function or class f, the corresponding string will be of the form {f.__module__}.{f.__name__}. This function will return any GLOBALs in the checkpoint that are not in the set marked safe for weights_only (either via add_safe_globals() or safe_globals context or allowlisted by torch by default). Note This function will statically disassemble the pickle file in the checkpoint. The implication is any classes dynamically pushed onto the stack during unpickling will not be included in the output. Parameters f (Union[str, PathLike[str], IO[bytes]]) \u2013 File-like object or string containing the checkpoint object saved via torch.save Returns A list of strings of pickle GLOBALs in the checkpoint that are not allowlisted for weights_only. Return type list[str] class torch.serialization.safe_globals(safe_globals)[source]# Context-manager that adds certain globals as safe for weights_only load. Parameters safe_globals (list[Union[Callable, tuple[Callable, str]]]) \u2013 List of globals for weights_only load. Example \u003e\u003e\u003e import tempfile \u003e\u003e\u003e class MyTensor(torch.Tensor): ... pass \u003e\u003e\u003e t = MyTensor(torch.randn(2, 3)) \u003e\u003e\u003e with tempfile.NamedTemporaryFile() as f: ... torch.save(t, f.name) # Running `torch.load(f.name, weights_only=True)` will fail with # Unsupported global: GLOBAL __main__.MyTensor was not an allowed global by default. # Check the code and make sure MyTensor is safe to be used when loaded from an arbitrary checkpoint. ... with torch.serialization.safe_globals([MyTensor]): ... torch.load(f.name, weights_only=True) # MyTensor([[-0.5024, -1.8152, -0.5455], # [-0.8234, 2.0500, -0.3657]]) \u003e\u003e\u003e assert torch.serialization.get_safe_globals() == [] class torch.serialization.skip_data(materialize_fake_tensors=False)[source]# Context-manager that skips writing/reading storage bytes for torch.save / torch.load calls. For the save path, storages will still be saved, but the space that their bytes would usually be written to will be empty space. The storage bytes can then be populated in a separate pass. For the load path, tensors will be loaded per the checkpoint but their storages will not be populated with data. Warning The skip_data context manager is an early prototype and is subject to change. Parameters materialize_fake_tensors (bool) \u2013 Whether to materialize FakeTensors during save. This is a no-op for the load path. Example \u003e\u003e\u003e import tempfile \u003e\u003e\u003e t = torch.randn(2, 3) \u003e\u003e\u003e with tempfile.NamedTemporaryFile() as f: ... with torch.serialization.skip_data(): ... torch.save(t, f.name) ... torch.load(f.name, weights_only=True) tensor([[0., 0., 0.], [0., 0., 0.]]) Config# torch.utils.serialization.config provides a global config that can control the behavior of torch.save and torch.load. torch.utils.serialization.config.save contains options that control the behavior of torch.save. compute_crc32: whether to compute and write the zip file checksum (Default : True). See set_crc32_options(). use_pinned_memory_for_d2h: for storages that are on an accelerator when passed to torch.save, whether to move storage to pinned memory or pageable memory on CPU within torch.save. (Default: False (i.e. pageable)) storage_alignment: alignment of storages in the checkpoint during torch.save in bytes. (Default 64) torch.utils.serialization.config.load contains options that control the behavior of torch.load. mmap: See the documentation for mmap argument in torch.load(). This config will set the behavior of mmap for torch.load if it is not already explicitly passed to the torch.load call (Default : False). endianness: See set_default_load_endianness(). (Default : torch.serialization.LoadEndianness.NATIVE) mmap_flags: See set_default_mmap_options. (Default : MAP_PRIVATE) calculate_storage_offsets: If this config is set to True, offsets for storages will be calculated rather than read via random reads when using torch.load(mmap=True). This minimizes random reads, which can be helpful when the file is being loaded over a network. (Default : False)",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "../_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/notes/serialization.html"
+       },
+       "datePublished": "Feb 26, 2017T00:00:00Z",
+       "dateModified": "Jun 23, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/community/contribution_guide.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="../_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0b59492 )');
- </script>
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -175,19 +185,21 @@
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
 
-   <!--
+<!--
    Search engines should not index the main version of documentation.
    Stable documentation are built without release == 'main'.
    -->
-   <meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -524,7 +536,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -532,7 +545,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -1612,23 +1625,24 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="index.html">
-          <meta itemprop="name" content="Community">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="index.html">
+        <meta itemprop="name" content="Community">
+        <meta itemprop="position" content="1">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="PyTorch Contribution Guide">
         <meta itemprop="position" content="2">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -2006,7 +2020,7 @@ Guide</a>.</p>
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -2222,91 +2236,124 @@ Guide</a>.</p>
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -2314,8 +2361,7 @@ Guide</a>.</p>
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -2355,28 +2401,47 @@ Guide</a>.</p>
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "PyTorch Contribution Guide",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/community/contribution_guide.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "../_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/community/contribution_guide.html"
-         },
-        "datePublished": "Mar 11, 2019T00:00:00Z",
-         "dateModified": "Apr 27, 2025T00:00:00Z",
-         "articleBody": "Note This page has been deprecated. Please refer to the Contribution Guide on the PyTorch Wiki. PyTorch Contribution Guide# Created On: Mar 11, 2019 | Last Updated On: Apr 27, 2025 PyTorch is a GPU-accelerated Python tensor computation package for building deep neural networks using a tape-based autograd systems. Contribution Process# The PyTorch organization is governed by PyTorch Governance and the technical guide to contributing can be found in CONTRIBUTING.md. The PyTorch development process involves a healthy amount of open discussions between the core development team and the community. PyTorch operates similarly to most open source projects on GitHub. However, if you’ve never contributed to an open source project before, here is the basic process. Figure out what you’re going to work on. The majority of open source contributions come from people scratching their own itches. However, if you don’t know what you want to work on, or are just looking to get more acquainted with the project, here are some tips for how to find appropriate tasks: Look through the issue tracker and see if there are any issues you know how to fix. Issues that are confirmed by other contributors tend to be better to investigate. We also maintain some labels for issues that are likely to be good for new people, e.g., bootcamp and 1hr, although these labels are less well maintained. Join us on dev discuss and let us know you’re interested in getting to know PyTorch. We’re very happy to help out researchers and partners get up to speed with the codebase. Figure out the scope of your change and reach out for design comments on a GitHub issue if it’s large. The majority of pull requests are small; in that case, no need to let us know about what you want to do, just get cracking. But if the change is going to be large, it’s usually a good idea to get some design comments about it first by submitting an RFC. If you don’t know how big a change is going to be, we can help you figure it out! Just post about it on issues or dev discuss. Some feature additions are very standardized; for example, lots of people add new operators or optimizers to PyTorch. Design discussion in these cases boils down mostly to, “Do we want this operator/optimizer?” Giving evidence for its utility, e.g., usage in peer reviewed papers, or existence in other frameworks, helps a bit when making this case. Adding operators / algorithms from recently-released research is generally not accepted unless there is overwhelming evidence that this newly published work has ground-breaking results and will eventually become a standard in the field. If you are not sure where your method falls, open an issue first before implementing a PR. Core changes and refactors can be quite difficult to coordinate since the pace of development on the PyTorch main branch is quite fast. Definitely reach out about fundamental or cross-cutting changes; we can often give guidance about how to stage such changes into more easily r..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "PyTorch Contribution Guide",
+       "headline": "PyTorch Contribution Guide",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/community/contribution_guide.html",
+       "articleBody": "Note This page has been deprecated. Please refer to the Contribution Guide on the PyTorch Wiki. PyTorch Contribution Guide# Created On: Mar 11, 2019 | Last Updated On: Apr 27, 2025 PyTorch is a GPU-accelerated Python tensor computation package for building deep neural networks using a tape-based autograd systems. Contribution Process# The PyTorch organization is governed by PyTorch Governance and the technical guide to contributing can be found in CONTRIBUTING.md. The PyTorch development process involves a healthy amount of open discussions between the core development team and the community. PyTorch operates similarly to most open source projects on GitHub. However, if you\u2019ve never contributed to an open source project before, here is the basic process. Figure out what you\u2019re going to work on. The majority of open source contributions come from people scratching their own itches. However, if you don\u2019t know what you want to work on, or are just looking to get more acquainted with the project, here are some tips for how to find appropriate tasks: Look through the issue tracker and see if there are any issues you know how to fix. Issues that are confirmed by other contributors tend to be better to investigate. We also maintain some labels for issues that are likely to be good for new people, e.g., bootcamp and 1hr, although these labels are less well maintained. Join us on dev discuss and let us know you\u2019re interested in getting to know PyTorch. We\u2019re very happy to help out researchers and partners get up to speed with the codebase. Figure out the scope of your change and reach out for design comments on a GitHub issue if it\u2019s large. The majority of pull requests are small; in that case, no need to let us know about what you want to do, just get cracking. But if the change is going to be large, it\u2019s usually a good idea to get some design comments about it first by submitting an RFC. If you don\u2019t know how big a change is going to be, we can help you figure it out! Just post about it on issues or dev discuss. Some feature additions are very standardized; for example, lots of people add new operators or optimizers to PyTorch. Design discussion in these cases boils down mostly to, \u201cDo we want this operator/optimizer?\u201d Giving evidence for its utility, e.g., usage in peer reviewed papers, or existence in other frameworks, helps a bit when making this case. Adding operators / algorithms from recently-released research is generally not accepted unless there is overwhelming evidence that this newly published work has ground-breaking results and will eventually become a standard in the field. If you are not sure where your method falls, open an issue first before implementing a PR. Core changes and refactors can be quite difficult to coordinate since the pace of development on the PyTorch main branch is quite fast. Definitely reach out about fundamental or cross-cutting changes; we can often give guidance about how to stage such changes into more easily reviewable pieces. Code it out! See the CONTRIBUTING.md file for advice for working with PyTorch in a technical form. Open a pull request. If you are not ready for the pull request to be reviewed, create a draft pull request first - you can later convert it to a full PR by pressing \u201cReady for review\u201d button. You can also prepend the title of the PR with \u201c[WIP]\u201d (\u201cwork in progress\u201d) while it\u2019s still in draft. We will ignore draft PRs when doing review passes. If you are working on a complex change, it\u2019s good to start things off as a draft, because you will need to spend time looking at CI results to see if things worked out or not. Find an appropriate reviewer for your change. We have some folks who regularly go through the PR queue and try to review everything, but if you happen to know who the maintainer for a given subsystem affected by your patch is, feel free to include them directly on the pull request. You can learn more about Persons of Interest that could review your code. Iterate on the pull request until it\u2019s accepted! We\u2019ll try our best to minimize the number of review round trips and block PRs only when there are major issues. For the most common issues in pull requests, take a look at Common Mistakes. Once a pull request is accepted and CI is passing, there is nothing else you need to do; we will merge the PR for you. Getting Started# Proposing New Features# New feature ideas are best discussed on a specific issue. Please include as much information as you can, any accompanying data, and your proposed solution. The PyTorch team and community frequently review new issues and comments where they think they can help. If you feel confident in your solution, go ahead and implement it. Reporting Issues# If you\u2019ve identified an issue, first search through the list of existing issues on the repo. If you are unable to find a similar issue, then create a new one. Supply as much information you can to reproduce the problematic behavior. Also, include any additional insights like the behavior you expect. Implementing Features or Fixing Bugs# If you want to fix a specific issue, it\u2019s best to comment on the individual issue with your intent. However, we do not lock or assign issues except in cases where we have worked with the developer before. It\u2019s best to strike up a conversation on the issue and discuss your proposed solution. The PyTorch team can provide guidance that saves you time. Issues that are labeled first-new-issue, low, or medium priority provide the best entrance points and are great places to start. Adding Tutorials# A great deal of the tutorials on pytorch.org come from the community itself and we welcome additional contributions. To learn more about how to contribute a new tutorial you can learn more here: PyTorch.org Tutorial Contribution Guide on GitHub Improving Documentation \u0026 Tutorials# We aim to produce high quality documentation and tutorials. On rare occasions that content includes typos or bugs. If you find something you can fix, send us a pull request for consideration. Take a look at the Documentation section to learn how our system works. Participating in Online Discussions# You can find active discussions happening on the PyTorch Discussion Forums for users as well as the PyTorch Dev Discussion Forums for developers and maintainers. Submitting Pull Requests to Fix Open Issues# You can view a list of all open issues here. Commenting on an issue is a great way to get the attention of the team. From here you can share your ideas and how you plan to resolve the issue. For more challenging issues, the team will provide feedback and direction for how to best solve the issue. If you\u2019re not able to fix the issue yourself, commenting and sharing whether you can reproduce the issue can help the team identify problem areas. Reviewing Open Pull Requests# We appreciate your help reviewing and commenting on pull requests. Our team strives to keep the number of open pull requests at a manageable size, we respond quickly for more information if we need it, and we merge PRs that we think are useful. However, due to the high level of interest, additional eyes on the pull requests are always appreciated. Improving Code Readability# Improving code readability helps everyone. It is often better to submit a small number of pull requests that touch a few files versus a large pull request that touches many files. Starting a discussion in the PyTorch forum here or on an issue related to your improvement is the best way to get started. Adding Test Cases to Make the Codebase More Robust# Additional test coverage is appreciated. Promoting PyTorch# Your use of PyTorch in your projects, research papers, write ups, blogs, or general discussions around the internet helps to raise awareness for PyTorch and our growing community. Please reach out to marketing@pytorch.org for marketing support. Triaging Issues# If you feel that an issue could benefit from a particular tag or level of complexity, comment on the issue and share your opinion. If you feel an issue isn\u2019t categorized properly, comment and let the team know. About Open Source Development# If this is your first time contributing to an open source project, some aspects of the development process may seem unusual to you. There is no way to \u201cclaim\u201d issues. People often want to \u201cclaim\u201d an issue when they decide to work on it, to ensure that there isn\u2019t wasted work when someone else ends up working on it. This doesn\u2019t really work too well in open source, since someone may decide to work on something, and end up not having time to do it. Feel free to give information in an advisory fashion, but at the end of the day, we will take running code and rough consensus to move forward quickly. There is a high bar for new functionality. Unlike in a corporate environment, where the person who wrote code implicitly \u201cowns\u201d it and can be expected to take care of it for the code\u2019s lifetime, once a pull request is merged into an open source project, it immediately becomes the collective responsibility of all maintainers on the project. When we merge code, we are saying that we, the maintainers, can review subsequent changes and make a bugfix to the code. This naturally leads to a higher standard of contribution. Common Mistakes To Avoid# Did you add tests? (Or if the change is hard to test, did you describe how you tested your change?) We have a few motivations for why we ask for tests: to help us tell if we break it later to help us tell if the patch is correct in the first place (yes, we did review it, but as Knuth says, \u201cbeware of the following code, for I have not run it, merely proven it correct\u201d) When is it OK not to add a test? Sometimes a change can\u2019t be conveniently tested, or the change is so obviously correct (and unlikely to be broken) that it\u2019s OK not to test it. On the contrary, if a change seems likely (or is known to be likely) to be accidentally broken, it\u2019s important to put in the time to work out a testing strategy. Is your PR too long? It\u2019s easier for us to review and merge small PRs. The difficulty of reviewing a PR scales nonlinearly with its size. When is it OK to submit a large PR? It helps a lot if there was a corresponding design discussion in an issue, with sign off from the people who are going to review your diff. We can also help give advice about how to split up a large change into individually shippable parts. Similarly, it helps if there is a complete description of the contents of the PR: it\u2019s easier to review code if we know what\u2019s inside! Comments for subtle things? In cases where the behavior of your code is nuanced, please include extra comments and documentation to allow us to better understand the intention of your code. Did you add a hack? Sometimes, the right answer is a hack. But usually, we will have to discuss it. Do you want to touch a very core component? To prevent major regressions, pull requests that touch core components receive extra scrutiny. Make sure you\u2019ve discussed your changes with the team before undertaking major changes. Want to add a new feature? If you want to add new features, comment your intention on the related issue. Our team tries to comment on and provide feedback to the community. It\u2019s better to have an open discussion with the team and the rest of the community before building new features. This helps us stay aware of what you\u2019re working on and increases the chance that it\u2019ll be merged. Did you touch code unrelated to the PR? To aid in code review, please only include files in your pull request that are directly related to your changes. Frequently Asked Questions# How can I contribute as a reviewer? There is lots of value if community developers reproduce issues, try out new functionality, or otherwise help us identify or troubleshoot issues. Commenting on tasks or pull requests with your environment details is helpful and appreciated. CI tests failed, what does it mean? Maybe your PR is based off a broken main branch? You can try to rebase your change on top of the latest main branch. You can also see the current status of main branch\u2019s CI at https://hud.pytorch.org/. What are the most high risk changes? Anything that touches build configuration is a risky area. Please avoid changing these unless you\u2019ve had a discussion with the team beforehand. Hey, a commit showed up on my branch, what\u2019s up with that? Sometimes another community member will provide a patch or fix to your pull request or branch. This is often needed for getting CI tests to pass. On Documentation# Python Docs# PyTorch documentation is generated from python source using Sphinx. Generated HTML is copied to the docs folder in the main branch of pytorch.org/docs, and is served via GitHub pages. Site: https://pytorch.org/docs GitHub: pytorch/pytorch Served from: https://pytorch.org/docs/main C++ Docs# For C++ code we use Doxygen to generate the content files. The C++ docs are built on a special server and the resulting files are copied to the pytorch/cppdocs repo, and are served from GitHub pages. Site: https://pytorch.org/cppdocs GitHub: pytorch/pytorch Served from: pytorch/cppdocs Tutorials# PyTorch tutorials are documents used to help understand using PyTorch to accomplish specific tasks or to understand more holistic concepts. Tutorials are built using Sphinx-Gallery from executable python source files, or from restructured-text (rst) files. Site: https://pytorch.org/tutorials GitHub: pytorch/tutorials Tutorials Build Overview# For tutorials, pull requests trigger a rebuild of the entire site using CircleCI to test the effects of the change. This build is sharded into 9 worker builds and takes around 40 minutes total. At the same time, we do a Netlify build using make html-noplot, which builds the site without rendering the notebook output into pages for quick review. After a PR is accepted, the site is rebuilt and deployed using GitHub Actions. Contributing a New Tutorial# See PyTorch.org Tutorial Contribution Guide.",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "../_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/community/contribution_guide.html"
+       },
+       "datePublished": "Mar 11, 2019T00:00:00Z",
+       "dateModified": "Apr 27, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

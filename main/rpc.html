@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/rpc.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0b59492 )');
- </script>
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -175,19 +185,21 @@
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
 
-   <!--
+<!--
    Search engines should not index the main version of documentation.
    Stable documentation are built without release == 'main'.
    -->
-   <meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -524,7 +536,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -532,7 +545,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -3433,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3458,7 +3471,22 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 </ul>
@@ -3519,6 +3547,22 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.config.html">torch.compiler.config</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fine_grain_apis.html">TorchDynamo APIs for fine-grained tracing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_backward.html"><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has different autograd semantics</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3555,7 +3599,6 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4400,23 +4443,24 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="pytorch-api.html">
-          <meta itemprop="name" content="Reference API">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="pytorch-api.html">
+        <meta itemprop="name" content="Reference API">
+        <meta itemprop="position" content="1">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="Distributed RPC Framework">
         <meta itemprop="position" content="2">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -4509,7 +4553,7 @@ place. To initialize the RPC framework we need to use
 framework, RRef framework and distributed autograd.</p>
 <span class="target" id="module-torch.distributed.rpc"></span><dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.rpc.init_rpc">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.</span></span><span class="sig-name descname"><span class="pre">init_rpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rpc_backend_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/distributed/rpc/__init__.py#L92"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.init_rpc" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.</span></span><span class="sig-name descname"><span class="pre">init_rpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rpc_backend_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/distributed/rpc/__init__.py#L92"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.init_rpc" title="Permalink to this definition">#</a></dt>
 <dd><p>Initializes RPC primitives such as the local RPC agent
 and distributed autograd, which immediately makes the current
 process ready to send and receive RPCs.</p>
@@ -4552,7 +4596,7 @@ applications can always explicitly move the input tensors to CPU on the caller
 and move it to the desired devices on the callee if necessary.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.rpc.rpc_sync">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.</span></span><span class="sig-name descname"><span class="pre">rpc_sync</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/distributed/rpc/api.py#L758"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.rpc_sync" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.</span></span><span class="sig-name descname"><span class="pre">rpc_sync</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/distributed/rpc/api.py#L758"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.rpc_sync" title="Permalink to this definition">#</a></dt>
 <dd><p>Make a blocking RPC call to run function <code class="docutils literal notranslate"><span class="pre">func</span></code> on worker <code class="docutils literal notranslate"><span class="pre">to</span></code>. RPC
 messages are sent and received in parallel to execution of Python code. This
 method is thread-safe.</p>
@@ -4627,7 +4671,7 @@ export MASTER_PORT=5678</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.rpc.rpc_async">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.</span></span><span class="sig-name descname"><span class="pre">rpc_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/distributed/rpc/api.py#L832"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.rpc_async" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.</span></span><span class="sig-name descname"><span class="pre">rpc_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/distributed/rpc/api.py#L832"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.rpc_async" title="Permalink to this definition">#</a></dt>
 <dd><p>Make a non-blocking RPC call to run function <code class="docutils literal notranslate"><span class="pre">func</span></code> on worker <code class="docutils literal notranslate"><span class="pre">to</span></code>. RPC
 messages are sent and received in parallel to execution of Python code. This
 method is thread-safe. This method will immediately return a
@@ -4724,7 +4768,7 @@ export MASTER_PORT=5678</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.rpc.remote">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.</span></span><span class="sig-name descname"><span class="pre">remote</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/distributed/rpc/api.py#L546"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.remote" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.</span></span><span class="sig-name descname"><span class="pre">remote</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/distributed/rpc/api.py#L546"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.remote" title="Permalink to this definition">#</a></dt>
 <dd><p>Make a remote call to run <code class="docutils literal notranslate"><span class="pre">func</span></code> on worker <code class="docutils literal notranslate"><span class="pre">to</span></code> and return an
 <code class="xref py py-class docutils literal notranslate"><span class="pre">RRef</span></code> to the result value immediately.
 Worker <code class="docutils literal notranslate"><span class="pre">to</span></code> will be the owner of the returned
@@ -4833,7 +4877,7 @@ Below is an example of running a TorchScript function using RPC.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.rpc.get_worker_info">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.</span></span><span class="sig-name descname"><span class="pre">get_worker_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/distributed/rpc/api.py#L421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.get_worker_info" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.</span></span><span class="sig-name descname"><span class="pre">get_worker_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/distributed/rpc/api.py#L421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.get_worker_info" title="Permalink to this definition">#</a></dt>
 <dd><p>Get <a class="reference internal" href="#torch.distributed.rpc.WorkerInfo" title="torch.distributed.rpc.WorkerInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkerInfo</span></code></a> of a given worker name.
 Use this <a class="reference internal" href="#torch.distributed.rpc.WorkerInfo" title="torch.distributed.rpc.WorkerInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkerInfo</span></code></a> to avoid passing an
 expensive string on every invocation.</p>
@@ -4852,7 +4896,7 @@ current worker if <code class="docutils literal notranslate"><span class="pre">w
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.rpc.shutdown">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.</span></span><span class="sig-name descname"><span class="pre">shutdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graceful</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/distributed/rpc/api.py#L320"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.shutdown" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.</span></span><span class="sig-name descname"><span class="pre">shutdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graceful</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/distributed/rpc/api.py#L320"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.shutdown" title="Permalink to this definition">#</a></dt>
 <dd><p>Perform a shutdown of the RPC agent, and then destroy the RPC agent. This
 stops the local agent from accepting outstanding requests, and shuts
 down the RPC framework by terminating all RPC threads. If <code class="docutils literal notranslate"><span class="pre">graceful=True</span></code>,
@@ -4933,7 +4977,7 @@ every invocation.</p>
 how a given function should be treated on the callee side.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.rpc.functions.async_execution">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.functions.</span></span><span class="sig-name descname"><span class="pre">async_execution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/distributed/rpc/functions.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.functions.async_execution" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.functions.</span></span><span class="sig-name descname"><span class="pre">async_execution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/distributed/rpc/functions.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.functions.async_execution" title="Permalink to this definition">#</a></dt>
 <dd><p>A decorator for a function indicating that the return value of the function
 is guaranteed to be a <a class="reference internal" href="futures.html#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> object and this
 function can run asynchronously on the RPC callee. More specifically, the
@@ -5174,7 +5218,7 @@ the best transport on its own, with no intervention required.</p>
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.rpc.TensorPipeRpcBackendOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.</span></span><span class="sig-name descname"><span class="pre">TensorPipeRpcBackendOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_worker_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rpc_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'env://'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_maps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">devices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_transports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/distributed/rpc/options.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.TensorPipeRpcBackendOptions" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.rpc.</span></span><span class="sig-name descname"><span class="pre">TensorPipeRpcBackendOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_worker_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rpc_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'env://'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_maps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">devices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_transports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/distributed/rpc/options.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.TensorPipeRpcBackendOptions" title="Permalink to this definition">#</a></dt>
 <dd><p>The backend options for
 <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorPipeAgent</span></code>, derived from
 <a class="reference internal" href="#torch.distributed.rpc.RpcBackendOptions" title="torch.distributed.rpc.RpcBackendOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">RpcBackendOptions</span></code></a>.</p>
@@ -5246,7 +5290,7 @@ complete with an exception indicating that it has timed out.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.rpc.TensorPipeRpcBackendOptions.set_device_map">
-<span class="sig-name descname"><span class="pre">set_device_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/distributed/rpc/options.py#L112"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.TensorPipeRpcBackendOptions.set_device_map" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_device_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/distributed/rpc/options.py#L112"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.TensorPipeRpcBackendOptions.set_device_map" title="Permalink to this definition">#</a></dt>
 <dd><p>Set device mapping between each RPC caller and callee pair. This
 function can be called multiple times to incrementally add
 device placement configurations.</p>
@@ -5297,7 +5341,7 @@ invertible.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.rpc.TensorPipeRpcBackendOptions.set_devices">
-<span class="sig-name descname"><span class="pre">set_devices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">devices</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/distributed/rpc/options.py#L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.TensorPipeRpcBackendOptions.set_devices" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_devices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">devices</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/distributed/rpc/options.py#L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.rpc.TensorPipeRpcBackendOptions.set_devices" title="Permalink to this definition">#</a></dt>
 <dd><p>Set local devices used by the TensorPipe RPC agent. When processing
 CUDA RPC requests, the TensorPipe RPC agent will properly synchronize
 CUDA streams for all devices in this <code class="docutils literal notranslate"><span class="pre">List</span></code>.</p>
@@ -5644,7 +5688,7 @@ The invocation however incurs RPC calls to the remote end and can be performed
 asynchronously if needed via additional APIs supported by RemoteModule.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.nn.api.remote_module.RemoteModule">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.nn.api.remote_module.</span></span><span class="sig-name descname"><span class="pre">RemoteModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/distributed/nn/api/remote_module.py#L597"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.nn.api.remote_module.RemoteModule" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.nn.api.remote_module.</span></span><span class="sig-name descname"><span class="pre">RemoteModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/distributed/nn/api/remote_module.py#L597"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.nn.api.remote_module.RemoteModule" title="Permalink to this definition">#</a></dt>
 <dd><blockquote>
 <div><p>A RemoteModule instance can only be created after RPC initialization.</p>
 <p>It creates a user-specified module on a specified remote node.
@@ -5725,7 +5769,7 @@ can be found in this <a class="reference external" href="https://pytorch.org/tut
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.nn.api.remote_module.RemoteModule.get_module_rref">
-<span class="sig-name descname"><span class="pre">get_module_rref</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/distributed/nn/api/remote_module.py#L296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.nn.api.remote_module.RemoteModule.get_module_rref" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_module_rref</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/distributed/nn/api/remote_module.py#L296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.nn.api.remote_module.RemoteModule.get_module_rref" title="Permalink to this definition">#</a></dt>
 <dd><p>Return an <code class="xref py py-class docutils literal notranslate"><span class="pre">RRef</span></code> (<code class="docutils literal notranslate"><span class="pre">RRef[nn.Module]</span></code>) pointing to the remote module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -5736,7 +5780,7 @@ can be found in this <a class="reference external" href="https://pytorch.org/tut
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.nn.api.remote_module.RemoteModule.remote_parameters">
-<span class="sig-name descname"><span class="pre">remote_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/distributed/nn/api/remote_module.py#L277"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.nn.api.remote_module.RemoteModule.remote_parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">remote_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/distributed/nn/api/remote_module.py#L277"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.nn.api.remote_module.RemoteModule.remote_parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RRef</span></code> pointing to the remote module’s parameters.</p>
 <p>This can typically be used in conjunction
 with <a class="reference internal" href="distributed.optim.html#torch.distributed.optim.DistributedOptimizer" title="torch.distributed.optim.DistributedOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistributedOptimizer</span></code></a>.</p>
@@ -5817,7 +5861,7 @@ to True to run backward multiple times.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.autograd.context">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.autograd.</span></span><span class="sig-name descname"><span class="pre">context</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/distributed/autograd/__init__.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.autograd.context" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.autograd.</span></span><span class="sig-name descname"><span class="pre">context</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/distributed/autograd/__init__.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.autograd.context" title="Permalink to this definition">#</a></dt>
 <dd><p>Context object to wrap forward and backward passes when using
 distributed autograd. The <code class="docutils literal notranslate"><span class="pre">context_id</span></code> generated in the <code class="docutils literal notranslate"><span class="pre">with</span></code>
 statement  is required to uniquely identify a distributed backward pass
@@ -5922,7 +5966,7 @@ to use <a class="reference external" href="https://pytorch.org/docs/stable/autog
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -6180,91 +6224,124 @@ to use <a class="reference external" href="https://pytorch.org/docs/stable/autog
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -6272,8 +6349,7 @@ to use <a class="reference external" href="https://pytorch.org/docs/stable/autog
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -6313,28 +6389,47 @@ to use <a class="reference external" href="https://pytorch.org/docs/stable/autog
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "Distributed RPC Framework",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/rpc.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/rpc.html"
-         },
-        "datePublished": "Nov 14, 2019T00:00:00Z",
-         "dateModified": "Jul 09, 2025T00:00:00Z",
-         "articleBody": "Distributed RPC Framework# Created On: Nov 14, 2019 | Last Updated On: Jul 09, 2025 The distributed RPC framework provides mechanisms for multi-machine model training through a set of primitives to allow for remote communication, and a higher-level API to automatically differentiate models split across several machines. Warning APIs in the RPC package are stable and in maintenance mode. Warning CUDA support is a beta feature. Not all features of the RPC package are yet compatible with CUDA support and thus their use is discouraged. These unsupported features include: RRefs, JIT compatibility, dist autograd and dist optimizer, and profiling. Note Please refer to PyTorch Distributed Overview &lt;https://pytorch.org/tutorials/beginner/dist_overview.html&gt;__ for a brief introduction to all features related to distributed training. Basics# The distributed RPC framework makes it easy to run functions remotely, supports referencing remote objects without copying the real data around, and provides autograd and optimizer APIs to transparently run backward and update parameters across RPC boundaries. These features can be categorized into four sets of APIs. Remote Procedure Call (RPC) supports running a function on the specified destination worker with the given arguments and getting the return value back or creating a reference to the return value. There are three main RPC APIs: rpc_sync() (synchronous), rpc_async() (asynchronous), and remote() (asynchronous and returns a reference to the remote return value). Use the synchronous API if the user code cannot proceed without the return value. Otherwise, use the asynchronous API to get a future, and wait on the future when the return value is needed on the caller. The remote() API is useful when the requirement is to create something remotely but never need to fetch it to the caller. Imagine the case that a driver process is setting up a parameter server and a trainer. The driver can create an embedding table on the parameter server and then share the reference to the embedding table with the trainer, but itself will never use the embedding table locally. In this case, rpc_sync() and rpc_async() are no longer appropriate, as they always imply that the return value will be returned to the caller immediately or in the future. Remote Reference (RRef) serves as a distributed shared pointer to a local or remote object. It can be shared with other workers and reference counting will be handled transparently. Each RRef only has one owner and the object only lives on that owner. Non-owner workers holding RRefs can get copies of the object from the owner by explicitly requesting it. This is useful when a worker needs to access some data object, but itself is neither the creator (the caller of remote()) or the owner of the object. The distributed optimizer, as we will discuss below, is one example of such use cases. Distributed Autograd stitches together local autograd engines on all the workers involved in the forward..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "Distributed RPC Framework",
+       "headline": "Distributed RPC Framework",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/rpc.html",
+       "articleBody": "Distributed RPC Framework# Created On: Nov 14, 2019 | Last Updated On: Jul 09, 2025 The distributed RPC framework provides mechanisms for multi-machine model training through a set of primitives to allow for remote communication, and a higher-level API to automatically differentiate models split across several machines. Warning APIs in the RPC package are stable and in maintenance mode. Warning CUDA support is a beta feature. Not all features of the RPC package are yet compatible with CUDA support and thus their use is discouraged. These unsupported features include: RRefs, JIT compatibility, dist autograd and dist optimizer, and profiling. Note Please refer to PyTorch Distributed Overview \u003chttps://pytorch.org/tutorials/beginner/dist_overview.html\u003e__ for a brief introduction to all features related to distributed training. Basics# The distributed RPC framework makes it easy to run functions remotely, supports referencing remote objects without copying the real data around, and provides autograd and optimizer APIs to transparently run backward and update parameters across RPC boundaries. These features can be categorized into four sets of APIs. Remote Procedure Call (RPC) supports running a function on the specified destination worker with the given arguments and getting the return value back or creating a reference to the return value. There are three main RPC APIs: rpc_sync() (synchronous), rpc_async() (asynchronous), and remote() (asynchronous and returns a reference to the remote return value). Use the synchronous API if the user code cannot proceed without the return value. Otherwise, use the asynchronous API to get a future, and wait on the future when the return value is needed on the caller. The remote() API is useful when the requirement is to create something remotely but never need to fetch it to the caller. Imagine the case that a driver process is setting up a parameter server and a trainer. The driver can create an embedding table on the parameter server and then share the reference to the embedding table with the trainer, but itself will never use the embedding table locally. In this case, rpc_sync() and rpc_async() are no longer appropriate, as they always imply that the return value will be returned to the caller immediately or in the future. Remote Reference (RRef) serves as a distributed shared pointer to a local or remote object. It can be shared with other workers and reference counting will be handled transparently. Each RRef only has one owner and the object only lives on that owner. Non-owner workers holding RRefs can get copies of the object from the owner by explicitly requesting it. This is useful when a worker needs to access some data object, but itself is neither the creator (the caller of remote()) or the owner of the object. The distributed optimizer, as we will discuss below, is one example of such use cases. Distributed Autograd stitches together local autograd engines on all the workers involved in the forward pass, and automatically reach out to them during the backward pass to compute gradients. This is especially helpful if the forward pass needs to span multiple machines when conducting, e.g., distributed model parallel training, parameter-server training, etc. With this feature, user code no longer needs to worry about how to send gradients across RPC boundaries and in which order should the local autograd engines be launched, which can become quite complicated where there are nested and inter-dependent RPC calls in the forward pass. Distributed Optimizer\u2019s constructor takes a Optimizer() (e.g., SGD(), Adagrad(), etc.) and a list of parameter RRefs, creates an Optimizer() instance on each distinct RRef owner, and updates parameters accordingly when running step(). When you have distributed forward and backward passes, parameters and gradients will be scattered across multiple workers, and hence it requires an optimizer on each of the involved workers. Distributed Optimizer wraps all those local optimizers into one, and provides a concise constructor and step() API. RPC# Before using RPC and distributed autograd primitives, initialization must take place. To initialize the RPC framework we need to use init_rpc() which would initialize the RPC framework, RRef framework and distributed autograd. torch.distributed.rpc.init_rpc(name, backend=None, rank=-1, world_size=None, rpc_backend_options=None)[source]# Initializes RPC primitives such as the local RPC agent and distributed autograd, which immediately makes the current process ready to send and receive RPCs. Parameters name (str) \u2013 a globally unique name of this node. (e.g., Trainer3, ParameterServer2, Master, Worker1) Name can only contain number, alphabet, underscore, colon, and/or dash, and must be shorter than 128 characters. backend (BackendType, optional) \u2013 The type of RPC backend implementation. Supported values is BackendType.TENSORPIPE (the default). See Backends for more information. rank (int) \u2013 a globally unique id/rank of this node. world_size (int) \u2013 The number of workers in the group. rpc_backend_options (RpcBackendOptions, optional) \u2013 The options passed to the RpcAgent constructor. It must be an agent-specific subclass of RpcBackendOptions and contains agent-specific initialization configurations. By default, for all agents, it sets the default timeout to 60 seconds and performs the rendezvous with an underlying process group initialized using init_method = \"env://\", meaning that environment variables MASTER_ADDR and MASTER_PORT need to be set properly. See Backends for more information and find which options are available. The following APIs allow users to remotely execute functions as well as create references (RRefs) to remote data objects. In these APIs, when passing a Tensor as an argument or a return value, the destination worker will try to create a Tensor with the same meta (i.e., shape, stride, etc.). We intentionally disallow transmitting CUDA tensors because it might crash if the device lists on source and destination workers do not match. In such cases, applications can always explicitly move the input tensors to CPU on the caller and move it to the desired devices on the callee if necessary. torch.distributed.rpc.rpc_sync(to, func, args=None, kwargs=None, timeout=-1.0)[source]# Make a blocking RPC call to run function func on worker to. RPC messages are sent and received in parallel to execution of Python code. This method is thread-safe. Parameters to (str or WorkerInfo or int) \u2013 name/rank/WorkerInfo of the destination worker. func (Callable) \u2013 a callable function, such as Python callables, builtin operators (e.g. add()) and annotated TorchScript functions. args (tuple) \u2013 the argument tuple for the func invocation. kwargs (dict) \u2013 is a dictionary of keyword arguments for the func invocation. timeout (float, optional) \u2013 timeout in seconds to use for this RPC. If the RPC does not complete in this amount of time, an exception indicating it has timed out will be raised. A value of 0 indicates an infinite timeout, i.e. a timeout error will never be raised. If not provided, the default value set during initialization or with _set_rpc_timeout is used. Returns Returns the result of running func with args and kwargs. Example::Make sure that MASTER_ADDR and MASTER_PORT are set properly on both workers. Refer to init_process_group() API for more details. For example, export MASTER_ADDR=localhost export MASTER_PORT=5678 Then run the following code in two different processes: \u003e\u003e\u003e # On worker 0: \u003e\u003e\u003e import torch \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rpc.init_rpc(\"worker0\", rank=0, world_size=2) \u003e\u003e\u003e ret = rpc.rpc_sync(\"worker1\", torch.add, args=(torch.ones(2), 3)) \u003e\u003e\u003e rpc.shutdown() \u003e\u003e\u003e # On worker 1: \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rpc.init_rpc(\"worker1\", rank=1, world_size=2) \u003e\u003e\u003e rpc.shutdown() Below is an example of running a TorchScript function using RPC. \u003e\u003e\u003e # On both workers: \u003e\u003e\u003e @torch.jit.script \u003e\u003e\u003e def my_script_add(tensor: torch.Tensor, scalar: int): \u003e\u003e\u003e return torch.add(tensor, scalar) \u003e\u003e\u003e # On worker 0: \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rpc.init_rpc(\"worker0\", rank=0, world_size=2) \u003e\u003e\u003e ret = rpc.rpc_sync(\"worker1\", my_script_add, args=(torch.ones(2), 3)) \u003e\u003e\u003e rpc.shutdown() \u003e\u003e\u003e # On worker 1: \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rpc.init_rpc(\"worker1\", rank=1, world_size=2) \u003e\u003e\u003e rpc.shutdown() torch.distributed.rpc.rpc_async(to, func, args=None, kwargs=None, timeout=-1.0)[source]# Make a non-blocking RPC call to run function func on worker to. RPC messages are sent and received in parallel to execution of Python code. This method is thread-safe. This method will immediately return a Future that can be awaited on. Parameters to (str or WorkerInfo or int) \u2013 name/rank/WorkerInfo of the destination worker. func (Callable) \u2013 a callable function, such as Python callables, builtin operators (e.g. add()) and annotated TorchScript functions. args (tuple) \u2013 the argument tuple for the func invocation. kwargs (dict) \u2013 is a dictionary of keyword arguments for the func invocation. timeout (float, optional) \u2013 timeout in seconds to use for this RPC. If the RPC does not complete in this amount of time, an exception indicating it has timed out will be raised. A value of 0 indicates an infinite timeout, i.e. a timeout error will never be raised. If not provided, the default value set during initialization or with _set_rpc_timeout is used. Returns Returns a Future object that can be waited on. When completed, the return value of func on args and kwargs can be retrieved from the Future object. Warning Using GPU tensors as arguments or return values of func is not supported since we don\u2019t support sending GPU tensors over the wire. You need to explicitly copy GPU tensors to CPU before using them as arguments or return values of func. Warning The rpc_async API does not copy storages of argument tensors until sending them over the wire, which could be done by a different thread depending on the RPC backend type. The caller should make sure that the contents of those tensors stay intact until the returned Future completes. Example::Make sure that MASTER_ADDR and MASTER_PORT are set properly on both workers. Refer to init_process_group() API for more details. For example, export MASTER_ADDR=localhost export MASTER_PORT=5678 Then run the following code in two different processes: \u003e\u003e\u003e # On worker 0: \u003e\u003e\u003e import torch \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rpc.init_rpc(\"worker0\", rank=0, world_size=2) \u003e\u003e\u003e fut1 = rpc.rpc_async(\"worker1\", torch.add, args=(torch.ones(2), 3)) \u003e\u003e\u003e fut2 = rpc.rpc_async(\"worker1\", min, args=(1, 2)) \u003e\u003e\u003e result = fut1.wait() + fut2.wait() \u003e\u003e\u003e rpc.shutdown() \u003e\u003e\u003e # On worker 1: \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rpc.init_rpc(\"worker1\", rank=1, world_size=2) \u003e\u003e\u003e rpc.shutdown() Below is an example of running a TorchScript function using RPC. \u003e\u003e\u003e # On both workers: \u003e\u003e\u003e @torch.jit.script \u003e\u003e\u003e def my_script_add(tensor: torch.Tensor, scalar: int): \u003e\u003e\u003e return torch.add(tensor, scalar) \u003e\u003e\u003e # On worker 0: \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rpc.init_rpc(\"worker0\", rank=0, world_size=2) \u003e\u003e\u003e fut = rpc.rpc_async(\"worker1\", my_script_add, args=(torch.ones(2), 3)) \u003e\u003e\u003e ret = fut.wait() \u003e\u003e\u003e rpc.shutdown() \u003e\u003e\u003e # On worker 1: \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rpc.init_rpc(\"worker1\", rank=1, world_size=2) \u003e\u003e\u003e rpc.shutdown() torch.distributed.rpc.remote(to, func, args=None, kwargs=None, timeout=-1.0)[source]# Make a remote call to run func on worker to and return an RRef to the result value immediately. Worker to will be the owner of the returned RRef, and the worker calling remote is a user. The owner manages the global reference count of its RRef, and the owner RRef is only destructed when globally there are no living references to it. Parameters to (str or WorkerInfo or int) \u2013 name/rank/WorkerInfo of the destination worker. func (Callable) \u2013 a callable function, such as Python callables, builtin operators (e.g. add()) and annotated TorchScript functions. args (tuple) \u2013 the argument tuple for the func invocation. kwargs (dict) \u2013 is a dictionary of keyword arguments for the func invocation. timeout (float, optional) \u2013 timeout in seconds for this remote call. If the creation of this RRef on worker to is not successfully processed on this worker within this timeout, then the next time there is an attempt to use the RRef (such as to_here()), a timeout will be raised indicating this failure. A value of 0 indicates an infinite timeout, i.e. a timeout error will never be raised. If not provided, the default value set during initialization or with _set_rpc_timeout is used. Returns A user RRef instance to the result value. Use the blocking API torch.distributed.rpc.RRef.to_here() to retrieve the result value locally. Warning The remote API does not copy storages of argument tensors until sending them over the wire, which could be done by a different thread depending on the RPC backend type. The caller should make sure that the contents of those tensors stay intact until the returned RRef is confirmed by the owner, which can be checked using the torch.distributed.rpc.RRef.confirmed_by_owner() API. Warning Errors such as timeouts for the remote API are handled on a best-effort basis. This means that when remote calls initiated by remote fail, such as with a timeout error, we take a best-effort approach to error handling. This means that errors are handled and set on the resulting RRef on an asynchronous basis. If the RRef has not been used by the application before this handling (such as to_here or fork call), then future uses of the RRef will appropriately raise errors. However, it is possible that the user application will use the RRef before the errors are handled. In this case, errors may not be raised as they have not yet been handled. Example: Make sure that ``MASTER_ADDR`` and ``MASTER_PORT`` are set properly on both workers. Refer to :meth:`~torch.distributed.init_process_group` API for more details. For example, export MASTER_ADDR=localhost export MASTER_PORT=5678 Then run the following code in two different processes: \u003e\u003e\u003e # On worker 0: \u003e\u003e\u003e import torch \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rpc.init_rpc(\"worker0\", rank=0, world_size=2) \u003e\u003e\u003e rref1 = rpc.remote(\"worker1\", torch.add, args=(torch.ones(2), 3)) \u003e\u003e\u003e rref2 = rpc.remote(\"worker1\", torch.add, args=(torch.ones(2), 1)) \u003e\u003e\u003e x = rref1.to_here() + rref2.to_here() \u003e\u003e\u003e rpc.shutdown() \u003e\u003e\u003e # On worker 1: \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rpc.init_rpc(\"worker1\", rank=1, world_size=2) \u003e\u003e\u003e rpc.shutdown() Below is an example of running a TorchScript function using RPC. \u003e\u003e\u003e # On both workers: \u003e\u003e\u003e @torch.jit.script \u003e\u003e\u003e def my_script_add(tensor: torch.Tensor, scalar: int): \u003e\u003e\u003e return torch.add(tensor, scalar) \u003e\u003e\u003e # On worker 0: \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rpc.init_rpc(\"worker0\", rank=0, world_size=2) \u003e\u003e\u003e rref = rpc.remote(\"worker1\", my_script_add, args=(torch.ones(2), 3)) \u003e\u003e\u003e rref.to_here() \u003e\u003e\u003e rpc.shutdown() \u003e\u003e\u003e # On worker 1: \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rpc.init_rpc(\"worker1\", rank=1, world_size=2) \u003e\u003e\u003e rpc.shutdown() torch.distributed.rpc.get_worker_info(worker_name=None)[source]# Get WorkerInfo of a given worker name. Use this WorkerInfo to avoid passing an expensive string on every invocation. Parameters worker_name (str) \u2013 the string name of a worker. If None, return the the id of the current worker. (default None) Returns WorkerInfo instance for the given worker_name or WorkerInfo of the current worker if worker_name is None. torch.distributed.rpc.shutdown(graceful=True, timeout=0)[source]# Perform a shutdown of the RPC agent, and then destroy the RPC agent. This stops the local agent from accepting outstanding requests, and shuts down the RPC framework by terminating all RPC threads. If graceful=True, this will block until all local and remote RPC processes reach this method and wait for all outstanding work to complete. Otherwise, if graceful=False, this is a local shutdown, and it does not wait for other RPC processes to reach this method. Warning For Future objects returned by rpc_async(), future.wait() should not be called after shutdown(). Parameters graceful (bool) \u2013 Whether to do a graceful shutdown or not. If True, this will 1) wait until there is no pending system messages for UserRRefs and delete them; 2) block until all local and remote RPC processes have reached this method and wait for all outstanding work to complete. Example::Make sure that MASTER_ADDR and MASTER_PORT are set properly on both workers. Refer to init_process_group() API for more details. For example, export MASTER_ADDR=localhost export MASTER_PORT=5678 Then run the following code in two different processes: \u003e\u003e\u003e # On worker 0: \u003e\u003e\u003e import torch \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rpc.init_rpc(\"worker0\", rank=0, world_size=2) \u003e\u003e\u003e # do some work \u003e\u003e\u003e result = rpc.rpc_sync(\"worker1\", torch.add, args=(torch.ones(1), 1)) \u003e\u003e\u003e # ready to shutdown \u003e\u003e\u003e rpc.shutdown() \u003e\u003e\u003e # On worker 1: \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rpc.init_rpc(\"worker1\", rank=1, world_size=2) \u003e\u003e\u003e # wait for worker 0 to finish work, and then shutdown. \u003e\u003e\u003e rpc.shutdown() class torch.distributed.rpc.WorkerInfo# A structure that encapsulates information of a worker in the system. Contains the name and ID of the worker. This class is not meant to be constructed directly, rather, an instance can be retrieved through get_worker_info() and the result can be passed in to functions such as rpc_sync(), rpc_async(), remote() to avoid copying a string on every invocation. property id# Globally unique id to identify the worker. property name# The name of the worker. The RPC package also provides decorators which allow applications to specify how a given function should be treated on the callee side. torch.distributed.rpc.functions.async_execution(fn)[source]# A decorator for a function indicating that the return value of the function is guaranteed to be a Future object and this function can run asynchronously on the RPC callee. More specifically, the callee extracts the Future returned by the wrapped function and installs subsequent processing steps as a callback to that Future. The installed callback will read the value from the Future when completed and send the value back as the RPC response. That also means the returned Future only exists on the callee side and is never sent through RPC. This decorator is useful when the wrapped function\u2019s (fn) execution needs to pause and resume due to, e.g., containing rpc_async() or waiting for other signals. Note To enable asynchronous execution, applications must pass the function object returned by this decorator to RPC APIs. If RPC detected attributes installed by this decorator, it knows that this function returns a Future object and will handle that accordingly. However, this does not mean this decorator has to be outmost one when defining a function. For example, when combined with @staticmethod or @classmethod, @rpc.functions.async_execution needs to be the inner decorator to allow the target function be recognized as a static or class function. This target function can still execute asynchronously because, when accessed, the static or class method preserves attributes installed by @rpc.functions.async_execution. Example::The returned Future object can come from rpc_async(), then(), or Future constructor. The example below shows directly using the Future returned by then(). \u003e\u003e\u003e from torch.distributed import rpc \u003e\u003e\u003e \u003e\u003e\u003e # omitting setup and shutdown RPC \u003e\u003e\u003e \u003e\u003e\u003e # On all workers \u003e\u003e\u003e @rpc.functions.async_execution \u003e\u003e\u003e def async_add_chained(to, x, y, z): \u003e\u003e\u003e # This function runs on \"worker1\" and returns immediately when \u003e\u003e\u003e # the callback is installed through the `then(cb)` API. In the \u003e\u003e\u003e # mean time, the `rpc_async` to \"worker2\" can run concurrently. \u003e\u003e\u003e # When the return value of that `rpc_async` arrives at \u003e\u003e\u003e # \"worker1\", \"worker1\" will run the lambda function accordingly \u003e\u003e\u003e # and set the value for the previously returned `Future`, which \u003e\u003e\u003e # will then trigger RPC to send the result back to \"worker0\". \u003e\u003e\u003e return rpc.rpc_async(to, torch.add, args=(x, y)).then( \u003e\u003e\u003e lambda fut: fut.wait() + z \u003e\u003e\u003e ) \u003e\u003e\u003e \u003e\u003e\u003e # On worker0 \u003e\u003e\u003e ret = rpc.rpc_sync( \u003e\u003e\u003e \"worker1\", \u003e\u003e\u003e async_add_chained, \u003e\u003e\u003e args=(\"worker2\", torch.ones(2), 1, 1) \u003e\u003e\u003e ) \u003e\u003e\u003e print(ret) # prints tensor([3., 3.]) When combined with TorchScript decorators, this decorator must be the outmost one. \u003e\u003e\u003e from torch import Tensor \u003e\u003e\u003e from torch.futures import Future \u003e\u003e\u003e from torch.distributed import rpc \u003e\u003e\u003e \u003e\u003e\u003e # omitting setup and shutdown RPC \u003e\u003e\u003e \u003e\u003e\u003e # On all workers \u003e\u003e\u003e @torch.jit.script \u003e\u003e\u003e def script_add(x: Tensor, y: Tensor) -\u003e Tensor: \u003e\u003e\u003e return x + y \u003e\u003e\u003e \u003e\u003e\u003e @rpc.functions.async_execution \u003e\u003e\u003e @torch.jit.script \u003e\u003e\u003e def async_add(to: str, x: Tensor, y: Tensor) -\u003e Future[Tensor]: \u003e\u003e\u003e return rpc.rpc_async(to, script_add, (x, y)) \u003e\u003e\u003e \u003e\u003e\u003e # On worker0 \u003e\u003e\u003e ret = rpc.rpc_sync( \u003e\u003e\u003e \"worker1\", \u003e\u003e\u003e async_add, \u003e\u003e\u003e args=(\"worker2\", torch.ones(2), 1) \u003e\u003e\u003e ) \u003e\u003e\u003e print(ret) # prints tensor([2., 2.]) When combined with static or class method, this decorator must be the inner one. \u003e\u003e\u003e from torch.distributed import rpc \u003e\u003e\u003e \u003e\u003e\u003e # omitting setup and shutdown RPC \u003e\u003e\u003e \u003e\u003e\u003e # On all workers \u003e\u003e\u003e class AsyncExecutionClass: \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e @rpc.functions.async_execution \u003e\u003e\u003e def static_async_add(to, x, y, z): \u003e\u003e\u003e return rpc.rpc_async(to, torch.add, args=(x, y)).then( \u003e\u003e\u003e lambda fut: fut.wait() + z \u003e\u003e\u003e ) \u003e\u003e\u003e \u003e\u003e\u003e @classmethod \u003e\u003e\u003e @rpc.functions.async_execution \u003e\u003e\u003e def class_async_add(cls, to, x, y, z): \u003e\u003e\u003e ret_fut = torch.futures.Future() \u003e\u003e\u003e rpc.rpc_async(to, torch.add, args=(x, y)).then( \u003e\u003e\u003e lambda fut: ret_fut.set_result(fut.wait() + z) \u003e\u003e\u003e ) \u003e\u003e\u003e return ret_fut \u003e\u003e\u003e \u003e\u003e\u003e @rpc.functions.async_execution \u003e\u003e\u003e def bound_async_add(self, to, x, y, z): \u003e\u003e\u003e return rpc.rpc_async(to, torch.add, args=(x, y)).then( \u003e\u003e\u003e lambda fut: fut.wait() + z \u003e\u003e\u003e ) \u003e\u003e\u003e \u003e\u003e\u003e # On worker0 \u003e\u003e\u003e ret = rpc.rpc_sync( \u003e\u003e\u003e \"worker1\", \u003e\u003e\u003e AsyncExecutionClass.static_async_add, \u003e\u003e\u003e args=(\"worker2\", torch.ones(2), 1, 2) \u003e\u003e\u003e ) \u003e\u003e\u003e print(ret) # prints tensor([4., 4.]) \u003e\u003e\u003e \u003e\u003e\u003e ret = rpc.rpc_sync( \u003e\u003e\u003e \"worker1\", \u003e\u003e\u003e AsyncExecutionClass.class_async_add, \u003e\u003e\u003e args=(\"worker2\", torch.ones(2), 1, 2) \u003e\u003e\u003e ) \u003e\u003e\u003e print(ret) # prints tensor([4., 4.]) This decorator also works with RRef helpers, i.e., . torch.distributed.rpc.RRef.rpc_sync(), torch.distributed.rpc.RRef.rpc_async(), and torch.distributed.rpc.RRef.remote(). \u003e\u003e\u003e from torch.distributed import rpc \u003e\u003e\u003e \u003e\u003e\u003e # reuse the AsyncExecutionClass class above \u003e\u003e\u003e rref = rpc.remote(\"worker1\", AsyncExecutionClass) \u003e\u003e\u003e ret = rref.rpc_sync().static_async_add(\"worker2\", torch.ones(2), 1, 2) \u003e\u003e\u003e print(ret) # prints tensor([4., 4.]) \u003e\u003e\u003e \u003e\u003e\u003e rref = rpc.remote(\"worker1\", AsyncExecutionClass) \u003e\u003e\u003e ret = rref.rpc_async().static_async_add(\"worker2\", torch.ones(2), 1, 2).wait() \u003e\u003e\u003e print(ret) # prints tensor([4., 4.]) \u003e\u003e\u003e \u003e\u003e\u003e rref = rpc.remote(\"worker1\", AsyncExecutionClass) \u003e\u003e\u003e ret = rref.remote().static_async_add(\"worker2\", torch.ones(2), 1, 2).to_here() \u003e\u003e\u003e print(ret) # prints tensor([4., 4.]) Backends# The RPC module can leverage different backends to perform the communication between the nodes. The backend to be used can be specified in the init_rpc() function, by passing a certain value of the BackendType enum. Regardless of what backend is used, the rest of the RPC API won\u2019t change. Each backend also defines its own subclass of the RpcBackendOptions class, an instance of which can also be passed to init_rpc() to configure the backend\u2019s behavior. class torch.distributed.rpc.BackendType(value)# An enum class of available backends. PyTorch ships with a builtin BackendType.TENSORPIPE backend. Additional ones can be registered using the register_backend() function. class torch.distributed.rpc.RpcBackendOptions# An abstract structure encapsulating the options passed into the RPC backend. An instance of this class can be passed in to init_rpc() in order to initialize RPC with specific configurations, such as the RPC timeout and init_method to be used. property init_method# URL specifying how to initialize the process group. Default is env:// property rpc_timeout# A float indicating the timeout to use for all RPCs. If an RPC does not complete in this timeframe, it will complete with an exception indicating that it has timed out. TensorPipe Backend# The TensorPipe agent, which is the default, leverages the TensorPipe library, which provides a natively point-to-point communication primitive specifically suited for machine learning that fundamentally addresses some of the limitations of Gloo. Compared to Gloo, it has the advantage of being asynchronous, which allows a large number of transfers to occur simultaneously, each at their own speed, without blocking each other. It will only open pipes between pairs of nodes when needed, on demand, and when one node fails only its incident pipes will be closed, while all other ones will keep working as normal. In addition, it is able to support multiple different transports (TCP, of course, but also shared memory, NVLink, InfiniBand, \u2026) and can automatically detect their availability and negotiate the best transport to use for each pipe. The TensorPipe backend comes with a TCP-based transport, just like Gloo. It is also able to automatically chunk and multiplex large tensors over multiple sockets and threads in order to achieve very high bandwidths. The agent will be able to pick the best transport on its own, with no intervention required. Example: import os from torch.distributed import rpc os.environ[\u0027MASTER_ADDR\u0027] = \u0027localhost\u0027 os.environ[\u0027MASTER_PORT\u0027] = \u002729500\u0027 rpc.init_rpc( \"worker1\", rank=0, world_size=2, rpc_backend_options=rpc.TensorPipeRpcBackendOptions( num_worker_threads=8, rpc_timeout=20 # 20 second timeout ) ) # omitting init_rpc invocation on worker2 class torch.distributed.rpc.TensorPipeRpcBackendOptions(*, num_worker_threads=16, rpc_timeout=60.0, init_method=\u0027env://\u0027, device_maps=None, devices=None, _transports=None, _channels=None)[source]# The backend options for TensorPipeAgent, derived from RpcBackendOptions. Parameters num_worker_threads (int, optional) \u2013 The number of threads in the thread-pool used by TensorPipeAgent to execute requests (default: 16). rpc_timeout (float, optional) \u2013 The default timeout, in seconds, for RPC requests (default: 60 seconds). If the RPC has not completed in this timeframe, an exception indicating so will be raised. Callers can override this timeout for individual RPCs in rpc_sync() and rpc_async() if necessary. init_method (str, optional) \u2013 The URL to initialize the distributed store used for rendezvous. It takes any value accepted for the same argument of init_process_group() (default: env://). device_maps (Dict[str, Dict], optional) \u2013 Device placement mappings from this worker to the callee. Key is the callee worker name and value the dictionary (Dict of int, str, or torch.device) that maps this worker\u2019s devices to the callee worker\u2019s devices. (default: None) devices (List[int, str, or torch.device], optional) \u2013 all local CUDA devices used by RPC agent. By Default, it will be initialized to all local devices from its own device_maps and corresponding devices from its peers\u2019 device_maps. When processing CUDA RPC requests, the agent will properly synchronize CUDA streams for all devices in this List. property device_maps# The device map locations. property devices# All devices used by the local agent. property init_method# URL specifying how to initialize the process group. Default is env:// property num_worker_threads# The number of threads in the thread-pool used by TensorPipeAgent to execute requests. property rpc_timeout# A float indicating the timeout to use for all RPCs. If an RPC does not complete in this timeframe, it will complete with an exception indicating that it has timed out. set_device_map(to, device_map)[source]# Set device mapping between each RPC caller and callee pair. This function can be called multiple times to incrementally add device placement configurations. Parameters to (str) \u2013 Callee name. device_map (Dict of int, str, or torch.device) \u2013 Device placement mappings from this worker to the callee. This map must be invertible. Example \u003e\u003e\u003e # both workers \u003e\u003e\u003e def add(x, y): \u003e\u003e\u003e print(x) # tensor([1., 1.], device=\u0027cuda:1\u0027) \u003e\u003e\u003e return x + y, (x + y).to(2) \u003e\u003e\u003e \u003e\u003e\u003e # on worker 0 \u003e\u003e\u003e options = TensorPipeRpcBackendOptions( \u003e\u003e\u003e num_worker_threads=8, \u003e\u003e\u003e device_maps={\"worker1\": {0: 1}} \u003e\u003e\u003e # maps worker0\u0027s cuda:0 to worker1\u0027s cuda:1 \u003e\u003e\u003e ) \u003e\u003e\u003e options.set_device_map(\"worker1\", {1: 2}) \u003e\u003e\u003e # maps worker0\u0027s cuda:1 to worker1\u0027s cuda:2 \u003e\u003e\u003e \u003e\u003e\u003e rpc.init_rpc( \u003e\u003e\u003e \"worker0\", \u003e\u003e\u003e rank=0, \u003e\u003e\u003e world_size=2, \u003e\u003e\u003e backend=rpc.BackendType.TENSORPIPE, \u003e\u003e\u003e rpc_backend_options=options \u003e\u003e\u003e ) \u003e\u003e\u003e \u003e\u003e\u003e x = torch.ones(2) \u003e\u003e\u003e rets = rpc.rpc_sync(\"worker1\", add, args=(x.to(0), 1)) \u003e\u003e\u003e # The first argument will be moved to cuda:1 on worker1. When \u003e\u003e\u003e # sending the return value back, it will follow the invert of \u003e\u003e\u003e # the device map, and hence will be moved back to cuda:0 and \u003e\u003e\u003e # cuda:1 on worker0 \u003e\u003e\u003e print(rets[0]) # tensor([2., 2.], device=\u0027cuda:0\u0027) \u003e\u003e\u003e print(rets[1]) # tensor([2., 2.], device=\u0027cuda:1\u0027) set_devices(devices)[source]# Set local devices used by the TensorPipe RPC agent. When processing CUDA RPC requests, the TensorPipe RPC agent will properly synchronize CUDA streams for all devices in this List. Parameters devices (List of int, str, or torch.device) \u2013 local devices used by the TensorPipe RPC agent. Note The RPC framework does not automatically retry any rpc_sync(), rpc_async() and remote() calls. The reason being that there is no way the RPC framework can determine whether an operation is idempotent or not and whether it is safe to retry. As a result, it is the application\u2019s responsibility to deal with failures and retry if necessary. RPC communication is based on TCP and as a result failures could happen due to network failures or intermittent network connectivity issues. In such scenarios, the application needs to retry appropriately with reasonable backoffs to ensure the network isn\u2019t overwhelmed by aggressive retries. RRef# Warning RRefs are not currently supported when using CUDA tensors An RRef (Remote REFerence) is a reference to a value of some type T (e.g. Tensor) on a remote worker. This handle keeps the referenced remote value alive on the owner, but there is no implication that the value will be transferred to the local worker in the future. RRefs can be used in multi-machine training by holding references to nn.Modules that exist on other workers, and calling the appropriate functions to retrieve or modify their parameters during training. See Remote Reference Protocol for more details. class torch.distributed.rpc.PyRRef(RRef)# A class encapsulating a reference to a value of some type on a remote worker. This handle will keep the referenced remote value alive on the worker. A UserRRef will be deleted when 1) no references to it in both the application code and in the local RRef context, or 2) the application has called a graceful shutdown. Invoking methods on a deleted RRef leads to undefined behaviors. RRef implementation only offers best-effort error detection, and applications should not use UserRRefs after rpc.shutdown(). Warning RRefs can only be serialized and deserialized by the RPC module. Serializing and deserializing RRefs without RPC (e.g., Python pickle, torch save() / load(), JIT save() / load(), etc.) will lead to errors. Parameters value (object) \u2013 The value to be wrapped by this RRef. type_hint (Type, optional) \u2013 Python type that should be passed to TorchScript compiler as type hint for value. Example::Following examples skip RPC initialization and shutdown code for simplicity. Refer to RPC docs for those details. Create an RRef using rpc.remote \u003e\u003e\u003e import torch \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e rref = rpc.remote(\"worker1\", torch.add, args=(torch.ones(2), 3)) \u003e\u003e\u003e # get a copy of value from the RRef \u003e\u003e\u003e x = rref.to_here() Create an RRef from a local object \u003e\u003e\u003e import torch \u003e\u003e\u003e from torch.distributed.rpc import RRef \u003e\u003e\u003e x = torch.zeros(2, 2) \u003e\u003e\u003e rref = RRef(x) Share an RRef with other workers \u003e\u003e\u003e # On both worker0 and worker1: \u003e\u003e\u003e def f(rref): \u003e\u003e\u003e return rref.to_here() + 1 \u003e\u003e\u003e # On worker0: \u003e\u003e\u003e import torch \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e from torch.distributed.rpc import RRef \u003e\u003e\u003e rref = RRef(torch.zeros(2, 2)) \u003e\u003e\u003e # the following RPC shares the rref with worker1, reference \u003e\u003e\u003e # count is automatically updated. \u003e\u003e\u003e rpc.rpc_sync(\"worker1\", f, args=(rref,)) backward(self: torch._C._distributed_rpc.PyRRef, dist_autograd_ctx_id: SupportsInt = -1, retain_graph: bool = False) \u2192 None# Runs the backward pass using the RRef as the root of the backward pass. If dist_autograd_ctx_id is provided, we perform a distributed backward pass using the provided ctx_id starting from the owner of the RRef. In this case, get_gradients() should be used to retrieve the gradients. If dist_autograd_ctx_id is None, it is assumed that this is a local autograd graph and we only perform a local backward pass. In the local case, the node calling this API has to be the owner of the RRef. The value of the RRef is expected to be a scalar Tensor. Parameters dist_autograd_ctx_id (int, optional) \u2013 The distributed autograd context id for which we should retrieve the gradients (default: -1). retain_graph (bool, optional) \u2013 If False, the graph used to compute the grad will be freed. Note that in nearly all cases setting this option to True is not needed and often can be worked around in a much more efficient way. Usually, you need to set this to True to run backward multiple times (default: False). Example::\u003e\u003e\u003e import torch.distributed.autograd as dist_autograd \u003e\u003e\u003e with dist_autograd.context() as context_id: \u003e\u003e\u003e rref.backward(context_id) confirmed_by_owner(self: torch._C._distributed_rpc.PyRRef) \u2192 bool# Returns whether this RRef has been confirmed by the owner. OwnerRRef always returns true, while UserRRef only returns true when the owner knowns about this UserRRef. is_owner(self: torch._C._distributed_rpc.PyRRef) \u2192 bool# Returns whether or not the current node is the owner of this RRef. local_value(self: torch._C._distributed_rpc.PyRRef) \u2192 object# If the current node is the owner, returns a reference to the local value. Otherwise, throws an exception. owner(self: torch._C._distributed_rpc.PyRRef) \u2192 torch._C._distributed_rpc.WorkerInfo# Returns worker information of the node that owns this RRef. owner_name(self: torch._C._distributed_rpc.PyRRef) \u2192 str# Returns worker name of the node that owns this RRef. remote(self: torch._C._distributed_rpc.PyRRef, timeout: SupportsFloat = -1.0) \u2192 object# Create a helper proxy to easily launch a remote using the owner of the RRef as the destination to run functions on the object referenced by this RRef. More specifically, rref.remote().func_name(*args, **kwargs) is the same as the following: \u003e\u003e\u003e def run(rref, func_name, args, kwargs): \u003e\u003e\u003e return getattr(rref.local_value(), func_name)(*args, **kwargs) \u003e\u003e\u003e \u003e\u003e\u003e rpc.remote(rref.owner(), run, args=(rref, func_name, args, kwargs)) Parameters timeout (float, optional) \u2013 Timeout for rref.remote(). If the creation of this RRef is not successfully completed within the timeout, then the next time there is an attempt to use the RRef (such as to_here), a timeout will be raised. If not provided, the default RPC timeout will be used. Please see rpc.remote() for specific timeout semantics for RRef. Example::\u003e\u003e\u003e from torch.distributed import rpc \u003e\u003e\u003e rref = rpc.remote(\"worker1\", torch.add, args=(torch.zeros(2, 2), 1)) \u003e\u003e\u003e rref.remote().size().to_here() # returns torch.Size([2, 2]) \u003e\u003e\u003e rref.remote().view(1, 4).to_here() # returns tensor([[1., 1., 1., 1.]]) rpc_async(self: torch._C._distributed_rpc.PyRRef, timeout: SupportsFloat = -1.0) \u2192 object# Create a helper proxy to easily launch an rpc_async using the owner of the RRef as the destination to run functions on the object referenced by this RRef. More specifically, rref.rpc_async().func_name(*args, **kwargs) is the same as the following: \u003e\u003e\u003e def run(rref, func_name, args, kwargs): \u003e\u003e\u003e return getattr(rref.local_value(), func_name)(*args, **kwargs) \u003e\u003e\u003e \u003e\u003e\u003e rpc.rpc_async(rref.owner(), run, args=(rref, func_name, args, kwargs)) Parameters timeout (float, optional) \u2013 Timeout for rref.rpc_async(). If the call does not complete within this timeframe, an exception indicating so will be raised. If this argument is not provided, the default RPC timeout will be used. Example::\u003e\u003e\u003e from torch.distributed import rpc \u003e\u003e\u003e rref = rpc.remote(\"worker1\", torch.add, args=(torch.zeros(2, 2), 1)) \u003e\u003e\u003e rref.rpc_async().size().wait() # returns torch.Size([2, 2]) \u003e\u003e\u003e rref.rpc_async().view(1, 4).wait() # returns tensor([[1., 1., 1., 1.]]) rpc_sync(self: torch._C._distributed_rpc.PyRRef, timeout: SupportsFloat = -1.0) \u2192 object# Create a helper proxy to easily launch an rpc_sync using the owner of the RRef as the destination to run functions on the object referenced by this RRef. More specifically, rref.rpc_sync().func_name(*args, **kwargs) is the same as the following: \u003e\u003e\u003e def run(rref, func_name, args, kwargs): \u003e\u003e\u003e return getattr(rref.local_value(), func_name)(*args, **kwargs) \u003e\u003e\u003e \u003e\u003e\u003e rpc.rpc_sync(rref.owner(), run, args=(rref, func_name, args, kwargs)) Parameters timeout (float, optional) \u2013 Timeout for rref.rpc_sync(). If the call does not complete within this timeframe, an exception indicating so will be raised. If this argument is not provided, the default RPC timeout will be used. Example::\u003e\u003e\u003e from torch.distributed import rpc \u003e\u003e\u003e rref = rpc.remote(\"worker1\", torch.add, args=(torch.zeros(2, 2), 1)) \u003e\u003e\u003e rref.rpc_sync().size() # returns torch.Size([2, 2]) \u003e\u003e\u003e rref.rpc_sync().view(1, 4) # returns tensor([[1., 1., 1., 1.]]) to_here(self: torch._C._distributed_rpc.PyRRef, timeout: SupportsFloat = -1.0) \u2192 object# Blocking call that copies the value of the RRef from the owner to the local node and returns it. If the current node is the owner, returns a reference to the local value. Parameters timeout (float, optional) \u2013 Timeout for to_here. If the call does not complete within this timeframe, an exception indicating so will be raised. If this argument is not provided, the default RPC timeout (60s) will be used. More Information about RRef Remote Reference Protocol Background Assumptions RRef Lifetime Design Reasoning Implementation Protocol Scenarios User Share RRef with Owner as Return Value User Share RRef with Owner as Argument Owner Share RRef with User User Share RRef with User RemoteModule# Warning RemoteModule is not currently supported when using CUDA tensors RemoteModule is an easy way to create an nn.Module remotely on a different process. The actual module resides on a remote host, but the local host has a handle to this module and invoke this module similar to a regular nn.Module. The invocation however incurs RPC calls to the remote end and can be performed asynchronously if needed via additional APIs supported by RemoteModule. class torch.distributed.nn.api.remote_module.RemoteModule(*args, **kwargs)[source]# A RemoteModule instance can only be created after RPC initialization. It creates a user-specified module on a specified remote node. It behaves like a regular nn.Module except that the forward method is executed on the remote node. It takes care of autograd recording to ensure the backward pass propagates gradients back to the corresponding remote module. It generates two methods forward_async and forward based on the signature of the forward method of module_cls. forward_async runs asynchronously and returns a Future. The arguments of forward_async and forward are the same as the forward method of the module returned by the module_cls. For example, if module_cls returns an instance of nn.Linear, that has forward method signature: def forward(input: Tensor) -\u003e Tensor:, the generated RemoteModule will have 2 methods with the signatures: def forward(input: Tensor) -\u003e Tensor: def forward_async(input: Tensor) -\u003e Future[Tensor]: Parameters remote_device (str) \u2013 Device on the destination worker where we\u2019d like to place this module. The format should be \u201c\u003cworkername\u003e/\u003cdevice\u003e\u201d, where the device field can be parsed as torch.device type. E.g., \u201ctrainer0/cpu\u201d, \u201ctrainer0\u201d, \u201cps0/cuda:0\u201d. In addition, the device field can be optional and the default value is \u201ccpu\u201d. module_cls (nn.Module) \u2013 Class for the module to be created remotely. For example, \u003e\u003e\u003e class MyModule(nn.Module): \u003e\u003e\u003e def forward(input): \u003e\u003e\u003e return input + 1 \u003e\u003e\u003e \u003e\u003e\u003e module_cls = MyModule args (Sequence, optional) \u2013 args to be passed to module_cls. kwargs (Dict, optional) \u2013 kwargs to be passed to module_cls. Returns A remote module instance which wraps the Module created by the user-provided module_cls, it has a blocking forward method and an asynchronous forward_async method that returns a future of the forward call on the user-provided module on the remote side. Example::Run the following code in two different processes: \u003e\u003e\u003e # On worker 0: \u003e\u003e\u003e import torch \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e from torch import nn, Tensor \u003e\u003e\u003e from torch.distributed.nn.api.remote_module import RemoteModule \u003e\u003e\u003e \u003e\u003e\u003e rpc.init_rpc(\"worker0\", rank=0, world_size=2) \u003e\u003e\u003e remote_linear_module = RemoteModule( \u003e\u003e\u003e \"worker1/cpu\", nn.Linear, args=(20, 30), \u003e\u003e\u003e ) \u003e\u003e\u003e input = torch.randn(128, 20) \u003e\u003e\u003e ret_fut = remote_linear_module.forward_async(input) \u003e\u003e\u003e ret = ret_fut.wait() \u003e\u003e\u003e rpc.shutdown() \u003e\u003e\u003e # On worker 1: \u003e\u003e\u003e import torch \u003e\u003e\u003e import torch.distributed.rpc as rpc \u003e\u003e\u003e \u003e\u003e\u003e rpc.init_rpc(\"worker1\", rank=1, world_size=2) \u003e\u003e\u003e rpc.shutdown() Furthermore, a more practical example that is combined with DistributedDataParallel (DDP) can be found in this tutorial. get_module_rref()[source]# Return an RRef (RRef[nn.Module]) pointing to the remote module. Return type RRef[Module] remote_parameters(recurse=True)[source]# Return a list of RRef pointing to the remote module\u2019s parameters. This can typically be used in conjunction with DistributedOptimizer. Parameters recurse (bool) \u2013 if True, then returns parameters of the remote module and all submodules of the remote module. Otherwise, returns only parameters that are direct members of the remote module. Returns A list of RRef (List[RRef[nn.Parameter]]) to remote module\u2019s parameters. Return type list[torch.distributed.rpc.api.RRef[torch.nn.parameter.Parameter]] Distributed Autograd Framework# Warning Distributed autograd is not currently supported when using CUDA tensors This module provides an RPC-based distributed autograd framework that can be used for applications such as model parallel training. In short, applications may send and receive gradient recording tensors over RPC. In the forward pass, we record when gradient recording tensors are sent over RPC and during the backward pass we use this information to perform a distributed backward pass using RPC. For more details see Distributed Autograd Design. torch.distributed.autograd.backward(context_id: int, roots: List[Tensor], retain_graph=False) \u2192 None# Kicks off the distributed backward pass using the provided roots. This currently implements the FAST mode algorithm which assumes all RPC messages sent in the same distributed autograd context across workers would be part of the autograd graph during the backward pass. We use the provided roots to discover the autograd graph and compute appropriate dependencies. This method blocks until the entire autograd computation is done. We accumulate the gradients in the appropriate torch.distributed.autograd.context on each of the nodes. The autograd context to be used is looked up given the context_id that is passed in when torch.distributed.autograd.backward() is called. If there is no valid autograd context corresponding to the given ID, we throw an error. You can retrieve the accumulated gradients using the get_gradients() API. Parameters context_id (int) \u2013 The autograd context id for which we should retrieve the gradients. roots (list) \u2013 Tensors which represent the roots of the autograd computation. All the tensors should be scalars. retain_graph (bool, optional) \u2013 If False, the graph used to compute the grad will be freed. Note that in nearly all cases setting this option to True is not needed and often can be worked around in a much more efficient way. Usually, you need to set this to True to run backward multiple times. Example::\u003e\u003e\u003e import torch.distributed.autograd as dist_autograd \u003e\u003e\u003e with dist_autograd.context() as context_id: \u003e\u003e\u003e pred = model.forward() \u003e\u003e\u003e loss = loss_func(pred, loss) \u003e\u003e\u003e dist_autograd.backward(context_id, loss) class torch.distributed.autograd.context[source]# Context object to wrap forward and backward passes when using distributed autograd. The context_id generated in the with statement is required to uniquely identify a distributed backward pass on all workers. Each worker stores metadata associated with this context_id, which is required to correctly execute a distributed autograd pass. Example::\u003e\u003e\u003e import torch.distributed.autograd as dist_autograd \u003e\u003e\u003e with dist_autograd.context() as context_id: \u003e\u003e\u003e t1 = torch.rand((3, 3), requires_grad=True) \u003e\u003e\u003e t2 = torch.rand((3, 3), requires_grad=True) \u003e\u003e\u003e loss = rpc.rpc_sync(\"worker1\", torch.add, args=(t1, t2)).sum() \u003e\u003e\u003e dist_autograd.backward(context_id, [loss]) torch.distributed.autograd.get_gradients(context_id: int) \u2192 Dict[Tensor, Tensor]# Retrieves a map from Tensor to the appropriate gradient for that Tensor accumulated in the provided context corresponding to the given context_id as part of the distributed autograd backward pass. Parameters context_id (int) \u2013 The autograd context id for which we should retrieve the gradients. Returns A map where the key is the Tensor and the value is the associated gradient for that Tensor. Example::\u003e\u003e\u003e import torch.distributed.autograd as dist_autograd \u003e\u003e\u003e with dist_autograd.context() as context_id: \u003e\u003e\u003e t1 = torch.rand((3, 3), requires_grad=True) \u003e\u003e\u003e t2 = torch.rand((3, 3), requires_grad=True) \u003e\u003e\u003e loss = t1 + t2 \u003e\u003e\u003e dist_autograd.backward(context_id, [loss.sum()]) \u003e\u003e\u003e grads = dist_autograd.get_gradients(context_id) \u003e\u003e\u003e print(grads[t1]) \u003e\u003e\u003e print(grads[t2]) More Information about RPC Autograd Distributed Autograd Design Background Autograd recording during the forward pass Distributed Autograd Context Distributed Backward Pass Computing dependencies FAST mode algorithm SMART mode algorithm Distributed Optimizer Simple end to end example Distributed Optimizer# See the torch.distributed.optim page for documentation on distributed optimizers. Design Notes# The distributed autograd design note covers the design of the RPC-based distributed autograd framework that is useful for applications such as model parallel training. Distributed Autograd Design The RRef design note covers the design of the RRef (Remote REFerence) protocol used to refer to values on remote workers by the framework. Remote Reference Protocol Tutorials# The RPC tutorials introduce users to the RPC framework, provide several example applications using torch.distributed.rpc APIs, and demonstrate how to use the profiler to profile RPC-based workloads. Getting started with Distributed RPC Framework Implementing a Parameter Server using Distributed RPC Framework Combining Distributed DataParallel with Distributed RPC Framework (covers RemoteModule as well) Implementing batch RPC processing",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/rpc.html"
+       },
+       "datePublished": "Nov 14, 2019T00:00:00Z",
+       "dateModified": "Jul 09, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

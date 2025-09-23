@@ -67,7 +67,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/torch.compiler_troubleshooting_old.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -78,13 +77,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -92,6 +93,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -99,55 +102,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0b59492 )');
- </script>
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -173,19 +183,21 @@
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
 
-   <!--
+<!--
    Search engines should not index the main version of documentation.
    Stable documentation are built without release == 'main'.
    -->
-   <meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -522,7 +534,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -530,7 +543,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -1592,17 +1605,18 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="PyTorch 2.0 Troubleshooting (old)">
         <meta itemprop="position" content="1">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -2305,7 +2319,7 @@ other caching config option and disable all compile time caching.</p>
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -2476,91 +2490,124 @@ other caching config option and disable all compile time caching.</p>
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -2568,8 +2615,7 @@ other caching config option and disable all compile time caching.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -2609,28 +2655,47 @@ other caching config option and disable all compile time caching.</p>
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "PyTorch 2.0 Troubleshooting (old)",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/torch.compiler_troubleshooting_old.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/torch.compiler_troubleshooting_old.html"
-         },
-        "datePublished": "Jun 06, 2025T00:00:00Z",
-         "dateModified": "Aug 02, 2025T00:00:00Z",
-         "articleBody": "PyTorch 2.0 Troubleshooting (old)# Created On: Jun 06, 2025 | Last Updated On: Aug 02, 2025 Author: Michael Lazos Note This document is outdated and is now mainly a primary resource on how to run the torch.compile minifier. Please see the updated troubleshooting document. There is also a more comprehensive manual for torch.compile available. We are actively developing debug tools, profilers, and improving our error and warning messages. Below is a table of the available tools and their typical usage. For additional help see Diagnosing Runtime Errors. Title# Tool Purpose Usage Info logging View summarized steps of compilation torch._logging.set_logs(dynamo = logging.INFO) or TORCH_LOGS=\&#34;dynamo\&#34; Debug logging View detailed steps of compilation (print every instruction traced) torch._logging.set_logs(dynamo = logging.DEBUG) and torch._dynamo.config.verbose = True, or TORCH_LOGS=\&#34;+dynamo\&#34; TORCHDYNAMO_VERBOSE=1 Minifier for any backend Find smallest subgraph which reproduces errors for any backend set environment variable TORCHDYNAMO_REPRO_AFTER=\&#34;dynamo\&#34; Minifier for TorchInductor If the error is known to occur after AOTAutograd find smallest subgraph which reproduces errors during TorchInductor lowering set environment variable TORCHDYNAMO_REPRO_AFTER=\&#34;aot\&#34; Dynamo accuracy minifier Finds the smallest subgraph which reproduces an accuracy issue between an eager mode model and optimized model, when you suspect the problem is in AOTAutograd TORCHDYNAMO_REPRO_AFTER=\&#34;dynamo\&#34; TORCHDYNAMO_REPRO_LEVEL=4 Inductor accuracy minifier Finds the smallest subgraph which reproduces an accuracy issue between an eager mode model and optimized model, when you suspect the problem is in the backend (e.g., inductor). If this doesn’t work, try the Dynamo accuracy minifier instead. TORCHDYNAMO_REPRO_AFTER=\&#34;aot\&#34; TORCHDYNAMO_REPRO_LEVEL=4 torch._dynamo.explain Find graph breaks and display reasoning for them torch._dynamo.explain(fn)(*inputs) Record/Replay Record and replay frames which to reproduce errors during graph capture torch._dynamo.config.replay_record_enabled = True TorchDynamo function name filtering Only compile functions with the given name to reduce noise when debugging an issue set environment variable TORCHDYNAMO_DEBUG_FUNCTION=&lt;name&gt; TorchInductor Debug logging Print general TorchInductor debug info and generated Triton/C++ code torch._inductor.config.debug = True TorchInductor Tracing Show time taken in each TorchInductor stage + output code and graph visualization set the environment variable TORCH_COMPILE_DEBUG=1 or torch._inductor.config.trace.enabled = True In addition to info and debug logging, you can use torch._logging for more fine-grained logging. Diagnosing Runtime Errors# At a high level, the TorchDynamo stack consists of a graph capture from Python code (TorchDynamo) and a backend compiler. For example, a backend compiler may consist of backward graph tracing (AOTAutograd) and graph lowering (TorchInductor)*. Errors can occur in any component ..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "PyTorch 2.0 Troubleshooting (old)",
+       "headline": "PyTorch 2.0 Troubleshooting (old)",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/torch.compiler_troubleshooting_old.html",
+       "articleBody": "PyTorch 2.0 Troubleshooting (old)# Created On: Jun 06, 2025 | Last Updated On: Aug 02, 2025 Author: Michael Lazos Note This document is outdated and is now mainly a primary resource on how to run the torch.compile minifier. Please see the updated troubleshooting document. There is also a more comprehensive manual for torch.compile available. We are actively developing debug tools, profilers, and improving our error and warning messages. Below is a table of the available tools and their typical usage. For additional help see Diagnosing Runtime Errors. Title# Tool Purpose Usage Info logging View summarized steps of compilation torch._logging.set_logs(dynamo = logging.INFO) or TORCH_LOGS=\"dynamo\" Debug logging View detailed steps of compilation (print every instruction traced) torch._logging.set_logs(dynamo = logging.DEBUG) and torch._dynamo.config.verbose = True, or TORCH_LOGS=\"+dynamo\" TORCHDYNAMO_VERBOSE=1 Minifier for any backend Find smallest subgraph which reproduces errors for any backend set environment variable TORCHDYNAMO_REPRO_AFTER=\"dynamo\" Minifier for TorchInductor If the error is known to occur after AOTAutograd find smallest subgraph which reproduces errors during TorchInductor lowering set environment variable TORCHDYNAMO_REPRO_AFTER=\"aot\" Dynamo accuracy minifier Finds the smallest subgraph which reproduces an accuracy issue between an eager mode model and optimized model, when you suspect the problem is in AOTAutograd TORCHDYNAMO_REPRO_AFTER=\"dynamo\" TORCHDYNAMO_REPRO_LEVEL=4 Inductor accuracy minifier Finds the smallest subgraph which reproduces an accuracy issue between an eager mode model and optimized model, when you suspect the problem is in the backend (e.g., inductor). If this doesn\u2019t work, try the Dynamo accuracy minifier instead. TORCHDYNAMO_REPRO_AFTER=\"aot\" TORCHDYNAMO_REPRO_LEVEL=4 torch._dynamo.explain Find graph breaks and display reasoning for them torch._dynamo.explain(fn)(*inputs) Record/Replay Record and replay frames which to reproduce errors during graph capture torch._dynamo.config.replay_record_enabled = True TorchDynamo function name filtering Only compile functions with the given name to reduce noise when debugging an issue set environment variable TORCHDYNAMO_DEBUG_FUNCTION=\u003cname\u003e TorchInductor Debug logging Print general TorchInductor debug info and generated Triton/C++ code torch._inductor.config.debug = True TorchInductor Tracing Show time taken in each TorchInductor stage + output code and graph visualization set the environment variable TORCH_COMPILE_DEBUG=1 or torch._inductor.config.trace.enabled = True In addition to info and debug logging, you can use torch._logging for more fine-grained logging. Diagnosing Runtime Errors# At a high level, the TorchDynamo stack consists of a graph capture from Python code (TorchDynamo) and a backend compiler. For example, a backend compiler may consist of backward graph tracing (AOTAutograd) and graph lowering (TorchInductor)*. Errors can occur in any component of the stack and will provide full stack traces. To determine in which component an error occurred, you may use info-level logging torch._logging.set_logs(dynamo = logging.INFO) or TORCH_LOGS=\"dynamo\" and look for Step #: ... outputs. Logs are made at the beginning and end of each step, so the step that an error should correspond to is the most recently logged step whose end has not yet been logged. The steps correspond to the following parts of the stack: Step Component 1 TorchDynamo 2 Compiler Backend 3 TorchInductor If info logging is insufficient, you can use available backend options. These options include: \"eager\": only runs TorchDynamo forward graph capture and then runs the captured graph with PyTorch. This provides an indication as to whether TorchDynamo is raising the error. \"aot_eager\": runs TorchDynamo to capture a forward graph, and then AOTAutograd to trace the backward graph without any additional backend compiler steps. PyTorch eager will then be used to run the forward and backward graphs. This is useful to narrow down the issue to AOTAutograd. The general procedure to narrow down an issue is the following: Run your program with the \"eager\" backend. If the error no longer occurs, the issue is in the backend compiler that is being used (if using TorchInductor, proceed to step 2. If not, see Minifying Backend Compiler Errors). If the error still occurs with the \"eager\" backend, it is due to Torchdynamo Errors. This step is only necessary if TorchInductor is used as the backend compiler. Run the model with the \"aot_eager\" backend. If this backend raises an error then the error is occurring during AOTAutograd tracing. If the error no longer occurs with this backend, then Minifying TorchInductor Errors. Each of these cases are analyzed in the following sections. Note The TorchInductor backend consists of both AOTAutograd tracing and the TorchInductor compiler itself. We will disambiguate by referring to TorchInductor as the backend, and TorchInductor lowering as the phase which lowers the graph traced by AOTAutograd. Torchdynamo Errors# If the error that is generated occurs with the \"eager\" backend, then TorchDynamo is most likely the source of the error. Here is a sample code which will generate an error. import torch import torch._dynamo as dynamo def test_assertion_error(): y = torch.ones(200, 200) z = {y: 5} return z compiled_test_assertion_error = torch.compile(test_assertion_error, backend=\"eager\") compiled_test_assertion_error() The code above generates the following error: torch._dynamo.convert_frame: [ERROR] WON\u0027T CONVERT test_assertion_error /scratch/mlazos/torchdynamo/../test/errors.py line 26 due to: Traceback (most recent call last): File \"/scratch/mlazos/torchdynamo/torchdynamo/symbolic_convert.py\", line 837, in BUILD_MAP assert isinstance(k, ConstantVariable) or ( AssertionError from user code: File \"/scratch/mlazos/torchdynamo/../test/errors.py\", line 34, in test_assertion_error z = {y: 5} Set torch._dynamo.config.verbose=True for more information ========== As the message suggests you can set torch._dynamo.config.verbose=True to get a full stack trace to both the error in TorchDynamo and the user code. In addition to this flag, you can also set the log_level of TorchDynamo through torch._logging.set_logs(dynamo = logging.INFO) or TORCH_LOGS=\"dynamo\". These levels include: logging.DEBUG or TORCH_LOGS=\"+dynamo\": Print every instruction that is encountered in addition to all the log levels listed below. logging.INFO: Print each function that is compiled (original and modified bytecode) and the graph that is captured in addition to all the log levels listed below. logging.WARNING (default): Print graph breaks in addition to all the log levels listed below. logging.ERROR: Print errors only. If a model is very large, the logs can become overwhelming. If an error occurs deep within a model\u2019s Python code, it can be useful to execute only the frame in which the error occurs to enable easier debugging. There are two tools available to enable this: Setting the environment variable TORCHDYNAMO_DEBUG_FUNCTION to the desired function name will only run torchdynamo on functions with that name. Enabling the record/replay tool (set torch._dynamo.config.replay_record_enabled = True) which dumps an execution record when an error is encountered. This record can then be replayed to run only the frame where an error occurred. Diagnosing TorchInductor Errors# If the error does not occur with the \"eager\" backend, then the backend compiler is the source of the error (example error). There are different choices for backend compilers for TorchDynamo, with TorchInductor fitting the needs of most users. This section focuses on TorchInductor as the motivating example, but some tools can also be used with other backend compilers. Below is the portion of the stack which we are focusing on: With TorchInductor as the chosen backend, AOTAutograd is used to generate the backward graph from the forward graph captured by torchdynamo. It is important to note that errors can occur during this tracing and also while TorchInductor lowers the forward and backward graphs to GPU code or C++. A model can often consist of hundreds or thousands of FX nodes, so narrowing the exact nodes where this problem occurred can be very difficult. Fortunately, there are tools available to automatically minify these input graphs to the nodes which are causing the issue. The first step is to determine whether the error occurs during tracing of the backward graph with AOTAutograd or during TorchInductor lowering. As mentioned above in step 2, the \"aot_eager\" backend can be used to run only AOTAutograd in isolation without lowering. If the error still occurs with this backend, this indicates that the error is occurring during AOTAutograd tracing. Here is an example: import torch import torch._dynamo as dynamo model = torch.nn.Sequential(*[torch.nn.Linear(200, 200) for _ in range(5)]) def test_backend_error(): y = torch.ones(200, 200) x = torch.ones(200, 200) z = x + y a = torch.ops.aten._foobar(z) # dummy function which errors return model(a) compiled_test_backend_error = torch.compile(test_backend_error, backend=\"inductor\") compiled_test_backend_error() Running this should give you this error with a longer stack trace below it: Traceback (most recent call last): File \"/scratch/mlazos/torchdynamo/torchinductor/graph.py\", line 246, in call_function return lowerings[target](*args, **kwargs) File \"/scratch/mlazos/torchdynamo/torchinductor/lowering.py\", line 185, in wrapped return decomp_fn(*args, **kwargs) File \"/scratch/mlazos/torchdynamo/torchinductor/lowering.py\", line 810, in _foobar assert False AssertionError ... error with full stack trace If you then change torch.compile(backend=\"inductor\") to torch.compile(backend=\"aot_eager\"), it will run without error, because the issue is in the TorchInductor lowering process, not in AOTAutograd. Minifying TorchInductor Errors# From here, let\u2019s run the minifier to get a minimal repro. Setting the environment variable TORCHDYNAMO_REPRO_AFTER=\"aot\" (or setting torch._dynamo.config.repro_after=\"aot\" directly) will generate a Python program which reduces the graph produced by AOTAutograd to the smallest subgraph which reproduces the error. (See below for an example where we minify the graph produced by TorchDynamo) Running the program with this environment variable should show nearly identical output, with an additional line indicating where minifier_launcher.py has been written to. The output directory is configurable by setting torch._dynamo.config.base_dir to a valid directory name. The final step is to run the minifier and check that it runs successfully. A successful run looks like this. If the minifier runs successfully, it generates runnable python code which reproduces the exact error. For our example this is the following code: import torch from torch import tensor, device import torch.fx as fx from torch._dynamo.testing import rand_strided from math import inf from torch.fx.experimental.proxy_tensor import make_fx # torch version: 1.13.0a0+gitfddfc44 # torch cuda version: 11.6 # torch git version: fddfc4488afb207971c54ad4bf58130fdc8a4dc5 # CUDA Info: # nvcc: NVIDIA (R) Cuda compiler driver # Copyright (c) 2005-2022 NVIDIA Corporation # Built on Thu_Feb_10_18:23:41_PST_2022 # Cuda compilation tools, release 11.6, V11.6.112 # Build cuda_11.6.r11.6/compiler.30978841_0 # GPU Hardware Info: # NVIDIA A100-SXM4-40GB : 8 from torch.nn import * class Repro(torch.nn.Module): def __init__(self): super().__init__() def forward(self, add): _foobar = torch.ops.aten._foobar.default(add); add = None return (_foobar,) args = [((200, 200), (200, 1), torch.float32, \u0027cpu\u0027)] args = [rand_strided(shape, stride, dtype, device) for shape, stride, dtype, device in args] mod = make_fx(Repro())(*args) from torch._inductor.compile_fx import compile_fx_inner compiled = compile_fx_inner(mod, args) compiled(*args) The forward method of the Repro module contains the exact op which causes the issue. When filing an issue, please include any minified repros to aid in debugging. Minifying Backend Compiler Errors# With backend compilers other than TorchInductor the process for finding the subgraph causing the error is nearly identical to the procedure in Minifying TorchInductor Errors with one important caveat. Namely, that the minifier will now be run on the graph that is traced by TorchDynamo, not the output graph of AOTAutograd. Let\u2019s walk through an example. import torch import torch._dynamo as dynamo model = torch.nn.Sequential(*[torch.nn.Linear(200, 200) for _ in range(5)]) # toy compiler which fails if graph contains relu def toy_compiler(gm: torch.fx.GraphModule, _): for node in gm.graph.nodes: if node.target == torch.relu: assert False return gm def test_backend_error(): y = torch.ones(200, 200) x = torch.ones(200, 200) z = x + y a = torch.relu(z) return model(a) compiled_test_backend_error = torch.compile(test_backend_error, backend=toy_compiler) compiled_test_backend_error() In order to run the code after TorchDynamo has traced the forward graph, you can use the TORCHDYNAMO_REPRO_AFTER environment variable. Running this program with TORCHDYNAMO_REPRO_AFTER=\"dynamo\" (or torch._dynamo.config.repro_after=\"dynamo\") should produce this outputand the following code in {torch._dynamo.config.base_dir}/repro.py. Note The other option for TORCHDYNAMO_REPRO_AFTER is \"aot\", which will run the minifier after the backward graph has been generated. import torch import torch._dynamo as dynamo from torch import tensor, device import torch.fx as fx from torch._dynamo.testing import rand_strided from math import inf from torch._dynamo.debug_utils import run_fwd_maybe_bwd from torch.nn import * class Repro(torch.nn.Module): def __init__(self): super().__init__() def forward(self, add): relu = torch.relu(add); add = None return (relu,) mod = Repro().cuda() opt_mod = torch.compile(mod, backend=\"None\") args = [((200, 200), (200, 1), torch.float32, \u0027cpu\u0027, False)] args = [rand_strided(sh, st, dt, dev).requires_grad_(rg) for (sh, st, dt, dev, rg) in args] with torch.cuda.amp.autocast(enabled=False): ref = run_fwd_maybe_bwd(mod, args) res = run_fwd_maybe_bwd(opt_mod, args) The minifier successfully reduced the graph to the op that raises the error in toy_compiler. The other difference from the procedure in Minifying TorchInductor Errors is that the minifier is automatically run after encountering a backend compiler error. After a successful run, the minifier writes repro.py to torch._dynamo.config.base_dir. Performance Profiling# Accessing TorchDynamo Profiler# TorchDynamo has a built-in stats function for collecting and displaying the time spent in each compilation phase. These stats can be accessed by calling torch._dynamo.utils.compile_times() after executing Torch._Dynamo. By default, this returns a string representation of the compile times spent in each TorchDynamo function by name. TorchInductor Debugging using TORCH_COMPILE_DEBUG# TorchInductor has a builtin stats and trace function for displaying time spent in each compilation phase, output code, output graph visualization and IR dump. This is a debugging tool designed to make it easier to understand and troubleshoot the internals of TorchInductor. Let\u2019s run an example with the following test program (repro.py): import torch @torch.compile() def test_model(x): model = torch.nn.Sequential( torch.nn.Linear(10, 10), torch.nn.LayerNorm(10), torch.nn.ReLU(), ) return model(x) y = test_model(torch.ones(10, 10)) Setting the environment variable TORCH_COMPILE_DEBUG=1 will cause a debug trace directory to be created, by default this directory will be in the current directory and named torch_compile_debug (this can be overridden in the torchdynamo configuration field debug_dir_root and also the env var TORCH_COMPILE_DEBUG_DIR). Inside this directory, each run will have a separate folder named with the timestamp and process id of the run: $ env TORCH_COMPILE_DEBUG=1 python repro.py $ cd torch_compile_debug $ ls run_2023_03_01_08_20_52_143510-pid_180167 In the run folder there will be a torchdynamo directory which contains debug logs, and an torchinductor folder which contains a subfolder for each compiled kernel with inductor debug artifacts. $ cd run_2023_03_01_08_20_52_143510-pid_180167 $ ls torchinductor torchdynamo Moving further into the torchinductor directory, the \\*.log files are logs from the AOT Autograd phase of compilation, model__0_forward_1.0 contains the inductor debug artifacts. $ cd torchinductor $ ls aot_model___0_debug.log model__0_forward_1.0 $ cd model__0_forward_1.0 $ ls debug.log fx_graph_readable.py fx_graph_runnable.py fx_graph_transformed.py ir_post_fusion.txt ir_pre_fusion.txt output_code.py Here is a summary of the contents: fx_graph_readable.py and fx_graph_runnable.py are the readable and runnable versions of the fx_graph received by inductor. fx_graph_transformed.py is the fx graph after inductor has run all fx passes. ir\\*.txt is the inductor ir pre and post fusion. output_code.py is the compiled triton kernel for the subgraph. Here are example debug directory contents for the test program: import torch @torch.compile() def test_model(x): model = torch.nn.Sequential( torch.nn.Linear(10, 10), torch.nn.LayerNorm(10), torch.nn.ReLU(), ) return model(x) y = test_model(torch.ones(10, 10)) Each file in that debug trace can be enabled and disabled through torch._inductor.config.trace.*. The profile and the diagram are both disabled by default since they are expensive to generate. A single node in this new debug format looks like: buf1: SchedulerNode(ComputedBuffer) buf1.writes = { MemoryDep(name=\u0027buf1\u0027, index=0, size=()), MemoryDep(name=\u0027buf1\u0027, index=0, size=(s0,))} buf1.unmet_dependencies = {MemoryDep(name=\u0027buf0\u0027, index=c0, size=(s0,))} buf1.met_dependencies = {MemoryDep(name=\u0027primals_2\u0027, index=c0, size=(s0,))} buf1.group.device = cuda:0 buf1.group.iteration = (1, s0) buf1.sizes = ([], [s0]) class buf1_loop_body: var_ranges = {z0: s0} index0 = z0 index1 = 0 def body(self, ops): get_index = self.get_index(\u0027index0\u0027) load = ops.load(\u0027buf0\u0027, get_index, False) get_index_1 = self.get_index(\u0027index0\u0027) load_1 = ops.load(\u0027primals_2\u0027, get_index_1, False) add = ops.add(load, load_1) get_index_2 = self.get_index(\u0027index1\u0027) reduction = ops.reduction(\u0027buf1\u0027, torch.float32, torch.float32, \u0027sum\u0027, get_index_2, add) return reduction See the example debug directory output for more examples. Graph Breaks# Given a program like this: def some_fun(x): ... compiled_fun = torch.compile(some_fun, ...) ... TorchDynamo will attempt to compile all of the torch/tensor operations within some_fun into a single FX graph, but it may fail to capture everything into one graph. Some graph break reasons are insurmountable to TorchDynamo, and can\u2019t be easily fixed. - calling into a C extension other than torch is invisible to torchdynamo, and could do arbitrary things without TorchDynamo being able to introduce necessary guards (see Making Dynamo Sound: Guards) to ensure that the compiled program would be safe to reuse. Graph breaks can hinder performance if the resulting fragments are small. To maximize performance, it\u2019s important to have as few graph breaks as possible. Identifying the Cause of a Graph Break# To identify all graph breaks in a program and the associated reasons for the breaks, torch._dynamo.explain can be used. This tool runs TorchDynamo on the supplied function and aggregates the graph breaks that are encountered. Here is an example usage: import torch import torch._dynamo as dynamo def toy_example(a, b): x = a / (torch.abs(a) + 1) print(\"woo\") if b.sum() \u003c 0: b = b * -1 return x * b explanation = dynamo.explain(toy_example)(torch.randn(10), torch.randn(10)) print(explanation_verbose) \"\"\" Graph Count: 3 Graph Break Count: 2 Op Count: 5 Break Reasons: Break Reason 1: Reason: builtin: print [\u003cclass \u0027torch._dynamo.variables.constant.ConstantVariable\u0027\u003e] False User Stack: \u003cFrameSummary file foo.py, line 5 in toy_example\u003e Break Reason 2: Reason: generic_jump TensorVariable() User Stack: \u003cFrameSummary file foo.py, line 6 in torch_dynamo_resume_in_toy_example_at_5\u003e Ops per Graph: ... Out Guards: ... \"\"\" Outputs include: out_guards - a list of lists where each sublist contains the guards that must pass to ensure the traced graphs are valid. graphs - a list of graph modules which were successfully traced. ops_per_graph - a list of lists where each sublist contains the ops that are run in the graph. To throw an error on the first graph break encountered, use the fullgraph mode. This mode disables TorchDynamo\u2019s Python fallback, and only succeeds if the entire program is convertible into a single graph. Example usage: def toy_example(a, b): ... compiled_toy = torch.compile(toy_example, fullgraph=True, backend=\u003ccompiler\u003e)(a, b) Excessive Recompilation# When TorchDynamo compiles a function (or part of one), it makes certain assumptions about locals and globals in order to allow compiler optimizations, and expresses these assumptions as guards that check particular values at runtime. If any of these guards fail, Dynamo will recompile that function (or part) up to torch._dynamo.config.recompile_limit times. If your program is hitting the cache limit, you will first need to determine which guard is failing and what part of your program is triggering it. If your program exhibits a bounded amount of dynamism, you may be able to tune the TorchDynamo cache limit to allow for each variation to be compiled and cached, but if the cache limit is too high you may find the cost of recompilation outweighs any optimization benefits. torch._dynamo.config.recompile_limit = \u003cyour desired cache limit\u003e TorchDynamo plans to support many common cases of dynamic tensor shapes, such as varying batch size or sequence length. It does not plan to support rank-dynamism. In the meantime, setting a specific cache limit can be used in coordination with bucketing techniques to achieve an acceptable number of recompilations for some dynamic models. Accuracy Debugging# Accuracy issues can also be minified if you set the environment variable TORCHDYNAMO_REPRO_LEVEL=4, it operates with a similar git bisect model and a full repro might be something like TORCHDYNAMO_REPRO_AFTER=\"aot\" TORCHDYNAMO_REPRO_LEVEL=4 the reason we need this is downstream compilers will codegen code whether it\u2019s Triton code or the C++ backend, the numerics from those downstream compilers can be different in subtle ways yet have dramatic impact on your training stability. So the accuracy debugger is very useful for us to detect bugs in our codegen or with a backend compiler. If you\u2019d like to ensure that random number generation is the same across both torch and triton then you can enable torch._inductor.config.fallback_random = True Extended Debugging# Extended debugging can be enabled by using the following experimental flags. TORCHDYNAMO_EXTENDED_DEBUG_GUARD_ADDED - provides extended debug information if the string representation of a guard matches this flag value. For example, set it to \u201cNe(s0, 10)\u201d to generate full Python and C++ backtrace whenever guard was issued. TORCHDYNAMO_EXTENDED_DEBUG_CREATE_SYMBOL - provides extended debug information when a particular symbol is allocated. For example, set this to \u201cu2\u201d to generate full Python and C++ backtrace whenever this symbol was created. TORCHDYNAMO_EXTENDED_DEBUG_CPP - provides extended debug information (C++ backtrace) for all extended debug settings as well as errors. For example, set this to \u201c1\u201d. The C++ backtrace is slow and very spammy so it is not included by default with extended debugging. Cold Start Timing and Cache Corruption Debugging# In order to measure the cold start compilation time or debug a cache corruption, it is possible pass TORCHINDUCTOR_FORCE_DISABLE_CACHES=1 or set torch.compiler.config.force_disable_caches = True which will override any other caching config option and disable all compile time caching.",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/torch.compiler_troubleshooting_old.html"
+       },
+       "datePublished": "Jun 06, 2025T00:00:00Z",
+       "dateModified": "Aug 02, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

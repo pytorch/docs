@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/notes/extending.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="../_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0b59492 )');
- </script>
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -175,19 +185,21 @@
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
 
-   <!--
+<!--
    Search engines should not index the main version of documentation.
    Stable documentation are built without release == 'main'.
    -->
-   <meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -524,7 +536,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -532,7 +545,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -1634,29 +1647,30 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../user_guide/index.html">
-          <meta itemprop="name" content="User Guide">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../user_guide/index.html">
+        <meta itemprop="name" content="User Guide">
+        <meta itemprop="position" content="1">
+      </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../notes.html">
-          <meta itemprop="name" content="Developer Notes">
-          <meta itemprop="position" content="2">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../notes.html">
+        <meta itemprop="name" content="Developer Notes">
+        <meta itemprop="position" content="2">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="Extending PyTorch">
         <meta itemprop="position" content="3">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -2630,7 +2644,7 @@ This means in particular that all modes handlers will be called before any subcl
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -2845,91 +2859,124 @@ This means in particular that all modes handlers will be called before any subcl
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -2937,8 +2984,7 @@ This means in particular that all modes handlers will be called before any subcl
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -2978,28 +3024,47 @@ This means in particular that all modes handlers will be called before any subcl
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "Extending PyTorch",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/notes/extending.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "../_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/notes/extending.html"
-         },
-        "datePublished": "Jan 16, 2017T00:00:00Z",
-         "dateModified": "May 07, 2025T00:00:00Z",
-         "articleBody": "Extending PyTorch# Created On: Jan 16, 2017 | Last Updated On: May 07, 2025 In this note we’ll cover ways of extending torch.nn, torch.autograd, torch, and writing custom C++ extensions. Adding new operators# PyTorch offers a large library of operators that work on Tensors (e.g. torch.add(), torch.sum(), etc). However, you may wish to bring a new custom operation to PyTorch and have it behave like PyTorch’s built-in operators. In order to do so, you must register the custom operation with PyTorch via the Python torch.library or C++ TORCH_LIBRARY APIs. Please see PyTorch Custom Operators Landing Page for more details. Extending torch.autograd# Adding operations to autograd requires implementing a new Function subclass for each operation. Recall that Functions are what autograd uses to encode the operation history and compute gradients. The first part of this doc is focused on backward mode AD as it is the most widely used feature. A section at the end discusses the extensions for forward mode AD. When to use# In general, implement a custom function if you want to perform computations in your model that are not differentiable or rely on non-PyTorch libraries (e.g., NumPy), but still wish for your operation to chain with other ops and work with the autograd engine. In some situations, custom functions can also be used to improve performance and memory usage: If you implemented your forward and backward passes using a C++ extension, you can wrap them in Function to interface with the autograd engine. If you’d like to reduce the number of buffers saved for the backward pass, custom functions can be used to combine ops together. When not to use# If you can already write your function in terms of PyTorch’s built-in ops, its backward graph is (most likely) already able to be recorded by autograd. In this case, you do not need to implement the backward function yourself. Consider using a plain old Python function. If you need to maintain state, i.e., trainable parameters, you should (also) use a custom module. See the section below for more information on extending torch.nn. If you’d like to alter the gradients during the backward pass or perform a side effect, consider registering a tensor or Module hook. How to use# Take the following steps: 1. Subclass Function and implement the forward(), (optional) setup_context() and backward() methods. 2. Call the proper methods on the ctx argument. 3. Declare whether your function supports double backward. 4. Validate whether your gradients are correct using gradcheck. Step 1: After subclassing Function, you’ll need to define 3 methods: forward() is the code that performs the operation. It can take as many arguments as you want, with some of them being optional, if you specify the default values. All kinds of Python objects are accepted here. Tensor arguments that track history (i.e., with requires_grad=True) will be converted to ones that don’t track history before the call, and their use will be registered in..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "Extending PyTorch",
+       "headline": "Extending PyTorch",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/notes/extending.html",
+       "articleBody": "Extending PyTorch# Created On: Jan 16, 2017 | Last Updated On: May 07, 2025 In this note we\u2019ll cover ways of extending torch.nn, torch.autograd, torch, and writing custom C++ extensions. Adding new operators# PyTorch offers a large library of operators that work on Tensors (e.g. torch.add(), torch.sum(), etc). However, you may wish to bring a new custom operation to PyTorch and have it behave like PyTorch\u2019s built-in operators. In order to do so, you must register the custom operation with PyTorch via the Python torch.library or C++ TORCH_LIBRARY APIs. Please see PyTorch Custom Operators Landing Page for more details. Extending torch.autograd# Adding operations to autograd requires implementing a new Function subclass for each operation. Recall that Functions are what autograd uses to encode the operation history and compute gradients. The first part of this doc is focused on backward mode AD as it is the most widely used feature. A section at the end discusses the extensions for forward mode AD. When to use# In general, implement a custom function if you want to perform computations in your model that are not differentiable or rely on non-PyTorch libraries (e.g., NumPy), but still wish for your operation to chain with other ops and work with the autograd engine. In some situations, custom functions can also be used to improve performance and memory usage: If you implemented your forward and backward passes using a C++ extension, you can wrap them in Function to interface with the autograd engine. If you\u2019d like to reduce the number of buffers saved for the backward pass, custom functions can be used to combine ops together. When not to use# If you can already write your function in terms of PyTorch\u2019s built-in ops, its backward graph is (most likely) already able to be recorded by autograd. In this case, you do not need to implement the backward function yourself. Consider using a plain old Python function. If you need to maintain state, i.e., trainable parameters, you should (also) use a custom module. See the section below for more information on extending torch.nn. If you\u2019d like to alter the gradients during the backward pass or perform a side effect, consider registering a tensor or Module hook. How to use# Take the following steps: 1. Subclass Function and implement the forward(), (optional) setup_context() and backward() methods. 2. Call the proper methods on the ctx argument. 3. Declare whether your function supports double backward. 4. Validate whether your gradients are correct using gradcheck. Step 1: After subclassing Function, you\u2019ll need to define 3 methods: forward() is the code that performs the operation. It can take as many arguments as you want, with some of them being optional, if you specify the default values. All kinds of Python objects are accepted here. Tensor arguments that track history (i.e., with requires_grad=True) will be converted to ones that don\u2019t track history before the call, and their use will be registered in the graph. Note that this logic won\u2019t traverse lists/dicts/any other data structures and will only consider tensors that are direct arguments to the call. You can return either a single Tensor output, or a tuple of tensors if there are multiple outputs. Also, please refer to the docs of Function to find descriptions of useful methods that can be called only from forward(). setup_context() (optional). One can either write a \u201ccombined\u201d forward() that accepts a ctx object or (as of PyTorch 2.0) a separate forward() that does not accept ctx and a setup_context() method where the ctx modification happens. The forward() should have the compute and setup_context() should only be responsible for the ctx modification (and not have any compute). In general the separate forward() and setup_context() is closer to how PyTorch native operations work and therefore more composable with various PyTorch subsystems. See Combined or separate forward() and setup_context() for more details. backward() (or vjp()) defines the gradient formula. It will be given as many Tensor arguments as there were outputs, with each of them representing gradient w.r.t. that output. It is important NEVER to modify these in-place. It should return as many tensors as there were inputs, with each of them containing the gradient w.r.t. its corresponding input. If your inputs didn\u2019t require gradient (needs_input_grad is a tuple of booleans indicating whether each input needs gradient computation), or were non-Tensor objects, you can return python:None. Also, if you have optional arguments to forward() you can return more gradients than there were inputs, as long as they\u2019re all None. Step 2: It is your responsibility to use the functions in ctx properly in order to ensure that the new Function works properly with the autograd engine. save_for_backward() should be used to save any tensors needed for the backward pass (as opposed to directly on ctx). You cannot use save_for_backward for non-tensors; you should store those directly on ctx. Saving tensors via save_for_backward: 1. Allows the autograd engine to clear them as soon as the backward computation of the autograd.Function completes. (If a tensor is stored directly on ctx it will unnecessarily remain alive for the lifetime of the autograd graph \u2013 typically until the end of the iteration.) 2. Helps avoid certain reference cycles, (e.g., since the tensor output of the autograd.Function itself keeps a reference to the ctx). 3. Is important for compatibility with features like activation checkpointing and offloading that rely on torch.autograd.graph.saved_tensors_hooks. If tensors that are neither inputs nor outputs are saved for backward your Function may not support double backward (see step 3). mark_dirty() must be used to mark any input that is modified inplace by the forward function. mark_non_differentiable() must be used to tell the engine if an output is not differentiable. By default all output tensors that are of differentiable type will be set to require gradient. Tensors of non-differentiable type (i.e., integral types) are never marked as requiring gradients. set_materialize_grads() can be used to tell the autograd engine to optimize gradient computations in the cases where the output does not depend on the input by not materializing grad tensors given to backward function. That is, if set to False, None object in Python or \u201cundefined tensor\u201d (tensor x for which x.defined() is False) in C++ will not be converted to a tensor filled with zeros prior to calling backward, and so your code will need to handle such objects as if they were tensors filled with zeros. The default value of this setting is True. Step 3: If your Function does not support double backward you should explicitly declare this by decorating backward with the once_differentiable(). With this decorator, attempts to perform double backward through your function will produce an error. See our double backward tutorial for more information on double backward. Step 4: It is recommended that you use torch.autograd.gradcheck() to check whether your backward function correctly computes gradients of the forward by computing the Jacobian matrix using your backward function and comparing the value element-wise with the Jacobian computed numerically using finite-differencing. Example# Below you can find code for a Linear function, with additional comments: # Inherit from Function class LinearFunction(Function): # Note that forward, setup_context, and backward are @staticmethods @staticmethod def forward(input, weight, bias): output = input.mm(weight.t()) if bias is not None: output += bias.unsqueeze(0).expand_as(output) return output @staticmethod # inputs is a Tuple of all of the inputs passed to forward. # output is the output of the forward(). def setup_context(ctx, inputs, output): input, weight, bias = inputs ctx.save_for_backward(input, weight, bias) # This function has only a single output, so it gets only one gradient @staticmethod def backward(ctx, grad_output): # This is a pattern that is very convenient - at the top of backward # unpack saved_tensors and initialize all gradients w.r.t. inputs to # None. Thanks to the fact that additional trailing Nones are # ignored, the return statement is simple even when the function has # optional inputs. input, weight, bias = ctx.saved_tensors grad_input = grad_weight = grad_bias = None # These needs_input_grad checks are optional and there only to # improve efficiency. If you want to make your code simpler, you can # skip them. Returning gradients for inputs that don\u0027t require it is # not an error. if ctx.needs_input_grad[0]: grad_input = grad_output.mm(weight) if ctx.needs_input_grad[1]: grad_weight = grad_output.t().mm(input) if bias is not None and ctx.needs_input_grad[2]: grad_bias = grad_output.sum(0) return grad_input, grad_weight, grad_bias Now, to make it easier to use these custom ops, we recommend either aliasing them or wrapping them in a function. Wrapping in a function lets us support default arguments and keyword arguments: # Option 1: alias linear = LinearFunction.apply # Option 2: wrap in a function, to support default args and keyword args. def linear(input, weight, bias=None): return LinearFunction.apply(input, weight, bias) Here, we give an additional example of a function that is parametrized by non-Tensor arguments: class MulConstant(Function): @staticmethod def forward(tensor, constant): return tensor * constant @staticmethod def setup_context(ctx, inputs, output): # ctx is a context object that can be used to stash information # for backward computation tensor, constant = inputs ctx.constant = constant @staticmethod def backward(ctx, grad_output): # We return as many input gradients as there were arguments. # Gradients of non-Tensor arguments to forward must be None. return grad_output * ctx.constant, None And here, we optimize the above example by calling set_materialize_grads(False): class MulConstant(Function): @staticmethod def forward(tensor, constant): return tensor * constant @staticmethod def setup_context(ctx, inputs, output): tensor, constant = inputs ctx.set_materialize_grads(False) ctx.constant = constant @staticmethod def backward(ctx, grad_output): # Here we must handle None grad_output tensor. In this case we # can skip unnecessary computations and just return None. if grad_output is None: return None, None # We return as many input gradients as there were arguments. # Gradients of non-Tensor arguments to forward must be None. return grad_output * ctx.constant, None If you need any \u201cintermediate\u201d Tensors computed in forward() to be saved, either they must be returned as outputs, or combine forward and setup_context() (see Combined or separate forward() and setup_context()). Note that this means if you want gradients to flow through those intermediate values, you need to define the gradient formula for them (see also the double backward tutorial ): class MyCube(torch.autograd.Function): @staticmethod def forward(x): # We wish to save dx for backward. In order to do so, it must # be returned as an output. dx = 3 * x ** 2 result = x ** 3 return result, dx @staticmethod def setup_context(ctx, inputs, output): x, = inputs result, dx = output ctx.save_for_backward(x, dx) @staticmethod def backward(ctx, grad_output, grad_dx): x, dx = ctx.saved_tensors # In order for the autograd.Function to work with higher-order # gradients, we must add the gradient contribution of `dx`, # which is grad_dx * 6 * x. result = grad_output * dx + grad_dx * 6 * x return result # Wrap MyCube in a function so that it is clearer what the output is def my_cube(x): result, dx = MyCube.apply(x) return result Note Inputs to backward, i.e., grad_output, can also be tensors that track history. So if backward is implemented with differentiable operations, (e.g., invocation of another custom Function), higher order derivatives will work. In this case, the tensors saved with save_for_backward can also be used in the backward and have gradients flowing back but tensors saved in the ctx won\u2019t have gradients flowing back for them. If you need gradients to flow back for a Tensor saved in the ctx, you should make it an output of the custom Function and save it with save_for_backward. You probably want to check if the backward method you implemented actually computes the derivatives of your function. It is possible by comparing with numerical approximations using small finite differences: from torch.autograd import gradcheck # gradcheck takes a tuple of tensors as input, check if your gradient # evaluated with these tensors are close enough to numerical # approximations and returns True if they all verify this condition. input = (torch.randn(20,20,dtype=torch.double,requires_grad=True), torch.randn(30,20,dtype=torch.double,requires_grad=True)) test = gradcheck(linear, input, eps=1e-6, atol=1e-4) print(test) See Numerical gradient checking for more details on finite-difference gradient comparisons. If your function is used in higher order derivatives (differentiating the backward pass) you can use the gradgradcheck function from the same package to check higher order derivatives. Combined or separate forward() and setup_context()# There are two main ways to define Function. Either: define a forward() that combines the forward compute logic with setup_context() (as of PyTorch 2.0) define a separate forward() and setup_context() We recommend the second option (separate forward() and setup_context()) because that is closer to how PyTorch native operations are implemented and it composes with torch.func transforms. However, we plan to support both approaches going forward; combining forward() with setup_context(): leads to more flexibility since you are able to save intermediates without returning them as output. Please see the previous section for how to define Function with separate forward() and setup_context(). Here is an example of how to define a Function with combined forward() and setup_context(): class LinearFunction(Function): @staticmethod # ctx is the first argument to forward def forward(ctx, input, weight, bias=None): # The forward pass can use ctx. ctx.save_for_backward(input, weight, bias) output = input.mm(weight.t()) if bias is not None: output += bias.unsqueeze(0).expand_as(output) return output @staticmethod def backward(ctx, grad_output): input, weight, bias = ctx.saved_tensors grad_input = grad_weight = grad_bias = None if ctx.needs_input_grad[0]: grad_input = grad_output.mm(weight) if ctx.needs_input_grad[1]: grad_weight = grad_output.t().mm(input) if bias is not None and ctx.needs_input_grad[2]: grad_bias = grad_output.sum(0) return grad_input, grad_weight, grad_bias Forward mode AD# Overriding the forward mode AD formula has a very similar API with some different subtleties. You can implement the jvp() function. It will be given as many Tensor arguments as there were inputs, with each of them representing gradient w.r.t. that input. It should return as many tensors as there were outputs, with each of them containing the gradient w.r.t. its corresponding output. The jvp() will be called just after the forward() method, before the apply() returns. jvp() has a few subtle differences with the backward() function: You can use the ctx to pass any data from the forward() to the jvp() function. If that state will not be needed for the backward(), you can explicitly free it by doing del ctx.foo at the end of the jvp() function. The implementation of jvp() must be backward differentiable or explicitly check that none of the given forward mode gradient has requires_grad set. The jvp() function must match the view/inplace behavior of forward(). For example, if the i th input is modified inplace, then the i th gradient must be updated inplace. Similarly, if the j th output is a view of the k th input. Then the returned j th output gradient must be a view of the given k th input gradient. Because the user cannot specify which gradient needs to be computed, the jvp() function should always compute gradients for all the outputs. The forward mode gradients do respect the flag set by set_materialize_grads() and you can get None input gradients when this is disabled. torch.func transforms and/or torch.vmap()# Please see Extending torch.func with autograd.Function for details. Extending torch.nn# nn exports two kinds of interfaces - modules and their functional versions. You can extend it in both ways, but we recommend using modules for all kinds of layers, that hold any parameters or buffers, and recommend using a functional form parameter-less operations like activation functions, pooling, etc. Adding a functional version of an operation is already fully covered in the section above. Adding a Module# Since nn heavily utilizes autograd, adding a new Module requires implementing a Function that performs the operation and can compute the gradient. From now on let\u2019s assume that we want to implement a Linear module and we have the function implemented as in the listing above. There\u2019s very little code required to add this. Now, there are two functions that need to be implemented: __init__ (optional) - takes in arguments such as kernel sizes, numbers of features, etc. and initializes parameters and buffers. forward() - instantiates a Function and uses it to perform the operation. It\u2019s very similar to a functional wrapper shown above. This is how a Linear module can be implemented: class Linear(nn.Module): def __init__(self, input_features, output_features, bias=True): super().__init__() self.input_features = input_features self.output_features = output_features # nn.Parameter is a special kind of Tensor, that will get # automatically registered as Module\u0027s parameter once it\u0027s assigned # as an attribute. Parameters and buffers need to be registered, or # they won\u0027t appear in .parameters() (doesn\u0027t apply to buffers), and # won\u0027t be converted when e.g. .cuda() is called. You can use # .register_buffer() to register buffers. # nn.Parameters require gradients by default. self.weight = nn.Parameter(torch.empty(output_features, input_features)) if bias: self.bias = nn.Parameter(torch.empty(output_features)) else: # You should always register all possible parameters, but the # optional ones can be None if you want. self.register_parameter(\u0027bias\u0027, None) # Not a very smart way to initialize weights nn.init.uniform_(self.weight, -0.1, 0.1) if self.bias is not None: nn.init.uniform_(self.bias, -0.1, 0.1) def forward(self, input): # See the autograd section for explanation of what happens here. return LinearFunction.apply(input, self.weight, self.bias) def extra_repr(self): # (Optional)Set the extra information about this module. You can test # it by printing an object of this class. return \u0027input_features={}, output_features={}, bias={}\u0027.format( self.input_features, self.output_features, self.bias is not None ) Extending torch Python API# You can create custom types that emulate Tensor by defining a custom class with methods that match Tensor. But what if you want to be able to pass these types to functions like torch.add() in the top-level torch namespace that accept Tensor operands? If your custom Python type defines a method named __torch_function__, PyTorch will invoke your __torch_function__ implementation when an instance of your custom class is passed to a function in the torch namespace. This makes it possible to define custom implementations for any of the functions in the torch namespace which your __torch_function__ implementation can call, allowing your users to make use of your custom type with existing PyTorch workflows that they have already written for Tensor. This works with \u201cduck\u201d types that are unrelated to Tensor as well as user-defined subclasses of Tensor. Extending torch with a Tensor-like type# Note This functionality is inspired by the NumPy __array_function__ protocol. See the NumPy documentation and NEP-0018 for more details. To make this concrete, let\u2019s begin with a simple example that illustrates the API dispatch mechanism. We\u2019ll create a custom type that represents a 2D scalar tensor, parametrized by the order N and value along the diagonal entries, value: class ScalarTensor(object): def __init__(self, N, value): self._N = N self._value = value def __repr__(self): return \"ScalarTensor(N={}, value={})\".format(self._N, self._value) def tensor(self): return self._value * torch.eye(self._N) This first iteration of the design isn\u2019t very useful. The main functionality of ScalarTensor is to provide a more compact string representation of a scalar tensor than in the base tensor class: \u003e\u003e\u003e d = ScalarTensor(5, 2) \u003e\u003e\u003e d ScalarTensor(N=5, value=2) \u003e\u003e\u003e d.tensor() tensor([[2., 0., 0., 0., 0.], [0., 2., 0., 0., 0.], [0., 0., 2., 0., 0.], [0., 0., 0., 2., 0.], [0., 0., 0., 0., 2.]]) If we try to use this object with the torch API, we will run into issues: \u003e\u003e\u003e import torch \u003e\u003e\u003e torch.mean(d) TypeError: mean(): argument \u0027input\u0027 (position 1) must be Tensor, not ScalarTensor Adding a __torch_function__ implementation to ScalarTensor makes it possible for the above operation to succeed. Let\u2019s re-do our implementation, this time adding a __torch_function__ implementation: HANDLED_FUNCTIONS = {} class ScalarTensor(object): def __init__(self, N, value): self._N = N self._value = value def __repr__(self): return \"ScalarTensor(N={}, value={})\".format(self._N, self._value) def tensor(self): return self._value * torch.eye(self._N) @classmethod def __torch_function__(cls, func, types, args=(), kwargs=None): if kwargs is None: kwargs = {} if func not in HANDLED_FUNCTIONS or not all( issubclass(t, (torch.Tensor, ScalarTensor)) for t in types ): return NotImplemented return HANDLED_FUNCTIONS[func](*args, **kwargs) The __torch_function__ method takes four arguments: func, a reference to the torch API function that is being overridden, types, the list of types of Tensor-likes that implement __torch_function__, args, the tuple of arguments passed to the function, and kwargs, the dict of keyword arguments passed to the function. It uses a global dispatch table named HANDLED_FUNCTIONS to store custom implementations. The keys of this dictionary are functions in the torch namespace and the values are implementations for ScalarTensor. Note Using a global dispatch table is not a mandated part of the __torch_function__ API, it is just a useful design pattern for structuring your override implementations. This class definition isn\u2019t quite enough to make torch.mean do the right thing when we pass it a ScalarTensor \u2013 we also need to define an implementation for torch.mean for ScalarTensor operands and add the implementation to the HANDLED_FUNCTIONS dispatch table dictionary. One way of doing this is to define a decorator: import functools def implements(torch_function): \"\"\"Register a torch function override for ScalarTensor\"\"\" def decorator(func): functools.update_wrapper(func, torch_function) HANDLED_FUNCTIONS[torch_function] = func return func return decorator which can be applied to the implementation of our override: @implements(torch.mean) def mean(input): return float(input._value) / input._N With this change we can now use torch.mean with ScalarTensor: \u003e\u003e\u003e d = ScalarTensor(5, 2) \u003e\u003e\u003e torch.mean(d) 0.4 Of course torch.mean is an example of the simplest kind of function to override since it only takes one operand. We can use the same machinery to override a function that takes more than one operand, any one of which might be a tensor or tensor-like that defines __torch_function__, for example for torch.add(): def ensure_tensor(data): if isinstance(data, ScalarTensor): return data.tensor() return torch.as_tensor(data) @implements(torch.add) def add(input, other): try: if input._N == other._N: return ScalarTensor(input._N, input._value + other._value) else: raise ValueError(\"Shape mismatch!\") except AttributeError: return torch.add(ensure_tensor(input), ensure_tensor(other)) This version has a fast path for when both operands are ScalarTensor instances and also a slower path which degrades to converting the data to tensors when either operand is not a ScalarTensor. That makes the override function correctly when either operand is a ScalarTensor or a regular Tensor: \u003e\u003e\u003e s = ScalarTensor(2, 2) \u003e\u003e\u003e torch.add(s, s) ScalarTensor(N=2, value=4) \u003e\u003e\u003e t = torch.tensor([[1, 1,], [1, 1]]) \u003e\u003e\u003e torch.add(s, t) tensor([[3., 1.], [1., 3.]]) Note that our implementation of add does not take alpha or out as keyword arguments like torch.add() does: \u003e\u003e\u003e torch.add(s, s, alpha=2) TypeError: add() got an unexpected keyword argument \u0027alpha\u0027 For speed and flexibility the __torch_function__ dispatch mechanism does not check that the signature of an override function matches the signature of the function being overridden in the torch API. For some applications ignoring optional arguments would be fine but to ensure full compatibility with Tensor, user implementations of torch API functions should take care to exactly emulate the API of the function that is being overridden. Functions in the torch API that do not have explicit overrides will return NotImplemented from __torch_function__. If all operands with __torch_function__ defined on them return NotImplemented, PyTorch will raise a TypeError. This means that most of the time operations that do not have explicit overrides for a type will raise a TypeError when an instance of such a type is passed: \u003e\u003e\u003e torch.mul(s, 3) TypeError: no implementation found for \u0027torch.mul\u0027 on types that implement __torch_function__: [ScalarTensor] In practice this means that if you would like to implement your overrides using a __torch_function__ implementation along these lines, you will need to explicitly implement the full torch API or the entire subset of the API that you care about for your use case. This may be a tall order as the full torch API is quite extensive. Another option is to not return NotImplemented for operations that are not handled but to instead pass a Tensor to the original torch function when no override is available. For example, if we change our implementation of __torch_function__ for ScalarTensor to the one below: @classmethod def __torch_function__(cls, func, types, args=(), kwargs=None): if kwargs is None: kwargs = {} if func not in HANDLED_FUNCTIONS or not all( issubclass(t, (torch.Tensor, ScalarTensor)) for t in types ): args = [a.tensor() if hasattr(a, \u0027tensor\u0027) else a for a in args] return func(*args, **kwargs) return HANDLED_FUNCTIONS[func](*args, **kwargs) Then torch.mul() will work correctly, although the return type will always be a Tensor rather than a ScalarTensor, even if both operands are ScalarTensor instances: \u003e\u003e\u003e s = ScalarTensor(2, 2) \u003e\u003e\u003e torch.mul(s, s) tensor([[4., 0.], [0., 4.]]) Also see the MetadataTensor example below for another variation on this pattern but instead always returns a MetadataTensor to propagate metadata through operations in the torch API. The __torch_function__ protocol is designed for full coverage of the API, partial coverage may lead to undesirable results, in particular, certain functions raising a TypeError. This is especially true for subclasses, where all three of torch.add, torch.Tensor.__add__ and torch.Tensor.add must be covered, even if they return exactly the same result. Failing to do this may also lead to infinite recursion. If one requires the implementation of a function from torch.Tensor subclasses, they must use super().__torch_function__ inside their implementation. Subclassing torch.Tensor# As of version 1.7.0, methods on torch.Tensor and functions in public torch.* namespaces applied on torch.Tensor subclasses will return subclass instances instead of torch.Tensor instances: \u003e\u003e\u003e class SubTensor(torch.Tensor): ... pass \u003e\u003e\u003e type(torch.add(SubTensor([0]), SubTensor([1]))).__name__ \u0027SubTensor\u0027 \u003e\u003e\u003e type(torch.add(SubTensor([0]), torch.tensor([1]))).__name__ \u0027SubTensor\u0027 If multiple subclasses exist, the lowest one in the hierarchy will be chosen by default. If there is no unique way to determine such a case, then a TypeError is raised: \u003e\u003e\u003e type(torch.add(SubTensor2([0]), SubTensor([1]))).__name__ \u0027SubTensor2\u0027 \u003e\u003e\u003e type(torch.add(SubTensor2([0]), torch.tensor([1]))).__name__ \u0027SubTensor2\u0027 \u003e\u003e\u003e torch.add(SubTensor([0]), OtherSubTensor([1])) Traceback (most recent call last): File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e TypeError: no implementation found for \u0027torch.add\u0027 on types that implement __torch_function__: [SubTensor, OtherSubTensor] If one wishes to have a global override for all tensor methods, one can use __torch_function__. Here is an example that logs all function/method calls: class LoggingTensor(torch.Tensor): @classmethod def __torch_function__(cls, func, types, args=(), kwargs=None): # NOTE: Logging calls Tensor.__repr__, so we can\u0027t log __repr__ without infinite recursion if func is not torch.Tensor.__repr__: logging.info(f\"func: {func.__name__}, args: {args!r}, kwargs: {kwargs!r}\") if kwargs is None: kwargs = {} return super().__torch_function__(func, types, args, kwargs) However, if one instead wishes to override a method on the Tensor subclass, there one can do so either by directly overriding the method (by defining it for a subclass), or by using __torch_function__ and matching with func. One should be careful within __torch_function__ for subclasses to always call super().__torch_function__(func, ...) instead of func directly, as was the case before version 1.7.0. Failing to do this may cause func to recurse back into __torch_function__ and therefore cause infinite recursion. Extending torch with a Tensor wrapper type# Another useful case is a type that wraps a Tensor, either as an attribute or via subclassing. Below we implement a special case of this sort of type, a MetadataTensor that attaches a dictionary of metadata to a Tensor that is propagated through torch operations. Since this is a generic sort of wrapping for the full torch API, we do not need to individually implement each override so we can make the __torch_function__ implementation more permissive about what operations are allowed: class MetadataTensor(object): def __init__(self, data, metadata=None, **kwargs): self._t = torch.as_tensor(data, **kwargs) self._metadata = metadata def __repr__(self): return \"Metadata:\\n{}\\n\\ndata:\\n{}\".format(self._metadata, self._t) @classmethod def __torch_function__(cls, func, types, args=(), kwargs=None): if kwargs is None: kwargs = {} metadatas = tuple(a._metadata for a in args if hasattr(a, \u0027_metadata\u0027)) args = [getattr(a, \u0027_t\u0027, a) for a in args] assert len(metadatas) \u003e 0 ret = func(*args, **kwargs) return MetadataTensor(ret, metadata=metadatas[0]) This simple implementation won\u2019t necessarily work with every function in the torch API but it is good enough to capture most common operations: \u003e\u003e\u003e metadata = {\u0027owner\u0027: \u0027Ministry of Silly Walks\u0027} \u003e\u003e\u003e m = MetadataTensor([[1, 2], [3, 4]], metadata=metadata) \u003e\u003e\u003e t = torch.tensor([[1, 2], [1, 2]]) \u003e\u003e\u003e torch.add(t, m) Metadata: {\u0027owner\u0027: \u0027Ministry of Silly Walks\u0027} data: tensor([[2, 4], [4, 6]]) \u003e\u003e\u003e torch.mul(t, m) Metadata: {\u0027owner\u0027: \u0027Ministry of Silly Walks\u0027} data: tensor([[1, 4], [3, 8]]) Operations on multiple types that define __torch_function__# It is possible to use the torch API with multiple distinct types that each have a __torch_function__ implementation, but special care must be taken. In such a case the rules are: The dispatch operation gathers all distinct implementations of __torch_function__ for each operand and calls them in order: subclasses before superclasses, and otherwise left to right in the operator expression. If any value other than NotImplemented is returned, that value is returned as the result. Implementations can register that they do not implement an operation by returning NotImplemented. If all of the __torch_function__ implementations return NotImplemented, PyTorch raises a TypeError. Testing Coverage of Overrides for the PyTorch API# One troublesome aspect of implementing __torch_function__ is that if some operations do and others do not have overrides, users will at best see an inconsistent experience, or at worst will see errors raised at runtime when they use a function that does not have an override. To ease this process, PyTorch provides a developer-facing API for ensuring full support for __torch_function__ overrides. This API is private and may be subject to changes without warning in the future. First, to get a listing of all overridable functions, use torch.overrides._get_overridable_functions. This returns a dictionary whose keys are namespaces in the PyTorch Python API and whose values are a list of functions in that namespace that can be overridden. For example, let\u2019s print the names of the first 5 functions in torch.nn.functional that can be overridden: \u003e\u003e\u003e from torch.overrides import get_overridable_functions \u003e\u003e\u003e func_dict = get_overridable_functions() \u003e\u003e\u003e nn_funcs = func_dict[torch.nn.functional] \u003e\u003e\u003e print([f.__name__ for f in nn_funcs[:5]) [\u0027adaptive_avg_pool1d\u0027, \u0027adaptive_avg_pool2d\u0027, \u0027adaptive_avg_pool3d\u0027, \u0027adaptive_max_pool1d\u0027, \u0027adaptive_max_pool1d_with_indices\u0027] This listing of functions makes it possible to iterate over all overridable functions, however in practice this is not enough to write tests for all of these functions without laboriously and manually copying the signature of each function for each test. To ease this process, the torch.overrides._get_testing_overrides function returns a dictionary mapping overridable functions in the PyTorch API to dummy lambda functions that have the same signature as the original function but unconditionally return -1. These functions are most useful to use with inspect to analyze the function signature of the original PyTorch function: \u003e\u003e\u003e import inspect \u003e\u003e\u003e from torch.overrides import get_testing_overrides \u003e\u003e\u003e override_dict = get_testing_overrides() \u003e\u003e\u003e dummy_add = override_dict[torch.add] \u003e\u003e\u003e inspect.signature(dummy_add) \u003cSignature (input, other, out=None)\u003e Finally, torch.overrides.get_ignored_functions returns a tuple of functions that explicitly cannot be overridden by __torch_function__. This list can be useful to confirm that a function that isn\u2019t present in the dictionary returned by get_overridable_functions cannot be overridden. Extending torch native API# While __torch_function__ allows one to effectively extend PyTorch\u2019s pure Python components\u2019 behavior, it does not allow one to extend the parts of PyTorch implemented in C++. To that end, a Tensor subclass can also define __torch_dispatch__ which will be able to override the behavior at the C++ level. To effectively use this feature, it is important to know how the native part of PyTorch is implemented. The most important component there is what we call the \u201cdispatcher\u201d (the best description can be found in this blog post even though it is slightly outdated). As hinted by its name, it is responsible for calling the right backend function for a specific call of a function. For example, when calling torch.add(a, b), the dispatcher will inspect both arguments, figure out which \u201cfeature\u201d (autograd, autocast, functionalization, etc) and which \u201cbackend\u201d (CPU, CUDA, MPS, etc) should be used for this specific call and finally call all the right kernels. A very common thing done by a kernel is to \u201credispatch\u201d. For example, when running your neural network on GPU with autocast, the first call will be the autocast kernel that will handle any potential autocast logic and redispatch down. The next feature in line will be autograd that will properly create the autograd graph and then redispatch down. Finally, we reach the backend kernel for CUDA which will launch the right CUDA kernel and return the final result. On the way out, autograd will attach the graph to the output and, finally, autocast will have a chance to do any update it needs on exit. One configuration of the dispatcher is the order in which all these feature and backend keys are called. The latest list and their order can be found in DispatchKey.h inside the DispatchKey enum. For the purpose of extending torch, the important subset of the ordering for this discussion is: vmap -\u003e Autocast -\u003e Autograd -\u003e ZeroTensor -\u003e Neg/Conj -\u003e Functionalize -\u003e Python -\u003e Backends The most important key for the purpose of this discussion is Python as every Tensor subclass with the __torch_dispatch__ method defined will call into this feature. It is from there that the user-defined method is called and where the behavior can be overwritten arbitrarily. From there, calling the provided func again will perform a \u201credispatch\u201d. Some important implications of this implementation are: This code runs \u201cbelow all features\u201d. It is thus only responsible, like a regular backend, for generating the output value of each Tensor (and can, and should, ignore all advanced features like autograd, autocast, etc). If any high level feature implements a given function without redispatching, it will never reach the Python key and so the __torch_dispatch__ callback will never be triggered. This happens in particular for CompositeImplicitAutograd functions which are evaluated at the Autograd level without redispatching. This is because a CompositeImplicitAutograd function specifies its autograd formula by implicitly calling other native ops, so at the Autograd level, the function is decomposed into its native ops and those are evaluated instead. When calling back to Python and when wrapping the results, the same conversions are used as the regular PyTorch Python/C++ binding. In particular, some objects cannot be represented in Python and need special handling (undefined Tensors for example become None). Our native functions are lazily populated as torch.ops.{namespace}.{func_name}.{overload_name} as callable Python objects to enable easily interacting with them from Python. The func object given to __torch_dispatch__ is always an entry from this namespace. This namespace can be used to directly call native ops and bypass the usual Python API and binding code. In a similar way where __torch_function__ is able to interpose on all of torch\u2019s Python API and Tensor methods, __torch_dispatch__ is able to intercept all calls into the aten native API. Note that all methods on Tensors are converted into function calls before entering the dispatcher and thus will appear as function calls here: torch.add(a, 2) and a + 2 will lead to exactly the same aten call. Most of these functions are defined in native_functions.yaml which specifies the properties of these functions as well as their backend implementation. Their implementation alongside specified features are then automatically registered via codegen. Some more exotic functions or features are also registered in other places in the C++ codebase or in user-defined C++ extensions. It is also possible to add new native functions using torch.library. This Python feature allows defining and/or adding new implementations to native functions. This can be used to add missing kernels, replace existing ones or define brand new native functions. You can find many examples of __torch_dispatch__-based subclasses in the subclass zoo repo. __torch_dispatch__ calling convention# @classmethod def __torch_dispatch__(cls, func, types, args=(), kwargs=None): pass When a user calls an operator with inputs that have __torch_dispatch__, that call may be forwarded to the __torch_dispatch__. args and kwargs get normalized before the call to __torch_dispatch__, that is: the kwargs consist of keyword-only arguments in the operator\u2019s schema. If a kwarg is equal to its default value (in the schema), it will not be passed. the args consists of all other arguments, no matter how they were passed to the operator (positional vs keyword). If an arg is equal to its default value, and it is the right-most positional arg or all the args to the right of it are not passed, it will not be passed. Extending all torch API with Modes# Unfortunately, there are functions that do not take Tensor inputs. This means that the subclass approach described above cannot be used to override the behavior of all of PyTorch\u2019s functions. Also, if the use case requires to intercept every function call, changing every Tensor to be a subclass can be overly intrusive. To address this use case, we introduced the concept of \u201cMode\u201d. These exist for __torch_function__ and __torch_dispatch__ overrides, are created by subclassing respectively torch.overrides.TorchFunctionMode and torch.utils._python_dispatch.TorchDispatchMode, and are used as a context manager. To simplify the description of how it interacts with subclasses and other modes, whenever the context manager for a mode is entered, every function behaves as if there was an extra Tensor argument at the beginning of the argument list with the mode as a subclass. This means in particular that all modes handlers will be called before any subclass handler and that modes corresponding to the inner context manager will always run first. It is also important to note that within a given mode handler, this specific mode is disabled and can be re-enabled manually by doing with self:. Here is an example that shows logging modes of each type: import torch from torch.overrides import TorchFunctionMode, resolve_name from torch.utils._python_dispatch import TorchDispatchMode class FunctionLog(TorchFunctionMode): def __torch_function__(self, func, types, args, kwargs=None): print(f\"Function Log: {resolve_name(func)}(*{args}, **{kwargs})\") return func(*args, **(kwargs or {})) class DispatchLog(TorchDispatchMode): def __torch_dispatch__(self, func, types, args, kwargs=None): print(f\"Dispatch Log: {func}(*{args}, **{kwargs})\") return func(*args, **(kwargs or {})) def f(): a = torch.rand(10, requires_grad=True) b = a * 2 b.sum().backward() print(\"TorchFunctionMode logging:\") with FunctionLog(): f() print(\"TorchDispatchMode logging:\") with DispatchLog(): f() Which prints the following, with extra comments: TorchFunctionMode logging: Function Log: torch.rand(*(10,), **{\u0027requires_grad\u0027: True}) Function Log: torch.Tensor.mul(*(tensor([0.7164, 0.9897, 0.1745, 0.9336, 0.4287, 0.7989, 0.2169, 0.7474, 0.5624, 0.5970], requires_grad=True), 2), **None) Function Log: torch.Tensor.sum(*(tensor([1.4328, 1.9794, 0.3490, 1.8671, 0.8573, 1.5977, 0.4338, 1.4948, 1.1249, 1.1939], grad_fn=\u003cMulBackward0\u003e),), **None) # Note that at the python level, we only see the call to backward but not what happens in the autograd engine. Function Log: torch.Tensor.backward(*(tensor(12.3307, grad_fn=\u003cSumBackward0\u003e),), **{\u0027gradient\u0027: None, \u0027retain_graph\u0027: None, \u0027create_graph\u0027: False, \u0027inputs\u0027: None}) TorchDispatchMode logging: # Here the requires_grad flag from autograd is removed while default arguments were populated. Dispatch Log: aten.rand.default(*([10],), **{\u0027device\u0027: device(type=\u0027cpu\u0027), \u0027pin_memory\u0027: False}) Dispatch Log: aten.mul.Tensor(*(tensor([0.2151, 0.6018, 0.8415, 0.9060, 0.2974, 0.7708, 0.6668, 0.0352, 0.7948, 0.6023], requires_grad=True), 2), **{}) Dispatch Log: aten.sum.default(*(tensor([0.4303, 1.2036, 1.6831, 1.8120, 0.5949, 1.5416, 1.3335, 0.0705, 1.5897, 1.2046], grad_fn=\u003cMulBackward0\u003e),), **{}) # Here we don\u0027t see the call to backward itself, but its constituents. Starting here with the factory function that creates the initial gradient. Dispatch Log: aten.ones_like.default(*(tensor(11.4637, grad_fn=\u003cSumBackward0\u003e),), **{\u0027pin_memory\u0027: False, \u0027memory_format\u0027: torch.preserve_format}) # This is the backward of the sum Dispatch Log: aten.expand.default(*(tensor(1.), [10]), **{}) Dispatch Log: aten.mul.Tensor(*(tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.]), 2), **{}) Dispatch Log: aten.detach.default(*(tensor([2., 2., 2., 2., 2., 2., 2., 2., 2., 2.]),), **{}) Dispatch Log: aten.detach.default(*(tensor([2., 2., 2., 2., 2., 2., 2., 2., 2., 2.]),), **{})",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "../_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/notes/extending.html"
+       },
+       "datePublished": "Jan 16, 2017T00:00:00Z",
+       "dateModified": "May 07, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

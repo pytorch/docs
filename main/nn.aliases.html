@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/nn.aliases.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0b59492 )');
- </script>
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -175,19 +185,21 @@
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
 
-   <!--
+<!--
    Search engines should not index the main version of documentation.
    Stable documentation are built without release == 'main'.
    -->
-   <meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -524,7 +536,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -532,7 +545,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -3433,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3458,7 +3471,22 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 </ul>
@@ -3519,6 +3547,22 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.config.html">torch.compiler.config</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fine_grain_apis.html">TorchDynamo APIs for fine-grained tracing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_backward.html"><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has different autograd semantics</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3555,7 +3599,6 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4403,29 +4446,30 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="pytorch-api.html">
-          <meta itemprop="name" content="Reference API">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="pytorch-api.html">
+        <meta itemprop="name" content="Reference API">
+        <meta itemprop="position" content="1">
+      </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="nn.html">
-          <meta itemprop="name" content="torch.nn">
-          <meta itemprop="position" content="2">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="nn.html">
+        <meta itemprop="name" content="torch.nn">
+        <meta itemprop="position" content="2">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="Aliases in torch.nn">
         <meta itemprop="position" content="3">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -4447,7 +4491,7 @@ document.write(`
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.container.Sequential.html#torch.nn.modules.container.Sequential" title="torch.nn.modules.container.Sequential"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.Sequential</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Sequential.html#torch.nn.Sequential" title="torch.nn.modules.container.Sequential"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.Sequential</span></code></a></p></td>
 <td><p>A sequential container.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.ModuleList.html#torch.nn.ModuleList" title="torch.nn.modules.container.ModuleList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.ModuleList</span></code></a></p></td>
@@ -4456,7 +4500,7 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.ModuleDict.html#torch.nn.ModuleDict" title="torch.nn.modules.container.ModuleDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.ModuleDict</span></code></a></p></td>
 <td><p>Holds submodules in a dictionary.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.container.ParameterList.html#torch.nn.modules.container.ParameterList" title="torch.nn.modules.container.ParameterList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.ParameterList</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.ParameterList.html#torch.nn.ParameterList" title="torch.nn.modules.container.ParameterList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.ParameterList</span></code></a></p></td>
 <td><p>Holds parameters in a list.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.ParameterDict.html#torch.nn.ParameterDict" title="torch.nn.modules.container.ParameterDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">container.ParameterDict</span></code></a></p></td>
@@ -4510,7 +4554,7 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.LazyConvTranspose3d.html#torch.nn.modules.conv.LazyConvTranspose3d" title="torch.nn.modules.conv.LazyConvTranspose3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.LazyConvTranspose3d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.ConvTranspose3d.html#torch.nn.ConvTranspose3d" title="torch.nn.ConvTranspose3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.ConvTranspose3d</span></code></a> module with lazy initialization of the <code class="docutils literal notranslate"><span class="pre">in_channels</span></code> argument.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.fold.Unfold.html#torch.nn.modules.fold.Unfold" title="torch.nn.modules.fold.Unfold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fold.Unfold</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Unfold.html#torch.nn.Unfold" title="torch.nn.modules.fold.Unfold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fold.Unfold</span></code></a></p></td>
 <td><p>Extracts sliding local blocks from a batched input tensor.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.fold.Fold.html#torch.nn.modules.fold.Fold" title="torch.nn.modules.fold.Fold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fold.Fold</span></code></a></p></td>
@@ -4696,7 +4740,7 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.SELU.html#torch.nn.SELU" title="torch.nn.modules.activation.SELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.SELU</span></code></a></p></td>
 <td><p>Applies the SELU function element-wise.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.CELU.html#torch.nn.CELU" title="torch.nn.modules.activation.CELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.CELU</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.activation.CELU.html#torch.nn.modules.activation.CELU" title="torch.nn.modules.activation.CELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.CELU</span></code></a></p></td>
 <td><p>Applies the CELU function element-wise.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.GELU.html#torch.nn.GELU" title="torch.nn.modules.activation.GELU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.GELU</span></code></a></p></td>
@@ -4756,7 +4800,7 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LogSoftmax.html#torch.nn.LogSoftmax" title="torch.nn.modules.activation.LogSoftmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activation.LogSoftmax</span></code></a></p></td>
 <td><p>Applies the <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mtext>Softmax</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\log(\text{Softmax}(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord text"><span class="mord">Softmax</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span></span> function to an n-dimensional input Tensor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.AdaptiveLogSoftmaxWithLoss.html#torch.nn.AdaptiveLogSoftmaxWithLoss" title="torch.nn.modules.adaptive.AdaptiveLogSoftmaxWithLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adaptive.AdaptiveLogSoftmaxWithLoss</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.adaptive.AdaptiveLogSoftmaxWithLoss.html#torch.nn.modules.adaptive.AdaptiveLogSoftmaxWithLoss" title="torch.nn.modules.adaptive.AdaptiveLogSoftmaxWithLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adaptive.AdaptiveLogSoftmaxWithLoss</span></code></a></p></td>
 <td><p>Efficient softmax approximation.</p></td>
 </tr>
 </tbody>
@@ -4771,22 +4815,22 @@ document.write(`
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.BatchNorm1d.html#torch.nn.BatchNorm1d" title="torch.nn.modules.batchnorm.BatchNorm1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.BatchNorm1d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.batchnorm.BatchNorm1d.html#torch.nn.modules.batchnorm.BatchNorm1d" title="torch.nn.modules.batchnorm.BatchNorm1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.BatchNorm1d</span></code></a></p></td>
 <td><p>Applies Batch Normalization over a 2D or 3D input.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.BatchNorm2d.html#torch.nn.BatchNorm2d" title="torch.nn.modules.batchnorm.BatchNorm2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.BatchNorm2d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.batchnorm.BatchNorm2d.html#torch.nn.modules.batchnorm.BatchNorm2d" title="torch.nn.modules.batchnorm.BatchNorm2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.BatchNorm2d</span></code></a></p></td>
 <td><p>Applies Batch Normalization over a 4D input.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.BatchNorm3d.html#torch.nn.BatchNorm3d" title="torch.nn.modules.batchnorm.BatchNorm3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.BatchNorm3d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.batchnorm.BatchNorm3d.html#torch.nn.modules.batchnorm.BatchNorm3d" title="torch.nn.modules.batchnorm.BatchNorm3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.BatchNorm3d</span></code></a></p></td>
 <td><p>Applies Batch Normalization over a 5D input.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LazyBatchNorm1d.html#torch.nn.LazyBatchNorm1d" title="torch.nn.modules.batchnorm.LazyBatchNorm1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.LazyBatchNorm1d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.batchnorm.LazyBatchNorm1d.html#torch.nn.modules.batchnorm.LazyBatchNorm1d" title="torch.nn.modules.batchnorm.LazyBatchNorm1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.LazyBatchNorm1d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.BatchNorm1d.html#torch.nn.BatchNorm1d" title="torch.nn.BatchNorm1d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.BatchNorm1d</span></code></a> module with lazy initialization.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.LazyBatchNorm2d.html#torch.nn.LazyBatchNorm2d" title="torch.nn.modules.batchnorm.LazyBatchNorm2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.LazyBatchNorm2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.batchnorm.LazyBatchNorm2d.html#torch.nn.modules.batchnorm.LazyBatchNorm2d" title="torch.nn.modules.batchnorm.LazyBatchNorm2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.LazyBatchNorm2d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.BatchNorm2d.html#torch.nn.BatchNorm2d" title="torch.nn.BatchNorm2d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.BatchNorm2d</span></code></a> module with lazy initialization.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LazyBatchNorm3d.html#torch.nn.LazyBatchNorm3d" title="torch.nn.modules.batchnorm.LazyBatchNorm3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.LazyBatchNorm3d</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.batchnorm.LazyBatchNorm3d.html#torch.nn.modules.batchnorm.LazyBatchNorm3d" title="torch.nn.modules.batchnorm.LazyBatchNorm3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batchnorm.LazyBatchNorm3d</span></code></a></p></td>
 <td><p>A <a class="reference internal" href="generated/torch.nn.BatchNorm3d.html#torch.nn.BatchNorm3d" title="torch.nn.BatchNorm3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.BatchNorm3d</span></code></a> module with lazy initialization.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.normalization.GroupNorm.html#torch.nn.modules.normalization.GroupNorm" title="torch.nn.modules.normalization.GroupNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalization.GroupNorm</span></code></a></p></td>
@@ -4969,7 +5013,7 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.distance.CosineSimilarity.html#torch.nn.modules.distance.CosineSimilarity" title="torch.nn.modules.distance.CosineSimilarity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance.CosineSimilarity</span></code></a></p></td>
 <td><p>Returns cosine similarity between <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">x_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span> and <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">x_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>, computed along <cite>dim</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.distance.PairwiseDistance.html#torch.nn.modules.distance.PairwiseDistance" title="torch.nn.modules.distance.PairwiseDistance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance.PairwiseDistance</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.PairwiseDistance.html#torch.nn.PairwiseDistance" title="torch.nn.modules.distance.PairwiseDistance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance.PairwiseDistance</span></code></a></p></td>
 <td><p>Computes the pairwise distance between input vectors, or between columns of input matrices.</p></td>
 </tr>
 </tbody>
@@ -4987,7 +5031,7 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.L1Loss.html#torch.nn.modules.loss.L1Loss" title="torch.nn.modules.loss.L1Loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.L1Loss</span></code></a></p></td>
 <td><p>Creates a criterion that measures the mean absolute error (MAE) between each element in the input <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> and target <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.MSELoss.html#torch.nn.modules.loss.MSELoss" title="torch.nn.modules.loss.MSELoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.MSELoss</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.MSELoss.html#torch.nn.MSELoss" title="torch.nn.modules.loss.MSELoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.MSELoss</span></code></a></p></td>
 <td><p>Creates a criterion that measures the mean squared error (squared L2 norm) between each element in the input <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> and target <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.CrossEntropyLoss.html#torch.nn.modules.loss.CrossEntropyLoss" title="torch.nn.modules.loss.CrossEntropyLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.CrossEntropyLoss</span></code></a></p></td>
@@ -5086,7 +5130,7 @@ document.write(`
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.ChannelShuffle.html#torch.nn.ChannelShuffle" title="torch.nn.modules.channelshuffle.ChannelShuffle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">channelshuffle.ChannelShuffle</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.channelshuffle.ChannelShuffle.html#torch.nn.modules.channelshuffle.ChannelShuffle" title="torch.nn.modules.channelshuffle.ChannelShuffle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">channelshuffle.ChannelShuffle</span></code></a></p></td>
 <td><p>Divides and rearranges the channels in a tensor.</p></td>
 </tr>
 </tbody>
@@ -5212,7 +5256,7 @@ document.write(`
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -5421,91 +5465,124 @@ document.write(`
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -5513,8 +5590,7 @@ document.write(`
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -5554,28 +5630,47 @@ document.write(`
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "Aliases in torch.nn",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/nn.aliases.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/nn.aliases.html"
-         },
-        "datePublished": "Jul 25, 2025T00:00:00Z",
-         "dateModified": "Jul 25, 2025T00:00:00Z",
-         "articleBody": "Aliases in torch.nn# Created On: Jul 25, 2025 | Last Updated On: Jul 25, 2025 The following are aliases to their counterparts in torch.nn in nested namespaces. torch.nn.modules# The following are aliases to their counterparts in torch.nn in the torch.nn.modules namespace. Containers (Aliases)# container.Sequential A sequential container. container.ModuleList Holds submodules in a list. container.ModuleDict Holds submodules in a dictionary. container.ParameterList Holds parameters in a list. container.ParameterDict Holds parameters in a dictionary. Convolution Layers (Aliases)# conv.Conv1d Applies a 1D convolution over an input signal composed of several input planes. conv.Conv2d Applies a 2D convolution over an input signal composed of several input planes. conv.Conv3d Applies a 3D convolution over an input signal composed of several input planes. conv.ConvTranspose1d Applies a 1D transposed convolution operator over an input image composed of several input planes. conv.ConvTranspose2d Applies a 2D transposed convolution operator over an input image composed of several input planes. conv.ConvTranspose3d Applies a 3D transposed convolution operator over an input image composed of several input planes. conv.LazyConv1d A torch.nn.Conv1d module with lazy initialization of the in_channels argument. conv.LazyConv2d A torch.nn.Conv2d module with lazy initialization of the in_channels argument. conv.LazyConv3d A torch.nn.Conv3d module with lazy initialization of the in_channels argument. conv.LazyConvTranspose1d A torch.nn.ConvTranspose1d module with lazy initialization of the in_channels argument. conv.LazyConvTranspose2d A torch.nn.ConvTranspose2d module with lazy initialization of the in_channels argument. conv.LazyConvTranspose3d A torch.nn.ConvTranspose3d module with lazy initialization of the in_channels argument. fold.Unfold Extracts sliding local blocks from a batched input tensor. fold.Fold Combines an array of sliding local blocks into a large containing tensor. Pooling layers (Aliases)# pooling.MaxPool1d Applies a 1D max pooling over an input signal composed of several input planes. pooling.MaxPool2d Applies a 2D max pooling over an input signal composed of several input planes. pooling.MaxPool3d Applies a 3D max pooling over an input signal composed of several input planes. pooling.MaxUnpool1d Computes a partial inverse of MaxPool1d. pooling.MaxUnpool2d Computes a partial inverse of MaxPool2d. pooling.MaxUnpool3d Computes a partial inverse of MaxPool3d. pooling.AvgPool1d Applies a 1D average pooling over an input signal composed of several input planes. pooling.AvgPool2d Applies a 2D average pooling over an input signal composed of several input planes. pooling.AvgPool3d Applies a 3D average pooling over an input signal composed of several input planes. pooling.FractionalMaxPool2d Applies a 2D fractional max pooling over an input signal composed of several input planes. pooling.FractionalMaxPool3d Applies a 3D fractional max pooling over a..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "Aliases in torch.nn",
+       "headline": "Aliases in torch.nn",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/nn.aliases.html",
+       "articleBody": "Aliases in torch.nn# Created On: Jul 25, 2025 | Last Updated On: Jul 25, 2025 The following are aliases to their counterparts in torch.nn in nested namespaces. torch.nn.modules# The following are aliases to their counterparts in torch.nn in the torch.nn.modules namespace. Containers (Aliases)# container.Sequential A sequential container. container.ModuleList Holds submodules in a list. container.ModuleDict Holds submodules in a dictionary. container.ParameterList Holds parameters in a list. container.ParameterDict Holds parameters in a dictionary. Convolution Layers (Aliases)# conv.Conv1d Applies a 1D convolution over an input signal composed of several input planes. conv.Conv2d Applies a 2D convolution over an input signal composed of several input planes. conv.Conv3d Applies a 3D convolution over an input signal composed of several input planes. conv.ConvTranspose1d Applies a 1D transposed convolution operator over an input image composed of several input planes. conv.ConvTranspose2d Applies a 2D transposed convolution operator over an input image composed of several input planes. conv.ConvTranspose3d Applies a 3D transposed convolution operator over an input image composed of several input planes. conv.LazyConv1d A torch.nn.Conv1d module with lazy initialization of the in_channels argument. conv.LazyConv2d A torch.nn.Conv2d module with lazy initialization of the in_channels argument. conv.LazyConv3d A torch.nn.Conv3d module with lazy initialization of the in_channels argument. conv.LazyConvTranspose1d A torch.nn.ConvTranspose1d module with lazy initialization of the in_channels argument. conv.LazyConvTranspose2d A torch.nn.ConvTranspose2d module with lazy initialization of the in_channels argument. conv.LazyConvTranspose3d A torch.nn.ConvTranspose3d module with lazy initialization of the in_channels argument. fold.Unfold Extracts sliding local blocks from a batched input tensor. fold.Fold Combines an array of sliding local blocks into a large containing tensor. Pooling layers (Aliases)# pooling.MaxPool1d Applies a 1D max pooling over an input signal composed of several input planes. pooling.MaxPool2d Applies a 2D max pooling over an input signal composed of several input planes. pooling.MaxPool3d Applies a 3D max pooling over an input signal composed of several input planes. pooling.MaxUnpool1d Computes a partial inverse of MaxPool1d. pooling.MaxUnpool2d Computes a partial inverse of MaxPool2d. pooling.MaxUnpool3d Computes a partial inverse of MaxPool3d. pooling.AvgPool1d Applies a 1D average pooling over an input signal composed of several input planes. pooling.AvgPool2d Applies a 2D average pooling over an input signal composed of several input planes. pooling.AvgPool3d Applies a 3D average pooling over an input signal composed of several input planes. pooling.FractionalMaxPool2d Applies a 2D fractional max pooling over an input signal composed of several input planes. pooling.FractionalMaxPool3d Applies a 3D fractional max pooling over an input signal composed of several input planes. pooling.LPPool1d Applies a 1D power-average pooling over an input signal composed of several input planes. pooling.LPPool2d Applies a 2D power-average pooling over an input signal composed of several input planes. pooling.LPPool3d Applies a 3D power-average pooling over an input signal composed of several input planes. pooling.AdaptiveMaxPool1d Applies a 1D adaptive max pooling over an input signal composed of several input planes. pooling.AdaptiveMaxPool2d Applies a 2D adaptive max pooling over an input signal composed of several input planes. pooling.AdaptiveMaxPool3d Applies a 3D adaptive max pooling over an input signal composed of several input planes. pooling.AdaptiveAvgPool1d Applies a 1D adaptive average pooling over an input signal composed of several input planes. pooling.AdaptiveAvgPool2d Applies a 2D adaptive average pooling over an input signal composed of several input planes. pooling.AdaptiveAvgPool3d Applies a 3D adaptive average pooling over an input signal composed of several input planes. Padding Layers (Aliases)# padding.ReflectionPad1d Pads the input tensor using the reflection of the input boundary. padding.ReflectionPad2d Pads the input tensor using the reflection of the input boundary. padding.ReflectionPad3d Pads the input tensor using the reflection of the input boundary. padding.ReplicationPad1d Pads the input tensor using replication of the input boundary. padding.ReplicationPad2d Pads the input tensor using replication of the input boundary. padding.ReplicationPad3d Pads the input tensor using replication of the input boundary. padding.ZeroPad1d Pads the input tensor boundaries with zero. padding.ZeroPad2d Pads the input tensor boundaries with zero. padding.ZeroPad3d Pads the input tensor boundaries with zero. padding.ConstantPad1d Pads the input tensor boundaries with a constant value. padding.ConstantPad2d Pads the input tensor boundaries with a constant value. padding.ConstantPad3d Pads the input tensor boundaries with a constant value. padding.CircularPad1d Pads the input tensor using circular padding of the input boundary. padding.CircularPad2d Pads the input tensor using circular padding of the input boundary. padding.CircularPad3d Pads the input tensor using circular padding of the input boundary. Non-linear Activations (weighted sum, nonlinearity) (Aliases)# activation.ELU Applies the Exponential Linear Unit (ELU) function, element-wise. activation.Hardshrink Applies the Hard Shrinkage (Hardshrink) function element-wise. activation.Hardsigmoid Applies the Hardsigmoid function element-wise. activation.Hardtanh Applies the HardTanh function element-wise. activation.Hardswish Applies the Hardswish function, element-wise. activation.LeakyReLU Applies the LeakyReLU function element-wise. activation.LogSigmoid Applies the Logsigmoid function element-wise. activation.MultiheadAttention Allows the model to jointly attend to information from different representation subspaces. activation.PReLU Applies the element-wise PReLU function. activation.ReLU Applies the rectified linear unit function element-wise. activation.ReLU6 Applies the ReLU6 function element-wise. activation.RReLU Applies the randomized leaky rectified linear unit function, element-wise. activation.SELU Applies the SELU function element-wise. activation.CELU Applies the CELU function element-wise. activation.GELU Applies the Gaussian Error Linear Units function. activation.Sigmoid Applies the Sigmoid function element-wise. activation.SiLU Applies the Sigmoid Linear Unit (SiLU) function, element-wise. activation.Mish Applies the Mish function, element-wise. activation.Softplus Applies the Softplus function element-wise. activation.Softshrink Applies the soft shrinkage function element-wise. activation.Softsign Applies the element-wise Softsign function. activation.Tanh Applies the Hyperbolic Tangent (Tanh) function element-wise. activation.Tanhshrink Applies the element-wise Tanhshrink function. activation.Threshold Thresholds each element of the input Tensor. activation.GLU Applies the gated linear unit function. Non-linear Activations (other) (Aliases)# activation.Softmin Applies the Softmin function to an n-dimensional input Tensor. activation.Softmax Applies the Softmax function to an n-dimensional input Tensor. activation.Softmax2d Applies SoftMax over features to each spatial location. activation.LogSoftmax Applies the log\u2061(Softmax(x))\\log(\\text{Softmax}(x))log(Softmax(x)) function to an n-dimensional input Tensor. adaptive.AdaptiveLogSoftmaxWithLoss Efficient softmax approximation. Normalization Layers (Aliases)# batchnorm.BatchNorm1d Applies Batch Normalization over a 2D or 3D input. batchnorm.BatchNorm2d Applies Batch Normalization over a 4D input. batchnorm.BatchNorm3d Applies Batch Normalization over a 5D input. batchnorm.LazyBatchNorm1d A torch.nn.BatchNorm1d module with lazy initialization. batchnorm.LazyBatchNorm2d A torch.nn.BatchNorm2d module with lazy initialization. batchnorm.LazyBatchNorm3d A torch.nn.BatchNorm3d module with lazy initialization. normalization.GroupNorm Applies Group Normalization over a mini-batch of inputs. batchnorm.SyncBatchNorm Applies Batch Normalization over a N-Dimensional input. instancenorm.InstanceNorm1d Applies Instance Normalization. instancenorm.InstanceNorm2d Applies Instance Normalization. instancenorm.InstanceNorm3d Applies Instance Normalization. instancenorm.LazyInstanceNorm1d A torch.nn.InstanceNorm1d module with lazy initialization of the num_features argument. instancenorm.LazyInstanceNorm2d A torch.nn.InstanceNorm2d module with lazy initialization of the num_features argument. instancenorm.LazyInstanceNorm3d A torch.nn.InstanceNorm3d module with lazy initialization of the num_features argument. normalization.LayerNorm Applies Layer Normalization over a mini-batch of inputs. normalization.LocalResponseNorm Applies local response normalization over an input signal. normalization.RMSNorm Applies Root Mean Square Layer Normalization over a mini-batch of inputs. Recurrent Layers (Aliases)# rnn.RNNBase Base class for RNN modules (RNN, LSTM, GRU). rnn.RNN Apply a multi-layer Elman RNN with tanh\u2061\\tanhtanh or ReLU\\text{ReLU}ReLU non-linearity to an input sequence. rnn.LSTM Apply a multi-layer long short-term memory (LSTM) RNN to an input sequence. rnn.GRU Apply a multi-layer gated recurrent unit (GRU) RNN to an input sequence. rnn.RNNCell An Elman RNN cell with tanh or ReLU non-linearity. rnn.LSTMCell A long short-term memory (LSTM) cell. rnn.GRUCell A gated recurrent unit (GRU) cell. Transformer Layers (Aliases)# transformer.Transformer A basic transformer layer. transformer.TransformerEncoder TransformerEncoder is a stack of N encoder layers. transformer.TransformerDecoder TransformerDecoder is a stack of N decoder layers. transformer.TransformerEncoderLayer TransformerEncoderLayer is made up of self-attn and feedforward network. transformer.TransformerDecoderLayer TransformerDecoderLayer is made up of self-attn, multi-head-attn and feedforward network. Linear Layers (Aliases)# linear.Identity A placeholder identity operator that is argument-insensitive. linear.Linear Applies an affine linear transformation to the incoming data: y=xAT+by = xA^T + by=xAT+b. linear.Bilinear Applies a bilinear transformation to the incoming data: y=x1TAx2+by = x_1^T A x_2 + by=x1T\u200bAx2\u200b+b. linear.LazyLinear A torch.nn.Linear module where in_features is inferred. Dropout Layers (Aliases)# dropout.Dropout During training, randomly zeroes some of the elements of the input tensor with probability p. dropout.Dropout1d Randomly zero out entire channels. dropout.Dropout2d Randomly zero out entire channels. dropout.Dropout3d Randomly zero out entire channels. dropout.AlphaDropout Applies Alpha Dropout over the input. dropout.FeatureAlphaDropout Randomly masks out entire channels. Sparse Layers (Aliases)# sparse.Embedding A simple lookup table that stores embeddings of a fixed dictionary and size. sparse.EmbeddingBag Compute sums or means of \u0027bags\u0027 of embeddings, without instantiating the intermediate embeddings. Distance Functions (Aliases)# distance.CosineSimilarity Returns cosine similarity between x1x_1x1\u200b and x2x_2x2\u200b, computed along dim. distance.PairwiseDistance Computes the pairwise distance between input vectors, or between columns of input matrices. Loss Functions (Aliases)# loss.L1Loss Creates a criterion that measures the mean absolute error (MAE) between each element in the input xxx and target yyy. loss.MSELoss Creates a criterion that measures the mean squared error (squared L2 norm) between each element in the input xxx and target yyy. loss.CrossEntropyLoss This criterion computes the cross entropy loss between input logits and target. loss.CTCLoss The Connectionist Temporal Classification loss. loss.NLLLoss The negative log likelihood loss. loss.PoissonNLLLoss Negative log likelihood loss with Poisson distribution of target. loss.GaussianNLLLoss Gaussian negative log likelihood loss. loss.KLDivLoss The Kullback-Leibler divergence loss. loss.BCELoss Creates a criterion that measures the Binary Cross Entropy between the target and the input probabilities: loss.BCEWithLogitsLoss This loss combines a Sigmoid layer and the BCELoss in one single class. loss.MarginRankingLoss Creates a criterion that measures the loss given inputs x1x1x1, x2x2x2, two 1D mini-batch or 0D Tensors, and a label 1D mini-batch or 0D Tensor yyy (containing 1 or -1). loss.HingeEmbeddingLoss Measures the loss given an input tensor xxx and a labels tensor yyy (containing 1 or -1). loss.MultiLabelMarginLoss Creates a criterion that optimizes a multi-class multi-classification hinge loss (margin-based loss) between input xxx (a 2D mini-batch Tensor) and output yyy (which is a 2D Tensor of target class indices). loss.HuberLoss Creates a criterion that uses a squared term if the absolute element-wise error falls below delta and a delta-scaled L1 term otherwise. loss.SmoothL1Loss Creates a criterion that uses a squared term if the absolute element-wise error falls below beta and an L1 term otherwise. loss.SoftMarginLoss Creates a criterion that optimizes a two-class classification logistic loss between input tensor xxx and target tensor yyy (containing 1 or -1). loss.MultiLabelSoftMarginLoss Creates a criterion that optimizes a multi-label one-versus-all loss based on max-entropy, between input xxx and target yyy of size (N,C)(N, C)(N,C). loss.CosineEmbeddingLoss Creates a criterion that measures the loss given input tensors x1x_1x1\u200b, x2x_2x2\u200b and a Tensor label yyy with values 1 or -1. loss.MultiMarginLoss Creates a criterion that optimizes a multi-class classification hinge loss (margin-based loss) between input xxx (a 2D mini-batch Tensor) and output yyy (which is a 1D tensor of target class indices, 0\u2264y\u2264x.size(1)\u221210 \\leq y \\leq \\text{x.size}(1)-10\u2264y\u2264x.size(1)\u22121): loss.TripletMarginLoss Creates a criterion that measures the triplet loss given an input tensors x1x1x1, x2x2x2, x3x3x3 and a margin with a value greater than 000. loss.TripletMarginWithDistanceLoss Creates a criterion that measures the triplet loss given input tensors aaa, ppp, and nnn (representing anchor, positive, and negative examples, respectively), and a nonnegative, real-valued function (\"distance function\") used to compute the relationship between the anchor and positive example (\"positive distance\") and the anchor and negative example (\"negative distance\"). Vision Layers (Aliases)# pixelshuffle.PixelShuffle Rearrange elements in a tensor according to an upscaling factor. pixelshuffle.PixelUnshuffle Reverse the PixelShuffle operation. upsampling.Upsample Upsamples a given multi-channel 1D (temporal), 2D (spatial) or 3D (volumetric) data. upsampling.UpsamplingNearest2d Applies a 2D nearest neighbor upsampling to an input signal composed of several input channels. upsampling.UpsamplingBilinear2d Applies a 2D bilinear upsampling to an input signal composed of several input channels. Shuffle Layers (Aliases)# channelshuffle.ChannelShuffle Divides and rearranges the channels in a tensor. torch.nn.utils# The following are aliases to their counterparts in torch.nn.utils in nested namespaces. Utility functions to clip parameter gradients. clip_grad.clip_grad_norm_ Clip the gradient norm of an iterable of parameters. clip_grad.clip_grad_norm Clip the gradient norm of an iterable of parameters. clip_grad.clip_grad_value_ Clip the gradients of an iterable of parameters at specified value. Utility functions to flatten and unflatten Module parameters to and from a single vector. convert_parameters.parameters_to_vector Flatten an iterable of parameters into a single vector. convert_parameters.vector_to_parameters Copy slices of a vector into an iterable of parameters. Utility functions to fuse Modules with BatchNorm modules. fusion.fuse_conv_bn_eval Fuse a convolutional module and a BatchNorm module into a single, new convolutional module. fusion.fuse_conv_bn_weights Fuse convolutional module parameters and BatchNorm module parameters into new convolutional module parameters. fusion.fuse_linear_bn_eval Fuse a linear module and a BatchNorm module into a single, new linear module. fusion.fuse_linear_bn_weights Fuse linear module parameters and BatchNorm module parameters into new linear module parameters. Utility functions to convert Module parameter memory formats. memory_format.convert_conv2d_weight_memory_format Convert memory_format of nn.Conv2d.weight to memory_format. memory_format.convert_conv3d_weight_memory_format Convert memory_format of nn.Conv3d.weight to memory_format The conversion recursively applies to nested nn.Module, including module. Utility functions to apply and remove weight normalization from Module parameters. weight_norm.weight_norm Apply weight normalization to a parameter in the given module. weight_norm.remove_weight_norm Remove the weight normalization reparameterization from a module. spectral_norm.spectral_norm Apply spectral normalization to a parameter in the given module. spectral_norm.remove_spectral_norm Remove the spectral normalization reparameterization from a module. Utility functions for initializing Module parameters. init.skip_init Given a module class object and args / kwargs, instantiate the module without initializing parameters / buffers.",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/nn.aliases.html"
+       },
+       "datePublished": "Jul 25, 2025T00:00:00Z",
+       "dateModified": "Jul 25, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/optim.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0b59492 )');
- </script>
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -175,19 +185,21 @@
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
 
-   <!--
+<!--
    Search engines should not index the main version of documentation.
    Stable documentation are built without release == 'main'.
    -->
-   <meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -524,7 +536,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -532,7 +545,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -3433,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3458,7 +3471,22 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 </ul>
@@ -3519,6 +3547,22 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.config.html">torch.compiler.config</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fine_grain_apis.html">TorchDynamo APIs for fine-grained tracing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_backward.html"><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has different autograd semantics</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3555,7 +3599,6 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4400,23 +4443,24 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="pytorch-api.html">
-          <meta itemprop="name" content="Reference API">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="pytorch-api.html">
+        <meta itemprop="name" content="Reference API">
+        <meta itemprop="position" content="1">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="torch.optim">
         <meta itemprop="position" content="2">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -4542,7 +4586,7 @@ compute the loss, and return it.</p>
 <span id="optimizer-algorithms"></span><h2>Base class<a class="headerlink" href="#base-class" title="Permalink to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.optim.Optimizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/optim/optimizer.py#L339"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/optim/optimizer.py#L339"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer" title="Permalink to this definition">#</a></dt>
 <dd><p>Base class for all optimizers.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -5304,13 +5348,13 @@ We train the model for a total of 300 epochs and start to collect EMA averages i
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.swa_utils.get_ema_multi_avg_fn">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">get_ema_multi_avg_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/optim/swa_utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">get_ema_multi_avg_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/optim/swa_utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the function applying exponential moving average (EMA) across multiple params.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.optim.swa_utils.update_bn">
-<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">update_bn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/optim/swa_utils.py#L316"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.update_bn" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.optim.swa_utils.</span></span><span class="sig-name descname"><span class="pre">update_bn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/optim/swa_utils.py#L316"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.swa_utils.update_bn" title="Permalink to this definition">#</a></dt>
 <dd><p>Update BatchNorm running_mean, running_var buffers in the model.</p>
 <p>It performs one pass over data in <cite>loader</cite> to estimate the activation
 statistics for BatchNorm layers in the model.</p>
@@ -5354,7 +5398,7 @@ for tracking purposes -->
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -5571,91 +5615,124 @@ for tracking purposes -->
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -5663,8 +5740,7 @@ for tracking purposes -->
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -5704,28 +5780,47 @@ for tracking purposes -->
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "torch.optim",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/optim.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/optim.html"
-         },
-        "datePublished": "Jun 13, 2025T00:00:00Z",
-         "dateModified": "Aug 24, 2025T00:00:00Z",
-         "articleBody": "torch.optim# Created On: Jun 13, 2025 | Last Updated On: Aug 24, 2025 torch.optim is a package implementing various optimization algorithms. Most commonly used methods are already supported, and the interface is general enough, so that more sophisticated ones can also be easily integrated in the future. How to use an optimizer# To use torch.optim you have to construct an optimizer object that will hold the current state and will update the parameters based on the computed gradients. Constructing it# To construct an Optimizer you have to give it an iterable containing the parameters (all should be Parameter s) or named parameters (tuples of (str, Parameter)) to optimize. Then, you can specify optimizer-specific options such as the learning rate, weight decay, etc. Example: optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9) optimizer = optim.Adam([var1, var2], lr=0.0001) Named parameters example: optimizer = optim.SGD(model.named_parameters(), lr=0.01, momentum=0.9) optimizer = optim.Adam([(&#39;layer0&#39;, var1), (&#39;layer1&#39;, var2)], lr=0.0001) Per-parameter options# Optimizer s also support specifying per-parameter options. To do this, instead of passing an iterable of Variable s, pass in an iterable of dict s. Each of them will define a separate parameter group, and should contain a params key, containing a list of parameters belonging to it. Other keys should match the keyword arguments accepted by the optimizers, and will be used as optimization options for this group. For example, this is very useful when one wants to specify per-layer learning rates: optim.SGD([ {&#39;params&#39;: model.base.parameters(), &#39;lr&#39;: 1e-2}, {&#39;params&#39;: model.classifier.parameters()} ], lr=1e-3, momentum=0.9) optim.SGD([ {&#39;params&#39;: model.base.named_parameters(), &#39;lr&#39;: 1e-2}, {&#39;params&#39;: model.classifier.named_parameters()} ], lr=1e-3, momentum=0.9) This means that model.base’s parameters will use a learning rate of 1e-2, whereas model.classifier’s parameters will stick to the default learning rate of 1e-3. Finally a momentum of 0.9 will be used for all parameters. Note You can still pass options as keyword arguments. They will be used as defaults, in the groups that didn’t override them. This is useful when you only want to vary a single option, while keeping all others consistent between parameter groups. Also consider the following example related to the distinct penalization of parameters. Remember that parameters() returns an iterable that contains all learnable parameters, including biases and other parameters that may prefer distinct penalization. To address this, one can specify individual penalization weights for each parameter group: bias_params = [p for name, p in self.named_parameters() if &#39;bias&#39; in name] others = [p for name, p in self.named_parameters() if &#39;bias&#39; not in name] optim.SGD([ {&#39;params&#39;: others}, {&#39;params&#39;: bias_params, &#39;weight_decay&#39;: 0} ], weight_decay=1e-2, lr=1e-2) In this manner, bias terms are isolated from non-bias terms, and a weight_d..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "torch.optim",
+       "headline": "torch.optim",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/optim.html",
+       "articleBody": "torch.optim# Created On: Jun 13, 2025 | Last Updated On: Aug 24, 2025 torch.optim is a package implementing various optimization algorithms. Most commonly used methods are already supported, and the interface is general enough, so that more sophisticated ones can also be easily integrated in the future. How to use an optimizer# To use torch.optim you have to construct an optimizer object that will hold the current state and will update the parameters based on the computed gradients. Constructing it# To construct an Optimizer you have to give it an iterable containing the parameters (all should be Parameter s) or named parameters (tuples of (str, Parameter)) to optimize. Then, you can specify optimizer-specific options such as the learning rate, weight decay, etc. Example: optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9) optimizer = optim.Adam([var1, var2], lr=0.0001) Named parameters example: optimizer = optim.SGD(model.named_parameters(), lr=0.01, momentum=0.9) optimizer = optim.Adam([(\u0027layer0\u0027, var1), (\u0027layer1\u0027, var2)], lr=0.0001) Per-parameter options# Optimizer s also support specifying per-parameter options. To do this, instead of passing an iterable of Variable s, pass in an iterable of dict s. Each of them will define a separate parameter group, and should contain a params key, containing a list of parameters belonging to it. Other keys should match the keyword arguments accepted by the optimizers, and will be used as optimization options for this group. For example, this is very useful when one wants to specify per-layer learning rates: optim.SGD([ {\u0027params\u0027: model.base.parameters(), \u0027lr\u0027: 1e-2}, {\u0027params\u0027: model.classifier.parameters()} ], lr=1e-3, momentum=0.9) optim.SGD([ {\u0027params\u0027: model.base.named_parameters(), \u0027lr\u0027: 1e-2}, {\u0027params\u0027: model.classifier.named_parameters()} ], lr=1e-3, momentum=0.9) This means that model.base\u2019s parameters will use a learning rate of 1e-2, whereas model.classifier\u2019s parameters will stick to the default learning rate of 1e-3. Finally a momentum of 0.9 will be used for all parameters. Note You can still pass options as keyword arguments. They will be used as defaults, in the groups that didn\u2019t override them. This is useful when you only want to vary a single option, while keeping all others consistent between parameter groups. Also consider the following example related to the distinct penalization of parameters. Remember that parameters() returns an iterable that contains all learnable parameters, including biases and other parameters that may prefer distinct penalization. To address this, one can specify individual penalization weights for each parameter group: bias_params = [p for name, p in self.named_parameters() if \u0027bias\u0027 in name] others = [p for name, p in self.named_parameters() if \u0027bias\u0027 not in name] optim.SGD([ {\u0027params\u0027: others}, {\u0027params\u0027: bias_params, \u0027weight_decay\u0027: 0} ], weight_decay=1e-2, lr=1e-2) In this manner, bias terms are isolated from non-bias terms, and a weight_decay of 0 is set specifically for the bias terms, as to avoid any penalization for this group. Taking an optimization step# All optimizers implement a step() method, that updates the parameters. It can be used in two ways: optimizer.step()# This is a simplified version supported by most optimizers. The function can be called once the gradients are computed using e.g. backward(). Example: for input, target in dataset: optimizer.zero_grad() output = model(input) loss = loss_fn(output, target) loss.backward() optimizer.step() optimizer.step(closure)# Some optimization algorithms such as Conjugate Gradient and LBFGS need to reevaluate the function multiple times, so you have to pass in a closure that allows them to recompute your model. The closure should clear the gradients, compute the loss, and return it. Example: for input, target in dataset: def closure(): optimizer.zero_grad() output = model(input) loss = loss_fn(output, target) loss.backward() return loss optimizer.step(closure) Base class# class torch.optim.Optimizer(params, defaults)[source]# Base class for all optimizers. Warning Parameters need to be specified as collections that have a deterministic ordering that is consistent between runs. Examples of objects that don\u2019t satisfy those properties are sets and iterators over values of dictionaries. Parameters params (iterable) \u2013 an iterable of torch.Tensor s or dict s. Specifies what Tensors should be optimized. defaults (dict[str, Any]) \u2013 (dict): a dict containing default values of optimization options (used when a parameter group doesn\u2019t specify them). Optimizer.add_param_group Add a param group to the Optimizer s param_groups. Optimizer.load_state_dict Load the optimizer state. Optimizer.register_load_state_dict_pre_hook Register a load_state_dict pre-hook which will be called before load_state_dict() is called. It should have the following signature::. Optimizer.register_load_state_dict_post_hook Register a load_state_dict post-hook which will be called after load_state_dict() is called. It should have the following signature::. Optimizer.state_dict Return the state of the optimizer as a dict. Optimizer.register_state_dict_pre_hook Register a state dict pre-hook which will be called before state_dict() is called. Optimizer.register_state_dict_post_hook Register a state dict post-hook which will be called after state_dict() is called. Optimizer.step Perform a single optimization step to update parameter. Optimizer.register_step_pre_hook Register an optimizer step pre hook which will be called before optimizer step. Optimizer.register_step_post_hook Register an optimizer step post hook which will be called after optimizer step. Optimizer.zero_grad Reset the gradients of all optimized torch.Tensor s. Algorithms# Adadelta Implements Adadelta algorithm. Adafactor Implements Adafactor algorithm. Adagrad Implements Adagrad algorithm. Adam Implements Adam algorithm. AdamW Implements AdamW algorithm, where weight decay does not accumulate in the momentum nor variance. SparseAdam SparseAdam implements a masked version of the Adam algorithm suitable for sparse gradients. Adamax Implements Adamax algorithm (a variant of Adam based on infinity norm). ASGD Implements Averaged Stochastic Gradient Descent. LBFGS Implements L-BFGS algorithm. Muon Implements Muon algorithm. NAdam Implements NAdam algorithm. RAdam Implements RAdam algorithm. RMSprop Implements RMSprop algorithm. Rprop Implements the resilient backpropagation algorithm. SGD Implements stochastic gradient descent (optionally with momentum). Many of our algorithms have various implementations optimized for performance, readability and/or generality, so we attempt to default to the generally fastest implementation for the current device if no particular implementation has been specified by the user. We have 3 major categories of implementations: for-loop, foreach (multi-tensor), and fused. The most straightforward implementations are for-loops over the parameters with big chunks of computation. For-looping is usually slower than our foreach implementations, which combine parameters into a multi-tensor and run the big chunks of computation all at once, thereby saving many sequential kernel calls. A few of our optimizers have even faster fused implementations, which fuse the big chunks of computation into one kernel. We can think of foreach implementations as fusing horizontally and fused implementations as fusing vertically on top of that. In general, the performance ordering of the 3 implementations is fused \u003e foreach \u003e for-loop. So when applicable, we default to foreach over for-loop. Applicable means the foreach implementation is available, the user has not specified any implementation-specific kwargs (e.g., fused, foreach, differentiable), and all tensors are native. Note that while fused should be even faster than foreach, the implementations are newer and we would like to give them more bake-in time before flipping the switch everywhere. We summarize the stability status for each implementation on the second table below, you are welcome to try them out though! Below is a table showing the available and default implementations of each algorithm: Algorithm Default Has foreach? Has fused? Adadelta foreach yes no Adafactor for-loop no no Adagrad foreach yes yes (cpu only) Adam foreach yes yes AdamW foreach yes yes SparseAdam for-loop no no Adamax foreach yes no ASGD foreach yes no LBFGS for-loop no no Muon for-loop no no NAdam foreach yes no RAdam foreach yes no RMSprop foreach yes no Rprop foreach yes no SGD foreach yes yes Below table is showing the stability status for fused implementations: Algorithm CPU CUDA MPS Adadelta unsupported unsupported unsupported Adafactor unsupported unsupported unsupported Adagrad beta unsupported unsupported Adam beta stable beta AdamW beta stable beta SparseAdam unsupported unsupported unsupported Adamax unsupported unsupported unsupported ASGD unsupported unsupported unsupported LBFGS unsupported unsupported unsupported Muon unsupported unsupported unsupported NAdam unsupported unsupported unsupported RAdam unsupported unsupported unsupported RMSprop unsupported unsupported unsupported Rprop unsupported unsupported unsupported SGD beta beta beta How to adjust learning rate# torch.optim.lr_scheduler.LRScheduler provides several methods to adjust the learning rate based on the number of epochs. torch.optim.lr_scheduler.ReduceLROnPlateau allows dynamic learning rate reducing based on some validation measurements. Learning rate scheduling should be applied after optimizer\u2019s update; e.g., you should write your code this way: Example: optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9) scheduler = ExponentialLR(optimizer, gamma=0.9) for epoch in range(20): for input, target in dataset: optimizer.zero_grad() output = model(input) loss = loss_fn(output, target) loss.backward() optimizer.step() scheduler.step() Most learning rate schedulers can be called back-to-back (also referred to as chaining schedulers). The result is that each scheduler is applied one after the other on the learning rate obtained by the one preceding it. Example: optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9) scheduler1 = ExponentialLR(optimizer, gamma=0.9) scheduler2 = MultiStepLR(optimizer, milestones=[30,80], gamma=0.1) for epoch in range(20): for input, target in dataset: optimizer.zero_grad() output = model(input) loss = loss_fn(output, target) loss.backward() optimizer.step() scheduler1.step() scheduler2.step() In many places in the documentation, we will use the following template to refer to schedulers algorithms. \u003e\u003e\u003e scheduler = ... \u003e\u003e\u003e for epoch in range(100): \u003e\u003e\u003e train(...) \u003e\u003e\u003e validate(...) \u003e\u003e\u003e scheduler.step() Warning Prior to PyTorch 1.1.0, the learning rate scheduler was expected to be called before the optimizer\u2019s update; 1.1.0 changed this behavior in a BC-breaking way. If you use the learning rate scheduler (calling scheduler.step()) before the optimizer\u2019s update (calling optimizer.step()), this will skip the first value of the learning rate schedule. If you are unable to reproduce results after upgrading to PyTorch 1.1.0, please check if you are calling scheduler.step() at the wrong time. lr_scheduler.LRScheduler Adjusts the learning rate during optimization. lr_scheduler.LambdaLR Sets the initial learning rate. lr_scheduler.MultiplicativeLR Multiply the learning rate of each parameter group by the factor given in the specified function. lr_scheduler.StepLR Decays the learning rate of each parameter group by gamma every step_size epochs. lr_scheduler.MultiStepLR Decays the learning rate of each parameter group by gamma once the number of epoch reaches one of the milestones. lr_scheduler.ConstantLR Multiply the learning rate of each parameter group by a small constant factor. lr_scheduler.LinearLR Decays the learning rate of each parameter group by linearly changing small multiplicative factor. lr_scheduler.ExponentialLR Decays the learning rate of each parameter group by gamma every epoch. lr_scheduler.PolynomialLR Decays the learning rate of each parameter group using a polynomial function in the given total_iters. lr_scheduler.CosineAnnealingLR Set the learning rate of each parameter group using a cosine annealing schedule. lr_scheduler.ChainedScheduler Chains a list of learning rate schedulers. lr_scheduler.SequentialLR Contains a list of schedulers expected to be called sequentially during the optimization process. lr_scheduler.ReduceLROnPlateau Reduce learning rate when a metric has stopped improving. lr_scheduler.CyclicLR Sets the learning rate of each parameter group according to cyclical learning rate policy (CLR). lr_scheduler.OneCycleLR Sets the learning rate of each parameter group according to the 1cycle learning rate policy. lr_scheduler.CosineAnnealingWarmRestarts Set the learning rate of each parameter group using a cosine annealing schedule. How to utilize named parameters to load optimizer state dict# The function load_state_dict() stores the optional param_names content from the loaded state dict if present. However, the process of loading the optimizer state is not affected, as the order of the parameters matters to maintain compatibility (in case of different ordering). To utilize the loaded parameters names from the loaded state dict, a custom register_load_state_dict_pre_hook needs to be implemented according to the desired behavior. This can be useful, for instance, when the model architecture changes, but the weights and optimizer states need to remain unchanged. The following example demonstrates how to implement this customization. Example: class OneLayerModel(nn.Module): def __init__(self): super().__init__() self.fc = nn.Linear(3, 4) def forward(self, x): return self.fc(x) model = OneLayerModel() optimizer = optim.SGD(model.named_parameters(), lr=0.01, momentum=0.9) # training.. torch.save(optimizer.state_dict(), PATH) Let\u2019s say that model implements an expert (MoE), and we want to duplicate it and resume training for two experts, both initialized the same way as the fc layer. For the following model2 we create two layers identical to fc and resume training by loading the model weights and optimizer states from model into both fc1 and fc2 of model2 (and adjust them accordingly): class TwoLayerModel(nn.Module): def __init__(self): super().__init__() self.fc1 = nn.Linear(3, 4) self.fc2 = nn.Linear(3, 4) def forward(self, x): return (self.fc1(x) + self.fc2(x)) / 2 model2 = TwoLayerModel() # adapt and load model weights.. optimizer2 = optim.SGD(model2.named_parameters(), lr=0.01, momentum=0.9) To load the state dict for optimizer2 with the state dict of the previous optimizer such that both fc1 and fc2 will be initialized with a copy of fc optimizer states (to resume training for each layer from fc), we can use the following hook: def adapt_state_dict_ids(optimizer, state_dict): adapted_state_dict = deepcopy(optimizer.state_dict()) # Copy setup parameters (lr, weight_decay, etc.), in case they differ in the loaded state dict. for k, v in state_dict[\u0027param_groups\u0027][0].items(): if k not in [\u0027params\u0027, \u0027param_names\u0027]: adapted_state_dict[\u0027param_groups\u0027][0][k] = v lookup_dict = { \u0027fc1.weight\u0027: \u0027fc.weight\u0027, \u0027fc1.bias\u0027: \u0027fc.bias\u0027, \u0027fc2.weight\u0027: \u0027fc.weight\u0027, \u0027fc2.bias\u0027: \u0027fc.bias\u0027 } clone_deepcopy = lambda d: {k: (v.clone() if isinstance(v, torch.Tensor) else deepcopy(v)) for k, v in d.items()} for param_id, param_name in zip( optimizer.state_dict()[\u0027param_groups\u0027][0][\u0027params\u0027], optimizer.state_dict()[\u0027param_groups\u0027][0][\u0027param_names\u0027]): name_in_loaded = lookup_dict[param_name] index_in_loaded_list = state_dict[\u0027param_groups\u0027][0][\u0027param_names\u0027].index(name_in_loaded) id_in_loaded = state_dict[\u0027param_groups\u0027][0][\u0027params\u0027][index_in_loaded_list] # Copy the state of the corresponding parameter if id_in_loaded in state_dict[\u0027state\u0027]: adapted_state_dict[\u0027state\u0027][param_id] = clone_deepcopy(state_dict[\u0027state\u0027][id_in_loaded]) return adapted_state_dict optimizer2.register_load_state_dict_pre_hook(adapt_state_dict_ids) optimizer2.load_state_dict(torch.load(PATH)) # The previous optimizer saved state_dict This ensures that the adapted state_dict with the correct states for the layers of model2 will be used during model loading. Note that this code is designed specifically for this example (e.g., assuming a single parameter group), and other cases might require different adaptations. The following example shows how to handle missing parameters in a loaded state dict when the model structure changes. The Model_bypass adds a new bypass layer, which is not present in the original Model1. To resume training, a custom adapt_state_dict_missing_param hook is used to adapt the optimizer\u2019s state_dict, ensuring existing parameters are mapped correctly, while missing ones (like the bypass layer) remain unchanged (as initialized in this example). This approach enables smooth loading and resuming of the optimizer state despite model changes. The new bypass layer will be trained from scratch: class Model1(nn.Module): def __init__(self): super().__init__() self.fc = nn.Linear(5, 5) def forward(self, x): return self.fc(x) + x model = Model1() optimizer = optim.SGD(model.named_parameters(), lr=0.01, momentum=0.9) # training.. torch.save(optimizer.state_dict(), PATH) class Model_bypass(nn.Module): def __init__(self): super().__init__() self.fc = nn.Linear(5, 5) self.bypass = nn.Linear(5, 5, bias=False) torch.nn.init.eye_(self.bypass.weight) def forward(self, x): return self.fc(x) + self.bypass(x) model2 = Model_bypass() optimizer2 = optim.SGD(model2.named_parameters(), lr=0.01, momentum=0.9) def adapt_state_dict_missing_param(optimizer, state_dict): adapted_state_dict = deepcopy(optimizer.state_dict()) # Copy setup parameters (lr, weight_decay, etc.), in case they differ in the loaded state dict. for k, v in state_dict[\u0027param_groups\u0027][0].items(): if k not in [\u0027params\u0027, \u0027param_names\u0027]: adapted_state_dict[\u0027param_groups\u0027][0][k] = v lookup_dict = { \u0027fc.weight\u0027: \u0027fc.weight\u0027, \u0027fc.bias\u0027: \u0027fc.bias\u0027, \u0027bypass.weight\u0027: None, } clone_deepcopy = lambda d: {k: (v.clone() if isinstance(v, torch.Tensor) else deepcopy(v)) for k, v in d.items()} for param_id, param_name in zip( optimizer.state_dict()[\u0027param_groups\u0027][0][\u0027params\u0027], optimizer.state_dict()[\u0027param_groups\u0027][0][\u0027param_names\u0027]): name_in_loaded = lookup_dict[param_name] if name_in_loaded in state_dict[\u0027param_groups\u0027][0][\u0027param_names\u0027]: index_in_loaded_list = state_dict[\u0027param_groups\u0027][0][\u0027param_names\u0027].index(name_in_loaded) id_in_loaded = state_dict[\u0027param_groups\u0027][0][\u0027params\u0027][index_in_loaded_list] # Copy the state of the corresponding parameter if id_in_loaded in state_dict[\u0027state\u0027]: adapted_state_dict[\u0027state\u0027][param_id] = clone_deepcopy(state_dict[\u0027state\u0027][id_in_loaded]) return adapted_state_dict optimizer2.register_load_state_dict_pre_hook(adapt_state_dict_ids) optimizer2.load_state_dict(torch.load(PATH)) # The previous optimizer saved state_dict As a third example, instead of loading a state according to the order of parameters (the default approach), this hook can be used to load according to the parameters\u2019 names: def names_matching(optimizer, state_dict): assert len(state_dict[\u0027param_groups\u0027]) == len(optimizer.state_dict()[\u0027param_groups\u0027]) adapted_state_dict = deepcopy(optimizer.state_dict()) for g_ind in range(len(state_dict[\u0027param_groups\u0027])): assert len(state_dict[\u0027param_groups\u0027][g_ind][\u0027params\u0027]) == len( optimizer.state_dict()[\u0027param_groups\u0027][g_ind][\u0027params\u0027]) for k, v in state_dict[\u0027param_groups\u0027][g_ind].items(): if k not in [\u0027params\u0027, \u0027param_names\u0027]: adapted_state_dict[\u0027param_groups\u0027][g_ind][k] = v for param_id, param_name in zip( optimizer.state_dict()[\u0027param_groups\u0027][g_ind][\u0027params\u0027], optimizer.state_dict()[\u0027param_groups\u0027][g_ind][\u0027param_names\u0027]): index_in_loaded_list = state_dict[\u0027param_groups\u0027][g_ind][\u0027param_names\u0027].index(param_name) id_in_loaded = state_dict[\u0027param_groups\u0027][g_ind][\u0027params\u0027][index_in_loaded_list] # Copy the state of the corresponding parameter if id_in_loaded in state_dict[\u0027state\u0027]: adapted_state_dict[\u0027state\u0027][param_id] = deepcopy(state_dict[\u0027state\u0027][id_in_loaded]) return adapted_state_dict Weight Averaging (SWA and EMA)# torch.optim.swa_utils.AveragedModel implements Stochastic Weight Averaging (SWA) and Exponential Moving Average (EMA), torch.optim.swa_utils.SWALR implements the SWA learning rate scheduler and torch.optim.swa_utils.update_bn() is a utility function used to update SWA/EMA batch normalization statistics at the end of training. SWA has been proposed in Averaging Weights Leads to Wider Optima and Better Generalization. EMA is a widely known technique to reduce the training time by reducing the number of weight updates needed. It is a variation of Polyak averaging, but using exponential weights instead of equal weights across iterations. Constructing averaged models# The AveragedModel class serves to compute the weights of the SWA or EMA model. You can create an SWA averaged model by running: \u003e\u003e\u003e averaged_model = AveragedModel(model) EMA models are constructed by specifying the multi_avg_fn argument as follows: \u003e\u003e\u003e decay = 0.999 \u003e\u003e\u003e averaged_model = AveragedModel(model, multi_avg_fn=get_ema_multi_avg_fn(decay)) Decay is a parameter between 0 and 1 that controls how fast the averaged parameters are decayed. If not provided to torch.optim.swa_utils.get_ema_multi_avg_fn(), the default is 0.999. Decay value should be close to 1.0, as smaller values can cause optimization convergence issues. torch.optim.swa_utils.get_ema_multi_avg_fn() returns a function that applies the following EMA equation to the weights: Wt+1EMA=\u03b1WtEMA+(1\u2212\u03b1)WtmodelW^\\textrm{EMA}_{t+1} = \\alpha W^\\textrm{EMA}_{t} + (1 - \\alpha) W^\\textrm{model}_tWt+1EMA\u200b=\u03b1WtEMA\u200b+(1\u2212\u03b1)Wtmodel\u200bwhere alpha is the EMA decay. Here the model model can be an arbitrary torch.nn.Module object. averaged_model will keep track of the running averages of the parameters of the model. To update these averages, you should use the update_parameters() function after the optimizer.step(): \u003e\u003e\u003e averaged_model.update_parameters(model) For SWA and EMA, this call is usually done right after the optimizer step(). In the case of SWA, this is usually skipped for some numbers of steps at the beginning of the training. Custom averaging strategies# By default, torch.optim.swa_utils.AveragedModel computes a running equal average of the parameters that you provide, but you can also use custom averaging functions with the avg_fn or multi_avg_fn parameters: avg_fn allows defining a function operating on each parameter tuple (averaged parameter, model parameter) and should return the new averaged parameter. multi_avg_fn allows defining more efficient operations acting on a tuple of parameter lists, (averaged parameter list, model parameter list), at the same time, for example using the torch._foreach* functions. This function must update the averaged parameters in-place. In the following example ema_model computes an exponential moving average using the avg_fn parameter: \u003e\u003e\u003e ema_avg = lambda averaged_model_parameter, model_parameter, num_averaged:\\ \u003e\u003e\u003e 0.9 * averaged_model_parameter + 0.1 * model_parameter \u003e\u003e\u003e ema_model = torch.optim.swa_utils.AveragedModel(model, avg_fn=ema_avg) In the following example ema_model computes an exponential moving average using the more efficient multi_avg_fn parameter: \u003e\u003e\u003e ema_model = AveragedModel(model, multi_avg_fn=get_ema_multi_avg_fn(0.9)) SWA learning rate schedules# Typically, in SWA the learning rate is set to a high constant value. SWALR is a learning rate scheduler that anneals the learning rate to a fixed value, and then keeps it constant. For example, the following code creates a scheduler that linearly anneals the learning rate from its initial value to 0.05 in 5 epochs within each parameter group: \u003e\u003e\u003e swa_scheduler = torch.optim.swa_utils.SWALR(optimizer, \\ \u003e\u003e\u003e anneal_strategy=\"linear\", anneal_epochs=5, swa_lr=0.05) You can also use cosine annealing to a fixed value instead of linear annealing by setting anneal_strategy=\"cos\". Taking care of batch normalization# update_bn() is a utility function that allows to compute the batchnorm statistics for the SWA model on a given dataloader loader at the end of training: \u003e\u003e\u003e torch.optim.swa_utils.update_bn(loader, swa_model) update_bn() applies the swa_model to every element in the dataloader and computes the activation statistics for each batch normalization layer in the model. Warning update_bn() assumes that each batch in the dataloader loader is either a tensors or a list of tensors where the first element is the tensor that the network swa_model should be applied to. If your dataloader has a different structure, you can update the batch normalization statistics of the swa_model by doing a forward pass with the swa_model on each element of the dataset. Putting it all together: SWA# In the example below, swa_model is the SWA model that accumulates the averages of the weights. We train the model for a total of 300 epochs and we switch to the SWA learning rate schedule and start to collect SWA averages of the parameters at epoch 160: \u003e\u003e\u003e loader, optimizer, model, loss_fn = ... \u003e\u003e\u003e swa_model = torch.optim.swa_utils.AveragedModel(model) \u003e\u003e\u003e scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=300) \u003e\u003e\u003e swa_start = 160 \u003e\u003e\u003e swa_scheduler = SWALR(optimizer, swa_lr=0.05) \u003e\u003e\u003e \u003e\u003e\u003e for epoch in range(300): \u003e\u003e\u003e for input, target in loader: \u003e\u003e\u003e optimizer.zero_grad() \u003e\u003e\u003e loss_fn(model(input), target).backward() \u003e\u003e\u003e optimizer.step() \u003e\u003e\u003e if epoch \u003e swa_start: \u003e\u003e\u003e swa_model.update_parameters(model) \u003e\u003e\u003e swa_scheduler.step() \u003e\u003e\u003e else: \u003e\u003e\u003e scheduler.step() \u003e\u003e\u003e \u003e\u003e\u003e # Update bn statistics for the swa_model at the end \u003e\u003e\u003e torch.optim.swa_utils.update_bn(loader, swa_model) \u003e\u003e\u003e # Use swa_model to make predictions on test data \u003e\u003e\u003e preds = swa_model(test_input) Putting it all together: EMA# In the example below, ema_model is the EMA model that accumulates the exponentially-decayed averages of the weights with a decay rate of 0.999. We train the model for a total of 300 epochs and start to collect EMA averages immediately. \u003e\u003e\u003e loader, optimizer, model, loss_fn = ... \u003e\u003e\u003e ema_model = torch.optim.swa_utils.AveragedModel(model, \\ \u003e\u003e\u003e multi_avg_fn=torch.optim.swa_utils.get_ema_multi_avg_fn(0.999)) \u003e\u003e\u003e \u003e\u003e\u003e for epoch in range(300): \u003e\u003e\u003e for input, target in loader: \u003e\u003e\u003e optimizer.zero_grad() \u003e\u003e\u003e loss_fn(model(input), target).backward() \u003e\u003e\u003e optimizer.step() \u003e\u003e\u003e ema_model.update_parameters(model) \u003e\u003e\u003e \u003e\u003e\u003e # Update bn statistics for the ema_model at the end \u003e\u003e\u003e torch.optim.swa_utils.update_bn(loader, ema_model) \u003e\u003e\u003e # Use ema_model to make predictions on test data \u003e\u003e\u003e preds = ema_model(test_input) swa_utils.AveragedModel Implements averaged model for Stochastic Weight Averaging (SWA) and Exponential Moving Average (EMA). swa_utils.SWALR Anneals the learning rate in each parameter group to a fixed value. torch.optim.swa_utils.get_ema_multi_avg_fn(decay=0.999)[source]# Get the function applying exponential moving average (EMA) across multiple params. torch.optim.swa_utils.update_bn(loader, model, device=None)[source]# Update BatchNorm running_mean, running_var buffers in the model. It performs one pass over data in loader to estimate the activation statistics for BatchNorm layers in the model. Parameters loader (torch.utils.data.DataLoader) \u2013 dataset loader to compute the activation statistics on. Each data batch should be either a tensor, or a list/tuple whose first element is a tensor containing data. model (torch.nn.Module) \u2013 model for which we seek to update BatchNorm statistics. device (torch.device, optional) \u2013 If set, data will be transferred to device before being passed into model. Example \u003e\u003e\u003e loader, model = ... \u003e\u003e\u003e torch.optim.swa_utils.update_bn(loader, model) Note The update_bn utility assumes that each data batch in loader is either a tensor or a list or tuple of tensors; in the latter case it is assumed that model.forward() should be called on the first element of the list or tuple corresponding to the data batch.",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/optim.html"
+       },
+       "datePublished": "Jun 13, 2025T00:00:00Z",
+       "dateModified": "Aug 24, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

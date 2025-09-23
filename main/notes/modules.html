@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/notes/modules.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="../_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0b59492 )');
- </script>
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -175,19 +185,21 @@
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
 
-   <!--
+<!--
    Search engines should not index the main version of documentation.
    Stable documentation are built without release == 'main'.
    -->
-   <meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -524,7 +536,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -532,7 +545,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -1634,29 +1647,30 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../user_guide/index.html">
-          <meta itemprop="name" content="User Guide">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../user_guide/index.html">
+        <meta itemprop="name" content="User Guide">
+        <meta itemprop="position" content="1">
+      </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../notes.html">
-          <meta itemprop="name" content="Developer Notes">
-          <meta itemprop="position" content="2">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../notes.html">
+        <meta itemprop="name" content="Developer Notes">
+        <meta itemprop="position" content="2">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="Modules">
         <meta itemprop="position" content="3">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -2369,7 +2383,7 @@ manipulate modules for a broad array of use cases. To explore FX, check out thes
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -2571,91 +2585,124 @@ manipulate modules for a broad array of use cases. To explore FX, check out thes
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -2663,8 +2710,7 @@ manipulate modules for a broad array of use cases. To explore FX, check out thes
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -2704,28 +2750,47 @@ manipulate modules for a broad array of use cases. To explore FX, check out thes
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "Modules",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/notes/modules.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "../_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/notes/modules.html"
-         },
-        "datePublished": "Feb 04, 2021T00:00:00Z",
-         "dateModified": "Nov 08, 2024T00:00:00Z",
-         "articleBody": "Modules# Created On: Feb 04, 2021 | Last Updated On: Nov 08, 2024 PyTorch uses modules to represent neural networks. Modules are: Building blocks of stateful computation. PyTorch provides a robust library of modules and makes it simple to define new custom modules, allowing for easy construction of elaborate, multi-layer neural networks. Tightly integrated with PyTorch’s autograd system. Modules make it simple to specify learnable parameters for PyTorch’s Optimizers to update. Easy to work with and transform. Modules are straightforward to save and restore, transfer between CPU / GPU / TPU devices, prune, quantize, and more. This note describes modules, and is intended for all PyTorch users. Since modules are so fundamental to PyTorch, many topics in this note are elaborated on in other notes or tutorials, and links to many of those documents are provided here as well. A Simple Custom Module Modules as Building Blocks Neural Network Training with Modules Module State Module Initialization Module Hooks Advanced Features Distributed Training Profiling Performance Improving Performance with Quantization Improving Memory Usage with Pruning Parametrizations Transforming Modules with FX A Simple Custom Module# To get started, let’s look at a simpler, custom version of PyTorch’s Linear module. This module applies an affine transformation to its input. import torch from torch import nn class MyLinear(nn.Module): def __init__(self, in_features, out_features): super().__init__() self.weight = nn.Parameter(torch.randn(in_features, out_features)) self.bias = nn.Parameter(torch.randn(out_features)) def forward(self, input): return (input @ self.weight) + self.bias This simple module has the following fundamental characteristics of modules: It inherits from the base Module class. All modules should subclass Module for composability with other modules. It defines some “state” that is used in computation. Here, the state consists of randomly-initialized weight and bias tensors that define the affine transformation. Because each of these is defined as a Parameter, they are registered for the module and will automatically be tracked and returned from calls to parameters(). Parameters can be considered the “learnable” aspects of the module’s computation (more on this later). Note that modules are not required to have state, and can also be stateless. It defines a forward() function that performs the computation. For this affine transformation module, the input is matrix-multiplied with the weight parameter (using the @ short-hand notation) and added to the bias parameter to produce the output. More generally, the forward() implementation for a module can perform arbitrary computation involving any number of inputs and outputs. This simple module demonstrates how modules package state and computation together. Instances of this module can be constructed and called: m = MyLinear(4, 3) sample_input = torch.randn(4) m(sample_input) : tensor([-0.3037, -1.0413, -4.205..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "Modules",
+       "headline": "Modules",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/notes/modules.html",
+       "articleBody": "Modules# Created On: Feb 04, 2021 | Last Updated On: Nov 08, 2024 PyTorch uses modules to represent neural networks. Modules are: Building blocks of stateful computation. PyTorch provides a robust library of modules and makes it simple to define new custom modules, allowing for easy construction of elaborate, multi-layer neural networks. Tightly integrated with PyTorch\u2019s autograd system. Modules make it simple to specify learnable parameters for PyTorch\u2019s Optimizers to update. Easy to work with and transform. Modules are straightforward to save and restore, transfer between CPU / GPU / TPU devices, prune, quantize, and more. This note describes modules, and is intended for all PyTorch users. Since modules are so fundamental to PyTorch, many topics in this note are elaborated on in other notes or tutorials, and links to many of those documents are provided here as well. A Simple Custom Module Modules as Building Blocks Neural Network Training with Modules Module State Module Initialization Module Hooks Advanced Features Distributed Training Profiling Performance Improving Performance with Quantization Improving Memory Usage with Pruning Parametrizations Transforming Modules with FX A Simple Custom Module# To get started, let\u2019s look at a simpler, custom version of PyTorch\u2019s Linear module. This module applies an affine transformation to its input. import torch from torch import nn class MyLinear(nn.Module): def __init__(self, in_features, out_features): super().__init__() self.weight = nn.Parameter(torch.randn(in_features, out_features)) self.bias = nn.Parameter(torch.randn(out_features)) def forward(self, input): return (input @ self.weight) + self.bias This simple module has the following fundamental characteristics of modules: It inherits from the base Module class. All modules should subclass Module for composability with other modules. It defines some \u201cstate\u201d that is used in computation. Here, the state consists of randomly-initialized weight and bias tensors that define the affine transformation. Because each of these is defined as a Parameter, they are registered for the module and will automatically be tracked and returned from calls to parameters(). Parameters can be considered the \u201clearnable\u201d aspects of the module\u2019s computation (more on this later). Note that modules are not required to have state, and can also be stateless. It defines a forward() function that performs the computation. For this affine transformation module, the input is matrix-multiplied with the weight parameter (using the @ short-hand notation) and added to the bias parameter to produce the output. More generally, the forward() implementation for a module can perform arbitrary computation involving any number of inputs and outputs. This simple module demonstrates how modules package state and computation together. Instances of this module can be constructed and called: m = MyLinear(4, 3) sample_input = torch.randn(4) m(sample_input) : tensor([-0.3037, -1.0413, -4.2057], grad_fn=\u003cAddBackward0\u003e) Note that the module itself is callable, and that calling it invokes its forward() function. This name is in reference to the concepts of \u201cforward pass\u201d and \u201cbackward pass\u201d, which apply to each module. The \u201cforward pass\u201d is responsible for applying the computation represented by the module to the given input(s) (as shown in the above snippet). The \u201cbackward pass\u201d computes gradients of module outputs with respect to its inputs, which can be used for \u201ctraining\u201d parameters through gradient descent methods. PyTorch\u2019s autograd system automatically takes care of this backward pass computation, so it is not required to manually implement a backward() function for each module. The process of training module parameters through successive forward / backward passes is covered in detail in Neural Network Training with Modules. The full set of parameters registered by the module can be iterated through via a call to parameters() or named_parameters(), where the latter includes each parameter\u2019s name: for parameter in m.named_parameters(): print(parameter) : (\u0027weight\u0027, Parameter containing: tensor([[ 1.0597, 1.1796, 0.8247], [-0.5080, -1.2635, -1.1045], [ 0.0593, 0.2469, -1.4299], [-0.4926, -0.5457, 0.4793]], requires_grad=True)) (\u0027bias\u0027, Parameter containing: tensor([ 0.3634, 0.2015, -0.8525], requires_grad=True)) In general, the parameters registered by a module are aspects of the module\u2019s computation that should be \u201clearned\u201d. A later section of this note shows how to update these parameters using one of PyTorch\u2019s Optimizers. Before we get to that, however, let\u2019s first examine how modules can be composed with one another. Modules as Building Blocks# Modules can contain other modules, making them useful building blocks for developing more elaborate functionality. The simplest way to do this is using the Sequential module. It allows us to chain together multiple modules: net = nn.Sequential( MyLinear(4, 3), nn.ReLU(), MyLinear(3, 1) ) sample_input = torch.randn(4) net(sample_input) : tensor([-0.6749], grad_fn=\u003cAddBackward0\u003e) Note that Sequential automatically feeds the output of the first MyLinear module as input into the ReLU, and the output of that as input into the second MyLinear module. As shown, it is limited to in-order chaining of modules with a single input and output. In general, it is recommended to define a custom module for anything beyond the simplest use cases, as this gives full flexibility on how submodules are used for a module\u2019s computation. For example, here\u2019s a simple neural network implemented as a custom module: import torch.nn.functional as F class Net(nn.Module): def __init__(self): super().__init__() self.l0 = MyLinear(4, 3) self.l1 = MyLinear(3, 1) def forward(self, x): x = self.l0(x) x = F.relu(x) x = self.l1(x) return x This module is composed of two \u201cchildren\u201d or \u201csubmodules\u201d (l0 and l1) that define the layers of the neural network and are utilized for computation within the module\u2019s forward() method. Immediate children of a module can be iterated through via a call to children() or named_children(): net = Net() for child in net.named_children(): print(child) : (\u0027l0\u0027, MyLinear()) (\u0027l1\u0027, MyLinear()) To go deeper than just the immediate children, modules() and named_modules() recursively iterate through a module and its child modules: class BigNet(nn.Module): def __init__(self): super().__init__() self.l1 = MyLinear(5, 4) self.net = Net() def forward(self, x): return self.net(self.l1(x)) big_net = BigNet() for module in big_net.named_modules(): print(module) : (\u0027\u0027, BigNet( (l1): MyLinear() (net): Net( (l0): MyLinear() (l1): MyLinear() ) )) (\u0027l1\u0027, MyLinear()) (\u0027net\u0027, Net( (l0): MyLinear() (l1): MyLinear() )) (\u0027net.l0\u0027, MyLinear()) (\u0027net.l1\u0027, MyLinear()) Sometimes, it\u2019s necessary for a module to dynamically define submodules. The ModuleList and ModuleDict modules are useful here; they register submodules from a list or dict: class DynamicNet(nn.Module): def __init__(self, num_layers): super().__init__() self.linears = nn.ModuleList( [MyLinear(4, 4) for _ in range(num_layers)]) self.activations = nn.ModuleDict({ \u0027relu\u0027: nn.ReLU(), \u0027lrelu\u0027: nn.LeakyReLU() }) self.final = MyLinear(4, 1) def forward(self, x, act): for linear in self.linears: x = linear(x) x = self.activations[act](x) x = self.final(x) return x dynamic_net = DynamicNet(3) sample_input = torch.randn(4) output = dynamic_net(sample_input, \u0027relu\u0027) For any given module, its parameters consist of its direct parameters as well as the parameters of all submodules. This means that calls to parameters() and named_parameters() will recursively include child parameters, allowing for convenient optimization of all parameters within the network: for parameter in dynamic_net.named_parameters(): print(parameter) : (\u0027linears.0.weight\u0027, Parameter containing: tensor([[-1.2051, 0.7601, 1.1065, 0.1963], [ 3.0592, 0.4354, 1.6598, 0.9828], [-0.4446, 0.4628, 0.8774, 1.6848], [-0.1222, 1.5458, 1.1729, 1.4647]], requires_grad=True)) (\u0027linears.0.bias\u0027, Parameter containing: tensor([ 1.5310, 1.0609, -2.0940, 1.1266], requires_grad=True)) (\u0027linears.1.weight\u0027, Parameter containing: tensor([[ 2.1113, -0.0623, -1.0806, 0.3508], [-0.0550, 1.5317, 1.1064, -0.5562], [-0.4028, -0.6942, 1.5793, -1.0140], [-0.0329, 0.1160, -1.7183, -1.0434]], requires_grad=True)) (\u0027linears.1.bias\u0027, Parameter containing: tensor([ 0.0361, -0.9768, -0.3889, 1.1613], requires_grad=True)) (\u0027linears.2.weight\u0027, Parameter containing: tensor([[-2.6340, -0.3887, -0.9979, 0.0767], [-0.3526, 0.8756, -1.5847, -0.6016], [-0.3269, -0.1608, 0.2897, -2.0829], [ 2.6338, 0.9239, 0.6943, -1.5034]], requires_grad=True)) (\u0027linears.2.bias\u0027, Parameter containing: tensor([ 1.0268, 0.4489, -0.9403, 0.1571], requires_grad=True)) (\u0027final.weight\u0027, Parameter containing: tensor([[ 0.2509], [-0.5052], [ 0.3088], [-1.4951]], requires_grad=True)) (\u0027final.bias\u0027, Parameter containing: tensor([0.3381], requires_grad=True)) It\u2019s also easy to move all parameters to a different device or change their precision using to(): # Move all parameters to a CUDA device dynamic_net.to(device=\u0027cuda\u0027) # Change precision of all parameters dynamic_net.to(dtype=torch.float64) dynamic_net(torch.randn(5, device=\u0027cuda\u0027, dtype=torch.float64)) : tensor([6.5166], device=\u0027cuda:0\u0027, dtype=torch.float64, grad_fn=\u003cAddBackward0\u003e) More generally, an arbitrary function can be applied to a module and its submodules recursively by using the apply() function. For example, to apply custom initialization to parameters of a module and its submodules: # Define a function to initialize Linear weights. # Note that no_grad() is used here to avoid tracking this computation in the autograd graph. @torch.no_grad() def init_weights(m): if isinstance(m, nn.Linear): nn.init.xavier_normal_(m.weight) m.bias.fill_(0.0) # Apply the function recursively on the module and its submodules. dynamic_net.apply(init_weights) These examples show how elaborate neural networks can be formed through module composition and conveniently manipulated. To allow for quick and easy construction of neural networks with minimal boilerplate, PyTorch provides a large library of performant modules within the torch.nn namespace that perform common neural network operations like pooling, convolutions, loss functions, etc. In the next section, we give a full example of training a neural network. For more information, check out: Library of PyTorch-provided modules: torch.nn Defining neural net modules: https://pytorch.org/tutorials/beginner/examples_nn/polynomial_module.html Neural Network Training with Modules# Once a network is built, it has to be trained, and its parameters can be easily optimized with one of PyTorch\u2019s Optimizers from torch.optim: # Create the network (from previous section) and optimizer net = Net() optimizer = torch.optim.SGD(net.parameters(), lr=1e-4, weight_decay=1e-2, momentum=0.9) # Run a sample training loop that \"teaches\" the network # to output the constant zero function for _ in range(10000): input = torch.randn(4) output = net(input) loss = torch.abs(output) net.zero_grad() loss.backward() optimizer.step() # After training, switch the module to eval mode to do inference, compute performance metrics, etc. # (see discussion below for a description of training and evaluation modes) ... net.eval() ... In this simplified example, the network learns to simply output zero, as any non-zero output is \u201cpenalized\u201d according to its absolute value by employing torch.abs() as a loss function. While this is not a very interesting task, the key parts of training are present: A network is created. An optimizer (in this case, a stochastic gradient descent optimizer) is created, and the network\u2019s parameters are associated with it. A training loop\u2026 acquires an input, runs the network, computes a loss, zeros the network\u2019s parameters\u2019 gradients, calls loss.backward() to update the parameters\u2019 gradients, calls optimizer.step() to apply the gradients to the parameters. After the above snippet has been run, note that the network\u2019s parameters have changed. In particular, examining the value of l1\u2018s weight parameter shows that its values are now much closer to 0 (as may be expected): print(net.l1.weight) : Parameter containing: tensor([[-0.0013], [ 0.0030], [-0.0008]], requires_grad=True) Note that the above process is done entirely while the network module is in \u201ctraining mode\u201d. Modules default to training mode and can be switched between training and evaluation modes using train() and eval(). They can behave differently depending on which mode they are in. For example, the BatchNorm module maintains a running mean and variance during training that are not updated when the module is in evaluation mode. In general, modules should be in training mode during training and only switched to evaluation mode for inference or evaluation. Below is an example of a custom module that behaves differently between the two modes: class ModalModule(nn.Module): def __init__(self): super().__init__() def forward(self, x): if self.training: # Add a constant only in training mode. return x + 1. else: return x m = ModalModule() x = torch.randn(4) print(\u0027training mode output: {}\u0027.format(m(x))) : tensor([1.6614, 1.2669, 1.0617, 1.6213, 0.5481]) m.eval() print(\u0027evaluation mode output: {}\u0027.format(m(x))) : tensor([ 0.6614, 0.2669, 0.0617, 0.6213, -0.4519]) Training neural networks can often be tricky. For more information, check out: Using Optimizers: https://pytorch.org/tutorials/beginner/examples_nn/two_layer_net_optim.html. Neural network training: https://pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html Introduction to autograd: https://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html Module State# In the previous section, we demonstrated training a module\u2019s \u201cparameters\u201d, or learnable aspects of computation. Now, if we want to save the trained model to disk, we can do so by saving its state_dict (i.e. \u201cstate dictionary\u201d): # Save the module torch.save(net.state_dict(), \u0027net.pt\u0027) ... # Load the module later on new_net = Net() new_net.load_state_dict(torch.load(\u0027net.pt\u0027)) : \u003cAll keys matched successfully\u003e A module\u2019s state_dict contains state that affects its computation. This includes, but is not limited to, the module\u2019s parameters. For some modules, it may be useful to have state beyond parameters that affects module computation but is not learnable. For such cases, PyTorch provides the concept of \u201cbuffers\u201d, both \u201cpersistent\u201d and \u201cnon-persistent\u201d. Following is an overview of the various types of state a module can have: Parameters: learnable aspects of computation; contained within the state_dict Buffers: non-learnable aspects of computation Persistent buffers: contained within the state_dict (i.e. serialized when saving \u0026 loading) Non-persistent buffers: not contained within the state_dict (i.e. left out of serialization) As a motivating example for the use of buffers, consider a simple module that maintains a running mean. We want the current value of the running mean to be considered part of the module\u2019s state_dict so that it will be restored when loading a serialized form of the module, but we don\u2019t want it to be learnable. This snippet shows how to use register_buffer() to accomplish this: class RunningMean(nn.Module): def __init__(self, num_features, momentum=0.9): super().__init__() self.momentum = momentum self.register_buffer(\u0027mean\u0027, torch.zeros(num_features)) def forward(self, x): self.mean = self.momentum * self.mean + (1.0 - self.momentum) * x return self.mean Now, the current value of the running mean is considered part of the module\u2019s state_dict and will be properly restored when loading the module from disk: m = RunningMean(4) for _ in range(10): input = torch.randn(4) m(input) print(m.state_dict()) : OrderedDict([(\u0027mean\u0027, tensor([ 0.1041, -0.1113, -0.0647, 0.1515]))])) # Serialized form will contain the \u0027mean\u0027 tensor torch.save(m.state_dict(), \u0027mean.pt\u0027) m_loaded = RunningMean(4) m_loaded.load_state_dict(torch.load(\u0027mean.pt\u0027)) assert(torch.all(m.mean == m_loaded.mean)) As mentioned previously, buffers can be left out of the module\u2019s state_dict by marking them as non-persistent: self.register_buffer(\u0027unserialized_thing\u0027, torch.randn(5), persistent=False) Both persistent and non-persistent buffers are affected by model-wide device / dtype changes applied with to(): # Moves all module parameters and buffers to the specified device / dtype m.to(device=\u0027cuda\u0027, dtype=torch.float64) Buffers of a module can be iterated over using buffers() or named_buffers(). for buffer in m.named_buffers(): print(buffer) The following class demonstrates the various ways of registering parameters and buffers within a module: class StatefulModule(nn.Module): def __init__(self): super().__init__() # Setting a nn.Parameter as an attribute of the module automatically registers the tensor # as a parameter of the module. self.param1 = nn.Parameter(torch.randn(2)) # Alternative string-based way to register a parameter. self.register_parameter(\u0027param2\u0027, nn.Parameter(torch.randn(3))) # Reserves the \"param3\" attribute as a parameter, preventing it from being set to anything # except a parameter. \"None\" entries like this will not be present in the module\u0027s state_dict. self.register_parameter(\u0027param3\u0027, None) # Registers a list of parameters. self.param_list = nn.ParameterList([nn.Parameter(torch.randn(2)) for i in range(3)]) # Registers a dictionary of parameters. self.param_dict = nn.ParameterDict({ \u0027foo\u0027: nn.Parameter(torch.randn(3)), \u0027bar\u0027: nn.Parameter(torch.randn(4)) }) # Registers a persistent buffer (one that appears in the module\u0027s state_dict). self.register_buffer(\u0027buffer1\u0027, torch.randn(4), persistent=True) # Registers a non-persistent buffer (one that does not appear in the module\u0027s state_dict). self.register_buffer(\u0027buffer2\u0027, torch.randn(5), persistent=False) # Reserves the \"buffer3\" attribute as a buffer, preventing it from being set to anything # except a buffer. \"None\" entries like this will not be present in the module\u0027s state_dict. self.register_buffer(\u0027buffer3\u0027, None) # Adding a submodule registers its parameters as parameters of the module. self.linear = nn.Linear(2, 3) m = StatefulModule() # Save and load state_dict. torch.save(m.state_dict(), \u0027state.pt\u0027) m_loaded = StatefulModule() m_loaded.load_state_dict(torch.load(\u0027state.pt\u0027)) # Note that non-persistent buffer \"buffer2\" and reserved attributes \"param3\" and \"buffer3\" do # not appear in the state_dict. print(m_loaded.state_dict()) : OrderedDict([(\u0027param1\u0027, tensor([-0.0322, 0.9066])), (\u0027param2\u0027, tensor([-0.4472, 0.1409, 0.4852])), (\u0027buffer1\u0027, tensor([ 0.6949, -0.1944, 1.2911, -2.1044])), (\u0027param_list.0\u0027, tensor([ 0.4202, -0.1953])), (\u0027param_list.1\u0027, tensor([ 1.5299, -0.8747])), (\u0027param_list.2\u0027, tensor([-1.6289, 1.4898])), (\u0027param_dict.bar\u0027, tensor([-0.6434, 1.5187, 0.0346, -0.4077])), (\u0027param_dict.foo\u0027, tensor([-0.0845, -1.4324, 0.7022])), (\u0027linear.weight\u0027, tensor([[-0.3915, -0.6176], [ 0.6062, -0.5992], [ 0.4452, -0.2843]])), (\u0027linear.bias\u0027, tensor([-0.3710, -0.0795, -0.3947]))]) For more information, check out: Saving and loading: https://pytorch.org/tutorials/beginner/saving_loading_models.html Serialization semantics: https://pytorch.org/docs/main/notes/serialization.html What is a state dict? https://pytorch.org/tutorials/recipes/recipes/what_is_state_dict.html Module Initialization# By default, parameters and floating-point buffers for modules provided by torch.nn are initialized during module instantiation as 32-bit floating point values on the CPU using an initialization scheme determined to perform well historically for the module type. For certain use cases, it may be desired to initialize with a different dtype, device (e.g. GPU), or initialization technique. Examples: # Initialize module directly onto GPU. m = nn.Linear(5, 3, device=\u0027cuda\u0027) # Initialize module with 16-bit floating point parameters. m = nn.Linear(5, 3, dtype=torch.half) # Skip default parameter initialization and perform custom (e.g. orthogonal) initialization. m = torch.nn.utils.skip_init(nn.Linear, 5, 3) nn.init.orthogonal_(m.weight) Note that the device and dtype options demonstrated above also apply to any floating-point buffers registered for the module: m = nn.BatchNorm2d(3, dtype=torch.half) print(m.running_mean) : tensor([0., 0., 0.], dtype=torch.float16) While module writers can use any device or dtype to initialize parameters in their custom modules, good practice is to use dtype=torch.float and device=\u0027cpu\u0027 by default as well. Optionally, you can provide full flexibility in these areas for your custom module by conforming to the convention demonstrated above that all torch.nn modules follow: Provide a device constructor kwarg that applies to any parameters / buffers registered by the module. Provide a dtype constructor kwarg that applies to any parameters / floating-point buffers registered by the module. Only use initialization functions (i.e. functions from torch.nn.init) on parameters and buffers within the module\u2019s constructor. Note that this is only required to use skip_init(); see this page for an explanation. For more information, check out: Skipping module parameter initialization: https://pytorch.org/tutorials/prototype/skip_param_init.html Module Hooks# In Neural Network Training with Modules, we demonstrated the training process for a module, which iteratively performs forward and backward passes, updating module parameters each iteration. For more control over this process, PyTorch provides \u201chooks\u201d that can perform arbitrary computation during a forward or backward pass, even modifying how the pass is done if desired. Some useful examples for this functionality include debugging, visualizing activations, examining gradients in-depth, etc. Hooks can be added to modules you haven\u2019t written yourself, meaning this functionality can be applied to third-party or PyTorch-provided modules. PyTorch provides two types of hooks for modules: Forward hooks are called during the forward pass. They can be installed for a given module with register_forward_pre_hook() and register_forward_hook(). These hooks will be called respectively just before the forward function is called and just after it is called. Alternatively, these hooks can be installed globally for all modules with the analogous register_module_forward_pre_hook() and register_module_forward_hook() functions. Backward hooks are called during the backward pass. They can be installed with register_full_backward_pre_hook() and register_full_backward_hook(). These hooks will be called when the backward for this Module has been computed. register_full_backward_pre_hook() will allow the user to access the gradients for outputs while register_full_backward_hook() will allow the user to access the gradients both the inputs and outputs. Alternatively, they can be installed globally for all modules with register_module_full_backward_hook() and register_module_full_backward_pre_hook(). All hooks allow the user to return an updated value that will be used throughout the remaining computation. Thus, these hooks can be used to either execute arbitrary code along the regular module forward/backward or modify some inputs/outputs without having to change the module\u2019s forward() function. Below is an example demonstrating usage of forward and backward hooks: torch.manual_seed(1) def forward_pre_hook(m, inputs): # Allows for examination and modification of the input before the forward pass. # Note that inputs are always wrapped in a tuple. input = inputs[0] return input + 1. def forward_hook(m, inputs, output): # Allows for examination of inputs / outputs and modification of the outputs # after the forward pass. Note that inputs are always wrapped in a tuple while outputs # are passed as-is. # Residual computation a la ResNet. return output + inputs[0] def backward_hook(m, grad_inputs, grad_outputs): # Allows for examination of grad_inputs / grad_outputs and modification of # grad_inputs used in the rest of the backwards pass. Note that grad_inputs and # grad_outputs are always wrapped in tuples. new_grad_inputs = [torch.ones_like(gi) * 42. for gi in grad_inputs] return new_grad_inputs # Create sample module \u0026 input. m = nn.Linear(3, 3) x = torch.randn(2, 3, requires_grad=True) # ==== Demonstrate forward hooks. ==== # Run input through module before and after adding hooks. print(\u0027output with no forward hooks: {}\u0027.format(m(x))) : output with no forward hooks: tensor([[-0.5059, -0.8158, 0.2390], [-0.0043, 0.4724, -0.1714]], grad_fn=\u003cAddmmBackward\u003e) # Note that the modified input results in a different output. forward_pre_hook_handle = m.register_forward_pre_hook(forward_pre_hook) print(\u0027output with forward pre hook: {}\u0027.format(m(x))) : output with forward pre hook: tensor([[-0.5752, -0.7421, 0.4942], [-0.0736, 0.5461, 0.0838]], grad_fn=\u003cAddmmBackward\u003e) # Note the modified output. forward_hook_handle = m.register_forward_hook(forward_hook) print(\u0027output with both forward hooks: {}\u0027.format(m(x))) : output with both forward hooks: tensor([[-1.0980, 0.6396, 0.4666], [ 0.3634, 0.6538, 1.0256]], grad_fn=\u003cAddBackward0\u003e) # Remove hooks; note that the output here matches the output before adding hooks. forward_pre_hook_handle.remove() forward_hook_handle.remove() print(\u0027output after removing forward hooks: {}\u0027.format(m(x))) : output after removing forward hooks: tensor([[-0.5059, -0.8158, 0.2390], [-0.0043, 0.4724, -0.1714]], grad_fn=\u003cAddmmBackward\u003e) # ==== Demonstrate backward hooks. ==== m(x).sum().backward() print(\u0027x.grad with no backwards hook: {}\u0027.format(x.grad)) : x.grad with no backwards hook: tensor([[ 0.4497, -0.5046, 0.3146], [ 0.4497, -0.5046, 0.3146]]) # Clear gradients before running backward pass again. m.zero_grad() x.grad.zero_() m.register_full_backward_hook(backward_hook) m(x).sum().backward() print(\u0027x.grad with backwards hook: {}\u0027.format(x.grad)) : x.grad with backwards hook: tensor([[42., 42., 42.], [42., 42., 42.]]) Advanced Features# PyTorch also provides several more advanced features that are designed to work with modules. All these functionalities are available for custom-written modules, with the small caveat that certain features may require modules to conform to particular constraints in order to be supported. In-depth discussion of these features and the corresponding requirements can be found in the links below. Distributed Training# Various methods for distributed training exist within PyTorch, both for scaling up training using multiple GPUs as well as training across multiple machines. Check out the distributed training overview page for detailed information on how to utilize these. Profiling Performance# The PyTorch Profiler can be useful for identifying performance bottlenecks within your models. It measures and outputs performance characteristics for both memory usage and time spent. Improving Performance with Quantization# Applying quantization techniques to modules can improve performance and memory usage by utilizing lower bitwidths than floating-point precision. Check out the various PyTorch-provided mechanisms for quantization here. Improving Memory Usage with Pruning# Large deep learning models are often over-parametrized, resulting in high memory usage. To combat this, PyTorch provides mechanisms for model pruning, which can help reduce memory usage while maintaining task accuracy. The Pruning tutorial describes how to utilize the pruning techniques PyTorch provides or define custom pruning techniques as necessary. Parametrizations# For certain applications, it can be beneficial to constrain the parameter space during model training. For example, enforcing orthogonality of the learned parameters can improve convergence for RNNs. PyTorch provides a mechanism for applying parametrizations such as this, and further allows for custom constraints to be defined. Transforming Modules with FX# The FX component of PyTorch provides a flexible way to transform modules by operating directly on module computation graphs. This can be used to programmatically generate or manipulate modules for a broad array of use cases. To explore FX, check out these examples of using FX for convolution + batch norm fusion and CPU performance analysis.",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "../_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/notes/modules.html"
+       },
+       "datePublished": "Feb 04, 2021T00:00:00Z",
+       "dateModified": "Nov 08, 2024T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

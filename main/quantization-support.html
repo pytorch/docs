@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/quantization-support.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0b59492 )');
- </script>
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -175,19 +185,21 @@
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
 
-   <!--
+<!--
    Search engines should not index the main version of documentation.
    Stable documentation are built without release == 'main'.
    -->
-   <meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -524,7 +536,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -532,7 +545,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -3433,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3458,7 +3471,22 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 </ul>
@@ -3519,6 +3547,22 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.config.html">torch.compiler.config</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fine_grain_apis.html">TorchDynamo APIs for fine-grained tracing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_backward.html"><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has different autograd semantics</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3555,7 +3599,6 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4403,29 +4446,30 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="pytorch-api.html">
-          <meta itemprop="name" content="Reference API">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="pytorch-api.html">
+        <meta itemprop="name" content="Reference API">
+        <meta itemprop="position" content="1">
+      </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="quantization.html">
-          <meta itemprop="name" content="Quantization">
-          <meta itemprop="position" content="2">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="quantization.html">
+        <meta itemprop="name" content="Quantization">
+        <meta itemprop="position" content="2">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="Quantization API Reference">
         <meta itemprop="position" content="3">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -5522,7 +5566,7 @@ while adding an import statement here.</p>
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -5740,91 +5784,124 @@ while adding an import statement here.</p>
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -5832,8 +5909,7 @@ while adding an import statement here.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -5873,28 +5949,47 @@ while adding an import statement here.</p>
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "Quantization API Reference",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/quantization-support.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/quantization-support.html"
-         },
-        "datePublished": "Jul 25, 2020T00:00:00Z",
-         "dateModified": "Jun 18, 2025T00:00:00Z",
-         "articleBody": "Quantization API Reference# Created On: Jul 25, 2020 | Last Updated On: Jun 18, 2025 torch.ao.quantization# This module contains Eager mode quantization APIs. Top level APIs# quantize Quantize the input float model with post training static quantization. quantize_dynamic Converts a float model to dynamic (i.e. quantize_qat Do quantization aware training and output a quantized model prepare Prepares a copy of the model for quantization calibration or quantization-aware training. prepare_qat Prepares a copy of the model for quantization calibration or quantization-aware training and converts it to quantized version. convert Converts submodules in input module to a different module according to mapping by calling from_float method on the target module class. Preparing model for quantization# fuse_modules.fuse_modules Fuse a list of modules into a single module. QuantStub Quantize stub module, before calibration, this is same as an observer, it will be swapped as nnq.Quantize in convert. DeQuantStub Dequantize stub module, before calibration, this is same as identity, this will be swapped as nnq.DeQuantize in convert. QuantWrapper A wrapper class that wraps the input module, adds QuantStub and DeQuantStub and surround the call to module with call to quant and dequant modules. add_quant_dequant Wrap the leaf child module in QuantWrapper if it has a valid qconfig Note that this function will modify the children of module inplace and it can return a new module which wraps the input module as well. Utility functions# swap_module Swaps the module if it has a quantized counterpart and it has an observer attached. propagate_qconfig_ Propagate qconfig through the module hierarchy and assign qconfig attribute on each leaf module default_eval_fn Define the default evaluation function. torch.ao.quantization.quantize_fx# This module contains FX graph mode quantization APIs (prototype). prepare_fx Prepare a model for post training quantization prepare_qat_fx Prepare a model for quantization aware training convert_fx Convert a calibrated or trained model to a quantized model fuse_fx Fuse modules like conv+bn, conv+bn+relu etc, model must be in eval mode. torch.ao.quantization.qconfig_mapping# This module contains QConfigMapping for configuring FX graph mode quantization. QConfigMapping Mapping from model ops to torch.ao.quantization.QConfig s. get_default_qconfig_mapping Return the default QConfigMapping for post training quantization. get_default_qat_qconfig_mapping Return the default QConfigMapping for quantization aware training. torch.ao.quantization.backend_config# This module contains BackendConfig, a config object that defines how quantization is supported in a backend. Currently only used by FX Graph Mode Quantization, but we may extend Eager Mode Quantization to work with this as well. BackendConfig Config that defines the set of patterns that can be quantized on a given backend, and how reference quantized models can be produced from these patterns. B..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "Quantization API Reference",
+       "headline": "Quantization API Reference",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/quantization-support.html",
+       "articleBody": "Quantization API Reference# Created On: Jul 25, 2020 | Last Updated On: Jun 18, 2025 torch.ao.quantization# This module contains Eager mode quantization APIs. Top level APIs# quantize Quantize the input float model with post training static quantization. quantize_dynamic Converts a float model to dynamic (i.e. quantize_qat Do quantization aware training and output a quantized model prepare Prepares a copy of the model for quantization calibration or quantization-aware training. prepare_qat Prepares a copy of the model for quantization calibration or quantization-aware training and converts it to quantized version. convert Converts submodules in input module to a different module according to mapping by calling from_float method on the target module class. Preparing model for quantization# fuse_modules.fuse_modules Fuse a list of modules into a single module. QuantStub Quantize stub module, before calibration, this is same as an observer, it will be swapped as nnq.Quantize in convert. DeQuantStub Dequantize stub module, before calibration, this is same as identity, this will be swapped as nnq.DeQuantize in convert. QuantWrapper A wrapper class that wraps the input module, adds QuantStub and DeQuantStub and surround the call to module with call to quant and dequant modules. add_quant_dequant Wrap the leaf child module in QuantWrapper if it has a valid qconfig Note that this function will modify the children of module inplace and it can return a new module which wraps the input module as well. Utility functions# swap_module Swaps the module if it has a quantized counterpart and it has an observer attached. propagate_qconfig_ Propagate qconfig through the module hierarchy and assign qconfig attribute on each leaf module default_eval_fn Define the default evaluation function. torch.ao.quantization.quantize_fx# This module contains FX graph mode quantization APIs (prototype). prepare_fx Prepare a model for post training quantization prepare_qat_fx Prepare a model for quantization aware training convert_fx Convert a calibrated or trained model to a quantized model fuse_fx Fuse modules like conv+bn, conv+bn+relu etc, model must be in eval mode. torch.ao.quantization.qconfig_mapping# This module contains QConfigMapping for configuring FX graph mode quantization. QConfigMapping Mapping from model ops to torch.ao.quantization.QConfig s. get_default_qconfig_mapping Return the default QConfigMapping for post training quantization. get_default_qat_qconfig_mapping Return the default QConfigMapping for quantization aware training. torch.ao.quantization.backend_config# This module contains BackendConfig, a config object that defines how quantization is supported in a backend. Currently only used by FX Graph Mode Quantization, but we may extend Eager Mode Quantization to work with this as well. BackendConfig Config that defines the set of patterns that can be quantized on a given backend, and how reference quantized models can be produced from these patterns. BackendPatternConfig Config object that specifies quantization behavior for a given operator pattern. DTypeConfig Config object that specifies the supported data types passed as arguments to quantize ops in the reference model spec, for input and output activations, weights, and biases. DTypeWithConstraints Config for specifying additional constraints for a given dtype, such as quantization value ranges, scale value ranges, and fixed quantization params, to be used in DTypeConfig. ObservationType An enum that represents different ways of how an operator/operator pattern should be observed torch.ao.quantization.fx.custom_config# This module contains a few CustomConfig classes that\u2019s used in both eager mode and FX graph mode quantization FuseCustomConfig Custom configuration for fuse_fx(). PrepareCustomConfig Custom configuration for prepare_fx() and prepare_qat_fx(). ConvertCustomConfig Custom configuration for convert_fx(). StandaloneModuleConfigEntry torch.ao.quantization.quantizer# torch.ao.quantization.pt2e (quantization in pytorch 2.0 export implementation)# torch.ao.quantization.pt2e.export_utils# model_is_exported Return True if the torch.nn.Module was exported, False otherwise (e.g. torch.ao.quantization.pt2e.lowering# lower_pt2e_quantized_to_x86 Lower a PT2E-qantized model to x86 backend. PT2 Export (pt2e) Numeric Debugger# generate_numeric_debug_handle Attach numeric_debug_handle_id for all nodes in the graph module of the given ExportedProgram, like conv2d, squeeze, conv1d, etc, except for placeholder. CUSTOM_KEY str(object=\u0027\u0027) -\u003e str str(bytes_or_buffer[, encoding[, errors]]) -\u003e str NUMERIC_DEBUG_HANDLE_KEY str(object=\u0027\u0027) -\u003e str str(bytes_or_buffer[, encoding[, errors]]) -\u003e str prepare_for_propagation_comparison Add output loggers to node that has numeric_debug_handle extract_results_from_loggers For a given model, extract the tensors stats and related information for each debug handle. compare_results Given two dict mapping from debug_handle_id (int) to list of tensors return a map from debug_handle_id to NodeAccuracySummary that contains comparison information like SQNR, MSE etc. torch (quantization related functions)# This describes the quantization related functions of the torch namespace. quantize_per_tensor Converts a float tensor to a quantized tensor with given scale and zero point. quantize_per_channel Converts a float tensor to a per-channel quantized tensor with given scales and zero points. dequantize Returns an fp32 Tensor by dequantizing a quantized Tensor torch.Tensor (quantization related methods)# Quantized Tensors support a limited subset of data manipulation methods of the regular full-precision tensor. view Returns a new tensor with the same data as the self tensor but of a different shape. as_strided See torch.as_strided() expand Returns a new view of the self tensor with singleton dimensions expanded to a larger size. flatten See torch.flatten() select See torch.select() ne See torch.ne(). eq See torch.eq() ge See torch.ge(). le See torch.le(). gt See torch.gt(). lt See torch.lt(). copy_ Copies the elements from src into self tensor and returns self. clone See torch.clone() dequantize Given a quantized Tensor, dequantize it and return the dequantized float Tensor. equal See torch.equal() int_repr Given a quantized Tensor, self.int_repr() returns a CPU Tensor with uint8_t as data type that stores the underlying uint8_t values of the given Tensor. max See torch.max() mean See torch.mean() min See torch.min() q_scale Given a Tensor quantized by linear(affine) quantization, returns the scale of the underlying quantizer(). q_zero_point Given a Tensor quantized by linear(affine) quantization, returns the zero_point of the underlying quantizer(). q_per_channel_scales Given a Tensor quantized by linear (affine) per-channel quantization, returns a Tensor of scales of the underlying quantizer. q_per_channel_zero_points Given a Tensor quantized by linear (affine) per-channel quantization, returns a tensor of zero_points of the underlying quantizer. q_per_channel_axis Given a Tensor quantized by linear (affine) per-channel quantization, returns the index of dimension on which per-channel quantization is applied. resize_ Resizes self tensor to the specified size. sort See torch.sort() topk See torch.topk() torch.ao.quantization.observer# This module contains observers which are used to collect statistics about the values observed during calibration (PTQ) or training (QAT). ObserverBase Base observer Module. MinMaxObserver Observer module for computing the quantization parameters based on the running min and max values. MovingAverageMinMaxObserver Observer module for computing the quantization parameters based on the moving average of the min and max values. PerChannelMinMaxObserver Observer module for computing the quantization parameters based on the running per channel min and max values. MovingAveragePerChannelMinMaxObserver Observer module for computing the quantization parameters based on the running per channel min and max values. HistogramObserver The module records the running histogram of tensor values along with min/max values. PlaceholderObserver Observer that doesn\u0027t do anything and just passes its configuration to the quantized module\u0027s .from_float(). RecordingObserver The module is mainly for debug and records the tensor values during runtime. NoopObserver Observer that doesn\u0027t do anything and just passes its configuration to the quantized module\u0027s .from_float(). get_observer_state_dict Returns the state dict corresponding to the observer stats. load_observer_state_dict Given input model and a state_dict containing model observer stats, load the stats back into the model. default_observer Default observer for static quantization, usually used for debugging. default_placeholder_observer Default placeholder observer, usually used for quantization to torch.float16. default_debug_observer Default debug-only observer. default_weight_observer Default weight observer. default_histogram_observer Default histogram observer, usually used for PTQ. default_per_channel_weight_observer Default per-channel weight observer, usually used on backends where per-channel weight quantization is supported, such as fbgemm. default_dynamic_quant_observer Default observer for dynamic quantization. default_float_qparams_observer Default observer for a floating point zero-point. AffineQuantizedObserverBase Observer module for affine quantization (pytorch/ao) Granularity Base class for representing the granularity of quantization. MappingType How floating point number is mapped to integer number PerAxis Represents per-axis granularity in quantization. PerBlock Represents per-block granularity in quantization. PerGroup Represents per-channel group granularity in quantization. PerRow Represents row-wise granularity in quantization. PerTensor Represents per-tensor granularity in quantization. PerToken Represents per-token granularity in quantization. TorchAODType Placeholder for dtypes that do not exist in PyTorch core yet. ZeroPointDomain Enum that indicate whether zero_point is in integer domain or floating point domain get_block_size Get the block size based on the input shape and granularity type. torch.ao.quantization.fake_quantize# This module implements modules which are used to perform fake quantization during QAT. FakeQuantizeBase Base fake quantize module. FakeQuantize Simulate the quantize and dequantize operations in training time. FixedQParamsFakeQuantize Simulate quantize and dequantize in training time. FusedMovingAvgObsFakeQuantize Define a fused module to observe the tensor. default_fake_quant Default fake_quant for activations. default_weight_fake_quant Default fake_quant for weights. default_per_channel_weight_fake_quant Default fake_quant for per-channel weights. default_histogram_fake_quant Fake_quant for activations using a histogram.. default_fused_act_fake_quant Fused version of default_fake_quant, with improved performance. default_fused_wt_fake_quant Fused version of default_weight_fake_quant, with improved performance. default_fused_per_channel_wt_fake_quant Fused version of default_per_channel_weight_fake_quant, with improved performance. disable_fake_quant Disable fake quantization for the module. enable_fake_quant Enable fake quantization for the module. disable_observer Disable observation for this module. enable_observer Enable observation for this module. torch.ao.quantization.qconfig# This module defines QConfig objects which are used to configure quantization settings for individual ops. QConfig Describes how to quantize a layer or a part of the network by providing settings (observer classes) for activations and weights respectively. default_qconfig Default qconfig configuration. default_debug_qconfig Default qconfig configuration for debugging. default_per_channel_qconfig Default qconfig configuration for per channel weight quantization. default_dynamic_qconfig Default dynamic qconfig. float16_dynamic_qconfig Dynamic qconfig with weights quantized to torch.float16. float16_static_qconfig Dynamic qconfig with both activations and weights quantized to torch.float16. per_channel_dynamic_qconfig Dynamic qconfig with weights quantized per channel. float_qparams_weight_only_qconfig Dynamic qconfig with weights quantized with a floating point zero_point. default_qat_qconfig Default qconfig for QAT. default_weight_only_qconfig Default qconfig for quantizing weights only. default_activation_only_qconfig Default qconfig for quantizing activations only. default_qat_qconfig_v2 Fused version of default_qat_config, has performance benefits. torch.ao.nn.intrinsic# This module implements the combined (fused) modules conv + relu which can then be quantized. ConvReLU1d This is a sequential container which calls the Conv1d and ReLU modules. ConvReLU2d This is a sequential container which calls the Conv2d and ReLU modules. ConvReLU3d This is a sequential container which calls the Conv3d and ReLU modules. LinearReLU This is a sequential container which calls the Linear and ReLU modules. ConvBn1d This is a sequential container which calls the Conv 1d and Batch Norm 1d modules. ConvBn2d This is a sequential container which calls the Conv 2d and Batch Norm 2d modules. ConvBn3d This is a sequential container which calls the Conv 3d and Batch Norm 3d modules. ConvBnReLU1d This is a sequential container which calls the Conv 1d, Batch Norm 1d, and ReLU modules. ConvBnReLU2d This is a sequential container which calls the Conv 2d, Batch Norm 2d, and ReLU modules. ConvBnReLU3d This is a sequential container which calls the Conv 3d, Batch Norm 3d, and ReLU modules. BNReLU2d This is a sequential container which calls the BatchNorm 2d and ReLU modules. BNReLU3d This is a sequential container which calls the BatchNorm 3d and ReLU modules. torch.ao.nn.intrinsic.qat# This module implements the versions of those fused operations needed for quantization aware training. LinearReLU A LinearReLU module fused from Linear and ReLU modules, attached with FakeQuantize modules for weight, used in quantization aware training. ConvBn1d A ConvBn1d module is a module fused from Conv1d and BatchNorm1d, attached with FakeQuantize modules for weight, used in quantization aware training. ConvBnReLU1d A ConvBnReLU1d module is a module fused from Conv1d, BatchNorm1d and ReLU, attached with FakeQuantize modules for weight, used in quantization aware training. ConvBn2d A ConvBn2d module is a module fused from Conv2d and BatchNorm2d, attached with FakeQuantize modules for weight, used in quantization aware training. ConvBnReLU2d A ConvBnReLU2d module is a module fused from Conv2d, BatchNorm2d and ReLU, attached with FakeQuantize modules for weight, used in quantization aware training. ConvReLU2d A ConvReLU2d module is a fused module of Conv2d and ReLU, attached with FakeQuantize modules for weight for quantization aware training. ConvBn3d A ConvBn3d module is a module fused from Conv3d and BatchNorm3d, attached with FakeQuantize modules for weight, used in quantization aware training. ConvBnReLU3d A ConvBnReLU3d module is a module fused from Conv3d, BatchNorm3d and ReLU, attached with FakeQuantize modules for weight, used in quantization aware training. ConvReLU3d A ConvReLU3d module is a fused module of Conv3d and ReLU, attached with FakeQuantize modules for weight for quantization aware training. update_bn_stats freeze_bn_stats torch.ao.nn.intrinsic.quantized# This module implements the quantized implementations of fused operations like conv + relu. No BatchNorm variants as it\u2019s usually folded into convolution for inference. BNReLU2d A BNReLU2d module is a fused module of BatchNorm2d and ReLU BNReLU3d A BNReLU3d module is a fused module of BatchNorm3d and ReLU ConvReLU1d A ConvReLU1d module is a fused module of Conv1d and ReLU ConvReLU2d A ConvReLU2d module is a fused module of Conv2d and ReLU ConvReLU3d A ConvReLU3d module is a fused module of Conv3d and ReLU LinearReLU A LinearReLU module fused from Linear and ReLU modules torch.ao.nn.intrinsic.quantized.dynamic# This module implements the quantized dynamic implementations of fused operations like linear + relu. LinearReLU A LinearReLU module fused from Linear and ReLU modules that can be used for dynamic quantization. torch.ao.nn.qat# This module implements versions of the key nn modules Conv2d() and Linear() which run in FP32 but with rounding applied to simulate the effect of INT8 quantization. Conv2d A Conv2d module attached with FakeQuantize modules for weight, used for quantization aware training. Conv3d A Conv3d module attached with FakeQuantize modules for weight, used for quantization aware training. Linear A linear module attached with FakeQuantize modules for weight, used for quantization aware training. torch.ao.nn.qat.dynamic# This module implements versions of the key nn modules such as Linear() which run in FP32 but with rounding applied to simulate the effect of INT8 quantization and will be dynamically quantized during inference. Linear A linear module attached with FakeQuantize modules for weight, used for dynamic quantization aware training. torch.ao.nn.quantized# This module implements the quantized versions of the nn layers such as ~torch.nn.Conv2d and torch.nn.ReLU. ReLU6 Applies the element-wise function: Hardswish This is the quantized version of Hardswish. ELU This is the quantized equivalent of ELU. LeakyReLU This is the quantized equivalent of LeakyReLU. Sigmoid This is the quantized equivalent of Sigmoid. BatchNorm2d This is the quantized version of BatchNorm2d. BatchNorm3d This is the quantized version of BatchNorm3d. Conv1d Applies a 1D convolution over a quantized input signal composed of several quantized input planes. Conv2d Applies a 2D convolution over a quantized input signal composed of several quantized input planes. Conv3d Applies a 3D convolution over a quantized input signal composed of several quantized input planes. ConvTranspose1d Applies a 1D transposed convolution operator over an input image composed of several input planes. ConvTranspose2d Applies a 2D transposed convolution operator over an input image composed of several input planes. ConvTranspose3d Applies a 3D transposed convolution operator over an input image composed of several input planes. Embedding A quantized Embedding module with quantized packed weights as inputs. EmbeddingBag A quantized EmbeddingBag module with quantized packed weights as inputs. FloatFunctional State collector class for float operations. FXFloatFunctional module to replace FloatFunctional module before FX graph mode quantization, since activation_post_process will be inserted in top level module directly QFunctional Wrapper class for quantized operations. Linear A quantized linear module with quantized tensor as inputs and outputs. LayerNorm This is the quantized version of LayerNorm. GroupNorm This is the quantized version of GroupNorm. InstanceNorm1d This is the quantized version of InstanceNorm1d. InstanceNorm2d This is the quantized version of InstanceNorm2d. InstanceNorm3d This is the quantized version of InstanceNorm3d. torch.ao.nn.quantized.functional# Functional interface (quantized). This module implements the quantized versions of the functional layers such as ~torch.nn.functional.conv2d and torch.nn.functional.relu. Note: torch.nn.functional.relu~torch.nn.functional.relu torch.nn.functional.relu supports quantized inputs. avg_pool2d Applies 2D average-pooling operation in kH\u00d7kWkH \\times kWkH\u00d7kW regions by step size sH\u00d7sWsH \\times sWsH\u00d7sW steps. avg_pool3d Applies 3D average-pooling operation in kD timeskH\u00d7kWkD \\ times kH \\times kWkD timeskH\u00d7kW regions by step size sD\u00d7sH\u00d7sWsD \\times sH \\times sWsD\u00d7sH\u00d7sW steps. adaptive_avg_pool2d Applies a 2D adaptive average pooling over a quantized input signal composed of several quantized input planes. adaptive_avg_pool3d Applies a 3D adaptive average pooling over a quantized input signal composed of several quantized input planes. conv1d Applies a 1D convolution over a quantized 1D input composed of several input planes. conv2d Applies a 2D convolution over a quantized 2D input composed of several input planes. conv3d Applies a 3D convolution over a quantized 3D input composed of several input planes. interpolate Down/up samples the input to either the given size or the given scale_factor linear Applies a linear transformation to the incoming quantized data: y=xAT+by = xA^T + by=xAT+b. max_pool1d Applies a 1D max pooling over a quantized input signal composed of several quantized input planes. max_pool2d Applies a 2D max pooling over a quantized input signal composed of several quantized input planes. celu Applies the quantized CELU function element-wise. leaky_relu Quantized version of the. hardtanh This is the quantized version of hardtanh(). hardswish This is the quantized version of hardswish(). threshold Applies the quantized version of the threshold function element-wise: elu This is the quantized version of elu(). hardsigmoid This is the quantized version of hardsigmoid(). clamp float(input, min_, max_) -\u003e Tensor upsample Upsamples the input to either the given size or the given scale_factor upsample_bilinear Upsamples the input, using bilinear upsampling. upsample_nearest Upsamples the input, using nearest neighbours\u0027 pixel values. torch.ao.nn.quantizable# This module implements the quantizable versions of some of the nn layers. These modules can be used in conjunction with the custom module mechanism, by providing the custom_module_config argument to both prepare and convert. LSTM A quantizable long short-term memory (LSTM). MultiheadAttention torch.ao.nn.quantized.dynamic# Dynamically quantized Linear, LSTM, LSTMCell, GRUCell, and RNNCell. Linear A dynamic quantized linear module with floating point tensor as inputs and outputs. LSTM A dynamic quantized LSTM module with floating point tensor as inputs and outputs. GRU Applies a multi-layer gated recurrent unit (GRU) RNN to an input sequence. RNNCell An Elman RNN cell with tanh or ReLU non-linearity. LSTMCell A long short-term memory (LSTM) cell. GRUCell A gated recurrent unit (GRU) cell Quantized dtypes and quantization schemes# Note that operator implementations currently only support per channel quantization for weights of the conv and linear operators. Furthermore, the input data is mapped linearly to the quantized data and vice versa as follows: Quantization:Qout=clamp(xinput/s+z,Qmin,Qmax)Dequantization:xout=(Qinput\u2212z)\u2217s\\begin{aligned} \\text{Quantization:}\u0026\\\\ \u0026Q_\\text{out} = \\text{clamp}(x_\\text{input}/s+z, Q_\\text{min}, Q_\\text{max})\\\\ \\text{Dequantization:}\u0026\\\\ \u0026x_\\text{out} = (Q_\\text{input}-z)*s \\end{aligned}Quantization:Dequantization:\u200bQout\u200b=clamp(xinput\u200b/s+z,Qmin\u200b,Qmax\u200b)xout\u200b=(Qinput\u200b\u2212z)\u2217s\u200b where clamp(.)\\text{clamp}(.)clamp(.) is the same as clamp() while the scale sss and zero point zzz are then computed as described in MinMaxObserver, specifically: if Symmetric:s=2max\u2061(\u2223xmin\u2223,xmax)/(Qmax\u2212Qmin)z={0if dtype is qint8128otherwiseOtherwise:s=(xmax\u2212xmin)/(Qmax\u2212Qmin)z=Qmin\u2212round(xmin/s)\\begin{aligned} \\text{if Symmetric:}\u0026\\\\ \u0026s = 2 \\max(|x_\\text{min}|, x_\\text{max}) / \\left( Q_\\text{max} - Q_\\text{min} \\right) \\\\ \u0026z = \\begin{cases} 0 \u0026 \\text{if dtype is qint8} \\\\ 128 \u0026 \\text{otherwise} \\end{cases}\\\\ \\text{Otherwise:}\u0026\\\\ \u0026s = \\left( x_\\text{max} - x_\\text{min} \\right ) / \\left( Q_\\text{max} - Q_\\text{min} \\right ) \\\\ \u0026z = Q_\\text{min} - \\text{round}(x_\\text{min} / s) \\end{aligned}if Symmetric:Otherwise:\u200bs=2max(\u2223xmin\u200b\u2223,xmax\u200b)/(Qmax\u200b\u2212Qmin\u200b)z={0128\u200bif dtype is qint8otherwise\u200bs=(xmax\u200b\u2212xmin\u200b)/(Qmax\u200b\u2212Qmin\u200b)z=Qmin\u200b\u2212round(xmin\u200b/s)\u200b where :math:[x_\\text{min}, x_\\text{max}] denotes the range of the input data while :math:Q_\\text{min} and :math:Q_\\text{max} are respectively the minimum and maximum values of the quantized dtype. Note that the choice of :math:s and :math:z implies that zero is represented with no quantization error whenever zero is within the range of the input data or symmetric quantization is being used. Additional data types and quantization schemes can be implemented through the custom operator mechanism \u003chttps://pytorch.org/tutorials/advanced/torch_script_custom_ops.html\u003e_. torch.qscheme \u2014 Type to describe the quantization scheme of a tensor. Supported types: torch.per_tensor_affine \u2014 per tensor, asymmetric torch.per_channel_affine \u2014 per channel, asymmetric torch.per_tensor_symmetric \u2014 per tensor, symmetric torch.per_channel_symmetric \u2014 per channel, symmetric torch.dtype \u2014 Type to describe the data. Supported types: torch.quint8 \u2014 8-bit unsigned integer torch.qint8 \u2014 8-bit signed integer torch.qint32 \u2014 32-bit signed integer QAT Modules. This package is in the process of being deprecated. Please, use torch.ao.nn.qat.modules instead. QAT Dynamic Modules. This package is in the process of being deprecated. Please, use torch.ao.nn.qat.dynamic instead. This file is in the process of migration to torch/ao/quantization, and is kept here for compatibility while the migration process is ongoing. If you are adding a new entry/functionality, please, add it to the appropriate files under torch/ao/quantization/fx/, while adding an import statement here. QAT Dynamic Modules. This package is in the process of being deprecated. Please, use torch.ao.nn.qat.dynamic instead. Quantized Modules. Note::The torch.nn.quantized namespace is in the process of being deprecated. Please, use torch.ao.nn.quantized instead. Quantized Dynamic Modules. This file is in the process of migration to torch/ao/nn/quantized/dynamic, and is kept here for compatibility while the migration process is ongoing. If you are adding a new entry/functionality, please, add it to the appropriate file under the torch/ao/nn/quantized/dynamic, while adding an import statement here.",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/quantization-support.html"
+       },
+       "datePublished": "Jul 25, 2020T00:00:00Z",
+       "dateModified": "Jun 18, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

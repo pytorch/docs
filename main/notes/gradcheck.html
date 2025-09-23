@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/notes/gradcheck.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="../_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0b59492 )');
- </script>
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -175,19 +185,21 @@
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
 
-   <!--
+<!--
    Search engines should not index the main version of documentation.
    Stable documentation are built without release == 'main'.
    -->
-   <meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -524,7 +536,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -532,7 +545,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -1634,29 +1647,30 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../user_guide/index.html">
-          <meta itemprop="name" content="User Guide">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../user_guide/index.html">
+        <meta itemprop="name" content="User Guide">
+        <meta itemprop="position" content="1">
+      </div>
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="../notes.html">
-          <meta itemprop="name" content="Developer Notes">
-          <meta itemprop="position" content="2">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="../notes.html">
+        <meta itemprop="name" content="Developer Notes">
+        <meta itemprop="position" content="2">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="Gradcheck mechanics">
         <meta itemprop="position" content="3">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -1875,7 +1889,7 @@ Note that <span class="math"><span class="katex"><span class="katex-mathml"><mat
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -2089,91 +2103,124 @@ Note that <span class="math"><span class="katex"><span class="katex-mathml"><mat
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -2181,8 +2228,7 @@ Note that <span class="math"><span class="katex"><span class="katex-mathml"><mat
     <img class="close-button" src="../_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -2222,28 +2268,47 @@ Note that <span class="math"><span class="katex"><span class="katex-mathml"><mat
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "Gradcheck mechanics",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/notes/gradcheck.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "../_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/notes/gradcheck.html"
-         },
-        "datePublished": "Apr 27, 2021T00:00:00Z",
-         "dateModified": "Jun 18, 2025T00:00:00Z",
-         "articleBody": "Gradcheck mechanics# Created On: Apr 27, 2021 | Last Updated On: Jun 18, 2025 This note presents an overview of how the gradcheck() and gradgradcheck() functions work. It will cover both forward and backward mode AD for both real and complex-valued functions as well as higher-order derivatives. This note also covers both the default behavior of gradcheck as well as the case where fast_mode=True argument is passed (referred to as fast gradcheck below). Notations and background information Default backward mode gradcheck behavior Real-to-real functions Complex-to-real functions Functions with complex outputs Fast backward mode gradcheck Fast gradcheck for real-to-real functions Fast gradcheck for complex-to-real functions Fast gradcheck for functions with complex outputs Gradgradcheck implementation Notations and background information# Throughout this note, we will use the following convention: xxx, yyy, aaa, bbb, vvv, uuu, ururur and uiuiui are real-valued vectors and zzz is a complex-valued vector that can be rewritten in terms of two real-valued vectors as z=a+ibz = a + i bz=a+ib. NNN and MMM are two integers that we will use for the dimension of the input and output space respectively. f:RN→RMf: \\mathcal{R}^N \\to \\mathcal{R}^Mf:RN→RM is our basic real-to-real function such that y=f(x)y = f(x)y=f(x). g:CN→RMg: \\mathcal{C}^N \\to \\mathcal{R}^Mg:CN→RM is our basic complex-to-real function such that y=g(z)y = g(z)y=g(z). For the simple real-to-real case, we write as JfJ_fJf​ the Jacobian matrix associated with fff of size M×NM \\times NM×N. This matrix contains all the partial derivatives such that the entry at position (i,j)(i, j)(i,j) contains ∂yi∂xj\\frac{\\partial y_i}{\\partial x_j}∂xj​∂yi​​. Backward mode AD is then computing, for a given vector vvv of size MMM, the quantity vTJfv^T J_fvTJf​. Forward mode AD on the other hand is computing, for a given vector uuu of size NNN, the quantity JfuJ_f uJf​u. For functions that contain complex values, the story is a lot more complex. We only provide the gist here and the full description can be found at Autograd for Complex Numbers. The constraints to satisfy complex differentiability (Cauchy-Riemann equations) are too restrictive for all real-valued loss functions, so we instead opted to use Wirtinger calculus. In a basic setting of Wirtinger calculus, the chain rule requires access to both the Wirtinger derivative (called WWW below) and the Conjugate Wirtinger derivative (called CWCWCW below). Both WWW and CWCWCW need to be propagated because in general, despite their name, one is not the complex conjugate of the other. To avoid having to propagate both values, for backward mode AD, we always work under the assumption that the function whose derivative is being calculated is either a real-valued function or is part of a bigger real-valued function. This assumption means that all the intermediary gradients we compute during the backward pass are also associated with real-valued functions. In practice..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "Gradcheck mechanics",
+       "headline": "Gradcheck mechanics",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/notes/gradcheck.html",
+       "articleBody": "Gradcheck mechanics# Created On: Apr 27, 2021 | Last Updated On: Jun 18, 2025 This note presents an overview of how the gradcheck() and gradgradcheck() functions work. It will cover both forward and backward mode AD for both real and complex-valued functions as well as higher-order derivatives. This note also covers both the default behavior of gradcheck as well as the case where fast_mode=True argument is passed (referred to as fast gradcheck below). Notations and background information Default backward mode gradcheck behavior Real-to-real functions Complex-to-real functions Functions with complex outputs Fast backward mode gradcheck Fast gradcheck for real-to-real functions Fast gradcheck for complex-to-real functions Fast gradcheck for functions with complex outputs Gradgradcheck implementation Notations and background information# Throughout this note, we will use the following convention: xxx, yyy, aaa, bbb, vvv, uuu, ururur and uiuiui are real-valued vectors and zzz is a complex-valued vector that can be rewritten in terms of two real-valued vectors as z=a+ibz = a + i bz=a+ib. NNN and MMM are two integers that we will use for the dimension of the input and output space respectively. f:RN\u2192RMf: \\mathcal{R}^N \\to \\mathcal{R}^Mf:RN\u2192RM is our basic real-to-real function such that y=f(x)y = f(x)y=f(x). g:CN\u2192RMg: \\mathcal{C}^N \\to \\mathcal{R}^Mg:CN\u2192RM is our basic complex-to-real function such that y=g(z)y = g(z)y=g(z). For the simple real-to-real case, we write as JfJ_fJf\u200b the Jacobian matrix associated with fff of size M\u00d7NM \\times NM\u00d7N. This matrix contains all the partial derivatives such that the entry at position (i,j)(i, j)(i,j) contains \u2202yi\u2202xj\\frac{\\partial y_i}{\\partial x_j}\u2202xj\u200b\u2202yi\u200b\u200b. Backward mode AD is then computing, for a given vector vvv of size MMM, the quantity vTJfv^T J_fvTJf\u200b. Forward mode AD on the other hand is computing, for a given vector uuu of size NNN, the quantity JfuJ_f uJf\u200bu. For functions that contain complex values, the story is a lot more complex. We only provide the gist here and the full description can be found at Autograd for Complex Numbers. The constraints to satisfy complex differentiability (Cauchy-Riemann equations) are too restrictive for all real-valued loss functions, so we instead opted to use Wirtinger calculus. In a basic setting of Wirtinger calculus, the chain rule requires access to both the Wirtinger derivative (called WWW below) and the Conjugate Wirtinger derivative (called CWCWCW below). Both WWW and CWCWCW need to be propagated because in general, despite their name, one is not the complex conjugate of the other. To avoid having to propagate both values, for backward mode AD, we always work under the assumption that the function whose derivative is being calculated is either a real-valued function or is part of a bigger real-valued function. This assumption means that all the intermediary gradients we compute during the backward pass are also associated with real-valued functions. In practice, this assumption is not restrictive when doing optimization as such problem require real-valued objectives (as there is no natural ordering of the complex numbers). Under this assumption, using WWW and CWCWCW definitions, we can show that W=CW\u2217W = CW^*W=CW\u2217 (we use \u2217*\u2217 to denote complex conjugation here) and so only one of the two values actually need to be \u201cbackwarded through the graph\u201d as the other one can easily be recovered. To simplify internal computations, PyTorch uses 2\u2217CW2 * CW2\u2217CW as the value it backwards and returns when the user asks for gradients. Similarly to the real case, when the output is actually in RM\\mathcal{R}^MRM, backward mode AD does not compute 2\u2217CW2 * CW2\u2217CW but only vT(2\u2217CW)v^T (2 * CW)vT(2\u2217CW) for a given vector v\u2208RMv \\in \\mathcal{R}^Mv\u2208RM. For forward mode AD, we use a similar logic, in this case, assuming that the function is part of a larger function whose input is in R\\mathcal{R}R. Under this assumption, we can make a similar claim that every intermediary result corresponds to a function whose input is in R\\mathcal{R}R and in this case, using WWW and CWCWCW definitions, we can show that W=CWW = CWW=CW for the intermediary functions. To make sure the forward and backward mode compute the same quantities in the elementary case of a one dimensional function, the forward mode also computes 2\u2217CW2 * CW2\u2217CW. Similarly to the real case, when the input is actually in RN\\mathcal{R}^NRN, forward mode AD does not compute 2\u2217CW2 * CW2\u2217CW but only (2\u2217CW)u(2 * CW) u(2\u2217CW)u for a given vector u\u2208RNu \\in \\mathcal{R}^Nu\u2208RN. Default backward mode gradcheck behavior# Real-to-real functions# To test a function f:RN\u2192RM,x\u2192yf: \\mathcal{R}^N \\to \\mathcal{R}^M, x \\to yf:RN\u2192RM,x\u2192y, we reconstruct the full Jacobian matrix JfJ_fJf\u200b of size M\u00d7NM \\times NM\u00d7N in two ways: analytically and numerically. The analytical version uses our backward mode AD while the numerical version uses finite difference. The two reconstructed Jacobian matrices are then compared elementwise for equality. Default real input numerical evaluation# If we consider the elementary case of a one-dimensional function (N=M=1N = M = 1N=M=1), then we can use the basic finite difference formula from the wikipedia article. We use the \u201ccentral difference\u201d for better numerical properties: \u2202y\u2202x\u2248f(x+eps)\u2212f(x\u2212eps)2\u2217eps\\frac{\\partial y}{\\partial x} \\approx \\frac{f(x + eps) - f(x - eps)}{2 * eps} \u2202x\u2202y\u200b\u22482\u2217epsf(x+eps)\u2212f(x\u2212eps)\u200bThis formula easily generalizes for multiple outputs (M\u003e1M \\gt 1M\u003e1) by having \u2202y\u2202x\\frac{\\partial y}{\\partial x}\u2202x\u2202y\u200b be a column vector of size M\u00d71M \\times 1M\u00d71 like f(x+eps)f(x + eps)f(x+eps). In that case, the above formula can be reused as-is and approximates the full Jacobian matrix with only two evaluations of the user function (namely f(x+eps)f(x + eps)f(x+eps) and f(x\u2212eps)f(x - eps)f(x\u2212eps)). It is more computationally expensive to handle the case with multiple inputs (N\u003e1N \\gt 1N\u003e1). In this scenario, we loop over all the inputs one after the other and apply the epsepseps perturbation for each element of xxx one after the other. This allows us to reconstruct the JfJ_fJf\u200b matrix column by column. Default real input analytical evaluation# For the analytical evaluation, we use the fact, as described above, that backward mode AD computes vTJfv^T J_fvTJf\u200b. For functions with a single output, we simply use v=1v = 1v=1 to recover the full Jacobian matrix with a single backward pass. For functions with more than one output, we resort to a for-loop which iterates over the outputs where each vvv is a one-hot vector corresponding to each output one after the other. This allows to reconstruct the JfJ_fJf\u200b matrix row by row. Complex-to-real functions# To test a function g:CN\u2192RM,z\u2192yg: \\mathcal{C}^N \\to \\mathcal{R}^M, z \\to yg:CN\u2192RM,z\u2192y with z=a+ibz = a + i bz=a+ib, we reconstruct the (complex-valued) matrix that contains 2\u2217CW2 * CW2\u2217CW. Default complex input numerical evaluation# Consider the elementary case where N=M=1N = M = 1N=M=1 first. We know from (chapter 3 of) this research paper that: CW:=\u2202y\u2202z\u2217=12\u2217(\u2202y\u2202a+i\u2202y\u2202b)CW := \\frac{\\partial y}{\\partial z^*} = \\frac{1}{2} * (\\frac{\\partial y}{\\partial a} + i \\frac{\\partial y}{\\partial b}) CW:=\u2202z\u2217\u2202y\u200b=21\u200b\u2217(\u2202a\u2202y\u200b+i\u2202b\u2202y\u200b)Note that \u2202y\u2202a\\frac{\\partial y}{\\partial a}\u2202a\u2202y\u200b and \u2202y\u2202b\\frac{\\partial y}{\\partial b}\u2202b\u2202y\u200b, in the above equation, are R\u2192R\\mathcal{R} \\to \\mathcal{R}R\u2192R derivatives. To evaluate these numerically, we use the method described above for the real-to-real case. This allows us to compute the CWCWCW matrix and then multiply it by 222. Note that the code, as of time of writing, computes this value in a slightly convoluted way: # Code from https://github.com/pytorch/pytorch/blob/58eb23378f2a376565a66ac32c93a316c45b6131/torch/autograd/gradcheck.py#L99-L105 # Notation changes in this code block: # s here is y above # x, y here are a, b above ds_dx = compute_gradient(eps) ds_dy = compute_gradient(eps * 1j) # conjugate wirtinger derivative conj_w_d = 0.5 * (ds_dx + ds_dy * 1j) # wirtinger derivative w_d = 0.5 * (ds_dx - ds_dy * 1j) d[d_idx] = grad_out.conjugate() * conj_w_d + grad_out * w_d.conj() # Since grad_out is always 1, and W and CW are complex conjugate of each other, the last line ends up computing exactly `conj_w_d + w_d.conj() = conj_w_d + conj_w_d = 2 * conj_w_d`. Default complex input analytical evaluation# Since backward mode AD computes exactly twice the CWCWCW derivative already, we simply use the same trick as for the real-to-real case here and reconstruct the matrix row by row when there are multiple real outputs. Functions with complex outputs# In this case, the user-provided function does not follow the assumption from the autograd that the function we compute backward AD for is real-valued. This means that using autograd directly on this function is not well defined. To solve this, we will replace the test of the function h:PN\u2192CMh: \\mathcal{P}^N \\to \\mathcal{C}^Mh:PN\u2192CM (where P\\mathcal{P}P can be either R\\mathcal{R}R or C\\mathcal{C}C), with two functions: hrhrhr and hihihi such that: hr(q):=real(f(q))hi(q):=imag(f(q))\\begin{aligned} hr(q) \u0026:= real(f(q)) \\\\ hi(q) \u0026:= imag(f(q)) \\end{aligned} hr(q)hi(q)\u200b:=real(f(q)):=imag(f(q))\u200bwhere q\u2208Pq \\in \\mathcal{P}q\u2208P. We then do a basic gradcheck for both hrhrhr and hihihi using either the real-to-real or complex-to-real case described above, depending on P\\mathcal{P}P. Note that, the code, as of time of writing, does not create these functions explicitly but perform the chain rule with the realrealreal or imagimagimag functions manually by passing the grad_out\\text{grad\\_out}grad_out arguments to the different functions. When grad_out=1\\text{grad\\_out} = 1grad_out=1, then we are considering hrhrhr. When grad_out=1j\\text{grad\\_out} = 1jgrad_out=1j, then we are considering hihihi. Fast backward mode gradcheck# While the above formulation of gradcheck is great, both, to ensure correctness and debuggability, it is very slow because it reconstructs the full Jacobian matrices. This section presents a way to perform gradcheck in a faster way without affecting its correctness. The debuggability can be recovered by adding special logic when we detect an error. In that case, we can run the default version that reconstructs the full matrix to give full details to the user. The high level strategy here is to find a scalar quantity that can be computed efficiently by both the numerical and analytical methods and that represents the full matrix computed by the slow gradcheck well enough to ensure that it will catch any discrepancy in the Jacobians. Fast gradcheck for real-to-real functions# The scalar quantity that we want to compute here is vTJfuv^T J_f uvTJf\u200bu for a given random vector v\u2208RMv \\in \\mathcal{R}^Mv\u2208RM and a random unit norm vector u\u2208RNu \\in \\mathcal{R}^Nu\u2208RN. For the numerical evaluation, we can efficiently compute Jfu\u2248f(x+u\u2217eps)\u2212f(x\u2212u\u2217eps)2\u2217eps.J_f u \\approx \\frac{f(x + u * eps) - f(x - u * eps)}{2 * eps}. Jf\u200bu\u22482\u2217epsf(x+u\u2217eps)\u2212f(x\u2212u\u2217eps)\u200b.We then perform the dot product between this vector and vvv to get the scalar value of interest. For the analytical version, we can use backward mode AD to compute vTJfv^T J_fvTJf\u200b directly. We then perform the dot product with uuu to get the expected value. Fast gradcheck for complex-to-real functions# Similar to the real-to-real case, we want to perform a reduction of the full matrix. But the 2\u2217CW2 * CW2\u2217CW matrix is complex-valued and so in this case, we will compare to complex scalars. Due to some constraints on what we can compute efficiently in the numerical case and to keep the number of numerical evaluations to a minimum, we compute the following (albeit surprising) scalar value: s:=2\u2217vT(real(CW)ur+i\u2217imag(CW)ui)s := 2 * v^T (real(CW) ur + i * imag(CW) ui) s:=2\u2217vT(real(CW)ur+i\u2217imag(CW)ui)where v\u2208RMv \\in \\mathcal{R}^Mv\u2208RM, ur\u2208RNur \\in \\mathcal{R}^Nur\u2208RN and ui\u2208RNui \\in \\mathcal{R}^Nui\u2208RN. Fast complex input numerical evaluation# We first consider how to compute sss with a numerical method. To do so, keeping in mind that we\u2019re considering g:CN\u2192RM,z\u2192yg: \\mathcal{C}^N \\to \\mathcal{R}^M, z \\to yg:CN\u2192RM,z\u2192y with z=a+ibz = a + i bz=a+ib, and that CW=12\u2217(\u2202y\u2202a+i\u2202y\u2202b)CW = \\frac{1}{2} * (\\frac{\\partial y}{\\partial a} + i \\frac{\\partial y}{\\partial b})CW=21\u200b\u2217(\u2202a\u2202y\u200b+i\u2202b\u2202y\u200b), we rewrite it as follows: s=2\u2217vT(real(CW)ur+i\u2217imag(CW)ui)=2\u2217vT(12\u2217\u2202y\u2202aur+i\u221712\u2217\u2202y\u2202bui)=vT(\u2202y\u2202aur+i\u2217\u2202y\u2202bui)=vT((\u2202y\u2202aur)+i\u2217(\u2202y\u2202bui))\\begin{aligned} s \u0026= 2 * v^T (real(CW) ur + i * imag(CW) ui) \\\\ \u0026= 2 * v^T (\\frac{1}{2} * \\frac{\\partial y}{\\partial a} ur + i * \\frac{1}{2} * \\frac{\\partial y}{\\partial b} ui) \\\\ \u0026= v^T (\\frac{\\partial y}{\\partial a} ur + i * \\frac{\\partial y}{\\partial b} ui) \\\\ \u0026= v^T ((\\frac{\\partial y}{\\partial a} ur) + i * (\\frac{\\partial y}{\\partial b} ui)) \\end{aligned} s\u200b=2\u2217vT(real(CW)ur+i\u2217imag(CW)ui)=2\u2217vT(21\u200b\u2217\u2202a\u2202y\u200bur+i\u221721\u200b\u2217\u2202b\u2202y\u200bui)=vT(\u2202a\u2202y\u200bur+i\u2217\u2202b\u2202y\u200bui)=vT((\u2202a\u2202y\u200bur)+i\u2217(\u2202b\u2202y\u200bui))\u200bIn this formula, we can see that \u2202y\u2202aur\\frac{\\partial y}{\\partial a} ur\u2202a\u2202y\u200bur and \u2202y\u2202bui\\frac{\\partial y}{\\partial b} ui\u2202b\u2202y\u200bui can be evaluated the same way as the fast version for the real-to-real case. Once these real-valued quantities have been computed, we can reconstruct the complex vector on the right side and do a dot product with the real-valued vvv vector. Fast complex input analytical evaluation# For the analytical case, things are simpler and we rewrite the formula as: s=2\u2217vT(real(CW)ur+i\u2217imag(CW)ui)=vTreal(2\u2217CW)ur+i\u2217vTimag(2\u2217CW)ui)=real(vT(2\u2217CW))ur+i\u2217imag(vT(2\u2217CW))ui\\begin{aligned} s \u0026= 2 * v^T (real(CW) ur + i * imag(CW) ui) \\\\ \u0026= v^T real(2 * CW) ur + i * v^T imag(2 * CW) ui) \\\\ \u0026= real(v^T (2 * CW)) ur + i * imag(v^T (2 * CW)) ui \\end{aligned} s\u200b=2\u2217vT(real(CW)ur+i\u2217imag(CW)ui)=vTreal(2\u2217CW)ur+i\u2217vTimag(2\u2217CW)ui)=real(vT(2\u2217CW))ur+i\u2217imag(vT(2\u2217CW))ui\u200bWe can thus use the fact that the backward mode AD provides us with an efficient way to compute vT(2\u2217CW)v^T (2 * CW)vT(2\u2217CW) and then perform a dot product of the real part with ururur and the imaginary part with uiuiui before reconstructing the final complex scalar sss. Why not use a complex uuu# At this point, you might be wondering why we did not select a complex uuu and just performed the reduction 2\u2217vTCWu\u20322 * v^T CW u\u00272\u2217vTCWu\u2032. To dive into this, in this paragraph, we will use the complex version of uuu noted u\u2032=ur\u2032+iui\u2032u\u0027 = ur\u0027 + i ui\u0027u\u2032=ur\u2032+iui\u2032. Using such complex u\u2032u\u0027u\u2032, the problem is that when doing the numerical evaluation, we would need to compute: 2\u2217CWu\u2032=(\u2202y\u2202a+i\u2202y\u2202b)(ur\u2032+iui\u2032)=\u2202y\u2202aur\u2032+i\u2202y\u2202aui\u2032+i\u2202y\u2202bur\u2032\u2212\u2202y\u2202bui\u2032\\begin{aligned} 2*CW u\u0027 \u0026= (\\frac{\\partial y}{\\partial a} + i \\frac{\\partial y}{\\partial b})(ur\u0027 + i ui\u0027) \\\\ \u0026= \\frac{\\partial y}{\\partial a} ur\u0027 + i \\frac{\\partial y}{\\partial a} ui\u0027 + i \\frac{\\partial y}{\\partial b} ur\u0027 - \\frac{\\partial y}{\\partial b} ui\u0027 \\end{aligned} 2\u2217CWu\u2032\u200b=(\u2202a\u2202y\u200b+i\u2202b\u2202y\u200b)(ur\u2032+iui\u2032)=\u2202a\u2202y\u200bur\u2032+i\u2202a\u2202y\u200bui\u2032+i\u2202b\u2202y\u200bur\u2032\u2212\u2202b\u2202y\u200bui\u2032\u200bWhich would require four evaluations of real-to-real finite difference (twice as much compared to the approached proposed above). Since this approach does not have more degrees of freedom (same number of real valued variables) and we try to get the fastest possible evaluation here, we use the other formulation above. Fast gradcheck for functions with complex outputs# Just like in the slow case, we consider two real-valued functions and use the appropriate rule from above for each function. Gradgradcheck implementation# PyTorch also provide a utility to verify second order gradients. The goal here is to make sure that the backward implementation is also properly differentiable and computes the right thing. This feature is implemented by considering the function F:x,v\u2192vTJfF: x, v \\to v^T J_fF:x,v\u2192vTJf\u200b and use the gradcheck defined above on this function. Note that vvv in this case is just a random vector with the same type as f(x)f(x)f(x). The fast version of gradgradcheck is implemented by using the fast version of gradcheck on that same function FFF.",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "../_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/notes/gradcheck.html"
+       },
+       "datePublished": "Apr 27, 2021T00:00:00Z",
+       "dateModified": "Jun 18, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>

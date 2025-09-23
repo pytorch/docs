@@ -69,7 +69,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-<link rel="canonical" href="/named_tensor.html" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
@@ -80,13 +79,15 @@
   }
 </script>
 <script>
-  // Cookie banner for non-LF projects.
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hide cookie banner on local environments
+  // Cookie banner for non-LF projects
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hide cookie banner on local environments and LF owned docs
     if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '0.0.0.0' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.')) {
+      window.location.hostname === '0.0.0.0' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'docs.pytorch.org' ||
+      window.location.hostname === 'docs-preview.pytorch.org' ||
+      window.location.hostname.startsWith('192.168.')) {
       const banner = document.querySelector('.cookie-banner-wrapper');
       if (banner) {
         banner.style.display = 'none';
@@ -94,6 +95,8 @@
     }
   });
 </script>
+<!-- Conditional CSS for header and footer height adjustment -->
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,55 +104,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <meta property="og:image" content="_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
 <meta name="pytorch_project" content="docs">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
-   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-   <!-- End Google Tag Manager (noscript) -->
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   j.onload = function() {
-     window.dispatchEvent(new Event('gtm_loaded'));
-     console.log('GTM loaded successfully');
-   };
-   })(window,document,'script','dataLayer','GTM-T8XT4PS');
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    j.onload = function () {
+      window.dispatchEvent(new Event('gtm_loaded'));
+      console.log('GTM loaded successfully');
+    };
+  })(window, document, 'script', 'dataLayer', 'GTM-T8XT4PS');
 </script>
- <!-- End Google Tag Manager -->
- <!-- Facebook Pixel Code -->
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code -->
 <script>
-   !function(f,b,e,v,n,t,s)
-   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   n.queue=[];t=b.createElement(e);t.async=!0;
-   t.src=v;s=b.getElementsByTagName(e)[0];
-   s.parentNode.insertBefore(t,s)}(window,document,'script',
-   'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '243028289693773');
-   fbq('track', 'PageView');
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+    n.queue = []; t = b.createElement(e); t.async = !0;
+    t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s)
+  }(window, document, 'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '243028289693773');
+  fbq('track', 'PageView');
 </script>
 <script>
-   document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git0b59492 )');
- </script>
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+</script>
 <noscript>
-   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1"/>
+  <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
 </noscript>
 <script>
-   function gtag() {
+  function gtag() {
     window.dataLayer.push(arguments);
-   }
+  }
 </script>
 <!-- End Facebook Pixel Code -->
 <!-- Script to Fix scrolling -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Fix anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
@@ -175,19 +185,21 @@
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
 
-   <!--
+<!--
    Search engines should not index the main version of documentation.
    Stable documentation are built without release == 'main'.
    -->
-   <meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
 
   </head>
+
 <body data-feedback-url="https://github.com/pytorch/pytorch" class="pytorch-body">
-     <div class="container-fluid header-holder tutorials-header" id="header-holder">
+  
+    <div class="container-fluid header-holder tutorials-header" id="header-holder">
    <div class="header-container-wrapper">
     <div class="header-container">
       <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
@@ -524,7 +536,8 @@
 </div>
 
 <!-- End Mobile Menu -->
-   
+  
+  
   
   
   <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
@@ -532,7 +545,7 @@
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-
+  
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -3433,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3458,7 +3471,22 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_ir.html">IRs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 </ul>
@@ -3519,6 +3547,22 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler.config.html">torch.compiler.config</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_core_concepts.html">Dynamic Shapes Core Concepts</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting.html">Troubleshooting Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_debugging_tlparse_torch_logs.html">Debugging with <code class="docutils literal notranslate"><span class="pre">tlparse</span></code> and <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=dynamic</span></code></a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_troubleshooting_guardon_errors.html">Troubleshooting GuardOnDataDependentSymNode Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="compile/dynamic_shapes_advanced_control_options.html">Advanced Options to Control Dynamic Behavior</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="compile/dynamic_shapes_beyond_the_basics.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_zero_one_specialization.html">The Zero-One Specialization Problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compile/dynamic_shapes_backed_unbacked.html">Backed vs Unbacked Symints</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fine_grain_apis.html">TorchDynamo APIs for fine-grained tracing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_backward.html"><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> has different autograd semantics</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="torch.compiler_aot_inductor.html">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3555,7 +3599,6 @@ document.write(`
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_overview.html">Dynamo Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamo_deepdive.html">Dynamo Deep-Dive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.compiler_dynamic_shapes.html">Dynamic Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_nn_module.html">PyTorch 2.0 NNModule Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_cudagraph_trees.html">CUDAGraph Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.compiler_fake_tensor.html">Fake tensor</a></li>
@@ -4400,23 +4443,24 @@ document.write(`
               
   
 <div id="searchbox"></div>
-  <article class="bd-article"id="pytorch-article">
-   <!-- Hidden breadcrumb schema for SEO only -->
-   <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <article class="bd-article" id="pytorch-article">
+    <!-- Hidden breadcrumb schema for SEO only -->
+    <div style="display:none;" itemscope itemtype="https://schema.org/BreadcrumbList">
       
-        <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <link itemprop="item" href="pytorch-api.html">
-          <meta itemprop="name" content="Reference API">
-          <meta itemprop="position" content="1">
-        </div>
+      <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <link itemprop="item" href="pytorch-api.html">
+        <meta itemprop="name" content="Reference API">
+        <meta itemprop="position" content="1">
+      </div>
       
       <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <meta itemprop="name" content="Named Tensors">
         <meta itemprop="position" content="2">
       </div>
-   </div>
+    </div>
 
     
+
     
               
                 
@@ -4695,7 +4739,7 @@ name must be a valid Python variable name (i.e., does not start with underscore)
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.rename">
-<span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/_tensor.py#L1463"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/_tensor.py#L1463"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename" title="Permalink to this definition">#</a></dt>
 <dd><p>Renames dimension names of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code>.</p>
 <p>There are two main usages:</p>
 <p><code class="docutils literal notranslate"><span class="pre">self.rename(**rename_map)</span></code> returns a view on tensor that has dims
@@ -4728,13 +4772,13 @@ Use <code class="docutils literal notranslate"><span class="pre">self.rename(Non
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.rename_">
-<span class="sig-name descname"><span class="pre">rename_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/_tensor.py#L1448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename_" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rename_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">rename_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/_tensor.py#L1448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.rename_" title="Permalink to this definition">#</a></dt>
 <dd><p>In-place version of <a class="reference internal" href="#torch.Tensor.rename" title="torch.Tensor.rename"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rename()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.refine_names">
-<span class="sig-name descname"><span class="pre">refine_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/_tensor.py#L1337"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.refine_names" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">refine_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/_tensor.py#L1337"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.refine_names" title="Permalink to this definition">#</a></dt>
 <dd><p>Refines the dimension names of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> according to <a class="reference internal" href="#torch.Tensor.names" title="torch.Tensor.names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">names</span></code></a>.</p>
 <p>Refining is a special case of renaming that “lifts” unnamed dimensions.
 A <code class="docutils literal notranslate"><span class="pre">None</span></code> dim can be refined to have any name; a named dim can only be
@@ -4816,7 +4860,7 @@ the output tensor has a size-one dimension for each of those new names.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.Tensor.align_to">
-<span class="sig-name descname"><span class="pre">align_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0b59492853b7347ead6b71f52c76e7ac2836ea27/torch/_tensor.py#L1381"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.align_to" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">align_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/_tensor.py#L1381"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.Tensor.align_to" title="Permalink to this definition">#</a></dt>
 <dd><p>Permutes the dimensions of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> tensor to match the order
 specified in <a class="reference internal" href="#torch.Tensor.names" title="torch.Tensor.names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">names</span></code></a>, adding size-one dims for any new names.</p>
 <p>All of the dims of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> must be named in order to use this method.
@@ -4879,7 +4923,7 @@ but not necessary contiguous in memory.</p>
                 </article>
               
   </article>
-
+  
               
               
                 <footer class="bd-footer-article">
@@ -5090,91 +5134,124 @@ but not necessary contiguous in memory.</p>
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Docs</h2>
-            <p>Access comprehensive developer documentation for PyTorch</p>
-            <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Tutorials</h2>
-            <p>Get in-depth tutorials for beginners and advanced developers</p>
-            <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
-          </div>
-
-          <div class="col-md-4">
-            <h2>Resources</h2>
-            <p>Find development resources and get your questions answered</p>
-            <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
-          </div>
-        </div>
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Docs</h2>
+        <p>Access comprehensive developer documentation for PyTorch</p>
+        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
+
+      <div class="col-md-4">
+        <h2>Tutorials</h2>
+        <p>Get in-depth tutorials for beginners and advanced developers</p>
+        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Resources</h2>
+        <p>Find development resources and get your questions answered</p>
+        <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer class="site-footer">
-      <div class="container footer-container">
+<footer class="site-footer">
+  <div class="container footer-container">
 
-          
-      <div class="newsletter" id="newsletter">
-  
-        <p
-          class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and the latest news</p>
-      
-      
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>
-            hbspt.forms.create({
-              region: "na1",
-              portalId: "8112310",
-              formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
-            });
-          </script>
-          
-      
-        <p
-          class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. <a href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
-          
+    
+    <div class="newsletter" id="newsletter">
+
+      <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
+        the latest news</p>
+
+
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "8112310",
+          formId: "2fb2231c-000b-4ec5-88a0-1ab242549c9e"
+        });
+      </script>
+
+
+      <p class="newsletter__privacy">By submitting this form, I consent to receive marketing emails from the LF and its
+        projects regarding their events, training, research, developments, and related announcements. I understand that
+        I can unsubscribe at any time using the links in the footers of the emails I receive. <a
+          href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
+
+    </div>
+    
+
+    <div class="lf-grid">
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook">
+              <path fill="currentColor"
+                d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z" />
+            </svg>
+          </a></li>
+        <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X">
+              <path fill="currentColor"
+                d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube">
+              <path fill="currentColor"
+                d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z" />
+            </svg>
+          </a></li>
+        <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn">
+              <rect width="512" height="512" rx="0" fill="currentColor" />
+              <circle fill="#000" cx="142" cy="138" r="37" />
+              <path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198" />
+              <path fill="#000"
+                d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack">
+              <path fill="currentColor"
+                d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z">
+              </path>
+            </svg>
+          </a></li>
+        <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat">
+              <path fill="currentColor"
+                d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z">
+              </path>
+              <path fill="currentColor"
+                d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z">
+              </path>
+            </svg>
+          </a></li>
+      </ul>
+    </div>
+
+    <div class="privacy-policy">
+      <div class="copyright">
+        
+        <p>
+          &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
+          trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
+          usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a
+            href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a
+            href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
+        </p>
+        
       </div>
-      
-  
-  
-      <div class="lf-grid">  
-        <ul class="social-links">
-          <li><a href="https://www.facebook.com/pytorch" target="_blank" title="PyTorch on Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.51 -0.26 26.45 26.45" aria-label="Facebook"><path fill="currentColor" d="M25.497 13.075c0-2.45-.698-4.848-2.011-6.911a12.765 12.765 0 0 0-5.398-4.73A12.671 12.671 0 0 0 11.008.38a12.705 12.705 0 0 0-6.529 2.95A12.827 12.827 0 0 0 .563 9.358a12.896 12.896 0 0 0-.07 7.201 12.831 12.831 0 0 0 3.801 6.103 12.709 12.709 0 0 0 6.471 3.078v-8.957H7.53v-3.708h3.235v-2.824c0-3.213 1.903-4.988 4.813-4.988.956.014 1.909.097 2.852.25V8.67h-1.607a1.83 1.83 0 0 0-1.518.497 1.854 1.854 0 0 0-.561 1.505v2.404h3.535l-.563 3.708h-2.97v8.957a12.725 12.725 0 0 0 7.697-4.337 12.87 12.87 0 0 0 3.054-8.328z"/></svg>	
-          </a></li>
-          <li><a href="https://twitter.com/pytorch" target="_blank" title="PyTorch on X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300" aria-label="X"><path fill="currentColor" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/pytorch" target="_blank" title="PyTorch on YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0.21 0.27 34.45 25.07" aria-label="YouTube"><path fill="currentColor" d="M33.729 6.084s-.327-2.33-1.317-3.356a4.691 4.691 0 0 0-3.32-1.432c-4.634-.34-11.589-.34-11.589-.34h-.014s-6.954 0-11.59.342a4.692 4.692 0 0 0-3.32 1.432c-.993 1.025-1.315 3.354-1.315 3.354a52.189 52.189 0 0 0-.331 5.473v2.566c.014 1.829.125 3.656.331 5.472 0 0 .322 2.33 1.316 3.36 1.26 1.345 2.916 1.3 3.653 1.445 2.65.26 11.263.34 11.263.34s6.96-.01 11.597-.353a4.691 4.691 0 0 0 3.32-1.432c.993-1.026 1.316-3.356 1.316-3.356.206-1.817.316-3.644.33-5.473v-2.57a52.26 52.26 0 0 0-.33-5.472zM14.076 17.232V7.729l8.951 4.768-8.95 4.735z"/></svg>	
-          </a></li>
-          <li><a href="https://www.linkedin.com/company/pytorch" target="_blank" title="PyTorch on LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-10.23 -10.23 531.96 531.96" aria-label="LinkedIn"><rect width="512" height="512" rx="0" fill="currentColor"/><circle fill="#000" cx="142" cy="138" r="37"/><path stroke="#000" stroke-width="66" d="M244 194v198M142 194v198"/><path fill="#000" d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
-          </a></li>
-          <li><a href="https://pytorch.slack.com" target="_blank" title="PyTorch Slack">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.16 -0.03 21.19 21.19" aria-label="Slack"><path fill="currentColor" d="M4.896 13.27a2.147 2.147 0 0 1-2.141 2.142A2.147 2.147 0 0 1 .613 13.27c0-1.178.963-2.141 2.142-2.141h2.141v2.141zm1.08 0c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.363a2.147 2.147 0 0 1-2.142 2.141 2.147 2.147 0 0 1-2.141-2.142V13.27zm2.141-8.6a2.147 2.147 0 0 1-2.141-2.14c0-1.18.962-2.142 2.141-2.142s2.142.963 2.142 2.141v2.142H8.117zm0 1.08c1.179 0 2.141.962 2.141 2.141a2.147 2.147 0 0 1-2.141 2.142H2.755A2.147 2.147 0 0 1 .613 7.89c0-1.179.963-2.141 2.142-2.141h5.362zm8.599 2.141c0-1.179.963-2.141 2.141-2.141 1.179 0 2.143.962 2.143 2.14a2.147 2.147 0 0 1-2.142 2.142h-2.141V7.89zm-1.08 0a2.147 2.147 0 0 1-2.141 2.142 2.147 2.147 0 0 1-2.141-2.142V2.53c0-1.178.962-2.141 2.141-2.141s2.142.963 2.142 2.141v5.362zm-2.141 8.6c1.179 0 2.142.962 2.142 2.14a2.147 2.147 0 0 1-2.142 2.142 2.147 2.147 0 0 1-2.141-2.141V16.49h2.141zm0-1.08a2.147 2.147 0 0 1-2.141-2.141c0-1.179.962-2.142 2.141-2.142h5.362c1.179 0 2.142.963 2.142 2.142a2.147 2.147 0 0 1-2.142 2.142h-5.362z"></path></svg>
-          </a></li>
-          <li><a href="https://pytorch.org/wechat" title="PyTorch on WeChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.14 -0.17 38.02 33.02" aria-label="WeChat"><path fill="currentColor" d="M26.289 10.976a12.972 12.972 0 0 0-8.742 3.53 10.386 10.386 0 0 0-3.224 8.795c-1.326-.164-2.535-.345-3.75-.448a2.332 2.332 0 0 0-1.273.216c-1.18.666-2.311 1.418-3.652 2.255.246-1.112.405-2.087.687-3.024a1.15 1.15 0 0 0-.523-1.52C1.737 17.902.02 13.601 1.307 9.165c1.189-4.1 4.11-6.587 8.077-7.884A13.54 13.54 0 0 1 24.18 5.617a10.135 10.135 0 0 1 2.109 5.359zM10.668 9.594a1.564 1.564 0 0 0-2.095-1.472 1.52 1.52 0 0 0-.895 1.964 1.502 1.502 0 0 0 1.391.966 1.545 1.545 0 0 0 1.598-1.46v.002zm8.15-1.566a1.567 1.567 0 0 0-1.528 1.543 1.528 1.528 0 0 0 1.571 1.492 1.52 1.52 0 0 0 1.375-2.117 1.518 1.518 0 0 0-1.415-.919l-.003.001z"></path><path fill="currentColor" d="M33.914 32.137c-1.075-.478-2.062-1.196-3.11-1.306-1.049-.11-2.145.494-3.24.605a10.821 10.821 0 0 1-8.781-2.864c-4.682-4.33-4.013-10.97 1.403-14.518 4.811-3.154 11.874-2.102 15.268 2.273a8.671 8.671 0 0 1-1.002 12.095c-1.046.929-1.422 1.693-.751 2.917.102.257.174.525.213.798zM21.68 20.292a1.264 1.264 0 1 0 .01-2.528 1.264 1.264 0 0 0-.01 2.528zm7.887-2.526a1.266 1.266 0 0 0-1.256 1.21 1.247 1.247 0 1 0 1.256-1.21z"></path></svg>
-          </a></li>
-        </ul>
-      </div>
-  
-      <div class="privacy-policy">
-        <div class="copyright">
-          <p>
-            &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://www.linuxfoundation.org/legal/policies">Policies</a> page. <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a>. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-      </div>
+    </div>
 
 
-       </div>
- </footer>
+  </div>
+</footer>
 
 <div class="cookie-banner-wrapper">
   <div class="container">
@@ -5182,8 +5259,7 @@ but not necessary contiguous in memory.</p>
     <img class="close-button" src="_static/img/pytorch-x.svg">
   </div>
 </div>
-
-   
+  
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
   
@@ -5223,28 +5299,47 @@ but not necessary contiguous in memory.</p>
 </div>
 
   </footer>
-   <script type="application/ld+json">
-      {
-         "@context": "https://schema.org",
-         "@type": "Article",
-         "headline": "Named Tensors",
-         "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
-         "url": "/named_tensor.html",
-         "author": {
-           "@type": "Organization",
-           "name": "PyTorch Contributors",
-           "url": "https://pytorch.org"
-         },
-         "image": "_static/img/pytorch_seo.png",
-         "mainEntityOfPage": {
-           "@type": "WebPage",
-           "@id": "/named_tensor.html"
-         },
-        "datePublished": "Oct 08, 2019T00:00:00Z",
-         "dateModified": "Jun 14, 2025T00:00:00Z",
-         "articleBody": "Named Tensors# Created On: Oct 08, 2019 | Last Updated On: Jun 14, 2025 Named Tensors allow users to give explicit names to tensor dimensions. In most cases, operations that take dimension parameters will accept dimension names, avoiding the need to track dimensions by position. In addition, named tensors use names to automatically check that APIs are being used correctly at runtime, providing extra safety. Names can also be used to rearrange dimensions, for example, to support “broadcasting by name” rather than “broadcasting by position”. Warning The named tensor API is a prototype feature and subject to change. Creating named tensors# Factory functions now take a new names argument that associates a name with each dimension. &gt;&gt;&gt; torch.zeros(2, 3, names=(&#39;N&#39;, &#39;C&#39;)) tensor([[0., 0., 0.], [0., 0., 0.]], names=(&#39;N&#39;, &#39;C&#39;)) Named dimensions, like regular Tensor dimensions, are ordered. tensor.names[i] is the name of dimension i of tensor. The following factory functions support named tensors: torch.empty() torch.rand() torch.randn() torch.ones() torch.tensor() torch.zeros() Named dimensions# See names for restrictions on tensor names. Use names to access the dimension names of a tensor and rename() to rename named dimensions. &gt;&gt;&gt; imgs = torch.randn(1, 2, 2, 3 , names=(&#39;N&#39;, &#39;C&#39;, &#39;H&#39;, &#39;W&#39;)) &gt;&gt;&gt; imgs.names (&#39;N&#39;, &#39;C&#39;, &#39;H&#39;, &#39;W&#39;) &gt;&gt;&gt; renamed_imgs = imgs.rename(H=&#39;height&#39;, W=&#39;width&#39;) &gt;&gt;&gt; renamed_imgs.names (&#39;N&#39;, &#39;C&#39;, &#39;height&#39;, &#39;width) Named tensors can coexist with unnamed tensors; named tensors are instances of torch.Tensor. Unnamed tensors have None-named dimensions. Named tensors do not require all dimensions to be named. &gt;&gt;&gt; imgs = torch.randn(1, 2, 2, 3 , names=(None, &#39;C&#39;, &#39;H&#39;, &#39;W&#39;)) &gt;&gt;&gt; imgs.names (None, &#39;C&#39;, &#39;H&#39;, &#39;W&#39;) Name propagation semantics# Named tensors use names to automatically check that APIs are being called correctly at runtime. This occurs in a process called name inference. More formally, name inference consists of the following two steps: Check names: an operator may perform automatic checks at runtime that check that certain dimension names must match. Propagate names: name inference propagates names to output tensors. All operations that support named tensors propagate names. &gt;&gt;&gt; x = torch.randn(3, 3, names=(&#39;N&#39;, &#39;C&#39;)) &gt;&gt;&gt; x.abs().names (&#39;N&#39;, &#39;C&#39;) match semantics# Two names match if they are equal (string equality) or if at least one is None. Nones are essentially a special “wildcard” name. unify(A, B) determines which of the names A and B to propagate to the outputs. It returns the more specific of the two names, if they match. If the names do not match, then it errors. Note In practice, when working with named tensors, one should avoid having unnamed dimensions because their handling can be complicated. It is recommended to lift all unnamed dimensions to be named dimensions by using refine_names(). Basic name inference rules# Let’s see how match and unify are used in name inference in the case of adding two one-dim tensors with n..."
-       }
-   </script>
-
+  <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "Article",
+       "name": "Named Tensors",
+       "headline": "Named Tensors",
+       "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
+       "url": "/named_tensor.html",
+       "articleBody": "Named Tensors# Created On: Oct 08, 2019 | Last Updated On: Jun 14, 2025 Named Tensors allow users to give explicit names to tensor dimensions. In most cases, operations that take dimension parameters will accept dimension names, avoiding the need to track dimensions by position. In addition, named tensors use names to automatically check that APIs are being used correctly at runtime, providing extra safety. Names can also be used to rearrange dimensions, for example, to support \u201cbroadcasting by name\u201d rather than \u201cbroadcasting by position\u201d. Warning The named tensor API is a prototype feature and subject to change. Creating named tensors# Factory functions now take a new names argument that associates a name with each dimension. \u003e\u003e\u003e torch.zeros(2, 3, names=(\u0027N\u0027, \u0027C\u0027)) tensor([[0., 0., 0.], [0., 0., 0.]], names=(\u0027N\u0027, \u0027C\u0027)) Named dimensions, like regular Tensor dimensions, are ordered. tensor.names[i] is the name of dimension i of tensor. The following factory functions support named tensors: torch.empty() torch.rand() torch.randn() torch.ones() torch.tensor() torch.zeros() Named dimensions# See names for restrictions on tensor names. Use names to access the dimension names of a tensor and rename() to rename named dimensions. \u003e\u003e\u003e imgs = torch.randn(1, 2, 2, 3 , names=(\u0027N\u0027, \u0027C\u0027, \u0027H\u0027, \u0027W\u0027)) \u003e\u003e\u003e imgs.names (\u0027N\u0027, \u0027C\u0027, \u0027H\u0027, \u0027W\u0027) \u003e\u003e\u003e renamed_imgs = imgs.rename(H=\u0027height\u0027, W=\u0027width\u0027) \u003e\u003e\u003e renamed_imgs.names (\u0027N\u0027, \u0027C\u0027, \u0027height\u0027, \u0027width) Named tensors can coexist with unnamed tensors; named tensors are instances of torch.Tensor. Unnamed tensors have None-named dimensions. Named tensors do not require all dimensions to be named. \u003e\u003e\u003e imgs = torch.randn(1, 2, 2, 3 , names=(None, \u0027C\u0027, \u0027H\u0027, \u0027W\u0027)) \u003e\u003e\u003e imgs.names (None, \u0027C\u0027, \u0027H\u0027, \u0027W\u0027) Name propagation semantics# Named tensors use names to automatically check that APIs are being called correctly at runtime. This occurs in a process called name inference. More formally, name inference consists of the following two steps: Check names: an operator may perform automatic checks at runtime that check that certain dimension names must match. Propagate names: name inference propagates names to output tensors. All operations that support named tensors propagate names. \u003e\u003e\u003e x = torch.randn(3, 3, names=(\u0027N\u0027, \u0027C\u0027)) \u003e\u003e\u003e x.abs().names (\u0027N\u0027, \u0027C\u0027) match semantics# Two names match if they are equal (string equality) or if at least one is None. Nones are essentially a special \u201cwildcard\u201d name. unify(A, B) determines which of the names A and B to propagate to the outputs. It returns the more specific of the two names, if they match. If the names do not match, then it errors. Note In practice, when working with named tensors, one should avoid having unnamed dimensions because their handling can be complicated. It is recommended to lift all unnamed dimensions to be named dimensions by using refine_names(). Basic name inference rules# Let\u2019s see how match and unify are used in name inference in the case of adding two one-dim tensors with no broadcasting. x = torch.randn(3, names=(\u0027X\u0027,)) y = torch.randn(3) z = torch.randn(3, names=(\u0027Z\u0027,)) Check names: check that the names of the two tensors match. For the following examples: \u003e\u003e\u003e # x + y # match(\u0027X\u0027, None) is True \u003e\u003e\u003e # x + z # match(\u0027X\u0027, \u0027Z\u0027) is False \u003e\u003e\u003e # x + x # match(\u0027X\u0027, \u0027X\u0027) is True \u003e\u003e\u003e x + z Error when attempting to broadcast dims [\u0027X\u0027] and dims [\u0027Z\u0027]: dim \u0027X\u0027 and dim \u0027Z\u0027 are at the same position from the right but do not match. Propagate names: unify the names to select which one to propagate. In the case of x + y, unify(\u0027X\u0027, None) = \u0027X\u0027 because \u0027X\u0027 is more specific than None. \u003e\u003e\u003e (x + y).names (\u0027X\u0027,) \u003e\u003e\u003e (x + x).names (\u0027X\u0027,) For a comprehensive list of name inference rules, see Named Tensors operator coverage. Here are two common operations that may be useful to go over: Binary arithmetic ops: Unifies names from inputs Matrix multiplication ops: Contracts away dims Explicit alignment by names# Use align_as() or align_to() to align tensor dimensions by name to a specified ordering. This is useful for performing \u201cbroadcasting by names\u201d. # This function is agnostic to the dimension ordering of `input`, # as long as it has a `C` dimension somewhere. def scale_channels(input, scale): scale = scale.refine_names(\u0027C\u0027) return input * scale.align_as(input) \u003e\u003e\u003e num_channels = 3 \u003e\u003e\u003e scale = torch.randn(num_channels, names=(\u0027C\u0027,)) \u003e\u003e\u003e imgs = torch.rand(3, 3, 3, num_channels, names=(\u0027N\u0027, \u0027H\u0027, \u0027W\u0027, \u0027C\u0027)) \u003e\u003e\u003e more_imgs = torch.rand(3, num_channels, 3, 3, names=(\u0027N\u0027, \u0027C\u0027, \u0027H\u0027, \u0027W\u0027)) \u003e\u003e\u003e videos = torch.randn(3, num_channels, 3, 3, 3, names=(\u0027N\u0027, \u0027C\u0027, \u0027H\u0027, \u0027W\u0027, \u0027D\u0027) \u003e\u003e\u003e scale_channels(imgs, scale) \u003e\u003e\u003e scale_channels(more_imgs, scale) \u003e\u003e\u003e scale_channels(videos, scale) Manipulating dimensions# Use align_to() to permute large amounts of dimensions without mentioning all of them as in required by permute(). \u003e\u003e\u003e tensor = torch.randn(2, 2, 2, 2, 2, 2) \u003e\u003e\u003e named_tensor = tensor.refine_names(\u0027A\u0027, \u0027B\u0027, \u0027C\u0027, \u0027D\u0027, \u0027E\u0027, \u0027F\u0027) # Move the F (dim 5) and E dimension (dim 4) to the front while keeping # the rest in the same order \u003e\u003e\u003e tensor.permute(5, 4, 0, 1, 2, 3) \u003e\u003e\u003e named_tensor.align_to(\u0027F\u0027, \u0027E\u0027, ...) Use flatten() and unflatten() to flatten and unflatten dimensions, respectively. These methods are more verbose than view() and reshape(), but have more semantic meaning to someone reading the code. \u003e\u003e\u003e imgs = torch.randn(32, 3, 128, 128) \u003e\u003e\u003e named_imgs = imgs.refine_names(\u0027N\u0027, \u0027C\u0027, \u0027H\u0027, \u0027W\u0027) \u003e\u003e\u003e flat_imgs = imgs.view(32, -1) \u003e\u003e\u003e named_flat_imgs = named_imgs.flatten([\u0027C\u0027, \u0027H\u0027, \u0027W\u0027], \u0027features\u0027) \u003e\u003e\u003e named_flat_imgs.names (\u0027N\u0027, \u0027features\u0027) \u003e\u003e\u003e unflattened_named_imgs = named_flat_imgs.unflatten(\u0027features\u0027, [(\u0027C\u0027, 3), (\u0027H\u0027, 128), (\u0027W\u0027, 128)]) \u003e\u003e\u003e unflattened_named_imgs.names (\u0027N\u0027, \u0027C\u0027, \u0027H\u0027, \u0027W\u0027) Autograd support# Autograd currently supports named tensors in a limited manner: autograd ignores names on all tensors. Gradient computation is still correct but we lose the safety that names give us. \u003e\u003e\u003e x = torch.randn(3, names=(\u0027D\u0027,)) \u003e\u003e\u003e weight = torch.randn(3, names=(\u0027D\u0027,), requires_grad=True) \u003e\u003e\u003e loss = (x - weight).abs() \u003e\u003e\u003e grad_loss = torch.randn(3) \u003e\u003e\u003e loss.backward(grad_loss) \u003e\u003e\u003e weight.grad # Unnamed for now. Will be named in the future tensor([-1.8107, -0.6357, 0.0783]) \u003e\u003e\u003e weight.grad.zero_() \u003e\u003e\u003e grad_loss = grad_loss.refine_names(\u0027C\u0027) \u003e\u003e\u003e loss = (x - weight).abs() # Ideally we\u0027d check that the names of loss and grad_loss match but we don\u0027t yet. \u003e\u003e\u003e loss.backward(grad_loss) \u003e\u003e\u003e weight.grad tensor([-1.8107, -0.6357, 0.0783]) Currently supported operations and subsystems# Operators# See Named Tensors operator coverage for a full list of the supported torch and tensor operations. We do not yet support the following that is not covered by the link: indexing, advanced indexing. For torch.nn.functional operators, we support the following: torch.nn.functional.relu() torch.nn.functional.softmax() torch.nn.functional.log_softmax() torch.nn.functional.tanh() torch.nn.functional.sigmoid() torch.nn.functional.dropout() Subsystems# Autograd is supported, see Autograd support. Because gradients are currently unnamed, optimizers may work but are untested. NN modules are currently unsupported. This can lead to the following when calling modules with named tensor inputs: NN module parameters are unnamed, so outputs may be partially named. NN module forward passes have code that don\u2019t support named tensors and will error out appropriately. We also do not support the following subsystems, though some may work out of the box: distributions serialization (torch.load(), torch.save()) multiprocessing JIT distributed ONNX If any of these would help your use case, please search if an issue has already been filed and if not, file one. Named tensor API reference# In this section please find the documentation for named tensor specific APIs. For a comprehensive reference for how names are propagated through other PyTorch operators, see Named Tensors operator coverage. class torch.Tensor names# Stores names for each of this tensor\u2019s dimensions. names[idx] corresponds to the name of tensor dimension idx. Names are either a string if the dimension is named or None if the dimension is unnamed. Dimension names may contain characters or underscore. Furthermore, a dimension name must be a valid Python variable name (i.e., does not start with underscore). Tensors may not have two named dimensions with the same name. Warning The named tensor API is experimental and subject to change. rename(*names, **rename_map)[source]# Renames dimension names of self. There are two main usages: self.rename(**rename_map) returns a view on tensor that has dims renamed as specified in the mapping rename_map. self.rename(*names) returns a view on tensor, renaming all dimensions positionally using names. Use self.rename(None) to drop names on a tensor. One cannot specify both positional args names and keyword args rename_map. Examples: \u003e\u003e\u003e imgs = torch.rand(2, 3, 5, 7, names=(\u0027N\u0027, \u0027C\u0027, \u0027H\u0027, \u0027W\u0027)) \u003e\u003e\u003e renamed_imgs = imgs.rename(N=\u0027batch\u0027, C=\u0027channels\u0027) \u003e\u003e\u003e renamed_imgs.names (\u0027batch\u0027, \u0027channels\u0027, \u0027H\u0027, \u0027W\u0027) \u003e\u003e\u003e renamed_imgs = imgs.rename(None) \u003e\u003e\u003e renamed_imgs.names (None, None, None, None) \u003e\u003e\u003e renamed_imgs = imgs.rename(\u0027batch\u0027, \u0027channel\u0027, \u0027height\u0027, \u0027width\u0027) \u003e\u003e\u003e renamed_imgs.names (\u0027batch\u0027, \u0027channel\u0027, \u0027height\u0027, \u0027width\u0027) Warning The named tensor API is experimental and subject to change. rename_(*names, **rename_map)[source]# In-place version of rename(). refine_names(*names)[source]# Refines the dimension names of self according to names. Refining is a special case of renaming that \u201clifts\u201d unnamed dimensions. A None dim can be refined to have any name; a named dim can only be refined to have the same name. Because named tensors can coexist with unnamed tensors, refining names gives a nice way to write named-tensor-aware code that works with both named and unnamed tensors. names may contain up to one Ellipsis (...). The Ellipsis is expanded greedily; it is expanded in-place to fill names to the same length as self.dim() using names from the corresponding indices of self.names. Python 2 does not support Ellipsis but one may use a string literal instead (\u0027...\u0027). Parameters names (iterable of str) \u2013 The desired names of the output tensor. May contain up to one Ellipsis. Examples: \u003e\u003e\u003e imgs = torch.randn(32, 3, 128, 128) \u003e\u003e\u003e named_imgs = imgs.refine_names(\u0027N\u0027, \u0027C\u0027, \u0027H\u0027, \u0027W\u0027) \u003e\u003e\u003e named_imgs.names (\u0027N\u0027, \u0027C\u0027, \u0027H\u0027, \u0027W\u0027) \u003e\u003e\u003e tensor = torch.randn(2, 3, 5, 7, 11) \u003e\u003e\u003e tensor = tensor.refine_names(\u0027A\u0027, ..., \u0027B\u0027, \u0027C\u0027) \u003e\u003e\u003e tensor.names (\u0027A\u0027, None, None, \u0027B\u0027, \u0027C\u0027) Warning The named tensor API is experimental and subject to change. align_as(other) \u2192 Tensor# Permutes the dimensions of the self tensor to match the dimension order in the other tensor, adding size-one dims for any new names. This operation is useful for explicit broadcasting by names (see examples). All of the dims of self must be named in order to use this method. The resulting tensor is a view on the original tensor. All dimension names of self must be present in other.names. other may contain named dimensions that are not in self.names; the output tensor has a size-one dimension for each of those new names. To align a tensor to a specific order, use align_to(). Examples: # Example 1: Applying a mask \u003e\u003e\u003e mask = torch.randint(2, [127, 128], dtype=torch.bool).refine_names(\u0027W\u0027, \u0027H\u0027) \u003e\u003e\u003e imgs = torch.randn(32, 128, 127, 3, names=(\u0027N\u0027, \u0027H\u0027, \u0027W\u0027, \u0027C\u0027)) \u003e\u003e\u003e imgs.masked_fill_(mask.align_as(imgs), 0) # Example 2: Applying a per-channel-scale \u003e\u003e\u003e def scale_channels(input, scale): \u003e\u003e\u003e scale = scale.refine_names(\u0027C\u0027) \u003e\u003e\u003e return input * scale.align_as(input) \u003e\u003e\u003e num_channels = 3 \u003e\u003e\u003e scale = torch.randn(num_channels, names=(\u0027C\u0027,)) \u003e\u003e\u003e imgs = torch.rand(32, 128, 128, num_channels, names=(\u0027N\u0027, \u0027H\u0027, \u0027W\u0027, \u0027C\u0027)) \u003e\u003e\u003e more_imgs = torch.rand(32, num_channels, 128, 128, names=(\u0027N\u0027, \u0027C\u0027, \u0027H\u0027, \u0027W\u0027)) \u003e\u003e\u003e videos = torch.randn(3, num_channels, 128, 128, 128, names=(\u0027N\u0027, \u0027C\u0027, \u0027H\u0027, \u0027W\u0027, \u0027D\u0027)) # scale_channels is agnostic to the dimension order of the input \u003e\u003e\u003e scale_channels(imgs, scale) \u003e\u003e\u003e scale_channels(more_imgs, scale) \u003e\u003e\u003e scale_channels(videos, scale) Warning The named tensor API is experimental and subject to change. align_to(*names)[source]# Permutes the dimensions of the self tensor to match the order specified in names, adding size-one dims for any new names. All of the dims of self must be named in order to use this method. The resulting tensor is a view on the original tensor. All dimension names of self must be present in names. names may contain additional names that are not in self.names; the output tensor has a size-one dimension for each of those new names. names may contain up to one Ellipsis (...). The Ellipsis is expanded to be equal to all dimension names of self that are not mentioned in names, in the order that they appear in self. Python 2 does not support Ellipsis but one may use a string literal instead (\u0027...\u0027). Parameters names (iterable of str) \u2013 The desired dimension ordering of the output tensor. May contain up to one Ellipsis that is expanded to all unmentioned dim names of self. Examples: \u003e\u003e\u003e tensor = torch.randn(2, 2, 2, 2, 2, 2) \u003e\u003e\u003e named_tensor = tensor.refine_names(\u0027A\u0027, \u0027B\u0027, \u0027C\u0027, \u0027D\u0027, \u0027E\u0027, \u0027F\u0027) # Move the F and E dims to the front while keeping the rest in order \u003e\u003e\u003e named_tensor.align_to(\u0027F\u0027, \u0027E\u0027, ...) Warning The named tensor API is experimental and subject to change. flatten(dims, out_dim) \u2192 Tensor Flattens dims into a single dimension with name out_dim. All of dims must be consecutive in order in the self tensor, but not necessary contiguous in memory. Examples: \u003e\u003e\u003e imgs = torch.randn(32, 3, 128, 128, names=(\u0027N\u0027, \u0027C\u0027, \u0027H\u0027, \u0027W\u0027)) \u003e\u003e\u003e flat_imgs = imgs.flatten([\u0027C\u0027, \u0027H\u0027, \u0027W\u0027], \u0027features\u0027) \u003e\u003e\u003e flat_imgs.names, flat_imgs.shape ((\u0027N\u0027, \u0027features\u0027), torch.Size([32, 49152])) Warning The named tensor API is experimental and subject to change.",
+       "author": {
+         "@type": "Organization",
+         "name": "PyTorch Contributors",
+         "url": "https://pytorch.org"
+       },
+       "image": "_static/img/pytorch_seo.png",
+       "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "/named_tensor.html"
+       },
+       "datePublished": "Oct 08, 2019T00:00:00Z",
+       "dateModified": "Jun 14, 2025T00:00:00Z"
+     }
+ </script>
+  <script>
+    // Tutorials Call to action event tracking
+    $("[data-behavior='call-to-action-event']").on('click', function () {
+      fbq('trackCustom', "Download", {
+        tutorialTitle: $('h1:first').text(),
+        downloadLink: this.href,
+        tutorialLink: window.location.href,
+        downloadTitle: $(this).attr("data-response")
+      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': $(this).attr("data-response"),
+          'event_label': $("h1").first().text(),
+          'tutorial_link': window.location.href
+        });
+      }
+    });
+  </script>
+  
   </body>
 </html>
