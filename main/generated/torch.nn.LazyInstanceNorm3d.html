@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4535254 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -685,7 +685,7 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/tutorials/">
+  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
     Tutorials
   </a>
 </li>
@@ -1144,7 +1144,7 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/tutorials/">
+  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
     Tutorials
   </a>
 </li>
@@ -4480,7 +4480,7 @@ document.write(`
 <h1>LazyInstanceNorm3d<a class="headerlink" href="#lazyinstancenorm3d" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.LazyInstanceNorm3d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">LazyInstanceNorm3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_running_stats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/nn/modules/instancenorm.py#L436"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.LazyInstanceNorm3d" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">LazyInstanceNorm3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_running_stats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4535254c28242848a99d12d4248d90cedf164f1f/torch/nn/modules/instancenorm.py#L436"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.LazyInstanceNorm3d" title="Permalink to this definition">#</a></dt>
 <dd><p>A <a class="reference internal" href="torch.nn.InstanceNorm3d.html#torch.nn.InstanceNorm3d" title="torch.nn.InstanceNorm3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.InstanceNorm3d</span></code></a> module with lazy initialization of the <code class="docutils literal notranslate"><span class="pre">num_features</span></code> argument.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">num_features</span></code> argument of the <a class="reference internal" href="torch.nn.InstanceNorm3d.html#torch.nn.InstanceNorm3d" title="torch.nn.InstanceNorm3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">InstanceNorm3d</span></code></a> is inferred from the <code class="docutils literal notranslate"><span class="pre">input.size(1)</span></code>.
 The attributes that will be lazily initialized are <cite>weight</cite>, <cite>bias</cite>,
@@ -4513,8 +4513,8 @@ statistics in both training and eval modes. Default: <code class="docutils liter
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.LazyInstanceNorm3d.cls_to_become">
-<span class="sig-name descname"><span class="pre">cls_to_become</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/nn/modules/instancenorm.py#L358"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.LazyInstanceNorm3d.cls_to_become" title="Permalink to this definition">#</a></dt>
-<dd><p>alias of <a class="reference internal" href="torch.nn.modules.instancenorm.InstanceNorm3d.html#torch.nn.modules.instancenorm.InstanceNorm3d" title="torch.nn.modules.instancenorm.InstanceNorm3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">InstanceNorm3d</span></code></a></p>
+<span class="sig-name descname"><span class="pre">cls_to_become</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4535254c28242848a99d12d4248d90cedf164f1f/torch/nn/modules/instancenorm.py#L358"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.LazyInstanceNorm3d.cls_to_become" title="Permalink to this definition">#</a></dt>
+<dd><p>alias of <a class="reference internal" href="torch.nn.InstanceNorm3d.html#torch.nn.InstanceNorm3d" title="torch.nn.modules.instancenorm.InstanceNorm3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">InstanceNorm3d</span></code></a></p>
 </dd></dl>
 
 </dd></dl>

@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4535254 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -685,7 +685,7 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/tutorials/">
+  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
     Tutorials
   </a>
 </li>
@@ -1144,7 +1144,7 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/tutorials/">
+  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
     Tutorials
   </a>
 </li>
@@ -4480,7 +4480,7 @@ document.write(`
 <h1>StatefulSymbolicContext<a class="headerlink" href="#statefulsymboliccontext" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.StatefulSymbolicContext">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">StatefulSymbolicContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dynamic_sizes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_strides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_strides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specialize_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_base_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_env_to_source_to_symbol_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/fx/experimental/symbolic_shapes.py#L2124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.StatefulSymbolicContext" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">StatefulSymbolicContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dynamic_sizes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_strides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_strides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specialize_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_base_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_env_to_source_to_symbol_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4535254c28242848a99d12d4248d90cedf164f1f/torch/fx/experimental/symbolic_shapes.py#L2124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.StatefulSymbolicContext" title="Permalink to this definition">#</a></dt>
 <dd><p>Create symbols in <code class="docutils literal notranslate"><span class="pre">create_symbolic_sizes_strides_storage_offset</span></code> via
 a symbolic_context determination as given by a cache of Source:Symbol. A cache hit
 will reuse a stored symbol, and a cache miss will write to this cache.</p>

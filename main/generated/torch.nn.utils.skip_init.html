@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git68e75be )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4535254 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -685,7 +685,7 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/tutorials/">
+  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
     Tutorials
   </a>
 </li>
@@ -1144,7 +1144,7 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-external" href="https://pytorch.org/tutorials/">
+  <a class="nav-link nav-external" href="https://docs.pytorch.org/tutorials/">
     Tutorials
   </a>
 </li>
@@ -4480,7 +4480,7 @@ document.write(`
 <h1>torch.nn.utils.skip_init<a class="headerlink" href="#torch-nn-utils-skip-init" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.skip_init">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.</span></span><span class="sig-name descname"><span class="pre">skip_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_cls</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/68e75be86ab618bb6b1dc32b603a780ff6046262/torch/nn/utils/init.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.skip_init" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.</span></span><span class="sig-name descname"><span class="pre">skip_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_cls</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4535254c28242848a99d12d4248d90cedf164f1f/torch/nn/utils/init.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.skip_init" title="Permalink to this definition">#</a></dt>
 <dd><p>Given a module class object and args / kwargs, instantiate the module without initializing parameters / buffers.</p>
 <p>This can be useful if initialization is slow or if custom initialization will
 be performed, making the default initialization unnecessary. There are some caveats to this, due to
