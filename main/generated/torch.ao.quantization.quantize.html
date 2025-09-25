@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4535254 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git77b9aac )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4491,7 +4491,7 @@ document.write(`
 <h1>quantize<a class="headerlink" href="#quantize" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.quantize">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.</span></span><span class="sig-name descname"><span class="pre">quantize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4535254c28242848a99d12d4248d90cedf164f1f/torch/ao/quantization/quantize.py#L449"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.quantize" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.</span></span><span class="sig-name descname"><span class="pre">quantize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/77b9aac6c2ab41e07ca2643260ca3e6f059abc4a/torch/ao/quantization/quantize.py#L449"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.quantize" title="Permalink to this definition">#</a></dt>
 <dd><p>Quantize the input float model with post training static quantization.</p>
 <p>First it will prepare the model for calibration, then it calls
 <cite>run_fn</cite> which will run the calibration step, after that we will
