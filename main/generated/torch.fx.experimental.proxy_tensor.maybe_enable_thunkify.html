@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git77b9aac )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git5b8fef3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4480,7 +4480,7 @@ document.write(`
 <h1>torch.fx.experimental.proxy_tensor.maybe_enable_thunkify<a class="headerlink" href="#torch-fx-experimental-proxy-tensor-maybe-enable-thunkify" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.proxy_tensor.maybe_enable_thunkify">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.proxy_tensor.</span></span><span class="sig-name descname"><span class="pre">maybe_enable_thunkify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/77b9aac6c2ab41e07ca2643260ca3e6f059abc4a/torch/fx/experimental/proxy_tensor.py#L522"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.proxy_tensor.maybe_enable_thunkify" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.proxy_tensor.</span></span><span class="sig-name descname"><span class="pre">maybe_enable_thunkify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5b8fef3f179aaa78d96e5f9cc88fbf4cb81f48de/torch/fx/experimental/proxy_tensor.py#L522"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.proxy_tensor.maybe_enable_thunkify" title="Permalink to this definition">#</a></dt>
 <dd><p>Within this context manager, if you are doing make_fx tracing, we will thunkify
 all SymNode compute and avoid tracing it into the graph unless it is actually needed.
 You should prefer to avoid using this as much as possible, as lazy evaluation of

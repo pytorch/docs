@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git77b9aac )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git5b8fef3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4480,7 +4480,7 @@ document.write(`
 <h1>LambdaLR<a class="headerlink" href="#lambdalr" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.LambdaLR">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.lr_scheduler.</span></span><span class="sig-name descname"><span class="pre">LambdaLR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr_lambda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/77b9aac6c2ab41e07ca2643260ca3e6f059abc4a/torch/optim/lr_scheduler.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LambdaLR" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.lr_scheduler.</span></span><span class="sig-name descname"><span class="pre">LambdaLR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr_lambda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5b8fef3f179aaa78d96e5f9cc88fbf4cb81f48de/torch/optim/lr_scheduler.py#L351"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LambdaLR" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets the initial learning rate.</p>
 <p>The learning rate of each parameter group is set to the initial lr
 times a given function. When last_epoch=-1, sets initial lr as lr.</p>
@@ -4517,29 +4517,58 @@ functions, one for each group in optimizer.param_groups.</p></li>
 <img alt="../_images/LambdaLR.png" src="../_images/LambdaLR.png" />
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.LambdaLR.get_last_lr">
-<span class="sig-name descname"><span class="pre">get_last_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/77b9aac6c2ab41e07ca2643260ca3e6f059abc4a/torch/optim/lr_scheduler.py#L180"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LambdaLR.get_last_lr" title="Permalink to this definition">#</a></dt>
-<dd><p>Return last computed learning rate by current scheduler.</p>
+<span class="sig-name descname"><span class="pre">get_last_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5b8fef3f179aaa78d96e5f9cc88fbf4cb81f48de/torch/optim/lr_scheduler.py#L209"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LambdaLR.get_last_lr" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the most recent learning rates computed by this scheduler.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a>]</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of learning rates with entries
+for each of the optimizer’s
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">param_groups</span></code>, with the same types as
+their <code class="docutils literal notranslate"><span class="pre">group[&quot;lr&quot;]</span></code>s.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a> | <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>]</p>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The returned <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>s are copies, and never alias
+the optimizer’s <code class="docutils literal notranslate"><span class="pre">group[&quot;lr&quot;]</span></code>s.</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.LambdaLR.get_lr">
-<span class="sig-name descname"><span class="pre">get_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/77b9aac6c2ab41e07ca2643260ca3e6f059abc4a/torch/optim/lr_scheduler.py#L376"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LambdaLR.get_lr" title="Permalink to this definition">#</a></dt>
-<dd><p>Compute learning rate.</p>
+<span class="sig-name descname"><span class="pre">get_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5b8fef3f179aaa78d96e5f9cc88fbf4cb81f48de/torch/optim/lr_scheduler.py#L448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LambdaLR.get_lr" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the next learning rate for each of the optimizer’s
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">param_groups</span></code>.</p>
+<p>Scales the <code class="xref py py-attr docutils literal notranslate"><span class="pre">base_lrs</span></code> by the outputs of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">lr_lambdas</span></code> at
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">last_epoch</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a>]</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of learning rates for each of
+the optimizer’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">param_groups</span></code> with the
+same types as their current <code class="docutils literal notranslate"><span class="pre">group[&quot;lr&quot;]</span></code>s.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a> | <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>]</p>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’re trying to inspect the most recent learning rate, use
+<a class="reference internal" href="#torch.optim.lr_scheduler.LambdaLR.get_last_lr" title="torch.optim.lr_scheduler.LambdaLR.get_last_lr"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_last_lr()</span></code></a> instead.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The returned <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>s are copies, and never alias
+the optimizer’s <code class="docutils literal notranslate"><span class="pre">group[&quot;lr&quot;]</span></code>s.</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.LambdaLR.load_state_dict">
-<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/77b9aac6c2ab41e07ca2643260ca3e6f059abc4a/torch/optim/lr_scheduler.py#L356"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LambdaLR.load_state_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5b8fef3f179aaa78d96e5f9cc88fbf4cb81f48de/torch/optim/lr_scheduler.py#L428"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LambdaLR.load_state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Load the scheduler’s state.</p>
 <p>When saving or loading the scheduler, please make sure to also save or load the state of the optimizer.</p>
 <dl class="field-list simple">
@@ -4552,10 +4581,9 @@ from a call to <a class="reference internal" href="#torch.optim.lr_scheduler.Lam
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.LambdaLR.state_dict">
-<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/77b9aac6c2ab41e07ca2643260ca3e6f059abc4a/torch/optim/lr_scheduler.py#L332"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LambdaLR.state_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5b8fef3f179aaa78d96e5f9cc88fbf4cb81f48de/torch/optim/lr_scheduler.py#L405"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LambdaLR.state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the state of the scheduler as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
-<p>It contains an entry for every variable in self.__dict__ which
-is not the optimizer.
+<p>It contains an entry for every variable in <code class="docutils literal notranslate"><span class="pre">self.__dict__</span></code> which is not the optimizer.
 The learning rate lambda functions will only be saved if they are callable objects
 and not if they are functions or lambdas.</p>
 <p>When saving or loading the scheduler, please make sure to also save or load the state of the optimizer.</p>
@@ -4568,10 +4596,24 @@ and not if they are functions or lambdas.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.LambdaLR.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/77b9aac6c2ab41e07ca2643260ca3e6f059abc4a/torch/optim/lr_scheduler.py#L188"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LambdaLR.step" title="Permalink to this definition">#</a></dt>
-<dd><p>Perform a step.</p>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5b8fef3f179aaa78d96e5f9cc88fbf4cb81f48de/torch/optim/lr_scheduler.py#L246"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LambdaLR.step" title="Permalink to this definition">#</a></dt>
+<dd><p>Step the scheduler.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – <div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.4: </span>If provided, sets <code class="xref py py-attr docutils literal notranslate"><span class="pre">last_epoch</span></code> to <code class="docutils literal notranslate"><span class="pre">epoch</span></code> and uses
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">_get_closed_form_lr()</span></code> if it is available. This is not
+universally supported. Use <a class="reference internal" href="#torch.optim.lr_scheduler.LambdaLR.step" title="torch.optim.lr_scheduler.LambdaLR.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a> without arguments
+instead.</p>
+</div>
+</p>
+</dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Call this method after calling the optimizer’s
+<a class="reference internal" href="torch.optim.Optimizer.step.html#torch.optim.Optimizer.step" title="torch.optim.Optimizer.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>.</p>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -4934,7 +4976,7 @@ and not if they are functions or lambdas.</p>
        "headline": "LambdaLR",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.optim.lr_scheduler.LambdaLR.html",
-       "articleBody": "LambdaLR# class torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda, last_epoch=-1)[source]# Sets the initial learning rate. The learning rate of each parameter group is set to the initial lr times a given function. When last_epoch=-1, sets initial lr as lr. Parameters optimizer (Optimizer) \u2013 Wrapped optimizer. lr_lambda (function or list) \u2013 A function which computes a multiplicative factor given an integer parameter epoch, or a list of such functions, one for each group in optimizer.param_groups. last_epoch (int) \u2013 The index of last epoch. Default: -1. Example \u003e\u003e\u003e # Assuming optimizer has two groups. \u003e\u003e\u003e num_epochs = 100 \u003e\u003e\u003e lambda1 = lambda epoch: epoch // 30 \u003e\u003e\u003e lambda2 = lambda epoch: 0.95**epoch \u003e\u003e\u003e scheduler = LambdaLR(optimizer, lr_lambda=[lambda1, lambda2]) \u003e\u003e\u003e for epoch in range(num_epochs): \u003e\u003e\u003e train(...) \u003e\u003e\u003e validate(...) \u003e\u003e\u003e scheduler.step() \u003e\u003e\u003e \u003e\u003e\u003e # Alternatively, you can use a single lambda function for all groups. \u003e\u003e\u003e scheduler = LambdaLR(opt, lr_lambda=lambda epoch: epoch // 30) \u003e\u003e\u003e for epoch in range(num_epochs): \u003e\u003e\u003e train(...) \u003e\u003e\u003e validate(...) \u003e\u003e\u003e scheduler.step() get_last_lr()[source]# Return last computed learning rate by current scheduler. Return type list[float] get_lr()[source]# Compute learning rate. Return type list[float] load_state_dict(state_dict)[source]# Load the scheduler\u2019s state. When saving or loading the scheduler, please make sure to also save or load the state of the optimizer. Parameters state_dict (dict) \u2013 scheduler state. Should be an object returned from a call to state_dict(). state_dict()[source]# Return the state of the scheduler as a dict. It contains an entry for every variable in self.__dict__ which is not the optimizer. The learning rate lambda functions will only be saved if they are callable objects and not if they are functions or lambdas. When saving or loading the scheduler, please make sure to also save or load the state of the optimizer. Return type dict[str, Any] step(epoch=None)[source]# Perform a step.",
+       "articleBody": "LambdaLR# class torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda, last_epoch=-1)[source]# Sets the initial learning rate. The learning rate of each parameter group is set to the initial lr times a given function. When last_epoch=-1, sets initial lr as lr. Parameters optimizer (Optimizer) \u2013 Wrapped optimizer. lr_lambda (function or list) \u2013 A function which computes a multiplicative factor given an integer parameter epoch, or a list of such functions, one for each group in optimizer.param_groups. last_epoch (int) \u2013 The index of last epoch. Default: -1. Example \u003e\u003e\u003e # Assuming optimizer has two groups. \u003e\u003e\u003e num_epochs = 100 \u003e\u003e\u003e lambda1 = lambda epoch: epoch // 30 \u003e\u003e\u003e lambda2 = lambda epoch: 0.95**epoch \u003e\u003e\u003e scheduler = LambdaLR(optimizer, lr_lambda=[lambda1, lambda2]) \u003e\u003e\u003e for epoch in range(num_epochs): \u003e\u003e\u003e train(...) \u003e\u003e\u003e validate(...) \u003e\u003e\u003e scheduler.step() \u003e\u003e\u003e \u003e\u003e\u003e # Alternatively, you can use a single lambda function for all groups. \u003e\u003e\u003e scheduler = LambdaLR(opt, lr_lambda=lambda epoch: epoch // 30) \u003e\u003e\u003e for epoch in range(num_epochs): \u003e\u003e\u003e train(...) \u003e\u003e\u003e validate(...) \u003e\u003e\u003e scheduler.step() get_last_lr()[source]# Get the most recent learning rates computed by this scheduler. Returns A list of learning rates with entries for each of the optimizer\u2019s param_groups, with the same types as their group[\"lr\"]s. Return type list[float | Tensor] Note The returned Tensors are copies, and never alias the optimizer\u2019s group[\"lr\"]s. get_lr()[source]# Compute the next learning rate for each of the optimizer\u2019s param_groups. Scales the base_lrs by the outputs of the lr_lambdas at last_epoch. Returns A list of learning rates for each of the optimizer\u2019s param_groups with the same types as their current group[\"lr\"]s. Return type list[float | Tensor] Note If you\u2019re trying to inspect the most recent learning rate, use get_last_lr() instead. Note The returned Tensors are copies, and never alias the optimizer\u2019s group[\"lr\"]s. load_state_dict(state_dict)[source]# Load the scheduler\u2019s state. When saving or loading the scheduler, please make sure to also save or load the state of the optimizer. Parameters state_dict (dict) \u2013 scheduler state. Should be an object returned from a call to state_dict(). state_dict()[source]# Return the state of the scheduler as a dict. It contains an entry for every variable in self.__dict__ which is not the optimizer. The learning rate lambda functions will only be saved if they are callable objects and not if they are functions or lambdas. When saving or loading the scheduler, please make sure to also save or load the state of the optimizer. Return type dict[str, Any] step(epoch=None)[source]# Step the scheduler. Parameters epoch (int, optional) \u2013 Deprecated since version 1.4: If provided, sets last_epoch to epoch and uses _get_closed_form_lr() if it is available. This is not universally supported. Use step() without arguments instead. Note Call this method after calling the optimizer\u2019s step().",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
