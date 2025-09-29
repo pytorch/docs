@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitfd20889 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitbc5a072 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4491,7 +4491,7 @@ document.write(`
 <h1>torch.compiler.cudagraph_mark_step_begin<a class="headerlink" href="#torch-compiler-cudagraph-mark-step-begin" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.cudagraph_mark_step_begin">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">cudagraph_mark_step_begin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/fd20889d0b7670dbb77f09aba61f1a49f2757781/torch/compiler/__init__.py#L373"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.cudagraph_mark_step_begin" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">cudagraph_mark_step_begin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bc5a072ebfe240cf8685b97bf86cf8ac1bb7797f/torch/compiler/__init__.py#L373"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.cudagraph_mark_step_begin" title="Permalink to this definition">#</a></dt>
 <dd><p>Indicates that a new iteration of inference or training is about to begin.</p>
 <p>CUDA Graphs will free tensors of a prior iteration. A new iteration is started on each invocation of
 torch.compile, so long as there is not a pending backward that has not been called.</p>
