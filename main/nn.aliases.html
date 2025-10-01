@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git704cd77 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitad7e3c9 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -213,10 +213,10 @@
                 <span>Learn</span>
               </a>
               <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/get-started">
+                <a class="nav-dropdown-item" href="https://pytorch.org/get-started/locally">
                   <span class=dropdown-title>Get Started</span>
                 </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials">
+                <a class="nav-dropdown-item" href="https://docs.pytorch.org/tutorials">
                   <span class="dropdown-title">Tutorials</span>
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
@@ -297,10 +297,10 @@
               <span> Docs</span>
               </a>
               <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/docs/stable/index.html">
+                <a class="nav-dropdown-item" href="https://docs.pytorch.org/docs/stable/index.html">
                   <span class="dropdown-title">PyTorch</span>
                 </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/pytorch-domains">
+                <a class="nav-dropdown-item" href="https://pytorch.org/domains">
                   <span class="dropdown-title">Domains</span>
                 </a>
               </div>
@@ -398,10 +398,10 @@
          </li>
          <ul class="resources-mobile-menu-items">
            <li>
-             <a href="https://pytorch.org/get-started">Get Started</a>
+             <a href="https://pytorch.org/get-started/locally">Get Started</a>
            </li>
            <li>
-             <a href="https://pytorch.org/tutorials">Tutorials</a>
+             <a href="https://docs.pytorch.org/tutorials">Tutorials</a>
            </li>
            <li>
              <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
@@ -472,11 +472,11 @@
 
          <ul class="resources-mobile-menu-items">
           <li>
-            <a href="https://pytorch.org/docs/stable/index.html">PyTorch</a>
+            <a href="https://docs.pytorch.org/docs/stable/index.html">PyTorch</a>
           </li>
 
           <li>
-            <a href="https://pytorch.org/pytorch-domains">Domains</a>
+            <a href="https://pytorch.org/domains">Domains</a>
           </li>
         </ul>
 
@@ -3446,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4530,7 +4530,7 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.ConvTranspose1d.html#torch.nn.modules.conv.ConvTranspose1d" title="torch.nn.modules.conv.ConvTranspose1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.ConvTranspose1d</span></code></a></p></td>
 <td><p>Applies a 1D transposed convolution operator over an input image composed of several input planes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.modules.conv.ConvTranspose2d.html#torch.nn.modules.conv.ConvTranspose2d" title="torch.nn.modules.conv.ConvTranspose2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.ConvTranspose2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.ConvTranspose2d.html#torch.nn.ConvTranspose2d" title="torch.nn.modules.conv.ConvTranspose2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.ConvTranspose2d</span></code></a></p></td>
 <td><p>Applies a 2D transposed convolution operator over an input image composed of several input planes.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.ConvTranspose3d.html#torch.nn.ConvTranspose3d" title="torch.nn.modules.conv.ConvTranspose3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv.ConvTranspose3d</span></code></a></p></td>
@@ -5031,7 +5031,7 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.L1Loss.html#torch.nn.L1Loss" title="torch.nn.modules.loss.L1Loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.L1Loss</span></code></a></p></td>
 <td><p>Creates a criterion that measures the mean absolute error (MAE) between each element in the input <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> and target <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.MSELoss.html#torch.nn.MSELoss" title="torch.nn.modules.loss.MSELoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.MSELoss</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.modules.loss.MSELoss.html#torch.nn.modules.loss.MSELoss" title="torch.nn.modules.loss.MSELoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.MSELoss</span></code></a></p></td>
 <td><p>Creates a criterion that measures the mean squared error (squared L2 norm) between each element in the input <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> and target <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.CrossEntropyLoss.html#torch.nn.CrossEntropyLoss" title="torch.nn.modules.loss.CrossEntropyLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss.CrossEntropyLoss</span></code></a></p></td>
@@ -5471,13 +5471,13 @@ document.write(`
       <div class="col-md-4">
         <h2>Docs</h2>
         <p>Access comprehensive developer documentation for PyTorch</p>
-        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
+        <a class="with-right-arrow" href="https://docs.pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
 
       <div class="col-md-4">
         <h2>Tutorials</h2>
         <p>Get in-depth tutorials for beginners and advanced developers</p>
-        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+        <a class="with-right-arrow" href="https://docs.pytorch.org/tutorials">View Tutorials</a>
       </div>
 
       <div class="col-md-4">

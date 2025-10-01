@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git704cd77 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitad7e3c9 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -213,10 +213,10 @@
                 <span>Learn</span>
               </a>
               <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/get-started">
+                <a class="nav-dropdown-item" href="https://pytorch.org/get-started/locally">
                   <span class=dropdown-title>Get Started</span>
                 </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials">
+                <a class="nav-dropdown-item" href="https://docs.pytorch.org/tutorials">
                   <span class="dropdown-title">Tutorials</span>
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
@@ -297,10 +297,10 @@
               <span> Docs</span>
               </a>
               <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/docs/stable/index.html">
+                <a class="nav-dropdown-item" href="https://docs.pytorch.org/docs/stable/index.html">
                   <span class="dropdown-title">PyTorch</span>
                 </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/pytorch-domains">
+                <a class="nav-dropdown-item" href="https://pytorch.org/domains">
                   <span class="dropdown-title">Domains</span>
                 </a>
               </div>
@@ -398,10 +398,10 @@
          </li>
          <ul class="resources-mobile-menu-items">
            <li>
-             <a href="https://pytorch.org/get-started">Get Started</a>
+             <a href="https://pytorch.org/get-started/locally">Get Started</a>
            </li>
            <li>
-             <a href="https://pytorch.org/tutorials">Tutorials</a>
+             <a href="https://docs.pytorch.org/tutorials">Tutorials</a>
            </li>
            <li>
              <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
@@ -472,11 +472,11 @@
 
          <ul class="resources-mobile-menu-items">
           <li>
-            <a href="https://pytorch.org/docs/stable/index.html">PyTorch</a>
+            <a href="https://docs.pytorch.org/docs/stable/index.html">PyTorch</a>
           </li>
 
           <li>
-            <a href="https://pytorch.org/pytorch-domains">Domains</a>
+            <a href="https://pytorch.org/domains">Domains</a>
           </li>
         </ul>
 
@@ -3446,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4491,7 +4491,7 @@ document.write(`
 <h1>Adamax<a class="headerlink" href="#adamax" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.optim.adamax.Adamax">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.adamax.</span></span><span class="sig-name descname"><span class="pre">Adamax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.002</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">betas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.9,</span> <span class="pre">0.999)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">differentiable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capturable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/704cd771f6a63abf9498934aeb7f3079ab9e2232/torch/optim/adamax.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.adamax.</span></span><span class="sig-name descname"><span class="pre">Adamax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.002</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">betas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.9,</span> <span class="pre">0.999)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">differentiable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capturable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad7e3c93b19d2c4ce0b1223976917fb3ce0c038e/torch/optim/adamax.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax" title="Permalink to this definition">#</a></dt>
 <dd><p>Implements Adamax algorithm (a variant of Adam based on infinity norm).</p>
 <div class="math">
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mpadded height="0em" voffset="0em"><mspace mathbackground="black" width="31.298em" height="0.04em"></mspace></mpadded></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext mathvariant="bold">input</mtext><mo>:</mo><mi>γ</mi><mtext> (lr)</mtext><mo separator="true">,</mo><msub><mi>β</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>β</mi><mn>2</mn></msub><mtext> (betas)</mtext><mo separator="true">,</mo><msub><mi>θ</mi><mn>0</mn></msub><mtext> (params)</mtext><mo separator="true">,</mo><mi>f</mi><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mtext> (objective)</mtext><mo separator="true">,</mo><mtext> </mtext><mi>λ</mi><mtext> (weight decay)</mtext><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mspace width="3.6989em"/><mi>ϵ</mi><mtext> (epsilon)</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext mathvariant="bold">initialize</mtext><mo>:</mo><msub><mi>m</mi><mn>0</mn></msub><mo>←</mo><mn>0</mn><mtext> ( first moment)</mtext><mo separator="true">,</mo><msub><mi>u</mi><mn>0</mn></msub><mo>←</mo><mn>0</mn><mtext> ( infinity norm)</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mpadded height="0em" voffset="0em"><mspace mathbackground="black" width="31.298em" height="0.04em"></mspace></mpadded></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext mathvariant="bold">for</mtext><mtext> </mtext><mi>t</mi><mo>=</mo><mn>1</mn><mtext> </mtext><mtext mathvariant="bold">to</mtext><mtext> </mtext><mo>…</mo><mtext> </mtext><mtext mathvariant="bold">do</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mspace width="1.4226em"/><msub><mi>g</mi><mi>t</mi></msub><mo>←</mo><msub><mi mathvariant="normal">∇</mi><mi>θ</mi></msub><msub><mi>f</mi><mi>t</mi></msub><mo stretchy="false">(</mo><msub><mi>θ</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mspace width="1.4226em"/><mi>i</mi><mi>f</mi><mtext> </mtext><mi>λ</mi><mo mathvariant="normal">≠</mo><mn>0</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mspace width="2.8453em"/><msub><mi>g</mi><mi>t</mi></msub><mo>←</mo><msub><mi>g</mi><mi>t</mi></msub><mo>+</mo><mi>λ</mi><msub><mi>θ</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mspace width="1.4226em"/><msub><mi>m</mi><mi>t</mi></msub><mo>←</mo><msub><mi>β</mi><mn>1</mn></msub><msub><mi>m</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msub><mi>β</mi><mn>1</mn></msub><mo stretchy="false">)</mo><msub><mi>g</mi><mi>t</mi></msub></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mspace width="1.4226em"/><msub><mi>u</mi><mi>t</mi></msub><mo>←</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">x</mi></mrow><mo stretchy="false">(</mo><msub><mi>β</mi><mn>2</mn></msub><msub><mi>u</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo separator="true">,</mo><mi mathvariant="normal">∣</mi><msub><mi>g</mi><mi>t</mi></msub><mi mathvariant="normal">∣</mi><mo>+</mo><mi>ϵ</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mspace width="1.4226em"/><msub><mi>θ</mi><mi>t</mi></msub><mo>←</mo><msub><mi>θ</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><mfrac><mrow><mi>γ</mi><msub><mi>m</mi><mi>t</mi></msub></mrow><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msubsup><mi>β</mi><mn>1</mn><mi>t</mi></msubsup><mo stretchy="false">)</mo><msub><mi>u</mi><mi>t</mi></msub></mrow></mfrac></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mpadded height="0em" voffset="0em"><mspace mathbackground="black" width="31.298em" height="0.04em"></mspace></mpadded></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mrow><mrow><mi mathvariant="bold">r</mi><mi mathvariant="bold">e</mi><mi mathvariant="bold">t</mi><mi mathvariant="bold">u</mi><mi mathvariant="bold">r</mi><mi mathvariant="bold">n</mi></mrow><mtext> </mtext><msub><mi mathvariant="bold">θ</mi><mi mathvariant="bold">t</mi></msub></mrow></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mpadded height="0em" voffset="0em"><mspace mathbackground="black" width="31.298em" height="0.04em"></mspace></mpadded></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
@@ -4552,7 +4552,7 @@ capture this instance, leave it False (default: False)</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.adamax.Adamax.add_param_group">
-<span class="sig-name descname"><span class="pre">add_param_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/704cd771f6a63abf9498934aeb7f3079ab9e2232/torch/optim/optimizer.py#L1069"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.add_param_group" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_param_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad7e3c93b19d2c4ce0b1223976917fb3ce0c038e/torch/optim/optimizer.py#L1069"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.add_param_group" title="Permalink to this definition">#</a></dt>
 <dd><p>Add a param group to the <code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code> s <cite>param_groups</cite>.</p>
 <p>This can be useful when fine tuning a pre-trained network as frozen layers can be made
 trainable and added to the <code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code> as training progresses.</p>
@@ -4566,7 +4566,7 @@ specific optimization options.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.adamax.Adamax.load_state_dict">
-<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/704cd771f6a63abf9498934aeb7f3079ab9e2232/torch/optim/optimizer.py#L866"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.load_state_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad7e3c93b19d2c4ce0b1223976917fb3ce0c038e/torch/optim/optimizer.py#L866"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.load_state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Load the optimizer state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4619,7 +4619,7 @@ the optimizer <code class="docutils literal notranslate"><span class="pre">param
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.adamax.Adamax.register_load_state_dict_post_hook">
-<span class="sig-name descname"><span class="pre">register_load_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/704cd771f6a63abf9498934aeb7f3079ab9e2232/torch/optim/optimizer.py#L830"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.register_load_state_dict_post_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_load_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad7e3c93b19d2c4ce0b1223976917fb3ce0c038e/torch/optim/optimizer.py#L830"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.register_load_state_dict_post_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a load_state_dict post-hook which will be called after
 <a class="reference internal" href="torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict" title="torch.optim.Optimizer.load_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> is called. It should have the
 following signature:</p>
@@ -4653,7 +4653,7 @@ post-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.adamax.Adamax.register_load_state_dict_pre_hook">
-<span class="sig-name descname"><span class="pre">register_load_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/704cd771f6a63abf9498934aeb7f3079ab9e2232/torch/optim/optimizer.py#L791"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.register_load_state_dict_pre_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_load_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad7e3c93b19d2c4ce0b1223976917fb3ce0c038e/torch/optim/optimizer.py#L791"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.register_load_state_dict_pre_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a load_state_dict pre-hook which will be called before
 <a class="reference internal" href="torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict" title="torch.optim.Optimizer.load_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> is called. It should have the
 following signature:</p>
@@ -4690,7 +4690,7 @@ pre-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.adamax.Adamax.register_state_dict_post_hook">
-<span class="sig-name descname"><span class="pre">register_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/704cd771f6a63abf9498934aeb7f3079ab9e2232/torch/optim/optimizer.py#L633"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.register_state_dict_post_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad7e3c93b19d2c4ce0b1223976917fb3ce0c038e/torch/optim/optimizer.py#L633"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.register_state_dict_post_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a state dict post-hook which will be called after <a class="reference internal" href="torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict" title="torch.optim.Optimizer.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> is called.</p>
 <p>It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">state_dict</span> <span class="ow">or</span> <span class="kc">None</span>
@@ -4722,7 +4722,7 @@ post-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.adamax.Adamax.register_state_dict_pre_hook">
-<span class="sig-name descname"><span class="pre">register_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/704cd771f6a63abf9498934aeb7f3079ab9e2232/torch/optim/optimizer.py#L601"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.register_state_dict_pre_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad7e3c93b19d2c4ce0b1223976917fb3ce0c038e/torch/optim/optimizer.py#L601"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.register_state_dict_pre_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a state dict pre-hook which will be called before <a class="reference internal" href="torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict" title="torch.optim.Optimizer.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> is called.</p>
 <p>It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
@@ -4754,7 +4754,7 @@ pre-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.adamax.Adamax.register_step_post_hook">
-<span class="sig-name descname"><span class="pre">register_step_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/704cd771f6a63abf9498934aeb7f3079ab9e2232/torch/optim/optimizer.py#L580"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.register_step_post_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_step_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad7e3c93b19d2c4ce0b1223976917fb3ce0c038e/torch/optim/optimizer.py#L580"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.register_step_post_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register an optimizer step post hook which will be called after optimizer step.</p>
 <p>It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
@@ -4777,7 +4777,7 @@ pre-hooks. (default: False)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.adamax.Adamax.register_step_pre_hook">
-<span class="sig-name descname"><span class="pre">register_step_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/704cd771f6a63abf9498934aeb7f3079ab9e2232/torch/optim/optimizer.py#L557"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.register_step_pre_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_step_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad7e3c93b19d2c4ce0b1223976917fb3ce0c038e/torch/optim/optimizer.py#L557"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.register_step_pre_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register an optimizer step pre hook which will be called before optimizer step.</p>
 <p>It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">modified</span> <span class="n">args</span> <span class="ow">and</span> <span class="n">kwargs</span>
@@ -4802,7 +4802,7 @@ values are returned as a tuple containing the new_args and new_kwargs.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.adamax.Adamax.state_dict">
-<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/704cd771f6a63abf9498934aeb7f3079ab9e2232/torch/optim/optimizer.py#L667"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.state_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad7e3c93b19d2c4ce0b1223976917fb3ce0c038e/torch/optim/optimizer.py#L667"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.state_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the state of the optimizer as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
 <p>It contains two entries:</p>
 <ul class="simple">
@@ -4865,7 +4865,7 @@ match state WITHOUT additional verification.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.adamax.Adamax.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">closure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/704cd771f6a63abf9498934aeb7f3079ab9e2232/torch/optim/adamax.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.step" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">closure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad7e3c93b19d2c4ce0b1223976917fb3ce0c038e/torch/optim/adamax.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.step" title="Permalink to this definition">#</a></dt>
 <dd><p>Performs a single optimization step.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4877,7 +4877,7 @@ and returns the loss.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.adamax.Adamax.zero_grad">
-<span class="sig-name descname"><span class="pre">zero_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">set_to_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/704cd771f6a63abf9498934aeb7f3079ab9e2232/torch/optim/optimizer.py#L997"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.zero_grad" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">zero_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">set_to_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad7e3c93b19d2c4ce0b1223976917fb3ce0c038e/torch/optim/optimizer.py#L997"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.adamax.Adamax.zero_grad" title="Permalink to this definition">#</a></dt>
 <dd><p>Reset the gradients of all optimized <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> s.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -5097,13 +5097,13 @@ the step altogether).</p></li>
       <div class="col-md-4">
         <h2>Docs</h2>
         <p>Access comprehensive developer documentation for PyTorch</p>
-        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
+        <a class="with-right-arrow" href="https://docs.pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
 
       <div class="col-md-4">
         <h2>Tutorials</h2>
         <p>Get in-depth tutorials for beginners and advanced developers</p>
-        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+        <a class="with-right-arrow" href="https://docs.pytorch.org/tutorials">View Tutorials</a>
       </div>
 
       <div class="col-md-4">

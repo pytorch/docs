@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git704cd77 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitad7e3c9 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -213,10 +213,10 @@
                 <span>Learn</span>
               </a>
               <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/get-started">
+                <a class="nav-dropdown-item" href="https://pytorch.org/get-started/locally">
                   <span class=dropdown-title>Get Started</span>
                 </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials">
+                <a class="nav-dropdown-item" href="https://docs.pytorch.org/tutorials">
                   <span class="dropdown-title">Tutorials</span>
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
@@ -297,10 +297,10 @@
               <span> Docs</span>
               </a>
               <div class="resources-dropdown-menu">
-                <a class="nav-dropdown-item" href="https://pytorch.org/docs/stable/index.html">
+                <a class="nav-dropdown-item" href="https://docs.pytorch.org/docs/stable/index.html">
                   <span class="dropdown-title">PyTorch</span>
                 </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/pytorch-domains">
+                <a class="nav-dropdown-item" href="https://pytorch.org/domains">
                   <span class="dropdown-title">Domains</span>
                 </a>
               </div>
@@ -398,10 +398,10 @@
          </li>
          <ul class="resources-mobile-menu-items">
            <li>
-             <a href="https://pytorch.org/get-started">Get Started</a>
+             <a href="https://pytorch.org/get-started/locally">Get Started</a>
            </li>
            <li>
-             <a href="https://pytorch.org/tutorials">Tutorials</a>
+             <a href="https://docs.pytorch.org/tutorials">Tutorials</a>
            </li>
            <li>
              <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
@@ -472,11 +472,11 @@
 
          <ul class="resources-mobile-menu-items">
           <li>
-            <a href="https://pytorch.org/docs/stable/index.html">PyTorch</a>
+            <a href="https://docs.pytorch.org/docs/stable/index.html">PyTorch</a>
           </li>
 
           <li>
-            <a href="https://pytorch.org/pytorch-domains">Domains</a>
+            <a href="https://pytorch.org/domains">Domains</a>
           </li>
         </ul>
 
@@ -3446,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4491,7 +4491,7 @@ document.write(`
 <h1>SmoothL1Loss<a class="headerlink" href="#smoothl1loss" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.modules.loss.SmoothL1Loss">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.loss.</span></span><span class="sig-name descname"><span class="pre">SmoothL1Loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/704cd771f6a63abf9498934aeb7f3079ab9e2232/torch/nn/modules/loss.py#L996"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.loss.SmoothL1Loss" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.loss.</span></span><span class="sig-name descname"><span class="pre">SmoothL1Loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad7e3c93b19d2c4ce0b1223976917fb3ce0c038e/torch/nn/modules/loss.py#L996"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.loss.SmoothL1Loss" title="Permalink to this definition">#</a></dt>
 <dd><p>Creates a criterion that uses a squared term if the absolute
 element-wise error falls below beta and an L1 term otherwise.
 It is less sensitive to outliers than <a class="reference internal" href="torch.nn.MSELoss.html#torch.nn.MSELoss" title="torch.nn.MSELoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.MSELoss</span></code></a> and in some cases
@@ -4530,7 +4530,7 @@ also known as delta for Huber). This leads to the following differences:</p>
 <li><p>As beta -&gt; 0, Smooth L1 loss converges to <a class="reference internal" href="torch.nn.L1Loss.html#torch.nn.L1Loss" title="torch.nn.modules.loss.L1Loss"><code class="xref py py-class docutils literal notranslate"><span class="pre">L1Loss</span></code></a>, while <a class="reference internal" href="torch.nn.HuberLoss.html#torch.nn.HuberLoss" title="torch.nn.modules.loss.HuberLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">HuberLoss</span></code></a>
 converges to a constant 0 loss. When beta is 0, Smooth L1 loss is equivalent to L1 loss.</p></li>
 <li><p>As beta -&gt; <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">+\infty</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">+</span><span class="mord">∞</span></span></span></span></span>, Smooth L1 loss converges to a constant 0 loss, while
-<a class="reference internal" href="torch.nn.HuberLoss.html#torch.nn.HuberLoss" title="torch.nn.modules.loss.HuberLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">HuberLoss</span></code></a> converges to <a class="reference internal" href="torch.nn.MSELoss.html#torch.nn.MSELoss" title="torch.nn.modules.loss.MSELoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSELoss</span></code></a>.</p></li>
+<a class="reference internal" href="torch.nn.HuberLoss.html#torch.nn.HuberLoss" title="torch.nn.modules.loss.HuberLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">HuberLoss</span></code></a> converges to <a class="reference internal" href="torch.nn.modules.loss.MSELoss.html#torch.nn.modules.loss.MSELoss" title="torch.nn.modules.loss.MSELoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSELoss</span></code></a>.</p></li>
 <li><p>For Smooth L1 loss, as beta varies, the L1 segment of the loss has a constant slope of 1.
 For <a class="reference internal" href="torch.nn.HuberLoss.html#torch.nn.HuberLoss" title="torch.nn.modules.loss.HuberLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">HuberLoss</span></code></a>, the slope of the L1 segment is beta.</p></li>
 </ul>
@@ -4568,7 +4568,7 @@ The value must be non-negative. Default: 1.0</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.loss.SmoothL1Loss.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/704cd771f6a63abf9498934aeb7f3079ab9e2232/torch/nn/modules/loss.py#L1076"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.loss.SmoothL1Loss.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ad7e3c93b19d2c4ce0b1223976917fb3ce0c038e/torch/nn/modules/loss.py#L1076"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.loss.SmoothL1Loss.forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -4766,13 +4766,13 @@ The value must be non-negative. Default: 1.0</p></li>
       <div class="col-md-4">
         <h2>Docs</h2>
         <p>Access comprehensive developer documentation for PyTorch</p>
-        <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
+        <a class="with-right-arrow" href="https://docs.pytorch.org/docs/stable/index.html">View Docs</a>
       </div>
 
       <div class="col-md-4">
         <h2>Tutorials</h2>
         <p>Get in-depth tutorials for beginners and advanced developers</p>
-        <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+        <a class="with-right-arrow" href="https://docs.pytorch.org/tutorials">View Tutorials</a>
       </div>
 
       <div class="col-md-4">
