@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git1a5d023 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git86474ce )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4491,7 +4491,7 @@ document.write(`
 <h1>torch.func.linearize<a class="headerlink" href="#torch-func-linearize" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.func.linearize">
-<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">linearize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">primals</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1a5d023a5b5666aab25d17fd16bb93134b7bd5fe/torch/_functorch/eager_transforms.py#L1678"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.linearize" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">linearize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">primals</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/86474ce996d168b404592cbbdfcc30d6607c8bd4/torch/_functorch/eager_transforms.py#L1679"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.linearize" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the value of <code class="docutils literal notranslate"><span class="pre">func</span></code> at <code class="docutils literal notranslate"><span class="pre">primals</span></code> and linear approximation
 at <code class="docutils literal notranslate"><span class="pre">primals</span></code>.</p>
 <dl class="field-list simple">
@@ -4508,7 +4508,7 @@ applied to <code class="docutils literal notranslate"><span class="pre">primals<
 <code class="docutils literal notranslate"><span class="pre">func</span></code> evaluated at <code class="docutils literal notranslate"><span class="pre">primals</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.13)"><em>Callable</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>, <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.13)">collections.abc.Callable</a>]</p>
 </dd>
 </dl>
 <p>linearize is useful if jvp is to be computed multiple times at <code class="docutils literal notranslate"><span class="pre">primals</span></code>. However,
@@ -4887,7 +4887,7 @@ with a single evaluation.</p>
        "headline": "torch.func.linearize",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.func.linearize.html",
-       "articleBody": "torch.func.linearize# torch.func.linearize(func, *primals)[source]# Returns the value of func at primals and linear approximation at primals. Parameters func (Callable) \u2013 A Python function that takes one or more arguments. primals (Tensors) \u2013 Positional arguments to func that must all be Tensors. These are the values at which the function is linearly approximated. Returns Returns a (output, jvp_fn) tuple containing the output of func applied to primals and a function that computes the jvp of func evaluated at primals. Return type tuple[Any, Callable] linearize is useful if jvp is to be computed multiple times at primals. However, to achieve this, linearize saves intermediate computation and has higher memory requirements than directly applying jvp. So, if all the tangents are known, it maybe more efficient to compute vmap(jvp) instead of using linearize. Note linearize evaluates func twice. Please file an issue for an implementation with a single evaluation. Example: \u003e\u003e\u003e import torch \u003e\u003e\u003e from torch.func import linearize \u003e\u003e\u003e def fn(x): ... return x.sin() ... \u003e\u003e\u003e output, jvp_fn = linearize(fn, torch.zeros(3, 3)) \u003e\u003e\u003e jvp_fn(torch.ones(3, 3)) tensor([[1., 1., 1.], [1., 1., 1.], [1., 1., 1.]]) \u003e\u003e\u003e",
+       "articleBody": "torch.func.linearize# torch.func.linearize(func, *primals)[source]# Returns the value of func at primals and linear approximation at primals. Parameters func (Callable) \u2013 A Python function that takes one or more arguments. primals (Tensors) \u2013 Positional arguments to func that must all be Tensors. These are the values at which the function is linearly approximated. Returns Returns a (output, jvp_fn) tuple containing the output of func applied to primals and a function that computes the jvp of func evaluated at primals. Return type tuple[Any, collections.abc.Callable] linearize is useful if jvp is to be computed multiple times at primals. However, to achieve this, linearize saves intermediate computation and has higher memory requirements than directly applying jvp. So, if all the tangents are known, it maybe more efficient to compute vmap(jvp) instead of using linearize. Note linearize evaluates func twice. Please file an issue for an implementation with a single evaluation. Example: \u003e\u003e\u003e import torch \u003e\u003e\u003e from torch.func import linearize \u003e\u003e\u003e def fn(x): ... return x.sin() ... \u003e\u003e\u003e output, jvp_fn = linearize(fn, torch.zeros(3, 3)) \u003e\u003e\u003e jvp_fn(torch.ones(3, 3)) tensor([[1., 1., 1.], [1., 1., 1.], [1., 1., 1.]]) \u003e\u003e\u003e",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git1a5d023 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git86474ce )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4480,7 +4480,7 @@ document.write(`
 <h1>torch.fx.experimental.symbolic_shapes.guard_size_oblivious<a class="headerlink" href="#torch-fx-experimental-symbolic-shapes-guard-size-oblivious" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.guard_size_oblivious">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">guard_size_oblivious</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1a5d023a5b5666aab25d17fd16bb93134b7bd5fe/torch/fx/experimental/symbolic_shapes.py#L461"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.guard_size_oblivious" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">guard_size_oblivious</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/86474ce996d168b404592cbbdfcc30d6607c8bd4/torch/fx/experimental/symbolic_shapes.py#L461"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.guard_size_oblivious" title="Permalink to this definition">#</a></dt>
 <dd><p>Perform a guard on a symbolic boolean expression in a size oblivious way.
 This is typically used when a non-oblivious test would result in a guard
 on a data dependent value of which we don’t know the value of at compile time.

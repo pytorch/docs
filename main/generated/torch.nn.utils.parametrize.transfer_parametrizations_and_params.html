@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git1a5d023 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git86474ce )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4480,7 +4480,7 @@ document.write(`
 <h1>torch.nn.utils.parametrize.transfer_parametrizations_and_params<a class="headerlink" href="#torch-nn-utils-parametrize-transfer-parametrizations-and-params" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.parametrize.transfer_parametrizations_and_params">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.parametrize.</span></span><span class="sig-name descname"><span class="pre">transfer_parametrizations_and_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/1a5d023a5b5666aab25d17fd16bb93134b7bd5fe/torch/nn/utils/parametrize.py#L769"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.parametrize.transfer_parametrizations_and_params" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.parametrize.</span></span><span class="sig-name descname"><span class="pre">transfer_parametrizations_and_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/86474ce996d168b404592cbbdfcc30d6607c8bd4/torch/nn/utils/parametrize.py#L769"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.parametrize.transfer_parametrizations_and_params" title="Permalink to this definition">#</a></dt>
 <dd><p>Transfer parametrizations and the parameters they parametrize from <code class="xref py py-attr docutils literal notranslate"><span class="pre">from_module</span></code> to <code class="xref py py-attr docutils literal notranslate"><span class="pre">to_module</span></code>.</p>
 <p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">tensor_name</span></code> is specified, only transfers the specified parameter, otherwise
 transfers all parametrized parameters. If those parameters do not exist in to_module, it will create them.
