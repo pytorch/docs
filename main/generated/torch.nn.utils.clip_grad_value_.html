@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitd4752bc )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitbd3b98a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3297,7 +3297,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.gds_register_buffer.html">torch.cuda.gds.gds_register_buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.gds_deregister_buffer.html">torch.cuda.gds.gds_deregister_buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.GdsFile.html">GdsFile</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cuda.green_contexts.GreenContext.html">GreenContext</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../cuda.aliases.html">Aliases in torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.cuda.random.get_rng_state.html">torch.cuda.random.get_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.cuda.random.get_rng_state_all.html">torch.cuda.random.get_rng_state_all</a></li>
@@ -3447,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4481,7 +4480,7 @@ document.write(`
 <h1>torch.nn.utils.clip_grad_value_<a class="headerlink" href="#torch-nn-utils-clip-grad-value" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.clip_grad_value_">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.</span></span><span class="sig-name descname"><span class="pre">clip_grad_value_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d4752bc7f6818a3df5356a9de61afe1d3e27ade9/torch/nn/utils/clip_grad.py#L258"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.clip_grad_value_" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.</span></span><span class="sig-name descname"><span class="pre">clip_grad_value_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bd3b98a8a5d68ddc84b20a4609b9ea90998bf95b/torch/nn/utils/clip_grad.py#L258"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.clip_grad_value_" title="Permalink to this definition">#</a></dt>
 <dd><p>Clip the gradients of an iterable of parameters at specified value.</p>
 <p>Gradients are modified in-place.</p>
 <dl class="field-list simple">
@@ -4489,10 +4488,10 @@ document.write(`
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parameters</strong> (<em>Iterable</em><em>[</em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>] or </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – an iterable of Tensors or a
 single Tensor that will have gradients normalized</p></li>
-<li><p><strong>clip_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – maximum allowed value of the gradients.
+<li><p><strong>clip_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – maximum allowed value of the gradients.
 The gradients are clipped in the range
 <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtext>-clip_value</mtext><mo separator="true">,</mo><mtext>clip_value</mtext><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\left[\text{-clip\_value}, \text{clip\_value}\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">[</span></span><span class="mord text"><span class="mord">-clip_value</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">clip_value</span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">]</span></span></span></span></span></span></span></p></li>
-<li><p><strong>foreach</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – use the faster foreach-based implementation
+<li><p><strong>foreach</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – use the faster foreach-based implementation
 If <code class="docutils literal notranslate"><span class="pre">None</span></code>, use the foreach implementation for CUDA and CPU native tensors and
 silently fall back to the slow implementation for other device types.
 Default: <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>

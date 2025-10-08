@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitd4752bc )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitbd3b98a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3297,7 +3297,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.gds_register_buffer.html">torch.cuda.gds.gds_register_buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.gds_deregister_buffer.html">torch.cuda.gds.gds_deregister_buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.GdsFile.html">GdsFile</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cuda.green_contexts.GreenContext.html">GreenContext</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../cuda.aliases.html">Aliases in torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.cuda.random.get_rng_state.html">torch.cuda.random.get_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.cuda.random.get_rng_state_all.html">torch.cuda.random.get_rng_state_all</a></li>
@@ -3447,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4505,11 +4504,11 @@ need to be explicitly specified.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the input tensor. Must be at least 1-dimensional.</p></li>
-<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – which diagonal to consider. Default: 0
+<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – which diagonal to consider. Default: 0
 (main diagonal).</p></li>
-<li><p><strong>dim1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – first dimension with respect to which to
+<li><p><strong>dim1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – first dimension with respect to which to
 take diagonal. Default: -2.</p></li>
-<li><p><strong>dim2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – second dimension with respect to which to
+<li><p><strong>dim2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – second dimension with respect to which to
 take diagonal. Default: -1.</p></li>
 </ul>
 </dd>

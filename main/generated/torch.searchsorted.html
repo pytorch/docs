@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitd4752bc )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitbd3b98a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3297,7 +3297,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.gds_register_buffer.html">torch.cuda.gds.gds_register_buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.gds_deregister_buffer.html">torch.cuda.gds.gds_deregister_buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.GdsFile.html">GdsFile</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cuda.green_contexts.GreenContext.html">GreenContext</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../cuda.aliases.html">Aliases in torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.cuda.random.get_rng_state.html">torch.cuda.random.get_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.cuda.random.get_rng_state_all.html">torch.cuda.random.get_rng_state_all</a></li>
@@ -3447,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4530,9 +4529,9 @@ need to be sorted</p></li>
 </dd>
 <dt class="field-even">Keyword Arguments</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>out_int32</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – indicate the output data type. torch.int32 if True, torch.int64 otherwise.
+<li><p><strong>out_int32</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – indicate the output data type. torch.int32 if True, torch.int64 otherwise.
 Default value is False, i.e. default output data type is torch.int64.</p></li>
-<li><p><strong>right</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – if False, return the first suitable location that is found. If True, return the
+<li><p><strong>right</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – if False, return the first suitable location that is found. If True, return the
 last such index. If no suitable index found, return 0 for non-numerical value
 (eg. nan, inf) or the size of <em>innermost</em> dimension within <code class="xref py py-attr docutils literal notranslate"><span class="pre">sorted_sequence</span></code>
 (one pass the last index of the <em>innermost</em> dimension). In other words, if False,
@@ -4540,7 +4539,7 @@ gets the lower bound index for each value in <code class="xref py py-attr docuti
 <em>innermost</em> dimension of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">sorted_sequence</span></code>. If True, gets the upper
 bound index instead. Default value is False. <code class="xref py py-attr docutils literal notranslate"><span class="pre">side</span></code> does the same and is
 preferred. It will error if <code class="xref py py-attr docutils literal notranslate"><span class="pre">side</span></code> is set to “left” while this is True.</p></li>
-<li><p><strong>side</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – the same as <code class="xref py py-attr docutils literal notranslate"><span class="pre">right</span></code> but preferred. “left” corresponds to False for <code class="xref py py-attr docutils literal notranslate"><span class="pre">right</span></code>
+<li><p><strong>side</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – the same as <code class="xref py py-attr docutils literal notranslate"><span class="pre">right</span></code> but preferred. “left” corresponds to False for <code class="xref py py-attr docutils literal notranslate"><span class="pre">right</span></code>
 and “right” corresponds to True for <code class="xref py py-attr docutils literal notranslate"><span class="pre">right</span></code>. It will error if this is set to
 “left” while <code class="xref py py-attr docutils literal notranslate"><span class="pre">right</span></code> is True. Default value is None.</p></li>
 <li><p><strong>out</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><em>optional</em>) – the output tensor, must be the same size as <code class="xref py py-attr docutils literal notranslate"><span class="pre">values</span></code> if provided.</p></li>

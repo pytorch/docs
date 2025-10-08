@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitd4752bc )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitbd3b98a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3297,7 +3297,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.gds_register_buffer.html">torch.cuda.gds.gds_register_buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.gds_deregister_buffer.html">torch.cuda.gds.gds_deregister_buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.GdsFile.html">GdsFile</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cuda.green_contexts.GreenContext.html">GreenContext</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../cuda.aliases.html">Aliases in torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.cuda.random.get_rng_state.html">torch.cuda.random.get_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.cuda.random.get_rng_state_all.html">torch.cuda.random.get_rng_state_all</a></li>
@@ -3447,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4481,7 +4480,7 @@ document.write(`
 <h1>torch.jit.trace<a class="headerlink" href="#torch-jit-trace" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.jit.trace">
-<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_trace=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_tolerance=1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_force_outplace=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_module_class=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_compilation_unit=&lt;torch.jit.CompilationUnit</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_kwarg_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_store_inputs=True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d4752bc7f6818a3df5356a9de61afe1d3e27ade9/torch/jit/_trace.py#L830"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.trace" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.jit.</span></span><span class="sig-name descname"><span class="pre">trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_trace=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_tolerance=1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_force_outplace=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_module_class=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_compilation_unit=&lt;torch.jit.CompilationUnit</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_kwarg_inputs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_store_inputs=True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bd3b98a8a5d68ddc84b20a4609b9ea90998bf95b/torch/jit/_trace.py#L830"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.jit.trace" title="Permalink to this definition">#</a></dt>
 <dd><p>Trace a function and return an executable  or <a class="reference internal" href="torch.jit.ScriptFunction.html#torch.jit.ScriptFunction" title="torch.jit.ScriptFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptFunction</span></code></a> that will be optimized using just-in-time compilation.</p>
 <p>Tracing is ideal for code that operates only on
 <code class="docutils literal notranslate"><span class="pre">Tensor</span></code>\s and lists, dictionaries, and
@@ -4537,7 +4536,7 @@ tensors. When a module is passed <cite>torch.jit.trace</cite>, only the
 </dd>
 <dt class="field-even">Keyword Arguments</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>example_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> or </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><em>None</em></a><em>, </em><em>optional</em>) – A tuple of example
+<li><p><strong>example_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> or </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><em>None</em></a><em>, </em><em>optional</em>) – A tuple of example
 inputs that will be passed to the function while tracing.
 Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>. Either this argument or <code class="docutils literal notranslate"><span class="pre">example_kwarg_inputs</span></code>
 should be specified. The resulting trace can be run with inputs of
@@ -4557,7 +4556,7 @@ would be specified in <code class="docutils literal notranslate"><span class="pr
 a set of checking inputs representative of the space of shapes and
 types of inputs you expect the network to see.  If not specified,
 the original <code class="docutils literal notranslate"><span class="pre">example_inputs</span></code> are used for checking</p></li>
-<li><p><strong>check_tolerance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Floating-point comparison tolerance
+<li><p><strong>check_tolerance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Floating-point comparison tolerance
 to use in the checker procedure.  This can be used to relax the
 checker strictness in the event that results diverge numerically
 for a known reason, such as operator fusion.</p></li>
@@ -4567,7 +4566,7 @@ record your mutable container types (currently <code class="docutils literal not
 and you are sure that the container you are using in your
 problem is a <code class="docutils literal notranslate"><span class="pre">constant</span></code> structure and does not get used as
 control flow (if, for) conditions.</p></li>
-<li><p><strong>example_kwarg_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>, </em><em>optional</em>) – This parameter is a pack of keyword
+<li><p><strong>example_kwarg_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>, </em><em>optional</em>) – This parameter is a pack of keyword
 arguments of example inputs that will be passed to the function while
 tracing. Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>. Either this argument or <code class="docutils literal notranslate"><span class="pre">example_inputs</span></code>
 should be specified. The dict will be unpacking by the arguments name

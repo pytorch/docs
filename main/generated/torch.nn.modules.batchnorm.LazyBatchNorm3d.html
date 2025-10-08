@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitd4752bc )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitbd3b98a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3297,7 +3297,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.gds_register_buffer.html">torch.cuda.gds.gds_register_buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.gds_deregister_buffer.html">torch.cuda.gds.gds_deregister_buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.GdsFile.html">GdsFile</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cuda.green_contexts.GreenContext.html">GreenContext</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../cuda.aliases.html">Aliases in torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.cuda.random.get_rng_state.html">torch.cuda.random.get_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.cuda.random.get_rng_state_all.html">torch.cuda.random.get_rng_state_all</a></li>
@@ -3447,8 +3446,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4492,9 +4491,9 @@ document.write(`
 <h1>LazyBatchNorm3d<a class="headerlink" href="#lazybatchnorm3d" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.modules.batchnorm.LazyBatchNorm3d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.batchnorm.</span></span><span class="sig-name descname"><span class="pre">LazyBatchNorm3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_running_stats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d4752bc7f6818a3df5356a9de61afe1d3e27ade9/torch/nn/modules/batchnorm.py#L568"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.batchnorm.LazyBatchNorm3d" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.batchnorm.</span></span><span class="sig-name descname"><span class="pre">LazyBatchNorm3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_running_stats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bd3b98a8a5d68ddc84b20a4609b9ea90998bf95b/torch/nn/modules/batchnorm.py#L568"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.batchnorm.LazyBatchNorm3d" title="Permalink to this definition">#</a></dt>
 <dd><p>A <a class="reference internal" href="torch.nn.BatchNorm3d.html#torch.nn.BatchNorm3d" title="torch.nn.BatchNorm3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.BatchNorm3d</span></code></a> module with lazy initialization.</p>
-<p>Lazy initialization is done for the <code class="docutils literal notranslate"><span class="pre">num_features</span></code> argument of the <a class="reference internal" href="torch.nn.modules.batchnorm.BatchNorm3d.html#torch.nn.modules.batchnorm.BatchNorm3d" title="torch.nn.modules.batchnorm.BatchNorm3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchNorm3d</span></code></a> that is inferred
+<p>Lazy initialization is done for the <code class="docutils literal notranslate"><span class="pre">num_features</span></code> argument of the <a class="reference internal" href="torch.nn.BatchNorm3d.html#torch.nn.BatchNorm3d" title="torch.nn.modules.batchnorm.BatchNorm3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchNorm3d</span></code></a> that is inferred
 from the <code class="docutils literal notranslate"><span class="pre">input.size(1)</span></code>.
 The attributes that will be lazily initialized are <cite>weight</cite>, <cite>bias</cite>,
 <cite>running_mean</cite> and <cite>running_var</cite>.</p>
@@ -4503,14 +4502,14 @@ on lazy modules and their limitations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – a value added to the denominator for numerical stability.
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – a value added to the denominator for numerical stability.
 Default: 1e-5</p></li>
-<li><p><strong>momentum</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>]</em>) – the value used for the running_mean and running_var
+<li><p><strong>momentum</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>) – the value used for the running_mean and running_var
 computation. Can be set to <code class="docutils literal notranslate"><span class="pre">None</span></code> for cumulative moving average
 (i.e. simple average). Default: 0.1</p></li>
-<li><p><strong>affine</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – a boolean value that when set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, this module has
+<li><p><strong>affine</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – a boolean value that when set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, this module has
 learnable affine parameters. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
-<li><p><strong>track_running_stats</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – a boolean value that when set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, this
+<li><p><strong>track_running_stats</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – a boolean value that when set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, this
 module tracks the running mean and variance, and when set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
 this module does not track such statistics, and initializes statistics
 buffers <code class="xref py py-attr docutils literal notranslate"><span class="pre">running_mean</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">running_var</span></code> as <code class="docutils literal notranslate"><span class="pre">None</span></code>.
@@ -4521,8 +4520,8 @@ in both training and eval modes. Default: <code class="docutils literal notransl
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.modules.batchnorm.LazyBatchNorm3d.cls_to_become">
-<span class="sig-name descname"><span class="pre">cls_to_become</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/d4752bc7f6818a3df5356a9de61afe1d3e27ade9/torch/nn/modules/batchnorm.py#L491"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.batchnorm.LazyBatchNorm3d.cls_to_become" title="Permalink to this definition">#</a></dt>
-<dd><p>alias of <a class="reference internal" href="torch.nn.modules.batchnorm.BatchNorm3d.html#torch.nn.modules.batchnorm.BatchNorm3d" title="torch.nn.modules.batchnorm.BatchNorm3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchNorm3d</span></code></a></p>
+<span class="sig-name descname"><span class="pre">cls_to_become</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bd3b98a8a5d68ddc84b20a4609b9ea90998bf95b/torch/nn/modules/batchnorm.py#L491"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.batchnorm.LazyBatchNorm3d.cls_to_become" title="Permalink to this definition">#</a></dt>
+<dd><p>alias of <a class="reference internal" href="torch.nn.BatchNorm3d.html#torch.nn.BatchNorm3d" title="torch.nn.modules.batchnorm.BatchNorm3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchNorm3d</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
