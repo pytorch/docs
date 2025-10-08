@@ -3401,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4416,16 +4416,16 @@ than that of doing <a class="reference internal" href="torch.linalg.lu_factor.ht
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>LU_data</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the packed LU factorization data</p></li>
 <li><p><strong>LU_pivots</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the packed LU factorization pivots</p></li>
-<li><p><strong>unpack_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – flag indicating if the data should be unpacked.
+<li><p><strong>unpack_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – flag indicating if the data should be unpacked.
 If <code class="docutils literal notranslate"><span class="pre">False</span></code>, then the returned <code class="docutils literal notranslate"><span class="pre">L</span></code> and <code class="docutils literal notranslate"><span class="pre">U</span></code> are empty tensors.
 Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
-<li><p><strong>unpack_pivots</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – flag indicating if the pivots should be unpacked into a permutation matrix <code class="docutils literal notranslate"><span class="pre">P</span></code>.
+<li><p><strong>unpack_pivots</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – flag indicating if the pivots should be unpacked into a permutation matrix <code class="docutils literal notranslate"><span class="pre">P</span></code>.
 If <code class="docutils literal notranslate"><span class="pre">False</span></code>, then the returned <code class="docutils literal notranslate"><span class="pre">P</span></code> is  an empty tensor.
 Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments</dt>
-<dd class="field-even"><p><strong>out</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>, </em><em>optional</em>) – output tuple of three tensors. Ignored if <cite>None</cite>.</p>
+<dd class="field-even"><p><strong>out</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>, </em><em>optional</em>) – output tuple of three tensors. Ignored if <cite>None</cite>.</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A namedtuple <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">L,</span> <span class="pre">U)</span></code></p>

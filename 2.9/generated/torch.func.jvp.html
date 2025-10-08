@@ -3401,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4430,7 +4430,7 @@ derivative with respect to these arguments</p></li>
 <li><p><strong>tangents</strong> (<em>Tensors</em>) – The “vector” for which Jacobian-vector-product is
 computed. Must be the same structure and sizes as the inputs to
 <code class="docutils literal notranslate"><span class="pre">func</span></code>.</p></li>
-<li><p><strong>has_aux</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Flag indicating that <code class="docutils literal notranslate"><span class="pre">func</span></code> returns a
+<li><p><strong>has_aux</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Flag indicating that <code class="docutils literal notranslate"><span class="pre">func</span></code> returns a
 <code class="docutils literal notranslate"><span class="pre">(output,</span> <span class="pre">aux)</span></code> tuple where the first element is the output of
 the function to be differentiated and the second element is
 other auxiliary objects that will not be differentiated.

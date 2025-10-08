@@ -3401,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4409,13 +4409,13 @@ document.write(`
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>amount</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – quantity of channels to prune.
+<li><p><strong>amount</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – quantity of channels to prune.
 If <code class="docutils literal notranslate"><span class="pre">float</span></code>, should be between 0.0 and 1.0 and represent the
 fraction of parameters to prune. If <code class="docutils literal notranslate"><span class="pre">int</span></code>, it represents the
 absolute number of parameters to prune.</p></li>
-<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>inf</em><em>, </em><em>-inf</em><em>, </em><em>'fro'</em><em>, </em><em>'nuc'</em>) – See documentation of valid
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>inf</em><em>, </em><em>-inf</em><em>, </em><em>'fro'</em><em>, </em><em>'nuc'</em>) – See documentation of valid
 entries for argument <code class="docutils literal notranslate"><span class="pre">p</span></code> in <a class="reference internal" href="torch.norm.html#torch.norm" title="torch.norm"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.norm()</span></code></a>.</p></li>
-<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – index of the dim along which we define
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – index of the dim along which we define
 channels to prune. Default: -1.</p></li>
 </ul>
 </dd>
@@ -4431,15 +4431,15 @@ and the pruning mask.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>module</strong> (<a class="reference internal" href="torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>nn.Module</em></a>) – module containing the tensor to prune</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – parameter name within <code class="docutils literal notranslate"><span class="pre">module</span></code> on which pruning
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – parameter name within <code class="docutils literal notranslate"><span class="pre">module</span></code> on which pruning
 will act.</p></li>
-<li><p><strong>amount</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – quantity of parameters to prune.
+<li><p><strong>amount</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – quantity of parameters to prune.
 If <code class="docutils literal notranslate"><span class="pre">float</span></code>, should be between 0.0 and 1.0 and represent the
 fraction of parameters to prune. If <code class="docutils literal notranslate"><span class="pre">int</span></code>, it represents the
 absolute number of parameters to prune.</p></li>
-<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>inf</em><em>, </em><em>-inf</em><em>, </em><em>'fro'</em><em>, </em><em>'nuc'</em>) – See documentation of valid
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>inf</em><em>, </em><em>-inf</em><em>, </em><em>'fro'</em><em>, </em><em>'nuc'</em>) – See documentation of valid
 entries for argument <code class="docutils literal notranslate"><span class="pre">p</span></code> in <a class="reference internal" href="torch.norm.html#torch.norm" title="torch.norm"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.norm()</span></code></a>.</p></li>
-<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of the dim along which we define channels to
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – index of the dim along which we define channels to
 prune.</p></li>
 <li><p><strong>importance_scores</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a>) – tensor of importance scores (of same
 shape as module parameter) used to compute mask for pruning.
@@ -4494,7 +4494,7 @@ applied.  Same dims as <code class="docutils literal notranslate"><span class="p
 <dd class="field-odd"><p>mask (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">torch.Tensor</a>)</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IndexError" title="(in Python v3.13)"><strong>IndexError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">self.dim</span> <span class="pre">&gt;=</span> <span class="pre">len(t.shape)</span></code></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IndexError" title="(in Python v3.14)"><strong>IndexError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">self.dim</span> <span class="pre">&gt;=</span> <span class="pre">len(t.shape)</span></code></p>
 </dd>
 </dl>
 </dd></dl>

@@ -3401,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4413,10 +4413,10 @@ on the corresponding stream.  See <a class="reference internal" href="../notes/c
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>device</strong> (<a class="reference internal" href="../tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – a device on which to allocate
+<li><p><strong>device</strong> (<a class="reference internal" href="../tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – a device on which to allocate
 the stream. If <a class="reference internal" href="torch.cuda.device.html#torch.cuda.device" title="torch.cuda.device"><code class="xref py py-attr docutils literal notranslate"><span class="pre">device</span></code></a> is <code class="docutils literal notranslate"><span class="pre">None</span></code> (default) or a negative
 integer, this will use the current device.</p></li>
-<li><p><strong>priority</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – priority of the stream, which can be positive, 0, or negative.
+<li><p><strong>priority</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – priority of the stream, which can be positive, 0, or negative.
 A lower number indicates a higher priority. By default, the priority is set to 0.
 If the value falls outside of the allowed priority range, it will automatically be
 mapped to the nearest valid priority (lowest for large positive numbers or
@@ -4433,7 +4433,7 @@ highest for large negative numbers).</p></li>
 <dd class="field-odd"><p>A boolean indicating if all kernels in this stream are completed.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>

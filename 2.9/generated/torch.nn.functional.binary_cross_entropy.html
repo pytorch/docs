@@ -3401,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4414,9 +4414,9 @@ document.write(`
 <li><p><strong>target</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – Tensor of the same shape as input with values between 0 and 1.</p></li>
 <li><p><strong>weight</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><em>optional</em>) – a manual rescaling weight
 if provided it’s repeated to match input tensor shape</p></li>
-<li><p><strong>size_average</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Deprecated (see <code class="xref py py-attr docutils literal notranslate"><span class="pre">reduction</span></code>).</p></li>
-<li><p><strong>reduce</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Deprecated (see <code class="xref py py-attr docutils literal notranslate"><span class="pre">reduction</span></code>).</p></li>
-<li><p><strong>reduction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Specifies the reduction to apply to the output:
+<li><p><strong>size_average</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Deprecated (see <code class="xref py py-attr docutils literal notranslate"><span class="pre">reduction</span></code>).</p></li>
+<li><p><strong>reduce</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Deprecated (see <code class="xref py py-attr docutils literal notranslate"><span class="pre">reduction</span></code>).</p></li>
+<li><p><strong>reduction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Specifies the reduction to apply to the output:
 <code class="docutils literal notranslate"><span class="pre">'none'</span></code> | <code class="docutils literal notranslate"><span class="pre">'mean'</span></code> | <code class="docutils literal notranslate"><span class="pre">'sum'</span></code>. <code class="docutils literal notranslate"><span class="pre">'none'</span></code>: no reduction will be applied,
 <code class="docutils literal notranslate"><span class="pre">'mean'</span></code>: the sum of the output will be divided by the number of
 elements in the output, <code class="docutils literal notranslate"><span class="pre">'sum'</span></code>: the output will be summed. Note: <code class="xref py py-attr docutils literal notranslate"><span class="pre">size_average</span></code>

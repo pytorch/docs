@@ -3401,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4515,7 +4515,7 @@ across the 0th dim (HSDP) with <code class="docutils literal notranslate"><span 
 placement. The mesh’s device type gives the device type used for
 communication; if a CUDA or CUDA-like device type, then we use the
 current device.</p></li>
-<li><p><strong>reshard_after_forward</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>]</em><em>]</em>) – <p>This controls the parameter
+<li><p><strong>reshard_after_forward</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em><em>]</em>) – <p>This controls the parameter
 behavior after forward and can trade off memory and communication:</p>
 <ul>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, then this reshards parameters after forward and
@@ -4554,7 +4554,7 @@ module. See <a class="reference internal" href="#torch.distributed.fsdp.MixedPre
 <li><p><strong>offload_policy</strong> (<a class="reference internal" href="#torch.distributed.fsdp.OffloadPolicy" title="torch.distributed.fsdp.OffloadPolicy"><em>OffloadPolicy</em></a>) – This controls the offloading policy,
 which offers parameter/gradient/optimizer state offloading. See
 <a class="reference internal" href="#torch.distributed.fsdp.OffloadPolicy" title="torch.distributed.fsdp.OffloadPolicy"><code class="xref py py-class docutils literal notranslate"><span class="pre">OffloadPolicy</span></code></a> and its subclasses for details.</p></li>
-<li><p><strong>ignored_params</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.13)"><em>set</em></a><em>[</em><em>nn.Parameter</em><em>]</em><em>]</em>) – Optional(Set[nn.Parameter]): The set of parameters to be
+<li><p><strong>ignored_params</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.14)"><em>set</em></a><em>[</em><em>nn.Parameter</em><em>]</em><em>]</em>) – Optional(Set[nn.Parameter]): The set of parameters to be
 ignored by FSDP. They will not be sharded, nor moved to the device
 during init, nor have their gradients reduced in backward.</p></li>
 </ul>
@@ -4615,7 +4615,7 @@ finer-grained control over each communication, and this method cannot
 determine their staging buffer allocation strategy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>enable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to turn on ProcessGroup allocation.</p>
+<dd class="field-odd"><p><strong>enable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to turn on ProcessGroup allocation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4660,7 +4660,7 @@ to ensure the custom all-reduce across FSDP units follow this strategy
 as well, as FSDP can no longer automatically handle that.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>enable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to only ever use ReduceOp.SUM for comms.</p>
+<dd class="field-odd"><p><strong>enable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to only ever use ReduceOp.SUM for comms.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4673,7 +4673,7 @@ a custom reduce op using NCCL’s PreMulSum, which allows multiplying by
 the factor before reduction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Custom divide factor.</p>
+<dd class="field-odd"><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Custom divide factor.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4773,9 +4773,9 @@ both reduce-scatter and all-reduce together. This is the equivalence of
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>requires_gradient_sync</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to reduce gradients for the
+<li><p><strong>requires_gradient_sync</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to reduce gradients for the
 module’s parameters.</p></li>
-<li><p><strong>recurse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to set for all FSDP submodules or just the
+<li><p><strong>recurse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to set for all FSDP submodules or just the
 passed-in module.</p></li>
 </ul>
 </dd>
@@ -4792,9 +4792,9 @@ re-all-gathered before the next forward.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>reshard_after_backward</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to reshard parameters after
+<li><p><strong>reshard_after_backward</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to reshard parameters after
 backward.</p></li>
-<li><p><strong>recurse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to set for all FSDP submodules or just the
+<li><p><strong>recurse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to set for all FSDP submodules or just the
 passed-in module.</p></li>
 </ul>
 </dd>
@@ -4813,9 +4813,9 @@ to <code class="docutils literal notranslate"><span class="pre">True</span></cod
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>reshard_after_forward</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to reshard parameters after
+<li><p><strong>reshard_after_forward</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to reshard parameters after
 forward.</p></li>
-<li><p><strong>recurse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to set for all FSDP submodules or just the
+<li><p><strong>recurse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to set for all FSDP submodules or just the
 passed-in module.</p></li>
 </ul>
 </dd>
@@ -4842,13 +4842,13 @@ the parameters. This method is <em>not</em> recursive. The unshard follows the
 <code class="docutils literal notranslate"><span class="pre">param_dtype</span></code> if set.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>async_op</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, then returns a <a class="reference internal" href="#torch.distributed.fsdp.UnshardHandle" title="torch.distributed.fsdp.UnshardHandle"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnshardHandle</span></code></a>
+<dd class="field-odd"><p><strong>async_op</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, then returns a <a class="reference internal" href="#torch.distributed.fsdp.UnshardHandle" title="torch.distributed.fsdp.UnshardHandle"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnshardHandle</span></code></a>
 that has a <code class="xref py py-meth docutils literal notranslate"><span class="pre">wait()</span></code> method to wait on the unshard op. If
 <code class="docutils literal notranslate"><span class="pre">False</span></code>, then returns <code class="docutils literal notranslate"><span class="pre">None</span></code> and waits on the handle inside
 this function.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><em>Optional</em></a>[<a class="reference internal" href="#torch.distributed.fsdp.UnshardHandle" title="torch.distributed.fsdp.UnshardHandle"><em>UnshardHandle</em></a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a>[<a class="reference internal" href="#torch.distributed.fsdp.UnshardHandle" title="torch.distributed.fsdp.UnshardHandle"><em>UnshardHandle</em></a>]</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -4892,7 +4892,7 @@ this is a no-op.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>module</strong> (<a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>nn.Module</em></a>) – Module to register the forward method on.</p></li>
-<li><p><strong>method_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the forward method.</p></li>
+<li><p><strong>method_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Name of the forward method.</p></li>
 </ul>
 </dd>
 </dl>
@@ -4930,7 +4930,7 @@ then FSDP will accumulate gradients using <code class="docutils literal notransl
 casting floating-point forward outputs. This can be used to
 help implement cases where different modules have different mixed
 precision policies. (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
-<li><p><strong>cast_forward_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – This specifies whether FSDP should cast the
+<li><p><strong>cast_forward_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – This specifies whether FSDP should cast the
 forward’s floating-point input tensors to <code class="docutils literal notranslate"><span class="pre">param_dtype</span></code> or not.</p></li>
 </ul>
 </dd>
@@ -4956,7 +4956,7 @@ Sharded gradients are copied device-to-host in backward, and the optimizer
 step runs on CPU with CPU optimizer states.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
-<dd class="field-odd"><p><strong>pin_memory</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to pin sharded parameter and gradient
+<dd class="field-odd"><p><strong>pin_memory</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to pin sharded parameter and gradient
 memory. Pinning memory allows both more efficient H2D/D2H copies
 and for the copies to overlap with compute. However, the pinned
 memory cannot be used by other processes. Set this to <code class="docutils literal notranslate"><span class="pre">False</span></code> if

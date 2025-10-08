@@ -3401,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4414,7 +4414,7 @@ document.write(`
 <li><p><strong>stride</strong> (<code class="docutils literal notranslate"><span class="pre">list</span> <span class="pre">of</span> <span class="pre">int</span></code>, optional) – the stride of the sliding window</p></li>
 <li><p><strong>padding</strong> (<code class="docutils literal notranslate"><span class="pre">list</span> <span class="pre">of</span> <span class="pre">int</span></code>, optional) – padding to be added on both sides, must be &gt;= 0 and &lt;= kernel_size / 2</p></li>
 <li><p><strong>dilation</strong> (<code class="docutils literal notranslate"><span class="pre">list</span> <span class="pre">of</span> <span class="pre">int</span></code>, optional) – The stride between elements within a sliding window, must be &gt; 0. Default 1</p></li>
-<li><p><strong>ceil_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, will use ceil instead of floor to compute the output shape.
+<li><p><strong>ceil_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, will use ceil instead of floor to compute the output shape.
 Defaults to False.</p></li>
 </ul>
 </dd>

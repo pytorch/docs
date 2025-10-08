@@ -3401,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4503,11 +4503,11 @@ first input as <code class="docutils literal notranslate"><span class="pre">acti
 </dd>
 <dt class="field-even">Keyword Arguments</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>preserve_rng_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Omit stashing and restoring
+<li><p><strong>preserve_rng_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Omit stashing and restoring
 the RNG state during each checkpoint. Note that under torch.compile,
 this flag doesn’t take effect and we always preserve RNG state.
 Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
-<li><p><strong>use_reentrant</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – specify whether to use the activation checkpoint variant that
+<li><p><strong>use_reentrant</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – specify whether to use the activation checkpoint variant that
 requires reentrant autograd. This parameter should be passed
 explicitly. In version 2.9 we will raise an exception if
 <code class="docutils literal notranslate"><span class="pre">use_reentrant</span></code> is not passed. If <code class="docutils literal notranslate"><span class="pre">use_reentrant=False</span></code>,
@@ -4520,7 +4520,7 @@ the checkpointed function.</p></li>
 context managers. The function and its recomputation will be run
 under the first and second context managers respectively.
 This argument is only supported if <code class="docutils literal notranslate"><span class="pre">use_reentrant=False</span></code>.</p></li>
-<li><p><strong>determinism_check</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – A string specifying the determinism
+<li><p><strong>determinism_check</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – A string specifying the determinism
 check to perform. By default it is set to <code class="docutils literal notranslate"><span class="pre">&quot;default&quot;</span></code> which
 compares the shapes, dtypes, and devices of the recomputed tensors
 against those the saved tensors. To turn off this check, specify
@@ -4528,11 +4528,11 @@ against those the saved tensors. To turn off this check, specify
 Please open an issue if you would like to see more determinism
 checks. This argument is only supported if <code class="docutils literal notranslate"><span class="pre">use_reentrant=False</span></code>,
 if <code class="docutils literal notranslate"><span class="pre">use_reentrant=True</span></code>, the determinism check is always disabled.</p></li>
-<li><p><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, error messages will also include
+<li><p><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, error messages will also include
 a trace of the operators ran during the original forward computation
 as well as the recomputation. This argument is only supported if
 <code class="docutils literal notranslate"><span class="pre">use_reentrant=False</span></code>.</p></li>
-<li><p><strong>early_stop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, non-reentrant checkpoint stops
+<li><p><strong>early_stop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, non-reentrant checkpoint stops
 recomputation as soon as it has computed all needed Tensors. This
 argument is ignored if <code class="docutils literal notranslate"><span class="pre">use_reentrant=True</span></code>. Can be overridden
 globally using <code class="xref py py-func docutils literal notranslate"><span class="pre">set_checkpoint_early_stop()</span></code> context manager.
@@ -4570,10 +4570,10 @@ If you are using the <code class="docutils literal notranslate"><span class="pre
 functions (comprising the model) to run sequentially.</p></li>
 <li><p><strong>segments</strong> – Number of chunks to create in the model</p></li>
 <li><p><strong>input</strong> – A Tensor that is input to <code class="xref py py-attr docutils literal notranslate"><span class="pre">functions</span></code></p></li>
-<li><p><strong>preserve_rng_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Omit stashing and restoring
+<li><p><strong>preserve_rng_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Omit stashing and restoring
 the RNG state during each checkpoint.
 Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
-<li><p><strong>use_reentrant</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – specify whether to use the activation checkpoint variant that
+<li><p><strong>use_reentrant</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – specify whether to use the activation checkpoint variant that
 requires reentrant autograd. This parameter should be passed
 explicitly. In version 2.5 we will raise an exception if
 <code class="docutils literal notranslate"><span class="pre">use_reentrant</span></code> is not passed. If <code class="docutils literal notranslate"><span class="pre">use_reentrant=False</span></code>,
@@ -4605,7 +4605,7 @@ when set, this context manager overrides the value of <code class="docutils lite
 checkpoint. To defer to the local setting, pass <code class="docutils literal notranslate"><span class="pre">None</span></code> to this context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether checkpoint should print debug information.
+<dd class="field-odd"><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether checkpoint should print debug information.
 Default is ‘None’.</p>
 </dd>
 </dl>
@@ -4678,7 +4678,7 @@ operations and <cite>CheckpointPolicy.PREFER_RECOMPUTE</cite> for all other
 operations.</p></li>
 </ul>
 </p></li>
-<li><p><strong>allow_cache_entry_mutation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – By default, an error is
+<li><p><strong>allow_cache_entry_mutation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – By default, an error is
 raised if any tensors cached by selective activation checkpoint are
 mutated in order to ensure correctness. If set to <cite>True</cite>, this check
 is disabled.</p></li>

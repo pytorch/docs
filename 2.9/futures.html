@@ -3401,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4469,7 +4469,7 @@ because at such stage the result is already usable, provided one
 performs the appropriate synchronizations (see <a class="reference internal" href="#torch.futures.Future.wait" title="torch.futures.Future.wait"><code class="xref py py-meth docutils literal notranslate"><span class="pre">wait()</span></code></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -4483,7 +4483,7 @@ when calling wait()/value() on this <code class="docutils literal notranslate"><
 will be raised inline.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>result</strong> (<a class="reference external" href="https://docs.python.org/3/library/exceptions.html#BaseException" title="(in Python v3.13)"><em>BaseException</em></a>) – the exception for this <code class="docutils literal notranslate"><span class="pre">Future</span></code>.</p>
+<dd class="field-odd"><p><strong>result</strong> (<a class="reference external" href="https://docs.python.org/3/library/exceptions.html#BaseException" title="(in Python v3.14)"><em>BaseException</em></a>) – the exception for this <code class="docutils literal notranslate"><span class="pre">Future</span></code>.</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -4515,7 +4515,7 @@ use them to ensure proper scheduling for all the consumers of this
 <code class="docutils literal notranslate"><span class="pre">Future</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>result</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><em>object</em></a>) – the result object of this <code class="docutils literal notranslate"><span class="pre">Future</span></code>.</p>
+<dd class="field-odd"><p><strong>result</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><em>object</em></a>) – the result object of this <code class="docutils literal notranslate"><span class="pre">Future</span></code>.</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -4665,14 +4665,14 @@ combined <a class="reference internal" href="#torch.futures.Future" title="torch
 sub-futures are completed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>futures</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – a list of <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> objects.</p>
+<dd class="field-odd"><p><strong>futures</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – a list of <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> objects.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Returns a <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> object to a list of the passed
 in Futures.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#torch.futures.Future" title="torch.jit.Future"><em>Future</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="#torch.futures.Future" title="torch.jit.Future">torch.jit.Future</a>]]</p>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.futures.Future" title="torch.jit.Future"><em>Future</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.futures.Future" title="torch.jit.Future">torch.jit.Future</a>]]</p>
 </dd>
 </dl>
 <dl>
@@ -4701,7 +4701,7 @@ the method will exit early and report the error not waiting for other
 futures to complete.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>futures</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – a list of <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> object.</p>
+<dd class="field-odd"><p><strong>futures</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – a list of <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> object.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of the completed <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> results. This
@@ -4709,7 +4709,7 @@ method will throw an error if <code class="docutils literal notranslate"><span c
 <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> throws.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
 </dd>
 </dl>
 </dd></dl>

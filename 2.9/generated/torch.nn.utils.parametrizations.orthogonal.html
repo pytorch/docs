@@ -3401,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4450,10 +4450,10 @@ in <a class="reference internal" href="torch.nn.utils.parametrize.register_param
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>module</strong> (<a class="reference internal" href="torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>nn.Module</em></a>) – module on which to register the parametrization.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – name of the tensor to make orthogonal. Default: <code class="docutils literal notranslate"><span class="pre">&quot;weight&quot;</span></code>.</p></li>
-<li><p><strong>orthogonal_map</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – One of the following: <code class="docutils literal notranslate"><span class="pre">&quot;matrix_exp&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;cayley&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;householder&quot;</span></code>.
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – name of the tensor to make orthogonal. Default: <code class="docutils literal notranslate"><span class="pre">&quot;weight&quot;</span></code>.</p></li>
+<li><p><strong>orthogonal_map</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – One of the following: <code class="docutils literal notranslate"><span class="pre">&quot;matrix_exp&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;cayley&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;householder&quot;</span></code>.
 Default: <code class="docutils literal notranslate"><span class="pre">&quot;matrix_exp&quot;</span></code> if the matrix is square or complex, <code class="docutils literal notranslate"><span class="pre">&quot;householder&quot;</span></code> otherwise.</p></li>
-<li><p><strong>use_trivialization</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – whether to use the dynamic trivialization framework.
+<li><p><strong>use_trivialization</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – whether to use the dynamic trivialization framework.
 Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
 </ul>
 </dd>

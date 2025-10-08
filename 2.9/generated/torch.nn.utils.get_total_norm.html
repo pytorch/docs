@@ -3401,8 +3401,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4413,12 +4413,12 @@ the individual tensors were concatenated into a single vector.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tensors</strong> (<em>Iterable</em><em>[</em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>] or </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – an iterable of Tensors or a
 single Tensor that will be normalized</p></li>
-<li><p><strong>norm_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – type of the used p-norm. Can be <code class="docutils literal notranslate"><span class="pre">'inf'</span></code> for
+<li><p><strong>norm_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – type of the used p-norm. Can be <code class="docutils literal notranslate"><span class="pre">'inf'</span></code> for
 infinity norm.</p></li>
-<li><p><strong>error_if_nonfinite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if True, an error is thrown if the total
+<li><p><strong>error_if_nonfinite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – if True, an error is thrown if the total
 norm of <code class="xref py py-attr docutils literal notranslate"><span class="pre">tensors</span></code> is <code class="docutils literal notranslate"><span class="pre">nan</span></code>, <code class="docutils literal notranslate"><span class="pre">inf</span></code>, or <code class="docutils literal notranslate"><span class="pre">-inf</span></code>.
 Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
-<li><p><strong>foreach</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – use the faster foreach-based implementation.
+<li><p><strong>foreach</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – use the faster foreach-based implementation.
 If <code class="docutils literal notranslate"><span class="pre">None</span></code>, use the foreach implementation for CUDA and CPU native tensors and silently
 fall back to the slow implementation for other device types.
 Default: <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
