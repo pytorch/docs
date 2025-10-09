@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitbd3b98a )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4308b8a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4480,7 +4480,7 @@ document.write(`
 <h1>torch.optim.Optimizer.register_state_dict_post_hook<a class="headerlink" href="#torch-optim-optimizer-register-state-dict-post-hook" title="Permalink to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Optimizer.register_state_dict_post_hook">
-<span class="sig-prename descclassname"><span class="pre">Optimizer.</span></span><span class="sig-name descname"><span class="pre">register_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bd3b98a8a5d68ddc84b20a4609b9ea90998bf95b/torch/optim/optimizer.py#L642"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer.register_state_dict_post_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">Optimizer.</span></span><span class="sig-name descname"><span class="pre">register_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4308b8a28fa332d23ad6d25a472559b354619131/torch/optim/optimizer.py#L642"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.Optimizer.register_state_dict_post_hook" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a state dict post-hook which will be called after <a class="reference internal" href="torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict" title="torch.optim.Optimizer.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> is called.</p>
 <p>It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">state_dict</span> <span class="ow">or</span> <span class="kc">None</span>
