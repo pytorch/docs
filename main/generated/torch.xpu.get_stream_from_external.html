@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4308b8a )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita6fa4f9 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -2574,6 +2574,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.grid_sample.html">torch.nn.functional.grid_sample</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.affine_grid.html">torch.nn.functional.affine_grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.torch.nn.parallel.data_parallel.html">torch.nn.functional.torch.nn.parallel.data_parallel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.ScalingType.html">ScalingType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.SwizzleType.html">SwizzleType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.scaled_mm.html">torch.nn.functional.scaled_mm</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tensors.html">torch.Tensor</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4480,7 +4483,7 @@ document.write(`
 <h1>torch.xpu.get_stream_from_external<a class="headerlink" href="#torch-xpu-get-stream-from-external" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.xpu.get_stream_from_external">
-<span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">get_stream_from_external</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_ptr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4308b8a28fa332d23ad6d25a472559b354619131/torch/xpu/__init__.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.get_stream_from_external" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">get_stream_from_external</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_ptr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a6fa4f9c283971c0fb6f60a89674a1f35370ac79/torch/xpu/__init__.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.get_stream_from_external" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a <a class="reference internal" href="torch.xpu.Stream.html#torch.xpu.Stream" title="torch.xpu.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> from an external SYCL queue.</p>
 <p>This function is used to wrap SYCL queue created in other libraries in order
 to facilitate data exchange and multi-library interactions.</p>

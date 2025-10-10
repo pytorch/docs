@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4308b8a )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita6fa4f9 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -2574,6 +2574,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.grid_sample.html">torch.nn.functional.grid_sample</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.affine_grid.html">torch.nn.functional.affine_grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.torch.nn.parallel.data_parallel.html">torch.nn.functional.torch.nn.parallel.data_parallel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.ScalingType.html">ScalingType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.SwizzleType.html">SwizzleType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.scaled_mm.html">torch.nn.functional.scaled_mm</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tensors.html">torch.Tensor</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4491,7 +4494,7 @@ document.write(`
 <h1>BNReLU3d<a class="headerlink" href="#bnrelu3d" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.nn.intrinsic.BNReLU3d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.intrinsic.</span></span><span class="sig-name descname"><span class="pre">BNReLU3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relu</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4308b8a28fa332d23ad6d25a472559b354619131/torch/ao/nn/intrinsic/modules/fused.py#L213"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.intrinsic.BNReLU3d" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.nn.intrinsic.</span></span><span class="sig-name descname"><span class="pre">BNReLU3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relu</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a6fa4f9c283971c0fb6f60a89674a1f35370ac79/torch/ao/nn/intrinsic/modules/fused.py#L213"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.nn.intrinsic.BNReLU3d" title="Permalink to this definition">#</a></dt>
 <dd><p>This is a sequential container which calls the BatchNorm 3d and ReLU modules.
 During quantization this will be replaced with the corresponding fused module.</p>
 </dd></dl>
