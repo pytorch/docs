@@ -19,8 +19,8 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
     :caption: Tags
 
     torch.escape-hatch
-    torch.dynamic-shape
     torch.cond
+    torch.dynamic-shape
     python.closure
     torch.dynamic-value
     python.data-structure
@@ -235,7 +235,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -317,7 +317,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -396,7 +396,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -576,7 +576,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -668,7 +668,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -746,14 +746,12 @@ Original source code:
     class ConstrainAsSizeExample(torch.nn.Module):
         """
         If the value is not known at tracing time, you can provide hint so that we
-        can trace further. Please look at torch._check and torch._check_is_size APIs.
-        torch._check_is_size is used for values that NEED to be used for constructing
-        tensor.
+        can trace further. Please look at torch._check APIs.
         """
     
         def forward(self, x):
             a = x.item()
-            torch._check_is_size(a)
+            torch._check(a >= 0)
             torch._check(a <= 5)
             return torch.zeros((a, 5))
     
@@ -776,11 +774,7 @@ Result:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "i64[]"):
                      item: "Sym(u0)" = torch.ops.aten.item.default(x);  x = None
-                
-                 # 
-                sym_constrain_range_for_size_default = torch.ops.aten.sym_constrain_range_for_size.default(item);  sym_constrain_range_for_size_default = None
-                
-                     ge_1: "Sym(u0 >= 0)" = item >= 0
+                ge_1: "Sym(u0 >= 0)" = item >= 0
                 _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_1, "Runtime assertion failed for expression u0 >= 0 on node 'ge_1'");  ge_1 = _assert_scalar_default = None
                 le_1: "Sym(u0 <= 5)" = item <= 5
                 _assert_scalar_default_1 = torch.ops.aten._assert_scalar.default(le_1, "Runtime assertion failed for expression u0 <= 5 on node 'le_1'");  le_1 = _assert_scalar_default_1 = None
@@ -819,9 +813,7 @@ Original source code:
     class ConstrainAsValueExample(torch.nn.Module):
         """
         If the value is not known at tracing time, you can provide hint so that we
-        can trace further. Please look at torch._check and torch._check_is_size APIs.
-        torch._check is used for values that don't need to be used for constructing
-        tensor.
+        can trace further. Please look at torch._check API.
         """
     
         def forward(self, x, y):
@@ -1424,7 +1416,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
