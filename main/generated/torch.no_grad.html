@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitbb0635d )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita33f85e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3363,6 +3363,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_available.html">torch.xpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_bf16_supported.html">torch.xpu.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_initialized.html">torch.xpu.is_initialized</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.stream.html">torch.xpu.stream</a></li>
@@ -4483,7 +4484,7 @@ document.write(`
 <h1>no_grad<a class="headerlink" href="#no-grad" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.no_grad">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">no_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orig_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb0635d7ddd7476e06efcc77886f486ccec11904/torch/autograd/grad_mode.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.no_grad" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">no_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orig_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a33f85e79102df112ab4954eef4a7843dceacbb9/torch/autograd/grad_mode.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.no_grad" title="Permalink to this definition">#</a></dt>
 <dd><p>Context-manager that disables gradient calculation.</p>
 <p>Disabling gradient calculation is useful for inference, when you are sure
 that you will not call <a class="reference internal" href="torch.Tensor.backward.html#torch.Tensor.backward" title="torch.Tensor.backward"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tensor.backward()</span></code></a>. It will reduce memory

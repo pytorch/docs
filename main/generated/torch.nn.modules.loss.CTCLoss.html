@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitbb0635d )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita33f85e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3363,6 +3363,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_available.html">torch.xpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_bf16_supported.html">torch.xpu.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_initialized.html">torch.xpu.is_initialized</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.stream.html">torch.xpu.stream</a></li>
@@ -4494,7 +4495,7 @@ document.write(`
 <h1>CTCLoss<a class="headerlink" href="#ctcloss" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.modules.loss.CTCLoss">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.loss.</span></span><span class="sig-name descname"><span class="pre">CTCLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_infinity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb0635d7ddd7476e06efcc77886f486ccec11904/torch/nn/modules/loss.py#L1933"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.loss.CTCLoss" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.loss.</span></span><span class="sig-name descname"><span class="pre">CTCLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_infinity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a33f85e79102df112ab4954eef4a7843dceacbb9/torch/nn/modules/loss.py#L1933"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.loss.CTCLoss" title="Permalink to this definition">#</a></dt>
 <dd><p>The Connectionist Temporal Classification loss.</p>
 <p>Calculates loss between a continuous (unsegmented) time series and a target sequence. CTCLoss sums over the
 probability of possible alignments of input to target, producing a loss value which is differentiable
@@ -4650,7 +4651,7 @@ Please see the notes on <a class="reference internal" href="../notes/randomness.
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.loss.CTCLoss.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_probs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_lengths</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb0635d7ddd7476e06efcc77886f486ccec11904/torch/nn/modules/loss.py#L2095"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.loss.CTCLoss.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_probs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_lengths</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a33f85e79102df112ab4954eef4a7843dceacbb9/torch/nn/modules/loss.py#L2095"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.loss.CTCLoss.forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>

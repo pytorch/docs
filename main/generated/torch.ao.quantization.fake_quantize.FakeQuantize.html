@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitbb0635d )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita33f85e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3363,6 +3363,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_available.html">torch.xpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_bf16_supported.html">torch.xpu.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_initialized.html">torch.xpu.is_initialized</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.stream.html">torch.xpu.stream</a></li>
@@ -4494,7 +4495,7 @@ document.write(`
 <h1>FakeQuantize<a class="headerlink" href="#fakequantize" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.fake_quantize.FakeQuantize">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fake_quantize.</span></span><span class="sig-name descname"><span class="pre">FakeQuantize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer=&lt;class</span> <span class="pre">'torch.ao.quantization.observer.MovingAverageMinMaxObserver'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_min=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_max=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_dynamic=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**observer_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb0635d7ddd7476e06efcc77886f486ccec11904/torch/ao/quantization/fake_quantize.py#L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fake_quantize.FakeQuantize" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fake_quantize.</span></span><span class="sig-name descname"><span class="pre">FakeQuantize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer=&lt;class</span> <span class="pre">'torch.ao.quantization.observer.MovingAverageMinMaxObserver'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_min=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_max=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_dynamic=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**observer_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a33f85e79102df112ab4954eef4a7843dceacbb9/torch/ao/quantization/fake_quantize.py#L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fake_quantize.FakeQuantize" title="Permalink to this definition">#</a></dt>
 <dd><p>Simulate the quantize and dequantize operations in training time.</p>
 <p>The output of this module is given by:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_out</span> <span class="o">=</span> <span class="p">(</span>

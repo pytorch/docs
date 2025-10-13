@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitbb0635d )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita33f85e )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3363,6 +3363,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_available.html">torch.xpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_bf16_supported.html">torch.xpu.is_bf16_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_initialized.html">torch.xpu.is_initialized</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.stream.html">torch.xpu.stream</a></li>
@@ -4483,7 +4484,7 @@ document.write(`
 <h1>device_of<a class="headerlink" href="#device-of" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.xpu.device_of">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">device_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bb0635d7ddd7476e06efcc77886f486ccec11904/torch/xpu/__init__.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.device_of" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">device_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a33f85e79102df112ab4954eef4a7843dceacbb9/torch/xpu/__init__.py#L193"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.device_of" title="Permalink to this definition">#</a></dt>
 <dd><p>Context-manager that changes the current device to that of given object.</p>
 <p>You can use both tensors and storages as arguments. If a given object is
 not allocated on a XPU, this is a no-op.</p>
