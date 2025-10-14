@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita33f85e )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git37d57ac )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3190,6 +3190,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.current_device.html">torch.cpu.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.current_stream.html">torch.cpu.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.is_available.html">torch.cpu.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.stream.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.set_device.html">torch.cpu.set_device</a></li>
@@ -3450,8 +3451,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3920,6 +3921,14 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.swap_module.html">swap_module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.propagate_qconfig_.html">propagate_qconfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.default_eval_fn.html">default_eval_fn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.activation_is_dynamically_quantized.html">activation_is_dynamically_quantized</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.activation_is_int32_quantized.html">activation_is_int32_quantized</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.activation_is_int8_quantized.html">activation_is_int8_quantized</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.activation_is_statically_quantized.html">activation_is_statically_quantized</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.determine_qparams.html">determine_qparams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.check_min_max_valid.html">check_min_max_valid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.calculate_qmin_qmax.html">calculate_qmin_qmax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.validate_qmin_qmax.html">validate_qmin_qmax</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.quantize_fx.prepare_fx.html">prepare_fx</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.quantize_fx.prepare_qat_fx.html">prepare_qat_fx</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.quantize_fx.convert_fx.html">convert_fx</a></li>
@@ -4484,7 +4493,7 @@ document.write(`
 <h1>Event<a class="headerlink" href="#event" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.xpu.Event">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable_timing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a33f85e79102df112ab4954eef4a7843dceacbb9/torch/xpu/streams.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Event" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable_timing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/37d57ac9cb7f538b812cf1d9851b55b46213fe15/torch/xpu/streams.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Event" title="Permalink to this definition">#</a></dt>
 <dd><p>Wrapper around a XPU event.</p>
 <p>XPU events are synchronization markers that can be used to monitor the
 device’s progress, and to synchronize XPU streams.</p>
@@ -4499,7 +4508,7 @@ event. However, streams on any device can wait on the event.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.Event.elapsed_time">
-<span class="sig-name descname"><span class="pre">elapsed_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">end_event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a33f85e79102df112ab4954eef4a7843dceacbb9/torch/xpu/streams.py#L149"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Event.elapsed_time" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">elapsed_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">end_event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/37d57ac9cb7f538b812cf1d9851b55b46213fe15/torch/xpu/streams.py#L149"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Event.elapsed_time" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the time elapsed.</p>
 <p>Time reported in milliseconds after the event was recorded and
 before the end_event was recorded.</p>
@@ -4507,7 +4516,7 @@ before the end_event was recorded.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.Event.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a33f85e79102df112ab4954eef4a7843dceacbb9/torch/xpu/streams.py#L140"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Event.query" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/37d57ac9cb7f538b812cf1d9851b55b46213fe15/torch/xpu/streams.py#L140"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Event.query" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if all work currently captured by event has completed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -4522,7 +4531,7 @@ completed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.Event.record">
-<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a33f85e79102df112ab4954eef4a7843dceacbb9/torch/xpu/streams.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Event.record" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/37d57ac9cb7f538b812cf1d9851b55b46213fe15/torch/xpu/streams.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Event.record" title="Permalink to this definition">#</a></dt>
 <dd><p>Record the event in a given stream.</p>
 <p>Uses <code class="docutils literal notranslate"><span class="pre">torch.xpu.current_stream()</span></code> if no stream is specified. The
 stream’s device must match the event’s device.</p>
@@ -4532,7 +4541,7 @@ stream’s device must match the event’s device.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.Event.synchronize">
-<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a33f85e79102df112ab4954eef4a7843dceacbb9/torch/xpu/streams.py#L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Event.synchronize" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/37d57ac9cb7f538b812cf1d9851b55b46213fe15/torch/xpu/streams.py#L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Event.synchronize" title="Permalink to this definition">#</a></dt>
 <dd><p>Wait for the event to complete.</p>
 <p>Waits until the completion of all work currently captured in this event.
 This prevents the CPU thread from proceeding until the event completes.</p>
@@ -4542,7 +4551,7 @@ This prevents the CPU thread from proceeding until the event completes.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.xpu.Event.wait">
-<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a33f85e79102df112ab4954eef4a7843dceacbb9/torch/xpu/streams.py#L131"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Event.wait" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/37d57ac9cb7f538b812cf1d9851b55b46213fe15/torch/xpu/streams.py#L131"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.Event.wait" title="Permalink to this definition">#</a></dt>
 <dd><p>Make all future work submitted to the given stream wait for this event.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">torch.xpu.current_stream()</span></code> if no stream is specified.</p>
 <dl class="field-list simple">

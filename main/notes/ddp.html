@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita33f85e )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git37d57ac )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -656,7 +656,7 @@ document.write(`
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item current active">
   <a class="nav-link nav-internal" href="../user_guide/index.html">
     User Guide
   </a>
@@ -670,7 +670,7 @@ document.write(`
 </li>
 
 
-<li class="nav-item current active">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../notes.html">
     Developer Notes
   </a>
@@ -1115,7 +1115,7 @@ document.write(`
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item current active">
   <a class="nav-link nav-internal" href="../user_guide/index.html">
     User Guide
   </a>
@@ -1129,7 +1129,7 @@ document.write(`
 </li>
 
 
-<li class="nav-item current active">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../notes.html">
     Developer Notes
   </a>
@@ -1541,32 +1541,55 @@ document.write(`
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="amp_examples.html">Automatic Mixed Precision examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="autograd.html">Autograd mechanics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="broadcasting.html">Broadcasting semantics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cuda.html">CUDA semantics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Distributed Data Parallel</a></li>
-<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending PyTorch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="extending.func.html">Extending torch.func with autograd.Function</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="get_start_xpu.html">Getting Started on Intel GPU</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gradcheck.html">Gradcheck mechanics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hip.html">HIP (ROCm) semantics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="large_scale_deployments.html">Features for large-scale deployments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="libtorch_stable_abi.html">LibTorch Stable ABI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mkldnn.html">MKLDNN backend</a></li>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://docs.pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html">Pytorch Overview</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/get-started/locally/">Get Started</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/pytorch_main_components.html">PyTorch Main Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../notes.html">Developer Notes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="amp_examples.html">Automatic Mixed Precision examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autograd.html">Autograd mechanics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="broadcasting.html">Broadcasting semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda.html">CUDA semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Distributed Data Parallel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extending.html">Extending PyTorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extending.func.html">Extending torch.func with autograd.Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_start_xpu.html">Getting Started on Intel GPU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gradcheck.html">Gradcheck mechanics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hip.html">HIP (ROCm) semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libtorch_stable_abi.html">LibTorch Stable ABI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mkldnn.html">MKLDNN backend</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mps.html">MPS backend</a></li>
-<li class="toctree-l1"><a class="reference internal" href="multiprocessing.html">Multiprocessing best practices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="numerical_accuracy.html">Numerical accuracy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="out.html">Out Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="randomness.html">Reproducibility</a></li>
-<li class="toctree-l1"><a class="reference internal" href="serialization.html">Serialization semantics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="windows.html">Windows FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mps.html">MPS backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiprocessing.html">Multiprocessing best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical_accuracy.html">Numerical accuracy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="out.html">Out Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="randomness.html">Reproducibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows FAQ</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Accelerator Integration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../accelerator/index.html">Accelerator Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../accelerator/autoload.html">Autoload Mechanism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../accelerator/operators.html">Operator Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../accelerator/amp.html">Automatic Mixed Precision</a></li>
+</ul>
+</details></li>
 </ul>
 </div>
 </nav></div>

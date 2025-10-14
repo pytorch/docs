@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita33f85e )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git37d57ac )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3190,6 +3190,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.current_device.html">torch.cpu.current_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.current_stream.html">torch.cpu.current_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.is_available.html">torch.cpu.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.stream.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.set_device.html">torch.cpu.set_device</a></li>
@@ -3450,8 +3451,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3920,6 +3921,14 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.swap_module.html">swap_module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.propagate_qconfig_.html">propagate_qconfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.default_eval_fn.html">default_eval_fn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.activation_is_dynamically_quantized.html">activation_is_dynamically_quantized</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.activation_is_int32_quantized.html">activation_is_int32_quantized</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.activation_is_int8_quantized.html">activation_is_int8_quantized</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.activation_is_statically_quantized.html">activation_is_statically_quantized</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.determine_qparams.html">determine_qparams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.check_min_max_valid.html">check_min_max_valid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.calculate_qmin_qmax.html">calculate_qmin_qmax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.utils.validate_qmin_qmax.html">validate_qmin_qmax</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.quantize_fx.prepare_fx.html">prepare_fx</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.quantize_fx.prepare_qat_fx.html">prepare_qat_fx</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.quantize_fx.convert_fx.html">convert_fx</a></li>
@@ -4484,7 +4493,7 @@ document.write(`
 <h1>LazyInstanceNorm2d<a class="headerlink" href="#lazyinstancenorm2d" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.LazyInstanceNorm2d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">LazyInstanceNorm2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_running_stats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a33f85e79102df112ab4954eef4a7843dceacbb9/torch/nn/modules/instancenorm.py#L320"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.LazyInstanceNorm2d" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.</span></span><span class="sig-name descname"><span class="pre">LazyInstanceNorm2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_running_stats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/37d57ac9cb7f538b812cf1d9851b55b46213fe15/torch/nn/modules/instancenorm.py#L320"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.LazyInstanceNorm2d" title="Permalink to this definition">#</a></dt>
 <dd><p>A <a class="reference internal" href="torch.nn.InstanceNorm2d.html#torch.nn.InstanceNorm2d" title="torch.nn.InstanceNorm2d"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.InstanceNorm2d</span></code></a> module with lazy initialization of the <code class="docutils literal notranslate"><span class="pre">num_features</span></code> argument.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">num_features</span></code> argument of the <a class="reference internal" href="torch.nn.InstanceNorm2d.html#torch.nn.InstanceNorm2d" title="torch.nn.InstanceNorm2d"><code class="xref py py-class docutils literal notranslate"><span class="pre">InstanceNorm2d</span></code></a> is inferred from the <code class="docutils literal notranslate"><span class="pre">input.size(1)</span></code>.
 The attributes that will be lazily initialized are <cite>weight</cite>, <cite>bias</cite>,
@@ -4517,7 +4526,7 @@ statistics in both training and eval modes. Default: <code class="docutils liter
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.LazyInstanceNorm2d.cls_to_become">
-<span class="sig-name descname"><span class="pre">cls_to_become</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a33f85e79102df112ab4954eef4a7843dceacbb9/torch/nn/modules/instancenorm.py#L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.LazyInstanceNorm2d.cls_to_become" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cls_to_become</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/37d57ac9cb7f538b812cf1d9851b55b46213fe15/torch/nn/modules/instancenorm.py#L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.LazyInstanceNorm2d.cls_to_become" title="Permalink to this definition">#</a></dt>
 <dd><p>alias of <a class="reference internal" href="torch.nn.InstanceNorm2d.html#torch.nn.InstanceNorm2d" title="torch.nn.modules.instancenorm.InstanceNorm2d"><code class="xref py py-class docutils literal notranslate"><span class="pre">InstanceNorm2d</span></code></a></p>
 </dd></dl>
 

@@ -7,7 +7,7 @@ model_attr_mutation
 
     Tags: :doc:`python.object-model <python.object-model>`
 
-    Support Level: SUPPORTED
+    Support Level: NOT_SUPPORTED_YET
 
 Original source code:
 
@@ -15,11 +15,12 @@ Original source code:
 
     # mypy: allow-untyped-defs
     import torch
+    from torch._export.db.case import SupportLevel
     
     
     class ModelAttrMutation(torch.nn.Module):
         """
-        Attribute mutation raises a warning. Covered in the test_export.py test_detect_leak_strict test.
+        Attribute mutation is not supported.
         """
     
         def __init__(self) -> None:
@@ -36,6 +37,7 @@ Original source code:
     
     example_args = (torch.randn(3, 2),)
     tags = {"python.object-model"}
+    support_level = SupportLevel.NOT_SUPPORTED_YET
     model = ModelAttrMutation()
     
 
@@ -45,26 +47,7 @@ Result:
 
 .. code-block::
 
-    ExportedProgram:
-        class GraphModule(torch.nn.Module):
-            def forward(self, x: "f32[3, 2]"):
-                     zeros: "f32[3, 2]" = torch.ops.aten.zeros.default([3, 2], device = device(type='cpu'), pin_memory = False)
-                zeros_1: "f32[3, 2]" = torch.ops.aten.zeros.default([3, 2], device = device(type='cpu'), pin_memory = False);  zeros_1 = None
-                
-                     sum_1: "f32[]" = torch.ops.aten.sum.default(x);  x = None
-                sum_2: "f32[]" = torch.ops.aten.sum.default(zeros);  zeros = None
-                add: "f32[]" = torch.ops.aten.add.Tensor(sum_1, sum_2);  sum_1 = sum_2 = None
-                return (add,)
-                
-    Graph signature: 
-        # inputs
-        x: USER_INPUT
-        
-        # outputs
-        add: USER_OUTPUT
-        
-    Range constraints: {}
-    
+    AssertionError: Mutating module attribute attr_list during export.
 
 
 optional_input
