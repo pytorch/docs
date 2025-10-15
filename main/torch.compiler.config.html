@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git37d57ac )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git7778a58 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4491,7 +4491,7 @@ document.write(`
                   
   <div class="section" id="module-torch.compiler.config">
 <span id="torch-compiler-config"></span><h1>torch.compiler.config<a class="headerlink" href="#module-torch.compiler.config" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Nov 01, 2024 | Last Updated On: Jun 11, 2025</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Nov 01, 2024 | Last Updated On: Oct 14, 2025</p>
 <p>This is the top-level configuration module for the compiler, containing
 cross-cutting configuration options that affect all parts of the compiler
 stack.</p>
@@ -4503,6 +4503,86 @@ contain configuration options that affect only a specific part of the compiler:<
 <li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch._functorch.config</span></code></p></li>
 <li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.fx.experimental.config</span></code></p></li>
 </ul>
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.accumulated_recompile_limit">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">accumulated_recompile_limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">256</span></em><a class="headerlink" href="#torch.compiler.config.accumulated_recompile_limit" title="Permalink to this definition">#</a></dt>
+<dd><p>Global limit on total recompilations across all compiled functions to prevent
+runaway recompilation scenarios. This safeguard protects against compilation
+performance issues that could affect the entire program.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.allow_unspec_int_on_nn_module">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">allow_unspec_int_on_nn_module</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#torch.compiler.config.allow_unspec_int_on_nn_module" title="Permalink to this definition">#</a></dt>
+<dd><p>Allows integer attributes of nn.Module instances to be unspecialized through
+the dynamic shape mechanism. By default, TorchDynamo specializes on all integer
+module attributes, but this can cause excessive recompilation when integers
+like step counters change frequently.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.assume_static_by_default">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">assume_static_by_default</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#torch.compiler.config.assume_static_by_default" title="Permalink to this definition">#</a></dt>
+<dd><p>When enabled, all tensor dimensions are assumed to be static unless explicitly
+marked as dynamic or detected as changing. This compilation-wide behavior affects
+how the entire stack handles shape specialization and can improve performance
+for static workloads.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.automatic_dynamic_shapes">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">automatic_dynamic_shapes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#torch.compiler.config.automatic_dynamic_shapes" title="Permalink to this definition">#</a></dt>
+<dd><p>Enables automatic detection and handling of dynamic shapes. When a tensor’s
+shape changes between compilations, the system automatically marks those
+dimensions as dynamic rather than requiring manual specification. This
+cross-cutting optimization improves the user experience by reducing recompilations.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.capture_dynamic_output_shape_ops">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">capture_dynamic_output_shape_ops</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#torch.compiler.config.capture_dynamic_output_shape_ops" title="Permalink to this definition">#</a></dt>
+<dd><p>Controls whether TorchDynamo captures operations with dynamic output shapes (like
+nonzero, unique) into the FX graph. When disabled, these operations cause graph breaks.
+This is a TorchDynamo-specific setting for handling operations with unpredictable
+output shapes during tracing.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.capture_scalar_outputs">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">capture_scalar_outputs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#torch.compiler.config.capture_scalar_outputs" title="Permalink to this definition">#</a></dt>
+<dd><p>Controls whether TorchDynamo captures operations that return scalar values (like .item())
+into the FX graph. When disabled, these operations cause graph breaks. This is a
+TorchDynamo-specific tracing behavior that affects how the tracer handles
+scalar-returning operations.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.dynamic_shapes">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">dynamic_shapes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#torch.compiler.config.dynamic_shapes" title="Permalink to this definition">#</a></dt>
+<dd><p>Controls whether the compilation pipeline supports dynamic tensor shapes.
+When enabled, the compiler can handle tensors with varying dimensions across
+different invocations. This is a cross-cutting setting that affects shape
+inference, guard generation, and code generation across the entire compilation
+stack.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.enable_cpp_symbolic_shape_guards">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">enable_cpp_symbolic_shape_guards</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#torch.compiler.config.enable_cpp_symbolic_shape_guards" title="Permalink to this definition">#</a></dt>
+<dd><p>Uses C++ implementation for symbolic shape guard evaluation to improve performance.
+The C++ guard manager can significantly speed up guard checking for symbolic shapes
+in shape-polymorphic compilations.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.fail_on_recompile_limit_hit">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">fail_on_recompile_limit_hit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#torch.compiler.config.fail_on_recompile_limit_hit" title="Permalink to this definition">#</a></dt>
+<dd><p>Raises a hard error when recompile limits are exceeded instead of falling back
+to eager execution. This is useful for detecting excessive recompilation in
+performance-critical deployments where you want to ensure compilation overhead
+is kept under control.</p>
+</dd></dl>
+
 <dl class="py data">
 <dt class="sig sig-object py" id="torch.compiler.config.job_id">
 <span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">job_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#torch.compiler.config.job_id" title="Permalink to this definition">#</a></dt>
@@ -4527,6 +4607,56 @@ is running in.</p>
 different profiles.  If you know your workload is truly SPMD, you can run with
 <code class="xref py py-data docutils literal notranslate"><span class="pre">torch._dynamo.config.enable_compiler_collectives</span></code> to ensure nodes get
 consistent profiles across all ranks.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.log_file_name">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">log_file_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#torch.compiler.config.log_file_name" title="Permalink to this definition">#</a></dt>
+<dd><p>Specifies a file path for TorchDynamo-specific logging output. When set, internal
+TorchDynamo debug information is written to this file rather than stdout. This is
+useful for debugging TorchDynamo’s internal tracing behavior.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.recompile_limit">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">recompile_limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#torch.compiler.config.recompile_limit" title="Permalink to this definition">#</a></dt>
+<dd><p>Maximum number of recompilations allowed for a single function before falling
+back to eager execution. This compilation performance control prevents excessive
+recompilation overhead that can degrade overall performance.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.reorderable_logging_functions">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">reorderable_logging_functions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.14)"><span class="pre">set</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#torch.compiler.config.reorderable_logging_functions" title="Permalink to this definition">#</a></dt>
+<dd><p>A set of logging functions that can be reordered to execute after the compiled
+portion of the graph, allowing larger graphs to be captured. Functions in this
+set will have their execution deferred to avoid graph breaks, though this may
+affect the timing of log output. In particular, mutated values will not be logged
+at the right time, leading to incorrect logging.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.skip_tensor_guards_with_matching_dict_tags">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">skip_tensor_guards_with_matching_dict_tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#torch.compiler.config.skip_tensor_guards_with_matching_dict_tags" title="Permalink to this definition">#</a></dt>
+<dd><p>Optimizes guard generation by treating tensors as immutable when they are
+dictionary values with consistent dictionary tags across invocations. This
+reduces guard overhead for tensors stored in persistent data structures.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.verbose">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#torch.compiler.config.verbose" title="Permalink to this definition">#</a></dt>
+<dd><p>Enables verbose debugging output for Dynamo. When enabled, provides detailed
+information about Dynamo’s compilation decisions, optimizations, and potential
+issues.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="torch.compiler.config.wrap_top_frame">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.config.</span></span><span class="sig-name descname"><span class="pre">wrap_top_frame</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#torch.compiler.config.wrap_top_frame" title="Permalink to this definition">#</a></dt>
+<dd><p>Wraps the top-level decorated function/module in a frame wrapper to ensure
+nn.Module hooks are compiled within the same frame as the main function. This
+improves compilation coverage for models that rely on hooks.</p>
 </dd></dl>
 
 </div>
@@ -4653,7 +4783,22 @@ consistent profiles across all ranks.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.accumulated_recompile_limit"><code class="docutils literal notranslate"><span class="pre">accumulated_recompile_limit</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.allow_unspec_int_on_nn_module"><code class="docutils literal notranslate"><span class="pre">allow_unspec_int_on_nn_module</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.assume_static_by_default"><code class="docutils literal notranslate"><span class="pre">assume_static_by_default</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.automatic_dynamic_shapes"><code class="docutils literal notranslate"><span class="pre">automatic_dynamic_shapes</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.capture_dynamic_output_shape_ops"><code class="docutils literal notranslate"><span class="pre">capture_dynamic_output_shape_ops</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.capture_scalar_outputs"><code class="docutils literal notranslate"><span class="pre">capture_scalar_outputs</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.dynamic_shapes"><code class="docutils literal notranslate"><span class="pre">dynamic_shapes</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.enable_cpp_symbolic_shape_guards"><code class="docutils literal notranslate"><span class="pre">enable_cpp_symbolic_shape_guards</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.fail_on_recompile_limit_hit"><code class="docutils literal notranslate"><span class="pre">fail_on_recompile_limit_hit</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.job_id"><code class="docutils literal notranslate"><span class="pre">job_id</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.log_file_name"><code class="docutils literal notranslate"><span class="pre">log_file_name</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.recompile_limit"><code class="docutils literal notranslate"><span class="pre">recompile_limit</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.reorderable_logging_functions"><code class="docutils literal notranslate"><span class="pre">reorderable_logging_functions</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.skip_tensor_guards_with_matching_dict_tags"><code class="docutils literal notranslate"><span class="pre">skip_tensor_guards_with_matching_dict_tags</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.verbose"><code class="docutils literal notranslate"><span class="pre">verbose</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.config.wrap_top_frame"><code class="docutils literal notranslate"><span class="pre">wrap_top_frame</span></code></a></li>
 </ul>
   </nav></div>
     
@@ -4896,7 +5041,7 @@ consistent profiles across all ranks.</p>
        "headline": "torch.compiler.config",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/torch.compiler.config.html",
-       "articleBody": "torch.compiler.config# Created On: Nov 01, 2024 | Last Updated On: Jun 11, 2025 This is the top-level configuration module for the compiler, containing cross-cutting configuration options that affect all parts of the compiler stack. You may also be interested in the per-component configuration modules, which contain configuration options that affect only a specific part of the compiler: torch._dynamo.config torch._inductor.config torch._functorch.config torch.fx.experimental.config torch.compiler.config.job_id: Optional[str] = None# Semantically, this should be an identifier that uniquely identifies, e.g., a training job. You might have multiple attempts of the same job, e.g., if it was preempted or needed to be restarted, but each attempt should be running substantially the same workload with the same distributed topology. You can set this by environment variable with TORCH_COMPILE_JOB_ID. Operationally, this controls the effect of profile-guided optimization related persistent state. PGO state can affect how we perform compilation across multiple invocations of PyTorch, e.g., the first time you run your program we may compile twice as we discover what inputs are dynamic, and then PGO will save this state so subsequent invocations only need to compile once, because they remember it is dynamic. This profile information, however, is sensitive to what workload you are running, so we require you to tell us that two jobs are related (i.e., are the same workload) before we are willing to reuse this information. Notably, PGO does nothing (even if explicitly enabled) unless a valid job_id is available. In some situations, PyTorch can configured to automatically compute a job_id based on the environment it is running in. Profiles are always collected on a per rank basis, so different ranks may have different profiles. If you know your workload is truly SPMD, you can run with torch._dynamo.config.enable_compiler_collectives to ensure nodes get consistent profiles across all ranks.",
+       "articleBody": "torch.compiler.config# Created On: Nov 01, 2024 | Last Updated On: Oct 14, 2025 This is the top-level configuration module for the compiler, containing cross-cutting configuration options that affect all parts of the compiler stack. You may also be interested in the per-component configuration modules, which contain configuration options that affect only a specific part of the compiler: torch._dynamo.config torch._inductor.config torch._functorch.config torch.fx.experimental.config torch.compiler.config.accumulated_recompile_limit: int = 256# Global limit on total recompilations across all compiled functions to prevent runaway recompilation scenarios. This safeguard protects against compilation performance issues that could affect the entire program. torch.compiler.config.allow_unspec_int_on_nn_module: bool = False# Allows integer attributes of nn.Module instances to be unspecialized through the dynamic shape mechanism. By default, TorchDynamo specializes on all integer module attributes, but this can cause excessive recompilation when integers like step counters change frequently. torch.compiler.config.assume_static_by_default: bool = True# When enabled, all tensor dimensions are assumed to be static unless explicitly marked as dynamic or detected as changing. This compilation-wide behavior affects how the entire stack handles shape specialization and can improve performance for static workloads. torch.compiler.config.automatic_dynamic_shapes: bool = True# Enables automatic detection and handling of dynamic shapes. When a tensor\u2019s shape changes between compilations, the system automatically marks those dimensions as dynamic rather than requiring manual specification. This cross-cutting optimization improves the user experience by reducing recompilations. torch.compiler.config.capture_dynamic_output_shape_ops: bool = False# Controls whether TorchDynamo captures operations with dynamic output shapes (like nonzero, unique) into the FX graph. When disabled, these operations cause graph breaks. This is a TorchDynamo-specific setting for handling operations with unpredictable output shapes during tracing. torch.compiler.config.capture_scalar_outputs: bool = False# Controls whether TorchDynamo captures operations that return scalar values (like .item()) into the FX graph. When disabled, these operations cause graph breaks. This is a TorchDynamo-specific tracing behavior that affects how the tracer handles scalar-returning operations. torch.compiler.config.dynamic_shapes: bool = True# Controls whether the compilation pipeline supports dynamic tensor shapes. When enabled, the compiler can handle tensors with varying dimensions across different invocations. This is a cross-cutting setting that affects shape inference, guard generation, and code generation across the entire compilation stack. torch.compiler.config.enable_cpp_symbolic_shape_guards: bool = True# Uses C++ implementation for symbolic shape guard evaluation to improve performance. The C++ guard manager can significantly speed up guard checking for symbolic shapes in shape-polymorphic compilations. torch.compiler.config.fail_on_recompile_limit_hit: bool = False# Raises a hard error when recompile limits are exceeded instead of falling back to eager execution. This is useful for detecting excessive recompilation in performance-critical deployments where you want to ensure compilation overhead is kept under control. torch.compiler.config.job_id: Optional[str] = None# Semantically, this should be an identifier that uniquely identifies, e.g., a training job. You might have multiple attempts of the same job, e.g., if it was preempted or needed to be restarted, but each attempt should be running substantially the same workload with the same distributed topology. You can set this by environment variable with TORCH_COMPILE_JOB_ID. Operationally, this controls the effect of profile-guided optimization related persistent state. PGO state can affect how we perform compilation across multiple invocations of PyTorch, e.g., the first time you run your program we may compile twice as we discover what inputs are dynamic, and then PGO will save this state so subsequent invocations only need to compile once, because they remember it is dynamic. This profile information, however, is sensitive to what workload you are running, so we require you to tell us that two jobs are related (i.e., are the same workload) before we are willing to reuse this information. Notably, PGO does nothing (even if explicitly enabled) unless a valid job_id is available. In some situations, PyTorch can configured to automatically compute a job_id based on the environment it is running in. Profiles are always collected on a per rank basis, so different ranks may have different profiles. If you know your workload is truly SPMD, you can run with torch._dynamo.config.enable_compiler_collectives to ensure nodes get consistent profiles across all ranks. torch.compiler.config.log_file_name: Optional[str] = None# Specifies a file path for TorchDynamo-specific logging output. When set, internal TorchDynamo debug information is written to this file rather than stdout. This is useful for debugging TorchDynamo\u2019s internal tracing behavior. torch.compiler.config.recompile_limit: int = 8# Maximum number of recompilations allowed for a single function before falling back to eager execution. This compilation performance control prevents excessive recompilation overhead that can degrade overall performance. torch.compiler.config.reorderable_logging_functions: set = {}# A set of logging functions that can be reordered to execute after the compiled portion of the graph, allowing larger graphs to be captured. Functions in this set will have their execution deferred to avoid graph breaks, though this may affect the timing of log output. In particular, mutated values will not be logged at the right time, leading to incorrect logging. torch.compiler.config.skip_tensor_guards_with_matching_dict_tags: bool = True# Optimizes guard generation by treating tensors as immutable when they are dictionary values with consistent dictionary tags across invocations. This reduces guard overhead for tensors stored in persistent data structures. torch.compiler.config.verbose: bool = False# Enables verbose debugging output for Dynamo. When enabled, provides detailed information about Dynamo\u2019s compilation decisions, optimizations, and potential issues. torch.compiler.config.wrap_top_frame: bool = False# Wraps the top-level decorated function/module in a frame wrapper to ensure nn.Module hooks are compiled within the same frame as the main function. This improves compilation coverage for models that rely on hooks.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4908,7 +5053,7 @@ consistent profiles across all ranks.</p>
          "@id": "/torch.compiler.config.html"
        },
        "datePublished": "Nov 01, 2024T00:00:00Z",
-       "dateModified": "Jun 11, 2025T00:00:00Z"
+       "dateModified": "Oct 14, 2025T00:00:00Z"
      }
  </script>
   <script>
