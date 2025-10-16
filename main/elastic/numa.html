@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git7778a58 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git36371b8 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -2577,6 +2577,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.functional.ScalingType.html">ScalingType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.functional.SwizzleType.html">SwizzleType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.functional.scaled_mm.html">torch.nn.functional.scaled_mm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.functional.scaled_grouped_mm.html">torch.nn.functional.scaled_grouped_mm</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tensors.html">torch.Tensor</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3820,6 +3821,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.experimental.html">torch.nn.attention.experimental</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nn.attention.varlen.html">torch.nn.attention.varlen</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../onnx.html">torch.onnx</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4494,14 +4496,14 @@ document.write(`
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 25, 2025 | Last Updated On: Aug 12, 2025</p>
 <span class="target" id="module-torch.numa.binding"></span><dl class="py class">
 <dt class="sig sig-object py" id="torch.numa.binding.AffinityMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">AffinityMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7778a58e7c3a9dfca8c4fa00d936581e7549d918/torch/numa/binding.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.AffinityMode" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">AffinityMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/36371b8ec7a1baed255c18451b2c716386a54c95/torch/numa/binding.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.AffinityMode" title="Permalink to this definition">#</a></dt>
 <dd><p>See behavior description for each affinity mode
 in torch.distributed.run.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.numa.binding.NumaOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">NumaOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affinity_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.numa.binding.AffinityMode" title="torch.numa.binding.AffinityMode"><span class="pre">torch.numa.binding.AffinityMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_fall_back_if_binding_fails</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7778a58e7c3a9dfca8c4fa00d936581e7549d918/torch/numa/binding.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.NumaOptions" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">NumaOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affinity_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.numa.binding.AffinityMode" title="torch.numa.binding.AffinityMode"><span class="pre">torch.numa.binding.AffinityMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_fall_back_if_binding_fails</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/36371b8ec7a1baed255c18451b2c716386a54c95/torch/numa/binding.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.NumaOptions" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -4517,7 +4519,7 @@ mass rollouts of numa binding.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_thread">
-<span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_temporarily_apply_numa_binding_to_current_thread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7778a58e7c3a9dfca8c4fa00d936581e7549d918/torch/numa/binding.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_thread" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_temporarily_apply_numa_binding_to_current_thread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/36371b8ec7a1baed255c18451b2c716386a54c95/torch/numa/binding.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_thread" title="Permalink to this definition">#</a></dt>
 <dd><p>1. Applies NUMA binding to the current thread, suitable for the thread
 which will be interacting with GPU gpu_index.
 2. Resets to the original CPU affinity before exiting the context manager.</p>

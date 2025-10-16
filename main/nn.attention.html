@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git7778a58 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git36371b8 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -2577,6 +2577,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.ScalingType.html">ScalingType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.SwizzleType.html">SwizzleType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.scaled_mm.html">torch.nn.functional.scaled_mm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.functional.scaled_grouped_mm.html">torch.nn.functional.scaled_grouped_mm</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tensors.html">torch.Tensor</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3820,6 +3821,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="nn.attention.experimental.html">torch.nn.attention.experimental</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nn.attention.varlen.html">torch.nn.attention.varlen</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="onnx.html">torch.onnx</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4482,7 +4484,7 @@ document.write(`
                   
   <div class="section" id="module-torch.nn.attention">
 <span id="torch-nn-attention"></span><h1>torch.nn.attention<a class="headerlink" href="#module-torch.nn.attention" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 24, 2024 | Last Updated On: Oct 29, 2024</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 24, 2024 | Last Updated On: Oct 15, 2025</p>
 <p>This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention</p>
 <div class="section" id="utils">
 <h2>Utils<a class="headerlink" href="#utils" title="Permalink to this heading">#</a></h2>
@@ -4518,6 +4520,9 @@ document.write(`
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="nn.attention.experimental.html#module-torch.nn.attention.experimental" title="torch.nn.attention.experimental"><code class="xref py py-obj docutils literal notranslate"><span class="pre">experimental</span></code></a></p></td>
 <td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="nn.attention.varlen.html#module-torch.nn.attention.varlen" title="torch.nn.attention.varlen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">varlen</span></code></a></p></td>
+<td><p>Variable-length attention implementation using Flash Attention.</p></td>
 </tr>
 </tbody>
 </table>
@@ -4893,7 +4898,7 @@ document.write(`
        "headline": "torch.nn.attention",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/nn.attention.html",
-       "articleBody": "torch.nn.attention# Created On: Jan 24, 2024 | Last Updated On: Oct 29, 2024 This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention Utils# sdpa_kernel Context manager to select which backend to use for scaled dot product attention. SDPBackend An enum-like class that contains the different backends for scaled dot product attention. Submodules# flex_attention This module implements the user facing API for flex_attention in PyTorch. bias Defines bias subclasses that work with scaled_dot_product_attention experimental",
+       "articleBody": "torch.nn.attention# Created On: Jan 24, 2024 | Last Updated On: Oct 15, 2025 This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention Utils# sdpa_kernel Context manager to select which backend to use for scaled dot product attention. SDPBackend An enum-like class that contains the different backends for scaled dot product attention. Submodules# flex_attention This module implements the user facing API for flex_attention in PyTorch. bias Defines bias subclasses that work with scaled_dot_product_attention experimental varlen Variable-length attention implementation using Flash Attention.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4905,7 +4910,7 @@ document.write(`
          "@id": "/nn.attention.html"
        },
        "datePublished": "Jan 24, 2024T00:00:00Z",
-       "dateModified": "Oct 29, 2024T00:00:00Z"
+       "dateModified": "Oct 15, 2025T00:00:00Z"
      }
  </script>
   <script>

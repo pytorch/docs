@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git7778a58 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git36371b8 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -2577,6 +2577,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.ScalingType.html">ScalingType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.SwizzleType.html">SwizzleType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.scaled_mm.html">torch.nn.functional.scaled_mm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.functional.scaled_grouped_mm.html">torch.nn.functional.scaled_grouped_mm</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tensors.html">torch.Tensor</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3820,6 +3821,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../nn.attention.experimental.html">torch.nn.attention.experimental</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nn.attention.varlen.html">torch.nn.attention.varlen</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../onnx.html">torch.onnx</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4504,7 +4506,7 @@ document.write(`
 <h1>torch.functional.unique_consecutive<a class="headerlink" href="#torch-functional-unique-consecutive" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.functional.unique_consecutive">
-<span class="sig-prename descclassname"><span class="pre">torch.functional.</span></span><span class="sig-name descname"><span class="pre">unique_consecutive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7778a58e7c3a9dfca8c4fa00d936581e7549d918/torch/_jit_internal.py#L609"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.functional.unique_consecutive" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.functional.</span></span><span class="sig-name descname"><span class="pre">unique_consecutive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/36371b8ec7a1baed255c18451b2c716386a54c95/torch/_jit_internal.py#L609"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.functional.unique_consecutive" title="Permalink to this definition">#</a></dt>
 <dd><p>Eliminates all but the first element from every consecutive group of equivalent elements.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

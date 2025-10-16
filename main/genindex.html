@@ -149,7 +149,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git7778a58 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git36371b8 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -2680,7 +2680,11 @@ document.write(`
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.AuxOutput">AuxOutput (class in torch.nn.attention.flex_attention)</a>
 </li>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.AuxRequest">AuxRequest (class in torch.nn.attention.flex_attention)</a>
+
+      <ul>
+        <li><a href="nn.attention.varlen.html#torch.nn.attention.varlen.AuxRequest">(class in torch.nn.attention.varlen)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel">AveragedModel (class in torch.optim.swa_utils)</a>
 </li>
       <li><a href="generated/torch.nn.functional.avg_pool1d.html#torch.nn.functional.avg_pool1d">avg_pool1d() (in module torch.nn.functional)</a>
@@ -10716,6 +10720,8 @@ document.write(`
 </li>
         <li><a href="nn.attention.flex_attention.html#module-torch.nn.attention.flex_attention">torch.nn.attention.flex_attention</a>
 </li>
+        <li><a href="nn.attention.varlen.html#module-torch.nn.attention.varlen">torch.nn.attention.varlen</a>
+</li>
         <li><a href="nn.html#module-torch.nn.backends">torch.nn.backends</a>
 </li>
         <li><a href="nn.html#module-torch.nn.backends.thnn">torch.nn.backends.thnn</a>
@@ -13977,6 +13983,8 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.nn.functional.scaled_dot_product_attention.html#torch.nn.functional.scaled_dot_product_attention">scaled_dot_product_attention() (in module torch.nn.functional)</a>
 </li>
+      <li><a href="generated/torch.nn.functional.scaled_grouped_mm.html#torch.nn.functional.scaled_grouped_mm">scaled_grouped_mm() (in module torch.nn.functional)</a>
+</li>
       <li><a href="generated/torch.nn.functional.scaled_mm.html#torch.nn.functional.scaled_mm">scaled_mm() (in module torch.nn.functional)</a>
 </li>
       <li><a href="special.html#torch.special.scaled_modified_bessel_k0">scaled_modified_bessel_k0() (in module torch.special)</a>
@@ -14290,6 +14298,8 @@ document.write(`
       <li><a href="generated/torch.set_num_interop_threads.html#torch.set_num_interop_threads">set_num_interop_threads() (in module torch)</a>
 </li>
       <li><a href="generated/torch.set_num_threads.html#torch.set_num_threads">set_num_threads() (in module torch)</a>
+</li>
+      <li><a href="cuda.tunable.html#torch.cuda.tunable.set_numerical_check_tolerances">set_numerical_check_tolerances() (in module torch.cuda.tunable)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.qconfig_mapping.QConfigMapping.html#torch.ao.quantization.qconfig_mapping.QConfigMapping.set_object_type">set_object_type() (torch.ao.quantization.qconfig_mapping.QConfigMapping method)</a>
 </li>
@@ -19657,6 +19667,13 @@ document.write(`
 </li>
       </ul></li>
       <li>
+    torch.nn.attention.varlen
+
+      <ul>
+        <li><a href="nn.attention.varlen.html#module-torch.nn.attention.varlen">module</a>
+</li>
+      </ul></li>
+      <li>
     torch.nn.backends
 
       <ul>
@@ -22213,6 +22230,8 @@ document.write(`
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nn.attention.varlen.html#torch.nn.attention.varlen.varlen_attn">varlen_attn() (in module torch.nn.attention.varlen)</a>
+</li>
       <li><a href="generated/torch.vdot.html#torch.vdot">vdot() (in module torch)</a>
 
       <ul>
@@ -22373,10 +22392,10 @@ document.write(`
         <li><a href="generated/torch.xpu.streams.Stream.html#torch.xpu.streams.Stream.wait_stream">(torch.xpu.streams.Stream method)</a>
 </li>
       </ul></li>
-      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.FlexKernelOptions.waves_per_eu">waves_per_eu (torch.nn.attention.flex_attention.FlexKernelOptions attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.FlexKernelOptions.waves_per_eu">waves_per_eu (torch.nn.attention.flex_attention.FlexKernelOptions attribute)</a>
+</li>
       <li><a href="distributions.html#torch.distributions.weibull.Weibull">Weibull (class in torch.distributions.weibull)</a>
 </li>
       <li><a href="generated/torch.nn.utils.weight_norm.html#torch.nn.utils.weight_norm">weight_norm() (in module torch.nn.utils)</a>
@@ -22433,13 +22452,7 @@ document.write(`
 </li>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.FlexKernelOptions.WRITE_DQ">WRITE_DQ (torch.nn.attention.flex_attention.FlexKernelOptions attribute)</a>
 </li>
-      <li><a href="cuda.tunable.html#torch.cuda.tunable.write_file">write_file() (in module torch.cuda.tunable)</a>
-
-      <ul>
-        <li><a href="export/api_reference.html#torch.export.pt2_archive.PT2ArchiveWriter.write_file">(torch.export.pt2_archive.PT2ArchiveWriter method)</a>
-</li>
-      </ul></li>
-      <li><a href="cuda.tunable.html#torch.cuda.tunable.write_file_on_exit">write_file_on_exit() (in module torch.cuda.tunable)</a>
+      <li><a href="export/api_reference.html#torch.export.pt2_archive.PT2ArchiveWriter.write_file">write_file() (torch.export.pt2_archive.PT2ArchiveWriter method)</a>
 </li>
       <li><a href="export/api_reference.html#torch.export.pt2_archive.PT2ArchiveWriter.write_folder">write_folder() (torch.export.pt2_archive.PT2ArchiveWriter method)</a>
 </li>
