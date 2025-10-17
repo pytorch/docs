@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git36371b8 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitb2953f5 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3452,8 +3452,8 @@ document.write(`
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4655,7 +4655,7 @@ and branch functions becomes two sub-graph attributes of the top level graph mod
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch._higher_order_ops.cond.cond">
-<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.cond.</span></span><span class="sig-name descname"><span class="pre">cond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">false_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/36371b8ec7a1baed255c18451b2c716386a54c95/torch/_higher_order_ops/cond.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.cond.cond" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch._higher_order_ops.cond.</span></span><span class="sig-name descname"><span class="pre">cond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">false_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b2953f5643c6627d2bd0ceb9d2ccb32e2545c549/torch/_higher_order_ops/cond.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._higher_order_ops.cond.cond" title="Permalink to this definition">#</a></dt>
 <dd><p>Conditionally applies <cite>true_fn</cite> or <cite>false_fn</cite>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
