@@ -4457,10 +4457,10 @@ new observed value.</p>
 <p>Because the Batch Normalization is done for each channel in the <code class="docutils literal notranslate"><span class="pre">C</span></code> dimension, computing
 statistics on <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">+)</span></code> slices, it’s common terminology to call this Volumetric Batch
 Normalization or Spatio-temporal Batch Normalization.</p>
-<p>Currently <a class="reference internal" href="#torch.nn.modules.batchnorm.SyncBatchNorm" title="torch.nn.modules.batchnorm.SyncBatchNorm"><code class="xref py py-class docutils literal notranslate"><span class="pre">SyncBatchNorm</span></code></a> only supports
+<p>Currently <a class="reference internal" href="torch.nn.SyncBatchNorm.html#torch.nn.SyncBatchNorm" title="torch.nn.modules.batchnorm.SyncBatchNorm"><code class="xref py py-class docutils literal notranslate"><span class="pre">SyncBatchNorm</span></code></a> only supports
 <code class="xref py py-class docutils literal notranslate"><span class="pre">DistributedDataParallel</span></code> (DDP) with single GPU per process. Use
 <a class="reference internal" href="torch.nn.SyncBatchNorm.html#torch.nn.SyncBatchNorm.convert_sync_batchnorm" title="torch.nn.SyncBatchNorm.convert_sync_batchnorm"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.nn.SyncBatchNorm.convert_sync_batchnorm()</span></code></a> to convert
-<code class="xref py py-attr docutils literal notranslate"><span class="pre">BatchNorm*D</span></code> layer to <a class="reference internal" href="#torch.nn.modules.batchnorm.SyncBatchNorm" title="torch.nn.modules.batchnorm.SyncBatchNorm"><code class="xref py py-class docutils literal notranslate"><span class="pre">SyncBatchNorm</span></code></a> before wrapping
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">BatchNorm*D</span></code> layer to <a class="reference internal" href="torch.nn.SyncBatchNorm.html#torch.nn.SyncBatchNorm" title="torch.nn.modules.batchnorm.SyncBatchNorm"><code class="xref py py-class docutils literal notranslate"><span class="pre">SyncBatchNorm</span></code></a> before wrapping
 Network with DDP.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
