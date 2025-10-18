@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitb2953f5 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita25a649 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4505,10 +4505,6 @@ in that row, and <code class="docutils literal notranslate"><span class="pre">in
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> except in the dimension <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code> where they are of size 1.
 Otherwise, <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code> is squeezed (see <a class="reference internal" href="torch.squeeze.html#torch.squeeze" title="torch.squeeze"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.squeeze()</span></code></a>), resulting
 in the output tensors having 1 fewer dimension than <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function is not defined for <code class="docutils literal notranslate"><span class="pre">torch.cuda.Tensor</span></code> yet.</p>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -4886,7 +4882,7 @@ in the output tensors having 1 fewer dimension than <code class="xref py py-attr
        "headline": "torch.mode",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.mode.html",
-       "articleBody": "torch.mode# torch.mode(input, dim=-1, keepdim=False, *, out=None)# Returns a namedtuple (values, indices) where values is the mode value of each row of the input tensor in the given dimension dim, i.e. a value which appears most often in that row, and indices is the index location of each mode value found. By default, dim is the last dimension of the input tensor. If keepdim is True, the output tensors are of the same size as input except in the dimension dim where they are of size 1. Otherwise, dim is squeezed (see torch.squeeze()), resulting in the output tensors having 1 fewer dimension than input. Note This function is not defined for torch.cuda.Tensor yet. Parameters input (Tensor) \u2013 the input tensor. dim (int, optional) \u2013 the dimension to reduce. keepdim (bool, optional) \u2013 whether the output tensor has dim retained or not. Default: False. Keyword Arguments out (tuple, optional) \u2013 the result tuple of two output tensors (values, indices) Example: \u003e\u003e\u003e b = torch.tensor([[0, 0, 0, 2, 0, 0, 2], ... [0, 3, 0, 0, 2, 0, 1], ... [2, 2, 2, 0, 0, 0, 3], ... [2, 2, 3, 0, 1, 1, 0], ... [1, 1, 0, 0, 2, 0, 2]]) \u003e\u003e\u003e torch.mode(b, 0) torch.return_types.mode( values=tensor([0, 2, 0, 0, 0, 0, 2]), indices=tensor([1, 3, 4, 4, 2, 4, 4]))",
+       "articleBody": "torch.mode# torch.mode(input, dim=-1, keepdim=False, *, out=None)# Returns a namedtuple (values, indices) where values is the mode value of each row of the input tensor in the given dimension dim, i.e. a value which appears most often in that row, and indices is the index location of each mode value found. By default, dim is the last dimension of the input tensor. If keepdim is True, the output tensors are of the same size as input except in the dimension dim where they are of size 1. Otherwise, dim is squeezed (see torch.squeeze()), resulting in the output tensors having 1 fewer dimension than input. Parameters input (Tensor) \u2013 the input tensor. dim (int, optional) \u2013 the dimension to reduce. keepdim (bool, optional) \u2013 whether the output tensor has dim retained or not. Default: False. Keyword Arguments out (tuple, optional) \u2013 the result tuple of two output tensors (values, indices) Example: \u003e\u003e\u003e b = torch.tensor([[0, 0, 0, 2, 0, 0, 2], ... [0, 3, 0, 0, 2, 0, 1], ... [2, 2, 2, 0, 0, 0, 3], ... [2, 2, 3, 0, 1, 1, 0], ... [1, 1, 0, 0, 2, 0, 2]]) \u003e\u003e\u003e torch.mode(b, 0) torch.return_types.mode( values=tensor([0, 2, 0, 0, 0, 0, 2]), indices=tensor([1, 3, 4, 4, 2, 4, 4]))",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
