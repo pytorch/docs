@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita25a649 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitc4f6619 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3452,8 +3452,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4496,7 +4496,8 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.sin">
 <span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">sin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="headerlink" href="#torch.sin" title="Permalink to this definition">#</a></dt>
-<dd><p>Returns a new tensor with the sine of the elements of <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code>.</p>
+<dd><p>Returns a new tensor with the sine of the elements in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> tensor,
+where each value in this input tensor is in radians.</p>
 <div class="math">
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mtext>out</mtext><mi>i</mi></msub><mo>=</mo><mi>sin</mi><mo>⁡</mo><mo stretchy="false">(</mo><msub><mtext>input</mtext><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{out}_{i} = \sin(\text{input}_{i})
 
@@ -4869,7 +4870,7 @@ document.write(`
        "headline": "torch.sin",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.sin.html",
-       "articleBody": "torch.sin# torch.sin(input, *, out=None) \u2192 Tensor# Returns a new tensor with the sine of the elements of input. outi=sin\u2061(inputi)\\text{out}_{i} = \\sin(\\text{input}_{i}) outi\u200b=sin(inputi\u200b) Parameters input (Tensor) \u2013 the input tensor. Keyword Arguments out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e a = torch.randn(4) \u003e\u003e\u003e a tensor([-0.5461, 0.1347, -2.7266, -0.2746]) \u003e\u003e\u003e torch.sin(a) tensor([-0.5194, 0.1343, -0.4032, -0.2711])",
+       "articleBody": "torch.sin# torch.sin(input, *, out=None) \u2192 Tensor# Returns a new tensor with the sine of the elements in the input tensor, where each value in this input tensor is in radians. outi=sin\u2061(inputi)\\text{out}_{i} = \\sin(\\text{input}_{i}) outi\u200b=sin(inputi\u200b) Parameters input (Tensor) \u2013 the input tensor. Keyword Arguments out (Tensor, optional) \u2013 the output tensor. Example: \u003e\u003e\u003e a = torch.randn(4) \u003e\u003e\u003e a tensor([-0.5461, 0.1347, -2.7266, -0.2746]) \u003e\u003e\u003e torch.sin(a) tensor([-0.5194, 0.1343, -0.4032, -0.2711])",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
