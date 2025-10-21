@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git61d9a51 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4c963a6 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4506,7 +4506,7 @@ document.write(`
 <h1>torch.func.debug_unwrap<a class="headerlink" href="#torch-func-debug-unwrap" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.func.debug_unwrap">
-<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">debug_unwrap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/61d9a5180e44e43c2fe0394916688d756ea99da2/torch/_functorch/eager_transforms.py#L1804"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.debug_unwrap" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">debug_unwrap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4c963a68d784b6c4bc8724ffca5cb9f3fbf75ca9/torch/_functorch/eager_transforms.py#L1804"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.debug_unwrap" title="Permalink to this definition">#</a></dt>
 <dd><p>Unwraps a functorch tensor (e.g. BatchedTensor, GradTrackingTensor) to its underlying tensor.</p>
 <p>This function should only be used in a debug setting (e.g. trying to print the
 value of a Tensor in a debugger). Otherwise, using the result of function
