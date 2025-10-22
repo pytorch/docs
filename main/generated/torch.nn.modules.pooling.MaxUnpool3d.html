@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4c963a6 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git12aac12 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3452,8 +3452,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4506,7 +4506,7 @@ document.write(`
 <h1>MaxUnpool3d<a class="headerlink" href="#maxunpool3d" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.modules.pooling.MaxUnpool3d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.pooling.</span></span><span class="sig-name descname"><span class="pre">MaxUnpool3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4c963a68d784b6c4bc8724ffca5cb9f3fbf75ca9/torch/nn/modules/pooling.py#L505"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.pooling.MaxUnpool3d" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.pooling.</span></span><span class="sig-name descname"><span class="pre">MaxUnpool3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/12aac12b8d7d6cbe987a4cf262d41a57a8a48a2a/torch/nn/modules/pooling.py#L505"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.pooling.MaxUnpool3d" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes a partial inverse of <a class="reference internal" href="torch.nn.modules.pooling.MaxPool3d.html#torch.nn.modules.pooling.MaxPool3d" title="torch.nn.modules.pooling.MaxPool3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">MaxPool3d</span></code></a>.</p>
 <p><a class="reference internal" href="torch.nn.modules.pooling.MaxPool3d.html#torch.nn.modules.pooling.MaxPool3d" title="torch.nn.modules.pooling.MaxPool3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">MaxPool3d</span></code></a> is not fully invertible, since the non-maximal values are lost.
 <a class="reference internal" href="#torch.nn.modules.pooling.MaxUnpool3d" title="torch.nn.modules.pooling.MaxUnpool3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">MaxUnpool3d</span></code></a> takes in as input the output of <a class="reference internal" href="torch.nn.modules.pooling.MaxPool3d.html#torch.nn.modules.pooling.MaxPool3d" title="torch.nn.modules.pooling.MaxPool3d"><code class="xref py py-class docutils literal notranslate"><span class="pre">MaxPool3d</span></code></a>
@@ -4571,7 +4571,7 @@ It is set to <code class="xref py py-attr docutils literal notranslate"><span cl
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.pooling.MaxUnpool3d.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4c963a68d784b6c4bc8724ffca5cb9f3fbf75ca9/torch/nn/modules/pooling.py#L575"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.pooling.MaxUnpool3d.forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/12aac12b8d7d6cbe987a4cf262d41a57a8a48a2a/torch/nn/modules/pooling.py#L575"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.pooling.MaxUnpool3d.forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Runs the forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>

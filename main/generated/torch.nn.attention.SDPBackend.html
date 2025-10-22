@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4c963a6 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git12aac12 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3452,8 +3452,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4496,24 +4496,18 @@ document.write(`
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.attention.SDPBackend">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.</span></span><span class="sig-name descname"><span class="pre">SDPBackend</span></span><a class="headerlink" href="#torch.nn.attention.SDPBackend" title="Permalink to this definition">#</a></dt>
-<dd><p>An enum-like class that contains the different backends for scaled dot product attention.
-This backend class is designed to be used with the sdpa_kernel context manager.</p>
-<dl class="simple">
-<dt>The following Enums are available:</dt><dd><ul class="simple">
-<li><p>ERROR: An error occurred when trying to determine the backend.</p></li>
-<li><p>MATH: The math backend for scaled dot product attention.</p></li>
-<li><p>FLASH_ATTENTION: The flash attention backend for scaled dot product attention.</p></li>
-<li><p>EFFICIENT_ATTENTION: The efficient attention backend for scaled dot product attention.</p></li>
-<li><p>CUDNN_ATTENTION: The cuDNN backend for scaled dot product attention.</p></li>
-<li><p>OVERRIDEABLE: The overridable backend for extension.</p></li>
-</ul>
-</dd>
-</dl>
-<p>See <a class="reference internal" href="torch.nn.attention.sdpa_kernel.html#torch.nn.attention.sdpa_kernel" title="torch.nn.attention.sdpa_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nn.attention.sdpa_kernel()</span></code></a> for more details.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This class is in beta and subject to change.</p>
-</div>
+<dd><p>An enum-like class that contains the different backends for scaled dot product attention.</p>
+<p>… warning:: This class is in beta and subject to change.</p>
+<p>This backend class is designed to be used with the sdpa_kernel context manager.See :func: torch.nn.attention.sdpa_kernel for more details.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>ERROR</p>
+<p>MATH</p>
+<p>FLASH_ATTENTION</p>
+<p>EFFICIENT_ATTENTION</p>
+<p>CUDNN_ATTENTION</p>
+<p>OVERRIDEABLE</p>
+</div></blockquote>
 <dl class="py property">
 <dt class="sig sig-object py" id="torch.nn.attention.SDPBackend.name">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#torch.nn.attention.SDPBackend.name" title="Permalink to this definition">#</a></dt>
@@ -4875,7 +4869,7 @@ This backend class is designed to be used with the sdpa_kernel context manager.<
        "headline": "SDPBackend",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.nn.attention.SDPBackend.html",
-       "articleBody": "SDPBackend# class torch.nn.attention.SDPBackend# An enum-like class that contains the different backends for scaled dot product attention. This backend class is designed to be used with the sdpa_kernel context manager. The following Enums are available: ERROR: An error occurred when trying to determine the backend. MATH: The math backend for scaled dot product attention. FLASH_ATTENTION: The flash attention backend for scaled dot product attention. EFFICIENT_ATTENTION: The efficient attention backend for scaled dot product attention. CUDNN_ATTENTION: The cuDNN backend for scaled dot product attention. OVERRIDEABLE: The overridable backend for extension. See torch.nn.attention.sdpa_kernel() for more details. Warning This class is in beta and subject to change. property name#",
+       "articleBody": "SDPBackend# class torch.nn.attention.SDPBackend# An enum-like class that contains the different backends for scaled dot product attention. \u2026 warning:: This class is in beta and subject to change. This backend class is designed to be used with the sdpa_kernel context manager.See :func: torch.nn.attention.sdpa_kernel for more details. Members: ERROR MATH FLASH_ATTENTION EFFICIENT_ATTENTION CUDNN_ATTENTION OVERRIDEABLE property name#",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
