@@ -149,7 +149,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git12aac12 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git73fa0d0 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4059,6 +4059,8 @@ document.write(`
 </li>
       <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.CPUOffloadPolicy">CPUOffloadPolicy (class in torch.distributed.fsdp)</a>
 </li>
+      <li><a href="generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext.create">create() (torch.cuda.green_contexts.GreenContext static method)</a>
+</li>
       <li><a href="fx.html#torch.fx.Tracer.create_arg">create_arg() (torch.fx.Tracer method)</a>
 </li>
       <li><a href="fx.html#torch.fx.Tracer.create_args_for_root">create_args_for_root() (torch.fx.Tracer method)</a>
@@ -7040,6 +7042,8 @@ document.write(`
 </li>
       <li><a href="distributions.html#torch.distributions.constraints.greater_than_eq">greater_than_eq (in module torch.distributions.constraints)</a>
 </li>
+      <li><a href="generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext">GreenContext (class in torch.cuda.green_contexts)</a>
+</li>
       <li><a href="generated/torch.nn.functional.grid_sample.html#torch.nn.functional.grid_sample">grid_sample() (in module torch.nn.functional)</a>
 </li>
       <li><a href="distributed._dist2.html#torch.distributed._dist2.ProcessGroup.group_desc">group_desc (torch.distributed._dist2.ProcessGroup property)</a>
@@ -10014,6 +10018,8 @@ document.write(`
 </li>
         <li><a href="cuda.aliases.html#module-torch.cuda.graphs">torch.cuda.graphs</a>
 </li>
+        <li><a href="cuda.html#module-torch.cuda.green_contexts">torch.cuda.green_contexts</a>
+</li>
         <li><a href="cuda.html#module-torch.cuda.jiterator">torch.cuda.jiterator</a>
 </li>
         <li><a href="cuda.html#module-torch.cuda.memory">torch.cuda.memory</a>
@@ -12195,8 +12201,6 @@ document.write(`
         <li><a href="generated/torch.cuda.graphs.CUDAGraph.html#torch.cuda.graphs.CUDAGraph.pool">(torch.cuda.graphs.CUDAGraph method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.pop">pop() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
@@ -12215,6 +12219,10 @@ document.write(`
         <li><a href="generated/torch.nn.Sequential.html#torch.nn.Sequential.pop">(torch.nn.Sequential method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext.pop_context">pop_context() (torch.cuda.green_contexts.GreenContext method)</a>
+</li>
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.popitem">popitem() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
@@ -14167,6 +14175,8 @@ document.write(`
 </li>
       <li><a href="fx.html#torch.fx.Graph.set_codegen">set_codegen() (torch.fx.Graph method)</a>
 </li>
+      <li><a href="generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext.set_context">set_context() (torch.cuda.green_contexts.GreenContext method)</a>
+</li>
       <li><a href="notes/serialization.html#torch.serialization.set_crc32_options">set_crc32_options() (in module torch.serialization)</a>
 </li>
       <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_custom_all_gather">set_custom_all_gather() (torch.distributed.fsdp.FSDPModule method)</a>
@@ -14453,6 +14463,8 @@ document.write(`
 </li>
       <li><a href="generated/torch.set_warn_always.html#torch.set_warn_always">set_warn_always() (in module torch)</a>
 </li>
+      <li><a href="autograd.html#torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch">set_warn_on_accumulate_grad_stream_mismatch() (in module torch.autograd.graph)</a>
+</li>
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.setdefault">setdefault() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
@@ -14711,14 +14723,14 @@ document.write(`
         <li><a href="generated/torch.nn.modules.loss.SoftMarginLoss.html#torch.nn.modules.loss.SoftMarginLoss">(class in torch.nn.modules.loss)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.nn.Softmax.html#torch.nn.Softmax">Softmax (class in torch.nn)</a>
 
       <ul>
         <li><a href="generated/torch.nn.modules.activation.Softmax.html#torch.nn.modules.activation.Softmax">(class in torch.nn.modules.activation)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.softmax.html#torch.softmax">softmax() (in module torch)</a>
 
       <ul>
@@ -17187,6 +17199,13 @@ document.write(`
 
       <ul>
         <li><a href="cuda.aliases.html#module-torch.cuda.graphs">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.cuda.green_contexts
+
+      <ul>
+        <li><a href="cuda.html#module-torch.cuda.green_contexts">module</a>
 </li>
       </ul></li>
       <li>
