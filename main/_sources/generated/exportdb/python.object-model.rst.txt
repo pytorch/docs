@@ -108,4 +108,19 @@ Result:
 
 .. code-block::
 
-    Unsupported: Tracing through optional input is not supported yet
+    ExportedProgram:
+        class GraphModule(torch.nn.Module):
+            def forward(self, c_dict_type_l__self______dict_____forward_____defaults___0: "f32[2, 3]", x: "f32[2, 3]"):
+                     add: "f32[2, 3]" = torch.ops.aten.add.Tensor(x, c_dict_type_l__self______dict_____forward_____defaults___0);  x = c_dict_type_l__self______dict_____forward_____defaults___0 = None
+                return (add,)
+                
+    Graph signature: 
+        # inputs
+        c_dict_type_l__self______dict_____forward_____defaults___0: CONSTANT_TENSOR target='dict_type_L__self______dict_____forward_____defaults___0' persistent=True
+        x: USER_INPUT
+        
+        # outputs
+        add: USER_OUTPUT
+        
+    Range constraints: {}
+    

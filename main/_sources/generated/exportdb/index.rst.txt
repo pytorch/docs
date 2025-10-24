@@ -500,7 +500,7 @@ cond_closed_over_variable
 
 .. note::
 
-    Tags: :doc:`python.closure <python.closure>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`python.closure <python.closure>`
 
     Support Level: SUPPORTED
 
@@ -629,26 +629,26 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, x: "f32[s77, 2]", y: "f32[2]"):
+            def forward(self, x: "f32[s6, 2]", y: "f32[2]"):
                  # 
-                sym_size_int_1: "Sym(s77)" = torch.ops.aten.sym_size.int(x, 0)
+                sym_size_int_1: "Sym(s6)" = torch.ops.aten.sym_size.int(x, 0)
                 
-                     gt: "Sym(s77 > 2)" = sym_size_int_1 > 2;  sym_size_int_1 = None
+                     gt: "Sym(s6 > 2)" = sym_size_int_1 > 2;  sym_size_int_1 = None
                 
                      true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
                 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x, y));  gt = true_graph_0 = false_graph_0 = x = y = None
-                getitem: "f32[s77, 2]" = cond[0];  cond = None
+                getitem: "f32[s6, 2]" = cond[0];  cond = None
                 return (getitem,)
                 
             class true_graph_0(torch.nn.Module):
-                def forward(self, x: "f32[s77, 2]", y: "f32[2]"):
-                             add: "f32[s77, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
+                def forward(self, x: "f32[s6, 2]", y: "f32[2]"):
+                             add: "f32[s6, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
                     return (add,)
                     
             class false_graph_0(torch.nn.Module):
-                def forward(self, x: "f32[s77, 2]", y: "f32[2]"):
-                             sub: "f32[s77, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
+                def forward(self, x: "f32[s6, 2]", y: "f32[2]"):
+                             sub: "f32[s6, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
                     return (sub,)
                     
     Graph signature: 
@@ -659,7 +659,7 @@ Result:
         # outputs
         getitem: USER_OUTPUT
         
-    Range constraints: {s77: VR[0, int_oo]}
+    Range constraints: {s6: VR[0, int_oo]}
     
 
 
@@ -1099,7 +1099,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
+    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -1416,7 +1416,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`, :doc:`python.assert <python.assert>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -1765,7 +1765,22 @@ Result:
 
 .. code-block::
 
-    Unsupported: Tracing through optional input is not supported yet
+    ExportedProgram:
+        class GraphModule(torch.nn.Module):
+            def forward(self, c_dict_type_l__self______dict_____forward_____defaults___0: "f32[2, 3]", x: "f32[2, 3]"):
+                     add: "f32[2, 3]" = torch.ops.aten.add.Tensor(x, c_dict_type_l__self______dict_____forward_____defaults___0);  x = c_dict_type_l__self______dict_____forward_____defaults___0 = None
+                return (add,)
+                
+    Graph signature: 
+        # inputs
+        c_dict_type_l__self______dict_____forward_____defaults___0: CONSTANT_TENSOR target='dict_type_L__self______dict_____forward_____defaults___0' persistent=True
+        x: USER_INPUT
+        
+        # outputs
+        add: USER_OUTPUT
+        
+    Range constraints: {}
+    
 
 
 pytree_flatten
@@ -1869,11 +1884,11 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, x: "f32[3, s27]"):
+            def forward(self, x: "f32[3, s11]"):
                  # 
-                sym_size_int_1: "Sym(s27)" = torch.ops.aten.sym_size.int(x, 1);  x = None
+                sym_size_int_1: "Sym(s11)" = torch.ops.aten.sym_size.int(x, 1);  x = None
                 
-                     add: "Sym(s27 + 1)" = sym_size_int_1 + 1;  sym_size_int_1 = None
+                     add: "Sym(s11 + 1)" = sym_size_int_1 + 1;  sym_size_int_1 = None
                 return (add,)
                 
     Graph signature: 
@@ -1883,7 +1898,7 @@ Result:
         # outputs
         add: USER_OUTPUT
         
-    Range constraints: {s27: VR[0, int_oo]}
+    Range constraints: {s11: VR[0, int_oo]}
     
 
 
