@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git9d0b77f )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git621ba05 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3528,6 +3528,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.optim.html">torch.distributed.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.pipelining.html">torch.distributed.pipelining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../symmetric_memory.html">torch.distributed._symmetric_memory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../torch.compiler.html">torch.compiler</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -4496,7 +4497,7 @@ document.write(`
 <h1>torch.atleast_1d<a class="headerlink" href="#torch-atleast-1d" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.atleast_1d">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">atleast_1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9d0b77f4cdf467cc57b39161c8ab5362d8e12731/torch/functional.py#L1470"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.atleast_1d" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">atleast_1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/621ba051074b932eba0e65b70f4d0f008f4aa3e5/torch/functional.py#L1470"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.atleast_1d" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a 1-dimensional view of each input tensor with zero dimensions.
 Input tensors with one or more dimensions are returned as-is.</p>
 <dl class="field-list simple">

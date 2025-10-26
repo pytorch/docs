@@ -149,7 +149,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git9d0b77f )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git621ba05 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -2192,6 +2192,12 @@ document.write(`
       <li><a href="distributed.html#torch.distributed.all_to_all">all_to_all() (in module torch.distributed)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.all_to_all_single">all_to_all_single() (in module torch.distributed)</a>
+</li>
+      <li><a href="symmetric_memory.html#torch.ops.symm_mem.all_to_all_vdev">all_to_all_vdev() (in module torch.ops.symm_mem)</a>
+</li>
+      <li><a href="symmetric_memory.html#torch.ops.symm_mem.all_to_all_vdev_2d">all_to_all_vdev_2d() (in module torch.ops.symm_mem)</a>
+</li>
+      <li><a href="symmetric_memory.html#torch.ops.symm_mem.all_to_all_vdev_2d_offset">all_to_all_vdev_2d_offset() (in module torch.ops.symm_mem)</a>
 </li>
       <li><a href="generated/torch.allclose.html#torch.allclose">allclose() (in module torch)</a>
 
@@ -4878,6 +4884,8 @@ document.write(`
       <li><a href="generated/torch.empty.html#torch.empty">empty() (in module torch)</a>
 
       <ul>
+        <li><a href="symmetric_memory.html#torch.distributed._symmetric_memory.empty">(in module torch.distributed._symmetric_memory)</a>
+</li>
         <li><a href="distributed.tensor.html#torch.distributed.tensor.empty">(in module torch.distributed.tensor)</a>
 </li>
       </ul></li>
@@ -6555,6 +6563,8 @@ document.write(`
       <li><a href="distributed.html#torch.distributed.get_backend">get_backend() (in module torch.distributed)</a>
 
       <ul>
+        <li><a href="symmetric_memory.html#torch.distributed._symmetric_memory.get_backend">(in module torch.distributed._symmetric_memory)</a>
+</li>
         <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousHandler.get_backend">(torch.distributed.elastic.rendezvous.RendezvousHandler method)</a>
 </li>
       </ul></li>
@@ -7959,6 +7969,8 @@ document.write(`
       <li><a href="cpp_extension.html#torch.utils.cpp_extension.is_ninja_available">is_ninja_available() (in module torch.utils.cpp_extension)</a>
 </li>
       <li><a href="generated/torch.is_nonzero.html#torch.is_nonzero">is_nonzero() (in module torch)</a>
+</li>
+      <li><a href="symmetric_memory.html#torch.distributed._symmetric_memory.is_nvshmem_available">is_nvshmem_available() (in module torch.distributed._symmetric_memory)</a>
 </li>
       <li><a href="rpc.html#torch.distributed.rpc.PyRRef.is_owner">is_owner() (torch.distributed.rpc.PyRRef method)</a>
 </li>
@@ -11453,6 +11465,10 @@ document.write(`
         <li><a href="generated/torch.nn.modules.loss.MultiMarginLoss.html#torch.nn.modules.loss.MultiMarginLoss">(class in torch.nn.modules.loss)</a>
 </li>
       </ul></li>
+      <li><a href="symmetric_memory.html#torch.ops.symm_mem.multimem_all_gather_out">multimem_all_gather_out() (in module torch.ops.symm_mem)</a>
+</li>
+      <li><a href="symmetric_memory.html#torch.ops.symm_mem.multimem_all_reduce_">multimem_all_reduce_() (in module torch.ops.symm_mem)</a>
+</li>
       <li><a href="distributions.html#torch.distributions.multinomial.Multinomial">Multinomial (class in torch.distributions.multinomial)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.constraints.multinomial">multinomial (in module torch.distributions.constraints)</a>
@@ -11855,6 +11871,10 @@ document.write(`
 </li>
       <li><a href="generated/torch.nn.functional.one_hot.html#torch.nn.functional.one_hot">one_hot() (in module torch.nn.functional)</a>
 </li>
+      <li><a href="symmetric_memory.html#torch.ops.symm_mem.one_shot_all_reduce">one_shot_all_reduce() (in module torch.ops.symm_mem)</a>
+</li>
+      <li><a href="symmetric_memory.html#torch.ops.symm_mem.one_shot_all_reduce_out">one_shot_all_reduce_out() (in module torch.ops.symm_mem)</a>
+</li>
       <li><a href="generated/torch.optim.lr_scheduler.OneCycleLR.html#torch.optim.lr_scheduler.OneCycleLR">OneCycleLR (class in torch.optim.lr_scheduler)</a>
 </li>
       <li><a href="generated/torch.jit.onednn_fusion_enabled.html#torch.jit.onednn_fusion_enabled">onednn_fusion_enabled() (in module torch.jit)</a>
@@ -11887,10 +11907,10 @@ document.write(`
 </li>
       <li><a href="mobile_optimizer.html#torch.utils.mobile_optimizer.optimize_for_mobile">optimize_for_mobile() (in module torch.utils.mobile_optimizer)</a>
 </li>
-      <li><a href="optim.html#torch.optim.Optimizer">Optimizer (class in torch.optim)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="optim.html#torch.optim.Optimizer">Optimizer (class in torch.optim)</a>
+</li>
       <li><a href="fsdp.html#torch.distributed.fsdp.OptimStateDictConfig">OptimStateDictConfig (class in torch.distributed.fsdp)</a>
 </li>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.or_masks">or_masks() (in module torch.nn.attention.flex_attention)</a>
@@ -13449,6 +13469,8 @@ document.write(`
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint.html#torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint.render">render() (torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint method)</a>
 </li>
+      <li><a href="symmetric_memory.html#torch.distributed._symmetric_memory.rendezvous">rendezvous() (in module torch.distributed._symmetric_memory)</a>
+</li>
       <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousBackend">RendezvousBackend (class in torch.distributed.elastic.rendezvous.dynamic_rendezvous)</a>
 </li>
       <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.api.RendezvousClosedError">RendezvousClosedError (class in torch.distributed.elastic.rendezvous.api)</a>
@@ -14163,6 +14185,8 @@ document.write(`
 </li>
       <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_allocate_memory_from_process_group_for_comm">set_allocate_memory_from_process_group_for_comm() (torch.distributed.fsdp.FSDPModule method)</a>
 </li>
+      <li><a href="symmetric_memory.html#torch.distributed._symmetric_memory.set_backend">set_backend() (in module torch.distributed._symmetric_memory)</a>
+</li>
       <li><a href="generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig.set_backend_pattern_config">set_backend_pattern_config() (torch.ao.quantization.backend_config.BackendConfig method)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig.set_backend_pattern_configs">set_backend_pattern_configs() (torch.ao.quantization.backend_config.BackendConfig method)</a>
@@ -14721,14 +14745,14 @@ document.write(`
         <li><a href="generated/torch.nn.modules.loss.SoftMarginLoss.html#torch.nn.modules.loss.SoftMarginLoss">(class in torch.nn.modules.loss)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.nn.Softmax.html#torch.nn.Softmax">Softmax (class in torch.nn)</a>
 
       <ul>
         <li><a href="generated/torch.nn.modules.activation.Softmax.html#torch.nn.modules.activation.Softmax">(class in torch.nn.modules.activation)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.softmax.html#torch.softmax">softmax() (in module torch)</a>
 
       <ul>
@@ -21888,6 +21912,8 @@ document.write(`
       <li><a href="cuda.tunable.html#torch.cuda.tunable.tuning_enable">tuning_enable() (in module torch.cuda.tunable)</a>
 </li>
       <li><a href="cuda.tunable.html#torch.cuda.tunable.tuning_is_enabled">tuning_is_enabled() (in module torch.cuda.tunable)</a>
+</li>
+      <li><a href="symmetric_memory.html#torch.ops.symm_mem.two_shot_all_reduce_">two_shot_all_reduce_() (in module torch.ops.symm_mem)</a>
 </li>
       <li><a href="generated/torch.jit.Attribute.html#torch.jit.Attribute.type">type (torch.jit.Attribute attribute)</a>
 </li>
