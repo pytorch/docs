@@ -149,7 +149,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git86f9f1d )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git2a058bf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4579,8 +4579,6 @@ document.write(`
 </li>
       <li><a href="export/api_reference.html#torch.export.dynamic_shapes.Dim">Dim (class in torch.export.dynamic_shapes)</a>
 </li>
-      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.Shard.dim">dim (torch.distributed.tensor.placement_types.Shard attribute)</a>
-</li>
       <li><a href="generated/torch.Tensor.dim.html#torch.Tensor.dim">dim() (torch.Tensor method)</a>
 </li>
       <li><a href="generated/torch.Tensor.dim_order.html#torch.Tensor.dim_order">dim_order() (torch.Tensor method)</a>
@@ -7752,14 +7750,14 @@ document.write(`
 </li>
       <li><a href="generated/torch.cuda.ipc_collect.html#torch.cuda.ipc_collect">ipc_collect() (in module torch.cuda)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.cuda.Event.html#torch.cuda.Event.ipc_handle">ipc_handle() (torch.cuda.Event method)</a>
 
       <ul>
         <li><a href="generated/torch.cuda.streams.Event.html#torch.cuda.streams.Event.ipc_handle">(torch.cuda.streams.Event method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.ipu">ipu() (torch.jit.ScriptModule method)</a>
 
       <ul>
@@ -7978,12 +7976,8 @@ document.write(`
 </li>
       <li><a href="generated/torch.nn.utils.parametrize.is_parametrized.html#torch.nn.utils.parametrize.is_parametrized">is_parametrized() (in module torch.nn.utils.parametrize)</a>
 </li>
-      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.Partial.is_partial">is_partial() (torch.distributed.tensor.placement_types.Partial method)</a>
-
-      <ul>
-        <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.Placement.is_partial">(torch.distributed.tensor.placement_types.Placement method)</a>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.Placement.is_partial">is_partial() (torch.distributed.tensor.placement_types.Placement method)</a>
 </li>
-      </ul></li>
       <li><a href="generated/torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence.is_pinned">is_pinned() (torch.nn.utils.rnn.PackedSequence method)</a>
 
       <ul>
@@ -8001,21 +7995,13 @@ document.write(`
       <li><a href="generated/torch.Tensor.is_quantized.html#torch.Tensor.is_quantized">is_quantized (torch.Tensor attribute)</a>
 </li>
       <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.Placement.is_replicate">is_replicate() (torch.distributed.tensor.placement_types.Placement method)</a>
-
-      <ul>
-        <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.Replicate.is_replicate">(torch.distributed.tensor.placement_types.Replicate method)</a>
 </li>
-      </ul></li>
       <li><a href="elastic/agent.html#torch.distributed.elastic.agent.server.WorkerState.is_running">is_running() (torch.distributed.elastic.agent.server.WorkerState static method)</a>
 </li>
       <li><a href="generated/torch.Tensor.is_set_to.html#torch.Tensor.is_set_to">is_set_to() (torch.Tensor method)</a>
 </li>
       <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.Placement.is_shard">is_shard() (torch.distributed.tensor.placement_types.Placement method)</a>
-
-      <ul>
-        <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.Shard.is_shard">(torch.distributed.tensor.placement_types.Shard method)</a>
 </li>
-      </ul></li>
       <li><a href="generated/torch.Tensor.is_shared.html#torch.Tensor.is_shared">is_shared() (torch.Tensor method)</a>
 
       <ul>
@@ -9180,6 +9166,8 @@ document.write(`
         <li><a href="generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.function.NestedIOFunction.mark_non_differentiable">(torch.autograd.function.NestedIOFunction method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.MaskPartial.mask_buffer">mask_buffer (torch.distributed.tensor.placement_types.MaskPartial attribute)</a>
+</li>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.mask_mod">mask_mod (torch.nn.attention.flex_attention.BlockMask attribute)</a>
 </li>
       <li><a href="generated/torch.Tensor.masked_fill.html#torch.Tensor.masked_fill">masked_fill() (torch.Tensor method)</a>
@@ -9198,6 +9186,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.masked_select.html#torch.Tensor.masked_select">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.MaskPartial">MaskPartial (class in torch.distributed.tensor.placement_types)</a>
+</li>
       <li><a href="export/api_reference.html#torch.export.decomp_utils.CustomDecompTable.materialize">materialize() (torch.export.decomp_utils.CustomDecompTable method)</a>
 </li>
       <li><a href="backends.html#torch.backends.cuda.math_sdp_enabled">math_sdp_enabled() (in module torch.backends.cuda)</a>
@@ -11865,6 +11855,10 @@ document.write(`
 </li>
       <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.OffloadPolicy">OffloadPolicy (class in torch.distributed.fsdp)</a>
 </li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.MaskPartial.offset_dim">offset_dim (torch.distributed.tensor.placement_types.MaskPartial attribute)</a>
+</li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.MaskPartial.offset_shape">offset_shape (torch.distributed.tensor.placement_types.MaskPartial attribute)</a>
+</li>
       <li><a href="fx.html#torch.fx.Graph.on_generate_code">on_generate_code() (torch.fx.Graph method)</a>
 </li>
       <li><a href="generated/torch.autograd.function.once_differentiable.html#torch.autograd.function.once_differentiable">once_differentiable() (in module torch.autograd.function)</a>
@@ -11905,10 +11899,10 @@ document.write(`
 </li>
       <li><a href="generated/torch.jit.optimize_for_inference.html#torch.jit.optimize_for_inference">optimize_for_inference() (in module torch.jit)</a>
 </li>
-      <li><a href="mobile_optimizer.html#torch.utils.mobile_optimizer.optimize_for_mobile">optimize_for_mobile() (in module torch.utils.mobile_optimizer)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="mobile_optimizer.html#torch.utils.mobile_optimizer.optimize_for_mobile">optimize_for_mobile() (in module torch.utils.mobile_optimizer)</a>
+</li>
       <li><a href="optim.html#torch.optim.Optimizer">Optimizer (class in torch.optim)</a>
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.OptimStateDictConfig">OptimStateDictConfig (class in torch.distributed.fsdp)</a>
@@ -12798,11 +12792,7 @@ document.write(`
       <li><a href="generated/torch.cuda.comm.reduce_add_coalesced.html#torch.cuda.comm.reduce_add_coalesced">reduce_add_coalesced() (in module torch.cuda.comm)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.reduce_op">reduce_op (class in torch.distributed)</a>
-
-      <ul>
-        <li><a href="distributed.tensor.html#torch.distributed.tensor.placement_types.Partial.reduce_op">(torch.distributed.tensor.placement_types.Partial attribute)</a>
 </li>
-      </ul></li>
       <li><a href="distributed.html#torch.distributed.reduce_scatter">reduce_scatter() (in module torch.distributed)</a>
 
       <ul>

@@ -46,9 +46,9 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, pred: "b8[]", x: "f32[3, 2]"):
-                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 1);  add = None
+                    add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 1);  add = None
                 
-                     true_graph_0 = self.true_graph_0
+                    true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
                 cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, (x,));  pred = true_graph_0 = false_graph_0 = x = None
                 getitem: "f32[3, 2]" = cond[0];  cond = None
@@ -56,12 +56,12 @@ Result:
                 
             class true_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[3, 2]"):
-                             mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(x, 2);  x = None
+                            mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(x, 2);  x = None
                     return (mul,)
                     
             class false_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[3, 2]"):
-                             sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(x, 2);  x = None
+                            sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(x, 2);  x = None
                     return (sub,)
                     
     Graph signature: 
@@ -123,13 +123,13 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, a: "f32[3, 2]", b: "f32[2]"):
-                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(a, b)
+                    add: "f32[3, 2]" = torch.ops.aten.add.Tensor(a, b)
                 
-                     sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(a, b);  a = b = None
+                    sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(a, b);  a = b = None
                 
-                     add_: "f32[3, 2]" = torch.ops.aten.add_.Tensor(add, 1);  add = None
+                    add_: "f32[3, 2]" = torch.ops.aten.add_.Tensor(add, 1);  add = None
                 
-                     mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(add_, add_);  add_ = None
+                    mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(add_, add_);  add_ = None
                 add_1: "f32[3, 2]" = torch.ops.aten.add.Tensor(mul, sub);  mul = sub = None
                 return (add_1,)
                 

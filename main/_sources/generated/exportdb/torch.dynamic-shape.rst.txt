@@ -68,7 +68,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[3]"):
-                     sin: "f32[3]" = torch.ops.aten.sin.default(x);  x = None
+                    sin: "f32[3]" = torch.ops.aten.sin.default(x);  x = None
                 return (sin,)
                 
     Graph signature: 
@@ -147,7 +147,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[3]"):
-                     add: "f32[3]" = torch.ops.aten.add.Tensor(x, x);  x = None
+                    add: "f32[3]" = torch.ops.aten.add.Tensor(x, x);  x = None
                 return (add,)
                 
     Graph signature: 
@@ -244,12 +244,12 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, c_lifted_tensor_0: "f32[]", x: "f32[6]"):
-                     add: "f32[6]" = torch.ops.aten.add.Tensor(x, 100)
+                    add: "f32[6]" = torch.ops.aten.add.Tensor(x, 100)
                 
-                     lift_fresh_copy: "f32[]" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0);  c_lifted_tensor_0 = None
+                    lift_fresh_copy: "f32[]" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0);  c_lifted_tensor_0 = None
                 detach_: "f32[]" = torch.ops.aten.detach_.default(lift_fresh_copy);  lift_fresh_copy = None
                 
-                     add_1: "f32[6]" = torch.ops.aten.add.Tensor(x, add);  x = add = None
+                    add_1: "f32[6]" = torch.ops.aten.add.Tensor(x, add);  x = add = None
                 add_2: "f32[6]" = torch.ops.aten.add.Tensor(add_1, detach_);  add_1 = detach_ = None
                 return (add_2,)
                 
@@ -324,12 +324,12 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[s6, 2]", y: "f32[2]"):
-                 # 
+                # No stacktrace found for following nodes
                 sym_size_int_1: "Sym(s6)" = torch.ops.aten.sym_size.int(x, 0)
                 
-                     gt: "Sym(s6 > 2)" = sym_size_int_1 > 2;  sym_size_int_1 = None
+                    gt: "Sym(s6 > 2)" = sym_size_int_1 > 2;  sym_size_int_1 = None
                 
-                     true_graph_0 = self.true_graph_0
+                    true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
                 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x, y));  gt = true_graph_0 = false_graph_0 = x = y = None
                 getitem: "f32[s6, 2]" = cond[0];  cond = None
@@ -337,12 +337,12 @@ Result:
                 
             class true_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[s6, 2]", y: "f32[2]"):
-                             add: "f32[s6, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
+                            add: "f32[s6, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
                     return (add,)
                     
             class false_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[s6, 2]", y: "f32[2]"):
-                             sub: "f32[s6, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
+                            sub: "f32[s6, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
                     return (sub,)
                     
     Graph signature: 
@@ -406,7 +406,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[6, 4, 3]"):
-                     sin: "f32[6, 4, 3]" = torch.ops.aten.sin.default(x);  x = None
+                    sin: "f32[6, 4, 3]" = torch.ops.aten.sin.default(x);  x = None
                 return (sin,)
                 
     Graph signature: 
@@ -459,7 +459,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[3, 2]"):
-                     zeros: "f32[6]" = torch.ops.aten.zeros.default([6], device = device(type='cpu'), pin_memory = False)
+                    zeros: "f32[6]" = torch.ops.aten.zeros.default([6], device = device(type='cpu'), pin_memory = False)
                 return (zeros,)
                 
     Graph signature: 
@@ -516,7 +516,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[3, 2, 2]"):
-                     cos: "f32[3, 2, 2]" = torch.ops.aten.cos.default(x);  x = None
+                    cos: "f32[3, 2, 2]" = torch.ops.aten.cos.default(x);  x = None
                 return (cos,)
                 
     Graph signature: 
@@ -535,7 +535,7 @@ dynamic_shape_map
 
 .. note::
 
-    Tags: :doc:`torch.map <torch.map>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.map <torch.map>`
 
     Support Level: SUPPORTED
 
@@ -573,14 +573,14 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, xs: "f32[3, 2]", y: "f32[2]"):
-                     body_graph_0 = self.body_graph_0
+                    body_graph_0 = self.body_graph_0
                 map_impl = torch.ops.higher_order.map_impl(body_graph_0, [xs], [y]);  body_graph_0 = xs = y = None
                 getitem: "f32[3, 2]" = map_impl[0];  map_impl = None
                 return (getitem,)
                 
             class body_graph_0(torch.nn.Module):
                 def forward(self, xs: "f32[2]", y: "f32[2]"):
-                             add: "f32[2]" = torch.ops.aten.add.Tensor(xs, y);  xs = y = None
+                            add: "f32[2]" = torch.ops.aten.add.Tensor(xs, y);  xs = y = None
                     return (add,)
                     
     Graph signature: 
@@ -600,7 +600,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
 
     Support Level: NOT_SUPPORTED_YET
 
@@ -679,7 +679,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[3, 2]"):
-                     slice_1: "f32[1, 2]" = torch.ops.aten.slice.Tensor(x, 0, 0, 1);  x = None
+                    slice_1: "f32[1, 2]" = torch.ops.aten.slice.Tensor(x, 0, 0, 1);  x = None
                 slice_2: "f32[1, 1]" = torch.ops.aten.slice.Tensor(slice_1, 1, 1, 9223372036854775807, 2);  slice_1 = None
                 return (slice_2,)
                 
@@ -735,9 +735,9 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[10, 10]"):
-                     view: "f32[10, 2, 5]" = torch.ops.aten.view.default(x, [10, 2, 5]);  x = None
+                    view: "f32[10, 2, 5]" = torch.ops.aten.view.default(x, [10, 2, 5]);  x = None
                 
-                     permute: "f32[10, 5, 2]" = torch.ops.aten.permute.default(view, [0, 2, 1]);  view = None
+                    permute: "f32[10, 5, 2]" = torch.ops.aten.permute.default(view, [0, 2, 1]);  view = None
                 return (permute,)
                 
     Graph signature: 
@@ -756,7 +756,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -792,7 +792,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[3, 2]"):
-                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, x);  x = None
+                    add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, x);  x = None
                 return (add,)
                 
     Graph signature: 
@@ -853,10 +853,10 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[3, s11]"):
-                 # 
+                # No stacktrace found for following nodes
                 sym_size_int_1: "Sym(s11)" = torch.ops.aten.sym_size.int(x, 1);  x = None
                 
-                     add: "Sym(s11 + 1)" = sym_size_int_1 + 1;  sym_size_int_1 = None
+                    add: "Sym(s11 + 1)" = sym_size_int_1 + 1;  sym_size_int_1 = None
                 return (add,)
                 
     Graph signature: 

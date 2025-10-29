@@ -5,7 +5,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
 
     Support Level: NOT_SUPPORTED_YET
 
@@ -84,9 +84,9 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[3, 2]", attr):
-                     randn: "f32[3, 2]" = torch.ops.aten.randn.default([3, 2], device = device(type='cpu'), pin_memory = False);  randn = None
+                    randn: "f32[3, 2]" = torch.ops.aten.randn.default([3, 2], device = device(type='cpu'), pin_memory = False);  randn = None
                 
-                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 4);  x = None
+                    add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 4);  x = None
                 return (add,)
                 
     Graph signature: 
@@ -147,7 +147,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[3, 4]"):
-                     add: "f32[3, 4]" = torch.ops.aten.add.Tensor(x, 1);  x = None
+                    add: "f32[3, 4]" = torch.ops.aten.add.Tensor(x, 1);  x = None
                 return (add,)
                 
     Graph signature: 
