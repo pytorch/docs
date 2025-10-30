@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git2a058bf )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git14d4a77 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3392,6 +3392,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.memory_stats_as_nested_dict.html">torch.xpu.memory.memory_stats_as_nested_dict</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.reset_accumulated_memory_stats.html">torch.xpu.memory.reset_accumulated_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.reset_peak_memory_stats.html">torch.xpu.memory.reset_peak_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.set_per_process_memory_fraction.html">torch.xpu.memory.set_per_process_memory_fraction</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../xpu.aliases.html">Aliases in torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.get_rng_state.html">torch.xpu.random.get_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.get_rng_state_all.html">torch.xpu.random.get_rng_state_all</a></li>
@@ -4497,7 +4498,7 @@ document.write(`
 <h1>torch.fx.experimental.symbolic_shapes.is_concrete_bool<a class="headerlink" href="#torch-fx-experimental-symbolic-shapes-is-concrete-bool" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.is_concrete_bool">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">is_concrete_bool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a058bfecf4f4a47927b4eaae9324c4999a8a794/torch/fx/experimental/symbolic_shapes.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.is_concrete_bool" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">is_concrete_bool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/14d4a77495dc80da9cd7c5c29b21aaf4613ddc5b/torch/fx/experimental/symbolic_shapes.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.is_concrete_bool" title="Permalink to this definition">#</a></dt>
 <dd><p>Utility to check if underlying object
 in SymBool is concrete value. Also returns
 true if integer is passed in.</p>

@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git2a058bf )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git14d4a77 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3392,6 +3392,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.memory_stats_as_nested_dict.html">torch.xpu.memory.memory_stats_as_nested_dict</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.reset_accumulated_memory_stats.html">torch.xpu.memory.reset_accumulated_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.reset_peak_memory_stats.html">torch.xpu.memory.reset_peak_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.set_per_process_memory_fraction.html">torch.xpu.memory.set_per_process_memory_fraction</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../xpu.aliases.html">Aliases in torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.get_rng_state.html">torch.xpu.random.get_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.xpu.random.get_rng_state_all.html">torch.xpu.random.get_rng_state_all</a></li>
@@ -4508,7 +4509,7 @@ document.write(`
 <h1>ParameterList<a class="headerlink" href="#parameterlist" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.modules.container.ParameterList">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.container.</span></span><span class="sig-name descname"><span class="pre">ParameterList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a058bfecf4f4a47927b4eaae9324c4999a8a794/torch/nn/modules/container.py#L641"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.container.ParameterList" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.modules.container.</span></span><span class="sig-name descname"><span class="pre">ParameterList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/14d4a77495dc80da9cd7c5c29b21aaf4613ddc5b/torch/nn/modules/container.py#L641"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.container.ParameterList" title="Permalink to this definition">#</a></dt>
 <dd><p>Holds parameters in a list.</p>
 <p><a class="reference internal" href="torch.nn.ParameterList.html#torch.nn.ParameterList" title="torch.nn.ParameterList"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterList</span></code></a> can be used like a regular Python
 list, but Tensors that are <code class="xref py py-class docutils literal notranslate"><span class="pre">Parameter</span></code> are properly registered,
@@ -4538,7 +4539,7 @@ method will convert any <a class="reference internal" href="../tensors.html#torc
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.container.ParameterList.append">
-<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a058bfecf4f4a47927b4eaae9324c4999a8a794/torch/nn/modules/container.py#L729"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.container.ParameterList.append" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/14d4a77495dc80da9cd7c5c29b21aaf4613ddc5b/torch/nn/modules/container.py#L729"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.container.ParameterList.append" title="Permalink to this definition">#</a></dt>
 <dd><p>Append a given value at the end of the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4552,7 +4553,7 @@ method will convert any <a class="reference internal" href="../tensors.html#torc
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.container.ParameterList.extend">
-<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a058bfecf4f4a47927b4eaae9324c4999a8a794/torch/nn/modules/container.py#L740"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.container.ParameterList.extend" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/14d4a77495dc80da9cd7c5c29b21aaf4613ddc5b/torch/nn/modules/container.py#L740"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.container.ParameterList.extend" title="Permalink to this definition">#</a></dt>
 <dd><p>Append values from a Python iterable to the end of the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4566,7 +4567,7 @@ method will convert any <a class="reference internal" href="../tensors.html#torc
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.modules.container.ParameterList.extra_repr">
-<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a058bfecf4f4a47927b4eaae9324c4999a8a794/torch/nn/modules/container.py#L758"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.container.ParameterList.extra_repr" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/14d4a77495dc80da9cd7c5c29b21aaf4613ddc5b/torch/nn/modules/container.py#L758"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.container.ParameterList.extra_repr" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the extra representation of the module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>

@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git2a058bf )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git14d4a77 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3392,6 +3392,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.memory_stats_as_nested_dict.html">torch.xpu.memory.memory_stats_as_nested_dict</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.reset_accumulated_memory_stats.html">torch.xpu.memory.reset_accumulated_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.reset_peak_memory_stats.html">torch.xpu.memory.reset_peak_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.set_per_process_memory_fraction.html">torch.xpu.memory.set_per_process_memory_fraction</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../xpu.aliases.html">Aliases in torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.xpu.random.get_rng_state.html">torch.xpu.random.get_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.xpu.random.get_rng_state_all.html">torch.xpu.random.get_rng_state_all</a></li>
@@ -4498,21 +4499,21 @@ document.write(`
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 25, 2025 | Last Updated On: Aug 12, 2025</p>
 <span class="target" id="module-torch.numa.binding"></span><dl class="py class">
 <dt class="sig sig-object py" id="torch.numa.binding.AffinityMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">AffinityMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a058bfecf4f4a47927b4eaae9324c4999a8a794/torch/numa/binding.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.AffinityMode" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">AffinityMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/14d4a77495dc80da9cd7c5c29b21aaf4613ddc5b/torch/numa/binding.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.AffinityMode" title="Permalink to this definition">#</a></dt>
 <dd><p>See behavior description for each affinity mode
 in torch.distributed.run.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.numa.binding.NumaOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">NumaOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affinity_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.numa.binding.AffinityMode" title="torch.numa.binding.AffinityMode"><span class="pre">torch.numa.binding.AffinityMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_fall_back_if_binding_fails</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a058bfecf4f4a47927b4eaae9324c4999a8a794/torch/numa/binding.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.NumaOptions" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">NumaOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affinity_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.numa.binding.AffinityMode" title="torch.numa.binding.AffinityMode"><span class="pre">torch.numa.binding.AffinityMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_fall_back_if_binding_fails</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/14d4a77495dc80da9cd7c5c29b21aaf4613ddc5b/torch/numa/binding.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.NumaOptions" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.numa.binding.NumaOptions.affinity_mode">
 <span class="sig-name descname"><span class="pre">affinity_mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#torch.numa.binding.AffinityMode" title="torch.numa.binding.AffinityMode"><span class="pre">AffinityMode</span></a></em><a class="headerlink" href="#torch.numa.binding.NumaOptions.affinity_mode" title="Permalink to this definition">#</a></dt>
 <dd><p>If true, we will fall back to using the original command/entrypoint if we fail to compute
-or apply NUMA bindings.</p>
+NUMA bindings.</p>
 <p>You should avoid using this option! It is only intended as a safety mechanism for facilitating
 mass rollouts of numa binding.</p>
 </dd></dl>
@@ -4520,14 +4521,54 @@ mass rollouts of numa binding.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_thread">
-<span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_temporarily_apply_numa_binding_to_current_thread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2a058bfecf4f4a47927b4eaae9324c4999a8a794/torch/numa/binding.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_thread" title="Permalink to this definition">#</a></dt>
-<dd><p>1. Applies NUMA binding to the current thread, suitable for the thread
-which will be interacting with GPU gpu_index.
-2. Resets to the original CPU affinity before exiting the context manager.</p>
+<dt class="sig sig-object py" id="torch.numa.binding.maybe_wrap_command_args_with_numa_binding">
+<span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_wrap_command_args_with_numa_binding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/14d4a77495dc80da9cd7c5c29b21aaf4613ddc5b/torch/numa/binding.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.maybe_wrap_command_args_with_numa_binding" title="Permalink to this definition">#</a></dt>
+<dd><p>Wraps command arguments with numactl to apply NUMA CPU binding.</p>
+<p>This function prepends numactl with appropriate CPU affinity flags to the
+provided command arguments, binding the process to CPUs associated with
+the specified GPU’s NUMA node.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>...</em><em>]</em>) – The original command arguments to wrap.</p></li>
+<li><p><strong>gpu_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The index of the GPU that will be used by the subprocess.</p></li>
+<li><p><strong>numa_options</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference internal" href="#torch.numa.binding.NumaOptions" title="torch.numa.binding.NumaOptions"><em>NumaOptions</em></a><em>]</em>) – Configuration for NUMA binding behavior. If None, returns
+the original command_args unchanged.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Tuple of command arguments, potentially wrapped with numactl for NUMA binding.
+Returns the original command_args if numa_options is None or if binding fails
+and fallback is enabled.</p>
+</dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.14)"><em>Iterator</em></a>[None]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, …]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.numa.binding.maybe_wrap_with_numa_binding">
+<span class="sig-prename descclassname"><span class="pre">torch.numa.binding.</span></span><span class="sig-name descname"><span class="pre">maybe_wrap_with_numa_binding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/14d4a77495dc80da9cd7c5c29b21aaf4613ddc5b/torch/numa/binding.py#L113"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.numa.binding.maybe_wrap_with_numa_binding" title="Permalink to this definition">#</a></dt>
+<dd><p>Wraps a function to apply NUMA CPU binding before execution.</p>
+<p>This decorator applies NUMA CPU affinity to all threads in the current process
+before calling the wrapped function, binding them to CPUs associated with the
+specified GPU’s NUMA node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a><em>[</em><em>[</em><em>~_TParams</em><em>]</em><em>, </em><em>_TReturn</em><em>]</em>) – The function to wrap with NUMA binding.</p></li>
+<li><p><strong>gpu_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The index of the GPU that will be used.</p></li>
+<li><p><strong>numa_options</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference internal" href="#torch.numa.binding.NumaOptions" title="torch.numa.binding.NumaOptions"><em>NumaOptions</em></a><em>]</em>) – Configuration for NUMA binding behavior. If None, returns
+the original function unchanged.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A wrapped function that applies NUMA binding before execution, or the
+original function if numa_options is None.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a>[[~_TParams], <em>_TReturn</em>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4661,7 +4702,8 @@ which will be interacting with GPU gpu_index.
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.NumaOptions.affinity_mode"><code class="docutils literal notranslate"><span class="pre">NumaOptions.affinity_mode</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_thread"><code class="docutils literal notranslate"><span class="pre">maybe_temporarily_apply_numa_binding_to_current_thread()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.maybe_wrap_command_args_with_numa_binding"><code class="docutils literal notranslate"><span class="pre">maybe_wrap_command_args_with_numa_binding()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.numa.binding.maybe_wrap_with_numa_binding"><code class="docutils literal notranslate"><span class="pre">maybe_wrap_with_numa_binding()</span></code></a></li>
 </ul>
   </nav></div>
     
@@ -4904,7 +4946,7 @@ which will be interacting with GPU gpu_index.
        "headline": "NUMA Binding Utilities",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/elastic/numa.html",
-       "articleBody": "NUMA Binding Utilities# Created On: Jul 25, 2025 | Last Updated On: Aug 12, 2025 class torch.numa.binding.AffinityMode(value)[source]# See behavior description for each affinity mode in torch.distributed.run. class torch.numa.binding.NumaOptions(affinity_mode: torch.numa.binding.AffinityMode, should_fall_back_if_binding_fails: bool = False)[source]# affinity_mode: AffinityMode# If true, we will fall back to using the original command/entrypoint if we fail to compute or apply NUMA bindings. You should avoid using this option! It is only intended as a safety mechanism for facilitating mass rollouts of numa binding. torch.numa.binding.maybe_temporarily_apply_numa_binding_to_current_thread(*, gpu_index, numa_options)[source]# 1. Applies NUMA binding to the current thread, suitable for the thread which will be interacting with GPU gpu_index. 2. Resets to the original CPU affinity before exiting the context manager. Return type Iterator[None]",
+       "articleBody": "NUMA Binding Utilities# Created On: Jul 25, 2025 | Last Updated On: Aug 12, 2025 class torch.numa.binding.AffinityMode(value)[source]# See behavior description for each affinity mode in torch.distributed.run. class torch.numa.binding.NumaOptions(affinity_mode: torch.numa.binding.AffinityMode, should_fall_back_if_binding_fails: bool = False)[source]# affinity_mode: AffinityMode# If true, we will fall back to using the original command/entrypoint if we fail to compute NUMA bindings. You should avoid using this option! It is only intended as a safety mechanism for facilitating mass rollouts of numa binding. torch.numa.binding.maybe_wrap_command_args_with_numa_binding(command_args, *, gpu_index, numa_options)[source]# Wraps command arguments with numactl to apply NUMA CPU binding. This function prepends numactl with appropriate CPU affinity flags to the provided command arguments, binding the process to CPUs associated with the specified GPU\u2019s NUMA node. Parameters command_args (tuple[str, ...]) \u2013 The original command arguments to wrap. gpu_index (int) \u2013 The index of the GPU that will be used by the subprocess. numa_options (Optional[NumaOptions]) \u2013 Configuration for NUMA binding behavior. If None, returns the original command_args unchanged. Returns Tuple of command arguments, potentially wrapped with numactl for NUMA binding. Returns the original command_args if numa_options is None or if binding fails and fallback is enabled. Return type tuple[str, \u2026] torch.numa.binding.maybe_wrap_with_numa_binding(func, *, gpu_index, numa_options)[source]# Wraps a function to apply NUMA CPU binding before execution. This decorator applies NUMA CPU affinity to all threads in the current process before calling the wrapped function, binding them to CPUs associated with the specified GPU\u2019s NUMA node. Parameters func (Callable[[~_TParams], _TReturn]) \u2013 The function to wrap with NUMA binding. gpu_index (int) \u2013 The index of the GPU that will be used. numa_options (Optional[NumaOptions]) \u2013 Configuration for NUMA binding behavior. If None, returns the original function unchanged. Returns A wrapped function that applies NUMA binding before execution, or the original function if numa_options is None. Return type Callable[[~_TParams], _TReturn]",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

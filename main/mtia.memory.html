@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git2a058bf )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git14d4a77 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3392,6 +3392,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.memory_stats_as_nested_dict.html">torch.xpu.memory.memory_stats_as_nested_dict</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.reset_accumulated_memory_stats.html">torch.xpu.memory.reset_accumulated_memory_stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.reset_peak_memory_stats.html">torch.xpu.memory.reset_peak_memory_stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.set_per_process_memory_fraction.html">torch.xpu.memory.set_per_process_memory_fraction</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="xpu.aliases.html">Aliases in torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.random.get_rng_state.html">torch.xpu.random.get_rng_state</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.xpu.random.get_rng_state_all.html">torch.xpu.random.get_rng_state_all</a></li>
@@ -4486,8 +4487,8 @@ document.write(`
                   
   <div class="section" id="torch-mtia-memory">
 <h1>torch.mtia.memory<a class="headerlink" href="#torch-mtia-memory" title="Permalink to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 09, 2024 | Last Updated On: Jul 28, 2025</p>
-<p>The MTIA backend is implemented out of the tree, only interfaces are be defined here.</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 09, 2024 | Last Updated On: Oct 29, 2025</p>
+<p>The MTIA backend is implemented out of the tree, only interfaces are defined here.</p>
 <span class="target" id="module-torch.mtia.memory"></span><p>This package adds support for device memory management implemented in MTIA.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <colgroup>
@@ -4859,7 +4860,7 @@ document.write(`
        "headline": "torch.mtia.memory",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/mtia.memory.html",
-       "articleBody": "torch.mtia.memory# Created On: Dec 09, 2024 | Last Updated On: Jul 28, 2025 The MTIA backend is implemented out of the tree, only interfaces are be defined here. This package adds support for device memory management implemented in MTIA. memory_stats Return a dictionary of MTIA memory allocator statistics for a given device. memory_allocated Return the current MTIA memory occupied by tensors in bytes for a given device.",
+       "articleBody": "torch.mtia.memory# Created On: Dec 09, 2024 | Last Updated On: Oct 29, 2025 The MTIA backend is implemented out of the tree, only interfaces are defined here. This package adds support for device memory management implemented in MTIA. memory_stats Return a dictionary of MTIA memory allocator statistics for a given device. memory_allocated Return the current MTIA memory occupied by tensors in bytes for a given device.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4871,7 +4872,7 @@ document.write(`
          "@id": "/mtia.memory.html"
        },
        "datePublished": "Dec 09, 2024T00:00:00Z",
-       "dateModified": "Jul 28, 2025T00:00:00Z"
+       "dateModified": "Oct 29, 2025T00:00:00Z"
      }
  </script>
   <script>
