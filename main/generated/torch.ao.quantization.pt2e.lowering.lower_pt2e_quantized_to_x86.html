@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git14d4a77 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitbfb47ec )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3383,6 +3383,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.Stream.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.max_memory_reserved.html">torch.xpu.memory.max_memory_reserved</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.mem_get_info.html">torch.xpu.memory.mem_get_info</a></li>
@@ -3454,8 +3455,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4509,8 +4510,8 @@ document.write(`
 <h1>lower_pt2e_quantized_to_x86<a class="headerlink" href="#lower-pt2e-quantized-to-x86" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.pt2e.lowering.lower_pt2e_quantized_to_x86">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.pt2e.lowering.</span></span><span class="sig-name descname"><span class="pre">lower_pt2e_quantized_to_x86</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/14d4a77495dc80da9cd7c5c29b21aaf4613ddc5b/torch/ao/quantization/pt2e/lowering.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.pt2e.lowering.lower_pt2e_quantized_to_x86" title="Permalink to this definition">#</a></dt>
-<dd><p>Lower a PT2E-qantized model to x86 backend.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.pt2e.lowering.</span></span><span class="sig-name descname"><span class="pre">lower_pt2e_quantized_to_x86</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bfb47ec50e09dc2921ba47fedf84a1e28ee991a7/torch/ao/quantization/pt2e/lowering.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.pt2e.lowering.lower_pt2e_quantized_to_x86" title="Permalink to this definition">#</a></dt>
+<dd><p>Lower a PT2E-quantized model to x86 backend.</p>
 <p>Args:
 * <cite>model</cite> (torch.fx.GraphModule): a model quantized by PT2E quantization flow.
 * <cite>example_inputs</cite> (tuple[torch.Tensor, …]): example inputs for the model.</p>
@@ -4874,7 +4875,7 @@ A GraphModule lowered to x86 backend.</p>
        "headline": "lower_pt2e_quantized_to_x86",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.ao.quantization.pt2e.lowering.lower_pt2e_quantized_to_x86.html",
-       "articleBody": "lower_pt2e_quantized_to_x86# class torch.ao.quantization.pt2e.lowering.lower_pt2e_quantized_to_x86(model, example_inputs)[source]# Lower a PT2E-qantized model to x86 backend. Args: * model (torch.fx.GraphModule): a model quantized by PT2E quantization flow. * example_inputs (tuple[torch.Tensor, \u2026]): example inputs for the model. Return: A GraphModule lowered to x86 backend. Return type GraphModule",
+       "articleBody": "lower_pt2e_quantized_to_x86# class torch.ao.quantization.pt2e.lowering.lower_pt2e_quantized_to_x86(model, example_inputs)[source]# Lower a PT2E-quantized model to x86 backend. Args: * model (torch.fx.GraphModule): a model quantized by PT2E quantization flow. * example_inputs (tuple[torch.Tensor, \u2026]): example inputs for the model. Return: A GraphModule lowered to x86 backend. Return type GraphModule",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
