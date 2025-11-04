@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git3eddf04 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git64819e3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3455,8 +3455,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4548,55 +4548,55 @@ For a recommended way of enabling dynamic shapes, see <a class="reference intern
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TRACED GRAPH
- ===== __compiled_fn_1_f4558e3b_b641_49af_b056_5c0db39b941f =====
+ ===== __compiled_fn_1_0bcd7ea2_e050_4e7b_8a39_00f094b3b1fb =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[10][1]cpu&quot;):
         l_x_ = L_x_
         
-        # File: /tmp/ipykernel_165/281359623.py:4 in f, code: return x* x.size()[0]
+        # File: /tmp/ipykernel_164/281359623.py:4 in f, code: return x* x.size()[0]
         mul: &quot;f32[10][1]cpu&quot; = l_x_ * 10;  l_x_ = None
         return (mul,)
         
 
 TRACED GRAPH
- ===== __compiled_fn_3_08aff8f2_1458_4426_8e11_8624ac544c18 =====
+ ===== __compiled_fn_3_7f779086_8f23_4595_b5f9_1e201afde04e =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[20][1]cpu&quot;):
         l_x_ = L_x_
         
-        # File: /tmp/ipykernel_165/281359623.py:4 in f, code: return x* x.size()[0]
+        # File: /tmp/ipykernel_164/281359623.py:4 in f, code: return x* x.size()[0]
         mul: &quot;f32[20][1]cpu&quot; = l_x_ * 20;  l_x_ = None
         return (mul,)
         
 
 TRACED GRAPH
- ===== __compiled_fn_5_fcf8be47_9357_4bf5_b6b9_c9dc728491e3 =====
+ ===== __compiled_fn_5_a3bd3cbf_17a5_4798_9319_925ae7302153 =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[30][1]cpu&quot;):
         l_x_ = L_x_
         
-        # File: /tmp/ipykernel_165/281359623.py:4 in f, code: return x* x.size()[0]
+        # File: /tmp/ipykernel_164/281359623.py:4 in f, code: return x* x.size()[0]
         mul: &quot;f32[30][1]cpu&quot; = l_x_ * 30;  l_x_ = None
         return (mul,)
         
 
 TRACED GRAPH
- ===== __compiled_fn_7_4fd3d2ed_3124_476e_819a_56f4e120751f =====
+ ===== __compiled_fn_7_b5b30063_066f_484f_93d1_40e29caf334d =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[40][1]cpu&quot;):
         l_x_ = L_x_
         
-        # File: /tmp/ipykernel_165/281359623.py:4 in f, code: return x* x.size()[0]
+        # File: /tmp/ipykernel_164/281359623.py:4 in f, code: return x* x.size()[0]
         mul: &quot;f32[40][1]cpu&quot; = l_x_ * 40;  l_x_ = None
         return (mul,)
         
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([34.9796,  3.6749, 17.4024, 20.5025, 33.7527, 14.3308, 13.8564, 19.6824,
-         6.6631, 24.6882, 28.4221, 13.9345,  4.8355,  9.5981, 13.7856, 12.4818,
-         9.9159, 16.7821, 18.3959, 35.4091,  9.3951, 25.1197, 26.9260, 17.7687,
-        37.4468,  6.8249, 14.3609, 35.3876, 13.6100, 11.9144,  9.4436, 29.2357,
-        18.9644, 18.4833, 25.0752, 20.1688,  4.7854, 35.0623, 38.8596, 37.4530])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([20.9839, 33.7375, 29.6926, 38.3194, 36.6446, 26.2262,  1.1205,  1.2989,
+        22.6774, 37.1998, 15.1314, 11.4185, 26.6650,  9.9012, 21.0081,  3.3124,
+         1.0628, 13.8106, 38.8069, 32.5742, 36.7280,  9.4342, 26.6820,  2.1203,
+        37.8570, 20.0228,  1.9522, 13.2144, 13.1159, 39.8875,  1.7210, 32.6783,
+         7.0328, 10.4518, 29.2989, 39.6210, 32.3727, 27.2628,  1.2476, 18.4212])
 </pre></div>
 </div>
 </div>
@@ -4620,22 +4620,22 @@ See the corresponding <a href="_static/img/dynamic_shapes/tlparse1_dynamic_shape
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TRACED GRAPH
- ===== __compiled_fn_9_cfde0551_9b9b_4794_9e1b_0121b22f58a9 =====
+ ===== __compiled_fn_9_81a0d38f_64a6_4ae6_a03b_c6c8b4a7989b =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, s77: &quot;Sym(s77)&quot;, L_x_: &quot;f32[s77][1]cpu&quot;):
         l_x_ = L_x_
         
-        # File: /tmp/ipykernel_165/1046103881.py:4 in f, code: return x* x.size()[0]
+        # File: /tmp/ipykernel_164/1046103881.py:4 in f, code: return x* x.size()[0]
         mul: &quot;f32[s77][1]cpu&quot; = l_x_ * s77;  l_x_ = s77 = None
         return (mul,)
         
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([ 4.1702, 21.2672, 10.3469, 24.2252, 29.2311, 12.2509, 14.7791, 10.5335,
-        21.5884,  7.6503,  0.7018, 17.5343, 13.0949, 30.5533, 16.0709, 21.4235,
-         0.4585,  0.5326, 13.9128, 37.4688, 31.5425,  2.3431,  3.3328, 39.8952,
-        17.7712, 16.3151, 15.3518, 17.4520,  5.4792, 36.5795, 10.2611,  9.3121,
-         6.4470,  6.1551, 12.3055,  1.0764, 18.4679, 19.9537, 33.1282, 29.0431])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([ 8.8782, 13.9646, 12.9796, 21.8019,  5.1690, 14.7561, 29.0728,  1.5506,
+        18.7050, 38.1648, 14.0111,  9.3886, 29.7178, 21.0584, 20.0683, 26.6607,
+        11.0419, 39.2685, 33.8960, 30.7515, 21.7286, 15.0439,  8.6159,  2.1566,
+        39.1987, 36.1969,  7.5164, 33.3192, 38.5443, 10.6095, 39.9087,  0.9665,
+         1.5486, 29.8694, 19.8149, 35.1069, 18.7275, 28.1869, 25.4504, 11.4127])
 </pre></div>
 </div>
 </div>
@@ -4677,46 +4677,46 @@ shapes, which can significantly improve execution speed.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TRACED GRAPH
- ===== __compiled_fn_11_9b1cbbd9_430d_4976_a516_8638dc37ef7e =====
+ ===== __compiled_fn_11_cb3df0f0_5f40_4cab_a8e5_b510628f0e0b =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, L_x_: &quot;f32[10][1]cpu&quot;):
         l_x_ = L_x_
         
-        # File: /tmp/ipykernel_165/953537014.py:5 in f, code: return x * 10
+        # File: /tmp/ipykernel_164/953537014.py:5 in f, code: return x * 10
         mul: &quot;f32[10][1]cpu&quot; = l_x_ * 10;  l_x_ = None
         return (mul,)
         
 
 TRACED GRAPH
- ===== __compiled_fn_13_e263b3e1_0ae8_4f75_a03f_5acc1463ec2d =====
+ ===== __compiled_fn_13_8dff60f1_a0a3_4145_a53a_7e939934dc70 =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, s77: &quot;Sym(s77)&quot;, L_x_: &quot;f32[s77][1]cpu&quot;):
         l_x_ = L_x_
         
-        # File: /tmp/ipykernel_165/953537014.py:8 in f, code: return x*200
+        # File: /tmp/ipykernel_164/953537014.py:8 in f, code: return x*200
         mul: &quot;f32[s77][1]cpu&quot; = l_x_ * 200;  l_x_ = None
         return (mul,)
         
 
 TRACED GRAPH
- ===== __compiled_fn_15_12bef13a_1c04_453f_b47e_5b47ce9b6986 =====
+ ===== __compiled_fn_15_e5bb59d7_5347_463e_9f5f_acf3d7ec8bcf =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, s77: &quot;Sym(s77)&quot;, L_x_: &quot;f32[s77][1]cpu&quot;):
         l_x_ = L_x_
         
-        # File: /tmp/ipykernel_165/953537014.py:10 in f, code: return x*x.size()[0]
+        # File: /tmp/ipykernel_164/953537014.py:10 in f, code: return x*x.size()[0]
         mul: &quot;f32[s77][1]cpu&quot; = l_x_ * s77;  l_x_ = s77 = None
         return (mul,)
         
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([39.3106, 20.2244,  3.0199,  3.5699, 42.7643,  1.4449,  1.5256, 33.0985,
-         6.6329, 25.8488,  4.3775,  7.9944, 27.1513,  3.8785, 21.6004, 20.7054,
-        34.6739, 41.1364, 40.9972,  1.9323, 43.6561, 38.6679, 44.8043, 16.8741,
-        39.9111, 15.5923, 11.5716, 28.4947, 18.6540, 45.9366,  6.9845, 20.6578,
-         7.3170, 37.9362, 22.1581, 35.0256, 16.9106, 37.9741, 42.9233, 12.9237,
-        22.9022, 38.2648, 33.8718, 43.0811, 47.4467, 35.4734,  0.0512, 23.5134,
-         6.8473,  6.0732])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([25.8071, 29.7716, 31.6199, 29.2229,  6.3862, 37.3432, 41.1010, 14.6123,
+        24.2671, 28.9736, 44.3658, 11.2921, 11.8867,  0.3295, 49.7629, 15.4941,
+         9.8400, 15.0044, 25.4354, 43.1831, 28.3109, 26.7295, 47.6986, 16.2213,
+        46.9261, 14.6880, 28.8423, 13.0666, 21.2860, 44.4278,  0.1142, 20.8706,
+         3.7005, 35.4376, 39.0649, 32.1049, 46.1446, 33.3297, 17.0380, 16.2919,
+        22.6823, 19.4435, 24.5848, 48.2961, 22.0871, 26.1808, 10.3000, 46.3585,
+        22.9763, 18.9552])
 </pre></div>
 </div>
 </div>
@@ -4791,24 +4791,23 @@ values for this dimension, you can specify them with
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TRACED GRAPH
- ===== __compiled_fn_17_50097187_bb22_41f0_92fc_bc0e42c4d4f9 =====
+ ===== __compiled_fn_17_04792c8a_445b_4f4a_a4ae_f40d4f72e2cd =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, s77: &quot;Sym(s77)&quot;, L_x_: &quot;f32[s77][1]cpu&quot;):
         l_x_ = L_x_
         
-        # File: /tmp/ipykernel_165/2254004717.py:5 in f, code: return x * x.size()[0]
+        # File: /tmp/ipykernel_164/2254004717.py:5 in f, code: return x * x.size()[0]
         mul: &quot;f32[s77][1]cpu&quot; = l_x_ * s77;  l_x_ = s77 = None
         return (mul,)
         
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([ -31.2039,  -88.6781,   60.5666,  -24.3329,  -22.4171,   10.3368,
-         -21.4877,   73.0241, -109.8502,   -4.4585,    2.7380,   23.6423,
-           6.7273,  -13.4777,    3.8343,   -8.3250,   48.6236,  -67.7352,
-          10.2777,   28.6071,  -23.8137,  -54.4450,  -20.7923,  -70.5529,
-         -47.6113,   -3.9593,  -11.3479,    9.7243,  -46.1052,   18.6126,
-           2.7018,  -11.4699,   24.0159,   16.2882,   39.3577,  -72.8757,
-         -17.1680,   26.3518,  -22.7089,   71.3950])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([ 23.0212,  74.4964,  62.2631, -60.4671, -15.1367,   3.7385,  36.4918,
+          4.5157, -41.7840, -10.7392, -36.4369,  -2.2862, -80.4601,  -8.2084,
+        -44.2903,  46.6505, -73.3251, -95.2374,  27.4694,  40.1679,  54.0482,
+         23.9608,  68.7675, -32.5117, -23.4204,  52.1944,   1.2462,  28.0525,
+        -20.0308, -27.4014,  -0.2971, -69.7632,  46.0723,  78.5882, -46.9764,
+        -13.3769,  72.7544, -53.8497,   2.0978,  50.9674])
 </pre></div>
 </div>
 </div>
@@ -4862,22 +4861,22 @@ gets specialized or if the provided input does not exist.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TRACED GRAPH
- ===== __compiled_fn_19_fbae12ec_6d92_4cb2_bfa3_608b6c31334c =====
+ ===== __compiled_fn_19_7b45849c_b4a0_4e1d_abce_e0b980d830fa =====
  /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module):
     def forward(self, s77: &quot;Sym(s77)&quot;, L_x_: &quot;f32[s77][1]cpu&quot;):
         l_x_ = L_x_
         
-        # File: /tmp/ipykernel_165/2867773694.py:5 in f, code: return x * x.size()[0]
+        # File: /tmp/ipykernel_164/2867773694.py:5 in f, code: return x * x.size()[0]
         mul: &quot;f32[s77][1]cpu&quot; = l_x_ * s77;  l_x_ = s77 = None
         return (mul,)
         
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([25.6308, 19.0068, 33.5762, 15.4499, 34.2923, 27.0891, 34.7537, 25.6152,
-        12.8883, 19.9911, 27.0835, 13.6557, 28.3117,  0.7648, 22.8843, 16.1338,
-        37.7068,  7.9902,  9.1086, 31.4931,  1.3793,  8.7374, 19.9179,  3.0444,
-        28.4476, 36.0565, 16.4534, 38.1763, 22.5312,  5.3721,  3.4761, 29.0110,
-         6.9739,  1.2626, 23.1102, 35.7639, 19.4895, 25.3545, 20.0747,  3.5474])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([10.2200, 39.6290,  0.3119, 26.1188, 36.7470, 22.5109, 33.8056,  5.2159,
+        25.8008, 32.0898, 11.2573,  7.5706, 27.5301, 32.7887, 34.8056, 13.7472,
+        17.7076, 24.0931, 10.8254,  2.0073,  6.3708, 30.4414, 24.9701, 21.2430,
+        18.7637, 22.1735, 28.0971, 37.6155, 26.8691, 30.8675, 36.4258, 28.1208,
+        27.6351, 28.1114, 10.7537,  1.5141, 27.3503, 20.4558,  4.7198,  2.6184])
 </pre></div>
 </div>
 </div>
@@ -5309,7 +5308,7 @@ argument, evaluate whether you can rewrite it to address the problem.</p>
        "headline": "Dynamic Shapes",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/torch.compiler_dynamic_shapes.html",
-       "articleBody": "Dynamic Shapes# Created On: May 19, 2023 | Last Updated On: Oct 07, 2025 This section explains how to work with dynamic shapes in PyTorch, including how to debug and fix common errors, implement support for dynamic shapes in operators, and understand the underlying mechanisms. Dynamic shapes allow PyTorch models to handle inputs with varying dimensions without recompilation. This enables more flexible models that can process different batch sizes, sequence lengths, or image dimensions in a single compiled artifact. Dynamic shapes work by symbolically tracing tensor dimensions rather than using concrete values, creating a computation graph that adapts to different input shapes at runtime. By default, PyTorch assumes all input shapes to be static. Typically, deep learning compilers only support static shapes, requiring recompilation for input shape changes. While this approach covers many use cases, there are situations where this is insufficient: Variable Dimensions - Batch sizes or sequence lengths vary, such as in adaptive batching. Data-Dependent Outputs - Models produce outputs based on input data, like variable bounding boxes in detection models. Sparse Representations - Processing depends on data-varying sparse structures, such as in sparse tensors, jagged tensors, and graph neural networks. Dynamic shapes do not support dynamic rank programs, programs which input tensors change in dimensionality, as this is uncommon and unnecessarily complex. What does it mean for a size/integer to be dynamic?# Dynamic shapes allow avoiding recompilations by making certain dimensions or integers dynamic. For example, if a function f(x) is compiled with a static size, it will need recompilation for different sizes: Note For simplicity, this example uses @torch.compile(dynamic=True). Note, that this option is not recommended due to it being error prone. For a recommended way of enabling dynamic shapes, see Enabling Dynamic Behavior. import torch @torch.compile(dynamic=False) def f(x): return x* x.size()[0] f(torch.rand(10)) f(torch.rand(20)) f(torch.rand(30)) f(torch.rand(40)) TRACED GRAPH ===== __compiled_fn_1_f4558e3b_b641_49af_b056_5c0db39b941f ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, L_x_: \"f32[10][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_165/281359623.py:4 in f, code: return x* x.size()[0] mul: \"f32[10][1]cpu\" = l_x_ * 10; l_x_ = None return (mul,) TRACED GRAPH ===== __compiled_fn_3_08aff8f2_1458_4426_8e11_8624ac544c18 ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, L_x_: \"f32[20][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_165/281359623.py:4 in f, code: return x* x.size()[0] mul: \"f32[20][1]cpu\" = l_x_ * 20; l_x_ = None return (mul,) TRACED GRAPH ===== __compiled_fn_5_fcf8be47_9357_4bf5_b6b9_c9dc728491e3 ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, L_x_: \"f32[30][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_165/281359623.py:4 in f, code: return x* x.size()[0] mul: \"f32[30][1]cpu\" = l_x_ * 30; l_x_ = None return (mul,) TRACED GRAPH ===== __compiled_fn_7_4fd3d2ed_3124_476e_819a_56f4e120751f ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, L_x_: \"f32[40][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_165/281359623.py:4 in f, code: return x* x.size()[0] mul: \"f32[40][1]cpu\" = l_x_ * 40; l_x_ = None return (mul,) tensor([34.9796, 3.6749, 17.4024, 20.5025, 33.7527, 14.3308, 13.8564, 19.6824, 6.6631, 24.6882, 28.4221, 13.9345, 4.8355, 9.5981, 13.7856, 12.4818, 9.9159, 16.7821, 18.3959, 35.4091, 9.3951, 25.1197, 26.9260, 17.7687, 37.4468, 6.8249, 14.3609, 35.3876, 13.6100, 11.9144, 9.4436, 29.2357, 18.9644, 18.4833, 25.0752, 20.1688, 4.7854, 35.0623, 38.8596, 37.4530]) In the produced output, you can see that four graphs were generated. See the corresponding tlparse output By making the size dynamic, the function can handle various sizes without recompilation: import torch @torch.compile(dynamic=True) def f(x): return x* x.size()[0] f(torch.rand(10)) f(torch.rand(20)) f(torch.rand(30)) f(torch.rand(40)) TRACED GRAPH ===== __compiled_fn_9_cfde0551_9b9b_4794_9e1b_0121b22f58a9 ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, s77: \"Sym(s77)\", L_x_: \"f32[s77][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_165/1046103881.py:4 in f, code: return x* x.size()[0] mul: \"f32[s77][1]cpu\" = l_x_ * s77; l_x_ = s77 = None return (mul,) tensor([ 4.1702, 21.2672, 10.3469, 24.2252, 29.2311, 12.2509, 14.7791, 10.5335, 21.5884, 7.6503, 0.7018, 17.5343, 13.0949, 30.5533, 16.0709, 21.4235, 0.4585, 0.5326, 13.9128, 37.4688, 31.5425, 2.3431, 3.3328, 39.8952, 17.7712, 16.3151, 15.3518, 17.4520, 5.4792, 36.5795, 10.2611, 9.3121, 6.4470, 6.1551, 12.3055, 1.0764, 18.4679, 19.9537, 33.1282, 29.0431]) With dynamic shapes enabled, only one graph is created. See the corresponding tlparse output. While compilation time differences are minimal for this small example, more complex use cases would show significant performance improvements. What is a specialization?# Specialization refers to optimizing a computational graph for specific input shapes by examining shape conditions during control flow. If a branch is taken based on a shape condition, the graph is tailored for that condition. If a new input doesn\u2019t meet this condition, the system will recompile the graph. Specialization allows you to create optimized computational graphs for specific input shapes, which can significantly improve execution speed. import torch @torch.compile(dynamic=True) def f(x): if x.size()[0] == 10: return x * 10 if x.size()[0] \u003c= 30: return x*200 return x*x.size()[0] f(torch.rand(10)) f(torch.rand(20)) f(torch.rand(30)) f(torch.rand(40)) f(torch.rand(50)) TRACED GRAPH ===== __compiled_fn_11_9b1cbbd9_430d_4976_a516_8638dc37ef7e ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, L_x_: \"f32[10][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_165/953537014.py:5 in f, code: return x * 10 mul: \"f32[10][1]cpu\" = l_x_ * 10; l_x_ = None return (mul,) TRACED GRAPH ===== __compiled_fn_13_e263b3e1_0ae8_4f75_a03f_5acc1463ec2d ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, s77: \"Sym(s77)\", L_x_: \"f32[s77][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_165/953537014.py:8 in f, code: return x*200 mul: \"f32[s77][1]cpu\" = l_x_ * 200; l_x_ = None return (mul,) TRACED GRAPH ===== __compiled_fn_15_12bef13a_1c04_453f_b47e_5b47ce9b6986 ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, s77: \"Sym(s77)\", L_x_: \"f32[s77][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_165/953537014.py:10 in f, code: return x*x.size()[0] mul: \"f32[s77][1]cpu\" = l_x_ * s77; l_x_ = s77 = None return (mul,) tensor([39.3106, 20.2244, 3.0199, 3.5699, 42.7643, 1.4449, 1.5256, 33.0985, 6.6329, 25.8488, 4.3775, 7.9944, 27.1513, 3.8785, 21.6004, 20.7054, 34.6739, 41.1364, 40.9972, 1.9323, 43.6561, 38.6679, 44.8043, 16.8741, 39.9111, 15.5923, 11.5716, 28.4947, 18.6540, 45.9366, 6.9845, 20.6578, 7.3170, 37.9362, 22.1581, 35.0256, 16.9106, 37.9741, 42.9233, 12.9237, 22.9022, 38.2648, 33.8718, 43.0811, 47.4467, 35.4734, 0.0512, 23.5134, 6.8473, 6.0732]) In the code above, we specialize that the graph requires an input size of 10, in which case it will return x * 10. If the input size is less than 30, it will return x * 200. In the output, you can see that this creates three graphs. See the corresponding tlparse output This is how graphs created for the above function: Enabling Dynamic Behavior# There are the following ways to make things dynamic: Automatic dynamic User Annotations (preferred) torch.compile (dynamic=true) (Not recommended) (for testing only) Advanced Options to Control Dynamic Behavior (for advanced use cases) Read below about each of this options. Automatic dynamic# Automatic dynamic is the default behavior where torch.compile() performs the initial compilation assuming static shapes are used, while tracking the input sizes from that first compilation. When a recompile is triggered, it uses this information to identify which dimensions have changed and marks those as dynamic for the second compilation. User Annotations# Several APIs allow users to explicitly mark specific inputs by name or code as dynamic. This is useful for avoiding initial compilations that would eventually become dynamic with the previous tools. It is also used to mark elements that do not automatically get marked as dynamic, such as neural network module parameters, and so on. User annotations are the preferred way to enable dynamic shapes. mark_dynamic(tensor, dim, min=min, max=max)# The torch._dynamo.mark_dynamic() function marks a tensor dimension as dynamic and will fail if it gets specialized. It does not work for integers. Use this function only if you know all graphs in the frame using this input converge to a single dynamic graph. Otherwise, you may encounter a misleading constraint violation error. In such cases, consider using torch._dynamo.maybe_mark_dynamic(). Currently, torch._dynamo.mark_dynamic() does not have precedence over force_parameter_static_shapes = True or force_nn_module_property_static_shapes = True. If you know in advance that a particular dimension will be dynamic, you can avoid the initial recompilation by using torch._dynamo.mark_dynamic(tensor, dim)(). Additionally, if you already know the minimum and maximum possible values for this dimension, you can specify them with torch._dynamo.mark_dynamic(tensor, dim, min=min, max=max)(). Here is a quick example: import torch @torch.compile def f(x): return x * x.size()[0] x = torch.randn(10) torch._dynamo.mark_dynamic(x, 0) # first invocation we give it is a tensor marked as dynamic f(x) # rest of these invocations will use dynamically compiled code f(torch.randn(20)) f(torch.randn(30)) f(torch.randn(40)) TRACED GRAPH ===== __compiled_fn_17_50097187_bb22_41f0_92fc_bc0e42c4d4f9 ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, s77: \"Sym(s77)\", L_x_: \"f32[s77][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_165/2254004717.py:5 in f, code: return x * x.size()[0] mul: \"f32[s77][1]cpu\" = l_x_ * s77; l_x_ = s77 = None return (mul,) tensor([ -31.2039, -88.6781, 60.5666, -24.3329, -22.4171, 10.3368, -21.4877, 73.0241, -109.8502, -4.4585, 2.7380, 23.6423, 6.7273, -13.4777, 3.8343, -8.3250, 48.6236, -67.7352, 10.2777, 28.6071, -23.8137, -54.4450, -20.7923, -70.5529, -47.6113, -3.9593, -11.3479, 9.7243, -46.1052, 18.6126, 2.7018, -11.4699, 24.0159, 16.2882, 39.3577, -72.8757, -17.1680, 26.3518, -22.7089, 71.3950]) maybe_mark_dynamic(tensor, dim)# The torch._dynamo.maybe_mark_dynamic() function shares all properties with torch._dynamo.mark_dynamic() but does not fail if the size gets specialized. Use it for inputs shared by multiple graphs or if the number of graphs does not converge to one for a specific frame. For instance, in the example above, use torch._dynamo.maybe_mark_dynamic() because graphs with sizes 0 and 1 will specialize. However, you can use torch._dynamo.mark_dynamic() to ensure you never specialize. mark_unbacked(tensor, dim)# The torch._dynamo.decorators.mark_unbacked() function marks a tensor dimension as unbacked. It is unlikely to be the tool you need, but it could be useful if the specialization occurs inside a condition guard_size_oblivious(x), and if using it removes the specialization. Ensure it fixes the specialization and does not introduce a data-dependent error that converts to a graph break at or before the specialization location you are trying to avoid. It might be better to use the next option. Dynamic Allow List (DYNAMIC_SOURCES)# Use the evnironmental variable TORCH_COMPILE_DYNAMIC_SOURCES to pass a configuration list of source names to be marked as dynamic. For example: TORCH_COMPILE_DYNAMIC_SOURCES=L[\u2018x\u2019],L[\u2018y\u2019] It\u2019s easiest to find these dynamic source names using the PGO artifact in tlparse. You can copy and paste the dynamic source names from the PGO artifact. This method works for integers and tensor sizes and has the highest precedence over all other flags that force static shapes. It will not throw an error if what is marked dynamic gets specialized or if the provided input does not exist. Here is an example: import torch @torch.compile() def f(x): return x * x.size()[0] with torch.compiler.config.patch(dynamic_sources=\"L[\u0027x\u0027]\"): f(torch.rand(10)) f(torch.rand(20)) f(torch.rand(30)) f(torch.rand(40)) TRACED GRAPH ===== __compiled_fn_19_fbae12ec_6d92_4cb2_bfa3_608b6c31334c ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, s77: \"Sym(s77)\", L_x_: \"f32[s77][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_165/2867773694.py:5 in f, code: return x * x.size()[0] mul: \"f32[s77][1]cpu\" = l_x_ * s77; l_x_ = s77 = None return (mul,) tensor([25.6308, 19.0068, 33.5762, 15.4499, 34.2923, 27.0891, 34.7537, 25.6152, 12.8883, 19.9911, 27.0835, 13.6557, 28.3117, 0.7648, 22.8843, 16.1338, 37.7068, 7.9902, 9.1086, 31.4931, 1.3793, 8.7374, 19.9179, 3.0444, 28.4476, 36.0565, 16.4534, 38.1763, 22.5312, 5.3721, 3.4761, 29.0110, 6.9739, 1.2626, 23.1102, 35.7639, 19.4895, 25.3545, 20.0747, 3.5474]) torch.compiler.set_stance (\"eager_then_compile\")# At times, identifying the appropriate inputs to mark as dynamic can be challenging. If you are willing to accept a performance cost for the first batch, another convenient option is to use the eager_then_compile stances, which automatically determine dynamic inputs for you. For more information, see torch.compiler.set_stance() and Dynamic Compilation Control with torch.compiler.set_stance. torch.compile (dynamic=true) (Not recommended)# This setting forces all sizes and integers to be dynamic, increasing the chance of encountering dynamic shape bugs. Setting this option is not recommended due to it being error prone. It would make every input size dynamic which may result it performance regressions and ultimately increase compilation time. PyTorch also provides advanced control options for dynamic shapes, see: Advanced Options to Control Dynamic Behavior. Where Do I Go From Here?# If you encounter a framework code bug or an issue with specialization, file an issue so it can be reviewed and potentially improved. If the issue is within your user code, consider whether you are willing to rewrite your code to avoid it. Determine if it affects correctness or if it\u2019s a redundant check. If the issue involves a Triton custom kernel with a constexpr argument, evaluate whether you can rewrite it to address the problem. Dynamic Shapes Core Concepts Troubleshooting Dynamic Shapes Advanced Options to Control Dynamic Behavior Beyond the Basics See also tlparse documentation The dynamic shapes manual",
+       "articleBody": "Dynamic Shapes# Created On: May 19, 2023 | Last Updated On: Oct 07, 2025 This section explains how to work with dynamic shapes in PyTorch, including how to debug and fix common errors, implement support for dynamic shapes in operators, and understand the underlying mechanisms. Dynamic shapes allow PyTorch models to handle inputs with varying dimensions without recompilation. This enables more flexible models that can process different batch sizes, sequence lengths, or image dimensions in a single compiled artifact. Dynamic shapes work by symbolically tracing tensor dimensions rather than using concrete values, creating a computation graph that adapts to different input shapes at runtime. By default, PyTorch assumes all input shapes to be static. Typically, deep learning compilers only support static shapes, requiring recompilation for input shape changes. While this approach covers many use cases, there are situations where this is insufficient: Variable Dimensions - Batch sizes or sequence lengths vary, such as in adaptive batching. Data-Dependent Outputs - Models produce outputs based on input data, like variable bounding boxes in detection models. Sparse Representations - Processing depends on data-varying sparse structures, such as in sparse tensors, jagged tensors, and graph neural networks. Dynamic shapes do not support dynamic rank programs, programs which input tensors change in dimensionality, as this is uncommon and unnecessarily complex. What does it mean for a size/integer to be dynamic?# Dynamic shapes allow avoiding recompilations by making certain dimensions or integers dynamic. For example, if a function f(x) is compiled with a static size, it will need recompilation for different sizes: Note For simplicity, this example uses @torch.compile(dynamic=True). Note, that this option is not recommended due to it being error prone. For a recommended way of enabling dynamic shapes, see Enabling Dynamic Behavior. import torch @torch.compile(dynamic=False) def f(x): return x* x.size()[0] f(torch.rand(10)) f(torch.rand(20)) f(torch.rand(30)) f(torch.rand(40)) TRACED GRAPH ===== __compiled_fn_1_0bcd7ea2_e050_4e7b_8a39_00f094b3b1fb ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, L_x_: \"f32[10][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_164/281359623.py:4 in f, code: return x* x.size()[0] mul: \"f32[10][1]cpu\" = l_x_ * 10; l_x_ = None return (mul,) TRACED GRAPH ===== __compiled_fn_3_7f779086_8f23_4595_b5f9_1e201afde04e ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, L_x_: \"f32[20][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_164/281359623.py:4 in f, code: return x* x.size()[0] mul: \"f32[20][1]cpu\" = l_x_ * 20; l_x_ = None return (mul,) TRACED GRAPH ===== __compiled_fn_5_a3bd3cbf_17a5_4798_9319_925ae7302153 ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, L_x_: \"f32[30][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_164/281359623.py:4 in f, code: return x* x.size()[0] mul: \"f32[30][1]cpu\" = l_x_ * 30; l_x_ = None return (mul,) TRACED GRAPH ===== __compiled_fn_7_b5b30063_066f_484f_93d1_40e29caf334d ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, L_x_: \"f32[40][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_164/281359623.py:4 in f, code: return x* x.size()[0] mul: \"f32[40][1]cpu\" = l_x_ * 40; l_x_ = None return (mul,) tensor([20.9839, 33.7375, 29.6926, 38.3194, 36.6446, 26.2262, 1.1205, 1.2989, 22.6774, 37.1998, 15.1314, 11.4185, 26.6650, 9.9012, 21.0081, 3.3124, 1.0628, 13.8106, 38.8069, 32.5742, 36.7280, 9.4342, 26.6820, 2.1203, 37.8570, 20.0228, 1.9522, 13.2144, 13.1159, 39.8875, 1.7210, 32.6783, 7.0328, 10.4518, 29.2989, 39.6210, 32.3727, 27.2628, 1.2476, 18.4212]) In the produced output, you can see that four graphs were generated. See the corresponding tlparse output By making the size dynamic, the function can handle various sizes without recompilation: import torch @torch.compile(dynamic=True) def f(x): return x* x.size()[0] f(torch.rand(10)) f(torch.rand(20)) f(torch.rand(30)) f(torch.rand(40)) TRACED GRAPH ===== __compiled_fn_9_81a0d38f_64a6_4ae6_a03b_c6c8b4a7989b ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, s77: \"Sym(s77)\", L_x_: \"f32[s77][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_164/1046103881.py:4 in f, code: return x* x.size()[0] mul: \"f32[s77][1]cpu\" = l_x_ * s77; l_x_ = s77 = None return (mul,) tensor([ 8.8782, 13.9646, 12.9796, 21.8019, 5.1690, 14.7561, 29.0728, 1.5506, 18.7050, 38.1648, 14.0111, 9.3886, 29.7178, 21.0584, 20.0683, 26.6607, 11.0419, 39.2685, 33.8960, 30.7515, 21.7286, 15.0439, 8.6159, 2.1566, 39.1987, 36.1969, 7.5164, 33.3192, 38.5443, 10.6095, 39.9087, 0.9665, 1.5486, 29.8694, 19.8149, 35.1069, 18.7275, 28.1869, 25.4504, 11.4127]) With dynamic shapes enabled, only one graph is created. See the corresponding tlparse output. While compilation time differences are minimal for this small example, more complex use cases would show significant performance improvements. What is a specialization?# Specialization refers to optimizing a computational graph for specific input shapes by examining shape conditions during control flow. If a branch is taken based on a shape condition, the graph is tailored for that condition. If a new input doesn\u2019t meet this condition, the system will recompile the graph. Specialization allows you to create optimized computational graphs for specific input shapes, which can significantly improve execution speed. import torch @torch.compile(dynamic=True) def f(x): if x.size()[0] == 10: return x * 10 if x.size()[0] \u003c= 30: return x*200 return x*x.size()[0] f(torch.rand(10)) f(torch.rand(20)) f(torch.rand(30)) f(torch.rand(40)) f(torch.rand(50)) TRACED GRAPH ===== __compiled_fn_11_cb3df0f0_5f40_4cab_a8e5_b510628f0e0b ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, L_x_: \"f32[10][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_164/953537014.py:5 in f, code: return x * 10 mul: \"f32[10][1]cpu\" = l_x_ * 10; l_x_ = None return (mul,) TRACED GRAPH ===== __compiled_fn_13_8dff60f1_a0a3_4145_a53a_7e939934dc70 ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, s77: \"Sym(s77)\", L_x_: \"f32[s77][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_164/953537014.py:8 in f, code: return x*200 mul: \"f32[s77][1]cpu\" = l_x_ * 200; l_x_ = None return (mul,) TRACED GRAPH ===== __compiled_fn_15_e5bb59d7_5347_463e_9f5f_acf3d7ec8bcf ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, s77: \"Sym(s77)\", L_x_: \"f32[s77][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_164/953537014.py:10 in f, code: return x*x.size()[0] mul: \"f32[s77][1]cpu\" = l_x_ * s77; l_x_ = s77 = None return (mul,) tensor([25.8071, 29.7716, 31.6199, 29.2229, 6.3862, 37.3432, 41.1010, 14.6123, 24.2671, 28.9736, 44.3658, 11.2921, 11.8867, 0.3295, 49.7629, 15.4941, 9.8400, 15.0044, 25.4354, 43.1831, 28.3109, 26.7295, 47.6986, 16.2213, 46.9261, 14.6880, 28.8423, 13.0666, 21.2860, 44.4278, 0.1142, 20.8706, 3.7005, 35.4376, 39.0649, 32.1049, 46.1446, 33.3297, 17.0380, 16.2919, 22.6823, 19.4435, 24.5848, 48.2961, 22.0871, 26.1808, 10.3000, 46.3585, 22.9763, 18.9552]) In the code above, we specialize that the graph requires an input size of 10, in which case it will return x * 10. If the input size is less than 30, it will return x * 200. In the output, you can see that this creates three graphs. See the corresponding tlparse output This is how graphs created for the above function: Enabling Dynamic Behavior# There are the following ways to make things dynamic: Automatic dynamic User Annotations (preferred) torch.compile (dynamic=true) (Not recommended) (for testing only) Advanced Options to Control Dynamic Behavior (for advanced use cases) Read below about each of this options. Automatic dynamic# Automatic dynamic is the default behavior where torch.compile() performs the initial compilation assuming static shapes are used, while tracking the input sizes from that first compilation. When a recompile is triggered, it uses this information to identify which dimensions have changed and marks those as dynamic for the second compilation. User Annotations# Several APIs allow users to explicitly mark specific inputs by name or code as dynamic. This is useful for avoiding initial compilations that would eventually become dynamic with the previous tools. It is also used to mark elements that do not automatically get marked as dynamic, such as neural network module parameters, and so on. User annotations are the preferred way to enable dynamic shapes. mark_dynamic(tensor, dim, min=min, max=max)# The torch._dynamo.mark_dynamic() function marks a tensor dimension as dynamic and will fail if it gets specialized. It does not work for integers. Use this function only if you know all graphs in the frame using this input converge to a single dynamic graph. Otherwise, you may encounter a misleading constraint violation error. In such cases, consider using torch._dynamo.maybe_mark_dynamic(). Currently, torch._dynamo.mark_dynamic() does not have precedence over force_parameter_static_shapes = True or force_nn_module_property_static_shapes = True. If you know in advance that a particular dimension will be dynamic, you can avoid the initial recompilation by using torch._dynamo.mark_dynamic(tensor, dim)(). Additionally, if you already know the minimum and maximum possible values for this dimension, you can specify them with torch._dynamo.mark_dynamic(tensor, dim, min=min, max=max)(). Here is a quick example: import torch @torch.compile def f(x): return x * x.size()[0] x = torch.randn(10) torch._dynamo.mark_dynamic(x, 0) # first invocation we give it is a tensor marked as dynamic f(x) # rest of these invocations will use dynamically compiled code f(torch.randn(20)) f(torch.randn(30)) f(torch.randn(40)) TRACED GRAPH ===== __compiled_fn_17_04792c8a_445b_4f4a_a4ae_f40d4f72e2cd ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, s77: \"Sym(s77)\", L_x_: \"f32[s77][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_164/2254004717.py:5 in f, code: return x * x.size()[0] mul: \"f32[s77][1]cpu\" = l_x_ * s77; l_x_ = s77 = None return (mul,) tensor([ 23.0212, 74.4964, 62.2631, -60.4671, -15.1367, 3.7385, 36.4918, 4.5157, -41.7840, -10.7392, -36.4369, -2.2862, -80.4601, -8.2084, -44.2903, 46.6505, -73.3251, -95.2374, 27.4694, 40.1679, 54.0482, 23.9608, 68.7675, -32.5117, -23.4204, 52.1944, 1.2462, 28.0525, -20.0308, -27.4014, -0.2971, -69.7632, 46.0723, 78.5882, -46.9764, -13.3769, 72.7544, -53.8497, 2.0978, 50.9674]) maybe_mark_dynamic(tensor, dim)# The torch._dynamo.maybe_mark_dynamic() function shares all properties with torch._dynamo.mark_dynamic() but does not fail if the size gets specialized. Use it for inputs shared by multiple graphs or if the number of graphs does not converge to one for a specific frame. For instance, in the example above, use torch._dynamo.maybe_mark_dynamic() because graphs with sizes 0 and 1 will specialize. However, you can use torch._dynamo.mark_dynamic() to ensure you never specialize. mark_unbacked(tensor, dim)# The torch._dynamo.decorators.mark_unbacked() function marks a tensor dimension as unbacked. It is unlikely to be the tool you need, but it could be useful if the specialization occurs inside a condition guard_size_oblivious(x), and if using it removes the specialization. Ensure it fixes the specialization and does not introduce a data-dependent error that converts to a graph break at or before the specialization location you are trying to avoid. It might be better to use the next option. Dynamic Allow List (DYNAMIC_SOURCES)# Use the evnironmental variable TORCH_COMPILE_DYNAMIC_SOURCES to pass a configuration list of source names to be marked as dynamic. For example: TORCH_COMPILE_DYNAMIC_SOURCES=L[\u2018x\u2019],L[\u2018y\u2019] It\u2019s easiest to find these dynamic source names using the PGO artifact in tlparse. You can copy and paste the dynamic source names from the PGO artifact. This method works for integers and tensor sizes and has the highest precedence over all other flags that force static shapes. It will not throw an error if what is marked dynamic gets specialized or if the provided input does not exist. Here is an example: import torch @torch.compile() def f(x): return x * x.size()[0] with torch.compiler.config.patch(dynamic_sources=\"L[\u0027x\u0027]\"): f(torch.rand(10)) f(torch.rand(20)) f(torch.rand(30)) f(torch.rand(40)) TRACED GRAPH ===== __compiled_fn_19_7b45849c_b4a0_4e1d_abce_e0b980d830fa ===== /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py class GraphModule(torch.nn.Module): def forward(self, s77: \"Sym(s77)\", L_x_: \"f32[s77][1]cpu\"): l_x_ = L_x_ # File: /tmp/ipykernel_164/2867773694.py:5 in f, code: return x * x.size()[0] mul: \"f32[s77][1]cpu\" = l_x_ * s77; l_x_ = s77 = None return (mul,) tensor([10.2200, 39.6290, 0.3119, 26.1188, 36.7470, 22.5109, 33.8056, 5.2159, 25.8008, 32.0898, 11.2573, 7.5706, 27.5301, 32.7887, 34.8056, 13.7472, 17.7076, 24.0931, 10.8254, 2.0073, 6.3708, 30.4414, 24.9701, 21.2430, 18.7637, 22.1735, 28.0971, 37.6155, 26.8691, 30.8675, 36.4258, 28.1208, 27.6351, 28.1114, 10.7537, 1.5141, 27.3503, 20.4558, 4.7198, 2.6184]) torch.compiler.set_stance (\"eager_then_compile\")# At times, identifying the appropriate inputs to mark as dynamic can be challenging. If you are willing to accept a performance cost for the first batch, another convenient option is to use the eager_then_compile stances, which automatically determine dynamic inputs for you. For more information, see torch.compiler.set_stance() and Dynamic Compilation Control with torch.compiler.set_stance. torch.compile (dynamic=true) (Not recommended)# This setting forces all sizes and integers to be dynamic, increasing the chance of encountering dynamic shape bugs. Setting this option is not recommended due to it being error prone. It would make every input size dynamic which may result it performance regressions and ultimately increase compilation time. PyTorch also provides advanced control options for dynamic shapes, see: Advanced Options to Control Dynamic Behavior. Where Do I Go From Here?# If you encounter a framework code bug or an issue with specialization, file an issue so it can be reviewed and potentially improved. If the issue is within your user code, consider whether you are willing to rewrite your code to avoid it. Determine if it affects correctness or if it\u2019s a redundant check. If the issue involves a Triton custom kernel with a constexpr argument, evaluate whether you can rewrite it to address the problem. Dynamic Shapes Core Concepts Troubleshooting Dynamic Shapes Advanced Options to Control Dynamic Behavior Beyond the Basics See also tlparse documentation The dynamic shapes manual",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
