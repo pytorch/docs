@@ -143,7 +143,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git64819e3 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git4271ffe )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3455,8 +3455,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -4510,7 +4510,7 @@ document.write(`
 <h1>FakeQuantize<a class="headerlink" href="#fakequantize" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.fake_quantize.FakeQuantize">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fake_quantize.</span></span><span class="sig-name descname"><span class="pre">FakeQuantize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer=&lt;class</span> <span class="pre">'torch.ao.quantization.observer.MovingAverageMinMaxObserver'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_min=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_max=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_dynamic=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**observer_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/64819e37011481b04956c1056e5d42df005c996c/torch/ao/quantization/fake_quantize.py#L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fake_quantize.FakeQuantize" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fake_quantize.</span></span><span class="sig-name descname"><span class="pre">FakeQuantize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer=&lt;class</span> <span class="pre">'torch.ao.quantization.observer.MovingAverageMinMaxObserver'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_min=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_max=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_dynamic=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**observer_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/4271ffe91849335ffbcc2014c948694f8ec107fd/torch/ao/quantization/fake_quantize.py#L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fake_quantize.FakeQuantize" title="Permalink to this definition">#</a></dt>
 <dd><p>Simulate the quantize and dequantize operations in training time.</p>
 <p>The output of this module is given by:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_out</span> <span class="o">=</span> <span class="p">(</span>
