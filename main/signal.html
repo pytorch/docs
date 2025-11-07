@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>torch.signal &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=940804e7"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'signal';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="_static/js/runllm-widget.js"></script>
+    <script src="_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/signal.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4479,6 +4478,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4486,56 +4486,52 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="module-torch.signal">
-<span id="torch-signal"></span><h1>torch.signal<a class="headerlink" href="#module-torch.signal" title="Permalink to this heading">#</a></h1>
+  <section id="module-torch.signal">
+<span id="torch-signal"></span><h1>torch.signal<a class="headerlink" href="#module-torch.signal" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 14, 2022 | Last Updated On: Jun 18, 2025</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">torch.signal</span></code> module, modeled after SciPy’s <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/signal.html">signal</a>module.</p>
-<div class="section" id="module-torch.signal.windows">
-<span id="torch-signal-windows"></span><h2>torch.signal.windows<a class="headerlink" href="#module-torch.signal.windows" title="Permalink to this heading">#</a></h2>
+<section id="module-torch.signal.windows">
+<span id="torch-signal-windows"></span><h2>torch.signal.windows<a class="headerlink" href="#module-torch.signal.windows" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.signal.windows.bartlett"/><a class="reference internal" href="generated/torch.signal.windows.bartlett.html#torch.signal.windows.bartlett" title="torch.signal.windows.bartlett"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bartlett</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.signal.windows.bartlett"/><p id="torch.signal.windows.bartlett"/><a class="reference internal" href="generated/torch.signal.windows.bartlett.html#torch.signal.windows.bartlett" title="torch.signal.windows.bartlett"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bartlett</span></code></a></p></td>
 <td><p>Computes the Bartlett window.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.signal.windows.blackman"/><a class="reference internal" href="generated/torch.signal.windows.blackman.html#torch.signal.windows.blackman" title="torch.signal.windows.blackman"><code class="xref py py-obj docutils literal notranslate"><span class="pre">blackman</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.signal.windows.blackman"/><p id="torch.signal.windows.blackman"/><a class="reference internal" href="generated/torch.signal.windows.blackman.html#torch.signal.windows.blackman" title="torch.signal.windows.blackman"><code class="xref py py-obj docutils literal notranslate"><span class="pre">blackman</span></code></a></p></td>
 <td><p>Computes the Blackman window.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.signal.windows.cosine"/><a class="reference internal" href="generated/torch.signal.windows.cosine.html#torch.signal.windows.cosine" title="torch.signal.windows.cosine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cosine</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.signal.windows.cosine"/><p id="torch.signal.windows.cosine"/><a class="reference internal" href="generated/torch.signal.windows.cosine.html#torch.signal.windows.cosine" title="torch.signal.windows.cosine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cosine</span></code></a></p></td>
 <td><p>Computes a window with a simple cosine waveform, following the same implementation as SciPy.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.signal.windows.exponential"/><a class="reference internal" href="generated/torch.signal.windows.exponential.html#torch.signal.windows.exponential" title="torch.signal.windows.exponential"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exponential</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.signal.windows.exponential"/><p id="torch.signal.windows.exponential"/><a class="reference internal" href="generated/torch.signal.windows.exponential.html#torch.signal.windows.exponential" title="torch.signal.windows.exponential"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exponential</span></code></a></p></td>
 <td><p>Computes a window with an exponential waveform.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.signal.windows.gaussian"/><a class="reference internal" href="generated/torch.signal.windows.gaussian.html#torch.signal.windows.gaussian" title="torch.signal.windows.gaussian"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gaussian</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.signal.windows.gaussian"/><p id="torch.signal.windows.gaussian"/><a class="reference internal" href="generated/torch.signal.windows.gaussian.html#torch.signal.windows.gaussian" title="torch.signal.windows.gaussian"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gaussian</span></code></a></p></td>
 <td><p>Computes a window with a gaussian waveform.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.signal.windows.general_cosine"/><a class="reference internal" href="generated/torch.signal.windows.general_cosine.html#torch.signal.windows.general_cosine" title="torch.signal.windows.general_cosine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">general_cosine</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.signal.windows.general_cosine"/><p id="torch.signal.windows.general_cosine"/><a class="reference internal" href="generated/torch.signal.windows.general_cosine.html#torch.signal.windows.general_cosine" title="torch.signal.windows.general_cosine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">general_cosine</span></code></a></p></td>
 <td><p>Computes the general cosine window.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.signal.windows.general_hamming"/><a class="reference internal" href="generated/torch.signal.windows.general_hamming.html#torch.signal.windows.general_hamming" title="torch.signal.windows.general_hamming"><code class="xref py py-obj docutils literal notranslate"><span class="pre">general_hamming</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.signal.windows.general_hamming"/><p id="torch.signal.windows.general_hamming"/><a class="reference internal" href="generated/torch.signal.windows.general_hamming.html#torch.signal.windows.general_hamming" title="torch.signal.windows.general_hamming"><code class="xref py py-obj docutils literal notranslate"><span class="pre">general_hamming</span></code></a></p></td>
 <td><p>Computes the general Hamming window.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.signal.windows.hamming"/><a class="reference internal" href="generated/torch.signal.windows.hamming.html#torch.signal.windows.hamming" title="torch.signal.windows.hamming"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hamming</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.signal.windows.hamming"/><p id="torch.signal.windows.hamming"/><a class="reference internal" href="generated/torch.signal.windows.hamming.html#torch.signal.windows.hamming" title="torch.signal.windows.hamming"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hamming</span></code></a></p></td>
 <td><p>Computes the Hamming window.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.signal.windows.hann"/><a class="reference internal" href="generated/torch.signal.windows.hann.html#torch.signal.windows.hann" title="torch.signal.windows.hann"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hann</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.signal.windows.hann"/><p id="torch.signal.windows.hann"/><a class="reference internal" href="generated/torch.signal.windows.hann.html#torch.signal.windows.hann" title="torch.signal.windows.hann"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hann</span></code></a></p></td>
 <td><p>Computes the Hann window.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.signal.windows.kaiser"/><a class="reference internal" href="generated/torch.signal.windows.kaiser.html#torch.signal.windows.kaiser" title="torch.signal.windows.kaiser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kaiser</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.signal.windows.kaiser"/><p id="torch.signal.windows.kaiser"/><a class="reference internal" href="generated/torch.signal.windows.kaiser.html#torch.signal.windows.kaiser" title="torch.signal.windows.kaiser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kaiser</span></code></a></p></td>
 <td><p>Computes the Kaiser window.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.signal.windows.nuttall"/><a class="reference internal" href="generated/torch.signal.windows.nuttall.html#torch.signal.windows.nuttall" title="torch.signal.windows.nuttall"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nuttall</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.signal.windows.nuttall"/><p id="torch.signal.windows.nuttall"/><a class="reference internal" href="generated/torch.signal.windows.nuttall.html#torch.signal.windows.nuttall" title="torch.signal.windows.nuttall"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nuttall</span></code></a></p></td>
 <td><p>Computes the minimum 4-term Blackman-Harris window according to Nuttall.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -4601,11 +4597,6 @@ document.write(`
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -4729,7 +4720,9 @@ document.write(`
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -4753,10 +4746,13 @@ document.write(`
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -4779,7 +4775,6 @@ document.write(`
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -4829,10 +4824,10 @@ document.write(`
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -4873,7 +4868,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -4908,7 +4903,7 @@ document.write(`
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/signal.html"

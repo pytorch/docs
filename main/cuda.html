@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>torch.cuda &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=940804e7"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'cuda';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,12 +57,12 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="_static/js/runllm-widget.js"></script>
+    <script src="_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/cuda.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="StreamContext" href="generated/torch.cuda.StreamContext.html" />
-    <link rel="prev" title="Stream" href="generated/torch.cpu.Stream.html" />
+    <link rel="prev" title="Stream" href="generated/torch.cpu.Stream_class.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">torch.cuda</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4479,6 +4478,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4486,8 +4486,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="module-torch.cuda">
-<span id="torch-cuda"></span><h1>torch.cuda<a class="headerlink" href="#module-torch.cuda" title="Permalink to this heading">#</a></h1>
+  <section id="module-torch.cuda">
+<span id="torch-cuda"></span><h1>torch.cuda<a class="headerlink" href="#module-torch.cuda" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 23, 2016 | Last Updated On: Oct 22, 2025</p>
 <p>This package adds support for CUDA tensor types.</p>
 <p>It implements the same function as CPU tensors, but they utilize
@@ -4496,171 +4496,159 @@ GPUs for computation.</p>
 <a class="reference internal" href="generated/torch.cuda.is_available.html#torch.cuda.is_available" title="torch.cuda.is_available"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_available()</span></code></a> to determine if your system supports CUDA.</p>
 <p><a class="reference internal" href="notes/cuda.html#cuda-semantics"><span class="std std-ref">CUDA semantics</span></a> has more details about working with CUDA.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.cuda.StreamContext"/><a class="reference internal" href="generated/torch.cuda.StreamContext.html#torch.cuda.StreamContext" title="torch.cuda.StreamContext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StreamContext</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.StreamContext"/><p id="torch.cuda.StreamContext"/><a class="reference internal" href="generated/torch.cuda.StreamContext.html#torch.cuda.StreamContext" title="torch.cuda.StreamContext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StreamContext</span></code></a></p></td>
 <td><p>Context-manager that selects a given stream.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.can_device_access_peer"/><a class="reference internal" href="generated/torch.cuda.can_device_access_peer.html#torch.cuda.can_device_access_peer" title="torch.cuda.can_device_access_peer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">can_device_access_peer</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.can_device_access_peer"/><p id="torch.cuda.can_device_access_peer"/><a class="reference internal" href="generated/torch.cuda.can_device_access_peer.html#torch.cuda.can_device_access_peer" title="torch.cuda.can_device_access_peer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">can_device_access_peer</span></code></a></p></td>
 <td><p>Check if peer access between two devices is possible.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.check_error"/><a class="reference internal" href="generated/torch.cuda.check_error.html#torch.cuda.check_error" title="torch.cuda.check_error"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_error</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.check_error"/><p id="torch.cuda.check_error"/><a class="reference internal" href="generated/torch.cuda.check_error.html#torch.cuda.check_error" title="torch.cuda.check_error"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_error</span></code></a></p></td>
 <td><p>Raise an error if the result of a CUDA runtime API call is not success.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.current_blas_handle"/><a class="reference internal" href="generated/torch.cuda.current_blas_handle.html#torch.cuda.current_blas_handle" title="torch.cuda.current_blas_handle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_blas_handle</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.current_blas_handle"/><p id="torch.cuda.current_blas_handle"/><a class="reference internal" href="generated/torch.cuda.current_blas_handle.html#torch.cuda.current_blas_handle" title="torch.cuda.current_blas_handle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_blas_handle</span></code></a></p></td>
 <td><p>Return cublasHandle_t pointer to current cuBLAS handle</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.current_device"/><a class="reference internal" href="generated/torch.cuda.current_device.html#torch.cuda.current_device" title="torch.cuda.current_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_device</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.current_device"/><p id="torch.cuda.current_device"/><a class="reference internal" href="generated/torch.cuda.current_device.html#torch.cuda.current_device" title="torch.cuda.current_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_device</span></code></a></p></td>
 <td><p>Return the index of a currently selected device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.current_stream"/><a class="reference internal" href="generated/torch.cuda.current_stream.html#torch.cuda.current_stream" title="torch.cuda.current_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_stream</span></code></a></p></td>
-<td><p>Return the currently selected <a class="reference internal" href="generated/torch.cuda.Stream.html#torch.cuda.Stream" title="torch.cuda.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> for a given device.</p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.current_stream"/><p id="torch.cuda.current_stream"/><a class="reference internal" href="generated/torch.cuda.current_stream.html#torch.cuda.current_stream" title="torch.cuda.current_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_stream</span></code></a></p></td>
+<td><p>Return the currently selected <a class="reference internal" href="generated/torch.cuda.Stream_class.html#torch.cuda.Stream" title="torch.cuda.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> for a given device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.cudart"/><a class="reference internal" href="generated/torch.cuda.cudart.html#torch.cuda.cudart" title="torch.cuda.cudart"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cudart</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.cudart"/><p id="torch.cuda.cudart"/><a class="reference internal" href="generated/torch.cuda.cudart.html#torch.cuda.cudart" title="torch.cuda.cudart"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cudart</span></code></a></p></td>
 <td><p>Retrieves the CUDA runtime API module.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.default_stream"/><a class="reference internal" href="generated/torch.cuda.default_stream.html#torch.cuda.default_stream" title="torch.cuda.default_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_stream</span></code></a></p></td>
-<td><p>Return the default <a class="reference internal" href="generated/torch.cuda.Stream.html#torch.cuda.Stream" title="torch.cuda.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> for a given device.</p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.default_stream"/><p id="torch.cuda.default_stream"/><a class="reference internal" href="generated/torch.cuda.default_stream.html#torch.cuda.default_stream" title="torch.cuda.default_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_stream</span></code></a></p></td>
+<td><p>Return the default <a class="reference internal" href="generated/torch.cuda.Stream_class.html#torch.cuda.Stream" title="torch.cuda.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> for a given device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.device"/><a class="reference internal" href="generated/torch.cuda.device.html#torch.cuda.device" title="torch.cuda.device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.device"/><p id="torch.cuda.device"/><a class="reference internal" href="generated/torch.cuda.device.html#torch.cuda.device" title="torch.cuda.device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device</span></code></a></p></td>
 <td><p>Context-manager that changes the selected device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.device_count"/><a class="reference internal" href="generated/torch.cuda.device_count.html#torch.cuda.device_count" title="torch.cuda.device_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_count</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.device_count"/><p id="torch.cuda.device_count"/><a class="reference internal" href="generated/torch.cuda.device_count.html#torch.cuda.device_count" title="torch.cuda.device_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_count</span></code></a></p></td>
 <td><p>Return the number of GPUs available.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.device_memory_used"/><a class="reference internal" href="generated/torch.cuda.device_memory_used.html#torch.cuda.device_memory_used" title="torch.cuda.device_memory_used"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_memory_used</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.device_memory_used"/><p id="torch.cuda.device_memory_used"/><a class="reference internal" href="generated/torch.cuda.device_memory_used.html#torch.cuda.device_memory_used" title="torch.cuda.device_memory_used"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_memory_used</span></code></a></p></td>
 <td><p>Return used global (device) memory in bytes as given by <cite>nvidia-smi</cite> or <cite>amd-smi</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.device_of"/><a class="reference internal" href="generated/torch.cuda.device_of.html#torch.cuda.device_of" title="torch.cuda.device_of"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_of</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.device_of"/><p id="torch.cuda.device_of"/><a class="reference internal" href="generated/torch.cuda.device_of.html#torch.cuda.device_of" title="torch.cuda.device_of"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_of</span></code></a></p></td>
 <td><p>Context-manager that changes the current device to that of given object.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.get_arch_list"/><a class="reference internal" href="generated/torch.cuda.get_arch_list.html#torch.cuda.get_arch_list" title="torch.cuda.get_arch_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_arch_list</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.get_arch_list"/><p id="torch.cuda.get_arch_list"/><a class="reference internal" href="generated/torch.cuda.get_arch_list.html#torch.cuda.get_arch_list" title="torch.cuda.get_arch_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_arch_list</span></code></a></p></td>
 <td><p>Return list CUDA architectures this library was compiled for.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.get_device_capability"/><a class="reference internal" href="generated/torch.cuda.get_device_capability.html#torch.cuda.get_device_capability" title="torch.cuda.get_device_capability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_capability</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.get_device_capability"/><p id="torch.cuda.get_device_capability"/><a class="reference internal" href="generated/torch.cuda.get_device_capability.html#torch.cuda.get_device_capability" title="torch.cuda.get_device_capability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_capability</span></code></a></p></td>
 <td><p>Get the cuda capability of a device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.get_device_name"/><a class="reference internal" href="generated/torch.cuda.get_device_name.html#torch.cuda.get_device_name" title="torch.cuda.get_device_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_name</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.get_device_name"/><p id="torch.cuda.get_device_name"/><a class="reference internal" href="generated/torch.cuda.get_device_name.html#torch.cuda.get_device_name" title="torch.cuda.get_device_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_name</span></code></a></p></td>
 <td><p>Get the name of a device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.get_device_properties"/><a class="reference internal" href="generated/torch.cuda.get_device_properties.html#torch.cuda.get_device_properties" title="torch.cuda.get_device_properties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_properties</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.get_device_properties"/><p id="torch.cuda.get_device_properties"/><a class="reference internal" href="generated/torch.cuda.get_device_properties.html#torch.cuda.get_device_properties" title="torch.cuda.get_device_properties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_properties</span></code></a></p></td>
 <td><p>Get the properties of a device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.get_gencode_flags"/><a class="reference internal" href="generated/torch.cuda.get_gencode_flags.html#torch.cuda.get_gencode_flags" title="torch.cuda.get_gencode_flags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_gencode_flags</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.get_gencode_flags"/><p id="torch.cuda.get_gencode_flags"/><a class="reference internal" href="generated/torch.cuda.get_gencode_flags.html#torch.cuda.get_gencode_flags" title="torch.cuda.get_gencode_flags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_gencode_flags</span></code></a></p></td>
 <td><p>Return NVCC gencode flags this library was compiled with.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.get_stream_from_external"/><a class="reference internal" href="generated/torch.cuda.get_stream_from_external.html#torch.cuda.get_stream_from_external" title="torch.cuda.get_stream_from_external"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stream_from_external</span></code></a></p></td>
-<td><p>Return a <a class="reference internal" href="generated/torch.cuda.Stream.html#torch.cuda.Stream" title="torch.cuda.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> from an externally allocated CUDA stream.</p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.get_stream_from_external"/><p id="torch.cuda.get_stream_from_external"/><a class="reference internal" href="generated/torch.cuda.get_stream_from_external.html#torch.cuda.get_stream_from_external" title="torch.cuda.get_stream_from_external"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stream_from_external</span></code></a></p></td>
+<td><p>Return a <a class="reference internal" href="generated/torch.cuda.Stream_class.html#torch.cuda.Stream" title="torch.cuda.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> from an externally allocated CUDA stream.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.get_sync_debug_mode"/><a class="reference internal" href="generated/torch.cuda.get_sync_debug_mode.html#torch.cuda.get_sync_debug_mode" title="torch.cuda.get_sync_debug_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sync_debug_mode</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.get_sync_debug_mode"/><p id="torch.cuda.get_sync_debug_mode"/><a class="reference internal" href="generated/torch.cuda.get_sync_debug_mode.html#torch.cuda.get_sync_debug_mode" title="torch.cuda.get_sync_debug_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sync_debug_mode</span></code></a></p></td>
 <td><p>Return current value of debug mode for cuda synchronizing operations.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.init"/><a class="reference internal" href="generated/torch.cuda.init.html#torch.cuda.init" title="torch.cuda.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.init"/><p id="torch.cuda.init"/><a class="reference internal" href="generated/torch.cuda.init.html#torch.cuda.init" title="torch.cuda.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a></p></td>
 <td><p>Initialize PyTorch's CUDA state.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.ipc_collect"/><a class="reference internal" href="generated/torch.cuda.ipc_collect.html#torch.cuda.ipc_collect" title="torch.cuda.ipc_collect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ipc_collect</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.ipc_collect"/><p id="torch.cuda.ipc_collect"/><a class="reference internal" href="generated/torch.cuda.ipc_collect.html#torch.cuda.ipc_collect" title="torch.cuda.ipc_collect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ipc_collect</span></code></a></p></td>
 <td><p>Force collects GPU memory after it has been released by CUDA IPC.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.is_available"/><a class="reference internal" href="generated/torch.cuda.is_available.html#torch.cuda.is_available" title="torch.cuda.is_available"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_available</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.is_available"/><p id="torch.cuda.is_available"/><a class="reference internal" href="generated/torch.cuda.is_available.html#torch.cuda.is_available" title="torch.cuda.is_available"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_available</span></code></a></p></td>
 <td><p>Return a bool indicating if CUDA is currently available.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.is_bf16_supported"/><a class="reference internal" href="generated/torch.cuda.is_bf16_supported.html#torch.cuda.is_bf16_supported" title="torch.cuda.is_bf16_supported"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_bf16_supported</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.is_bf16_supported"/><p id="torch.cuda.is_bf16_supported"/><a class="reference internal" href="generated/torch.cuda.is_bf16_supported.html#torch.cuda.is_bf16_supported" title="torch.cuda.is_bf16_supported"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_bf16_supported</span></code></a></p></td>
 <td><p>Return a bool indicating if the current CUDA/ROCm device supports dtype bfloat16.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.is_initialized"/><a class="reference internal" href="generated/torch.cuda.is_initialized.html#torch.cuda.is_initialized" title="torch.cuda.is_initialized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_initialized</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.is_initialized"/><p id="torch.cuda.is_initialized"/><a class="reference internal" href="generated/torch.cuda.is_initialized.html#torch.cuda.is_initialized" title="torch.cuda.is_initialized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_initialized</span></code></a></p></td>
 <td><p>Return whether PyTorch's CUDA state has been initialized.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.is_tf32_supported"/><a class="reference internal" href="generated/torch.cuda.is_tf32_supported.html#torch.cuda.is_tf32_supported" title="torch.cuda.is_tf32_supported"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_tf32_supported</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.is_tf32_supported"/><p id="torch.cuda.is_tf32_supported"/><a class="reference internal" href="generated/torch.cuda.is_tf32_supported.html#torch.cuda.is_tf32_supported" title="torch.cuda.is_tf32_supported"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_tf32_supported</span></code></a></p></td>
 <td><p>Return a bool indicating if the current CUDA/ROCm device supports dtype tf32.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory_usage"/><a class="reference internal" href="generated/torch.cuda.memory_usage.html#torch.cuda.memory_usage" title="torch.cuda.memory_usage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_usage</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory_usage"/><p id="torch.cuda.memory_usage"/><a class="reference internal" href="generated/torch.cuda.memory_usage.html#torch.cuda.memory_usage" title="torch.cuda.memory_usage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_usage</span></code></a></p></td>
 <td><p>Return the percent of time over the past sample period during which global (device) memory was being read or written as given by <cite>nvidia-smi</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.set_device"/><a class="reference internal" href="generated/torch.cuda.set_device.html#torch.cuda.set_device" title="torch.cuda.set_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_device</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.set_device"/><p id="torch.cuda.set_device"/><a class="reference internal" href="generated/torch.cuda.set_device.html#torch.cuda.set_device" title="torch.cuda.set_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_device</span></code></a></p></td>
 <td><p>Set the current device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.set_stream"/><a class="reference internal" href="generated/torch.cuda.set_stream.html#torch.cuda.set_stream" title="torch.cuda.set_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_stream</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.set_stream"/><p id="torch.cuda.set_stream"/><a class="reference internal" href="generated/torch.cuda.set_stream.html#torch.cuda.set_stream" title="torch.cuda.set_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_stream</span></code></a></p></td>
 <td><p>Set the current stream.This is a wrapper API to set the stream.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.set_sync_debug_mode"/><a class="reference internal" href="generated/torch.cuda.set_sync_debug_mode.html#torch.cuda.set_sync_debug_mode" title="torch.cuda.set_sync_debug_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_sync_debug_mode</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.set_sync_debug_mode"/><p id="torch.cuda.set_sync_debug_mode"/><a class="reference internal" href="generated/torch.cuda.set_sync_debug_mode.html#torch.cuda.set_sync_debug_mode" title="torch.cuda.set_sync_debug_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_sync_debug_mode</span></code></a></p></td>
 <td><p>Set the debug mode for cuda synchronizing operations.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.stream"/><a class="reference internal" href="generated/torch.cuda.stream.html#torch.cuda.stream" title="torch.cuda.stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stream</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.stream"/><p id="torch.cuda.stream"/><a class="reference internal" href="generated/torch.cuda.stream_function.html#torch.cuda.stream" title="torch.cuda.stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stream</span></code></a></p></td>
 <td><p>Wrap around the Context-manager StreamContext that selects a given stream.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.synchronize"/><a class="reference internal" href="generated/torch.cuda.synchronize.html#torch.cuda.synchronize" title="torch.cuda.synchronize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synchronize</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.synchronize"/><p id="torch.cuda.synchronize"/><a class="reference internal" href="generated/torch.cuda.synchronize.html#torch.cuda.synchronize" title="torch.cuda.synchronize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synchronize</span></code></a></p></td>
 <td><p>Wait for all kernels in all streams on a CUDA device to complete.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.utilization"/><a class="reference internal" href="generated/torch.cuda.utilization.html#torch.cuda.utilization" title="torch.cuda.utilization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utilization</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.utilization"/><p id="torch.cuda.utilization"/><a class="reference internal" href="generated/torch.cuda.utilization.html#torch.cuda.utilization" title="torch.cuda.utilization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utilization</span></code></a></p></td>
 <td><p>Return the percent of time over the past sample period during which one or more kernels was executing on the GPU as given by <cite>nvidia-smi</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.temperature"/><a class="reference internal" href="generated/torch.cuda.temperature.html#torch.cuda.temperature" title="torch.cuda.temperature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">temperature</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.temperature"/><p id="torch.cuda.temperature"/><a class="reference internal" href="generated/torch.cuda.temperature.html#torch.cuda.temperature" title="torch.cuda.temperature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">temperature</span></code></a></p></td>
 <td><p>Return the average temperature of the GPU sensor in Degrees C (Centigrades).</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.power_draw"/><a class="reference internal" href="generated/torch.cuda.power_draw.html#torch.cuda.power_draw" title="torch.cuda.power_draw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">power_draw</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.power_draw"/><p id="torch.cuda.power_draw"/><a class="reference internal" href="generated/torch.cuda.power_draw.html#torch.cuda.power_draw" title="torch.cuda.power_draw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">power_draw</span></code></a></p></td>
 <td><p>Return the average power draw of the GPU sensor in mW (MilliWatts)</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.clock_rate"/><a class="reference internal" href="generated/torch.cuda.clock_rate.html#torch.cuda.clock_rate" title="torch.cuda.clock_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clock_rate</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.clock_rate"/><p id="torch.cuda.clock_rate"/><a class="reference internal" href="generated/torch.cuda.clock_rate.html#torch.cuda.clock_rate" title="torch.cuda.clock_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clock_rate</span></code></a></p></td>
 <td><p>Return the clock speed of the GPU SM in MHz (megahertz) over the past sample period as given by <cite>nvidia-smi</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.AcceleratorError"/><a class="reference internal" href="generated/torch.cuda.AcceleratorError.html#torch.cuda.AcceleratorError" title="torch.cuda.AcceleratorError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AcceleratorError</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.AcceleratorError"/><p id="torch.cuda.AcceleratorError"/><a class="reference internal" href="generated/torch.cuda.AcceleratorError.html#torch.cuda.AcceleratorError" title="torch.cuda.AcceleratorError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AcceleratorError</span></code></a></p></td>
 <td><p>Exception raised while executing on device</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.OutOfMemoryError"/><a class="reference internal" href="generated/torch.cuda.OutOfMemoryError.html#torch.cuda.OutOfMemoryError" title="torch.cuda.OutOfMemoryError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutOfMemoryError</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.OutOfMemoryError"/><p id="torch.cuda.OutOfMemoryError"/><a class="reference internal" href="generated/torch.cuda.OutOfMemoryError.html#torch.cuda.OutOfMemoryError" title="torch.cuda.OutOfMemoryError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutOfMemoryError</span></code></a></p></td>
 <td><p>Exception raised when device is out of memory</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="random-number-generator">
-<h2>Random Number Generator<a class="headerlink" href="#random-number-generator" title="Permalink to this heading">#</a></h2>
+<section id="random-number-generator">
+<h2>Random Number Generator<a class="headerlink" href="#random-number-generator" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.cuda.get_rng_state"/><a class="reference internal" href="generated/torch.cuda.get_rng_state.html#torch.cuda.get_rng_state" title="torch.cuda.get_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.get_rng_state"/><p id="torch.cuda.get_rng_state"/><a class="reference internal" href="generated/torch.cuda.get_rng_state.html#torch.cuda.get_rng_state" title="torch.cuda.get_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state</span></code></a></p></td>
 <td><p>Return the random number generator state of the specified GPU as a ByteTensor.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.get_rng_state_all"/><a class="reference internal" href="generated/torch.cuda.get_rng_state_all.html#torch.cuda.get_rng_state_all" title="torch.cuda.get_rng_state_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state_all</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.get_rng_state_all"/><p id="torch.cuda.get_rng_state_all"/><a class="reference internal" href="generated/torch.cuda.get_rng_state_all.html#torch.cuda.get_rng_state_all" title="torch.cuda.get_rng_state_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state_all</span></code></a></p></td>
 <td><p>Return a list of ByteTensor representing the random number states of all devices.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.set_rng_state"/><a class="reference internal" href="generated/torch.cuda.set_rng_state.html#torch.cuda.set_rng_state" title="torch.cuda.set_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rng_state</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.set_rng_state"/><p id="torch.cuda.set_rng_state"/><a class="reference internal" href="generated/torch.cuda.set_rng_state.html#torch.cuda.set_rng_state" title="torch.cuda.set_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rng_state</span></code></a></p></td>
 <td><p>Set the random number generator state of the specified GPU.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.set_rng_state_all"/><a class="reference internal" href="generated/torch.cuda.set_rng_state_all.html#torch.cuda.set_rng_state_all" title="torch.cuda.set_rng_state_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rng_state_all</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.set_rng_state_all"/><p id="torch.cuda.set_rng_state_all"/><a class="reference internal" href="generated/torch.cuda.set_rng_state_all.html#torch.cuda.set_rng_state_all" title="torch.cuda.set_rng_state_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rng_state_all</span></code></a></p></td>
 <td><p>Set the random number generator state of all devices.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.manual_seed"/><a class="reference internal" href="generated/torch.cuda.manual_seed.html#torch.cuda.manual_seed" title="torch.cuda.manual_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manual_seed</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.manual_seed"/><p id="torch.cuda.manual_seed"/><a class="reference internal" href="generated/torch.cuda.manual_seed.html#torch.cuda.manual_seed" title="torch.cuda.manual_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manual_seed</span></code></a></p></td>
 <td><p>Set the seed for generating random numbers for the current GPU.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.manual_seed_all"/><a class="reference internal" href="generated/torch.cuda.manual_seed_all.html#torch.cuda.manual_seed_all" title="torch.cuda.manual_seed_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manual_seed_all</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.manual_seed_all"/><p id="torch.cuda.manual_seed_all"/><a class="reference internal" href="generated/torch.cuda.manual_seed_all.html#torch.cuda.manual_seed_all" title="torch.cuda.manual_seed_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manual_seed_all</span></code></a></p></td>
 <td><p>Set the seed for generating random numbers on all GPUs.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.seed"/><a class="reference internal" href="generated/torch.cuda.seed.html#torch.cuda.seed" title="torch.cuda.seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.seed"/><p id="torch.cuda.seed"/><a class="reference internal" href="generated/torch.cuda.seed.html#torch.cuda.seed" title="torch.cuda.seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed</span></code></a></p></td>
 <td><p>Set the seed for generating random numbers to a random number for the current GPU.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.seed_all"/><a class="reference internal" href="generated/torch.cuda.seed_all.html#torch.cuda.seed_all" title="torch.cuda.seed_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed_all</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.seed_all"/><p id="torch.cuda.seed_all"/><a class="reference internal" href="generated/torch.cuda.seed_all.html#torch.cuda.seed_all" title="torch.cuda.seed_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed_all</span></code></a></p></td>
 <td><p>Set the seed for generating random numbers to a random number on all GPUs.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.initial_seed"/><a class="reference internal" href="generated/torch.cuda.initial_seed.html#torch.cuda.initial_seed" title="torch.cuda.initial_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initial_seed</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.initial_seed"/><p id="torch.cuda.initial_seed"/><a class="reference internal" href="generated/torch.cuda.initial_seed.html#torch.cuda.initial_seed" title="torch.cuda.initial_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initial_seed</span></code></a></p></td>
 <td><p>Return the current random seed of the current GPU.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="communication-collectives">
-<h2>Communication collectives<a class="headerlink" href="#communication-collectives" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="communication-collectives">
+<h2>Communication collectives<a class="headerlink" href="#communication-collectives" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.cuda.comm.broadcast.html#torch.cuda.comm.broadcast" title="torch.cuda.comm.broadcast"><code class="xref py py-obj docutils literal notranslate"><span class="pre">comm.broadcast</span></code></a></p></td>
 <td><p>Broadcasts a tensor to specified GPU devices.</p></td>
@@ -4683,161 +4671,145 @@ GPUs for computation.</p>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="streams-and-events">
-<h2>Streams and events<a class="headerlink" href="#streams-and-events" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="streams-and-events">
+<h2>Streams and events<a class="headerlink" href="#streams-and-events" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.cuda.Stream"/><a class="reference internal" href="generated/torch.cuda.Stream.html#torch.cuda.Stream" title="torch.cuda.Stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Stream</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.Stream"/><p id="torch.cuda.Stream"/><a class="reference internal" href="generated/torch.cuda.Stream_class.html#torch.cuda.Stream" title="torch.cuda.Stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Stream</span></code></a></p></td>
 <td><p>Wrapper around a CUDA stream.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.ExternalStream"/><a class="reference internal" href="generated/torch.cuda.ExternalStream.html#torch.cuda.ExternalStream" title="torch.cuda.ExternalStream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExternalStream</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.ExternalStream"/><p id="torch.cuda.ExternalStream"/><a class="reference internal" href="generated/torch.cuda.ExternalStream.html#torch.cuda.ExternalStream" title="torch.cuda.ExternalStream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExternalStream</span></code></a></p></td>
 <td><p>Wrapper around an externally allocated CUDA stream.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.Event"/><a class="reference internal" href="generated/torch.cuda.Event.html#torch.cuda.Event" title="torch.cuda.Event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Event</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.Event"/><p id="torch.cuda.Event"/><a class="reference internal" href="generated/torch.cuda.Event.html#torch.cuda.Event" title="torch.cuda.Event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Event</span></code></a></p></td>
 <td><p>Wrapper around a CUDA event.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="graphs-beta">
-<h2>Graphs (beta)<a class="headerlink" href="#graphs-beta" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="graphs-beta">
+<h2>Graphs (beta)<a class="headerlink" href="#graphs-beta" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.cuda.is_current_stream_capturing"/><a class="reference internal" href="generated/torch.cuda.is_current_stream_capturing.html#torch.cuda.is_current_stream_capturing" title="torch.cuda.is_current_stream_capturing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_current_stream_capturing</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.is_current_stream_capturing"/><p id="torch.cuda.is_current_stream_capturing"/><a class="reference internal" href="generated/torch.cuda.is_current_stream_capturing.html#torch.cuda.is_current_stream_capturing" title="torch.cuda.is_current_stream_capturing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_current_stream_capturing</span></code></a></p></td>
 <td><p>Return True if CUDA graph capture is underway on the current CUDA stream, False otherwise.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.graph_pool_handle"/><a class="reference internal" href="generated/torch.cuda.graph_pool_handle.html#torch.cuda.graph_pool_handle" title="torch.cuda.graph_pool_handle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_pool_handle</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.graph_pool_handle"/><p id="torch.cuda.graph_pool_handle"/><a class="reference internal" href="generated/torch.cuda.graph_pool_handle.html#torch.cuda.graph_pool_handle" title="torch.cuda.graph_pool_handle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_pool_handle</span></code></a></p></td>
 <td><p>Return an opaque token representing the id of a graph memory pool.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.CUDAGraph"/><a class="reference internal" href="generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph" title="torch.cuda.CUDAGraph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CUDAGraph</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.CUDAGraph"/><p id="torch.cuda.CUDAGraph"/><a class="reference internal" href="generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph" title="torch.cuda.CUDAGraph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CUDAGraph</span></code></a></p></td>
 <td><p>Wrapper around a CUDA graph.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.graph"/><a class="reference internal" href="generated/torch.cuda.graph.html#torch.cuda.graph" title="torch.cuda.graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.graph"/><p id="torch.cuda.graph"/><a class="reference internal" href="generated/torch.cuda.graph.html#torch.cuda.graph" title="torch.cuda.graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code></a></p></td>
 <td><p>Context-manager that captures CUDA work into a <a class="reference internal" href="generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph" title="torch.cuda.CUDAGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.CUDAGraph</span></code></a> object for later replay.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.make_graphed_callables"/><a class="reference internal" href="generated/torch.cuda.make_graphed_callables.html#torch.cuda.make_graphed_callables" title="torch.cuda.make_graphed_callables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_graphed_callables</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.make_graphed_callables"/><p id="torch.cuda.make_graphed_callables"/><a class="reference internal" href="generated/torch.cuda.make_graphed_callables.html#torch.cuda.make_graphed_callables" title="torch.cuda.make_graphed_callables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_graphed_callables</span></code></a></p></td>
 <td><p>Accept callables (functions or <a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">nn.Module</span></code></a>s) and returns graphed versions.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<span class="target" id="module-torch.cuda.memory"><span id="cuda-memory-management-api"></span></span><p>This package adds support for device memory management implemented in CUDA.</p>
-</div>
-<div class="section" id="memory-management">
-<h2>Memory management<a class="headerlink" href="#memory-management" title="Permalink to this heading">#</a></h2>
+<p id="module-torch.cuda.memory"><span id="cuda-memory-management-api"></span>This package adds support for device memory management implemented in CUDA.</p>
+</section>
+<section id="memory-management">
+<h2>Memory management<a class="headerlink" href="#memory-management" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.empty_cache"/><a class="reference internal" href="generated/torch.cuda.memory.empty_cache.html#torch.cuda.memory.empty_cache" title="torch.cuda.memory.empty_cache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_cache</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.empty_cache"/><p id="torch.cuda.memory.empty_cache"/><a class="reference internal" href="generated/torch.cuda.memory.empty_cache.html#torch.cuda.memory.empty_cache" title="torch.cuda.memory.empty_cache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_cache</span></code></a></p></td>
 <td><p>Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other GPU application and visible in <cite>nvidia-smi</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory.get_per_process_memory_fraction"/><a class="reference internal" href="generated/torch.cuda.memory.get_per_process_memory_fraction.html#torch.cuda.memory.get_per_process_memory_fraction" title="torch.cuda.memory.get_per_process_memory_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_per_process_memory_fraction</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory.get_per_process_memory_fraction"/><p id="torch.cuda.memory.get_per_process_memory_fraction"/><a class="reference internal" href="generated/torch.cuda.memory.get_per_process_memory_fraction.html#torch.cuda.memory.get_per_process_memory_fraction" title="torch.cuda.memory.get_per_process_memory_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_per_process_memory_fraction</span></code></a></p></td>
 <td><p>Get memory fraction for a process.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.list_gpu_processes"/><a class="reference internal" href="generated/torch.cuda.memory.list_gpu_processes.html#torch.cuda.memory.list_gpu_processes" title="torch.cuda.memory.list_gpu_processes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list_gpu_processes</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.list_gpu_processes"/><p id="torch.cuda.memory.list_gpu_processes"/><a class="reference internal" href="generated/torch.cuda.memory.list_gpu_processes.html#torch.cuda.memory.list_gpu_processes" title="torch.cuda.memory.list_gpu_processes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list_gpu_processes</span></code></a></p></td>
 <td><p>Return a human-readable printout of the running processes and their GPU memory use for a given device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory.mem_get_info"/><a class="reference internal" href="generated/torch.cuda.memory.mem_get_info.html#torch.cuda.memory.mem_get_info" title="torch.cuda.memory.mem_get_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mem_get_info</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory.mem_get_info"/><p id="torch.cuda.memory.mem_get_info"/><a class="reference internal" href="generated/torch.cuda.memory.mem_get_info.html#torch.cuda.memory.mem_get_info" title="torch.cuda.memory.mem_get_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mem_get_info</span></code></a></p></td>
 <td><p>Return the global free and total GPU memory for a given device using cudaMemGetInfo.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.memory_stats"/><a class="reference internal" href="generated/torch.cuda.memory.memory_stats.html#torch.cuda.memory.memory_stats" title="torch.cuda.memory.memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_stats</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.memory_stats"/><p id="torch.cuda.memory.memory_stats"/><a class="reference internal" href="generated/torch.cuda.memory.memory_stats.html#torch.cuda.memory.memory_stats" title="torch.cuda.memory.memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_stats</span></code></a></p></td>
 <td><p>Return a dictionary of CUDA memory allocator statistics for a given device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory.memory_stats_as_nested_dict"/><a class="reference internal" href="generated/torch.cuda.memory.memory_stats_as_nested_dict.html#torch.cuda.memory.memory_stats_as_nested_dict" title="torch.cuda.memory.memory_stats_as_nested_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_stats_as_nested_dict</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory.memory_stats_as_nested_dict"/><p id="torch.cuda.memory.memory_stats_as_nested_dict"/><a class="reference internal" href="generated/torch.cuda.memory.memory_stats_as_nested_dict.html#torch.cuda.memory.memory_stats_as_nested_dict" title="torch.cuda.memory.memory_stats_as_nested_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_stats_as_nested_dict</span></code></a></p></td>
 <td><p>Return the result of <code class="xref py py-func docutils literal notranslate"><span class="pre">memory_stats()</span></code> as a nested dictionary.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.reset_accumulated_memory_stats"/><a class="reference internal" href="generated/torch.cuda.memory.reset_accumulated_memory_stats.html#torch.cuda.memory.reset_accumulated_memory_stats" title="torch.cuda.memory.reset_accumulated_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_accumulated_memory_stats</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.reset_accumulated_memory_stats"/><p id="torch.cuda.memory.reset_accumulated_memory_stats"/><a class="reference internal" href="generated/torch.cuda.memory.reset_accumulated_memory_stats.html#torch.cuda.memory.reset_accumulated_memory_stats" title="torch.cuda.memory.reset_accumulated_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_accumulated_memory_stats</span></code></a></p></td>
 <td><p>Reset the &quot;accumulated&quot; (historical) stats tracked by the CUDA memory allocator.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory.host_memory_stats"/><a class="reference internal" href="generated/torch.cuda.memory.host_memory_stats.html#torch.cuda.memory.host_memory_stats" title="torch.cuda.memory.host_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">host_memory_stats</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory.host_memory_stats"/><p id="torch.cuda.memory.host_memory_stats"/><a class="reference internal" href="generated/torch.cuda.memory.host_memory_stats.html#torch.cuda.memory.host_memory_stats" title="torch.cuda.memory.host_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">host_memory_stats</span></code></a></p></td>
 <td><p>Return a dictionary of CUDA memory allocator statistics for a given device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.host_memory_stats_as_nested_dict"/><a class="reference internal" href="generated/torch.cuda.memory.host_memory_stats_as_nested_dict.html#torch.cuda.memory.host_memory_stats_as_nested_dict" title="torch.cuda.memory.host_memory_stats_as_nested_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">host_memory_stats_as_nested_dict</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.host_memory_stats_as_nested_dict"/><p id="torch.cuda.memory.host_memory_stats_as_nested_dict"/><a class="reference internal" href="generated/torch.cuda.memory.host_memory_stats_as_nested_dict.html#torch.cuda.memory.host_memory_stats_as_nested_dict" title="torch.cuda.memory.host_memory_stats_as_nested_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">host_memory_stats_as_nested_dict</span></code></a></p></td>
 <td><p>Return the result of <code class="xref py py-func docutils literal notranslate"><span class="pre">host_memory_stats()</span></code> as a nested dictionary.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory.reset_accumulated_host_memory_stats"/><a class="reference internal" href="generated/torch.cuda.memory.reset_accumulated_host_memory_stats.html#torch.cuda.memory.reset_accumulated_host_memory_stats" title="torch.cuda.memory.reset_accumulated_host_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_accumulated_host_memory_stats</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory.reset_accumulated_host_memory_stats"/><p id="torch.cuda.memory.reset_accumulated_host_memory_stats"/><a class="reference internal" href="generated/torch.cuda.memory.reset_accumulated_host_memory_stats.html#torch.cuda.memory.reset_accumulated_host_memory_stats" title="torch.cuda.memory.reset_accumulated_host_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_accumulated_host_memory_stats</span></code></a></p></td>
 <td><p>Reset the &quot;accumulated&quot; (historical) stats tracked by the host memory allocator.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.memory_summary"/><a class="reference internal" href="generated/torch.cuda.memory.memory_summary.html#torch.cuda.memory.memory_summary" title="torch.cuda.memory.memory_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_summary</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.memory_summary"/><p id="torch.cuda.memory.memory_summary"/><a class="reference internal" href="generated/torch.cuda.memory.memory_summary.html#torch.cuda.memory.memory_summary" title="torch.cuda.memory.memory_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_summary</span></code></a></p></td>
 <td><p>Return a human-readable printout of the current memory allocator statistics for a given device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory.memory_snapshot"/><a class="reference internal" href="generated/torch.cuda.memory.memory_snapshot.html#torch.cuda.memory.memory_snapshot" title="torch.cuda.memory.memory_snapshot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_snapshot</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory.memory_snapshot"/><p id="torch.cuda.memory.memory_snapshot"/><a class="reference internal" href="generated/torch.cuda.memory.memory_snapshot.html#torch.cuda.memory.memory_snapshot" title="torch.cuda.memory.memory_snapshot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_snapshot</span></code></a></p></td>
 <td><p>Return a snapshot of the CUDA memory allocator state across all devices.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.memory_allocated"/><a class="reference internal" href="generated/torch.cuda.memory.memory_allocated.html#torch.cuda.memory.memory_allocated" title="torch.cuda.memory.memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_allocated</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.memory_allocated"/><p id="torch.cuda.memory.memory_allocated"/><a class="reference internal" href="generated/torch.cuda.memory.memory_allocated.html#torch.cuda.memory.memory_allocated" title="torch.cuda.memory.memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_allocated</span></code></a></p></td>
 <td><p>Return the current GPU memory occupied by tensors in bytes for a given device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory.max_memory_allocated"/><a class="reference internal" href="generated/torch.cuda.memory.max_memory_allocated.html#torch.cuda.memory.max_memory_allocated" title="torch.cuda.memory.max_memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_allocated</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory.max_memory_allocated"/><p id="torch.cuda.memory.max_memory_allocated"/><a class="reference internal" href="generated/torch.cuda.memory.max_memory_allocated.html#torch.cuda.memory.max_memory_allocated" title="torch.cuda.memory.max_memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_allocated</span></code></a></p></td>
 <td><p>Return the maximum GPU memory occupied by tensors in bytes for a given device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.reset_max_memory_allocated"/><a class="reference internal" href="generated/torch.cuda.memory.reset_max_memory_allocated.html#torch.cuda.memory.reset_max_memory_allocated" title="torch.cuda.memory.reset_max_memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_max_memory_allocated</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.reset_max_memory_allocated"/><p id="torch.cuda.memory.reset_max_memory_allocated"/><a class="reference internal" href="generated/torch.cuda.memory.reset_max_memory_allocated.html#torch.cuda.memory.reset_max_memory_allocated" title="torch.cuda.memory.reset_max_memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_max_memory_allocated</span></code></a></p></td>
 <td><p>Reset the starting point in tracking maximum GPU memory occupied by tensors for a given device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory.memory_reserved"/><a class="reference internal" href="generated/torch.cuda.memory.memory_reserved.html#torch.cuda.memory.memory_reserved" title="torch.cuda.memory.memory_reserved"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_reserved</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory.memory_reserved"/><p id="torch.cuda.memory.memory_reserved"/><a class="reference internal" href="generated/torch.cuda.memory.memory_reserved.html#torch.cuda.memory.memory_reserved" title="torch.cuda.memory.memory_reserved"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_reserved</span></code></a></p></td>
 <td><p>Return the current GPU memory managed by the caching allocator in bytes for a given device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.max_memory_reserved"/><a class="reference internal" href="generated/torch.cuda.memory.max_memory_reserved.html#torch.cuda.memory.max_memory_reserved" title="torch.cuda.memory.max_memory_reserved"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_reserved</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.max_memory_reserved"/><p id="torch.cuda.memory.max_memory_reserved"/><a class="reference internal" href="generated/torch.cuda.memory.max_memory_reserved.html#torch.cuda.memory.max_memory_reserved" title="torch.cuda.memory.max_memory_reserved"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_reserved</span></code></a></p></td>
 <td><p>Return the maximum GPU memory managed by the caching allocator in bytes for a given device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory.set_per_process_memory_fraction"/><a class="reference internal" href="generated/torch.cuda.memory.set_per_process_memory_fraction.html#torch.cuda.memory.set_per_process_memory_fraction" title="torch.cuda.memory.set_per_process_memory_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_per_process_memory_fraction</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory.set_per_process_memory_fraction"/><p id="torch.cuda.memory.set_per_process_memory_fraction"/><a class="reference internal" href="generated/torch.cuda.memory.set_per_process_memory_fraction.html#torch.cuda.memory.set_per_process_memory_fraction" title="torch.cuda.memory.set_per_process_memory_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_per_process_memory_fraction</span></code></a></p></td>
 <td><p>Set memory fraction for a process.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.memory_cached"/><a class="reference internal" href="generated/torch.cuda.memory.memory_cached.html#torch.cuda.memory.memory_cached" title="torch.cuda.memory.memory_cached"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_cached</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.memory_cached"/><p id="torch.cuda.memory.memory_cached"/><a class="reference internal" href="generated/torch.cuda.memory.memory_cached.html#torch.cuda.memory.memory_cached" title="torch.cuda.memory.memory_cached"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_cached</span></code></a></p></td>
 <td><p>Deprecated; see <code class="xref py py-func docutils literal notranslate"><span class="pre">memory_reserved()</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory.max_memory_cached"/><a class="reference internal" href="generated/torch.cuda.memory.max_memory_cached.html#torch.cuda.memory.max_memory_cached" title="torch.cuda.memory.max_memory_cached"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_cached</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory.max_memory_cached"/><p id="torch.cuda.memory.max_memory_cached"/><a class="reference internal" href="generated/torch.cuda.memory.max_memory_cached.html#torch.cuda.memory.max_memory_cached" title="torch.cuda.memory.max_memory_cached"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_cached</span></code></a></p></td>
 <td><p>Deprecated; see <code class="xref py py-func docutils literal notranslate"><span class="pre">max_memory_reserved()</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.reset_max_memory_cached"/><a class="reference internal" href="generated/torch.cuda.memory.reset_max_memory_cached.html#torch.cuda.memory.reset_max_memory_cached" title="torch.cuda.memory.reset_max_memory_cached"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_max_memory_cached</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.reset_max_memory_cached"/><p id="torch.cuda.memory.reset_max_memory_cached"/><a class="reference internal" href="generated/torch.cuda.memory.reset_max_memory_cached.html#torch.cuda.memory.reset_max_memory_cached" title="torch.cuda.memory.reset_max_memory_cached"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_max_memory_cached</span></code></a></p></td>
 <td><p>Reset the starting point in tracking maximum GPU memory managed by the caching allocator for a given device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory.reset_peak_memory_stats"/><a class="reference internal" href="generated/torch.cuda.memory.reset_peak_memory_stats.html#torch.cuda.memory.reset_peak_memory_stats" title="torch.cuda.memory.reset_peak_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_peak_memory_stats</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory.reset_peak_memory_stats"/><p id="torch.cuda.memory.reset_peak_memory_stats"/><a class="reference internal" href="generated/torch.cuda.memory.reset_peak_memory_stats.html#torch.cuda.memory.reset_peak_memory_stats" title="torch.cuda.memory.reset_peak_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_peak_memory_stats</span></code></a></p></td>
 <td><p>Reset the &quot;peak&quot; stats tracked by the CUDA memory allocator.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.reset_peak_host_memory_stats"/><a class="reference internal" href="generated/torch.cuda.memory.reset_peak_host_memory_stats.html#torch.cuda.memory.reset_peak_host_memory_stats" title="torch.cuda.memory.reset_peak_host_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_peak_host_memory_stats</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.reset_peak_host_memory_stats"/><p id="torch.cuda.memory.reset_peak_host_memory_stats"/><a class="reference internal" href="generated/torch.cuda.memory.reset_peak_host_memory_stats.html#torch.cuda.memory.reset_peak_host_memory_stats" title="torch.cuda.memory.reset_peak_host_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_peak_host_memory_stats</span></code></a></p></td>
 <td><p>Reset the &quot;peak&quot; stats tracked by the host memory allocator.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory.caching_allocator_alloc"/><a class="reference internal" href="generated/torch.cuda.memory.caching_allocator_alloc.html#torch.cuda.memory.caching_allocator_alloc" title="torch.cuda.memory.caching_allocator_alloc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">caching_allocator_alloc</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory.caching_allocator_alloc"/><p id="torch.cuda.memory.caching_allocator_alloc"/><a class="reference internal" href="generated/torch.cuda.memory.caching_allocator_alloc.html#torch.cuda.memory.caching_allocator_alloc" title="torch.cuda.memory.caching_allocator_alloc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">caching_allocator_alloc</span></code></a></p></td>
 <td><p>Perform a memory allocation using the CUDA memory allocator.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.caching_allocator_delete"/><a class="reference internal" href="generated/torch.cuda.memory.caching_allocator_delete.html#torch.cuda.memory.caching_allocator_delete" title="torch.cuda.memory.caching_allocator_delete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">caching_allocator_delete</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.caching_allocator_delete"/><p id="torch.cuda.memory.caching_allocator_delete"/><a class="reference internal" href="generated/torch.cuda.memory.caching_allocator_delete.html#torch.cuda.memory.caching_allocator_delete" title="torch.cuda.memory.caching_allocator_delete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">caching_allocator_delete</span></code></a></p></td>
 <td><p>Delete memory allocated using the CUDA memory allocator.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory.get_allocator_backend"/><a class="reference internal" href="generated/torch.cuda.memory.get_allocator_backend.html#torch.cuda.memory.get_allocator_backend" title="torch.cuda.memory.get_allocator_backend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_allocator_backend</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory.get_allocator_backend"/><p id="torch.cuda.memory.get_allocator_backend"/><a class="reference internal" href="generated/torch.cuda.memory.get_allocator_backend.html#torch.cuda.memory.get_allocator_backend" title="torch.cuda.memory.get_allocator_backend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_allocator_backend</span></code></a></p></td>
 <td><p>Return a string describing the active allocator backend as set by <code class="docutils literal notranslate"><span class="pre">PYTORCH_CUDA_ALLOC_CONF</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.CUDAPluggableAllocator"/><a class="reference internal" href="generated/torch.cuda.memory.CUDAPluggableAllocator.html#torch.cuda.memory.CUDAPluggableAllocator" title="torch.cuda.memory.CUDAPluggableAllocator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CUDAPluggableAllocator</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.CUDAPluggableAllocator"/><p id="torch.cuda.memory.CUDAPluggableAllocator"/><a class="reference internal" href="generated/torch.cuda.memory.CUDAPluggableAllocator.html#torch.cuda.memory.CUDAPluggableAllocator" title="torch.cuda.memory.CUDAPluggableAllocator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CUDAPluggableAllocator</span></code></a></p></td>
 <td><p>CUDA memory allocator loaded from a so file.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.memory.change_current_allocator"/><a class="reference internal" href="generated/torch.cuda.memory.change_current_allocator.html#torch.cuda.memory.change_current_allocator" title="torch.cuda.memory.change_current_allocator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_current_allocator</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.memory.change_current_allocator"/><p id="torch.cuda.memory.change_current_allocator"/><a class="reference internal" href="generated/torch.cuda.memory.change_current_allocator.html#torch.cuda.memory.change_current_allocator" title="torch.cuda.memory.change_current_allocator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_current_allocator</span></code></a></p></td>
 <td><p>Change the currently used memory allocator to be the one provided.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.MemPool"/><a class="reference internal" href="generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool" title="torch.cuda.memory.MemPool"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MemPool</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.MemPool"/><p id="torch.cuda.memory.MemPool"/><a class="reference internal" href="generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool" title="torch.cuda.memory.MemPool"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MemPool</span></code></a></p></td>
 <td><p>MemPool represents a pool of memory in a caching allocator.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.cuda.memory.caching_allocator_enable"/><a class="reference internal" href="generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable" title="torch.cuda.memory.caching_allocator_enable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">caching_allocator_enable</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.memory.caching_allocator_enable"/><p id="torch.cuda.memory.caching_allocator_enable"/><a class="reference internal" href="generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable" title="torch.cuda.memory.caching_allocator_enable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">caching_allocator_enable</span></code></a></p></td>
 <td><p>Enable or disable the CUDA memory allocator.</p></td>
 </tr>
 </tbody>
@@ -4845,10 +4817,10 @@ GPUs for computation.</p>
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.use_mem_pool">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">use_mem_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/cuda/memory.py#L1436"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.use_mem_pool" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">use_mem_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/cuda/memory.py#L1436"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.use_mem_pool" title="Link to this definition">#</a></dt>
 <dd><p>A context manager that routes allocations to a given pool.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pool</strong> (<em>torch.cuda.MemPool</em>) – a MemPool object to be made active so that
 allocations route to this pool.</p></li>
@@ -4867,14 +4839,10 @@ route to the given pool.</p>
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="nvidia-tools-extension-nvtx">
-<h2>NVIDIA Tools Extension (NVTX)<a class="headerlink" href="#nvidia-tools-extension-nvtx" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="nvidia-tools-extension-nvtx">
+<h2>NVIDIA Tools Extension (NVTX)<a class="headerlink" href="#nvidia-tools-extension-nvtx" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.cuda.nvtx.mark.html#torch.cuda.nvtx.mark" title="torch.cuda.nvtx.mark"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nvtx.mark</span></code></a></p></td>
 <td><p>Describe an instantaneous event that occurred at some point.</p></td>
@@ -4891,14 +4859,10 @@ route to the given pool.</p>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="jiterator-beta">
-<h2>Jiterator (beta)<a class="headerlink" href="#jiterator-beta" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="jiterator-beta">
+<h2>Jiterator (beta)<a class="headerlink" href="#jiterator-beta" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.cuda.jiterator._create_jit_fn.html#torch.cuda.jiterator._create_jit_fn" title="torch.cuda.jiterator._create_jit_fn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jiterator._create_jit_fn</span></code></a></p></td>
 <td><p>Create a jiterator-generated cuda kernel for an elementwise op.</p></td>
@@ -4909,9 +4873,9 @@ route to the given pool.</p>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="tunableop">
-<h2>TunableOp<a class="headerlink" href="#tunableop" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="tunableop">
+<h2>TunableOp<a class="headerlink" href="#tunableop" title="Link to this heading">#</a></h2>
 <p>Some operations could be implemented using more than one library or more than
 one technique. For example, a GEMM could be implemented for CUDA or ROCm using
 either the cublas/cublasLt libraries or hipblas/hipblasLt libraries,
@@ -4923,16 +4887,16 @@ operations.</p>
 <p>See the <a class="reference internal" href="cuda.tunable.html"><span class="doc">documentation</span></a> for information on how to use it.</p>
 <div class="toctree-wrapper compound">
 </div>
-</div>
-<div class="section" id="stream-sanitizer-prototype">
-<h2>Stream Sanitizer (prototype)<a class="headerlink" href="#stream-sanitizer-prototype" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="stream-sanitizer-prototype">
+<h2>Stream Sanitizer (prototype)<a class="headerlink" href="#stream-sanitizer-prototype" title="Link to this heading">#</a></h2>
 <p>CUDA Sanitizer is a prototype tool for detecting synchronization errors between streams in PyTorch.
 See the <a class="reference internal" href="cuda._sanitizer.html"><span class="doc">documentation</span></a> for information on how to use it.</p>
 <div class="toctree-wrapper compound">
 </div>
-</div>
-<div class="section" id="gpudirect-storage-prototype">
-<h2>GPUDirect Storage (prototype)<a class="headerlink" href="#gpudirect-storage-prototype" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="gpudirect-storage-prototype">
+<h2>GPUDirect Storage (prototype)<a class="headerlink" href="#gpudirect-storage-prototype" title="Link to this heading">#</a></h2>
 <p>The APIs in <code class="docutils literal notranslate"><span class="pre">torch.cuda.gds</span></code> provide thin wrappers around certain cuFile APIs that allow
 direct memory access transfers between GPU memory and storage, avoiding a bounce buffer in the CPU. See the
 <a class="reference external" href="https://docs.nvidia.com/gpudirect-storage/api-reference-guide/index.html#cufile-io-api">cufile api documentation</a>
@@ -4942,46 +4906,38 @@ ensure that their system is appropriately configured to use GPUDirect Storage pe
 <a class="reference external" href="https://docs.nvidia.com/gpudirect-storage/troubleshooting-guide/contents.html">GPUDirect Storage documentation</a>.</p>
 <p>See the docs for <a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html#torch.cuda.gds.GdsFile" title="torch.cuda.gds.GdsFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">GdsFile</span></code></a> for an example of how to use these.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.cuda.gds.gds_register_buffer"/><a class="reference internal" href="generated/torch.cuda.gds.gds_register_buffer.html#torch.cuda.gds.gds_register_buffer" title="torch.cuda.gds.gds_register_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gds_register_buffer</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.gds.gds_register_buffer"/><p id="torch.cuda.gds.gds_register_buffer"/><a class="reference internal" href="generated/torch.cuda.gds.gds_register_buffer.html#torch.cuda.gds.gds_register_buffer" title="torch.cuda.gds.gds_register_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gds_register_buffer</span></code></a></p></td>
 <td><p>Registers a storage on a CUDA device as a cufile buffer.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.cuda.gds.gds_deregister_buffer"/><a class="reference internal" href="generated/torch.cuda.gds.gds_deregister_buffer.html#torch.cuda.gds.gds_deregister_buffer" title="torch.cuda.gds.gds_deregister_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gds_deregister_buffer</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.cuda.gds.gds_deregister_buffer"/><p id="torch.cuda.gds.gds_deregister_buffer"/><a class="reference internal" href="generated/torch.cuda.gds.gds_deregister_buffer.html#torch.cuda.gds.gds_deregister_buffer" title="torch.cuda.gds.gds_deregister_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gds_deregister_buffer</span></code></a></p></td>
 <td><p>Deregisters a previously registered storage on a CUDA device as a cufile buffer.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.cuda.gds.GdsFile"/><a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html#torch.cuda.gds.GdsFile" title="torch.cuda.gds.GdsFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GdsFile</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.gds.GdsFile"/><p id="torch.cuda.gds.GdsFile"/><a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html#torch.cuda.gds.GdsFile" title="torch.cuda.gds.GdsFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GdsFile</span></code></a></p></td>
 <td><p>Wrapper around cuFile.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="green-contexts-experimental">
-<h2>Green Contexts (experimental)<a class="headerlink" href="#green-contexts-experimental" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="green-contexts-experimental">
+<h2>Green Contexts (experimental)<a class="headerlink" href="#green-contexts-experimental" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">torch.cuda.green_contexts</span></code> provides thin wrappers around the CUDA Green Context APIs
 to enable more general carveout of SM resources for CUDA kernels.</p>
 <p>These APIs can be used in PyTorch with CUDA versions greater than or equal to 12.8.</p>
 <p>See the docs for <a class="reference internal" href="generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext" title="torch.cuda.green_contexts.GreenContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">GreenContext</span></code></a> for an example of how to use these.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.cuda.green_contexts.GreenContext"/><a class="reference internal" href="generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext" title="torch.cuda.green_contexts.GreenContext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GreenContext</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.cuda.green_contexts.GreenContext"/><p id="torch.cuda.green_contexts.GreenContext"/><a class="reference internal" href="generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext" title="torch.cuda.green_contexts.GreenContext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GreenContext</span></code></a></p></td>
 <td><p>Wrapper around a CUDA green context.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<span class="target" id="module-torch.cuda.comm"></span><span class="target" id="module-torch.cuda.gds"></span><span class="target" id="module-torch.cuda.green_contexts"></span><span class="target" id="module-torch.cuda.jiterator"></span><span class="target" id="module-torch.cuda.nccl"></span><span class="target" id="module-torch.cuda.nvtx"></span><span class="target" id="module-torch.cuda.profiler"></span><span class="target" id="module-torch.cuda.sparse"></span><div class="toctree-wrapper compound">
-</div>
-</div>
-</div>
+<div class="toctree-wrapper compound" id="module-torch.cuda.sparse">
+<span id="module-torch.cuda.profiler"></span><span id="module-torch.cuda.nvtx"></span><span id="module-torch.cuda.nccl"></span><span id="module-torch.cuda.jiterator"></span><span id="module-torch.cuda.green_contexts"></span><span id="module-torch.cuda.gds"></span><span id="module-torch.cuda.comm"></span></div>
+</section>
+</section>
 
 
                 </article>
@@ -5026,7 +4982,7 @@ to enable more general carveout of SM resources for CUDA kernels.</p>
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="generated/torch.cpu.Stream.html"
+       href="generated/torch.cpu.Stream_class.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
@@ -5048,11 +5004,6 @@ to enable more general carveout of SM resources for CUDA kernels.</p>
 <div class="footer-info">
   <p class="copyright">
     
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
-    
   </p>
 
   <p class="theme-version">
@@ -5070,7 +5021,7 @@ to enable more general carveout of SM resources for CUDA kernels.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="generated/torch.cpu.Stream.html"
+       href="generated/torch.cpu.Stream_class.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
@@ -5190,7 +5141,9 @@ to enable more general carveout of SM resources for CUDA kernels.</p>
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -5214,10 +5167,13 @@ to enable more general carveout of SM resources for CUDA kernels.</p>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -5240,7 +5196,6 @@ to enable more general carveout of SM resources for CUDA kernels.</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -5290,10 +5245,10 @@ to enable more general carveout of SM resources for CUDA kernels.</p>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5334,7 +5289,7 @@ to enable more general carveout of SM resources for CUDA kernels.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -5363,13 +5318,13 @@ to enable more general carveout of SM resources for CUDA kernels.</p>
        "headline": "torch.cuda",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/cuda.html",
-       "articleBody": "torch.cuda# Created On: Dec 23, 2016 | Last Updated On: Oct 22, 2025 This package adds support for CUDA tensor types. It implements the same function as CPU tensors, but they utilize GPUs for computation. It is lazily initialized, so you can always import it, and use is_available() to determine if your system supports CUDA. CUDA semantics has more details about working with CUDA. StreamContext Context-manager that selects a given stream. can_device_access_peer Check if peer access between two devices is possible. check_error Raise an error if the result of a CUDA runtime API call is not success. current_blas_handle Return cublasHandle_t pointer to current cuBLAS handle current_device Return the index of a currently selected device. current_stream Return the currently selected Stream for a given device. cudart Retrieves the CUDA runtime API module. default_stream Return the default Stream for a given device. device Context-manager that changes the selected device. device_count Return the number of GPUs available. device_memory_used Return used global (device) memory in bytes as given by nvidia-smi or amd-smi. device_of Context-manager that changes the current device to that of given object. get_arch_list Return list CUDA architectures this library was compiled for. get_device_capability Get the cuda capability of a device. get_device_name Get the name of a device. get_device_properties Get the properties of a device. get_gencode_flags Return NVCC gencode flags this library was compiled with. get_stream_from_external Return a Stream from an externally allocated CUDA stream. get_sync_debug_mode Return current value of debug mode for cuda synchronizing operations. init Initialize PyTorch\u0027s CUDA state. ipc_collect Force collects GPU memory after it has been released by CUDA IPC. is_available Return a bool indicating if CUDA is currently available. is_bf16_supported Return a bool indicating if the current CUDA/ROCm device supports dtype bfloat16. is_initialized Return whether PyTorch\u0027s CUDA state has been initialized. is_tf32_supported Return a bool indicating if the current CUDA/ROCm device supports dtype tf32. memory_usage Return the percent of time over the past sample period during which global (device) memory was being read or written as given by nvidia-smi. set_device Set the current device. set_stream Set the current stream.This is a wrapper API to set the stream. set_sync_debug_mode Set the debug mode for cuda synchronizing operations. stream Wrap around the Context-manager StreamContext that selects a given stream. synchronize Wait for all kernels in all streams on a CUDA device to complete. utilization Return the percent of time over the past sample period during which one or more kernels was executing on the GPU as given by nvidia-smi. temperature Return the average temperature of the GPU sensor in Degrees C (Centigrades). power_draw Return the average power draw of the GPU sensor in mW (MilliWatts) clock_rate Return the clock speed of the GPU SM in MHz (megahertz) over the past sample period as given by nvidia-smi. AcceleratorError Exception raised while executing on device OutOfMemoryError Exception raised when device is out of memory Random Number Generator# get_rng_state Return the random number generator state of the specified GPU as a ByteTensor. get_rng_state_all Return a list of ByteTensor representing the random number states of all devices. set_rng_state Set the random number generator state of the specified GPU. set_rng_state_all Set the random number generator state of all devices. manual_seed Set the seed for generating random numbers for the current GPU. manual_seed_all Set the seed for generating random numbers on all GPUs. seed Set the seed for generating random numbers to a random number for the current GPU. seed_all Set the seed for generating random numbers to a random number on all GPUs. initial_seed Return the current random seed of the current GPU. Communication collectives# comm.broadcast Broadcasts a tensor to specified GPU devices. comm.broadcast_coalesced Broadcast a sequence of tensors to the specified GPUs. comm.reduce_add Sum tensors from multiple GPUs. comm.reduce_add_coalesced Sum tensors from multiple GPUs. comm.scatter Scatters tensor across multiple GPUs. comm.gather Gathers tensors from multiple GPU devices. Streams and events# Stream Wrapper around a CUDA stream. ExternalStream Wrapper around an externally allocated CUDA stream. Event Wrapper around a CUDA event. Graphs (beta)# is_current_stream_capturing Return True if CUDA graph capture is underway on the current CUDA stream, False otherwise. graph_pool_handle Return an opaque token representing the id of a graph memory pool. CUDAGraph Wrapper around a CUDA graph. graph Context-manager that captures CUDA work into a torch.cuda.CUDAGraph object for later replay. make_graphed_callables Accept callables (functions or nn.Modules) and returns graphed versions. This package adds support for device memory management implemented in CUDA. Memory management# empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other GPU application and visible in nvidia-smi. get_per_process_memory_fraction Get memory fraction for a process. list_gpu_processes Return a human-readable printout of the running processes and their GPU memory use for a given device. mem_get_info Return the global free and total GPU memory for a given device using cudaMemGetInfo. memory_stats Return a dictionary of CUDA memory allocator statistics for a given device. memory_stats_as_nested_dict Return the result of memory_stats() as a nested dictionary. reset_accumulated_memory_stats Reset the \"accumulated\" (historical) stats tracked by the CUDA memory allocator. host_memory_stats Return a dictionary of CUDA memory allocator statistics for a given device. host_memory_stats_as_nested_dict Return the result of host_memory_stats() as a nested dictionary. reset_accumulated_host_memory_stats Reset the \"accumulated\" (historical) stats tracked by the host memory allocator. memory_summary Return a human-readable printout of the current memory allocator statistics for a given device. memory_snapshot Return a snapshot of the CUDA memory allocator state across all devices. memory_allocated Return the current GPU memory occupied by tensors in bytes for a given device. max_memory_allocated Return the maximum GPU memory occupied by tensors in bytes for a given device. reset_max_memory_allocated Reset the starting point in tracking maximum GPU memory occupied by tensors for a given device. memory_reserved Return the current GPU memory managed by the caching allocator in bytes for a given device. max_memory_reserved Return the maximum GPU memory managed by the caching allocator in bytes for a given device. set_per_process_memory_fraction Set memory fraction for a process. memory_cached Deprecated; see memory_reserved(). max_memory_cached Deprecated; see max_memory_reserved(). reset_max_memory_cached Reset the starting point in tracking maximum GPU memory managed by the caching allocator for a given device. reset_peak_memory_stats Reset the \"peak\" stats tracked by the CUDA memory allocator. reset_peak_host_memory_stats Reset the \"peak\" stats tracked by the host memory allocator. caching_allocator_alloc Perform a memory allocation using the CUDA memory allocator. caching_allocator_delete Delete memory allocated using the CUDA memory allocator. get_allocator_backend Return a string describing the active allocator backend as set by PYTORCH_CUDA_ALLOC_CONF. CUDAPluggableAllocator CUDA memory allocator loaded from a so file. change_current_allocator Change the currently used memory allocator to be the one provided. MemPool MemPool represents a pool of memory in a caching allocator. caching_allocator_enable Enable or disable the CUDA memory allocator. class torch.cuda.use_mem_pool(pool, device=None)[source]# A context manager that routes allocations to a given pool. Parameters pool (torch.cuda.MemPool) \u2013 a MemPool object to be made active so that allocations route to this pool. device (torch.device or int, optional) \u2013 selected device. Uses MemPool on the current device, given by current_device(), if device is None (default). Note This context manager makes only current thread\u2019s allocations route to the given pool. If a new thread is spawned inside the context manager (e.g. by calling backward) the allocations in that thread will not route to the given pool. NVIDIA Tools Extension (NVTX)# nvtx.mark Describe an instantaneous event that occurred at some point. nvtx.range_push Push a range onto a stack of nested range span. nvtx.range_pop Pop a range off of a stack of nested range spans. nvtx.range Context manager / decorator that pushes an NVTX range at the beginning of its scope, and pops it at the end. Jiterator (beta)# jiterator._create_jit_fn Create a jiterator-generated cuda kernel for an elementwise op. jiterator._create_multi_output_jit_fn Create a jiterator-generated cuda kernel for an elementwise op that supports returning one or more outputs. TunableOp# Some operations could be implemented using more than one library or more than one technique. For example, a GEMM could be implemented for CUDA or ROCm using either the cublas/cublasLt libraries or hipblas/hipblasLt libraries, respectively. How does one know which implementation is the fastest and should be chosen? That\u2019s what TunableOp provides. Certain operators have been implemented using multiple strategies as Tunable Operators. At runtime, all strategies are profiled and the fastest is selected for all subsequent operations. See the documentation for information on how to use it. Stream Sanitizer (prototype)# CUDA Sanitizer is a prototype tool for detecting synchronization errors between streams in PyTorch. See the documentation for information on how to use it. GPUDirect Storage (prototype)# The APIs in torch.cuda.gds provide thin wrappers around certain cuFile APIs that allow direct memory access transfers between GPU memory and storage, avoiding a bounce buffer in the CPU. See the cufile api documentation for more details. These APIs can be used in versions greater than or equal to CUDA 12.6. In order to use these APIs, one must ensure that their system is appropriately configured to use GPUDirect Storage per the GPUDirect Storage documentation. See the docs for GdsFile for an example of how to use these. gds_register_buffer Registers a storage on a CUDA device as a cufile buffer. gds_deregister_buffer Deregisters a previously registered storage on a CUDA device as a cufile buffer. GdsFile Wrapper around cuFile. Green Contexts (experimental)# torch.cuda.green_contexts provides thin wrappers around the CUDA Green Context APIs to enable more general carveout of SM resources for CUDA kernels. These APIs can be used in PyTorch with CUDA versions greater than or equal to 12.8. See the docs for GreenContext for an example of how to use these. GreenContext Wrapper around a CUDA green context.",
+       "articleBody": "torch.cuda# Created On: Dec 23, 2016 | Last Updated On: Oct 22, 2025 This package adds support for CUDA tensor types. It implements the same function as CPU tensors, but they utilize GPUs for computation. It is lazily initialized, so you can always import it, and use is_available() to determine if your system supports CUDA. CUDA semantics has more details about working with CUDA. StreamContext Context-manager that selects a given stream. can_device_access_peer Check if peer access between two devices is possible. check_error Raise an error if the result of a CUDA runtime API call is not success. current_blas_handle Return cublasHandle_t pointer to current cuBLAS handle current_device Return the index of a currently selected device. current_stream Return the currently selected Stream for a given device. cudart Retrieves the CUDA runtime API module. default_stream Return the default Stream for a given device. device Context-manager that changes the selected device. device_count Return the number of GPUs available. device_memory_used Return used global (device) memory in bytes as given by nvidia-smi or amd-smi. device_of Context-manager that changes the current device to that of given object. get_arch_list Return list CUDA architectures this library was compiled for. get_device_capability Get the cuda capability of a device. get_device_name Get the name of a device. get_device_properties Get the properties of a device. get_gencode_flags Return NVCC gencode flags this library was compiled with. get_stream_from_external Return a Stream from an externally allocated CUDA stream. get_sync_debug_mode Return current value of debug mode for cuda synchronizing operations. init Initialize PyTorch\u0027s CUDA state. ipc_collect Force collects GPU memory after it has been released by CUDA IPC. is_available Return a bool indicating if CUDA is currently available. is_bf16_supported Return a bool indicating if the current CUDA/ROCm device supports dtype bfloat16. is_initialized Return whether PyTorch\u0027s CUDA state has been initialized. is_tf32_supported Return a bool indicating if the current CUDA/ROCm device supports dtype tf32. memory_usage Return the percent of time over the past sample period during which global (device) memory was being read or written as given by nvidia-smi. set_device Set the current device. set_stream Set the current stream.This is a wrapper API to set the stream. set_sync_debug_mode Set the debug mode for cuda synchronizing operations. stream Wrap around the Context-manager StreamContext that selects a given stream. synchronize Wait for all kernels in all streams on a CUDA device to complete. utilization Return the percent of time over the past sample period during which one or more kernels was executing on the GPU as given by nvidia-smi. temperature Return the average temperature of the GPU sensor in Degrees C (Centigrades). power_draw Return the average power draw of the GPU sensor in mW (MilliWatts) clock_rate Return the clock speed of the GPU SM in MHz (megahertz) over the past sample period as given by nvidia-smi. AcceleratorError Exception raised while executing on device OutOfMemoryError Exception raised when device is out of memory Random Number Generator# get_rng_state Return the random number generator state of the specified GPU as a ByteTensor. get_rng_state_all Return a list of ByteTensor representing the random number states of all devices. set_rng_state Set the random number generator state of the specified GPU. set_rng_state_all Set the random number generator state of all devices. manual_seed Set the seed for generating random numbers for the current GPU. manual_seed_all Set the seed for generating random numbers on all GPUs. seed Set the seed for generating random numbers to a random number for the current GPU. seed_all Set the seed for generating random numbers to a random number on all GPUs. initial_seed Return the current random seed of the current GPU. Communication collectives# comm.broadcast Broadcasts a tensor to specified GPU devices. comm.broadcast_coalesced Broadcast a sequence of tensors to the specified GPUs. comm.reduce_add Sum tensors from multiple GPUs. comm.reduce_add_coalesced Sum tensors from multiple GPUs. comm.scatter Scatters tensor across multiple GPUs. comm.gather Gathers tensors from multiple GPU devices. Streams and events# Stream Wrapper around a CUDA stream. ExternalStream Wrapper around an externally allocated CUDA stream. Event Wrapper around a CUDA event. Graphs (beta)# is_current_stream_capturing Return True if CUDA graph capture is underway on the current CUDA stream, False otherwise. graph_pool_handle Return an opaque token representing the id of a graph memory pool. CUDAGraph Wrapper around a CUDA graph. graph Context-manager that captures CUDA work into a torch.cuda.CUDAGraph object for later replay. make_graphed_callables Accept callables (functions or nn.Modules) and returns graphed versions. This package adds support for device memory management implemented in CUDA. Memory management# empty_cache Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other GPU application and visible in nvidia-smi. get_per_process_memory_fraction Get memory fraction for a process. list_gpu_processes Return a human-readable printout of the running processes and their GPU memory use for a given device. mem_get_info Return the global free and total GPU memory for a given device using cudaMemGetInfo. memory_stats Return a dictionary of CUDA memory allocator statistics for a given device. memory_stats_as_nested_dict Return the result of memory_stats() as a nested dictionary. reset_accumulated_memory_stats Reset the \"accumulated\" (historical) stats tracked by the CUDA memory allocator. host_memory_stats Return a dictionary of CUDA memory allocator statistics for a given device. host_memory_stats_as_nested_dict Return the result of host_memory_stats() as a nested dictionary. reset_accumulated_host_memory_stats Reset the \"accumulated\" (historical) stats tracked by the host memory allocator. memory_summary Return a human-readable printout of the current memory allocator statistics for a given device. memory_snapshot Return a snapshot of the CUDA memory allocator state across all devices. memory_allocated Return the current GPU memory occupied by tensors in bytes for a given device. max_memory_allocated Return the maximum GPU memory occupied by tensors in bytes for a given device. reset_max_memory_allocated Reset the starting point in tracking maximum GPU memory occupied by tensors for a given device. memory_reserved Return the current GPU memory managed by the caching allocator in bytes for a given device. max_memory_reserved Return the maximum GPU memory managed by the caching allocator in bytes for a given device. set_per_process_memory_fraction Set memory fraction for a process. memory_cached Deprecated; see memory_reserved(). max_memory_cached Deprecated; see max_memory_reserved(). reset_max_memory_cached Reset the starting point in tracking maximum GPU memory managed by the caching allocator for a given device. reset_peak_memory_stats Reset the \"peak\" stats tracked by the CUDA memory allocator. reset_peak_host_memory_stats Reset the \"peak\" stats tracked by the host memory allocator. caching_allocator_alloc Perform a memory allocation using the CUDA memory allocator. caching_allocator_delete Delete memory allocated using the CUDA memory allocator. get_allocator_backend Return a string describing the active allocator backend as set by PYTORCH_CUDA_ALLOC_CONF. CUDAPluggableAllocator CUDA memory allocator loaded from a so file. change_current_allocator Change the currently used memory allocator to be the one provided. MemPool MemPool represents a pool of memory in a caching allocator. caching_allocator_enable Enable or disable the CUDA memory allocator. class torch.cuda.use_mem_pool(pool, device=None)[source]# A context manager that routes allocations to a given pool. Parameters: pool (torch.cuda.MemPool) \u2013 a MemPool object to be made active so that allocations route to this pool. device (torch.device or int, optional) \u2013 selected device. Uses MemPool on the current device, given by current_device(), if device is None (default). Note This context manager makes only current thread\u2019s allocations route to the given pool. If a new thread is spawned inside the context manager (e.g. by calling backward) the allocations in that thread will not route to the given pool. NVIDIA Tools Extension (NVTX)# nvtx.mark Describe an instantaneous event that occurred at some point. nvtx.range_push Push a range onto a stack of nested range span. nvtx.range_pop Pop a range off of a stack of nested range spans. nvtx.range Context manager / decorator that pushes an NVTX range at the beginning of its scope, and pops it at the end. Jiterator (beta)# jiterator._create_jit_fn Create a jiterator-generated cuda kernel for an elementwise op. jiterator._create_multi_output_jit_fn Create a jiterator-generated cuda kernel for an elementwise op that supports returning one or more outputs. TunableOp# Some operations could be implemented using more than one library or more than one technique. For example, a GEMM could be implemented for CUDA or ROCm using either the cublas/cublasLt libraries or hipblas/hipblasLt libraries, respectively. How does one know which implementation is the fastest and should be chosen? That\u2019s what TunableOp provides. Certain operators have been implemented using multiple strategies as Tunable Operators. At runtime, all strategies are profiled and the fastest is selected for all subsequent operations. See the documentation for information on how to use it. Stream Sanitizer (prototype)# CUDA Sanitizer is a prototype tool for detecting synchronization errors between streams in PyTorch. See the documentation for information on how to use it. GPUDirect Storage (prototype)# The APIs in torch.cuda.gds provide thin wrappers around certain cuFile APIs that allow direct memory access transfers between GPU memory and storage, avoiding a bounce buffer in the CPU. See the cufile api documentation for more details. These APIs can be used in versions greater than or equal to CUDA 12.6. In order to use these APIs, one must ensure that their system is appropriately configured to use GPUDirect Storage per the GPUDirect Storage documentation. See the docs for GdsFile for an example of how to use these. gds_register_buffer Registers a storage on a CUDA device as a cufile buffer. gds_deregister_buffer Deregisters a previously registered storage on a CUDA device as a cufile buffer. GdsFile Wrapper around cuFile. Green Contexts (experimental)# torch.cuda.green_contexts provides thin wrappers around the CUDA Green Context APIs to enable more general carveout of SM resources for CUDA kernels. These APIs can be used in PyTorch with CUDA versions greater than or equal to 12.8. See the docs for GreenContext for an example of how to use these. GreenContext Wrapper around a CUDA green context.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/cuda.html"

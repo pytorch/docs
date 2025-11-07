@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>HIP (ROCm) semantics &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=940804e7"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notes/hip';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../_static/js/runllm-widget.js"></script>
+    <script src="../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/notes/hip.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="../_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1693,6 +1692,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -1700,16 +1700,16 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="hip-rocm-semantics">
-<span id="hip-semantics"></span><h1>HIP (ROCm) semantics<a class="headerlink" href="#hip-rocm-semantics" title="Permalink to this heading">#</a></h1>
+  <section id="hip-rocm-semantics">
+<span id="hip-semantics"></span><h1>HIP (ROCm) semantics<a class="headerlink" href="#hip-rocm-semantics" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 12, 2021 | Last Updated On: Aug 08, 2025</p>
 <p>ROCm™ is AMD’s open source software platform for GPU-accelerated high
 performance computing and machine learning. HIP is ROCm’s C++ dialect designed
 to ease conversion of CUDA applications to portable C++ code. HIP is used when
 converting existing CUDA applications like PyTorch to portable C++ and for new
 projects that require portability between AMD and NVIDIA.</p>
-<div class="section" id="hip-interfaces-reuse-the-cuda-interfaces">
-<span id="hip-as-cuda"></span><h2>HIP Interfaces Reuse the CUDA Interfaces<a class="headerlink" href="#hip-interfaces-reuse-the-cuda-interfaces" title="Permalink to this heading">#</a></h2>
+<section id="hip-interfaces-reuse-the-cuda-interfaces">
+<span id="hip-as-cuda"></span><h2>HIP Interfaces Reuse the CUDA Interfaces<a class="headerlink" href="#hip-interfaces-reuse-the-cuda-interfaces" title="Link to this heading">#</a></h2>
 <p>PyTorch for HIP intentionally reuses the existing <a class="reference internal" href="../cuda.html#module-torch.cuda" title="torch.cuda"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.cuda</span></code></a> interfaces.
 This helps to accelerate the porting of existing PyTorch code and models because
 very few code changes are necessary, if any.</p>
@@ -1749,9 +1749,9 @@ very few code changes are necessary, if any.</p>
     <span class="c1"># d.device, e.device, and f.device are all device(type=&#39;cuda&#39;, index=2)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="checking-for-hip">
-<span id="id1"></span><h2>Checking for HIP<a class="headerlink" href="#checking-for-hip" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="checking-for-hip">
+<span id="id1"></span><h2>Checking for HIP<a class="headerlink" href="#checking-for-hip" title="Link to this heading">#</a></h2>
 <p>Whether you are using PyTorch for CUDA or HIP, the result of calling
 <a class="reference internal" href="../generated/torch.cuda.is_available.html#torch.cuda.is_available" title="torch.cuda.is_available"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_available()</span></code></a> will be the same. If you are using a PyTorch
 that has been built with GPU support, it will return <cite>True</cite>. If you must check
@@ -1762,13 +1762,13 @@ which version of PyTorch you are using, refer to this example below:</p>
     <span class="c1"># do something specific for CUDA</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="tensorfloat-32-tf32-on-rocm">
-<span id="tf32-on-rocm"></span><h2>TensorFloat-32(TF32) on ROCm<a class="headerlink" href="#tensorfloat-32-tf32-on-rocm" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="tensorfloat-32-tf32-on-rocm">
+<span id="tf32-on-rocm"></span><h2>TensorFloat-32(TF32) on ROCm<a class="headerlink" href="#tensorfloat-32-tf32-on-rocm" title="Link to this heading">#</a></h2>
 <p>TF32 is not supported on ROCm.</p>
-</div>
-<div class="section" id="memory-management">
-<span id="rocm-memory-management"></span><h2>Memory management<a class="headerlink" href="#memory-management" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="memory-management">
+<span id="rocm-memory-management"></span><h2>Memory management<a class="headerlink" href="#memory-management" title="Link to this heading">#</a></h2>
 <p>PyTorch uses a caching memory allocator to speed up memory allocations. This
 allows fast memory deallocation without device synchronizations. However, the
 unused memory managed by the allocator will still show as if used in
@@ -1788,9 +1788,9 @@ underlying allocation patterns produced by your code.</p>
 <p>To debug memory errors, set
 <code class="docutils literal notranslate"><span class="pre">PYTORCH_NO_HIP_MEMORY_CACHING=1</span></code> in your environment to disable caching.
 <code class="docutils literal notranslate"><span class="pre">PYTORCH_NO_CUDA_MEMORY_CACHING=1</span></code> is also accepted for ease of porting.</p>
-</div>
-<div class="section" id="hipblas-workspaces">
-<h2>hipBLAS workspaces<a class="headerlink" href="#hipblas-workspaces" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="hipblas-workspaces">
+<h2>hipBLAS workspaces<a class="headerlink" href="#hipblas-workspaces" title="Link to this heading">#</a></h2>
 <p>For each combination of hipBLAS handle and HIP stream, a hipBLAS workspace will be allocated if that
 handle and stream combination executes a hipBLAS kernel that requires a workspace.  In order to
 avoid repeatedly allocating workspaces, these workspaces are not deallocated unless
@@ -1801,17 +1801,17 @@ variable <code class="docutils literal notranslate"><span class="pre">HIPBLAS_WO
 <span class="pre">KiB</span></code> or 8 MIB. The default workspace size is 32 MiB; MI300 and newer defaults to 128 MiB. To force
 hipBLAS to avoid using workspaces, set <code class="docutils literal notranslate"><span class="pre">HIPBLAS_WORKSPACE_CONFIG=:0:0</span></code>. For convenience,
 <code class="docutils literal notranslate"><span class="pre">CUBLAS_WORKSPACE_CONFIG</span></code> is also accepted.</p>
-</div>
-<div class="section" id="hipfft-rocfft-plan-cache">
-<span id="hipfft-plan-cache"></span><h2>hipFFT/rocFFT plan cache<a class="headerlink" href="#hipfft-rocfft-plan-cache" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="hipfft-rocfft-plan-cache">
+<span id="hipfft-plan-cache"></span><h2>hipFFT/rocFFT plan cache<a class="headerlink" href="#hipfft-rocfft-plan-cache" title="Link to this heading">#</a></h2>
 <p>Setting the size of the cache for hipFFT/rocFFT plans is not supported.</p>
-</div>
-<div class="section" id="torch-distributed-backends">
-<span id="id2"></span><h2>torch.distributed backends<a class="headerlink" href="#torch-distributed-backends" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="torch-distributed-backends">
+<span id="id2"></span><h2>torch.distributed backends<a class="headerlink" href="#torch-distributed-backends" title="Link to this heading">#</a></h2>
 <p>Currently, only the “nccl” and “gloo” backends for torch.distributed are supported on ROCm.</p>
-</div>
-<div class="section" id="cuda-api-to-hip-api-mappings-in-c">
-<span id="cuda-api-to-hip-api-mappings"></span><h2>CUDA API to HIP API mappings in C++<a class="headerlink" href="#cuda-api-to-hip-api-mappings-in-c" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="cuda-api-to-hip-api-mappings-in-c">
+<span id="cuda-api-to-hip-api-mappings"></span><h2>CUDA API to HIP API mappings in C++<a class="headerlink" href="#cuda-api-to-hip-api-mappings-in-c" title="Link to this heading">#</a></h2>
 <p>Please refer: <a class="reference external" href="https://rocm.docs.amd.com/projects/HIP/en/latest/reference/api_syntax.html">https://rocm.docs.amd.com/projects/HIP/en/latest/reference/api_syntax.html</a></p>
 <p>NOTE: The CUDA_VERSION macro, cudaRuntimeGetVersion and cudaDriverGetVersion APIs do not
 semantically map to the same values as HIP_VERSION macro, hipRuntimeGetVersion and
@@ -1824,22 +1824,22 @@ hipDriverGetVersion APIs. Please do not use them interchangeably when doing vers
 <p><code class="docutils literal notranslate"><span class="pre">#if</span> <span class="pre">(defined(CUDA_VERSION)</span> <span class="pre">&amp;&amp;</span> <span class="pre">CUDA_VERSION</span> <span class="pre">&gt;=</span> <span class="pre">11000)</span> <span class="pre">||</span> <span class="pre">defined(USE_ROCM)</span></code></p>
 <p>Or if it is desired to take the code path for ROCm/HIP only for specific HIP versions:</p>
 <p><code class="docutils literal notranslate"><span class="pre">#if</span> <span class="pre">(defined(CUDA_VERSION)</span> <span class="pre">&amp;&amp;</span> <span class="pre">CUDA_VERSION</span> <span class="pre">&gt;=</span> <span class="pre">11000)</span> <span class="pre">||</span> <span class="pre">(defined(USE_ROCM)</span> <span class="pre">&amp;&amp;</span> <span class="pre">ROCM_VERSION</span> <span class="pre">&gt;=</span> <span class="pre">40300)</span></code></p>
-</div>
-<div class="section" id="refer-to-cuda-semantics-doc">
-<h2>Refer to CUDA Semantics doc<a class="headerlink" href="#refer-to-cuda-semantics-doc" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="refer-to-cuda-semantics-doc">
+<h2>Refer to CUDA Semantics doc<a class="headerlink" href="#refer-to-cuda-semantics-doc" title="Link to this heading">#</a></h2>
 <p>For any sections not listed here, please refer to the CUDA semantics doc: <a class="reference internal" href="cuda.html#cuda-semantics"><span class="std std-ref">CUDA semantics</span></a></p>
-</div>
-<div class="section" id="enabling-kernel-asserts">
-<h2>Enabling kernel asserts<a class="headerlink" href="#enabling-kernel-asserts" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="enabling-kernel-asserts">
+<h2>Enabling kernel asserts<a class="headerlink" href="#enabling-kernel-asserts" title="Link to this heading">#</a></h2>
 <p>Kernel asserts are supported on ROCm, but they are disabled due to performance overhead. It can be enabled
 by recompiling the PyTorch from source.</p>
 <p>Please add below line as an argument to cmake command parameters:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">DROCM_FORCE_ENABLE_GPU_ASSERTS</span><span class="p">:</span><span class="n">BOOL</span><span class="o">=</span><span class="n">ON</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="enabling-disabling-rocm-composable-kernel">
-<h2>Enabling/Disabling ROCm Composable Kernel<a class="headerlink" href="#enabling-disabling-rocm-composable-kernel" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="enabling-disabling-rocm-composable-kernel">
+<h2>Enabling/Disabling ROCm Composable Kernel<a class="headerlink" href="#enabling-disabling-rocm-composable-kernel" title="Link to this heading">#</a></h2>
 <p>Enabling composable_kernel (CK) for both SDPA and GEMMs is a two-part process. First the user must have built
 pytorch while setting the corresponding environment variable to ‘1’</p>
 <p>SDPA:
@@ -1856,8 +1856,8 @@ call</p>
 <p>In order to set the backend to CK, the user MUST have built with the correct environment variable. If not,
 PyTorch will print a warning and use the “default” backend. For GEMMs, this will route to hipblas and
 for SDPA it routes to aotriton.</p>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -1923,11 +1923,6 @@ for SDPA it routes to aotriton.</p>
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -2061,7 +2056,9 @@ for SDPA it routes to aotriton.</p>
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -2085,10 +2082,13 @@ for SDPA it routes to aotriton.</p>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -2111,7 +2111,6 @@ for SDPA it routes to aotriton.</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -2161,10 +2160,10 @@ for SDPA it routes to aotriton.</p>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -2205,7 +2204,7 @@ for SDPA it routes to aotriton.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -2240,7 +2239,7 @@ for SDPA it routes to aotriton.</p>
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "../_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/notes/hip.html"

@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>torch.sparse &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=940804e7"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'sparse';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="_static/js/runllm-widget.js"></script>
+    <script src="_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/sparse.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4479,6 +4478,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4486,16 +4486,16 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <span class="target" id="module-torch.sparse"></span><div class="section" id="torch-sparse">
-<span id="sparse-docs"></span><h1>torch.sparse<a class="headerlink" href="#torch-sparse" title="Permalink to this heading">#</a></h1>
+  <section id="torch-sparse">
+<span id="sparse-docs"></span><span id="module-torch.sparse"></span><h1>torch.sparse<a class="headerlink" href="#torch-sparse" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 26, 2017 | Last Updated On: Jun 18, 2025</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The PyTorch API of sparse tensors is in beta and may change in the near future.
 We highly welcome feature requests, bug reports and general suggestions as GitHub issues.</p>
 </div>
-<div class="section" id="why-and-when-to-use-sparsity">
-<h2>Why and when to use sparsity<a class="headerlink" href="#why-and-when-to-use-sparsity" title="Permalink to this heading">#</a></h2>
+<section id="why-and-when-to-use-sparsity">
+<h2>Why and when to use sparsity<a class="headerlink" href="#why-and-when-to-use-sparsity" title="Link to this heading">#</a></h2>
 <p>By default, PyTorch stores <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> elements contiguously in
 physical memory. This leads to efficient implementations of various array
 processing algorithms that require fast access to elements.</p>
@@ -4522,9 +4522,9 @@ degradation instead. This helps us prioritize the implementation
 of efficient kernels and wider performance optimizations.</p>
 <p>We make it easy to try different sparsity layouts, and convert between them,
 without being opinionated on what’s best for your particular application.</p>
-</div>
-<div class="section" id="functionality-overview">
-<h2>Functionality overview<a class="headerlink" href="#functionality-overview" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="functionality-overview">
+<h2>Functionality overview<a class="headerlink" href="#functionality-overview" title="Link to this heading">#</a></h2>
 <p>We want it to be straightforward to construct a sparse Tensor from a
 given dense Tensor by providing conversion routines for each layout.</p>
 <p>In the next example we convert a 2D Tensor with default dense (strided)
@@ -4579,9 +4579,9 @@ valued elements cause the entire row to be stored.</p>
 <span class="go">       size=(2, 2, 2), nnz=2, layout=torch.sparse_coo)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="operator-overview">
-<h2>Operator overview<a class="headerlink" href="#operator-overview" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="operator-overview">
+<h2>Operator overview<a class="headerlink" href="#operator-overview" title="Link to this heading">#</a></h2>
 <p>Fundamentally, operations on Tensor with sparse storage formats behave the same as
 operations on Tensor with strided (or other) storage formats. The particularities of
 storage, that is the physical layout of the data, influences the performance of
@@ -4631,9 +4631,9 @@ layouts can be very useful. A subsequent operation might significantly benefit f
 receiving a particular layout. We are working on an API to control the result layout
 and recognize it is an important feature to plan a more optimal path of execution for
 any given model.</p>
-</div>
-<div class="section" id="sparse-semi-structured-tensors">
-<span id="sparse-semi-structured-docs"></span><h2>Sparse Semi-Structured Tensors<a class="headerlink" href="#sparse-semi-structured-tensors" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="sparse-semi-structured-tensors">
+<span id="sparse-semi-structured-docs"></span><h2>Sparse Semi-Structured Tensors<a class="headerlink" href="#sparse-semi-structured-tensors" title="Link to this heading">#</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Sparse semi-structured tensors are currently a prototype feature and subject to change. Please feel free to open an issue to report a bug or if you have feedback to share.</p>
@@ -4676,17 +4676,17 @@ M_{sparse} = M_{specified} + M_{metadata} = r \times \frac{c}{2} \times e + r \t
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>C</mi><mo>=</mo><mfrac><msub><mi>M</mi><mrow><mi>s</mi><mi>p</mi><mi>a</mi><mi>r</mi><mi>s</mi><mi>e</mi></mrow></msub><msub><mi>M</mi><mrow><mi>d</mi><mi>e</mi><mi>n</mi><mi>s</mi><mi>e</mi></mrow></msub></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>e</mi></mfrac></mrow><annotation encoding="application/x-tex">C = \frac{M_{sparse}}{M_{dense}} =  \frac{1}{2} + \frac{1}{e}
 
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.1963em;vertical-align:-0.836em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight">se</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">p</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">rse</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">e</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div><p>By using this formula, we find that the compression ratio is 56.25% for <code class="docutils literal notranslate"><span class="pre">torch.float16</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.bfloat16</span></code>, and 62.5% for <code class="docutils literal notranslate"><span class="pre">torch.int8</span></code>.</p>
-<div class="section" id="constructing-sparse-semi-structured-tensors">
-<h3>Constructing Sparse Semi-Structured Tensors<a class="headerlink" href="#constructing-sparse-semi-structured-tensors" title="Permalink to this heading">#</a></h3>
+<section id="constructing-sparse-semi-structured-tensors">
+<h3>Constructing Sparse Semi-Structured Tensors<a class="headerlink" href="#constructing-sparse-semi-structured-tensors" title="Link to this heading">#</a></h3>
 <p>You can transform a dense tensor into a sparse semi-structured tensor by simply using the <code class="docutils literal notranslate"><span class="pre">torch.to_sparse_semi_structured</span></code> function.</p>
 <p>Please also note that we only support CUDA tensors since hardware compatibility for semi-structured sparsity is limited to NVIDIA GPUs.</p>
 <p>The following datatypes are supported for semi-structured sparsity. Note that each datatype has its own shape constraints and compression factor.</p>
-<div class="pst-scrollable-table-container"><table class="colwidths-given table">
+<div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
-<col style="width: 19%" />
-<col style="width: 56%" />
-<col style="width: 13%" />
-<col style="width: 13%" />
+<col style="width: 18.8%" />
+<col style="width: 56.2%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>PyTorch dtype</p></th>
@@ -4743,9 +4743,9 @@ Afterwards, we can call <code class="docutils literal notranslate"><span class="
 <span class="go">dtype=torch.int16))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="sparse-semi-structured-tensor-operations">
-<h3>Sparse Semi-Structured Tensor Operations<a class="headerlink" href="#sparse-semi-structured-tensor-operations" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="sparse-semi-structured-tensor-operations">
+<h3>Sparse Semi-Structured Tensor Operations<a class="headerlink" href="#sparse-semi-structured-tensor-operations" title="Link to this heading">#</a></h3>
 <p>Currently, the following operations are supported for semi-structured sparse tensors:</p>
 <ul class="simple">
 <li><p>torch.addmm(bias, dense, sparse.t())</p></li>
@@ -4764,9 +4764,9 @@ Afterwards, we can call <code class="docutils literal notranslate"><span class="
 <span class="go">True</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="accelerating-nn-linear-with-semi-structured-sparsity">
-<h3>Accelerating nn.Linear with semi-structured sparsity<a class="headerlink" href="#accelerating-nn-linear-with-semi-structured-sparsity" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="accelerating-nn-linear-with-semi-structured-sparsity">
+<h3>Accelerating nn.Linear with semi-structured sparsity<a class="headerlink" href="#accelerating-nn-linear-with-semi-structured-sparsity" title="Link to this heading">#</a></h3>
 <p>You can accelerate the linear layers in your model if the weights are already semi-structured sparse with just a few lines of code:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span><span class="o">.</span><span class="n">half</span><span class="p">()</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">tile</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span><span class="o">.</span><span class="n">bool</span><span class="p">()</span>
@@ -4774,10 +4774,10 @@ Afterwards, we can call <code class="docutils literal notranslate"><span class="
 <span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">to_sparse_semi_structured</span><span class="p">(</span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">masked_fill</span><span class="p">(</span><span class="o">~</span><span class="n">mask</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="sparse-coo-tensors">
-<span id="sparse-coo-docs"></span><h2>Sparse COO tensors<a class="headerlink" href="#sparse-coo-tensors" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="sparse-coo-tensors">
+<span id="sparse-coo-docs"></span><h2>Sparse COO tensors<a class="headerlink" href="#sparse-coo-tensors" title="Link to this heading">#</a></h2>
 <p>PyTorch implements the so-called Coordinate format, or COO
 format, as one of the storage formats for implementing sparse
 tensors.  In COO format, the specified elements are stored as tuples
@@ -4808,8 +4808,8 @@ layout and <code class="docutils literal notranslate"><span class="pre">10</span
 the default strided tensor layout. Notice the 200 fold memory
 saving from using the COO storage format.</p>
 </div>
-<div class="section" id="construction">
-<h3>Construction<a class="headerlink" href="#construction" title="Permalink to this heading">#</a></h3>
+<section id="construction">
+<h3>Construction<a class="headerlink" href="#construction" title="Link to this heading">#</a></h3>
 <p>A sparse COO tensor can be constructed by providing the two tensors of
 indices and values, as well as the size of the sparse tensor (when it
 cannot be inferred from the indices and values tensors) to a function
@@ -4852,9 +4852,9 @@ only:</p>
 <span class="go">       size=(2, 3), nnz=0, layout=torch.sparse_coo)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="sparse-hybrid-coo-tensors">
-<span id="sparse-hybrid-coo-docs"></span><h3>Sparse hybrid COO tensors<a class="headerlink" href="#sparse-hybrid-coo-tensors" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="sparse-hybrid-coo-tensors">
+<span id="sparse-hybrid-coo-docs"></span><h3>Sparse hybrid COO tensors<a class="headerlink" href="#sparse-hybrid-coo-tensors" title="Link to this heading">#</a></h3>
 <p>PyTorch implements an extension of sparse tensors with scalar values
 to sparse tensors with (contiguous) tensor values. Such tensors are
 called hybrid tensors.</p>
@@ -4931,9 +4931,9 @@ globally using <a class="reference internal" href="generated/torch.sparse.check_
 context manager instance. By default, the sparse tensor invariants
 checks are disabled.</p>
 </div>
-</div>
-<div class="section" id="uncoalesced-sparse-coo-tensors">
-<span id="sparse-uncoalesced-coo-docs"></span><h3>Uncoalesced sparse COO tensors<a class="headerlink" href="#uncoalesced-sparse-coo-tensors" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="uncoalesced-sparse-coo-tensors">
+<span id="sparse-uncoalesced-coo-docs"></span><h3>Uncoalesced sparse COO tensors<a class="headerlink" href="#uncoalesced-sparse-coo-tensors" title="Link to this heading">#</a></h3>
 <p>PyTorch sparse COO tensor format permits sparse <em>uncoalesced</em> tensors,
 where there may be duplicate coordinates in the indices; in this case,
 the interpretation is that the value at that index is the sum of all
@@ -4988,9 +4988,9 @@ coalesce your sparse tensors to prevent them from growing too large.</p>
 advantageous for implementing algorithms that involve many element
 selection operations, such as slicing or matrix products.</p>
 </div>
-</div>
-<div class="section" id="working-with-sparse-coo-tensors">
-<h3>Working with sparse COO tensors<a class="headerlink" href="#working-with-sparse-coo-tensors" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="working-with-sparse-coo-tensors">
+<h3>Working with sparse COO tensors<a class="headerlink" href="#working-with-sparse-coo-tensors" title="Link to this heading">#</a></h3>
 <p>Let’s consider the following example:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
 <span class="go">         [2, 0, 2]]</span>
@@ -5085,10 +5085,10 @@ explicitly and is assumed to be zero in general. However, there exists
 operations that may interpret the fill value differently. For
 instance, <a class="reference internal" href="generated/torch.sparse.softmax.html#torch.sparse.softmax" title="torch.sparse.softmax"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.sparse.softmax()</span></code></a> computes the softmax with the
 assumption that the fill value is negative infinity.</p>
-</div>
-</div>
-<div class="section" id="sparse-compressed-tensors">
-<span id="sparse-compressed-docs"></span><h2>Sparse Compressed Tensors<a class="headerlink" href="#sparse-compressed-tensors" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="sparse-compressed-tensors">
+<span id="sparse-compressed-docs"></span><h2>Sparse Compressed Tensors<a class="headerlink" href="#sparse-compressed-tensors" title="Link to this heading">#</a></h2>
 <p>Sparse Compressed Tensors represents a class of sparse tensors that
 have a common feature of compressing the indices of a certain dimension
 using an encoding that enables certain optimizations on linear algebra
@@ -5151,8 +5151,8 @@ dimensions are treated as stacking of sparse matrices, dense dimensions
 change the meaning of the element from a simple scalar value to an
 array with its own dimensions.</p>
 </div>
-<div class="section" id="sparse-csr-tensor">
-<span id="sparse-csr-docs"></span><h3>Sparse CSR Tensor<a class="headerlink" href="#sparse-csr-tensor" title="Permalink to this heading">#</a></h3>
+<section id="sparse-csr-tensor">
+<span id="sparse-csr-docs"></span><h3>Sparse CSR Tensor<a class="headerlink" href="#sparse-csr-tensor" title="Link to this heading">#</a></h3>
 <p>The primary advantage of the CSR format over the COO format is better
 use of storage and much faster computation operations such as sparse
 matrix-vector multiplication using MKL and MAGMA backends.</p>
@@ -5225,8 +5225,8 @@ bytes when using CSR tensor layout. Notice the 1.6 and 310 fold
 savings from using CSR storage format compared to using the COO and
 strided formats, respectively.</p>
 </div>
-<div class="section" id="construction-of-csr-tensors">
-<h4>Construction of CSR tensors<a class="headerlink" href="#construction-of-csr-tensors" title="Permalink to this heading">#</a></h4>
+<section id="construction-of-csr-tensors">
+<h4>Construction of CSR tensors<a class="headerlink" href="#construction-of-csr-tensors" title="Link to this heading">#</a></h4>
 <p>Sparse CSR tensors can be directly constructed by using the
 <a class="reference internal" href="generated/torch.sparse_csr_tensor.html#torch.sparse_csr_tensor" title="torch.sparse_csr_tensor"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.sparse_csr_tensor()</span></code></a> function. The user must supply the row
 and column indices and values tensors separately where the row indices
@@ -5267,9 +5267,9 @@ tensor will be interpreted as missing values in the sparse tensor:</p>
 <span class="go">      values=tensor([1., 1., 2.]), size=(3, 4), nnz=3, dtype=torch.float64)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="csr-tensor-operations">
-<h4>CSR Tensor Operations<a class="headerlink" href="#csr-tensor-operations" title="Permalink to this heading">#</a></h4>
+</section>
+<section id="csr-tensor-operations">
+<h4>CSR Tensor Operations<a class="headerlink" href="#csr-tensor-operations" title="Link to this heading">#</a></h4>
 <p>The sparse matrix-vector multiplication can be performed with the
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">tensor.matmul()</span></code> method. This is currently the only math operation
 supported on CSR tensors.</p>
@@ -5280,10 +5280,10 @@ supported on CSR tensors.</p>
 <span class="go">        [0.0000]], dtype=torch.float64)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="sparse-csc-tensor">
-<span id="sparse-csc-docs"></span><h3>Sparse CSC Tensor<a class="headerlink" href="#sparse-csc-tensor" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="sparse-csc-tensor">
+<span id="sparse-csc-docs"></span><h3>Sparse CSC Tensor<a class="headerlink" href="#sparse-csc-tensor" title="Link to this heading">#</a></h3>
 <p>The sparse CSC (Compressed Sparse Column) tensor format implements the
 CSC format for storage of 2 dimensional tensors with an extension to
 supporting batches of sparse CSC tensors and values being
@@ -5312,8 +5312,8 @@ element. This is a (B + 1)-D tensor of shape <code class="docutils literal notra
 elements. This is a (1 + K)-D tensor of shape <code class="docutils literal notranslate"><span class="pre">(nse,</span> <span class="pre">*densesize)</span></code>.</p></li>
 </ul>
 </div></blockquote>
-<div class="section" id="construction-of-csc-tensors">
-<h4>Construction of CSC tensors<a class="headerlink" href="#construction-of-csc-tensors" title="Permalink to this heading">#</a></h4>
+<section id="construction-of-csc-tensors">
+<h4>Construction of CSC tensors<a class="headerlink" href="#construction-of-csc-tensors" title="Link to this heading">#</a></h4>
 <p>Sparse CSC tensors can be directly constructed by using the
 <a class="reference internal" href="generated/torch.sparse_csc_tensor.html#torch.sparse_csc_tensor" title="torch.sparse_csc_tensor"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.sparse_csc_tensor()</span></code></a> function. The user must supply the row
 and column indices and values tensors separately where the column indices
@@ -5352,10 +5352,10 @@ missing values in the sparse tensor:</p>
 <span class="go">       layout=torch.sparse_csc)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="sparse-bsr-tensor">
-<span id="sparse-bsr-docs"></span><h3>Sparse BSR Tensor<a class="headerlink" href="#sparse-bsr-tensor" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="sparse-bsr-tensor">
+<span id="sparse-bsr-docs"></span><h3>Sparse BSR Tensor<a class="headerlink" href="#sparse-bsr-tensor" title="Link to this heading">#</a></h3>
 <p>The sparse BSR (Block compressed Sparse Row) tensor format implements the
 BSR format for storage of two-dimensional tensors with an extension to
 supporting batches of sparse BSR tensors and values being blocks of
@@ -5380,8 +5380,8 @@ K)-D tensor of shape <code class="docutils literal notranslate"><span class="pre
 <span class="pre">*densesize)</span></code>.</p></li>
 </ul>
 </div></blockquote>
-<div class="section" id="construction-of-bsr-tensors">
-<h4>Construction of BSR tensors<a class="headerlink" href="#construction-of-bsr-tensors" title="Permalink to this heading">#</a></h4>
+<section id="construction-of-bsr-tensors">
+<h4>Construction of BSR tensors<a class="headerlink" href="#construction-of-bsr-tensors" title="Link to this heading">#</a></h4>
 <p>Sparse BSR tensors can be directly constructed by using the
 <a class="reference internal" href="generated/torch.sparse_bsr_tensor.html#torch.sparse_bsr_tensor" title="torch.sparse_bsr_tensor"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.sparse_bsr_tensor()</span></code></a> function. The user must supply the row
 and column block indices and values tensors separately where the row block indices
@@ -5436,10 +5436,10 @@ method that also requires the specification of the values block size:</p>
 <span class="go">       layout=torch.sparse_bsr)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="sparse-bsc-tensor">
-<span id="sparse-bsc-docs"></span><h3>Sparse BSC Tensor<a class="headerlink" href="#sparse-bsc-tensor" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="sparse-bsc-tensor">
+<span id="sparse-bsc-docs"></span><h3>Sparse BSC Tensor<a class="headerlink" href="#sparse-bsc-tensor" title="Link to this heading">#</a></h3>
 <p>The sparse BSC (Block compressed Sparse Column) tensor format implements the
 BSC format for storage of two-dimensional tensors with an extension to
 supporting batches of sparse BSC tensors and values being blocks of
@@ -5464,8 +5464,8 @@ K)-D tensor of shape <code class="docutils literal notranslate"><span class="pre
 <span class="pre">*densesize)</span></code>.</p></li>
 </ul>
 </div></blockquote>
-<div class="section" id="construction-of-bsc-tensors">
-<h4>Construction of BSC tensors<a class="headerlink" href="#construction-of-bsc-tensors" title="Permalink to this heading">#</a></h4>
+<section id="construction-of-bsc-tensors">
+<h4>Construction of BSC tensors<a class="headerlink" href="#construction-of-bsc-tensors" title="Link to this heading">#</a></h4>
 <p>Sparse BSC tensors can be directly constructed by using the
 <a class="reference internal" href="generated/torch.sparse_bsc_tensor.html#torch.sparse_bsc_tensor" title="torch.sparse_bsc_tensor"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.sparse_bsc_tensor()</span></code></a> function. The user must supply the row
 and column block indices and values tensors separately where the column block indices
@@ -5493,10 +5493,10 @@ The <code class="docutils literal notranslate"><span class="pre">size</span></co
 <span class="go">       dtype=torch.float64, layout=torch.sparse_bsc)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="tools-for-working-with-sparse-compressed-tensors">
-<h3>Tools for working with sparse compressed tensors<a class="headerlink" href="#tools-for-working-with-sparse-compressed-tensors" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="tools-for-working-with-sparse-compressed-tensors">
+<h3>Tools for working with sparse compressed tensors<a class="headerlink" href="#tools-for-working-with-sparse-compressed-tensors" title="Link to this heading">#</a></h3>
 <p>All sparse compressed tensors — CSR, CSC, BSR, and BSC tensors —
 are conceptually very similar in that their indices data is split
 into two parts: so-called compressed indices that use the CSR
@@ -5504,8 +5504,8 @@ encoding, and so-called plain indices that are orthogonal to the
 compressed indices. This allows various tools on these tensors to
 share the same implementations that are parameterized by tensor
 layout.</p>
-<div class="section" id="construction-of-sparse-compressed-tensors">
-<h4>Construction of sparse compressed tensors<a class="headerlink" href="#construction-of-sparse-compressed-tensors" title="Permalink to this heading">#</a></h4>
+<section id="construction-of-sparse-compressed-tensors">
+<h4>Construction of sparse compressed tensors<a class="headerlink" href="#construction-of-sparse-compressed-tensors" title="Link to this heading">#</a></h4>
 <p>Sparse CSR, CSC, BSR, and CSC tensors can be constructed by using
 <a class="reference internal" href="generated/torch.sparse_compressed_tensor.html#torch.sparse_compressed_tensor" title="torch.sparse_compressed_tensor"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.sparse_compressed_tensor()</span></code></a> function that have the same
 interface as the above discussed constructor functions
@@ -5535,13 +5535,13 @@ function:</p>
 <span class="go">tensor(True)</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="supported-operations">
-<span id="sparse-ops-docs"></span><h2>Supported operations<a class="headerlink" href="#supported-operations" title="Permalink to this heading">#</a></h2>
-<div class="section" id="linear-algebra-operations">
-<h3>Linear Algebra operations<a class="headerlink" href="#linear-algebra-operations" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+</section>
+<section id="supported-operations">
+<span id="sparse-ops-docs"></span><h2>Supported operations<a class="headerlink" href="#supported-operations" title="Link to this heading">#</a></h2>
+<section id="linear-algebra-operations">
+<h3>Linear Algebra operations<a class="headerlink" href="#linear-algebra-operations" title="Link to this heading">#</a></h3>
 <p>The following table summarizes supported Linear Algebra operations on
 sparse matrices where the operands layouts may vary. Here
 <code class="docutils literal notranslate"><span class="pre">T[layout]</span></code> denotes a tensor with a given layout. Similarly,
@@ -5549,11 +5549,11 @@ sparse matrices where the operands layouts may vary. Here
 denotes a vector (1-D PyTorch tensor). In addition, <code class="docutils literal notranslate"><span class="pre">f</span></code> denotes a
 scalar (float or 0-D PyTorch tensor), <code class="docutils literal notranslate"><span class="pre">*</span></code> is element-wise
 multiplication, and <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> is matrix multiplication.</p>
-<div class="pst-scrollable-table-container"><table class="colwidths-given table">
+<div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
-<col style="width: 24%" />
-<col style="width: 6%" />
-<col style="width: 71%" />
+<col style="width: 23.5%" />
+<col style="width: 5.9%" />
+<col style="width: 70.6%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>PyTorch operation</p></th>
@@ -5664,15 +5664,11 @@ layout signature <code class="docutils literal notranslate"><span class="pre">M[
 applications can still compute this using the matrix relation <code class="docutils literal notranslate"><span class="pre">D</span> <span class="pre">&#64;</span>
 <span class="pre">S</span> <span class="pre">==</span> <span class="pre">(S.t()</span> <span class="pre">&#64;</span> <span class="pre">D.t()).t()</span></code>.</p>
 </div>
-</div>
-<div class="section" id="tensor-methods-and-sparse">
-<h3>Tensor methods and sparse<a class="headerlink" href="#tensor-methods-and-sparse" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="tensor-methods-and-sparse">
+<h3>Tensor methods and sparse<a class="headerlink" href="#tensor-methods-and-sparse" title="Link to this heading">#</a></h3>
 <p>The following Tensor methods are related to sparse tensors:</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.Tensor.is_sparse.html#torch.Tensor.is_sparse" title="torch.Tensor.is_sparse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tensor.is_sparse</span></code></a></p></td>
 <td><p>Is <code class="docutils literal notranslate"><span class="pre">True</span></code> if the Tensor uses sparse COO storage layout, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p></td>
@@ -5718,10 +5714,6 @@ applications can still compute this using the matrix relation <code class="docut
 </div>
 <p>The following Tensor methods are specific to sparse COO tensors:</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.Tensor.coalesce.html#torch.Tensor.coalesce" title="torch.Tensor.coalesce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tensor.coalesce</span></code></a></p></td>
 <td><p>Returns a coalesced copy of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> if <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> is an <a class="reference internal" href="#sparse-uncoalesced-coo-docs"><span class="std std-ref">uncoalesced tensor</span></a>.</p></td>
@@ -5743,10 +5735,6 @@ applications can still compute this using the matrix relation <code class="docut
 </div>
 <p>The following methods are specific to <a class="reference internal" href="#sparse-csr-docs"><span class="std std-ref">sparse CSR tensors</span></a> and <a class="reference internal" href="#sparse-bsr-docs"><span class="std std-ref">sparse BSR tensors</span></a>:</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.Tensor.crow_indices.html#torch.Tensor.crow_indices" title="torch.Tensor.crow_indices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tensor.crow_indices</span></code></a></p></td>
 <td><p>Returns the tensor containing the compressed row indices of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> tensor when <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> is a sparse CSR tensor of layout <code class="docutils literal notranslate"><span class="pre">sparse_csr</span></code>.</p></td>
@@ -5759,10 +5747,6 @@ applications can still compute this using the matrix relation <code class="docut
 </div>
 <p>The following methods are specific to <a class="reference internal" href="#sparse-csc-docs"><span class="std std-ref">sparse CSC tensors</span></a> and <a class="reference internal" href="#sparse-bsc-docs"><span class="std std-ref">sparse BSC tensors</span></a>:</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.Tensor.row_indices.html#torch.Tensor.row_indices" title="torch.Tensor.row_indices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tensor.row_indices</span></code></a></p></td>
 <td><p></p></td>
@@ -5825,31 +5809,27 @@ applications can still compute this using the matrix relation <code class="docut
 <a class="reference internal" href="generated/torch.Tensor.transpose.html#torch.Tensor.transpose" title="torch.Tensor.transpose"><code class="xref py py-meth docutils literal notranslate"><span class="pre">transpose()</span></code></a>
 <a class="reference internal" href="generated/torch.Tensor.transpose_.html#torch.Tensor.transpose_" title="torch.Tensor.transpose_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">transpose_()</span></code></a>
 <a class="reference internal" href="generated/torch.Tensor.zero_.html#torch.Tensor.zero_" title="torch.Tensor.zero_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">zero_()</span></code></a></p>
-</div>
-<div class="section" id="torch-functions-specific-to-sparse-tensors">
-<h3>Torch functions specific to sparse Tensors<a class="headerlink" href="#torch-functions-specific-to-sparse-tensors" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="torch-functions-specific-to-sparse-tensors">
+<h3>Torch functions specific to sparse Tensors<a class="headerlink" href="#torch-functions-specific-to-sparse-tensors" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.sparse_coo_tensor"/><a class="reference internal" href="generated/torch.sparse_coo_tensor.html#torch.sparse_coo_tensor" title="torch.sparse_coo_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse_coo_tensor</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.sparse_coo_tensor"/><p id="torch.sparse_coo_tensor"/><a class="reference internal" href="generated/torch.sparse_coo_tensor.html#torch.sparse_coo_tensor" title="torch.sparse_coo_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse_coo_tensor</span></code></a></p></td>
 <td><p>Constructs a <a class="reference internal" href="#sparse-coo-docs"><span class="std std-ref">sparse tensor in COO(rdinate) format</span></a> with specified values at the given <code class="xref py py-attr docutils literal notranslate"><span class="pre">indices</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.sparse_csr_tensor"/><a class="reference internal" href="generated/torch.sparse_csr_tensor.html#torch.sparse_csr_tensor" title="torch.sparse_csr_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse_csr_tensor</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.sparse_csr_tensor"/><p id="torch.sparse_csr_tensor"/><a class="reference internal" href="generated/torch.sparse_csr_tensor.html#torch.sparse_csr_tensor" title="torch.sparse_csr_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse_csr_tensor</span></code></a></p></td>
 <td><p>Constructs a <a class="reference internal" href="#sparse-csr-docs"><span class="std std-ref">sparse tensor in CSR (Compressed Sparse Row)</span></a> with specified values at the given <code class="xref py py-attr docutils literal notranslate"><span class="pre">crow_indices</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">col_indices</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.sparse_csc_tensor"/><a class="reference internal" href="generated/torch.sparse_csc_tensor.html#torch.sparse_csc_tensor" title="torch.sparse_csc_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse_csc_tensor</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.sparse_csc_tensor"/><p id="torch.sparse_csc_tensor"/><a class="reference internal" href="generated/torch.sparse_csc_tensor.html#torch.sparse_csc_tensor" title="torch.sparse_csc_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse_csc_tensor</span></code></a></p></td>
 <td><p>Constructs a <a class="reference internal" href="#sparse-csc-docs"><span class="std std-ref">sparse tensor in CSC (Compressed Sparse Column)</span></a> with specified values at the given <code class="xref py py-attr docutils literal notranslate"><span class="pre">ccol_indices</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">row_indices</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.sparse_bsr_tensor"/><a class="reference internal" href="generated/torch.sparse_bsr_tensor.html#torch.sparse_bsr_tensor" title="torch.sparse_bsr_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse_bsr_tensor</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.sparse_bsr_tensor"/><p id="torch.sparse_bsr_tensor"/><a class="reference internal" href="generated/torch.sparse_bsr_tensor.html#torch.sparse_bsr_tensor" title="torch.sparse_bsr_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse_bsr_tensor</span></code></a></p></td>
 <td><p>Constructs a <a class="reference internal" href="#sparse-bsr-docs"><span class="std std-ref">sparse tensor in BSR (Block Compressed Sparse Row))</span></a> with specified 2-dimensional blocks at the given <code class="xref py py-attr docutils literal notranslate"><span class="pre">crow_indices</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">col_indices</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.sparse_bsc_tensor"/><a class="reference internal" href="generated/torch.sparse_bsc_tensor.html#torch.sparse_bsc_tensor" title="torch.sparse_bsc_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse_bsc_tensor</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.sparse_bsc_tensor"/><p id="torch.sparse_bsc_tensor"/><a class="reference internal" href="generated/torch.sparse_bsc_tensor.html#torch.sparse_bsc_tensor" title="torch.sparse_bsc_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse_bsc_tensor</span></code></a></p></td>
 <td><p>Constructs a <a class="reference internal" href="#sparse-bsc-docs"><span class="std std-ref">sparse tensor in BSC (Block Compressed Sparse Column))</span></a> with specified 2-dimensional blocks at the given <code class="xref py py-attr docutils literal notranslate"><span class="pre">ccol_indices</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">row_indices</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.sparse_compressed_tensor"/><a class="reference internal" href="generated/torch.sparse_compressed_tensor.html#torch.sparse_compressed_tensor" title="torch.sparse_compressed_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse_compressed_tensor</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.sparse_compressed_tensor"/><p id="torch.sparse_compressed_tensor"/><a class="reference internal" href="generated/torch.sparse_compressed_tensor.html#torch.sparse_compressed_tensor" title="torch.sparse_compressed_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse_compressed_tensor</span></code></a></p></td>
 <td><p>Constructs a <a class="reference internal" href="#sparse-compressed-docs"><span class="std std-ref">sparse tensor in Compressed Sparse format - CSR, CSC, BSR, or BSC -</span></a> with specified values at the given <code class="xref py py-attr docutils literal notranslate"><span class="pre">compressed_indices</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">plain_indices</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.sparse.sum.html#torch.sparse.sum" title="torch.sparse.sum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse.sum</span></code></a></p></td>
@@ -5864,13 +5844,13 @@ applications can still compute this using the matrix relation <code class="docut
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.sparse.mm.html#torch.sparse.mm" title="torch.sparse.mm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse.mm</span></code></a></p></td>
 <td><p>Performs a matrix multiplication of the sparse matrix <code class="xref py py-attr docutils literal notranslate"><span class="pre">mat1</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.sspaddmm"/><a class="reference internal" href="generated/torch.sspaddmm.html#torch.sspaddmm" title="torch.sspaddmm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sspaddmm</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.sspaddmm"/><p id="torch.sspaddmm"/><a class="reference internal" href="generated/torch.sspaddmm.html#torch.sspaddmm" title="torch.sspaddmm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sspaddmm</span></code></a></p></td>
 <td><p>Matrix multiplies a sparse tensor <code class="xref py py-attr docutils literal notranslate"><span class="pre">mat1</span></code> with a dense tensor <code class="xref py py-attr docutils literal notranslate"><span class="pre">mat2</span></code>, then adds the sparse tensor <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> to the result.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.hspmm"/><a class="reference internal" href="generated/torch.hspmm.html#torch.hspmm" title="torch.hspmm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hspmm</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.hspmm"/><p id="torch.hspmm"/><a class="reference internal" href="generated/torch.hspmm.html#torch.hspmm" title="torch.hspmm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hspmm</span></code></a></p></td>
 <td><p>Performs a matrix multiplication of a <a class="reference internal" href="#sparse-coo-docs"><span class="std std-ref">sparse COO matrix</span></a> <code class="xref py py-attr docutils literal notranslate"><span class="pre">mat1</span></code> and a strided matrix <code class="xref py py-attr docutils literal notranslate"><span class="pre">mat2</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.smm"/><a class="reference internal" href="generated/torch.smm.html#torch.smm" title="torch.smm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">smm</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.smm"/><p id="torch.smm"/><a class="reference internal" href="generated/torch.smm.html#torch.smm" title="torch.smm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">smm</span></code></a></p></td>
 <td><p>Performs a matrix multiplication of the sparse matrix <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> with the dense matrix <code class="xref py py-attr docutils literal notranslate"><span class="pre">mat</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.sparse.softmax.html#torch.sparse.softmax" title="torch.sparse.softmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse.softmax</span></code></a></p></td>
@@ -5888,9 +5868,9 @@ applications can still compute this using the matrix relation <code class="docut
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="other-functions">
-<h3>Other functions<a class="headerlink" href="#other-functions" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="other-functions">
+<h3>Other functions<a class="headerlink" href="#other-functions" title="Link to this heading">#</a></h3>
 <p>The following <a class="reference internal" href="torch.html#module-torch" title="torch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch</span></code></a> functions support sparse tensors:</p>
 <p><a class="reference internal" href="generated/torch.cat.html#torch.cat" title="torch.cat"><code class="xref py py-func docutils literal notranslate"><span class="pre">cat()</span></code></a>
 <a class="reference internal" href="generated/torch.dstack.html#torch.dstack" title="torch.dstack"><code class="xref py py-func docutils literal notranslate"><span class="pre">dstack()</span></code></a>
@@ -5917,10 +5897,6 @@ applications can still compute this using the matrix relation <code class="docut
 <a class="reference internal" href="generated/torch.zeros_like.html#torch.zeros_like" title="torch.zeros_like"><code class="xref py py-func docutils literal notranslate"><span class="pre">zeros_like()</span></code></a></p>
 <p>To manage checking sparse tensor invariants, see:</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.sparse.check_sparse_tensor_invariants.html#torch.sparse.check_sparse_tensor_invariants" title="torch.sparse.check_sparse_tensor_invariants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse.check_sparse_tensor_invariants</span></code></a></p></td>
 <td><p>A tool to control checking sparse tensor invariants.</p></td>
@@ -5931,10 +5907,6 @@ applications can still compute this using the matrix relation <code class="docut
 <p>To use sparse tensors with <a class="reference internal" href="autograd.html#module-torch.autograd.gradcheck" title="torch.autograd.gradcheck"><code class="xref py py-func docutils literal notranslate"><span class="pre">gradcheck()</span></code></a> function,
 see:</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.sparse.as_sparse_gradcheck.html#torch.sparse.as_sparse_gradcheck" title="torch.sparse.as_sparse_gradcheck"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse.as_sparse_gradcheck</span></code></a></p></td>
 <td><p>Decorate function, to extend gradcheck for sparse tensors.</p></td>
@@ -5942,9 +5914,9 @@ see:</p>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="zero-preserving-unary-functions">
-<h3>Zero-preserving unary functions<a class="headerlink" href="#zero-preserving-unary-functions" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="zero-preserving-unary-functions">
+<h3>Zero-preserving unary functions<a class="headerlink" href="#zero-preserving-unary-functions" title="Link to this heading">#</a></h3>
 <p>We aim to support all ‘zero-preserving unary functions’: functions of one argument that map zero to zero.</p>
 <p>If you find that we are missing a zero-preserving unary function
 that you need, please feel encouraged to open an issue for a feature request.
@@ -5978,9 +5950,9 @@ As always please kindly try the search function first before opening an issue.</
 <a class="reference internal" href="generated/torch.isnan.html#torch.isnan" title="torch.isnan"><code class="xref py py-func docutils literal notranslate"><span class="pre">isnan()</span></code></a>
 <a class="reference internal" href="generated/torch.erf.html#torch.erf" title="torch.erf"><code class="xref py py-func docutils literal notranslate"><span class="pre">erf()</span></code></a>
 <a class="reference internal" href="generated/torch.erfinv.html#torch.erfinv" title="torch.erfinv"><code class="xref py py-func docutils literal notranslate"><span class="pre">erfinv()</span></code></a></p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
                 </article>
@@ -6046,11 +6018,6 @@ As always please kindly try the search function first before opening an issue.</
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -6225,7 +6192,9 @@ As always please kindly try the search function first before opening an issue.</
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -6249,10 +6218,13 @@ As always please kindly try the search function first before opening an issue.</
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -6275,7 +6247,6 @@ As always please kindly try the search function first before opening an issue.</
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -6325,10 +6296,10 @@ As always please kindly try the search function first before opening an issue.</
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -6369,7 +6340,7 @@ As always please kindly try the search function first before opening an issue.</
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -6404,7 +6375,7 @@ As always please kindly try the search function first before opening an issue.</
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/sparse.html"

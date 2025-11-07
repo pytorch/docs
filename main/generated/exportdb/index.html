@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>ExportDB &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/clipboard.min.js"></script>
-    <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/design-tabs.js"></script>
+    <script src="../../_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=940804e7"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'generated/exportdb/index';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../../_static/js/runllm-widget.js"></script>
+    <script src="../../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/exportdb/index.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="../../_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../../_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4488,6 +4487,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4495,8 +4495,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="exportdb">
-<span id="torch-export-db"></span><h1>ExportDB<a class="headerlink" href="#exportdb" title="Permalink to this heading">#</a></h1>
+  <section id="exportdb">
+<span id="torch-export-db"></span><h1>ExportDB<a class="headerlink" href="#exportdb" title="Link to this heading">#</a></h1>
 <p>ExportDB is a centralized dataset of supported and unsupported export cases.
 It is targeted towards users who want to understand specifically what types of
 code are supported, the subtleties of export, and how to modify their existing
@@ -4524,10 +4524,10 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <li class="toctree-l1"><a class="reference internal" href="torch.mutation.html">torch.mutation</a></li>
 </ul>
 </div>
-<div class="section" id="supported">
-<h2>Supported<a class="headerlink" href="#supported" title="Permalink to this heading">#</a></h2>
-<div class="section" id="assume-constant-result">
-<h3>assume_constant_result<a class="headerlink" href="#assume-constant-result" title="Permalink to this heading">#</a></h3>
+<section id="supported">
+<h2>Supported<a class="headerlink" href="#supported" title="Link to this heading">#</a></h2>
+<section id="assume-constant-result">
+<h3>assume_constant_result<a class="headerlink" href="#assume-constant-result" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.escape-hatch.html"><span class="doc">torch.escape-hatch</span></a></p>
@@ -4577,9 +4577,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="autograd-function">
-<h3>autograd_function<a class="headerlink" href="#autograd-function" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="autograd-function">
+<h3>autograd_function<a class="headerlink" href="#autograd-function" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags:</p>
@@ -4633,9 +4633,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="class-method">
-<h3>class_method<a class="headerlink" href="#class-method" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="class-method">
+<h3>class_method<a class="headerlink" href="#class-method" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags:</p>
@@ -4697,9 +4697,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="cond-branch-class-method">
-<h3>cond_branch_class_method<a class="headerlink" href="#cond-branch-class-method" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="cond-branch-class-method">
+<h3>cond_branch_class_method<a class="headerlink" href="#cond-branch-class-method" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
@@ -4772,9 +4772,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="cond-branch-nested-function">
-<h3>cond_branch_nested_function<a class="headerlink" href="#cond-branch-nested-function" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="cond-branch-nested-function">
+<h3>cond_branch_nested_function<a class="headerlink" href="#cond-branch-nested-function" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
@@ -4844,9 +4844,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="cond-branch-nonlocal-variables">
-<h3>cond_branch_nonlocal_variables<a class="headerlink" href="#cond-branch-nonlocal-variables" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="cond-branch-nonlocal-variables">
+<h3>cond_branch_nonlocal_variables<a class="headerlink" href="#cond-branch-nonlocal-variables" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
@@ -4941,12 +4941,12 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="cond-closed-over-variable">
-<h3>cond_closed_over_variable<a class="headerlink" href="#cond-closed-over-variable" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="cond-closed-over-variable">
+<h3>cond_closed_over_variable<a class="headerlink" href="#cond-closed-over-variable" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="python.closure.html"><span class="doc">python.closure</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="python.closure.html"><span class="doc">python.closure</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -5010,9 +5010,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="cond-operands">
-<h3>cond_operands<a class="headerlink" href="#cond-operands" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="cond-operands">
+<h3>cond_operands<a class="headerlink" href="#cond-operands" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
@@ -5095,9 +5095,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{</span><span class="n">s6</span><span class="p">:</span> <span class="n">VR</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">int_oo</span><span class="p">]}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="cond-predicate">
-<h3>cond_predicate<a class="headerlink" href="#cond-predicate" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="cond-predicate">
+<h3>cond_predicate<a class="headerlink" href="#cond-predicate" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
@@ -5151,9 +5151,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="constrain-as-size-example">
-<h3>constrain_as_size_example<a class="headerlink" href="#constrain-as-size-example" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="constrain-as-size-example">
+<h3>constrain_as_size_example<a class="headerlink" href="#constrain-as-size-example" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.escape-hatch.html"><span class="doc">torch.escape-hatch</span></a>, <a class="reference internal" href="torch.dynamic-value.html"><span class="doc">torch.dynamic-value</span></a></p>
@@ -5211,9 +5211,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{</span><span class="n">u0</span><span class="p">:</span> <span class="n">VR</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">u1</span><span class="p">:</span> <span class="n">VR</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="constrain-as-value-example">
-<h3>constrain_as_value_example<a class="headerlink" href="#constrain-as-value-example" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="constrain-as-value-example">
+<h3>constrain_as_value_example<a class="headerlink" href="#constrain-as-value-example" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.escape-hatch.html"><span class="doc">torch.escape-hatch</span></a>, <a class="reference internal" href="torch.dynamic-value.html"><span class="doc">torch.dynamic-value</span></a></p>
@@ -5275,9 +5275,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{</span><span class="n">u0</span><span class="p">:</span> <span class="n">VR</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">u1</span><span class="p">:</span> <span class="n">VR</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="decorator">
-<h3>decorator<a class="headerlink" href="#decorator" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="decorator">
+<h3>decorator<a class="headerlink" href="#decorator" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags:</p>
@@ -5332,9 +5332,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="dictionary">
-<h3>dictionary<a class="headerlink" href="#dictionary" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="dictionary">
+<h3>dictionary<a class="headerlink" href="#dictionary" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a></p>
@@ -5383,9 +5383,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="dynamic-shape-assert">
-<h3>dynamic_shape_assert<a class="headerlink" href="#dynamic-shape-assert" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="dynamic-shape-assert">
+<h3>dynamic_shape_assert<a class="headerlink" href="#dynamic-shape-assert" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="python.assert.html"><span class="doc">python.assert</span></a></p>
@@ -5431,9 +5431,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="dynamic-shape-constructor">
-<h3>dynamic_shape_constructor<a class="headerlink" href="#dynamic-shape-constructor" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="dynamic-shape-constructor">
+<h3>dynamic_shape_constructor<a class="headerlink" href="#dynamic-shape-constructor" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
@@ -5477,9 +5477,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="dynamic-shape-if-guard">
-<h3>dynamic_shape_if_guard<a class="headerlink" href="#dynamic-shape-if-guard" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="dynamic-shape-if-guard">
+<h3>dynamic_shape_if_guard<a class="headerlink" href="#dynamic-shape-if-guard" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="python.control-flow.html"><span class="doc">python.control-flow</span></a></p>
@@ -5527,12 +5527,12 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="dynamic-shape-map">
-<h3>dynamic_shape_map<a class="headerlink" href="#dynamic-shape-map" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="dynamic-shape-map">
+<h3>dynamic_shape_map<a class="headerlink" href="#dynamic-shape-map" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.map.html"><span class="doc">torch.map</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.map.html"><span class="doc">torch.map</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -5585,9 +5585,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="dynamic-shape-slicing">
-<h3>dynamic_shape_slicing<a class="headerlink" href="#dynamic-shape-slicing" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="dynamic-shape-slicing">
+<h3>dynamic_shape_slicing<a class="headerlink" href="#dynamic-shape-slicing" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
@@ -5632,9 +5632,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="dynamic-shape-view">
-<h3>dynamic_shape_view<a class="headerlink" href="#dynamic-shape-view" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="dynamic-shape-view">
+<h3>dynamic_shape_view<a class="headerlink" href="#dynamic-shape-view" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
@@ -5682,9 +5682,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="fn-with-kwargs">
-<h3>fn_with_kwargs<a class="headerlink" href="#fn-with-kwargs" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="fn-with-kwargs">
+<h3>fn_with_kwargs<a class="headerlink" href="#fn-with-kwargs" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a></p>
@@ -5759,12 +5759,12 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="list-contains">
-<h3>list_contains<a class="headerlink" href="#list-contains" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="list-contains">
+<h3>list_contains<a class="headerlink" href="#list-contains" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a>, <a class="reference internal" href="python.assert.html"><span class="doc">python.assert</span></a></p>
+<p>Tags: <a class="reference internal" href="python.assert.html"><span class="doc">python.assert</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -5807,9 +5807,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="list-unpack">
-<h3>list_unpack<a class="headerlink" href="#list-unpack" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="list-unpack">
+<h3>list_unpack<a class="headerlink" href="#list-unpack" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="python.control-flow.html"><span class="doc">python.control-flow</span></a>, <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a></p>
@@ -5861,9 +5861,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="model-attr-mutation">
-<h3>model_attr_mutation<a class="headerlink" href="#model-attr-mutation" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="model-attr-mutation">
+<h3>model_attr_mutation<a class="headerlink" href="#model-attr-mutation" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="python.object-model.html"><span class="doc">python.object-model</span></a></p>
@@ -5921,9 +5921,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="nested-function">
-<h3>nested_function<a class="headerlink" href="#nested-function" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="nested-function">
+<h3>nested_function<a class="headerlink" href="#nested-function" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="python.closure.html"><span class="doc">python.closure</span></a></p>
@@ -5983,9 +5983,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="null-context-manager">
-<h3>null_context_manager<a class="headerlink" href="#null-context-manager" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="null-context-manager">
+<h3>null_context_manager<a class="headerlink" href="#null-context-manager" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="python.context-manager.html"><span class="doc">python.context-manager</span></a></p>
@@ -6037,9 +6037,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="optional-input">
-<h3>optional_input<a class="headerlink" href="#optional-input" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="optional-input">
+<h3>optional_input<a class="headerlink" href="#optional-input" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="python.object-model.html"><span class="doc">python.object-model</span></a></p>
@@ -6089,9 +6089,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="pytree-flatten">
-<h3>pytree_flatten<a class="headerlink" href="#pytree-flatten" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="pytree-flatten">
+<h3>pytree_flatten<a class="headerlink" href="#pytree-flatten" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags:</p>
@@ -6137,9 +6137,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="scalar-output">
-<h3>scalar_output<a class="headerlink" href="#scalar-output" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="scalar-output">
+<h3>scalar_output<a class="headerlink" href="#scalar-output" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
@@ -6194,9 +6194,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{</span><span class="n">s11</span><span class="p">:</span> <span class="n">VR</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">int_oo</span><span class="p">]}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="specialized-attribute">
-<h3>specialized_attribute<a class="headerlink" href="#specialized-attribute" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="specialized-attribute">
+<h3>specialized_attribute<a class="headerlink" href="#specialized-attribute" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags:</p>
@@ -6252,9 +6252,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="static-for-loop">
-<h3>static_for_loop<a class="headerlink" href="#static-for-loop" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="static-for-loop">
+<h3>static_for_loop<a class="headerlink" href="#static-for-loop" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="python.control-flow.html"><span class="doc">python.control-flow</span></a></p>
@@ -6317,9 +6317,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="static-if">
-<h3>static_if<a class="headerlink" href="#static-if" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="static-if">
+<h3>static_if<a class="headerlink" href="#static-if" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="python.control-flow.html"><span class="doc">python.control-flow</span></a></p>
@@ -6367,9 +6367,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="tensor-setattr">
-<h3>tensor_setattr<a class="headerlink" href="#tensor-setattr" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="tensor-setattr">
+<h3>tensor_setattr<a class="headerlink" href="#tensor-setattr" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="python.builtin.html"><span class="doc">python.builtin</span></a></p>
@@ -6416,9 +6416,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="type-reflection-method">
-<h3>type_reflection_method<a class="headerlink" href="#type-reflection-method" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="type-reflection-method">
+<h3>type_reflection_method<a class="headerlink" href="#type-reflection-method" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="python.builtin.html"><span class="doc">python.builtin</span></a></p>
@@ -6469,9 +6469,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="user-input-mutation">
-<h3>user_input_mutation<a class="headerlink" href="#user-input-mutation" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="user-input-mutation">
+<h3>user_input_mutation<a class="headerlink" href="#user-input-mutation" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.mutation.html"><span class="doc">torch.mutation</span></a></p>
@@ -6519,15 +6519,15 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="not-supported-yet">
-<h2>Not Supported Yet<a class="headerlink" href="#not-supported-yet" title="Permalink to this heading">#</a></h2>
-<div class="section" id="dynamic-shape-round">
-<h3>dynamic_shape_round<a class="headerlink" href="#dynamic-shape-round" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="not-supported-yet">
+<h2>Not Supported Yet<a class="headerlink" href="#not-supported-yet" title="Link to this heading">#</a></h2>
+<section id="dynamic-shape-round">
+<h3>dynamic_shape_round<a class="headerlink" href="#dynamic-shape-round" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="python.builtin.html"><span class="doc">python.builtin</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="python.builtin.html"><span class="doc">python.builtin</span></a></p>
 <p>Support Level: NOT_SUPPORTED_YET</p>
 </div>
 <p>Original source code:</p>
@@ -6561,9 +6561,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Unsupported: Constraints violated (dim0_x)! For more information, run with TORCH_LOGS=&quot;+dynamic&quot;.
 </pre></div>
 </div>
-</div>
-<div class="section" id="unsupported-operator">
-<h3>unsupported_operator<a class="headerlink" href="#unsupported-operator" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="unsupported-operator">
+<h3>unsupported_operator<a class="headerlink" href="#unsupported-operator" title="Link to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags: <a class="reference internal" href="torch.operator.html"><span class="doc">torch.operator</span></a></p>
@@ -6597,9 +6597,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Unsupported</span><span class="p">:</span> <span class="n">torch</span><span class="o">.*</span> <span class="n">op</span> <span class="n">returned</span> <span class="n">non</span><span class="o">-</span><span class="n">Tensor</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
                 </article>
@@ -6665,11 +6665,6 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -6818,7 +6813,9 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
   <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -6842,10 +6839,13 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -6868,7 +6868,6 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -6918,10 +6917,10 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -6962,7 +6961,7 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -6991,13 +6990,13 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
        "headline": "ExportDB",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/exportdb/index.html",
-       "articleBody": "ExportDB# ExportDB is a centralized dataset of supported and unsupported export cases. It is targeted towards users who want to understand specifically what types of code are supported, the subtleties of export, and how to modify their existing code to be compatible with export. Note that this is not an exhaustive set of everything that is supported by exportdb, but it covers the most common and confusing use cases that users will run into. If you have a feature that you think needs a stronger guarantee from us to support in export please create an issue in the pytorch/pytorch repo with a module:export tag. Tags torch.escape-hatch torch.dynamic-shape torch.cond python.closure torch.dynamic-value python.data-structure python.assert python.control-flow torch.map python.builtin python.object-model python.context-manager torch.operator torch.mutation Supported# assume_constant_result# Note Tags: torch.escape-hatch Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch import torch._dynamo as torchdynamo class AssumeConstantResult(torch.nn.Module): \"\"\" Applying `assume_constant_result` decorator to burn make non-tracable code as constant. \"\"\" @torchdynamo.assume_constant_result def get_item(self, y): return y.int().item() def forward(self, x, y): return x[: self.get_item(y)] example_args = (torch.randn(3, 2), torch.tensor(4)) tags = {\"torch.escape-hatch\"} model = AssumeConstantResult() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\", y: \"i64[]\"): slice_1: \"f32[3, 2]\" = torch.ops.aten.slice.Tensor(x, 0, 0, 4); x = None return (slice_1,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs slice_1: USER_OUTPUT Range constraints: {} autograd_function# Note Tags: Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class MyAutogradFunction(torch.autograd.Function): @staticmethod # pyrefly: ignore [bad-override] def forward(ctx, x): return x.clone() @staticmethod # pyrefly: ignore [bad-override] def backward(ctx, grad_output): return grad_output + 1 class AutogradFunction(torch.nn.Module): \"\"\" TorchDynamo does not keep track of backward() on autograd functions. We recommend to use `allow_in_graph` to mitigate this problem. \"\"\" def forward(self, x): return MyAutogradFunction.apply(x) example_args = (torch.randn(3, 2),) model = AutogradFunction() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): clone: \"f32[3, 2]\" = torch.ops.aten.clone.default(x); x = None return (clone,) Graph signature: # inputs x: USER_INPUT # outputs clone: USER_OUTPUT Range constraints: {} class_method# Note Tags: Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ClassMethod(torch.nn.Module): \"\"\" Class methods are inlined during tracing. \"\"\" @classmethod def method(cls, x): return x + 1 def __init__(self) -\u003e None: super().__init__() self.linear = torch.nn.Linear(4, 2) def forward(self, x): x = self.linear(x) return self.method(x) * self.__class__.method(x) * type(self).method(x) example_args = (torch.randn(3, 4),) model = ClassMethod() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, p_linear_weight: \"f32[2, 4]\", p_linear_bias: \"f32[2]\", x: \"f32[3, 4]\"): linear: \"f32[3, 2]\" = torch.ops.aten.linear.default(x, p_linear_weight, p_linear_bias); x = p_linear_weight = p_linear_bias = None add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(linear, 1) add_1: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(linear, 1) mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(add, add_1); add = add_1 = None add_2: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(linear, 1); linear = None mul_1: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(mul, add_2); mul = add_2 = None return (mul_1,) Graph signature: # inputs p_linear_weight: PARAMETER target=\u0027linear.weight\u0027 p_linear_bias: PARAMETER target=\u0027linear.bias\u0027 x: USER_INPUT # outputs mul_1: USER_OUTPUT Range constraints: {} cond_branch_class_method# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class MySubModule(torch.nn.Module): def foo(self, x): return x.cos() def forward(self, x): return self.foo(x) class CondBranchClassMethod(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates using class method in cond(). NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def __init__(self) -\u003e None: super().__init__() self.subm = MySubModule() def bar(self, x): return x.sin() def forward(self, x): return cond(x.shape[0] \u003c= 2, self.subm.forward, self.bar, [x]) example_args = (torch.randn(3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchClassMethod() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3]\"): sin: \"f32[3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs sin: USER_OUTPUT Range constraints: {} cond_branch_nested_function# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondBranchNestedFunction(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates using nested function in cond(). NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): def true_fn(x): def inner_true_fn(y): return x + y return inner_true_fn(x) def false_fn(x): def inner_false_fn(y): return x - y return inner_false_fn(x) return cond(x.shape[0] \u003c 10, true_fn, false_fn, [x]) example_args = (torch.randn(3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchNestedFunction() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3]\"): add: \"f32[3]\" = torch.ops.aten.add.Tensor(x, x); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} cond_branch_nonlocal_variables# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondBranchNonlocalVariables(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates how to rewrite code to avoid capturing closure variables in branch functions. The code below will not work because capturing closure variables is not supported. ``` my_tensor_var = x + 100 my_primitive_var = 3.14 def true_fn(y): nonlocal my_tensor_var, my_primitive_var return y + my_tensor_var + my_primitive_var def false_fn(y): nonlocal my_tensor_var, my_primitive_var return y - my_tensor_var - my_primitive_var return cond(x.shape[0] \u003e 5, true_fn, false_fn, [x]) ``` NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): my_tensor_var = x + 100 my_primitive_var = 3.14 def true_fn(x, y, z): return x + y + z def false_fn(x, y, z): return x - y - z return cond( x.shape[0] \u003e 5, true_fn, false_fn, [x, my_tensor_var, torch.tensor(my_primitive_var)], ) example_args = (torch.randn(6),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchNonlocalVariables() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, c_lifted_tensor_0: \"f32[]\", x: \"f32[6]\"): add: \"f32[6]\" = torch.ops.aten.add.Tensor(x, 100) lift_fresh_copy: \"f32[]\" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0); c_lifted_tensor_0 = None detach_: \"f32[]\" = torch.ops.aten.detach_.default(lift_fresh_copy); lift_fresh_copy = None add_1: \"f32[6]\" = torch.ops.aten.add.Tensor(x, add); x = add = None add_2: \"f32[6]\" = torch.ops.aten.add.Tensor(add_1, detach_); add_1 = detach_ = None return (add_2,) Graph signature: # inputs c_lifted_tensor_0: CONSTANT_TENSOR target=\u0027lifted_tensor_0\u0027 x: USER_INPUT # outputs add_2: USER_OUTPUT Range constraints: {} cond_closed_over_variable# Note Tags: python.closure, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondClosedOverVariable(torch.nn.Module): \"\"\" torch.cond() supports branches closed over arbitrary variables. \"\"\" def forward(self, pred, x): def true_fn(val): return x * 2 def false_fn(val): return x - 2 return cond(pred, true_fn, false_fn, [x + 1]) example_args = (torch.tensor(True), torch.randn(3, 2)) tags = {\"torch.cond\", \"python.closure\"} model = CondClosedOverVariable() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, pred: \"b8[]\", x: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 1); add = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, (x,)); pred = true_graph_0 = false_graph_0 = x = None getitem: \"f32[3, 2]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(x, 2); x = None return (mul,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): sub: \"f32[3, 2]\" = torch.ops.aten.sub.Tensor(x, 2); x = None return (sub,) Graph signature: # inputs pred: USER_INPUT x: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {} cond_operands# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch.export import Dim x = torch.randn(3, 2) y = torch.randn(2) dim0_x = Dim(\"dim0_x\") class CondOperands(torch.nn.Module): \"\"\" The operands passed to cond() must be: - a list of tensors - match arguments of `true_fn` and `false_fn` NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x, y): def true_fn(x, y): return x + y def false_fn(x, y): return x - y return torch.cond(x.shape[0] \u003e 2, true_fn, false_fn, [x, y]) example_args = (x, y) tags = { \"torch.cond\", \"torch.dynamic-shape\", } extra_inputs = (torch.randn(2, 2), torch.randn(2)) dynamic_shapes = {\"x\": {0: dim0_x}, \"y\": None} model = CondOperands() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): # No stacktrace found for following nodes sym_size_int_1: \"Sym(s6)\" = torch.ops.aten.sym_size.int(x, 0) gt: \"Sym(s6 \u003e 2)\" = sym_size_int_1 \u003e 2; sym_size_int_1 = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x, y)); gt = true_graph_0 = false_graph_0 = x = y = None getitem: \"f32[s6, 2]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): add: \"f32[s6, 2]\" = torch.ops.aten.add.Tensor(x, y); x = y = None return (add,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): sub: \"f32[s6, 2]\" = torch.ops.aten.sub.Tensor(x, y); x = y = None return (sub,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {s6: VR[0, int_oo]} cond_predicate# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondPredicate(torch.nn.Module): \"\"\" The conditional statement (aka predicate) passed to cond() must be one of the following: - torch.Tensor with a single element - boolean expression NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): pred = x.dim() \u003e 2 and x.shape[2] \u003e 10 return cond(pred, lambda x: x.cos(), lambda y: y.sin(), [x]) example_args = (torch.randn(6, 4, 3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondPredicate() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[6, 4, 3]\"): sin: \"f32[6, 4, 3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs sin: USER_OUTPUT Range constraints: {} constrain_as_size_example# Note Tags: torch.escape-hatch, torch.dynamic-value Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ConstrainAsSizeExample(torch.nn.Module): \"\"\" If the value is not known at tracing time, you can provide hint so that we can trace further. Please look at torch._check APIs. \"\"\" def forward(self, x): a = x.item() torch._check(a \u003e= 0) torch._check(a \u003c= 5) return torch.zeros((a, 5)) example_args = (torch.tensor(4),) tags = { \"torch.dynamic-value\", \"torch.escape-hatch\", } model = ConstrainAsSizeExample() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"i64[]\"): item: \"Sym(u0)\" = torch.ops.aten.item.default(x); x = None ge_1: \"Sym(u0 \u003e= 0)\" = item \u003e= 0 _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_1, \"Runtime assertion failed for expression u0 \u003e= 0 on node \u0027ge_1\u0027\"); ge_1 = _assert_scalar_default = None le_1: \"Sym(u0 \u003c= 5)\" = item \u003c= 5 _assert_scalar_default_1 = torch.ops.aten._assert_scalar.default(le_1, \"Runtime assertion failed for expression u0 \u003c= 5 on node \u0027le_1\u0027\"); le_1 = _assert_scalar_default_1 = None zeros: \"f32[u0, 5]\" = torch.ops.aten.zeros.default([item, 5], device = device(type=\u0027cpu\u0027), pin_memory = False); item = None return (zeros,) Graph signature: # inputs x: USER_INPUT # outputs zeros: USER_OUTPUT Range constraints: {u0: VR[0, 5], u1: VR[0, 5]} constrain_as_value_example# Note Tags: torch.escape-hatch, torch.dynamic-value Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ConstrainAsValueExample(torch.nn.Module): \"\"\" If the value is not known at tracing time, you can provide hint so that we can trace further. Please look at torch._check API. \"\"\" def forward(self, x, y): a = x.item() torch._check(a \u003e= 0) torch._check(a \u003c= 5) if a \u003c 6: return y.sin() return y.cos() example_args = (torch.tensor(4), torch.randn(5, 5)) tags = { \"torch.dynamic-value\", \"torch.escape-hatch\", } model = ConstrainAsValueExample() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"i64[]\", y: \"f32[5, 5]\"): item: \"Sym(u0)\" = torch.ops.aten.item.default(x); x = None ge_1: \"Sym(u0 \u003e= 0)\" = item \u003e= 0 _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_1, \"Runtime assertion failed for expression u0 \u003e= 0 on node \u0027ge_1\u0027\"); ge_1 = _assert_scalar_default = None le_1: \"Sym(u0 \u003c= 5)\" = item \u003c= 5; item = None _assert_scalar_default_1 = torch.ops.aten._assert_scalar.default(le_1, \"Runtime assertion failed for expression u0 \u003c= 5 on node \u0027le_1\u0027\"); le_1 = _assert_scalar_default_1 = None sin: \"f32[5, 5]\" = torch.ops.aten.sin.default(y); y = None return (sin,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs sin: USER_OUTPUT Range constraints: {u0: VR[0, 5], u1: VR[0, 5]} decorator# Note Tags: Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import functools import torch def test_decorator(func): @functools.wraps(func) def wrapper(*args, **kwargs): return func(*args, **kwargs) + 1 return wrapper class Decorator(torch.nn.Module): \"\"\" Decorators calls are inlined into the exported function during tracing. \"\"\" @test_decorator def forward(self, x, y): return x + y example_args = (torch.randn(3, 2), torch.randn(3, 2)) model = Decorator() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\", y: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, y); x = y = None add_1: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(add, 1); add = None return (add_1,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs add_1: USER_OUTPUT Range constraints: {} dictionary# Note Tags: python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class Dictionary(torch.nn.Module): \"\"\" Dictionary structures are inlined and flattened along tracing. \"\"\" def forward(self, x, y): elements = {} elements[\"x2\"] = x * x y = y * elements[\"x2\"] return {\"y\": y} example_args = (torch.randn(3, 2), torch.tensor(4)) tags = {\"python.data-structure\"} model = Dictionary() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\", y: \"i64[]\"): mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(x, x); x = None mul_1: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(y, mul); y = mul = None return (mul_1,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs mul_1: USER_OUTPUT Range constraints: {} dynamic_shape_assert# Note Tags: python.assert Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeAssert(torch.nn.Module): \"\"\" A basic usage of python assertion. \"\"\" def forward(self, x): # assertion with error message assert x.shape[0] \u003e 2, f\"{x.shape[0]} is greater than 2\" # assertion without error message assert x.shape[0] \u003e 1 return x example_args = (torch.randn(3, 2),) tags = {\"python.assert\"} model = DynamicShapeAssert() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): return (x,) Graph signature: # inputs x: USER_INPUT # outputs x: USER_OUTPUT Range constraints: {} dynamic_shape_constructor# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeConstructor(torch.nn.Module): \"\"\" Tensor constructors should be captured with dynamic shape inputs rather than being baked in with static shape. \"\"\" def forward(self, x): return torch.zeros(x.shape[0] * 2) example_args = (torch.randn(3, 2),) tags = {\"torch.dynamic-shape\"} model = DynamicShapeConstructor() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): zeros: \"f32[6]\" = torch.ops.aten.zeros.default([6], device = device(type=\u0027cpu\u0027), pin_memory = False) return (zeros,) Graph signature: # inputs x: USER_INPUT # outputs zeros: USER_OUTPUT Range constraints: {} dynamic_shape_if_guard# Note Tags: torch.dynamic-shape, python.control-flow Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeIfGuard(torch.nn.Module): \"\"\" `if` statement with backed dynamic shape predicate will be specialized into one particular branch and generate a guard. However, export will fail if the the dimension is marked as dynamic shape from higher level API. \"\"\" def forward(self, x): if x.shape[0] == 3: return x.cos() return x.sin() example_args = (torch.randn(3, 2, 2),) tags = {\"torch.dynamic-shape\", \"python.control-flow\"} model = DynamicShapeIfGuard() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2, 2]\"): cos: \"f32[3, 2, 2]\" = torch.ops.aten.cos.default(x); x = None return (cos,) Graph signature: # inputs x: USER_INPUT # outputs cos: USER_OUTPUT Range constraints: {} dynamic_shape_map# Note Tags: torch.dynamic-shape, torch.map Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import map class DynamicShapeMap(torch.nn.Module): \"\"\" functorch map() maps a function over the first tensor dimension. \"\"\" def forward(self, xs, y): def body(x, y): return x + y return map(body, xs, y) example_args = (torch.randn(3, 2), torch.randn(2)) tags = {\"torch.dynamic-shape\", \"torch.map\"} model = DynamicShapeMap() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, xs: \"f32[3, 2]\", y: \"f32[2]\"): body_graph_0 = self.body_graph_0 map_impl = torch.ops.higher_order.map_impl(body_graph_0, [xs], [y]); body_graph_0 = xs = y = None getitem: \"f32[3, 2]\" = map_impl[0]; map_impl = None return (getitem,) class body_graph_0(torch.nn.Module): def forward(self, xs: \"f32[2]\", y: \"f32[2]\"): add: \"f32[2]\" = torch.ops.aten.add.Tensor(xs, y); xs = y = None return (add,) Graph signature: # inputs xs: USER_INPUT y: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {} dynamic_shape_slicing# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeSlicing(torch.nn.Module): \"\"\" Slices with dynamic shape arguments should be captured into the graph rather than being baked in. \"\"\" def forward(self, x): return x[: x.shape[0] - 2, x.shape[1] - 1 :: 2] example_args = (torch.randn(3, 2),) tags = {\"torch.dynamic-shape\"} model = DynamicShapeSlicing() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): slice_1: \"f32[1, 2]\" = torch.ops.aten.slice.Tensor(x, 0, 0, 1); x = None slice_2: \"f32[1, 1]\" = torch.ops.aten.slice.Tensor(slice_1, 1, 1, 9223372036854775807, 2); slice_1 = None return (slice_2,) Graph signature: # inputs x: USER_INPUT # outputs slice_2: USER_OUTPUT Range constraints: {} dynamic_shape_view# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeView(torch.nn.Module): \"\"\" Dynamic shapes should be propagated to view arguments instead of being baked into the exported graph. \"\"\" def forward(self, x): new_x_shape = x.size()[:-1] + (2, 5) x = x.view(*new_x_shape) return x.permute(0, 2, 1) example_args = (torch.randn(10, 10),) tags = {\"torch.dynamic-shape\"} model = DynamicShapeView() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[10, 10]\"): view: \"f32[10, 2, 5]\" = torch.ops.aten.view.default(x, [10, 2, 5]); x = None permute: \"f32[10, 5, 2]\" = torch.ops.aten.permute.default(view, [0, 2, 1]); view = None return (permute,) Graph signature: # inputs x: USER_INPUT # outputs permute: USER_OUTPUT Range constraints: {} fn_with_kwargs# Note Tags: python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class FnWithKwargs(torch.nn.Module): \"\"\" Keyword arguments are not supported at the moment. \"\"\" def forward(self, pos0, tuple0, *myargs, mykw0, **mykwargs): out = pos0 for arg in tuple0: out = out * arg for arg in myargs: out = out * arg out = out * mykw0 out = out * mykwargs[\"input0\"] * mykwargs[\"input1\"] return out example_args = ( torch.randn(4), (torch.randn(4), torch.randn(4)), *[torch.randn(4), torch.randn(4)] ) example_kwargs = { \"mykw0\": torch.randn(4), \"input0\": torch.randn(4), \"input1\": torch.randn(4), } tags = {\"python.data-structure\"} model = FnWithKwargs() torch.export.export(model, example_args, example_kwargs) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, pos0: \"f32[4]\", tuple0_0: \"f32[4]\", tuple0_1: \"f32[4]\", myargs_0: \"f32[4]\", myargs_1: \"f32[4]\", mykw0: \"f32[4]\", input0: \"f32[4]\", input1: \"f32[4]\"): mul: \"f32[4]\" = torch.ops.aten.mul.Tensor(pos0, tuple0_0); pos0 = tuple0_0 = None mul_1: \"f32[4]\" = torch.ops.aten.mul.Tensor(mul, tuple0_1); mul = tuple0_1 = None mul_2: \"f32[4]\" = torch.ops.aten.mul.Tensor(mul_1, myargs_0); mul_1 = myargs_0 = None mul_3: \"f32[4]\" = torch.ops.aten.mul.Tensor(mul_2, myargs_1); mul_2 = myargs_1 = None mul_4: \"f32[4]\" = torch.ops.aten.mul.Tensor(mul_3, mykw0); mul_3 = mykw0 = None mul_5: \"f32[4]\" = torch.ops.aten.mul.Tensor(mul_4, input0); mul_4 = input0 = None mul_6: \"f32[4]\" = torch.ops.aten.mul.Tensor(mul_5, input1); mul_5 = input1 = None return (mul_6,) Graph signature: # inputs pos0: USER_INPUT tuple0_0: USER_INPUT tuple0_1: USER_INPUT myargs_0: USER_INPUT myargs_1: USER_INPUT mykw0: USER_INPUT input0: USER_INPUT input1: USER_INPUT # outputs mul_6: USER_OUTPUT Range constraints: {} list_contains# Note Tags: torch.dynamic-shape, python.data-structure, python.assert Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ListContains(torch.nn.Module): \"\"\" List containment relation can be checked on a dynamic shape or constants. \"\"\" def forward(self, x): assert x.size(-1) in [6, 2] assert x.size(0) not in [4, 5, 6] assert \"monkey\" not in [\"cow\", \"pig\"] return x + x example_args = (torch.randn(3, 2),) tags = {\"torch.dynamic-shape\", \"python.data-structure\", \"python.assert\"} model = ListContains() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, x); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} list_unpack# Note Tags: python.control-flow, python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ListUnpack(torch.nn.Module): \"\"\" Lists are treated as static construct, therefore unpacking should be erased after tracing. \"\"\" def forward(self, args: list[torch.Tensor]): \"\"\" Lists are treated as static construct, therefore unpacking should be erased after tracing. \"\"\" x, *y = args return x + y[0] example_args = ([torch.randn(3, 2), torch.tensor(4), torch.tensor(5)],) tags = {\"python.control-flow\", \"python.data-structure\"} model = ListUnpack() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, args_0: \"f32[3, 2]\", args_1: \"i64[]\", args_2: \"i64[]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(args_0, args_1); args_0 = args_1 = None return (add,) Graph signature: # inputs args_0: USER_INPUT args_1: USER_INPUT args_2: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} model_attr_mutation# Note Tags: python.object-model Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ModelAttrMutation(torch.nn.Module): \"\"\" Attribute mutation raises a warning. Covered in the test_export.py test_detect_leak_strict test. \"\"\" def __init__(self) -\u003e None: super().__init__() self.attr_list = [torch.randn(3, 2), torch.randn(3, 2)] def recreate_list(self): return [torch.zeros(3, 2), torch.zeros(3, 2)] def forward(self, x): self.attr_list = self.recreate_list() return x.sum() + self.attr_list[0].sum() example_args = (torch.randn(3, 2),) tags = {\"python.object-model\"} model = ModelAttrMutation() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): zeros: \"f32[3, 2]\" = torch.ops.aten.zeros.default([3, 2], device = device(type=\u0027cpu\u0027), pin_memory = False) zeros_1: \"f32[3, 2]\" = torch.ops.aten.zeros.default([3, 2], device = device(type=\u0027cpu\u0027), pin_memory = False); zeros_1 = None sum_1: \"f32[]\" = torch.ops.aten.sum.default(x); x = None sum_2: \"f32[]\" = torch.ops.aten.sum.default(zeros); zeros = None add: \"f32[]\" = torch.ops.aten.add.Tensor(sum_1, sum_2); sum_1 = sum_2 = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} nested_function# Note Tags: python.closure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class NestedFunction(torch.nn.Module): \"\"\" Nested functions are traced through. Side effects on global captures are not supported though. \"\"\" def forward(self, a, b): x = a + b z = a - b def closure(y): nonlocal x x += 1 return x * y + z return closure(x) example_args = (torch.randn(3, 2), torch.randn(2)) tags = {\"python.closure\"} model = NestedFunction() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, a: \"f32[3, 2]\", b: \"f32[2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(a, b) sub: \"f32[3, 2]\" = torch.ops.aten.sub.Tensor(a, b); a = b = None add_: \"f32[3, 2]\" = torch.ops.aten.add_.Tensor(add, 1); add = None mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(add_, add_); add_ = None add_1: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(mul, sub); mul = sub = None return (add_1,) Graph signature: # inputs a: USER_INPUT b: USER_INPUT # outputs add_1: USER_OUTPUT Range constraints: {} null_context_manager# Note Tags: python.context-manager Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import contextlib import torch class NullContextManager(torch.nn.Module): \"\"\" Null context manager in Python will be traced out. \"\"\" def forward(self, x): \"\"\" Null context manager in Python will be traced out. \"\"\" ctx = contextlib.nullcontext() with ctx: return x.sin() + x.cos() example_args = (torch.randn(3, 2),) tags = {\"python.context-manager\"} model = NullContextManager() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): sin: \"f32[3, 2]\" = torch.ops.aten.sin.default(x) cos: \"f32[3, 2]\" = torch.ops.aten.cos.default(x); x = None add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(sin, cos); sin = cos = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} optional_input# Note Tags: python.object-model Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch._export.db.case import SupportLevel class OptionalInput(torch.nn.Module): \"\"\" Tracing through optional input is not supported yet \"\"\" def forward(self, x, y=torch.randn(2, 3)): if y is not None: return x + y return x example_args = (torch.randn(2, 3),) tags = {\"python.object-model\"} support_level = SupportLevel.SUPPORTED model = OptionalInput() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, c_dict_type_l__self______dict_____forward_____defaults___0: \"f32[2, 3]\", x: \"f32[2, 3]\"): add: \"f32[2, 3]\" = torch.ops.aten.add.Tensor(x, c_dict_type_l__self______dict_____forward_____defaults___0); x = c_dict_type_l__self______dict_____forward_____defaults___0 = None return (add,) Graph signature: # inputs c_dict_type_l__self______dict_____forward_____defaults___0: CONSTANT_TENSOR target=\u0027dict_type_L__self______dict_____forward_____defaults___0\u0027 persistent=True x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} pytree_flatten# Note Tags: Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch.utils import _pytree as pytree class PytreeFlatten(torch.nn.Module): \"\"\" Pytree from PyTorch can be captured by TorchDynamo. \"\"\" def forward(self, x): y, _spec = pytree.tree_flatten(x) return y[0] + 1 example_args = ({1: torch.randn(3, 2), 2: torch.randn(3, 2)},), model = PytreeFlatten() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x_0_1: \"f32[3, 2]\", x_0_2: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x_0_1, 1); x_0_1 = None return (add,) Graph signature: # inputs x_0_1: USER_INPUT x_0_2: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} scalar_output# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch.export import Dim x = torch.randn(3, 2) dim1_x = Dim(\"dim1_x\") class ScalarOutput(torch.nn.Module): \"\"\" Returning scalar values from the graph is supported, in addition to Tensor outputs. Symbolic shapes are captured and rank is specialized. \"\"\" def __init__(self) -\u003e None: super().__init__() def forward(self, x): return x.shape[1] + 1 example_args = (x,) tags = {\"torch.dynamic-shape\"} dynamic_shapes = {\"x\": {1: dim1_x}} model = ScalarOutput() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, s11]\"): # No stacktrace found for following nodes sym_size_int_1: \"Sym(s11)\" = torch.ops.aten.sym_size.int(x, 1); x = None add: \"Sym(s11 + 1)\" = sym_size_int_1 + 1; sym_size_int_1 = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {s11: VR[0, int_oo]} specialized_attribute# Note Tags: Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs from enum import Enum import torch class Animal(Enum): COW = \"moo\" class SpecializedAttribute(torch.nn.Module): \"\"\" Model attributes are specialized. \"\"\" def __init__(self) -\u003e None: super().__init__() self.a = \"moo\" self.b = 4 def forward(self, x): if self.a == Animal.COW.value: return x * x + self.b else: raise ValueError(\"bad\") example_args = (torch.randn(3, 2),) model = SpecializedAttribute() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(x, x); x = None add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(mul, 4); mul = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} static_for_loop# Note Tags: python.control-flow Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class StaticForLoop(torch.nn.Module): \"\"\" A for loop with constant number of iterations should be unrolled in the exported graph. \"\"\" def forward(self, x): # constant ret = [i + x for i in range(10)] return ret example_args = (torch.randn(3, 2),) tags = {\"python.control-flow\"} model = StaticForLoop() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 0) add_1: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 1) add_2: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 2) add_3: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 3) add_4: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 4) add_5: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 5) add_6: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 6) add_7: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 7) add_8: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 8) add_9: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 9); x = None return (add, add_1, add_2, add_3, add_4, add_5, add_6, add_7, add_8, add_9) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT add_1: USER_OUTPUT add_2: USER_OUTPUT add_3: USER_OUTPUT add_4: USER_OUTPUT add_5: USER_OUTPUT add_6: USER_OUTPUT add_7: USER_OUTPUT add_8: USER_OUTPUT add_9: USER_OUTPUT Range constraints: {} static_if# Note Tags: python.control-flow Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class StaticIf(torch.nn.Module): \"\"\" `if` statement with static predicate value should be traced through with the taken branch. \"\"\" def forward(self, x): if len(x.shape) == 3: return x + torch.ones(1, 1, 1) return x example_args = (torch.randn(3, 2, 2),) tags = {\"python.control-flow\"} model = StaticIf() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2, 2]\"): ones: \"f32[1, 1, 1]\" = torch.ops.aten.ones.default([1, 1, 1], device = device(type=\u0027cpu\u0027), pin_memory = False) add: \"f32[3, 2, 2]\" = torch.ops.aten.add.Tensor(x, ones); x = ones = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} tensor_setattr# Note Tags: python.builtin Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class TensorSetattr(torch.nn.Module): \"\"\" setattr() call onto tensors is not supported. \"\"\" def forward(self, x, attr): setattr(x, attr, torch.randn(3, 2)) return x + 4 example_args = (torch.randn(3, 2), \"attr\") tags = {\"python.builtin\"} model = TensorSetattr() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\", attr): randn: \"f32[3, 2]\" = torch.ops.aten.randn.default([3, 2], device = device(type=\u0027cpu\u0027), pin_memory = False); randn = None add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 4); x = None return (add,) Graph signature: # inputs x: USER_INPUT attr: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} type_reflection_method# Note Tags: python.builtin Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class A: @classmethod def func(cls, x): return 1 + x class TypeReflectionMethod(torch.nn.Module): \"\"\" type() calls on custom objects followed by attribute accesses are not allowed due to its overly dynamic nature. \"\"\" def forward(self, x): a = A() return type(a).func(x) example_args = (torch.randn(3, 4),) tags = {\"python.builtin\"} model = TypeReflectionMethod() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 4]\"): add: \"f32[3, 4]\" = torch.ops.aten.add.Tensor(x, 1); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} user_input_mutation# Note Tags: torch.mutation Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class UserInputMutation(torch.nn.Module): \"\"\" Directly mutate user input in forward \"\"\" def forward(self, x): x.mul_(2) return x.cos() example_args = (torch.randn(3, 2),) tags = {\"torch.mutation\"} model = UserInputMutation() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): mul_: \"f32[3, 2]\" = torch.ops.aten.mul_.Tensor(x, 2); x = None cos: \"f32[3, 2]\" = torch.ops.aten.cos.default(mul_); mul_ = None return (cos,) Graph signature: # inputs x: USER_INPUT # outputs cos: USER_OUTPUT Range constraints: {} Not Supported Yet# dynamic_shape_round# Note Tags: python.builtin, torch.dynamic-shape Support Level: NOT_SUPPORTED_YET Original source code: # mypy: allow-untyped-defs import torch from torch._export.db.case import SupportLevel from torch.export import Dim class DynamicShapeRound(torch.nn.Module): \"\"\" Calling round on dynamic shapes is not supported. \"\"\" def forward(self, x): return x[: round(x.shape[0] / 2)] x = torch.randn(3, 2) dim0_x = Dim(\"dim0_x\") example_args = (x,) tags = {\"torch.dynamic-shape\", \"python.builtin\"} support_level = SupportLevel.NOT_SUPPORTED_YET dynamic_shapes = {\"x\": {0: dim0_x}} model = DynamicShapeRound() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: Unsupported: Constraints violated (dim0_x)! For more information, run with TORCH_LOGS=\"+dynamic\". unsupported_operator# Note Tags: torch.operator Support Level: NOT_SUPPORTED_YET Original source code: # mypy: allow-untyped-defs import torch from torch._export.db.case import SupportLevel class TorchSymMin(torch.nn.Module): \"\"\" torch.sym_min operator is not supported in export. \"\"\" def forward(self, x): return x.sum() + torch.sym_min(x.size(0), 100) example_args = (torch.randn(3, 2),) tags = {\"torch.operator\"} support_level = SupportLevel.NOT_SUPPORTED_YET model = TorchSymMin() torch.export.export(model, example_args) Result: Unsupported: torch.* op returned non-Tensor",
+       "articleBody": "ExportDB# ExportDB is a centralized dataset of supported and unsupported export cases. It is targeted towards users who want to understand specifically what types of code are supported, the subtleties of export, and how to modify their existing code to be compatible with export. Note that this is not an exhaustive set of everything that is supported by exportdb, but it covers the most common and confusing use cases that users will run into. If you have a feature that you think needs a stronger guarantee from us to support in export please create an issue in the pytorch/pytorch repo with a module:export tag. Tags torch.escape-hatch torch.dynamic-shape torch.cond python.closure torch.dynamic-value python.data-structure python.assert python.control-flow torch.map python.builtin python.object-model python.context-manager torch.operator torch.mutation Supported# assume_constant_result# Note Tags: torch.escape-hatch Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch import torch._dynamo as torchdynamo class AssumeConstantResult(torch.nn.Module): \"\"\" Applying `assume_constant_result` decorator to burn make non-tracable code as constant. \"\"\" @torchdynamo.assume_constant_result def get_item(self, y): return y.int().item() def forward(self, x, y): return x[: self.get_item(y)] example_args = (torch.randn(3, 2), torch.tensor(4)) tags = {\"torch.escape-hatch\"} model = AssumeConstantResult() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\", y: \"i64[]\"): slice_1: \"f32[3, 2]\" = torch.ops.aten.slice.Tensor(x, 0, 0, 4); x = None return (slice_1,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs slice_1: USER_OUTPUT Range constraints: {} autograd_function# Note Tags: Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class MyAutogradFunction(torch.autograd.Function): @staticmethod # pyrefly: ignore [bad-override] def forward(ctx, x): return x.clone() @staticmethod # pyrefly: ignore [bad-override] def backward(ctx, grad_output): return grad_output + 1 class AutogradFunction(torch.nn.Module): \"\"\" TorchDynamo does not keep track of backward() on autograd functions. We recommend to use `allow_in_graph` to mitigate this problem. \"\"\" def forward(self, x): return MyAutogradFunction.apply(x) example_args = (torch.randn(3, 2),) model = AutogradFunction() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): clone: \"f32[3, 2]\" = torch.ops.aten.clone.default(x); x = None return (clone,) Graph signature: # inputs x: USER_INPUT # outputs clone: USER_OUTPUT Range constraints: {} class_method# Note Tags: Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ClassMethod(torch.nn.Module): \"\"\" Class methods are inlined during tracing. \"\"\" @classmethod def method(cls, x): return x + 1 def __init__(self) -\u003e None: super().__init__() self.linear = torch.nn.Linear(4, 2) def forward(self, x): x = self.linear(x) return self.method(x) * self.__class__.method(x) * type(self).method(x) example_args = (torch.randn(3, 4),) model = ClassMethod() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, p_linear_weight: \"f32[2, 4]\", p_linear_bias: \"f32[2]\", x: \"f32[3, 4]\"): linear: \"f32[3, 2]\" = torch.ops.aten.linear.default(x, p_linear_weight, p_linear_bias); x = p_linear_weight = p_linear_bias = None add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(linear, 1) add_1: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(linear, 1) mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(add, add_1); add = add_1 = None add_2: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(linear, 1); linear = None mul_1: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(mul, add_2); mul = add_2 = None return (mul_1,) Graph signature: # inputs p_linear_weight: PARAMETER target=\u0027linear.weight\u0027 p_linear_bias: PARAMETER target=\u0027linear.bias\u0027 x: USER_INPUT # outputs mul_1: USER_OUTPUT Range constraints: {} cond_branch_class_method# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class MySubModule(torch.nn.Module): def foo(self, x): return x.cos() def forward(self, x): return self.foo(x) class CondBranchClassMethod(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates using class method in cond(). NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def __init__(self) -\u003e None: super().__init__() self.subm = MySubModule() def bar(self, x): return x.sin() def forward(self, x): return cond(x.shape[0] \u003c= 2, self.subm.forward, self.bar, [x]) example_args = (torch.randn(3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchClassMethod() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3]\"): sin: \"f32[3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs sin: USER_OUTPUT Range constraints: {} cond_branch_nested_function# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondBranchNestedFunction(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates using nested function in cond(). NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): def true_fn(x): def inner_true_fn(y): return x + y return inner_true_fn(x) def false_fn(x): def inner_false_fn(y): return x - y return inner_false_fn(x) return cond(x.shape[0] \u003c 10, true_fn, false_fn, [x]) example_args = (torch.randn(3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchNestedFunction() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3]\"): add: \"f32[3]\" = torch.ops.aten.add.Tensor(x, x); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} cond_branch_nonlocal_variables# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondBranchNonlocalVariables(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates how to rewrite code to avoid capturing closure variables in branch functions. The code below will not work because capturing closure variables is not supported. ``` my_tensor_var = x + 100 my_primitive_var = 3.14 def true_fn(y): nonlocal my_tensor_var, my_primitive_var return y + my_tensor_var + my_primitive_var def false_fn(y): nonlocal my_tensor_var, my_primitive_var return y - my_tensor_var - my_primitive_var return cond(x.shape[0] \u003e 5, true_fn, false_fn, [x]) ``` NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): my_tensor_var = x + 100 my_primitive_var = 3.14 def true_fn(x, y, z): return x + y + z def false_fn(x, y, z): return x - y - z return cond( x.shape[0] \u003e 5, true_fn, false_fn, [x, my_tensor_var, torch.tensor(my_primitive_var)], ) example_args = (torch.randn(6),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchNonlocalVariables() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, c_lifted_tensor_0: \"f32[]\", x: \"f32[6]\"): add: \"f32[6]\" = torch.ops.aten.add.Tensor(x, 100) lift_fresh_copy: \"f32[]\" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0); c_lifted_tensor_0 = None detach_: \"f32[]\" = torch.ops.aten.detach_.default(lift_fresh_copy); lift_fresh_copy = None add_1: \"f32[6]\" = torch.ops.aten.add.Tensor(x, add); x = add = None add_2: \"f32[6]\" = torch.ops.aten.add.Tensor(add_1, detach_); add_1 = detach_ = None return (add_2,) Graph signature: # inputs c_lifted_tensor_0: CONSTANT_TENSOR target=\u0027lifted_tensor_0\u0027 x: USER_INPUT # outputs add_2: USER_OUTPUT Range constraints: {} cond_closed_over_variable# Note Tags: torch.cond, python.closure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondClosedOverVariable(torch.nn.Module): \"\"\" torch.cond() supports branches closed over arbitrary variables. \"\"\" def forward(self, pred, x): def true_fn(val): return x * 2 def false_fn(val): return x - 2 return cond(pred, true_fn, false_fn, [x + 1]) example_args = (torch.tensor(True), torch.randn(3, 2)) tags = {\"torch.cond\", \"python.closure\"} model = CondClosedOverVariable() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, pred: \"b8[]\", x: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 1); add = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, (x,)); pred = true_graph_0 = false_graph_0 = x = None getitem: \"f32[3, 2]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(x, 2); x = None return (mul,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): sub: \"f32[3, 2]\" = torch.ops.aten.sub.Tensor(x, 2); x = None return (sub,) Graph signature: # inputs pred: USER_INPUT x: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {} cond_operands# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch.export import Dim x = torch.randn(3, 2) y = torch.randn(2) dim0_x = Dim(\"dim0_x\") class CondOperands(torch.nn.Module): \"\"\" The operands passed to cond() must be: - a list of tensors - match arguments of `true_fn` and `false_fn` NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x, y): def true_fn(x, y): return x + y def false_fn(x, y): return x - y return torch.cond(x.shape[0] \u003e 2, true_fn, false_fn, [x, y]) example_args = (x, y) tags = { \"torch.cond\", \"torch.dynamic-shape\", } extra_inputs = (torch.randn(2, 2), torch.randn(2)) dynamic_shapes = {\"x\": {0: dim0_x}, \"y\": None} model = CondOperands() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): # No stacktrace found for following nodes sym_size_int_1: \"Sym(s6)\" = torch.ops.aten.sym_size.int(x, 0) gt: \"Sym(s6 \u003e 2)\" = sym_size_int_1 \u003e 2; sym_size_int_1 = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x, y)); gt = true_graph_0 = false_graph_0 = x = y = None getitem: \"f32[s6, 2]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): add: \"f32[s6, 2]\" = torch.ops.aten.add.Tensor(x, y); x = y = None return (add,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): sub: \"f32[s6, 2]\" = torch.ops.aten.sub.Tensor(x, y); x = y = None return (sub,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {s6: VR[0, int_oo]} cond_predicate# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondPredicate(torch.nn.Module): \"\"\" The conditional statement (aka predicate) passed to cond() must be one of the following: - torch.Tensor with a single element - boolean expression NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): pred = x.dim() \u003e 2 and x.shape[2] \u003e 10 return cond(pred, lambda x: x.cos(), lambda y: y.sin(), [x]) example_args = (torch.randn(6, 4, 3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondPredicate() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[6, 4, 3]\"): sin: \"f32[6, 4, 3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs sin: USER_OUTPUT Range constraints: {} constrain_as_size_example# Note Tags: torch.escape-hatch, torch.dynamic-value Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ConstrainAsSizeExample(torch.nn.Module): \"\"\" If the value is not known at tracing time, you can provide hint so that we can trace further. Please look at torch._check APIs. \"\"\" def forward(self, x): a = x.item() torch._check(a \u003e= 0) torch._check(a \u003c= 5) return torch.zeros((a, 5)) example_args = (torch.tensor(4),) tags = { \"torch.dynamic-value\", \"torch.escape-hatch\", } model = ConstrainAsSizeExample() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"i64[]\"): item: \"Sym(u0)\" = torch.ops.aten.item.default(x); x = None ge_1: \"Sym(u0 \u003e= 0)\" = item \u003e= 0 _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_1, \"Runtime assertion failed for expression u0 \u003e= 0 on node \u0027ge_1\u0027\"); ge_1 = _assert_scalar_default = None le_1: \"Sym(u0 \u003c= 5)\" = item \u003c= 5 _assert_scalar_default_1 = torch.ops.aten._assert_scalar.default(le_1, \"Runtime assertion failed for expression u0 \u003c= 5 on node \u0027le_1\u0027\"); le_1 = _assert_scalar_default_1 = None zeros: \"f32[u0, 5]\" = torch.ops.aten.zeros.default([item, 5], device = device(type=\u0027cpu\u0027), pin_memory = False); item = None return (zeros,) Graph signature: # inputs x: USER_INPUT # outputs zeros: USER_OUTPUT Range constraints: {u0: VR[0, 5], u1: VR[0, 5]} constrain_as_value_example# Note Tags: torch.escape-hatch, torch.dynamic-value Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ConstrainAsValueExample(torch.nn.Module): \"\"\" If the value is not known at tracing time, you can provide hint so that we can trace further. Please look at torch._check API. \"\"\" def forward(self, x, y): a = x.item() torch._check(a \u003e= 0) torch._check(a \u003c= 5) if a \u003c 6: return y.sin() return y.cos() example_args = (torch.tensor(4), torch.randn(5, 5)) tags = { \"torch.dynamic-value\", \"torch.escape-hatch\", } model = ConstrainAsValueExample() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"i64[]\", y: \"f32[5, 5]\"): item: \"Sym(u0)\" = torch.ops.aten.item.default(x); x = None ge_1: \"Sym(u0 \u003e= 0)\" = item \u003e= 0 _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_1, \"Runtime assertion failed for expression u0 \u003e= 0 on node \u0027ge_1\u0027\"); ge_1 = _assert_scalar_default = None le_1: \"Sym(u0 \u003c= 5)\" = item \u003c= 5; item = None _assert_scalar_default_1 = torch.ops.aten._assert_scalar.default(le_1, \"Runtime assertion failed for expression u0 \u003c= 5 on node \u0027le_1\u0027\"); le_1 = _assert_scalar_default_1 = None sin: \"f32[5, 5]\" = torch.ops.aten.sin.default(y); y = None return (sin,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs sin: USER_OUTPUT Range constraints: {u0: VR[0, 5], u1: VR[0, 5]} decorator# Note Tags: Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import functools import torch def test_decorator(func): @functools.wraps(func) def wrapper(*args, **kwargs): return func(*args, **kwargs) + 1 return wrapper class Decorator(torch.nn.Module): \"\"\" Decorators calls are inlined into the exported function during tracing. \"\"\" @test_decorator def forward(self, x, y): return x + y example_args = (torch.randn(3, 2), torch.randn(3, 2)) model = Decorator() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\", y: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, y); x = y = None add_1: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(add, 1); add = None return (add_1,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs add_1: USER_OUTPUT Range constraints: {} dictionary# Note Tags: python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class Dictionary(torch.nn.Module): \"\"\" Dictionary structures are inlined and flattened along tracing. \"\"\" def forward(self, x, y): elements = {} elements[\"x2\"] = x * x y = y * elements[\"x2\"] return {\"y\": y} example_args = (torch.randn(3, 2), torch.tensor(4)) tags = {\"python.data-structure\"} model = Dictionary() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\", y: \"i64[]\"): mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(x, x); x = None mul_1: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(y, mul); y = mul = None return (mul_1,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs mul_1: USER_OUTPUT Range constraints: {} dynamic_shape_assert# Note Tags: python.assert Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeAssert(torch.nn.Module): \"\"\" A basic usage of python assertion. \"\"\" def forward(self, x): # assertion with error message assert x.shape[0] \u003e 2, f\"{x.shape[0]} is greater than 2\" # assertion without error message assert x.shape[0] \u003e 1 return x example_args = (torch.randn(3, 2),) tags = {\"python.assert\"} model = DynamicShapeAssert() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): return (x,) Graph signature: # inputs x: USER_INPUT # outputs x: USER_OUTPUT Range constraints: {} dynamic_shape_constructor# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeConstructor(torch.nn.Module): \"\"\" Tensor constructors should be captured with dynamic shape inputs rather than being baked in with static shape. \"\"\" def forward(self, x): return torch.zeros(x.shape[0] * 2) example_args = (torch.randn(3, 2),) tags = {\"torch.dynamic-shape\"} model = DynamicShapeConstructor() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): zeros: \"f32[6]\" = torch.ops.aten.zeros.default([6], device = device(type=\u0027cpu\u0027), pin_memory = False) return (zeros,) Graph signature: # inputs x: USER_INPUT # outputs zeros: USER_OUTPUT Range constraints: {} dynamic_shape_if_guard# Note Tags: torch.dynamic-shape, python.control-flow Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeIfGuard(torch.nn.Module): \"\"\" `if` statement with backed dynamic shape predicate will be specialized into one particular branch and generate a guard. However, export will fail if the the dimension is marked as dynamic shape from higher level API. \"\"\" def forward(self, x): if x.shape[0] == 3: return x.cos() return x.sin() example_args = (torch.randn(3, 2, 2),) tags = {\"torch.dynamic-shape\", \"python.control-flow\"} model = DynamicShapeIfGuard() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2, 2]\"): cos: \"f32[3, 2, 2]\" = torch.ops.aten.cos.default(x); x = None return (cos,) Graph signature: # inputs x: USER_INPUT # outputs cos: USER_OUTPUT Range constraints: {} dynamic_shape_map# Note Tags: torch.map, torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import map class DynamicShapeMap(torch.nn.Module): \"\"\" functorch map() maps a function over the first tensor dimension. \"\"\" def forward(self, xs, y): def body(x, y): return x + y return map(body, xs, y) example_args = (torch.randn(3, 2), torch.randn(2)) tags = {\"torch.dynamic-shape\", \"torch.map\"} model = DynamicShapeMap() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, xs: \"f32[3, 2]\", y: \"f32[2]\"): body_graph_0 = self.body_graph_0 map_impl = torch.ops.higher_order.map_impl(body_graph_0, [xs], [y]); body_graph_0 = xs = y = None getitem: \"f32[3, 2]\" = map_impl[0]; map_impl = None return (getitem,) class body_graph_0(torch.nn.Module): def forward(self, xs: \"f32[2]\", y: \"f32[2]\"): add: \"f32[2]\" = torch.ops.aten.add.Tensor(xs, y); xs = y = None return (add,) Graph signature: # inputs xs: USER_INPUT y: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {} dynamic_shape_slicing# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeSlicing(torch.nn.Module): \"\"\" Slices with dynamic shape arguments should be captured into the graph rather than being baked in. \"\"\" def forward(self, x): return x[: x.shape[0] - 2, x.shape[1] - 1 :: 2] example_args = (torch.randn(3, 2),) tags = {\"torch.dynamic-shape\"} model = DynamicShapeSlicing() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): slice_1: \"f32[1, 2]\" = torch.ops.aten.slice.Tensor(x, 0, 0, 1); x = None slice_2: \"f32[1, 1]\" = torch.ops.aten.slice.Tensor(slice_1, 1, 1, 9223372036854775807, 2); slice_1 = None return (slice_2,) Graph signature: # inputs x: USER_INPUT # outputs slice_2: USER_OUTPUT Range constraints: {} dynamic_shape_view# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class DynamicShapeView(torch.nn.Module): \"\"\" Dynamic shapes should be propagated to view arguments instead of being baked into the exported graph. \"\"\" def forward(self, x): new_x_shape = x.size()[:-1] + (2, 5) x = x.view(*new_x_shape) return x.permute(0, 2, 1) example_args = (torch.randn(10, 10),) tags = {\"torch.dynamic-shape\"} model = DynamicShapeView() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[10, 10]\"): view: \"f32[10, 2, 5]\" = torch.ops.aten.view.default(x, [10, 2, 5]); x = None permute: \"f32[10, 5, 2]\" = torch.ops.aten.permute.default(view, [0, 2, 1]); view = None return (permute,) Graph signature: # inputs x: USER_INPUT # outputs permute: USER_OUTPUT Range constraints: {} fn_with_kwargs# Note Tags: python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class FnWithKwargs(torch.nn.Module): \"\"\" Keyword arguments are not supported at the moment. \"\"\" def forward(self, pos0, tuple0, *myargs, mykw0, **mykwargs): out = pos0 for arg in tuple0: out = out * arg for arg in myargs: out = out * arg out = out * mykw0 out = out * mykwargs[\"input0\"] * mykwargs[\"input1\"] return out example_args = ( torch.randn(4), (torch.randn(4), torch.randn(4)), *[torch.randn(4), torch.randn(4)] ) example_kwargs = { \"mykw0\": torch.randn(4), \"input0\": torch.randn(4), \"input1\": torch.randn(4), } tags = {\"python.data-structure\"} model = FnWithKwargs() torch.export.export(model, example_args, example_kwargs) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, pos0: \"f32[4]\", tuple0_0: \"f32[4]\", tuple0_1: \"f32[4]\", myargs_0: \"f32[4]\", myargs_1: \"f32[4]\", mykw0: \"f32[4]\", input0: \"f32[4]\", input1: \"f32[4]\"): mul: \"f32[4]\" = torch.ops.aten.mul.Tensor(pos0, tuple0_0); pos0 = tuple0_0 = None mul_1: \"f32[4]\" = torch.ops.aten.mul.Tensor(mul, tuple0_1); mul = tuple0_1 = None mul_2: \"f32[4]\" = torch.ops.aten.mul.Tensor(mul_1, myargs_0); mul_1 = myargs_0 = None mul_3: \"f32[4]\" = torch.ops.aten.mul.Tensor(mul_2, myargs_1); mul_2 = myargs_1 = None mul_4: \"f32[4]\" = torch.ops.aten.mul.Tensor(mul_3, mykw0); mul_3 = mykw0 = None mul_5: \"f32[4]\" = torch.ops.aten.mul.Tensor(mul_4, input0); mul_4 = input0 = None mul_6: \"f32[4]\" = torch.ops.aten.mul.Tensor(mul_5, input1); mul_5 = input1 = None return (mul_6,) Graph signature: # inputs pos0: USER_INPUT tuple0_0: USER_INPUT tuple0_1: USER_INPUT myargs_0: USER_INPUT myargs_1: USER_INPUT mykw0: USER_INPUT input0: USER_INPUT input1: USER_INPUT # outputs mul_6: USER_OUTPUT Range constraints: {} list_contains# Note Tags: python.assert, torch.dynamic-shape, python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ListContains(torch.nn.Module): \"\"\" List containment relation can be checked on a dynamic shape or constants. \"\"\" def forward(self, x): assert x.size(-1) in [6, 2] assert x.size(0) not in [4, 5, 6] assert \"monkey\" not in [\"cow\", \"pig\"] return x + x example_args = (torch.randn(3, 2),) tags = {\"torch.dynamic-shape\", \"python.data-structure\", \"python.assert\"} model = ListContains() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, x); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} list_unpack# Note Tags: python.control-flow, python.data-structure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ListUnpack(torch.nn.Module): \"\"\" Lists are treated as static construct, therefore unpacking should be erased after tracing. \"\"\" def forward(self, args: list[torch.Tensor]): \"\"\" Lists are treated as static construct, therefore unpacking should be erased after tracing. \"\"\" x, *y = args return x + y[0] example_args = ([torch.randn(3, 2), torch.tensor(4), torch.tensor(5)],) tags = {\"python.control-flow\", \"python.data-structure\"} model = ListUnpack() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, args_0: \"f32[3, 2]\", args_1: \"i64[]\", args_2: \"i64[]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(args_0, args_1); args_0 = args_1 = None return (add,) Graph signature: # inputs args_0: USER_INPUT args_1: USER_INPUT args_2: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} model_attr_mutation# Note Tags: python.object-model Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class ModelAttrMutation(torch.nn.Module): \"\"\" Attribute mutation raises a warning. Covered in the test_export.py test_detect_leak_strict test. \"\"\" def __init__(self) -\u003e None: super().__init__() self.attr_list = [torch.randn(3, 2), torch.randn(3, 2)] def recreate_list(self): return [torch.zeros(3, 2), torch.zeros(3, 2)] def forward(self, x): self.attr_list = self.recreate_list() return x.sum() + self.attr_list[0].sum() example_args = (torch.randn(3, 2),) tags = {\"python.object-model\"} model = ModelAttrMutation() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): zeros: \"f32[3, 2]\" = torch.ops.aten.zeros.default([3, 2], device = device(type=\u0027cpu\u0027), pin_memory = False) zeros_1: \"f32[3, 2]\" = torch.ops.aten.zeros.default([3, 2], device = device(type=\u0027cpu\u0027), pin_memory = False); zeros_1 = None sum_1: \"f32[]\" = torch.ops.aten.sum.default(x); x = None sum_2: \"f32[]\" = torch.ops.aten.sum.default(zeros); zeros = None add: \"f32[]\" = torch.ops.aten.add.Tensor(sum_1, sum_2); sum_1 = sum_2 = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} nested_function# Note Tags: python.closure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class NestedFunction(torch.nn.Module): \"\"\" Nested functions are traced through. Side effects on global captures are not supported though. \"\"\" def forward(self, a, b): x = a + b z = a - b def closure(y): nonlocal x x += 1 return x * y + z return closure(x) example_args = (torch.randn(3, 2), torch.randn(2)) tags = {\"python.closure\"} model = NestedFunction() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, a: \"f32[3, 2]\", b: \"f32[2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(a, b) sub: \"f32[3, 2]\" = torch.ops.aten.sub.Tensor(a, b); a = b = None add_: \"f32[3, 2]\" = torch.ops.aten.add_.Tensor(add, 1); add = None mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(add_, add_); add_ = None add_1: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(mul, sub); mul = sub = None return (add_1,) Graph signature: # inputs a: USER_INPUT b: USER_INPUT # outputs add_1: USER_OUTPUT Range constraints: {} null_context_manager# Note Tags: python.context-manager Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import contextlib import torch class NullContextManager(torch.nn.Module): \"\"\" Null context manager in Python will be traced out. \"\"\" def forward(self, x): \"\"\" Null context manager in Python will be traced out. \"\"\" ctx = contextlib.nullcontext() with ctx: return x.sin() + x.cos() example_args = (torch.randn(3, 2),) tags = {\"python.context-manager\"} model = NullContextManager() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): sin: \"f32[3, 2]\" = torch.ops.aten.sin.default(x) cos: \"f32[3, 2]\" = torch.ops.aten.cos.default(x); x = None add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(sin, cos); sin = cos = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} optional_input# Note Tags: python.object-model Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch._export.db.case import SupportLevel class OptionalInput(torch.nn.Module): \"\"\" Tracing through optional input is not supported yet \"\"\" def forward(self, x, y=torch.randn(2, 3)): if y is not None: return x + y return x example_args = (torch.randn(2, 3),) tags = {\"python.object-model\"} support_level = SupportLevel.SUPPORTED model = OptionalInput() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, c_dict_type_l__self______dict_____forward_____defaults___0: \"f32[2, 3]\", x: \"f32[2, 3]\"): add: \"f32[2, 3]\" = torch.ops.aten.add.Tensor(x, c_dict_type_l__self______dict_____forward_____defaults___0); x = c_dict_type_l__self______dict_____forward_____defaults___0 = None return (add,) Graph signature: # inputs c_dict_type_l__self______dict_____forward_____defaults___0: CONSTANT_TENSOR target=\u0027dict_type_L__self______dict_____forward_____defaults___0\u0027 persistent=True x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} pytree_flatten# Note Tags: Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch.utils import _pytree as pytree class PytreeFlatten(torch.nn.Module): \"\"\" Pytree from PyTorch can be captured by TorchDynamo. \"\"\" def forward(self, x): y, _spec = pytree.tree_flatten(x) return y[0] + 1 example_args = ({1: torch.randn(3, 2), 2: torch.randn(3, 2)},), model = PytreeFlatten() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x_0_1: \"f32[3, 2]\", x_0_2: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x_0_1, 1); x_0_1 = None return (add,) Graph signature: # inputs x_0_1: USER_INPUT x_0_2: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} scalar_output# Note Tags: torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch.export import Dim x = torch.randn(3, 2) dim1_x = Dim(\"dim1_x\") class ScalarOutput(torch.nn.Module): \"\"\" Returning scalar values from the graph is supported, in addition to Tensor outputs. Symbolic shapes are captured and rank is specialized. \"\"\" def __init__(self) -\u003e None: super().__init__() def forward(self, x): return x.shape[1] + 1 example_args = (x,) tags = {\"torch.dynamic-shape\"} dynamic_shapes = {\"x\": {1: dim1_x}} model = ScalarOutput() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, s11]\"): # No stacktrace found for following nodes sym_size_int_1: \"Sym(s11)\" = torch.ops.aten.sym_size.int(x, 1); x = None add: \"Sym(s11 + 1)\" = sym_size_int_1 + 1; sym_size_int_1 = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {s11: VR[0, int_oo]} specialized_attribute# Note Tags: Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs from enum import Enum import torch class Animal(Enum): COW = \"moo\" class SpecializedAttribute(torch.nn.Module): \"\"\" Model attributes are specialized. \"\"\" def __init__(self) -\u003e None: super().__init__() self.a = \"moo\" self.b = 4 def forward(self, x): if self.a == Animal.COW.value: return x * x + self.b else: raise ValueError(\"bad\") example_args = (torch.randn(3, 2),) model = SpecializedAttribute() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(x, x); x = None add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(mul, 4); mul = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} static_for_loop# Note Tags: python.control-flow Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class StaticForLoop(torch.nn.Module): \"\"\" A for loop with constant number of iterations should be unrolled in the exported graph. \"\"\" def forward(self, x): # constant ret = [i + x for i in range(10)] return ret example_args = (torch.randn(3, 2),) tags = {\"python.control-flow\"} model = StaticForLoop() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 0) add_1: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 1) add_2: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 2) add_3: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 3) add_4: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 4) add_5: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 5) add_6: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 6) add_7: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 7) add_8: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 8) add_9: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 9); x = None return (add, add_1, add_2, add_3, add_4, add_5, add_6, add_7, add_8, add_9) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT add_1: USER_OUTPUT add_2: USER_OUTPUT add_3: USER_OUTPUT add_4: USER_OUTPUT add_5: USER_OUTPUT add_6: USER_OUTPUT add_7: USER_OUTPUT add_8: USER_OUTPUT add_9: USER_OUTPUT Range constraints: {} static_if# Note Tags: python.control-flow Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class StaticIf(torch.nn.Module): \"\"\" `if` statement with static predicate value should be traced through with the taken branch. \"\"\" def forward(self, x): if len(x.shape) == 3: return x + torch.ones(1, 1, 1) return x example_args = (torch.randn(3, 2, 2),) tags = {\"python.control-flow\"} model = StaticIf() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2, 2]\"): ones: \"f32[1, 1, 1]\" = torch.ops.aten.ones.default([1, 1, 1], device = device(type=\u0027cpu\u0027), pin_memory = False) add: \"f32[3, 2, 2]\" = torch.ops.aten.add.Tensor(x, ones); x = ones = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} tensor_setattr# Note Tags: python.builtin Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class TensorSetattr(torch.nn.Module): \"\"\" setattr() call onto tensors is not supported. \"\"\" def forward(self, x, attr): setattr(x, attr, torch.randn(3, 2)) return x + 4 example_args = (torch.randn(3, 2), \"attr\") tags = {\"python.builtin\"} model = TensorSetattr() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\", attr): randn: \"f32[3, 2]\" = torch.ops.aten.randn.default([3, 2], device = device(type=\u0027cpu\u0027), pin_memory = False); randn = None add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 4); x = None return (add,) Graph signature: # inputs x: USER_INPUT attr: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} type_reflection_method# Note Tags: python.builtin Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class A: @classmethod def func(cls, x): return 1 + x class TypeReflectionMethod(torch.nn.Module): \"\"\" type() calls on custom objects followed by attribute accesses are not allowed due to its overly dynamic nature. \"\"\" def forward(self, x): a = A() return type(a).func(x) example_args = (torch.randn(3, 4),) tags = {\"python.builtin\"} model = TypeReflectionMethod() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 4]\"): add: \"f32[3, 4]\" = torch.ops.aten.add.Tensor(x, 1); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} user_input_mutation# Note Tags: torch.mutation Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch class UserInputMutation(torch.nn.Module): \"\"\" Directly mutate user input in forward \"\"\" def forward(self, x): x.mul_(2) return x.cos() example_args = (torch.randn(3, 2),) tags = {\"torch.mutation\"} model = UserInputMutation() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): mul_: \"f32[3, 2]\" = torch.ops.aten.mul_.Tensor(x, 2); x = None cos: \"f32[3, 2]\" = torch.ops.aten.cos.default(mul_); mul_ = None return (cos,) Graph signature: # inputs x: USER_INPUT # outputs cos: USER_OUTPUT Range constraints: {} Not Supported Yet# dynamic_shape_round# Note Tags: torch.dynamic-shape, python.builtin Support Level: NOT_SUPPORTED_YET Original source code: # mypy: allow-untyped-defs import torch from torch._export.db.case import SupportLevel from torch.export import Dim class DynamicShapeRound(torch.nn.Module): \"\"\" Calling round on dynamic shapes is not supported. \"\"\" def forward(self, x): return x[: round(x.shape[0] / 2)] x = torch.randn(3, 2) dim0_x = Dim(\"dim0_x\") example_args = (x,) tags = {\"torch.dynamic-shape\", \"python.builtin\"} support_level = SupportLevel.NOT_SUPPORTED_YET dynamic_shapes = {\"x\": {0: dim0_x}} model = DynamicShapeRound() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: Unsupported: Constraints violated (dim0_x)! For more information, run with TORCH_LOGS=\"+dynamic\". unsupported_operator# Note Tags: torch.operator Support Level: NOT_SUPPORTED_YET Original source code: # mypy: allow-untyped-defs import torch from torch._export.db.case import SupportLevel class TorchSymMin(torch.nn.Module): \"\"\" torch.sym_min operator is not supported in export. \"\"\" def forward(self, x): return x.sum() + torch.sym_min(x.size(0), 100) example_args = (torch.randn(3, 2),) tags = {\"torch.operator\"} support_level = SupportLevel.NOT_SUPPORTED_YET model = TorchSymMin() torch.export.export(model, example_args) Result: Unsupported: torch.* op returned non-Tensor",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "../../_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/generated/exportdb/index.html"

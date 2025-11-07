@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>torch.xpu &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=940804e7"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'xpu';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="_static/js/runllm-widget.js"></script>
+    <script src="_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/xpu.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4479,6 +4478,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4486,187 +4486,171 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="module-torch.xpu">
-<span id="torch-xpu"></span><h1>torch.xpu<a class="headerlink" href="#module-torch.xpu" title="Permalink to this heading">#</a></h1>
+  <section id="module-torch.xpu">
+<span id="torch-xpu"></span><h1>torch.xpu<a class="headerlink" href="#module-torch.xpu" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 01, 2024 | Last Updated On: Oct 15, 2025</p>
 <p>This package introduces support for the XPU backend, specifically tailored for
 Intel GPU optimization.</p>
 <p>This package is lazily initialized, so you can always import it, and use
 <a class="reference internal" href="generated/torch.xpu.is_available.html#torch.xpu.is_available" title="torch.xpu.is_available"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_available()</span></code></a> to determine if your system supports XPU.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.xpu.StreamContext"/><a class="reference internal" href="generated/torch.xpu.StreamContext.html#torch.xpu.StreamContext" title="torch.xpu.StreamContext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StreamContext</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.StreamContext"/><p id="torch.xpu.StreamContext"/><a class="reference internal" href="generated/torch.xpu.StreamContext.html#torch.xpu.StreamContext" title="torch.xpu.StreamContext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StreamContext</span></code></a></p></td>
 <td><p>Context-manager that selects a given stream.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.can_device_access_peer"/><a class="reference internal" href="generated/torch.xpu.can_device_access_peer.html#torch.xpu.can_device_access_peer" title="torch.xpu.can_device_access_peer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">can_device_access_peer</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.can_device_access_peer"/><p id="torch.xpu.can_device_access_peer"/><a class="reference internal" href="generated/torch.xpu.can_device_access_peer.html#torch.xpu.can_device_access_peer" title="torch.xpu.can_device_access_peer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">can_device_access_peer</span></code></a></p></td>
 <td><p>Query whether a device can access a peer device's memory.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.current_device"/><a class="reference internal" href="generated/torch.xpu.current_device.html#torch.xpu.current_device" title="torch.xpu.current_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_device</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.current_device"/><p id="torch.xpu.current_device"/><a class="reference internal" href="generated/torch.xpu.current_device.html#torch.xpu.current_device" title="torch.xpu.current_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_device</span></code></a></p></td>
 <td><p>Return the index of a currently selected device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.current_stream"/><a class="reference internal" href="generated/torch.xpu.current_stream.html#torch.xpu.current_stream" title="torch.xpu.current_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_stream</span></code></a></p></td>
-<td><p>Return the currently selected <a class="reference internal" href="generated/torch.xpu.Stream.html#torch.xpu.Stream" title="torch.xpu.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> for a given device.</p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.current_stream"/><p id="torch.xpu.current_stream"/><a class="reference internal" href="generated/torch.xpu.current_stream.html#torch.xpu.current_stream" title="torch.xpu.current_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_stream</span></code></a></p></td>
+<td><p>Return the currently selected <a class="reference internal" href="generated/torch.xpu.Stream_class.html#torch.xpu.Stream" title="torch.xpu.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> for a given device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.device"/><a class="reference internal" href="generated/torch.xpu.device.html#torch.xpu.device" title="torch.xpu.device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.device"/><p id="torch.xpu.device"/><a class="reference internal" href="generated/torch.xpu.device.html#torch.xpu.device" title="torch.xpu.device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device</span></code></a></p></td>
 <td><p>Context-manager that changes the selected device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.device_count"/><a class="reference internal" href="generated/torch.xpu.device_count.html#torch.xpu.device_count" title="torch.xpu.device_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_count</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.device_count"/><p id="torch.xpu.device_count"/><a class="reference internal" href="generated/torch.xpu.device_count.html#torch.xpu.device_count" title="torch.xpu.device_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_count</span></code></a></p></td>
 <td><p>Return the number of XPU device available.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.device_of"/><a class="reference internal" href="generated/torch.xpu.device_of.html#torch.xpu.device_of" title="torch.xpu.device_of"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_of</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.device_of"/><p id="torch.xpu.device_of"/><a class="reference internal" href="generated/torch.xpu.device_of.html#torch.xpu.device_of" title="torch.xpu.device_of"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_of</span></code></a></p></td>
 <td><p>Context-manager that changes the current device to that of given object.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.get_arch_list"/><a class="reference internal" href="generated/torch.xpu.get_arch_list.html#torch.xpu.get_arch_list" title="torch.xpu.get_arch_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_arch_list</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.get_arch_list"/><p id="torch.xpu.get_arch_list"/><a class="reference internal" href="generated/torch.xpu.get_arch_list.html#torch.xpu.get_arch_list" title="torch.xpu.get_arch_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_arch_list</span></code></a></p></td>
 <td><p>Return list XPU architectures this library was compiled for.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.get_device_capability"/><a class="reference internal" href="generated/torch.xpu.get_device_capability.html#torch.xpu.get_device_capability" title="torch.xpu.get_device_capability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_capability</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.get_device_capability"/><p id="torch.xpu.get_device_capability"/><a class="reference internal" href="generated/torch.xpu.get_device_capability.html#torch.xpu.get_device_capability" title="torch.xpu.get_device_capability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_capability</span></code></a></p></td>
 <td><p>Get the xpu capability of a device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.get_device_name"/><a class="reference internal" href="generated/torch.xpu.get_device_name.html#torch.xpu.get_device_name" title="torch.xpu.get_device_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_name</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.get_device_name"/><p id="torch.xpu.get_device_name"/><a class="reference internal" href="generated/torch.xpu.get_device_name.html#torch.xpu.get_device_name" title="torch.xpu.get_device_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_name</span></code></a></p></td>
 <td><p>Get the name of a device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.get_device_properties"/><a class="reference internal" href="generated/torch.xpu.get_device_properties.html#torch.xpu.get_device_properties" title="torch.xpu.get_device_properties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_properties</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.get_device_properties"/><p id="torch.xpu.get_device_properties"/><a class="reference internal" href="generated/torch.xpu.get_device_properties.html#torch.xpu.get_device_properties" title="torch.xpu.get_device_properties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_properties</span></code></a></p></td>
 <td><p>Get the properties of a device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.get_gencode_flags"/><a class="reference internal" href="generated/torch.xpu.get_gencode_flags.html#torch.xpu.get_gencode_flags" title="torch.xpu.get_gencode_flags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_gencode_flags</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.get_gencode_flags"/><p id="torch.xpu.get_gencode_flags"/><a class="reference internal" href="generated/torch.xpu.get_gencode_flags.html#torch.xpu.get_gencode_flags" title="torch.xpu.get_gencode_flags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_gencode_flags</span></code></a></p></td>
 <td><p>Return XPU AOT(ahead-of-time) build flags this library was compiled with.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.get_stream_from_external"/><a class="reference internal" href="generated/torch.xpu.get_stream_from_external.html#torch.xpu.get_stream_from_external" title="torch.xpu.get_stream_from_external"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stream_from_external</span></code></a></p></td>
-<td><p>Return a <a class="reference internal" href="generated/torch.xpu.Stream.html#torch.xpu.Stream" title="torch.xpu.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> from an external SYCL queue.</p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.get_stream_from_external"/><p id="torch.xpu.get_stream_from_external"/><a class="reference internal" href="generated/torch.xpu.get_stream_from_external.html#torch.xpu.get_stream_from_external" title="torch.xpu.get_stream_from_external"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stream_from_external</span></code></a></p></td>
+<td><p>Return a <a class="reference internal" href="generated/torch.xpu.Stream_class.html#torch.xpu.Stream" title="torch.xpu.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> from an external SYCL queue.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.init"/><a class="reference internal" href="generated/torch.xpu.init.html#torch.xpu.init" title="torch.xpu.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.init"/><p id="torch.xpu.init"/><a class="reference internal" href="generated/torch.xpu.init.html#torch.xpu.init" title="torch.xpu.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a></p></td>
 <td><p>Initialize PyTorch's XPU state.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.is_available"/><a class="reference internal" href="generated/torch.xpu.is_available.html#torch.xpu.is_available" title="torch.xpu.is_available"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_available</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.is_available"/><p id="torch.xpu.is_available"/><a class="reference internal" href="generated/torch.xpu.is_available.html#torch.xpu.is_available" title="torch.xpu.is_available"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_available</span></code></a></p></td>
 <td><p>Return a bool indicating if XPU is currently available.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.is_bf16_supported"/><a class="reference internal" href="generated/torch.xpu.is_bf16_supported.html#torch.xpu.is_bf16_supported" title="torch.xpu.is_bf16_supported"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_bf16_supported</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.is_bf16_supported"/><p id="torch.xpu.is_bf16_supported"/><a class="reference internal" href="generated/torch.xpu.is_bf16_supported.html#torch.xpu.is_bf16_supported" title="torch.xpu.is_bf16_supported"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_bf16_supported</span></code></a></p></td>
 <td><p>Return a bool indicating if the current XPU device supports dtype bfloat16.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.is_initialized"/><a class="reference internal" href="generated/torch.xpu.is_initialized.html#torch.xpu.is_initialized" title="torch.xpu.is_initialized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_initialized</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.is_initialized"/><p id="torch.xpu.is_initialized"/><a class="reference internal" href="generated/torch.xpu.is_initialized.html#torch.xpu.is_initialized" title="torch.xpu.is_initialized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_initialized</span></code></a></p></td>
 <td><p>Return whether PyTorch's XPU state has been initialized.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.is_tf32_supported"/><a class="reference internal" href="generated/torch.xpu.is_tf32_supported.html#torch.xpu.is_tf32_supported" title="torch.xpu.is_tf32_supported"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_tf32_supported</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.is_tf32_supported"/><p id="torch.xpu.is_tf32_supported"/><a class="reference internal" href="generated/torch.xpu.is_tf32_supported.html#torch.xpu.is_tf32_supported" title="torch.xpu.is_tf32_supported"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_tf32_supported</span></code></a></p></td>
 <td><p>Return a bool indicating if the current XPU device supports dtype tf32.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.set_device"/><a class="reference internal" href="generated/torch.xpu.set_device.html#torch.xpu.set_device" title="torch.xpu.set_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_device</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.set_device"/><p id="torch.xpu.set_device"/><a class="reference internal" href="generated/torch.xpu.set_device.html#torch.xpu.set_device" title="torch.xpu.set_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_device</span></code></a></p></td>
 <td><p>Set the current device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.set_stream"/><a class="reference internal" href="generated/torch.xpu.set_stream.html#torch.xpu.set_stream" title="torch.xpu.set_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_stream</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.set_stream"/><p id="torch.xpu.set_stream"/><a class="reference internal" href="generated/torch.xpu.set_stream.html#torch.xpu.set_stream" title="torch.xpu.set_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_stream</span></code></a></p></td>
 <td><p>Set the current stream.This is a wrapper API to set the stream.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.stream"/><a class="reference internal" href="generated/torch.xpu.stream.html#torch.xpu.stream" title="torch.xpu.stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stream</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.stream"/><p id="torch.xpu.stream"/><a class="reference internal" href="generated/torch.xpu.stream_function.html#torch.xpu.stream" title="torch.xpu.stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stream</span></code></a></p></td>
 <td><p>Wrap around the Context-manager StreamContext that selects a given stream.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.synchronize"/><a class="reference internal" href="generated/torch.xpu.synchronize.html#torch.xpu.synchronize" title="torch.xpu.synchronize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synchronize</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.synchronize"/><p id="torch.xpu.synchronize"/><a class="reference internal" href="generated/torch.xpu.synchronize.html#torch.xpu.synchronize" title="torch.xpu.synchronize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synchronize</span></code></a></p></td>
 <td><p>Wait for all kernels in all streams on a XPU device to complete.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="random-number-generator">
-<h2>Random Number Generator<a class="headerlink" href="#random-number-generator" title="Permalink to this heading">#</a></h2>
+<section id="random-number-generator">
+<h2>Random Number Generator<a class="headerlink" href="#random-number-generator" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.xpu.get_rng_state"/><a class="reference internal" href="generated/torch.xpu.get_rng_state.html#torch.xpu.get_rng_state" title="torch.xpu.get_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.get_rng_state"/><p id="torch.xpu.get_rng_state"/><a class="reference internal" href="generated/torch.xpu.get_rng_state.html#torch.xpu.get_rng_state" title="torch.xpu.get_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state</span></code></a></p></td>
 <td><p>Return the random number generator state of the specified GPU as a ByteTensor.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.get_rng_state_all"/><a class="reference internal" href="generated/torch.xpu.get_rng_state_all.html#torch.xpu.get_rng_state_all" title="torch.xpu.get_rng_state_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state_all</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.get_rng_state_all"/><p id="torch.xpu.get_rng_state_all"/><a class="reference internal" href="generated/torch.xpu.get_rng_state_all.html#torch.xpu.get_rng_state_all" title="torch.xpu.get_rng_state_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state_all</span></code></a></p></td>
 <td><p>Return a list of ByteTensor representing the random number states of all devices.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.initial_seed"/><a class="reference internal" href="generated/torch.xpu.initial_seed.html#torch.xpu.initial_seed" title="torch.xpu.initial_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initial_seed</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.initial_seed"/><p id="torch.xpu.initial_seed"/><a class="reference internal" href="generated/torch.xpu.initial_seed.html#torch.xpu.initial_seed" title="torch.xpu.initial_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initial_seed</span></code></a></p></td>
 <td><p>Return the current random seed of the current GPU.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.manual_seed"/><a class="reference internal" href="generated/torch.xpu.manual_seed.html#torch.xpu.manual_seed" title="torch.xpu.manual_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manual_seed</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.manual_seed"/><p id="torch.xpu.manual_seed"/><a class="reference internal" href="generated/torch.xpu.manual_seed.html#torch.xpu.manual_seed" title="torch.xpu.manual_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manual_seed</span></code></a></p></td>
 <td><p>Set the seed for generating random numbers for the current GPU.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.manual_seed_all"/><a class="reference internal" href="generated/torch.xpu.manual_seed_all.html#torch.xpu.manual_seed_all" title="torch.xpu.manual_seed_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manual_seed_all</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.manual_seed_all"/><p id="torch.xpu.manual_seed_all"/><a class="reference internal" href="generated/torch.xpu.manual_seed_all.html#torch.xpu.manual_seed_all" title="torch.xpu.manual_seed_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manual_seed_all</span></code></a></p></td>
 <td><p>Set the seed for generating random numbers on all GPUs.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.seed"/><a class="reference internal" href="generated/torch.xpu.seed.html#torch.xpu.seed" title="torch.xpu.seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.seed"/><p id="torch.xpu.seed"/><a class="reference internal" href="generated/torch.xpu.seed.html#torch.xpu.seed" title="torch.xpu.seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed</span></code></a></p></td>
 <td><p>Set the seed for generating random numbers to a random number for the current GPU.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.seed_all"/><a class="reference internal" href="generated/torch.xpu.seed_all.html#torch.xpu.seed_all" title="torch.xpu.seed_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed_all</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.seed_all"/><p id="torch.xpu.seed_all"/><a class="reference internal" href="generated/torch.xpu.seed_all.html#torch.xpu.seed_all" title="torch.xpu.seed_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed_all</span></code></a></p></td>
 <td><p>Set the seed for generating random numbers to a random number on all GPUs.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.set_rng_state"/><a class="reference internal" href="generated/torch.xpu.set_rng_state.html#torch.xpu.set_rng_state" title="torch.xpu.set_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rng_state</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.set_rng_state"/><p id="torch.xpu.set_rng_state"/><a class="reference internal" href="generated/torch.xpu.set_rng_state.html#torch.xpu.set_rng_state" title="torch.xpu.set_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rng_state</span></code></a></p></td>
 <td><p>Set the random number generator state of the specified GPU.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.set_rng_state_all"/><a class="reference internal" href="generated/torch.xpu.set_rng_state_all.html#torch.xpu.set_rng_state_all" title="torch.xpu.set_rng_state_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rng_state_all</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.set_rng_state_all"/><p id="torch.xpu.set_rng_state_all"/><a class="reference internal" href="generated/torch.xpu.set_rng_state_all.html#torch.xpu.set_rng_state_all" title="torch.xpu.set_rng_state_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rng_state_all</span></code></a></p></td>
 <td><p>Set the random number generator state of all devices.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="streams-and-events">
-<h2>Streams and events<a class="headerlink" href="#streams-and-events" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="streams-and-events">
+<h2>Streams and events<a class="headerlink" href="#streams-and-events" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.xpu.Event"/><a class="reference internal" href="generated/torch.xpu.Event.html#torch.xpu.Event" title="torch.xpu.Event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Event</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.Event"/><p id="torch.xpu.Event"/><a class="reference internal" href="generated/torch.xpu.Event.html#torch.xpu.Event" title="torch.xpu.Event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Event</span></code></a></p></td>
 <td><p>Wrapper around a XPU event.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.Stream"/><a class="reference internal" href="generated/torch.xpu.Stream.html#torch.xpu.Stream" title="torch.xpu.Stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Stream</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.Stream"/><p id="torch.xpu.Stream"/><a class="reference internal" href="generated/torch.xpu.Stream_class.html#torch.xpu.Stream" title="torch.xpu.Stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Stream</span></code></a></p></td>
 <td><p>Wrapper around a XPU stream.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<span class="target" id="module-torch.xpu.memory"></span></div>
-<div class="section" id="memory-management">
-<h2>Memory management<a class="headerlink" href="#memory-management" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="memory-management">
+<span id="module-torch.xpu.memory"></span><h2>Memory management<a class="headerlink" href="#memory-management" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.xpu.memory.empty_cache"/><a class="reference internal" href="generated/torch.xpu.memory.empty_cache.html#torch.xpu.memory.empty_cache" title="torch.xpu.memory.empty_cache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_cache</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.memory.empty_cache"/><p id="torch.xpu.memory.empty_cache"/><a class="reference internal" href="generated/torch.xpu.memory.empty_cache.html#torch.xpu.memory.empty_cache" title="torch.xpu.memory.empty_cache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_cache</span></code></a></p></td>
 <td><p>Release all unoccupied cached memory currently held by the caching allocator so that those can be used in other XPU application.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.memory.get_per_process_memory_fraction"/><a class="reference internal" href="generated/torch.xpu.memory.get_per_process_memory_fraction.html#torch.xpu.memory.get_per_process_memory_fraction" title="torch.xpu.memory.get_per_process_memory_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_per_process_memory_fraction</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.memory.get_per_process_memory_fraction"/><p id="torch.xpu.memory.get_per_process_memory_fraction"/><a class="reference internal" href="generated/torch.xpu.memory.get_per_process_memory_fraction.html#torch.xpu.memory.get_per_process_memory_fraction" title="torch.xpu.memory.get_per_process_memory_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_per_process_memory_fraction</span></code></a></p></td>
 <td><p>Retrieve the memory fraction currently set for a process on a given XPU device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.memory.max_memory_allocated"/><a class="reference internal" href="generated/torch.xpu.memory.max_memory_allocated.html#torch.xpu.memory.max_memory_allocated" title="torch.xpu.memory.max_memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_allocated</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.memory.max_memory_allocated"/><p id="torch.xpu.memory.max_memory_allocated"/><a class="reference internal" href="generated/torch.xpu.memory.max_memory_allocated.html#torch.xpu.memory.max_memory_allocated" title="torch.xpu.memory.max_memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_allocated</span></code></a></p></td>
 <td><p>Return the maximum GPU memory occupied by tensors in bytes for a given device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.memory.max_memory_reserved"/><a class="reference internal" href="generated/torch.xpu.memory.max_memory_reserved.html#torch.xpu.memory.max_memory_reserved" title="torch.xpu.memory.max_memory_reserved"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_reserved</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.memory.max_memory_reserved"/><p id="torch.xpu.memory.max_memory_reserved"/><a class="reference internal" href="generated/torch.xpu.memory.max_memory_reserved.html#torch.xpu.memory.max_memory_reserved" title="torch.xpu.memory.max_memory_reserved"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_memory_reserved</span></code></a></p></td>
 <td><p>Return the maximum GPU memory managed by the caching allocator in bytes for a given device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.memory.mem_get_info"/><a class="reference internal" href="generated/torch.xpu.memory.mem_get_info.html#torch.xpu.memory.mem_get_info" title="torch.xpu.memory.mem_get_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mem_get_info</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.memory.mem_get_info"/><p id="torch.xpu.memory.mem_get_info"/><a class="reference internal" href="generated/torch.xpu.memory.mem_get_info.html#torch.xpu.memory.mem_get_info" title="torch.xpu.memory.mem_get_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mem_get_info</span></code></a></p></td>
 <td><p>Return the global free and total GPU memory for a given device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.memory.memory_allocated"/><a class="reference internal" href="generated/torch.xpu.memory.memory_allocated.html#torch.xpu.memory.memory_allocated" title="torch.xpu.memory.memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_allocated</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.memory.memory_allocated"/><p id="torch.xpu.memory.memory_allocated"/><a class="reference internal" href="generated/torch.xpu.memory.memory_allocated.html#torch.xpu.memory.memory_allocated" title="torch.xpu.memory.memory_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_allocated</span></code></a></p></td>
 <td><p>Return the current GPU memory occupied by tensors in bytes for a given device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.memory.memory_reserved"/><a class="reference internal" href="generated/torch.xpu.memory.memory_reserved.html#torch.xpu.memory.memory_reserved" title="torch.xpu.memory.memory_reserved"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_reserved</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.memory.memory_reserved"/><p id="torch.xpu.memory.memory_reserved"/><a class="reference internal" href="generated/torch.xpu.memory.memory_reserved.html#torch.xpu.memory.memory_reserved" title="torch.xpu.memory.memory_reserved"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_reserved</span></code></a></p></td>
 <td><p>Return the current GPU memory managed by the caching allocator in bytes for a given device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.memory.memory_stats"/><a class="reference internal" href="generated/torch.xpu.memory.memory_stats.html#torch.xpu.memory.memory_stats" title="torch.xpu.memory.memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_stats</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.memory.memory_stats"/><p id="torch.xpu.memory.memory_stats"/><a class="reference internal" href="generated/torch.xpu.memory.memory_stats.html#torch.xpu.memory.memory_stats" title="torch.xpu.memory.memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_stats</span></code></a></p></td>
 <td><p>Return a dictionary of XPU memory allocator statistics for a given device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.memory.memory_stats_as_nested_dict"/><a class="reference internal" href="generated/torch.xpu.memory.memory_stats_as_nested_dict.html#torch.xpu.memory.memory_stats_as_nested_dict" title="torch.xpu.memory.memory_stats_as_nested_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_stats_as_nested_dict</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.memory.memory_stats_as_nested_dict"/><p id="torch.xpu.memory.memory_stats_as_nested_dict"/><a class="reference internal" href="generated/torch.xpu.memory.memory_stats_as_nested_dict.html#torch.xpu.memory.memory_stats_as_nested_dict" title="torch.xpu.memory.memory_stats_as_nested_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_stats_as_nested_dict</span></code></a></p></td>
 <td><p>Return the result of <code class="xref py py-func docutils literal notranslate"><span class="pre">memory_stats()</span></code> as a nested dictionary.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.memory.reset_accumulated_memory_stats"/><a class="reference internal" href="generated/torch.xpu.memory.reset_accumulated_memory_stats.html#torch.xpu.memory.reset_accumulated_memory_stats" title="torch.xpu.memory.reset_accumulated_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_accumulated_memory_stats</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.memory.reset_accumulated_memory_stats"/><p id="torch.xpu.memory.reset_accumulated_memory_stats"/><a class="reference internal" href="generated/torch.xpu.memory.reset_accumulated_memory_stats.html#torch.xpu.memory.reset_accumulated_memory_stats" title="torch.xpu.memory.reset_accumulated_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_accumulated_memory_stats</span></code></a></p></td>
 <td><p>Reset the &quot;accumulated&quot; (historical) stats tracked by the XPU memory allocator.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.xpu.memory.reset_peak_memory_stats"/><a class="reference internal" href="generated/torch.xpu.memory.reset_peak_memory_stats.html#torch.xpu.memory.reset_peak_memory_stats" title="torch.xpu.memory.reset_peak_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_peak_memory_stats</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.xpu.memory.reset_peak_memory_stats"/><p id="torch.xpu.memory.reset_peak_memory_stats"/><a class="reference internal" href="generated/torch.xpu.memory.reset_peak_memory_stats.html#torch.xpu.memory.reset_peak_memory_stats" title="torch.xpu.memory.reset_peak_memory_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_peak_memory_stats</span></code></a></p></td>
 <td><p>Reset the &quot;peak&quot; stats tracked by the XPU memory allocator.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.xpu.memory.set_per_process_memory_fraction"/><a class="reference internal" href="generated/torch.xpu.memory.set_per_process_memory_fraction.html#torch.xpu.memory.set_per_process_memory_fraction" title="torch.xpu.memory.set_per_process_memory_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_per_process_memory_fraction</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.xpu.memory.set_per_process_memory_fraction"/><p id="torch.xpu.memory.set_per_process_memory_fraction"/><a class="reference internal" href="generated/torch.xpu.memory.set_per_process_memory_fraction.html#torch.xpu.memory.set_per_process_memory_fraction" title="torch.xpu.memory.set_per_process_memory_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_per_process_memory_fraction</span></code></a></p></td>
 <td><p>Set the memory fraction for a single process on XPU device.</p></td>
 </tr>
 </tbody>
@@ -4674,8 +4658,8 @@ Intel GPU optimization.</p>
 </div>
 <div class="toctree-wrapper compound">
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -4741,11 +4725,6 @@ Intel GPU optimization.</p>
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -4873,7 +4852,9 @@ Intel GPU optimization.</p>
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -4897,10 +4878,13 @@ Intel GPU optimization.</p>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -4923,7 +4907,6 @@ Intel GPU optimization.</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -4973,10 +4956,10 @@ Intel GPU optimization.</p>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5017,7 +5000,7 @@ Intel GPU optimization.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -5052,7 +5035,7 @@ Intel GPU optimization.</p>
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/xpu.html"

@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>torch.hub &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=940804e7"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'hub';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="_static/js/runllm-widget.js"></script>
+    <script src="_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/hub.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4479,6 +4478,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4486,12 +4486,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="torch-hub">
-<h1>torch.hub<a class="headerlink" href="#torch-hub" title="Permalink to this heading">#</a></h1>
+  <section id="torch-hub">
+<h1>torch.hub<a class="headerlink" href="#torch-hub" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025</p>
 <p>Pytorch Hub is a pre-trained model repository designed to facilitate research reproducibility.</p>
-<div class="section" id="publishing-models">
-<h2>Publishing models<a class="headerlink" href="#publishing-models" title="Permalink to this heading">#</a></h2>
+<section id="publishing-models">
+<h2>Publishing models<a class="headerlink" href="#publishing-models" title="Link to this heading">#</a></h2>
 <p>Pytorch Hub supports publishing pre-trained models(model definitions and pre-trained weights)
 to a GitHub repository by adding a simple <code class="docutils literal notranslate"><span class="pre">hubconf.py</span></code> file;</p>
 <p><code class="docutils literal notranslate"><span class="pre">hubconf.py</span></code> can have multiple entrypoints. Each entrypoint is defined as a python function
@@ -4501,8 +4501,8 @@ to a GitHub repository by adding a simple <code class="docutils literal notransl
       <span class="o">...</span>
 </pre></div>
 </div>
-<div class="section" id="how-to-implement-an-entrypoint">
-<h3>How to implement an entrypoint?<a class="headerlink" href="#how-to-implement-an-entrypoint" title="Permalink to this heading">#</a></h3>
+<section id="how-to-implement-an-entrypoint">
+<h3>How to implement an entrypoint?<a class="headerlink" href="#how-to-implement-an-entrypoint" title="Link to this heading">#</a></h3>
 <p>Here is a code snippet specifies an entrypoint for <code class="docutils literal notranslate"><span class="pre">resnet18</span></code> model if we expand
 the implementation in <code class="docutils literal notranslate"><span class="pre">pytorch/vision/hubconf.py</span></code>.
 In most case importing the right function in <code class="docutils literal notranslate"><span class="pre">hubconf.py</span></code> is sufficient. Here we
@@ -4548,26 +4548,26 @@ In the example above <code class="docutils literal notranslate"><span class="pre
       <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">hub</span><span class="o">.</span><span class="n">load_state_dict_from_url</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="important-notice">
-<h3>Important Notice<a class="headerlink" href="#important-notice" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="important-notice">
+<h3>Important Notice<a class="headerlink" href="#important-notice" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The published models should be at least in a branch/tag. It can’t be a random commit.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="loading-models-from-hub">
-<h2>Loading models from Hub<a class="headerlink" href="#loading-models-from-hub" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="loading-models-from-hub">
+<h2>Loading models from Hub<a class="headerlink" href="#loading-models-from-hub" title="Link to this heading">#</a></h2>
 <p>Pytorch Hub provides convenient APIs to explore all available models in hub
 through <a class="reference internal" href="#torch.hub.list" title="torch.hub.list"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.hub.list()</span></code></a>, show docstring and examples through
 <a class="reference internal" href="#torch.hub.help" title="torch.hub.help"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.hub.help()</span></code></a> and load the pre-trained models using
 <a class="reference internal" href="#torch.hub.load" title="torch.hub.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.hub.load()</span></code></a>.</p>
-<span class="target" id="module-torch.hub"></span><dl class="py function">
+<dl class="py function" id="module-torch.hub">
 <dt class="sig sig-object py" id="torch.hub.list">
-<span class="sig-prename descclassname"><span class="pre">torch.hub.</span></span><span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">github</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_reload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trust_repo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/hub.py#L431"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.hub.list" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.hub.</span></span><span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">github</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_reload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trust_repo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/hub.py#L431"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.hub.list" title="Link to this definition">#</a></dt>
 <dd><p>List all callable entrypoints available in the repo specified by <code class="docutils literal notranslate"><span class="pre">github</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>github</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – a string with format “repo_owner/repo_name[:ref]” with an optional
 ref (tag or branch). If <code class="docutils literal notranslate"><span class="pre">ref</span></code> is not specified, the default branch is assumed to be <code class="docutils literal notranslate"><span class="pre">main</span></code> if
@@ -4602,10 +4602,10 @@ local caches. Note that the message about first download cannot be
 muted. Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The available callables entrypoint</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
 </dd>
 </dl>
@@ -4617,10 +4617,10 @@ muted. Default is <code class="docutils literal notranslate"><span class="pre">T
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.hub.help">
-<span class="sig-prename descclassname"><span class="pre">torch.hub.</span></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">github</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_reload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trust_repo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/hub.py#L503"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.hub.help" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.hub.</span></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">github</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_reload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trust_repo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/hub.py#L503"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.hub.help" title="Link to this definition">#</a></dt>
 <dd><p>Show the docstring of entrypoint <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>github</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – a string with format &lt;repo_owner/repo_name[:ref]&gt; with an optional
 ref (a tag or a branch). If <code class="docutils literal notranslate"><span class="pre">ref</span></code> is not specified, the default branch is assumed
@@ -4662,7 +4662,7 @@ v2.0.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.hub.load">
-<span class="sig-prename descclassname"><span class="pre">torch.hub.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo_or_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'github'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trust_repo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_reload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/hub.py#L558"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.hub.load" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.hub.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo_or_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'github'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trust_repo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_reload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/hub.py#L558"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.hub.load" title="Link to this definition">#</a></dt>
 <dd><p>Load a model from a github repo or a local directory.</p>
 <p>Note: Loading a model is the typical use case, but this can also be used to
 for loading other objects such as tokenizers, loss functions, etc.</p>
@@ -4672,7 +4672,7 @@ ref (a tag or a branch).</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">source</span></code> is ‘local’, <code class="docutils literal notranslate"><span class="pre">repo_or_dir</span></code> is expected to be a
 path to a local directory.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>repo_or_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – If <code class="docutils literal notranslate"><span class="pre">source</span></code> is ‘github’,
 this should correspond to a github repo with format <code class="docutils literal notranslate"><span class="pre">repo_owner/repo_name[:ref]</span></code> with
@@ -4716,7 +4716,7 @@ requests to the GitHub API; you can specify a non-default GitHub token by settin
 <li><p><strong>**kwargs</strong> (<em>optional</em>) – the corresponding kwargs for callable <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The output of the <code class="docutils literal notranslate"><span class="pre">model</span></code> callable when called with the given
 <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>.</p>
 </dd>
@@ -4736,10 +4736,10 @@ requests to the GitHub API; you can specify a non-default GitHub token by settin
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.hub.download_url_to_file">
-<span class="sig-prename descclassname"><span class="pre">torch.hub.</span></span><span class="sig-name descname"><span class="pre">download_url_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hash_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/hub.py#L694"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.hub.download_url_to_file" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.hub.</span></span><span class="sig-name descname"><span class="pre">download_url_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hash_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/hub.py#L694"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.hub.download_url_to_file" title="Link to this definition">#</a></dt>
 <dd><p>Download object at the given URL to a local path.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – URL of the object to download</p></li>
 <li><p><strong>dst</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Full path where object will be saved, e.g. <code class="docutils literal notranslate"><span class="pre">/tmp/temporary_file</span></code></p></li>
@@ -4761,7 +4761,7 @@ Default: True</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.hub.load_state_dict_from_url">
-<span class="sig-prename descclassname"><span class="pre">torch.hub.</span></span><span class="sig-name descname"><span class="pre">load_state_dict_from_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/hub.py#L816"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.hub.load_state_dict_from_url" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.hub.</span></span><span class="sig-name descname"><span class="pre">load_state_dict_from_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/hub.py#L816"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.hub.load_state_dict_from_url" title="Link to this definition">#</a></dt>
 <dd><p>Loads the Torch serialized object at the given URL.</p>
 <p>If downloaded file is a zip file, it will be automatically
 decompressed.</p>
@@ -4770,7 +4770,7 @@ returned.
 The default value of <code class="docutils literal notranslate"><span class="pre">model_dir</span></code> is <code class="docutils literal notranslate"><span class="pre">&lt;hub_dir&gt;/checkpoints</span></code> where
 <code class="docutils literal notranslate"><span class="pre">hub_dir</span></code> is the directory returned by <a class="reference internal" href="#torch.hub.get_dir" title="torch.hub.get_dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_dir()</span></code></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – URL of the object to download</p></li>
 <li><p><strong>model_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – directory in which to save the object</p></li>
@@ -4787,7 +4787,7 @@ Default: False</p></li>
 Recommended for untrusted sources. See <a class="reference internal" href="generated/torch.load.html#torch.load" title="torch.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> for more details.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
 </dd>
 </dl>
@@ -4799,8 +4799,8 @@ Recommended for untrusted sources. See <a class="reference internal" href="gener
 </div>
 </dd></dl>
 
-<div class="section" id="running-a-loaded-model">
-<h3>Running a loaded model:<a class="headerlink" href="#running-a-loaded-model" title="Permalink to this heading">#</a></h3>
+<section id="running-a-loaded-model">
+<h3>Running a loaded model:<a class="headerlink" href="#running-a-loaded-model" title="Link to this heading">#</a></h3>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> in <a class="reference internal" href="#torch.hub.load" title="torch.hub.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.hub.load()</span></code></a> are used to
 <strong>instantiate</strong> a model. After you have loaded a model, how can you find out
 what you can do with the model?
@@ -4812,9 +4812,9 @@ A suggested workflow is</p>
 <p>To help users explore without referring to documentation back and forth, we strongly
 recommend repo owners make function help messages clear and succinct. It’s also helpful
 to include a minimal working example.</p>
-</div>
-<div class="section" id="where-are-my-downloaded-models-saved">
-<h3>Where are my downloaded models saved?<a class="headerlink" href="#where-are-my-downloaded-models-saved" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="where-are-my-downloaded-models-saved">
+<h3>Where are my downloaded models saved?<a class="headerlink" href="#where-are-my-downloaded-models-saved" title="Link to this heading">#</a></h3>
 <p>The locations are used in the order of</p>
 <ul class="simple">
 <li><p>Calling <code class="docutils literal notranslate"><span class="pre">hub.set_dir(&lt;PATH_TO_HUB_DIR&gt;)</span></code></p></li>
@@ -4824,7 +4824,7 @@ to include a minimal working example.</p>
 </ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.hub.get_dir">
-<span class="sig-prename descclassname"><span class="pre">torch.hub.</span></span><span class="sig-name descname"><span class="pre">get_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/hub.py#L399"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.hub.get_dir" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.hub.</span></span><span class="sig-name descname"><span class="pre">get_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/hub.py#L399"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.hub.get_dir" title="Link to this definition">#</a></dt>
 <dd><p>Get the Torch Hub cache directory used for storing downloaded models &amp; weights.</p>
 <p>If <a class="reference internal" href="#torch.hub.set_dir" title="torch.hub.set_dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_dir()</span></code></a> is not called, default path is <code class="docutils literal notranslate"><span class="pre">$TORCH_HOME/hub</span></code> where
 environment variable <code class="docutils literal notranslate"><span class="pre">$TORCH_HOME</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">$XDG_CACHE_HOME/torch</span></code>.
@@ -4832,7 +4832,7 @@ environment variable <code class="docutils literal notranslate"><span class="pre
 filesystem layout, with a default value <code class="docutils literal notranslate"><span class="pre">~/.cache</span></code> if the environment
 variable is not set.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
@@ -4840,26 +4840,26 @@ variable is not set.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.hub.set_dir">
-<span class="sig-prename descclassname"><span class="pre">torch.hub.</span></span><span class="sig-name descname"><span class="pre">set_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/hub.py#L420"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.hub.set_dir" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.hub.</span></span><span class="sig-name descname"><span class="pre">set_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/hub.py#L420"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.hub.set_dir" title="Link to this definition">#</a></dt>
 <dd><p>Optionally set the Torch Hub directory used to save downloaded models &amp; weights.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – path to a local folder to save downloaded models &amp; weights.</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="caching-logic">
-<h3>Caching logic<a class="headerlink" href="#caching-logic" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="caching-logic">
+<h3>Caching logic<a class="headerlink" href="#caching-logic" title="Link to this heading">#</a></h3>
 <p>By default, we don’t clean up files after loading it. Hub uses the cache by default if it already exists in the
 directory returned by <a class="reference internal" href="#torch.hub.get_dir" title="torch.hub.get_dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_dir()</span></code></a>.</p>
 <p>Users can force a reload by calling <code class="docutils literal notranslate"><span class="pre">hub.load(...,</span> <span class="pre">force_reload=True)</span></code>. This will delete
 the existing GitHub folder and downloaded weights, reinitialize a fresh download. This is useful
 when updates are published to the same branch, users can keep up with the latest release.</p>
-</div>
-<div class="section" id="known-limitations">
-<h3>Known limitations:<a class="headerlink" href="#known-limitations" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="known-limitations">
+<h3>Known limitations:<a class="headerlink" href="#known-limitations" title="Link to this heading">#</a></h3>
 <p>Torch hub works by importing the package as if it was installed. There are some side effects
 introduced by importing in Python. For example, you can see new items in Python caches
 <code class="docutils literal notranslate"><span class="pre">sys.modules</span></code> and <code class="docutils literal notranslate"><span class="pre">sys.path_importer_cache</span></code> which is normal Python behavior.
@@ -4872,9 +4872,9 @@ be found in <a class="reference external" href="https://github.com/pytorch/hub/i
 the same repo in the <strong>same python process</strong>. It’s just like installing two packages with the
 same name in Python, which is not good. Cache might join the party and give you surprises if you
 actually try that. Of course it’s totally fine to load them in separate processes.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
                 </article>
@@ -4940,11 +4940,6 @@ actually try that. Of course it’s totally fine to load them in separate proces
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -5088,7 +5083,9 @@ actually try that. Of course it’s totally fine to load them in separate proces
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -5112,10 +5109,13 @@ actually try that. Of course it’s totally fine to load them in separate proces
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -5138,7 +5138,6 @@ actually try that. Of course it’s totally fine to load them in separate proces
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -5188,10 +5187,10 @@ actually try that. Of course it’s totally fine to load them in separate proces
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5232,7 +5231,7 @@ actually try that. Of course it’s totally fine to load them in separate proces
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -5261,13 +5260,13 @@ actually try that. Of course it’s totally fine to load them in separate proces
        "headline": "torch.hub",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/hub.html",
-       "articleBody": "torch.hub# Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025 Pytorch Hub is a pre-trained model repository designed to facilitate research reproducibility. Publishing models# Pytorch Hub supports publishing pre-trained models(model definitions and pre-trained weights) to a GitHub repository by adding a simple hubconf.py file; hubconf.py can have multiple entrypoints. Each entrypoint is defined as a python function (example: a pre-trained model you want to publish). def entrypoint_name(*args, **kwargs): # args \u0026 kwargs are optional, for models which take positional/keyword arguments. ... How to implement an entrypoint?# Here is a code snippet specifies an entrypoint for resnet18 model if we expand the implementation in pytorch/vision/hubconf.py. In most case importing the right function in hubconf.py is sufficient. Here we just want to use the expanded version as an example to show how it works. You can see the full script in pytorch/vision repo dependencies = [\u0027torch\u0027] from torchvision.models.resnet import resnet18 as _resnet18 # resnet18 is the name of entrypoint def resnet18(pretrained=False, **kwargs): \"\"\" # This docstring shows up in hub.help() Resnet18 model pretrained (bool): kwargs, load pretrained weights into the model \"\"\" # Call the model, load pretrained weights model = _resnet18(pretrained=pretrained, **kwargs) return model dependencies variable is a list of package names required to load the model. Note this might be slightly different from dependencies required for training a model. args and kwargs are passed along to the real callable function. Docstring of the function works as a help message. It explains what does the model do and what are the allowed positional/keyword arguments. It\u2019s highly recommended to add a few examples here. Entrypoint function can either return a model(nn.module), or auxiliary tools to make the user workflow smoother, e.g. tokenizers. Callables prefixed with underscore are considered as helper functions which won\u2019t show up in torch.hub.list(). Pretrained weights can either be stored locally in the GitHub repo, or loadable by torch.hub.load_state_dict_from_url(). If less than 2GB, it\u2019s recommended to attach it to a project release and use the url from the release. In the example above torchvision.models.resnet.resnet18 handles pretrained, alternatively you can put the following logic in the entrypoint definition. if pretrained: # For checkpoint saved in local GitHub repo, e.g. \u003cRELATIVE_PATH_TO_CHECKPOINT\u003e=weights/save.pth dirname = os.path.dirname(__file__) checkpoint = os.path.join(dirname, \u003cRELATIVE_PATH_TO_CHECKPOINT\u003e) state_dict = torch.load(checkpoint) model.load_state_dict(state_dict) # For checkpoint saved elsewhere checkpoint = \u0027https://download.pytorch.org/models/resnet18-5c106cde.pth\u0027 model.load_state_dict(torch.hub.load_state_dict_from_url(checkpoint, progress=False)) Important Notice# The published models should be at least in a branch/tag. It can\u2019t be a random commit. Loading models from Hub# Pytorch Hub provides convenient APIs to explore all available models in hub through torch.hub.list(), show docstring and examples through torch.hub.help() and load the pre-trained models using torch.hub.load(). torch.hub.list(github, force_reload=False, skip_validation=False, trust_repo=None, verbose=True)[source]# List all callable entrypoints available in the repo specified by github. Parameters github (str) \u2013 a string with format \u201crepo_owner/repo_name[:ref]\u201d with an optional ref (tag or branch). If ref is not specified, the default branch is assumed to be main if it exists, and otherwise master. Example: \u2018pytorch/vision:0.10\u2019 force_reload (bool, optional) \u2013 whether to discard the existing cache and force a fresh download. Default is False. skip_validation (bool, optional) \u2013 if False, torchhub will check that the branch or commit specified by the github argument properly belongs to the repo owner. This will make requests to the GitHub API; you can specify a non-default GitHub token by setting the GITHUB_TOKEN environment variable. Default is False. trust_repo (bool, str or None) \u2013 \"check\", True, False or None. This parameter was introduced in v1.12 and helps ensuring that users only run code from repos that they trust. If False, a prompt will ask the user whether the repo should be trusted. If True, the repo will be added to the trusted list and loaded without requiring explicit confirmation. If \"check\", the repo will be checked against the list of trusted repos in the cache. If it is not present in that list, the behaviour will fall back onto the trust_repo=False option. If None: this will raise a warning, inviting the user to set trust_repo to either False, True or \"check\". This is only present for backward compatibility and will be removed in v2.0. Default is None and will eventually change to \"check\" in v2.0. verbose (bool, optional) \u2013 If False, mute messages about hitting local caches. Note that the message about first download cannot be muted. Default is True. Returns The available callables entrypoint Return type list Example \u003e\u003e\u003e entrypoints = torch.hub.list(\"pytorch/vision\", force_reload=True) torch.hub.help(github, model, force_reload=False, skip_validation=False, trust_repo=None)[source]# Show the docstring of entrypoint model. Parameters github (str) \u2013 a string with format \u003crepo_owner/repo_name[:ref]\u003e with an optional ref (a tag or a branch). If ref is not specified, the default branch is assumed to be main if it exists, and otherwise master. Example: \u2018pytorch/vision:0.10\u2019 model (str) \u2013 a string of entrypoint name defined in repo\u2019s hubconf.py force_reload (bool, optional) \u2013 whether to discard the existing cache and force a fresh download. Default is False. skip_validation (bool, optional) \u2013 if False, torchhub will check that the ref specified by the github argument properly belongs to the repo owner. This will make requests to the GitHub API; you can specify a non-default GitHub token by setting the GITHUB_TOKEN environment variable. Default is False. trust_repo (bool, str or None) \u2013 \"check\", True, False or None. This parameter was introduced in v1.12 and helps ensuring that users only run code from repos that they trust. If False, a prompt will ask the user whether the repo should be trusted. If True, the repo will be added to the trusted list and loaded without requiring explicit confirmation. If \"check\", the repo will be checked against the list of trusted repos in the cache. If it is not present in that list, the behaviour will fall back onto the trust_repo=False option. If None: this will raise a warning, inviting the user to set trust_repo to either False, True or \"check\". This is only present for backward compatibility and will be removed in v2.0. Default is None and will eventually change to \"check\" in v2.0. Example \u003e\u003e\u003e print(torch.hub.help(\"pytorch/vision\", \"resnet18\", force_reload=True)) torch.hub.load(repo_or_dir, model, *args, source=\u0027github\u0027, trust_repo=None, force_reload=False, verbose=True, skip_validation=False, **kwargs)[source]# Load a model from a github repo or a local directory. Note: Loading a model is the typical use case, but this can also be used to for loading other objects such as tokenizers, loss functions, etc. If source is \u2018github\u2019, repo_or_dir is expected to be of the form repo_owner/repo_name[:ref] with an optional ref (a tag or a branch). If source is \u2018local\u2019, repo_or_dir is expected to be a path to a local directory. Parameters repo_or_dir (str) \u2013 If source is \u2018github\u2019, this should correspond to a github repo with format repo_owner/repo_name[:ref] with an optional ref (tag or branch), for example \u2018pytorch/vision:0.10\u2019. If ref is not specified, the default branch is assumed to be main if it exists, and otherwise master. If source is \u2018local\u2019 then it should be a path to a local directory. model (str) \u2013 the name of a callable (entrypoint) defined in the repo/dir\u2019s hubconf.py. *args (optional) \u2013 the corresponding args for callable model. source (str, optional) \u2013 \u2018github\u2019 or \u2018local\u2019. Specifies how repo_or_dir is to be interpreted. Default is \u2018github\u2019. trust_repo (bool, str or None) \u2013 \"check\", True, False or None. This parameter was introduced in v1.12 and helps ensuring that users only run code from repos that they trust. If False, a prompt will ask the user whether the repo should be trusted. If True, the repo will be added to the trusted list and loaded without requiring explicit confirmation. If \"check\", the repo will be checked against the list of trusted repos in the cache. If it is not present in that list, the behaviour will fall back onto the trust_repo=False option. If None: this will raise a warning, inviting the user to set trust_repo to either False, True or \"check\". This is only present for backward compatibility and will be removed in v2.0. Default is None and will eventually change to \"check\" in v2.0. force_reload (bool, optional) \u2013 whether to force a fresh download of the github repo unconditionally. Does not have any effect if source = \u0027local\u0027. Default is False. verbose (bool, optional) \u2013 If False, mute messages about hitting local caches. Note that the message about first download cannot be muted. Does not have any effect if source = \u0027local\u0027. Default is True. skip_validation (bool, optional) \u2013 if False, torchhub will check that the branch or commit specified by the github argument properly belongs to the repo owner. This will make requests to the GitHub API; you can specify a non-default GitHub token by setting the GITHUB_TOKEN environment variable. Default is False. **kwargs (optional) \u2013 the corresponding kwargs for callable model. Returns The output of the model callable when called with the given *args and **kwargs. Example \u003e\u003e\u003e # from a github repo \u003e\u003e\u003e repo = \"pytorch/vision\" \u003e\u003e\u003e model = torch.hub.load( ... repo, \"resnet50\", weights=\"ResNet50_Weights.IMAGENET1K_V1\" ... ) \u003e\u003e\u003e # from a local directory \u003e\u003e\u003e path = \"/some/local/path/pytorch/vision\" \u003e\u003e\u003e model = torch.hub.load(path, \"resnet50\", weights=\"ResNet50_Weights.DEFAULT\") torch.hub.download_url_to_file(url, dst, hash_prefix=None, progress=True)[source]# Download object at the given URL to a local path. Parameters url (str) \u2013 URL of the object to download dst (str) \u2013 Full path where object will be saved, e.g. /tmp/temporary_file hash_prefix (str, optional) \u2013 If not None, the SHA256 downloaded file should start with hash_prefix. Default: None progress (bool, optional) \u2013 whether or not to display a progress bar to stderr Default: True Example \u003e\u003e\u003e torch.hub.download_url_to_file( ... \"https://s3.amazonaws.com/pytorch/models/resnet18-5c106cde.pth\", ... \"/tmp/temporary_file\", ... ) torch.hub.load_state_dict_from_url(url, model_dir=None, map_location=None, progress=True, check_hash=False, file_name=None, weights_only=False)[source]# Loads the Torch serialized object at the given URL. If downloaded file is a zip file, it will be automatically decompressed. If the object is already present in model_dir, it\u2019s deserialized and returned. The default value of model_dir is \u003chub_dir\u003e/checkpoints where hub_dir is the directory returned by get_dir(). Parameters url (str) \u2013 URL of the object to download model_dir (str, optional) \u2013 directory in which to save the object map_location (optional) \u2013 a function or a dict specifying how to remap storage locations (see torch.load) progress (bool, optional) \u2013 whether or not to display a progress bar to stderr. Default: True check_hash (bool, optional) \u2013 If True, the filename part of the URL should follow the naming convention filename-\u003csha256\u003e.ext where \u003csha256\u003e is the first eight or more digits of the SHA256 hash of the contents of the file. The hash is used to ensure unique names and to verify the contents of the file. Default: False file_name (str, optional) \u2013 name for the downloaded file. Filename from url will be used if not set. weights_only (bool, optional) \u2013 If True, only weights will be loaded and no complex pickled objects. Recommended for untrusted sources. See load() for more details. Return type dict[str, Any] Example \u003e\u003e\u003e state_dict = torch.hub.load_state_dict_from_url( ... \"https://s3.amazonaws.com/pytorch/models/resnet18-5c106cde.pth\" ... ) Running a loaded model:# Note that *args and **kwargs in torch.hub.load() are used to instantiate a model. After you have loaded a model, how can you find out what you can do with the model? A suggested workflow is dir(model) to see all available methods of the model. help(model.foo) to check what arguments model.foo takes to run To help users explore without referring to documentation back and forth, we strongly recommend repo owners make function help messages clear and succinct. It\u2019s also helpful to include a minimal working example. Where are my downloaded models saved?# The locations are used in the order of Calling hub.set_dir(\u003cPATH_TO_HUB_DIR\u003e) $TORCH_HOME/hub, if environment variable TORCH_HOME is set. $XDG_CACHE_HOME/torch/hub, if environment variable XDG_CACHE_HOME is set. ~/.cache/torch/hub torch.hub.get_dir()[source]# Get the Torch Hub cache directory used for storing downloaded models \u0026 weights. If set_dir() is not called, default path is $TORCH_HOME/hub where environment variable $TORCH_HOME defaults to $XDG_CACHE_HOME/torch. $XDG_CACHE_HOME follows the X Design Group specification of the Linux filesystem layout, with a default value ~/.cache if the environment variable is not set. Return type str torch.hub.set_dir(d)[source]# Optionally set the Torch Hub directory used to save downloaded models \u0026 weights. Parameters d (str) \u2013 path to a local folder to save downloaded models \u0026 weights. Caching logic# By default, we don\u2019t clean up files after loading it. Hub uses the cache by default if it already exists in the directory returned by get_dir(). Users can force a reload by calling hub.load(..., force_reload=True). This will delete the existing GitHub folder and downloaded weights, reinitialize a fresh download. This is useful when updates are published to the same branch, users can keep up with the latest release. Known limitations:# Torch hub works by importing the package as if it was installed. There are some side effects introduced by importing in Python. For example, you can see new items in Python caches sys.modules and sys.path_importer_cache which is normal Python behavior. This also means that you may have import errors when importing different models from different repos, if the repos have the same sub-package names (typically, a model subpackage). A workaround for these kinds of import errors is to remove the offending sub-package from the sys.modules dict; more details can be found in this GitHub issue. A known limitation that is worth mentioning here: users CANNOT load two different branches of the same repo in the same python process. It\u2019s just like installing two packages with the same name in Python, which is not good. Cache might join the party and give you surprises if you actually try that. Of course it\u2019s totally fine to load them in separate processes.",
+       "articleBody": "torch.hub# Created On: Jun 13, 2025 | Last Updated On: Jun 13, 2025 Pytorch Hub is a pre-trained model repository designed to facilitate research reproducibility. Publishing models# Pytorch Hub supports publishing pre-trained models(model definitions and pre-trained weights) to a GitHub repository by adding a simple hubconf.py file; hubconf.py can have multiple entrypoints. Each entrypoint is defined as a python function (example: a pre-trained model you want to publish). def entrypoint_name(*args, **kwargs): # args \u0026 kwargs are optional, for models which take positional/keyword arguments. ... How to implement an entrypoint?# Here is a code snippet specifies an entrypoint for resnet18 model if we expand the implementation in pytorch/vision/hubconf.py. In most case importing the right function in hubconf.py is sufficient. Here we just want to use the expanded version as an example to show how it works. You can see the full script in pytorch/vision repo dependencies = [\u0027torch\u0027] from torchvision.models.resnet import resnet18 as _resnet18 # resnet18 is the name of entrypoint def resnet18(pretrained=False, **kwargs): \"\"\" # This docstring shows up in hub.help() Resnet18 model pretrained (bool): kwargs, load pretrained weights into the model \"\"\" # Call the model, load pretrained weights model = _resnet18(pretrained=pretrained, **kwargs) return model dependencies variable is a list of package names required to load the model. Note this might be slightly different from dependencies required for training a model. args and kwargs are passed along to the real callable function. Docstring of the function works as a help message. It explains what does the model do and what are the allowed positional/keyword arguments. It\u2019s highly recommended to add a few examples here. Entrypoint function can either return a model(nn.module), or auxiliary tools to make the user workflow smoother, e.g. tokenizers. Callables prefixed with underscore are considered as helper functions which won\u2019t show up in torch.hub.list(). Pretrained weights can either be stored locally in the GitHub repo, or loadable by torch.hub.load_state_dict_from_url(). If less than 2GB, it\u2019s recommended to attach it to a project release and use the url from the release. In the example above torchvision.models.resnet.resnet18 handles pretrained, alternatively you can put the following logic in the entrypoint definition. if pretrained: # For checkpoint saved in local GitHub repo, e.g. \u003cRELATIVE_PATH_TO_CHECKPOINT\u003e=weights/save.pth dirname = os.path.dirname(__file__) checkpoint = os.path.join(dirname, \u003cRELATIVE_PATH_TO_CHECKPOINT\u003e) state_dict = torch.load(checkpoint) model.load_state_dict(state_dict) # For checkpoint saved elsewhere checkpoint = \u0027https://download.pytorch.org/models/resnet18-5c106cde.pth\u0027 model.load_state_dict(torch.hub.load_state_dict_from_url(checkpoint, progress=False)) Important Notice# The published models should be at least in a branch/tag. It can\u2019t be a random commit. Loading models from Hub# Pytorch Hub provides convenient APIs to explore all available models in hub through torch.hub.list(), show docstring and examples through torch.hub.help() and load the pre-trained models using torch.hub.load(). torch.hub.list(github, force_reload=False, skip_validation=False, trust_repo=None, verbose=True)[source]# List all callable entrypoints available in the repo specified by github. Parameters: github (str) \u2013 a string with format \u201crepo_owner/repo_name[:ref]\u201d with an optional ref (tag or branch). If ref is not specified, the default branch is assumed to be main if it exists, and otherwise master. Example: \u2018pytorch/vision:0.10\u2019 force_reload (bool, optional) \u2013 whether to discard the existing cache and force a fresh download. Default is False. skip_validation (bool, optional) \u2013 if False, torchhub will check that the branch or commit specified by the github argument properly belongs to the repo owner. This will make requests to the GitHub API; you can specify a non-default GitHub token by setting the GITHUB_TOKEN environment variable. Default is False. trust_repo (bool, str or None) \u2013 \"check\", True, False or None. This parameter was introduced in v1.12 and helps ensuring that users only run code from repos that they trust. If False, a prompt will ask the user whether the repo should be trusted. If True, the repo will be added to the trusted list and loaded without requiring explicit confirmation. If \"check\", the repo will be checked against the list of trusted repos in the cache. If it is not present in that list, the behaviour will fall back onto the trust_repo=False option. If None: this will raise a warning, inviting the user to set trust_repo to either False, True or \"check\". This is only present for backward compatibility and will be removed in v2.0. Default is None and will eventually change to \"check\" in v2.0. verbose (bool, optional) \u2013 If False, mute messages about hitting local caches. Note that the message about first download cannot be muted. Default is True. Returns: The available callables entrypoint Return type: list Example \u003e\u003e\u003e entrypoints = torch.hub.list(\"pytorch/vision\", force_reload=True) torch.hub.help(github, model, force_reload=False, skip_validation=False, trust_repo=None)[source]# Show the docstring of entrypoint model. Parameters: github (str) \u2013 a string with format \u003crepo_owner/repo_name[:ref]\u003e with an optional ref (a tag or a branch). If ref is not specified, the default branch is assumed to be main if it exists, and otherwise master. Example: \u2018pytorch/vision:0.10\u2019 model (str) \u2013 a string of entrypoint name defined in repo\u2019s hubconf.py force_reload (bool, optional) \u2013 whether to discard the existing cache and force a fresh download. Default is False. skip_validation (bool, optional) \u2013 if False, torchhub will check that the ref specified by the github argument properly belongs to the repo owner. This will make requests to the GitHub API; you can specify a non-default GitHub token by setting the GITHUB_TOKEN environment variable. Default is False. trust_repo (bool, str or None) \u2013 \"check\", True, False or None. This parameter was introduced in v1.12 and helps ensuring that users only run code from repos that they trust. If False, a prompt will ask the user whether the repo should be trusted. If True, the repo will be added to the trusted list and loaded without requiring explicit confirmation. If \"check\", the repo will be checked against the list of trusted repos in the cache. If it is not present in that list, the behaviour will fall back onto the trust_repo=False option. If None: this will raise a warning, inviting the user to set trust_repo to either False, True or \"check\". This is only present for backward compatibility and will be removed in v2.0. Default is None and will eventually change to \"check\" in v2.0. Example \u003e\u003e\u003e print(torch.hub.help(\"pytorch/vision\", \"resnet18\", force_reload=True)) torch.hub.load(repo_or_dir, model, *args, source=\u0027github\u0027, trust_repo=None, force_reload=False, verbose=True, skip_validation=False, **kwargs)[source]# Load a model from a github repo or a local directory. Note: Loading a model is the typical use case, but this can also be used to for loading other objects such as tokenizers, loss functions, etc. If source is \u2018github\u2019, repo_or_dir is expected to be of the form repo_owner/repo_name[:ref] with an optional ref (a tag or a branch). If source is \u2018local\u2019, repo_or_dir is expected to be a path to a local directory. Parameters: repo_or_dir (str) \u2013 If source is \u2018github\u2019, this should correspond to a github repo with format repo_owner/repo_name[:ref] with an optional ref (tag or branch), for example \u2018pytorch/vision:0.10\u2019. If ref is not specified, the default branch is assumed to be main if it exists, and otherwise master. If source is \u2018local\u2019 then it should be a path to a local directory. model (str) \u2013 the name of a callable (entrypoint) defined in the repo/dir\u2019s hubconf.py. *args (optional) \u2013 the corresponding args for callable model. source (str, optional) \u2013 \u2018github\u2019 or \u2018local\u2019. Specifies how repo_or_dir is to be interpreted. Default is \u2018github\u2019. trust_repo (bool, str or None) \u2013 \"check\", True, False or None. This parameter was introduced in v1.12 and helps ensuring that users only run code from repos that they trust. If False, a prompt will ask the user whether the repo should be trusted. If True, the repo will be added to the trusted list and loaded without requiring explicit confirmation. If \"check\", the repo will be checked against the list of trusted repos in the cache. If it is not present in that list, the behaviour will fall back onto the trust_repo=False option. If None: this will raise a warning, inviting the user to set trust_repo to either False, True or \"check\". This is only present for backward compatibility and will be removed in v2.0. Default is None and will eventually change to \"check\" in v2.0. force_reload (bool, optional) \u2013 whether to force a fresh download of the github repo unconditionally. Does not have any effect if source = \u0027local\u0027. Default is False. verbose (bool, optional) \u2013 If False, mute messages about hitting local caches. Note that the message about first download cannot be muted. Does not have any effect if source = \u0027local\u0027. Default is True. skip_validation (bool, optional) \u2013 if False, torchhub will check that the branch or commit specified by the github argument properly belongs to the repo owner. This will make requests to the GitHub API; you can specify a non-default GitHub token by setting the GITHUB_TOKEN environment variable. Default is False. **kwargs (optional) \u2013 the corresponding kwargs for callable model. Returns: The output of the model callable when called with the given *args and **kwargs. Example \u003e\u003e\u003e # from a github repo \u003e\u003e\u003e repo = \"pytorch/vision\" \u003e\u003e\u003e model = torch.hub.load( ... repo, \"resnet50\", weights=\"ResNet50_Weights.IMAGENET1K_V1\" ... ) \u003e\u003e\u003e # from a local directory \u003e\u003e\u003e path = \"/some/local/path/pytorch/vision\" \u003e\u003e\u003e model = torch.hub.load(path, \"resnet50\", weights=\"ResNet50_Weights.DEFAULT\") torch.hub.download_url_to_file(url, dst, hash_prefix=None, progress=True)[source]# Download object at the given URL to a local path. Parameters: url (str) \u2013 URL of the object to download dst (str) \u2013 Full path where object will be saved, e.g. /tmp/temporary_file hash_prefix (str, optional) \u2013 If not None, the SHA256 downloaded file should start with hash_prefix. Default: None progress (bool, optional) \u2013 whether or not to display a progress bar to stderr Default: True Example \u003e\u003e\u003e torch.hub.download_url_to_file( ... \"https://s3.amazonaws.com/pytorch/models/resnet18-5c106cde.pth\", ... \"/tmp/temporary_file\", ... ) torch.hub.load_state_dict_from_url(url, model_dir=None, map_location=None, progress=True, check_hash=False, file_name=None, weights_only=False)[source]# Loads the Torch serialized object at the given URL. If downloaded file is a zip file, it will be automatically decompressed. If the object is already present in model_dir, it\u2019s deserialized and returned. The default value of model_dir is \u003chub_dir\u003e/checkpoints where hub_dir is the directory returned by get_dir(). Parameters: url (str) \u2013 URL of the object to download model_dir (str, optional) \u2013 directory in which to save the object map_location (optional) \u2013 a function or a dict specifying how to remap storage locations (see torch.load) progress (bool, optional) \u2013 whether or not to display a progress bar to stderr. Default: True check_hash (bool, optional) \u2013 If True, the filename part of the URL should follow the naming convention filename-\u003csha256\u003e.ext where \u003csha256\u003e is the first eight or more digits of the SHA256 hash of the contents of the file. The hash is used to ensure unique names and to verify the contents of the file. Default: False file_name (str, optional) \u2013 name for the downloaded file. Filename from url will be used if not set. weights_only (bool, optional) \u2013 If True, only weights will be loaded and no complex pickled objects. Recommended for untrusted sources. See load() for more details. Return type: dict[str, Any] Example \u003e\u003e\u003e state_dict = torch.hub.load_state_dict_from_url( ... \"https://s3.amazonaws.com/pytorch/models/resnet18-5c106cde.pth\" ... ) Running a loaded model:# Note that *args and **kwargs in torch.hub.load() are used to instantiate a model. After you have loaded a model, how can you find out what you can do with the model? A suggested workflow is dir(model) to see all available methods of the model. help(model.foo) to check what arguments model.foo takes to run To help users explore without referring to documentation back and forth, we strongly recommend repo owners make function help messages clear and succinct. It\u2019s also helpful to include a minimal working example. Where are my downloaded models saved?# The locations are used in the order of Calling hub.set_dir(\u003cPATH_TO_HUB_DIR\u003e) $TORCH_HOME/hub, if environment variable TORCH_HOME is set. $XDG_CACHE_HOME/torch/hub, if environment variable XDG_CACHE_HOME is set. ~/.cache/torch/hub torch.hub.get_dir()[source]# Get the Torch Hub cache directory used for storing downloaded models \u0026 weights. If set_dir() is not called, default path is $TORCH_HOME/hub where environment variable $TORCH_HOME defaults to $XDG_CACHE_HOME/torch. $XDG_CACHE_HOME follows the X Design Group specification of the Linux filesystem layout, with a default value ~/.cache if the environment variable is not set. Return type: str torch.hub.set_dir(d)[source]# Optionally set the Torch Hub directory used to save downloaded models \u0026 weights. Parameters: d (str) \u2013 path to a local folder to save downloaded models \u0026 weights. Caching logic# By default, we don\u2019t clean up files after loading it. Hub uses the cache by default if it already exists in the directory returned by get_dir(). Users can force a reload by calling hub.load(..., force_reload=True). This will delete the existing GitHub folder and downloaded weights, reinitialize a fresh download. This is useful when updates are published to the same branch, users can keep up with the latest release. Known limitations:# Torch hub works by importing the package as if it was installed. There are some side effects introduced by importing in Python. For example, you can see new items in Python caches sys.modules and sys.path_importer_cache which is normal Python behavior. This also means that you may have import errors when importing different models from different repos, if the repos have the same sub-package names (typically, a model subpackage). A workaround for these kinds of import errors is to remove the offending sub-package from the sys.modules dict; more details can be found in this GitHub issue. A known limitation that is worth mentioning here: users CANNOT load two different branches of the same repo in the same python process. It\u2019s just like installing two packages with the same name in Python, which is not good. Cache might join the party and give you surprises if you actually try that. Of course it\u2019s totally fine to load them in separate processes.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/hub.html"

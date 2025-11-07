@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>torch.nn.attention.flex_attention &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=940804e7"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'nn.attention.flex_attention';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="_static/js/runllm-widget.js"></script>
+    <script src="_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/nn.attention.flex_attention.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4488,6 +4487,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4495,12 +4495,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="module-torch.nn.attention.flex_attention">
-<span id="torch-nn-attention-flex-attention"></span><h1>torch.nn.attention.flex_attention<a class="headerlink" href="#module-torch.nn.attention.flex_attention" title="Permalink to this heading">#</a></h1>
+  <section id="module-torch.nn.attention.flex_attention">
+<span id="torch-nn-attention-flex-attention"></span><h1>torch.nn.attention.flex_attention<a class="headerlink" href="#module-torch.nn.attention.flex_attention" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jul 16, 2024 | Last Updated On: Sep 15, 2025</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.flex_attention">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">flex_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_gqa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_lse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L1371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.flex_attention" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">flex_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_gqa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_lse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L1371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.flex_attention" title="Link to this definition">#</a></dt>
 <dd><p>This function implements scaled dot product attention with an arbitrary attention score modification function.</p>
 <p>This function computes the scaled dot product attention between query, key, and value tensors with a user-defined
 attention score modification function. The attention score modification function will be applied after the attention
@@ -4526,7 +4526,7 @@ These should have the <code class="docutils literal notranslate"><span class="pr
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>query</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – Query tensor; shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>B</mi><mo separator="true">,</mo><mi>H</mi><mi>q</mi><mo separator="true">,</mo><mi>L</mi><mo separator="true">,</mo><mi>E</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(B, Hq, L, E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">L</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span></span>. For FP8 dtypes, should be in row-major memory layout for optimal performance.</p></li>
 <li><p><strong>key</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – Key tensor; shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>B</mi><mo separator="true">,</mo><mi>H</mi><mi>k</mi><mi>v</mi><mo separator="true">,</mo><mi>S</mi><mo separator="true">,</mo><mi>E</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(B, Hkv, S, E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span></span>. For FP8 dtypes, should be in row-major memory layout for optimal performance.</p></li>
@@ -4554,7 +4554,7 @@ If None, only the attention output is returned. Use <code class="docutils litera
 to request both auxiliary outputs.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><p>Attention output; shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>B</mi><mo separator="true">,</mo><mi>H</mi><mi>q</mi><mo separator="true">,</mo><mi>L</mi><mo separator="true">,</mo><mi>E</mi><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(B, Hq, L, Ev)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">L</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span></span>.</p>
 <dl class="simple">
 <dt>When <code class="docutils literal notranslate"><span class="pre">return_aux</span></code> is not None:</dt><dd><p>aux (AuxOutput): Auxiliary outputs with requested fields populated.</p>
@@ -4564,7 +4564,7 @@ to request both auxiliary outputs.</p></li>
 </dl>
 </p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>output (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>)</p>
 </dd>
 </dl>
@@ -4588,7 +4588,7 @@ Read more about feature classification at: <a class="reference external" href="h
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.AuxOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">AuxOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.AuxOutput" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">AuxOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.AuxOutput" title="Link to this definition">#</a></dt>
 <dd><p>Auxiliary outputs from flex_attention operation.</p>
 <p>Fields will be None if not requested, or contain the tensor if requested.</p>
 <dl class="field-list simple">
@@ -4597,21 +4597,21 @@ Read more about feature classification at: <a class="reference external" href="h
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.AuxRequest">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">AuxRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L231"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.AuxRequest" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">AuxRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L231"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.AuxRequest" title="Link to this definition">#</a></dt>
 <dd><p>Request which auxiliary outputs to compute from flex_attention.</p>
 <p>Each field is a boolean indicating whether that auxiliary output should be computed.</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
 
-<div class="section" id="blockmask-utilities">
-<h2>BlockMask Utilities<a class="headerlink" href="#blockmask-utilities" title="Permalink to this heading">#</a></h2>
+<section id="blockmask-utilities">
+<h2>BlockMask Utilities<a class="headerlink" href="#blockmask-utilities" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.create_block_mask">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">create_block_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask_mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KV_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BLOCK_SIZE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_compile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L1138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.create_block_mask" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">create_block_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask_mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KV_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BLOCK_SIZE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_compile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L1138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.create_block_mask" title="Link to this definition">#</a></dt>
 <dd><p>This function creates a block mask tuple from a mask_mod function.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mask_mod</strong> (<em>Callable</em>) – mask_mod function. This is a callable that defines the
 masking pattern for the attention mechanism. It takes four arguments:
@@ -4626,10 +4626,10 @@ or masked out (False).</p></li>
 <li><p><strong>BLOCK_SIZE</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – Block size for the block mask. If a single int is provided it is used for both query and key/value.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A BlockMask object that contains the block mask information.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#torch.nn.attention.flex_attention.BlockMask" title="torch.nn.attention.flex_attention.BlockMask">BlockMask</a></p>
 </dd>
 </dl>
@@ -4651,10 +4651,10 @@ or masked out (False).</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.create_mask">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">create_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KV_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L1087"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.create_mask" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">create_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KV_LEN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L1087"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.create_mask" title="Link to this definition">#</a></dt>
 <dd><p>This function creates a mask tensor from a mod_fn function.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mod_fn</strong> (<em>Union</em><em>[</em><em>_score_mod_signature</em><em>, </em><em>_mask_mod_signature</em><em>]</em>) – Function to modify attention scores.</p></li>
 <li><p><strong>B</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Batch size.</p></li>
@@ -4664,10 +4664,10 @@ or masked out (False).</p></li>
 <li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Device to run the mask creation on.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A mask tensor with shape (B, H, M, N).</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>mask (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>)</p>
 </dd>
 </dl>
@@ -4675,10 +4675,10 @@ or masked out (False).</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.and_masks">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">and_masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">mask_mods</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L1031"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.and_masks" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">and_masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">mask_mods</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L1031"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.and_masks" title="Link to this definition">#</a></dt>
 <dd><p>Returns a mask_mod that’s the intersection of provided mask_mods</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a>[[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>], <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>]</p>
 </dd>
 </dl>
@@ -4686,10 +4686,10 @@ or masked out (False).</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.or_masks">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">or_masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">mask_mods</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L1017"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.or_masks" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">or_masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">mask_mods</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L1017"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.or_masks" title="Link to this definition">#</a></dt>
 <dd><p>Returns a mask_mod that’s the union of provided mask_mods</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a>[[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>], <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>]</p>
 </dd>
 </dl>
@@ -4697,21 +4697,21 @@ or masked out (False).</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.noop_mask">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">noop_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_kv</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L350"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.noop_mask" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">noop_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_kv</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L350"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.noop_mask" title="Link to this definition">#</a></dt>
 <dd><p>Returns a noop mask_mod</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="flexkerneloptions">
-<h2>FlexKernelOptions<a class="headerlink" href="#flexkerneloptions" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="flexkerneloptions">
+<h2>FlexKernelOptions<a class="headerlink" href="#flexkerneloptions" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">FlexKernelOptions</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L88"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">FlexKernelOptions</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L88"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions" title="Link to this definition">#</a></dt>
 <dd><p>Options for controlling the behavior of FlexAttention kernels.</p>
 <p>These options are passed to the underlying Triton kernels to control performance
 and numerical behavior. Most users will not need to specify these options as the
@@ -4753,7 +4753,7 @@ Is better than secret hidden flags, but we may change these options in the futur
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.BLOCKS_ARE_CONTIGUOUS">
-<span class="sig-name descname"><span class="pre">BLOCKS_ARE_CONTIGUOUS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.BLOCKS_ARE_CONTIGUOUS" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">BLOCKS_ARE_CONTIGUOUS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.BLOCKS_ARE_CONTIGUOUS" title="Link to this definition">#</a></dt>
 <dd><p>If True, guarantees that all blocks in the mask are contiguous.
 Allows optimizing block traversal. For example, causal masks would satisfy this,
 but prefix_lm + sliding window would not. Default: False.</p>
@@ -4761,49 +4761,49 @@ but prefix_lm + sliding window would not. Default: False.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_M">
-<span class="sig-name descname"><span class="pre">BLOCK_M</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_M" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">BLOCK_M</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_M" title="Link to this definition">#</a></dt>
 <dd><p>Thread block size for the sequence length dimension of Q in forward pass.
 Must be a power of 2. Common values: 16, 32, 64, 128. Default is determined by autotuning.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_M1">
-<span class="sig-name descname"><span class="pre">BLOCK_M1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_M1" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">BLOCK_M1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_M1" title="Link to this definition">#</a></dt>
 <dd><p>Thread block size for Q dimension in backward pass. Use as ‘bwd_BLOCK_M1’.
 Default is determined by autotuning.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_M2">
-<span class="sig-name descname"><span class="pre">BLOCK_M2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_M2" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">BLOCK_M2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_M2" title="Link to this definition">#</a></dt>
 <dd><p>Thread block size for second Q dimension in backward pass. Use as ‘bwd_BLOCK_M2’.
 Default is determined by autotuning.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_N">
-<span class="sig-name descname"><span class="pre">BLOCK_N</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_N" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">BLOCK_N</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_N" title="Link to this definition">#</a></dt>
 <dd><p>Thread block size for the sequence length dimension of K/V in forward pass.
 Must be a power of 2. Common values: 16, 32, 64, 128. Default is determined by autotuning.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_N1">
-<span class="sig-name descname"><span class="pre">BLOCK_N1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_N1" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">BLOCK_N1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_N1" title="Link to this definition">#</a></dt>
 <dd><p>Thread block size for K/V dimension in backward pass. Use as ‘bwd_BLOCK_N1’.
 Default is determined by autotuning.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_N2">
-<span class="sig-name descname"><span class="pre">BLOCK_N2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_N2" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">BLOCK_N2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.BLOCK_N2" title="Link to this definition">#</a></dt>
 <dd><p>Thread block size for second K/V dimension in backward pass. Use as ‘bwd_BLOCK_N2’.
 Default is determined by autotuning.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.FORCE_USE_FLEX_ATTENTION">
-<span class="sig-name descname"><span class="pre">FORCE_USE_FLEX_ATTENTION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.FORCE_USE_FLEX_ATTENTION" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">FORCE_USE_FLEX_ATTENTION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.FORCE_USE_FLEX_ATTENTION" title="Link to this definition">#</a></dt>
 <dd><p>If True, forces the use of the flex attention kernel instead of potentially using
 the more optimized flex-decoding kernel for short sequences. This can be a helpful
 option for debugging. Default: False.</p>
@@ -4811,14 +4811,14 @@ option for debugging. Default: False.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.PRESCALE_QK">
-<span class="sig-name descname"><span class="pre">PRESCALE_QK</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.PRESCALE_QK" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">PRESCALE_QK</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.PRESCALE_QK" title="Link to this definition">#</a></dt>
 <dd><p>Whether to pre-scale QK by 1/sqrt(d) and change of base. This is slightly faster but
 may have more numerical error. Default: False.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.ROWS_GUARANTEED_SAFE">
-<span class="sig-name descname"><span class="pre">ROWS_GUARANTEED_SAFE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.ROWS_GUARANTEED_SAFE" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">ROWS_GUARANTEED_SAFE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.ROWS_GUARANTEED_SAFE" title="Link to this definition">#</a></dt>
 <dd><p>If True, guarantees that at least one value in each row is not masked out.
 Allows skipping safety checks for better performance. Only set this if you are certain
 your mask guarantees this property. For example, causal attention is guaranteed safe
@@ -4827,7 +4827,7 @@ because each query has at least 1 key-value to attend to. Default: False.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.USE_TMA">
-<span class="sig-name descname"><span class="pre">USE_TMA</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.USE_TMA" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">USE_TMA</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.USE_TMA" title="Link to this definition">#</a></dt>
 <dd><p>Whether to use Tensor Memory Accelerator (TMA) on supported hardware.
 This is experimental and may not work on all hardware, currently specific
 to NVIDIA GPUs Hopper+. Default: False.</p>
@@ -4835,7 +4835,7 @@ to NVIDIA GPUs Hopper+. Default: False.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.WRITE_DQ">
-<span class="sig-name descname"><span class="pre">WRITE_DQ</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.WRITE_DQ" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">WRITE_DQ</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.WRITE_DQ" title="Link to this definition">#</a></dt>
 <dd><p>Controls whether gradient scatters are done in the DQ iteration loop of the backward pass.
 Setting this to False will force this to happen in the DK loop which depending on your
 specific score_mod and mask_mod might be faster. Default: True.</p>
@@ -4843,7 +4843,7 @@ specific score_mod and mask_mod might be faster. Default: True.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.force_flash">
-<span class="sig-name descname"><span class="pre">force_flash</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.force_flash" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">force_flash</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.force_flash" title="Link to this definition">#</a></dt>
 <dd><p>If True, forces use of the cute-dsl flash attention kernel.</p>
 <p>Raises an error if flash attention cannot be used instead of falling back
 to the default implementation. Useful for ensuring flash attention is used
@@ -4852,44 +4852,44 @@ when expected.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.kpack">
-<span class="sig-name descname"><span class="pre">kpack</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.kpack" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">kpack</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.kpack" title="Link to this definition">#</a></dt>
 <dd><p>ROCm-specific kernel packing parameter.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.matrix_instr_nonkdim">
-<span class="sig-name descname"><span class="pre">matrix_instr_nonkdim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.matrix_instr_nonkdim" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">matrix_instr_nonkdim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.matrix_instr_nonkdim" title="Link to this definition">#</a></dt>
 <dd><p>ROCm-specific matrix instruction non-K dimension.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.num_stages">
-<span class="sig-name descname"><span class="pre">num_stages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.num_stages" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">num_stages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.num_stages" title="Link to this definition">#</a></dt>
 <dd><p>Number of pipeline stages in the CUDA kernel. Higher values may improve performance
 but increase shared memory usage. Default is determined by autotuning.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.num_warps">
-<span class="sig-name descname"><span class="pre">num_warps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.num_warps" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">num_warps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.num_warps" title="Link to this definition">#</a></dt>
 <dd><p>Number of warps to use in the CUDA kernel. Higher values may improve performance
 but increase register pressure. Default is determined by autotuning.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.FlexKernelOptions.waves_per_eu">
-<span class="sig-name descname"><span class="pre">waves_per_eu</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.waves_per_eu" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">waves_per_eu</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NotRequired</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.FlexKernelOptions.waves_per_eu" title="Link to this definition">#</a></dt>
 <dd><p>ROCm-specific waves per execution unit.</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
-<div class="section" id="blockmask">
-<h2>BlockMask<a class="headerlink" href="#blockmask" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="blockmask">
+<h2>BlockMask<a class="headerlink" href="#blockmask" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">BlockMask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seq_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_q_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_q_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BLOCK_SIZE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_mod</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L449"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.flex_attention.</span></span><span class="sig-name descname"><span class="pre">BlockMask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seq_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_q_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_q_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BLOCK_SIZE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_mod</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L449"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask" title="Link to this definition">#</a></dt>
 <dd><p>BlockMask is our format for representing a block-sparse attention mask.
 It is somewhat of a cross in-between BCSR and a non-sparse format.</p>
 <p><strong>Basics</strong></p>
@@ -4936,15 +4936,15 @@ the backwards pass. These are autogenerated from 2.</p>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.BLOCK_SIZE">
-<span class="sig-name descname"><span class="pre">BLOCK_SIZE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.BLOCK_SIZE" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">BLOCK_SIZE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.BLOCK_SIZE" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.as_tuple">
-<span class="sig-name descname"><span class="pre">as_tuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L651"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.as_tuple" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">as_tuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L651"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.as_tuple" title="Link to this definition">#</a></dt>
 <dd><p>Returns a tuple of the attributes of the BlockMask.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>flatten</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, it will flatten the tuple of (KV_BLOCK_SIZE, Q_BLOCK_SIZE)</p>
 </dd>
 </dl>
@@ -4952,10 +4952,10 @@ the backwards pass. These are autogenerated from 2.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.from_kv_blocks">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_kv_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kv_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_num_blocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BLOCK_SIZE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_lengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_q_blocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L577"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.from_kv_blocks" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_kv_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kv_num_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_num_blocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_kv_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BLOCK_SIZE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_lengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_q_blocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L577"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.from_kv_blocks" title="Link to this definition">#</a></dt>
 <dd><p>Creates a BlockMask instance from key-value block information.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>kv_num_blocks</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – Number of kv_blocks in each Q_BLOCK_SIZE row tile.</p></li>
 <li><p><strong>kv_indices</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – Indices of key-value blocks in each Q_BLOCK_SIZE row tile.</p></li>
@@ -4965,13 +4965,13 @@ the backwards pass. These are autogenerated from 2.</p>
 <li><p><strong>mask_mod</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>]</em>) – Function to modify the mask.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Instance with full Q information generated via _transposed_ordered</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#torch.nn.attention.flex_attention.BlockMask" title="torch.nn.attention.flex_attention.BlockMask">BlockMask</a></p>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.14)"><strong>RuntimeError</strong></a> – If kv_indices has &lt; 2 dimensions.</p></li>
 <li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#AssertionError" title="(in Python v3.14)"><strong>AssertionError</strong></a> – If only one of full_kv_* args is provided.</p></li>
@@ -4982,71 +4982,71 @@ the backwards pass. These are autogenerated from 2.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.full_kv_indices">
-<span class="sig-name descname"><span class="pre">full_kv_indices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.full_kv_indices" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">full_kv_indices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.full_kv_indices" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.full_kv_num_blocks">
-<span class="sig-name descname"><span class="pre">full_kv_num_blocks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.full_kv_num_blocks" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">full_kv_num_blocks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.full_kv_num_blocks" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.full_q_indices">
-<span class="sig-name descname"><span class="pre">full_q_indices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.full_q_indices" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">full_q_indices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.full_q_indices" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.full_q_num_blocks">
-<span class="sig-name descname"><span class="pre">full_q_num_blocks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.full_q_num_blocks" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">full_q_num_blocks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.full_q_num_blocks" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.kv_indices">
-<span class="sig-name descname"><span class="pre">kv_indices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.kv_indices" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">kv_indices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.kv_indices" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.kv_num_blocks">
-<span class="sig-name descname"><span class="pre">kv_num_blocks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.kv_num_blocks" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">kv_num_blocks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.kv_num_blocks" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.mask_mod">
-<span class="sig-name descname"><span class="pre">mask_mod</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.mask_mod" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mask_mod</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.mask_mod" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.numel">
-<span class="sig-name descname"><span class="pre">numel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L813"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.numel" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">numel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L813"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.numel" title="Link to this definition">#</a></dt>
 <dd><p>Returns the number of elements (not accounting for sparsity) in the mask.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.q_indices">
-<span class="sig-name descname"><span class="pre">q_indices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.q_indices" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">q_indices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.q_indices" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.q_num_blocks">
-<span class="sig-name descname"><span class="pre">q_num_blocks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.q_num_blocks" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">q_num_blocks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.q_num_blocks" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.seq_lengths">
-<span class="sig-name descname"><span class="pre">seq_lengths</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.seq_lengths" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">seq_lengths</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.seq_lengths" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.shape">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.shape" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.shape" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.sparsity">
-<span class="sig-name descname"><span class="pre">sparsity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L822"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.sparsity" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">sparsity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L822"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.sparsity" title="Link to this definition">#</a></dt>
 <dd><p>Computes the percentage of blocks that are sparse (i.e. not computed)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
@@ -5054,18 +5054,18 @@ the backwards pass. These are autogenerated from 2.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.to">
-<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L910"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.to" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L910"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.to" title="Link to this definition">#</a></dt>
 <dd><p>Moves the BlockMask to the specified device.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>device</strong> (<a class="reference internal" href="tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The target device to move the BlockMask to.
 Can be a torch.device object or a string (e.g., ‘cpu’, ‘cuda:0’).</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A new BlockMask instance with all tensor components moved
 to the specified device.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#torch.nn.attention.flex_attention.BlockMask" title="torch.nn.attention.flex_attention.BlockMask">BlockMask</a></p>
 </dd>
 </dl>
@@ -5080,10 +5080,10 @@ current device placement.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.to_dense">
-<span class="sig-name descname"><span class="pre">to_dense</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L833"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.to_dense" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_dense</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L833"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.to_dense" title="Link to this definition">#</a></dt>
 <dd><p>Returns a dense block that is equivalent to the block mask.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
 </dd>
 </dl>
@@ -5091,15 +5091,15 @@ current device placement.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.nn.attention.flex_attention.BlockMask.to_string">
-<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(20,</span> <span class="pre">20)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/nn/attention/flex_attention.py#L844"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.to_string" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(20,</span> <span class="pre">20)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/nn/attention/flex_attention.py#L844"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.flex_attention.BlockMask.to_string" title="Link to this definition">#</a></dt>
 <dd><p>Returns a string representation of the block mask. Quite nifty.</p>
 <p>If grid_size is -1, prints out an uncompressed version. Warning, it can be quite big!</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -5165,11 +5165,6 @@ current device placement.</p>
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -5352,7 +5347,9 @@ current device placement.</p>
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -5376,10 +5373,13 @@ current device placement.</p>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -5402,7 +5402,6 @@ current device placement.</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -5452,10 +5451,10 @@ current device placement.</p>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5496,7 +5495,7 @@ current device placement.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -5525,13 +5524,13 @@ current device placement.</p>
        "headline": "torch.nn.attention.flex_attention",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/nn.attention.flex_attention.html",
-       "articleBody": "torch.nn.attention.flex_attention# Created On: Jul 16, 2024 | Last Updated On: Sep 15, 2025 torch.nn.attention.flex_attention.flex_attention(query, key, value, score_mod=None, block_mask=None, scale=None, enable_gqa=False, return_lse=False, kernel_options=None, *, return_aux=None)[source]# This function implements scaled dot product attention with an arbitrary attention score modification function. This function computes the scaled dot product attention between query, key, and value tensors with a user-defined attention score modification function. The attention score modification function will be applied after the attention scores have been calculated between the query and key tensors. The attention scores are calculated as follows: The score_mod function should have the following signature: def score_mod( score: Tensor, batch: Tensor, head: Tensor, q_idx: Tensor, k_idx: Tensor ) -\u003e Tensor: Where: score: A scalar tensor representing the attention score, with the same data type and device as the query, key, and value tensors. batch, head, q_idx, k_idx: Scalar tensors indicating the batch index, query head index, query index, and key/value index, respectively. These should have the torch.int data type and be located on the same device as the score tensor. Parameters query (Tensor) \u2013 Query tensor; shape (B,Hq,L,E)(B, Hq, L, E)(B,Hq,L,E). For FP8 dtypes, should be in row-major memory layout for optimal performance. key (Tensor) \u2013 Key tensor; shape (B,Hkv,S,E)(B, Hkv, S, E)(B,Hkv,S,E). For FP8 dtypes, should be in row-major memory layout for optimal performance. value (Tensor) \u2013 Value tensor; shape (B,Hkv,S,Ev)(B, Hkv, S, Ev)(B,Hkv,S,Ev). For FP8 dtypes, should be in column-major memory layout for optimal performance. score_mod (Optional[Callable]) \u2013 Function to modify attention scores. By default no score_mod is applied. block_mask (Optional[BlockMask]) \u2013 BlockMask object that controls the blocksparsity pattern of the attention. scale (Optional[float]) \u2013 Scaling factor applied prior to softmax. If none, the default value is set to 1E\\frac{1}{\\sqrt{E}}E\u200b1\u200b. enable_gqa (bool) \u2013 If set to True, enables Grouped Query Attention (GQA) and broadcasts key/value heads to query heads. return_lse (bool) \u2013 Whether to return the logsumexp of the attention scores. Default is False. Deprecated: Use return_aux=AuxRequest(lse=True) instead. kernel_options (Optional[FlexKernelOptions]) \u2013 Options to control the behavior of the underlying Triton kernels. See FlexKernelOptions for available options and usage examples. return_aux (Optional[AuxRequest]) \u2013 Specifies which auxiliary outputs to compute and return. If None, only the attention output is returned. Use AuxRequest(lse=True, max_scores=True) to request both auxiliary outputs. Returns Attention output; shape (B,Hq,L,Ev)(B, Hq, L, Ev)(B,Hq,L,Ev). When return_aux is not None:aux (AuxOutput): Auxiliary outputs with requested fields populated. When return_aux is None (deprecated paths):lse (Tensor): Log-sum-exp of attention scores; shape (B,Hq,L)(B, Hq, L)(B,Hq,L). Only returned if return_lse=True. Return type output (Tensor) Shape legend: N:Batch size...:Any number of other batch dimensions (optional)N: \\text{Batch size} ... : \\text{Any number of other batch dimensions (optional)}N:Batch size...:Any number of other batch dimensions (optional) S:Source sequence lengthS: \\text{Source sequence length}S:Source sequence length L:Target sequence lengthL: \\text{Target sequence length}L:Target sequence length E:Embedding dimension of the query and keyE: \\text{Embedding dimension of the query and key}E:Embedding dimension of the query and key Ev:Embedding dimension of the valueEv: \\text{Embedding dimension of the value}Ev:Embedding dimension of the value Warning torch.nn.attention.flex_attention is a prototype feature in PyTorch. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype class torch.nn.attention.flex_attention.AuxOutput(lse=None, max_scores=None)[source]# Auxiliary outputs from flex_attention operation. Fields will be None if not requested, or contain the tensor if requested. class torch.nn.attention.flex_attention.AuxRequest(lse=False, max_scores=False)[source]# Request which auxiliary outputs to compute from flex_attention. Each field is a boolean indicating whether that auxiliary output should be computed. BlockMask Utilities# torch.nn.attention.flex_attention.create_block_mask(mask_mod, B, H, Q_LEN, KV_LEN, device=None, BLOCK_SIZE=128, _compile=False)[source]# This function creates a block mask tuple from a mask_mod function. Parameters mask_mod (Callable) \u2013 mask_mod function. This is a callable that defines the masking pattern for the attention mechanism. It takes four arguments: b (batch size), h (number of heads), q_idx (query index), and kv_idx (key/value index). It should return a boolean tensor indicating which attention connections are allowed (True) or masked out (False). B (int) \u2013 Batch size. H (int) \u2013 Number of query heads. Q_LEN (int) \u2013 Sequence length of query. KV_LEN (int) \u2013 Sequence length of key/value. device (str) \u2013 Device to run the mask creation on. BLOCK_SIZE (int or tuple[int, int]) \u2013 Block size for the block mask. If a single int is provided it is used for both query and key/value. Returns A BlockMask object that contains the block mask information. Return type BlockMask Example Usage:def causal_mask(b, h, q_idx, kv_idx): return q_idx \u003e= kv_idx block_mask = create_block_mask(causal_mask, 1, 1, 8192, 8192, device=\"cuda\") query = torch.randn(1, 1, 8192, 64, device=\"cuda\", dtype=torch.float16) key = torch.randn(1, 1, 8192, 64, device=\"cuda\", dtype=torch.float16) value = torch.randn(1, 1, 8192, 64, device=\"cuda\", dtype=torch.float16) output = flex_attention(query, key, value, block_mask=block_mask) torch.nn.attention.flex_attention.create_mask(mod_fn, B, H, Q_LEN, KV_LEN, device=None)[source]# This function creates a mask tensor from a mod_fn function. Parameters mod_fn (Union[_score_mod_signature, _mask_mod_signature]) \u2013 Function to modify attention scores. B (int) \u2013 Batch size. H (int) \u2013 Number of query heads. Q_LEN (int) \u2013 Sequence length of query. KV_LEN (int) \u2013 Sequence length of key/value. device (str) \u2013 Device to run the mask creation on. Returns A mask tensor with shape (B, H, M, N). Return type mask (Tensor) torch.nn.attention.flex_attention.and_masks(*mask_mods)[source]# Returns a mask_mod that\u2019s the intersection of provided mask_mods Return type Callable[[Tensor, Tensor, Tensor, Tensor], Tensor] torch.nn.attention.flex_attention.or_masks(*mask_mods)[source]# Returns a mask_mod that\u2019s the union of provided mask_mods Return type Callable[[Tensor, Tensor, Tensor, Tensor], Tensor] torch.nn.attention.flex_attention.noop_mask(batch, head, token_q, token_kv)[source]# Returns a noop mask_mod Return type Tensor FlexKernelOptions# class torch.nn.attention.flex_attention.FlexKernelOptions[source]# Options for controlling the behavior of FlexAttention kernels. These options are passed to the underlying Triton kernels to control performance and numerical behavior. Most users will not need to specify these options as the default autotuning provides good performance. The options can be prefixed with fwd_ or bwd_ to apply only to forward or backward pass respectively. For example: fwd_BLOCK_M and bwd_BLOCK_M1. Note We currently do not provide any backward compatibility guarantees for these options. That being said most of these have remained pretty stable since their introduction. But We do not consider this part of the public API just yet. We think that some documentation Is better than secret hidden flags, but we may change these options in the future. Example Usage:# Using dictionary (backward compatible) kernel_opts = {\"BLOCK_M\": 64, \"BLOCK_N\": 64, \"PRESCALE_QK\": True} output = flex_attention(q, k, v, kernel_options=kernel_opts) # Using TypedDict (recommended for type safety) from torch.nn.attention.flex_attention import FlexKernelOptions kernel_opts: FlexKernelOptions = { \"BLOCK_M\": 64, \"BLOCK_N\": 64, \"PRESCALE_QK\": True, } output = flex_attention(q, k, v, kernel_options=kernel_opts) # Forward/backward specific options kernel_opts: FlexKernelOptions = { \"fwd_BLOCK_M\": 64, \"bwd_BLOCK_M1\": 32, \"PRESCALE_QK\": False, } output = flex_attention(q, k, v, kernel_options=kernel_opts) BLOCKS_ARE_CONTIGUOUS: NotRequired[bool]# If True, guarantees that all blocks in the mask are contiguous. Allows optimizing block traversal. For example, causal masks would satisfy this, but prefix_lm + sliding window would not. Default: False. BLOCK_M: NotRequired[int]# Thread block size for the sequence length dimension of Q in forward pass. Must be a power of 2. Common values: 16, 32, 64, 128. Default is determined by autotuning. BLOCK_M1: NotRequired[int]# Thread block size for Q dimension in backward pass. Use as \u2018bwd_BLOCK_M1\u2019. Default is determined by autotuning. BLOCK_M2: NotRequired[int]# Thread block size for second Q dimension in backward pass. Use as \u2018bwd_BLOCK_M2\u2019. Default is determined by autotuning. BLOCK_N: NotRequired[int]# Thread block size for the sequence length dimension of K/V in forward pass. Must be a power of 2. Common values: 16, 32, 64, 128. Default is determined by autotuning. BLOCK_N1: NotRequired[int]# Thread block size for K/V dimension in backward pass. Use as \u2018bwd_BLOCK_N1\u2019. Default is determined by autotuning. BLOCK_N2: NotRequired[int]# Thread block size for second K/V dimension in backward pass. Use as \u2018bwd_BLOCK_N2\u2019. Default is determined by autotuning. FORCE_USE_FLEX_ATTENTION: NotRequired[bool]# If True, forces the use of the flex attention kernel instead of potentially using the more optimized flex-decoding kernel for short sequences. This can be a helpful option for debugging. Default: False. PRESCALE_QK: NotRequired[bool]# Whether to pre-scale QK by 1/sqrt(d) and change of base. This is slightly faster but may have more numerical error. Default: False. ROWS_GUARANTEED_SAFE: NotRequired[bool]# If True, guarantees that at least one value in each row is not masked out. Allows skipping safety checks for better performance. Only set this if you are certain your mask guarantees this property. For example, causal attention is guaranteed safe because each query has at least 1 key-value to attend to. Default: False. USE_TMA: NotRequired[bool]# Whether to use Tensor Memory Accelerator (TMA) on supported hardware. This is experimental and may not work on all hardware, currently specific to NVIDIA GPUs Hopper+. Default: False. WRITE_DQ: NotRequired[bool]# Controls whether gradient scatters are done in the DQ iteration loop of the backward pass. Setting this to False will force this to happen in the DK loop which depending on your specific score_mod and mask_mod might be faster. Default: True. force_flash: NotRequired[bool]# If True, forces use of the cute-dsl flash attention kernel. Raises an error if flash attention cannot be used instead of falling back to the default implementation. Useful for ensuring flash attention is used when expected. kpack: NotRequired[int]# ROCm-specific kernel packing parameter. matrix_instr_nonkdim: NotRequired[int]# ROCm-specific matrix instruction non-K dimension. num_stages: NotRequired[int]# Number of pipeline stages in the CUDA kernel. Higher values may improve performance but increase shared memory usage. Default is determined by autotuning. num_warps: NotRequired[int]# Number of warps to use in the CUDA kernel. Higher values may improve performance but increase register pressure. Default is determined by autotuning. waves_per_eu: NotRequired[int]# ROCm-specific waves per execution unit. BlockMask# class torch.nn.attention.flex_attention.BlockMask(seq_lengths, kv_num_blocks, kv_indices, full_kv_num_blocks, full_kv_indices, q_num_blocks, q_indices, full_q_num_blocks, full_q_indices, BLOCK_SIZE, mask_mod)[source]# BlockMask is our format for representing a block-sparse attention mask. It is somewhat of a cross in-between BCSR and a non-sparse format. Basics A block-sparse mask means that instead of representing the sparsity of individual elements in the mask, a KV_BLOCK_SIZE x Q_BLOCK_SIZE block is considered sparse only if every element within that block is sparse. This aligns well with hardware, which generally expects to perform contiguous loads and computation. This format is primarily optimized for 1. simplicity, and 2. kernel efficiency. Notably, it is not optimized for size, as this mask is always reduced by a factor of KV_BLOCK_SIZE * Q_BLOCK_SIZE. If the size is a concern, the tensors can be reduced in size by increasing the block size. The essentials of our format are: num_blocks_in_row: Tensor[ROWS]: Describes the number of blocks present in each row. col_indices: Tensor[ROWS, MAX_BLOCKS_IN_COL]: col_indices[i] is the sequence of block positions for row i. The values of this row after col_indices[i][num_blocks_in_row[i]] are undefined. For example, to reconstruct the original tensor from this format: dense_mask = torch.zeros(ROWS, COLS) for row in range(ROWS): for block_idx in range(num_blocks_in_row[row]): dense_mask[row, col_indices[row, block_idx]] = 1 Notably, this format makes it easier to implement a reduction along the rows of the mask. Details The basics of our format require only kv_num_blocks and kv_indices. But, we have up to 8 tensors on this object. This represents 4 pairs: 1. (kv_num_blocks, kv_indices): Used for the forwards pass of attention, as we reduce along the KV dimension. 2. [OPTIONAL] (full_kv_num_blocks, full_kv_indices): This is optional and purely an optimization. As it turns out, applying masking to every block is quite expensive! If we specifically know which blocks are \u201cfull\u201d and don\u2019t require masking at all, then we can skip applying mask_mod to these blocks. This requires the user to split out a separate mask_mod from the score_mod. For causal masks, this is about a 15% speedup. 3. [GENERATED] (q_num_blocks, q_indices): Required for the backwards pass, as computing dKV requires iterating along the mask along the Q dimension. These are autogenerated from 1. 4. [GENERATED] (full_q_num_blocks, full_q_indices): Same as above, but for the backwards pass. These are autogenerated from 2. BLOCK_SIZE: tuple[int, int]# as_tuple(flatten=True)[source]# Returns a tuple of the attributes of the BlockMask. Parameters flatten (bool) \u2013 If True, it will flatten the tuple of (KV_BLOCK_SIZE, Q_BLOCK_SIZE) classmethod from_kv_blocks(kv_num_blocks, kv_indices, full_kv_num_blocks=None, full_kv_indices=None, BLOCK_SIZE=128, mask_mod=None, seq_lengths=None, compute_q_blocks=True)[source]# Creates a BlockMask instance from key-value block information. Parameters kv_num_blocks (Tensor) \u2013 Number of kv_blocks in each Q_BLOCK_SIZE row tile. kv_indices (Tensor) \u2013 Indices of key-value blocks in each Q_BLOCK_SIZE row tile. full_kv_num_blocks (Optional[Tensor]) \u2013 Number of full kv_blocks in each Q_BLOCK_SIZE row tile. full_kv_indices (Optional[Tensor]) \u2013 Indices of full key-value blocks in each Q_BLOCK_SIZE row tile. BLOCK_SIZE (Union[int, tuple[int, int]]) \u2013 Size of KV_BLOCK_SIZE x Q_BLOCK_SIZE tiles. mask_mod (Optional[Callable]) \u2013 Function to modify the mask. Returns Instance with full Q information generated via _transposed_ordered Return type BlockMask Raises RuntimeError \u2013 If kv_indices has \u003c 2 dimensions. AssertionError \u2013 If only one of full_kv_* args is provided. full_kv_indices: Optional[Tensor]# full_kv_num_blocks: Optional[Tensor]# full_q_indices: Optional[Tensor]# full_q_num_blocks: Optional[Tensor]# kv_indices: Tensor# kv_num_blocks: Tensor# mask_mod: Callable[[Tensor, Tensor, Tensor, Tensor], Tensor]# numel()[source]# Returns the number of elements (not accounting for sparsity) in the mask. q_indices: Optional[Tensor]# q_num_blocks: Optional[Tensor]# seq_lengths: tuple[int, int]# property shape# sparsity()[source]# Computes the percentage of blocks that are sparse (i.e. not computed) Return type float to(device)[source]# Moves the BlockMask to the specified device. Parameters device (torch.device or str) \u2013 The target device to move the BlockMask to. Can be a torch.device object or a string (e.g., \u2018cpu\u2019, \u2018cuda:0\u2019). Returns A new BlockMask instance with all tensor components moved to the specified device. Return type BlockMask Note This method does not modify the original BlockMask in-place. Instead, it returns a new BlockMask instance where individual tensor attributes may or may not be moved to the specified device, depending on their current device placement. to_dense()[source]# Returns a dense block that is equivalent to the block mask. Return type Tensor to_string(grid_size=(20, 20), limit=4)[source]# Returns a string representation of the block mask. Quite nifty. If grid_size is -1, prints out an uncompressed version. Warning, it can be quite big!",
+       "articleBody": "torch.nn.attention.flex_attention# Created On: Jul 16, 2024 | Last Updated On: Sep 15, 2025 torch.nn.attention.flex_attention.flex_attention(query, key, value, score_mod=None, block_mask=None, scale=None, enable_gqa=False, return_lse=False, kernel_options=None, *, return_aux=None)[source]# This function implements scaled dot product attention with an arbitrary attention score modification function. This function computes the scaled dot product attention between query, key, and value tensors with a user-defined attention score modification function. The attention score modification function will be applied after the attention scores have been calculated between the query and key tensors. The attention scores are calculated as follows: The score_mod function should have the following signature: def score_mod( score: Tensor, batch: Tensor, head: Tensor, q_idx: Tensor, k_idx: Tensor ) -\u003e Tensor: Where: score: A scalar tensor representing the attention score, with the same data type and device as the query, key, and value tensors. batch, head, q_idx, k_idx: Scalar tensors indicating the batch index, query head index, query index, and key/value index, respectively. These should have the torch.int data type and be located on the same device as the score tensor. Parameters: query (Tensor) \u2013 Query tensor; shape (B,Hq,L,E)(B, Hq, L, E)(B,Hq,L,E). For FP8 dtypes, should be in row-major memory layout for optimal performance. key (Tensor) \u2013 Key tensor; shape (B,Hkv,S,E)(B, Hkv, S, E)(B,Hkv,S,E). For FP8 dtypes, should be in row-major memory layout for optimal performance. value (Tensor) \u2013 Value tensor; shape (B,Hkv,S,Ev)(B, Hkv, S, Ev)(B,Hkv,S,Ev). For FP8 dtypes, should be in column-major memory layout for optimal performance. score_mod (Optional[Callable]) \u2013 Function to modify attention scores. By default no score_mod is applied. block_mask (Optional[BlockMask]) \u2013 BlockMask object that controls the blocksparsity pattern of the attention. scale (Optional[float]) \u2013 Scaling factor applied prior to softmax. If none, the default value is set to 1E\\frac{1}{\\sqrt{E}}E\u200b1\u200b. enable_gqa (bool) \u2013 If set to True, enables Grouped Query Attention (GQA) and broadcasts key/value heads to query heads. return_lse (bool) \u2013 Whether to return the logsumexp of the attention scores. Default is False. Deprecated: Use return_aux=AuxRequest(lse=True) instead. kernel_options (Optional[FlexKernelOptions]) \u2013 Options to control the behavior of the underlying Triton kernels. See FlexKernelOptions for available options and usage examples. return_aux (Optional[AuxRequest]) \u2013 Specifies which auxiliary outputs to compute and return. If None, only the attention output is returned. Use AuxRequest(lse=True, max_scores=True) to request both auxiliary outputs. Returns: Attention output; shape (B,Hq,L,Ev)(B, Hq, L, Ev)(B,Hq,L,Ev). When return_aux is not None:aux (AuxOutput): Auxiliary outputs with requested fields populated. When return_aux is None (deprecated paths):lse (Tensor): Log-sum-exp of attention scores; shape (B,Hq,L)(B, Hq, L)(B,Hq,L). Only returned if return_lse=True. Return type: output (Tensor) Shape legend: N:Batch size...:Any number of other batch dimensions (optional)N: \\text{Batch size} ... : \\text{Any number of other batch dimensions (optional)}N:Batch size...:Any number of other batch dimensions (optional) S:Source sequence lengthS: \\text{Source sequence length}S:Source sequence length L:Target sequence lengthL: \\text{Target sequence length}L:Target sequence length E:Embedding dimension of the query and keyE: \\text{Embedding dimension of the query and key}E:Embedding dimension of the query and key Ev:Embedding dimension of the valueEv: \\text{Embedding dimension of the value}Ev:Embedding dimension of the value Warning torch.nn.attention.flex_attention is a prototype feature in PyTorch. Please look forward to a more stable implementation in a future version of PyTorch. Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype class torch.nn.attention.flex_attention.AuxOutput(lse=None, max_scores=None)[source]# Auxiliary outputs from flex_attention operation. Fields will be None if not requested, or contain the tensor if requested. class torch.nn.attention.flex_attention.AuxRequest(lse=False, max_scores=False)[source]# Request which auxiliary outputs to compute from flex_attention. Each field is a boolean indicating whether that auxiliary output should be computed. BlockMask Utilities# torch.nn.attention.flex_attention.create_block_mask(mask_mod, B, H, Q_LEN, KV_LEN, device=None, BLOCK_SIZE=128, _compile=False)[source]# This function creates a block mask tuple from a mask_mod function. Parameters: mask_mod (Callable) \u2013 mask_mod function. This is a callable that defines the masking pattern for the attention mechanism. It takes four arguments: b (batch size), h (number of heads), q_idx (query index), and kv_idx (key/value index). It should return a boolean tensor indicating which attention connections are allowed (True) or masked out (False). B (int) \u2013 Batch size. H (int) \u2013 Number of query heads. Q_LEN (int) \u2013 Sequence length of query. KV_LEN (int) \u2013 Sequence length of key/value. device (str) \u2013 Device to run the mask creation on. BLOCK_SIZE (int or tuple[int, int]) \u2013 Block size for the block mask. If a single int is provided it is used for both query and key/value. Returns: A BlockMask object that contains the block mask information. Return type: BlockMask Example Usage:def causal_mask(b, h, q_idx, kv_idx): return q_idx \u003e= kv_idx block_mask = create_block_mask(causal_mask, 1, 1, 8192, 8192, device=\"cuda\") query = torch.randn(1, 1, 8192, 64, device=\"cuda\", dtype=torch.float16) key = torch.randn(1, 1, 8192, 64, device=\"cuda\", dtype=torch.float16) value = torch.randn(1, 1, 8192, 64, device=\"cuda\", dtype=torch.float16) output = flex_attention(query, key, value, block_mask=block_mask) torch.nn.attention.flex_attention.create_mask(mod_fn, B, H, Q_LEN, KV_LEN, device=None)[source]# This function creates a mask tensor from a mod_fn function. Parameters: mod_fn (Union[_score_mod_signature, _mask_mod_signature]) \u2013 Function to modify attention scores. B (int) \u2013 Batch size. H (int) \u2013 Number of query heads. Q_LEN (int) \u2013 Sequence length of query. KV_LEN (int) \u2013 Sequence length of key/value. device (str) \u2013 Device to run the mask creation on. Returns: A mask tensor with shape (B, H, M, N). Return type: mask (Tensor) torch.nn.attention.flex_attention.and_masks(*mask_mods)[source]# Returns a mask_mod that\u2019s the intersection of provided mask_mods Return type: Callable[[Tensor, Tensor, Tensor, Tensor], Tensor] torch.nn.attention.flex_attention.or_masks(*mask_mods)[source]# Returns a mask_mod that\u2019s the union of provided mask_mods Return type: Callable[[Tensor, Tensor, Tensor, Tensor], Tensor] torch.nn.attention.flex_attention.noop_mask(batch, head, token_q, token_kv)[source]# Returns a noop mask_mod Return type: Tensor FlexKernelOptions# class torch.nn.attention.flex_attention.FlexKernelOptions[source]# Options for controlling the behavior of FlexAttention kernels. These options are passed to the underlying Triton kernels to control performance and numerical behavior. Most users will not need to specify these options as the default autotuning provides good performance. The options can be prefixed with fwd_ or bwd_ to apply only to forward or backward pass respectively. For example: fwd_BLOCK_M and bwd_BLOCK_M1. Note We currently do not provide any backward compatibility guarantees for these options. That being said most of these have remained pretty stable since their introduction. But We do not consider this part of the public API just yet. We think that some documentation Is better than secret hidden flags, but we may change these options in the future. Example Usage:# Using dictionary (backward compatible) kernel_opts = {\"BLOCK_M\": 64, \"BLOCK_N\": 64, \"PRESCALE_QK\": True} output = flex_attention(q, k, v, kernel_options=kernel_opts) # Using TypedDict (recommended for type safety) from torch.nn.attention.flex_attention import FlexKernelOptions kernel_opts: FlexKernelOptions = { \"BLOCK_M\": 64, \"BLOCK_N\": 64, \"PRESCALE_QK\": True, } output = flex_attention(q, k, v, kernel_options=kernel_opts) # Forward/backward specific options kernel_opts: FlexKernelOptions = { \"fwd_BLOCK_M\": 64, \"bwd_BLOCK_M1\": 32, \"PRESCALE_QK\": False, } output = flex_attention(q, k, v, kernel_options=kernel_opts) BLOCKS_ARE_CONTIGUOUS: NotRequired[bool]# If True, guarantees that all blocks in the mask are contiguous. Allows optimizing block traversal. For example, causal masks would satisfy this, but prefix_lm + sliding window would not. Default: False. BLOCK_M: NotRequired[int]# Thread block size for the sequence length dimension of Q in forward pass. Must be a power of 2. Common values: 16, 32, 64, 128. Default is determined by autotuning. BLOCK_M1: NotRequired[int]# Thread block size for Q dimension in backward pass. Use as \u2018bwd_BLOCK_M1\u2019. Default is determined by autotuning. BLOCK_M2: NotRequired[int]# Thread block size for second Q dimension in backward pass. Use as \u2018bwd_BLOCK_M2\u2019. Default is determined by autotuning. BLOCK_N: NotRequired[int]# Thread block size for the sequence length dimension of K/V in forward pass. Must be a power of 2. Common values: 16, 32, 64, 128. Default is determined by autotuning. BLOCK_N1: NotRequired[int]# Thread block size for K/V dimension in backward pass. Use as \u2018bwd_BLOCK_N1\u2019. Default is determined by autotuning. BLOCK_N2: NotRequired[int]# Thread block size for second K/V dimension in backward pass. Use as \u2018bwd_BLOCK_N2\u2019. Default is determined by autotuning. FORCE_USE_FLEX_ATTENTION: NotRequired[bool]# If True, forces the use of the flex attention kernel instead of potentially using the more optimized flex-decoding kernel for short sequences. This can be a helpful option for debugging. Default: False. PRESCALE_QK: NotRequired[bool]# Whether to pre-scale QK by 1/sqrt(d) and change of base. This is slightly faster but may have more numerical error. Default: False. ROWS_GUARANTEED_SAFE: NotRequired[bool]# If True, guarantees that at least one value in each row is not masked out. Allows skipping safety checks for better performance. Only set this if you are certain your mask guarantees this property. For example, causal attention is guaranteed safe because each query has at least 1 key-value to attend to. Default: False. USE_TMA: NotRequired[bool]# Whether to use Tensor Memory Accelerator (TMA) on supported hardware. This is experimental and may not work on all hardware, currently specific to NVIDIA GPUs Hopper+. Default: False. WRITE_DQ: NotRequired[bool]# Controls whether gradient scatters are done in the DQ iteration loop of the backward pass. Setting this to False will force this to happen in the DK loop which depending on your specific score_mod and mask_mod might be faster. Default: True. force_flash: NotRequired[bool]# If True, forces use of the cute-dsl flash attention kernel. Raises an error if flash attention cannot be used instead of falling back to the default implementation. Useful for ensuring flash attention is used when expected. kpack: NotRequired[int]# ROCm-specific kernel packing parameter. matrix_instr_nonkdim: NotRequired[int]# ROCm-specific matrix instruction non-K dimension. num_stages: NotRequired[int]# Number of pipeline stages in the CUDA kernel. Higher values may improve performance but increase shared memory usage. Default is determined by autotuning. num_warps: NotRequired[int]# Number of warps to use in the CUDA kernel. Higher values may improve performance but increase register pressure. Default is determined by autotuning. waves_per_eu: NotRequired[int]# ROCm-specific waves per execution unit. BlockMask# class torch.nn.attention.flex_attention.BlockMask(seq_lengths, kv_num_blocks, kv_indices, full_kv_num_blocks, full_kv_indices, q_num_blocks, q_indices, full_q_num_blocks, full_q_indices, BLOCK_SIZE, mask_mod)[source]# BlockMask is our format for representing a block-sparse attention mask. It is somewhat of a cross in-between BCSR and a non-sparse format. Basics A block-sparse mask means that instead of representing the sparsity of individual elements in the mask, a KV_BLOCK_SIZE x Q_BLOCK_SIZE block is considered sparse only if every element within that block is sparse. This aligns well with hardware, which generally expects to perform contiguous loads and computation. This format is primarily optimized for 1. simplicity, and 2. kernel efficiency. Notably, it is not optimized for size, as this mask is always reduced by a factor of KV_BLOCK_SIZE * Q_BLOCK_SIZE. If the size is a concern, the tensors can be reduced in size by increasing the block size. The essentials of our format are: num_blocks_in_row: Tensor[ROWS]: Describes the number of blocks present in each row. col_indices: Tensor[ROWS, MAX_BLOCKS_IN_COL]: col_indices[i] is the sequence of block positions for row i. The values of this row after col_indices[i][num_blocks_in_row[i]] are undefined. For example, to reconstruct the original tensor from this format: dense_mask = torch.zeros(ROWS, COLS) for row in range(ROWS): for block_idx in range(num_blocks_in_row[row]): dense_mask[row, col_indices[row, block_idx]] = 1 Notably, this format makes it easier to implement a reduction along the rows of the mask. Details The basics of our format require only kv_num_blocks and kv_indices. But, we have up to 8 tensors on this object. This represents 4 pairs: 1. (kv_num_blocks, kv_indices): Used for the forwards pass of attention, as we reduce along the KV dimension. 2. [OPTIONAL] (full_kv_num_blocks, full_kv_indices): This is optional and purely an optimization. As it turns out, applying masking to every block is quite expensive! If we specifically know which blocks are \u201cfull\u201d and don\u2019t require masking at all, then we can skip applying mask_mod to these blocks. This requires the user to split out a separate mask_mod from the score_mod. For causal masks, this is about a 15% speedup. 3. [GENERATED] (q_num_blocks, q_indices): Required for the backwards pass, as computing dKV requires iterating along the mask along the Q dimension. These are autogenerated from 1. 4. [GENERATED] (full_q_num_blocks, full_q_indices): Same as above, but for the backwards pass. These are autogenerated from 2. BLOCK_SIZE: tuple[int, int]# as_tuple(flatten=True)[source]# Returns a tuple of the attributes of the BlockMask. Parameters: flatten (bool) \u2013 If True, it will flatten the tuple of (KV_BLOCK_SIZE, Q_BLOCK_SIZE) classmethod from_kv_blocks(kv_num_blocks, kv_indices, full_kv_num_blocks=None, full_kv_indices=None, BLOCK_SIZE=128, mask_mod=None, seq_lengths=None, compute_q_blocks=True)[source]# Creates a BlockMask instance from key-value block information. Parameters: kv_num_blocks (Tensor) \u2013 Number of kv_blocks in each Q_BLOCK_SIZE row tile. kv_indices (Tensor) \u2013 Indices of key-value blocks in each Q_BLOCK_SIZE row tile. full_kv_num_blocks (Optional[Tensor]) \u2013 Number of full kv_blocks in each Q_BLOCK_SIZE row tile. full_kv_indices (Optional[Tensor]) \u2013 Indices of full key-value blocks in each Q_BLOCK_SIZE row tile. BLOCK_SIZE (Union[int, tuple[int, int]]) \u2013 Size of KV_BLOCK_SIZE x Q_BLOCK_SIZE tiles. mask_mod (Optional[Callable]) \u2013 Function to modify the mask. Returns: Instance with full Q information generated via _transposed_ordered Return type: BlockMask Raises: RuntimeError \u2013 If kv_indices has \u003c 2 dimensions. AssertionError \u2013 If only one of full_kv_* args is provided. full_kv_indices: Tensor | None# full_kv_num_blocks: Tensor | None# full_q_indices: Tensor | None# full_q_num_blocks: Tensor | None# kv_indices: Tensor# kv_num_blocks: Tensor# mask_mod: Callable[[Tensor, Tensor, Tensor, Tensor], Tensor]# numel()[source]# Returns the number of elements (not accounting for sparsity) in the mask. q_indices: Tensor | None# q_num_blocks: Tensor | None# seq_lengths: tuple[int, int]# property shape# sparsity()[source]# Computes the percentage of blocks that are sparse (i.e. not computed) Return type: float to(device)[source]# Moves the BlockMask to the specified device. Parameters: device (torch.device or str) \u2013 The target device to move the BlockMask to. Can be a torch.device object or a string (e.g., \u2018cpu\u2019, \u2018cuda:0\u2019). Returns: A new BlockMask instance with all tensor components moved to the specified device. Return type: BlockMask Note This method does not modify the original BlockMask in-place. Instead, it returns a new BlockMask instance where individual tensor attributes may or may not be moved to the specified device, depending on their current device placement. to_dense()[source]# Returns a dense block that is equivalent to the block mask. Return type: Tensor to_string(grid_size=(20, 20), limit=4)[source]# Returns a string representation of the block mask. Quite nifty. If grid_size is -1, prints out an uncompressed version. Warning, it can be quite big!",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/nn.attention.flex_attention.html"

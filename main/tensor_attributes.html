@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Tensor Attributes &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=940804e7"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tensor_attributes';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="_static/js/runllm-widget.js"></script>
+    <script src="_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/tensor_attributes.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4479,6 +4478,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4486,25 +4486,21 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="tensor-attributes">
-<span id="tensor-attributes-doc"></span><h1>Tensor Attributes<a class="headerlink" href="#tensor-attributes" title="Permalink to this heading">#</a></h1>
+  <section id="tensor-attributes">
+<span id="tensor-attributes-doc"></span><h1>Tensor Attributes<a class="headerlink" href="#tensor-attributes" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 21, 2018 | Last Updated On: Jun 27, 2025</p>
 <p>Each <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> has a <a class="reference internal" href="#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a>, <a class="reference internal" href="#torch.device" title="torch.device"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.device</span></code></a>, and <a class="reference internal" href="#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>.</p>
-<div class="section" id="torch-dtype">
-<span id="dtype-doc"></span><h2>torch.dtype<a class="headerlink" href="#torch-dtype" title="Permalink to this heading">#</a></h2>
+<section id="torch-dtype">
+<span id="dtype-doc"></span><h2>torch.dtype<a class="headerlink" href="#torch-dtype" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.dtype">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">dtype</span></span><a class="headerlink" href="#torch.dtype" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">dtype</span></span><a class="headerlink" href="#torch.dtype" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <p>A <a class="reference internal" href="#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a> is an object that represents the data type of a
 <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>. PyTorch has several different data types:</p>
 <p><strong>Floating point dtypes</strong></p>
 <div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 24%" />
-<col style="width: 76%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>dtype</p></th>
 <th class="head"><p>description</p></th>
@@ -4532,22 +4528,22 @@ document.write(`
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">torch.complex128</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.cdouble</span></code></p></td>
 <td><p>128-bit complex with two <cite>float64</cite> components</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">torch.float8_e4m3fn</span></code> <a class="reference internal" href="#shell" id="id1"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id18" id="id2">1</a></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">torch.float8_e4m3fn</span></code> <a class="reference internal" href="#shell" id="id1"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id18" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
 <td><p>8-bit floating point, S-E-M 1-4-3, from <a class="reference external" href="https://arxiv.org/abs/2209.05433">https://arxiv.org/abs/2209.05433</a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">torch.float8_e5m2</span></code> <a class="reference internal" href="#shell" id="id3"><span>[shell]</span></a></p></td>
 <td><p>8-bit floating point, S-E-M 1-5-2, from <a class="reference external" href="https://arxiv.org/abs/2209.05433">https://arxiv.org/abs/2209.05433</a></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">torch.float8_e4m3fnuz</span></code> <a class="reference internal" href="#shell" id="id4"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id18" id="id5">1</a></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">torch.float8_e4m3fnuz</span></code> <a class="reference internal" href="#shell" id="id4"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id18" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
 <td><p>8-bit floating point, S-E-M 1-4-3, from <a class="reference external" href="https://arxiv.org/pdf/2206.02915">https://arxiv.org/pdf/2206.02915</a></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">torch.float8_e5m2fnuz</span></code> <a class="reference internal" href="#shell" id="id6"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id18" id="id7">1</a></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">torch.float8_e5m2fnuz</span></code> <a class="reference internal" href="#shell" id="id6"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id18" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
 <td><p>8-bit floating point, S-E-M 1-5-2, from <a class="reference external" href="https://arxiv.org/pdf/2206.02915">https://arxiv.org/pdf/2206.02915</a></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">torch.float8_e8m0fnu</span></code> <a class="reference internal" href="#shell" id="id8"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id18" id="id9">1</a></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">torch.float8_e8m0fnu</span></code> <a class="reference internal" href="#shell" id="id8"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id18" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
 <td><p>8-bit floating point, S-E-M 0-8-0, from <a class="reference external" href="https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf">https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf</a></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">torch.float4_e2m1fn_x2</span></code> <a class="reference internal" href="#shell" id="id10"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id18" id="id11">1</a></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">torch.float4_e2m1fn_x2</span></code> <a class="reference internal" href="#shell" id="id10"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id18" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
 <td><p>packed 4-bit floating point, S-E-M 1-2-1, from <a class="reference external" href="https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf">https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf</a></p></td>
 </tr>
 </tbody>
@@ -4555,10 +4551,6 @@ document.write(`
 </div>
 <p><strong>Integer dtypes</strong></p>
 <div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 57%" />
-<col style="width: 43%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>dtype</p></th>
 <th class="head"><p>description</p></th>
@@ -4571,19 +4563,19 @@ document.write(`
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">torch.int8</span></code></p></td>
 <td><p>8-bit integer (signed)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">torch.uint16</span></code> <a class="reference internal" href="#shell" id="id12"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id19" id="id13">2</a></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">torch.uint16</span></code> <a class="reference internal" href="#shell" id="id12"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id19" id="id13" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p></td>
 <td><p>16-bit integer (unsigned)</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">torch.int16</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.short</span></code></p></td>
 <td><p>16-bit integer (signed)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">torch.uint32</span></code> <a class="reference internal" href="#shell" id="id14"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id19" id="id15">2</a></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">torch.uint32</span></code> <a class="reference internal" href="#shell" id="id14"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id19" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p></td>
 <td><p>32-bit integer (unsigned)</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">torch.int32</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.int</span></code></p></td>
 <td><p>32-bit integer (signed)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">torch.uint64</span></code> <a class="reference internal" href="#shell" id="id16"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id19" id="id17">2</a></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">torch.uint64</span></code> <a class="reference internal" href="#shell" id="id16"><span>[shell]</span></a>, <a class="footnote-reference brackets" href="#id19" id="id17" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p></td>
 <td><p>64-bit integer (unsigned)</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">torch.int64</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.long</span></code></p></td>
@@ -4595,32 +4587,38 @@ document.write(`
 </tbody>
 </table>
 </div>
-<dl class="citation">
-<dt class="label" id="shell"><span class="brackets">shell</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>,<a href="#id4">3</a>,<a href="#id6">4</a>,<a href="#id8">5</a>,<a href="#id10">6</a>,<a href="#id12">7</a>,<a href="#id14">8</a>,<a href="#id16">9</a>)</span></dt>
-<dd><p>a shell dtype a specialized dtype with limited op and backend support.
+<div role="list" class="citation-list">
+<div class="citation" id="shell" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>shell<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id3">2</a>,<a role="doc-backlink" href="#id4">3</a>,<a role="doc-backlink" href="#id6">4</a>,<a role="doc-backlink" href="#id8">5</a>,<a role="doc-backlink" href="#id10">6</a>,<a role="doc-backlink" href="#id12">7</a>,<a role="doc-backlink" href="#id14">8</a>,<a role="doc-backlink" href="#id16">9</a>)</span>
+<p>a shell dtype a specialized dtype with limited op and backend support.
 Specifically, ops that support tensor creation (<code class="docutils literal notranslate"><span class="pre">torch.empty</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.fill</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.zeros</span></code>)
 and operations which do not peek inside the data elements (<code class="docutils literal notranslate"><span class="pre">torch.cat</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.view</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.reshape</span></code>)
 are supported.  Ops that peek inside the data elements such as casting,
 matrix multiplication, nan/inf checks are supported only on a case by
 case basis, depending on maturity and presence of hardware accelerated kernels
 and established use cases.</p>
-</dd>
-</dl>
-<dl class="footnote brackets">
-<dt class="label" id="id18"><span class="brackets">1</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id5">2</a>,<a href="#id7">3</a>,<a href="#id9">4</a>,<a href="#id11">5</a>)</span></dt>
-<dd><p>The “fn”, “fnu” and “fnuz” dtype suffixes mean:
+</div>
+</div>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id18" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id5">2</a>,<a role="doc-backlink" href="#id7">3</a>,<a role="doc-backlink" href="#id9">4</a>,<a role="doc-backlink" href="#id11">5</a>)</span>
+<p>The “fn”, “fnu” and “fnuz” dtype suffixes mean:
 “f” - finite value encodings only, no infinity;
 “n” - nan value encodings differ from the IEEE spec;
 “uz” - “unsigned zero” only, i.e. no negative zero encoding</p>
-</dd>
-<dt class="label" id="id19"><span class="brackets">2</span><span class="fn-backref">(<a href="#id13">1</a>,<a href="#id15">2</a>,<a href="#id17">3</a>)</span></dt>
-<dd><p>Unsigned types asides from <code class="docutils literal notranslate"><span class="pre">uint8</span></code> are currently planned to only have
+</aside>
+<aside class="footnote brackets" id="id19" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id13">1</a>,<a role="doc-backlink" href="#id15">2</a>,<a role="doc-backlink" href="#id17">3</a>)</span>
+<p>Unsigned types asides from <code class="docutils literal notranslate"><span class="pre">uint8</span></code> are currently planned to only have
 limited support in eager mode (they primarily exist to assist usage with
 torch.compile); if you need eager support and the extra range is not needed,
 we recommend using their signed variants instead.  See
 <a class="github reference external" href="https://github.com/pytorch/pytorch/issues/58734">pytorch/pytorch#58734</a> for more details.</p>
-</dd>
-</dl>
+</aside>
+</aside>
 <p><strong>Note</strong>: legacy constructors such as <code class="docutils literal notranslate"><span class="pre">torch.*.FloatTensor</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.*.DoubleTensor</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.*.HalfTensor</span></code>,
 <code class="docutils literal notranslate"><span class="pre">torch.*.BFloat16Tensor</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.*.ByteTensor</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.*.CharTensor</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.*.ShortTensor</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.*.IntTensor</span></code>,
 <code class="docutils literal notranslate"><span class="pre">torch.*.LongTensor</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.*.BoolTensor</span></code> only remain for backwards compatibility and should no longer be used.</p>
@@ -4708,12 +4706,12 @@ are not yet supported. Promotion for shell dtypes is not defined.</p>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">float_tensor</span> <span class="o">*=</span> <span class="n">complex_float_tensor</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="torch-device">
-<span id="device-doc"></span><h2>torch.device<a class="headerlink" href="#torch-device" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="torch-device">
+<span id="device-doc"></span><h2>torch.device<a class="headerlink" href="#torch-device" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.device">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">device</span></span><a class="headerlink" href="#torch.device" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">device</span></span><a class="headerlink" href="#torch.device" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <p>A <a class="reference internal" href="#torch.device" title="torch.device"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.device</span></code></a> is an object representing the device on which a <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> is
@@ -4838,12 +4836,12 @@ Example:</p>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="torch-layout">
-<span id="layout-doc"></span><h2>torch.layout<a class="headerlink" href="#torch-layout" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="torch-layout">
+<span id="layout-doc"></span><h2>torch.layout<a class="headerlink" href="#torch-layout" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.layout">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">layout</span></span><a class="headerlink" href="#torch.layout" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">layout</span></span><a class="headerlink" href="#torch.layout" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <div class="admonition warning">
@@ -4871,12 +4869,12 @@ to perform many tensor operations efficiently.</p>
 </pre></div>
 </div>
 <p>For more information on <code class="docutils literal notranslate"><span class="pre">torch.sparse_coo</span></code> tensors, see <a class="reference internal" href="sparse.html#sparse-docs"><span class="std std-ref">torch.sparse</span></a>.</p>
-</div>
-<div class="section" id="torch-memory-format">
-<h2>torch.memory_format<a class="headerlink" href="#torch-memory-format" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="torch-memory-format">
+<h2>torch.memory_format<a class="headerlink" href="#torch-memory-format" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.memory_format">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">memory_format</span></span><a class="headerlink" href="#torch.memory_format" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">memory_format</span></span><a class="headerlink" href="#torch.memory_format" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <p>A <a class="reference internal" href="#torch.memory_format" title="torch.memory_format"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.memory_format</span></code></a> is an object representing the memory format on which a <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> is
@@ -4896,8 +4894,8 @@ Used in functions like <cite>clone</cite> to preserve the memory format of the i
 allocated in dense non-overlapping memory, the output tensor strides will be copied from the input.
 Otherwise output strides will follow <code class="docutils literal notranslate"><span class="pre">torch.contiguous_format</span></code></p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -4963,11 +4961,6 @@ Otherwise output strides will follow <code class="docutils literal notranslate">
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -5106,7 +5099,9 @@ Otherwise output strides will follow <code class="docutils literal notranslate">
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -5130,10 +5125,13 @@ Otherwise output strides will follow <code class="docutils literal notranslate">
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -5156,7 +5154,6 @@ Otherwise output strides will follow <code class="docutils literal notranslate">
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -5206,10 +5203,10 @@ Otherwise output strides will follow <code class="docutils literal notranslate">
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5250,7 +5247,7 @@ Otherwise output strides will follow <code class="docutils literal notranslate">
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -5279,13 +5276,13 @@ Otherwise output strides will follow <code class="docutils literal notranslate">
        "headline": "Tensor Attributes",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/tensor_attributes.html",
-       "articleBody": "Tensor Attributes# Created On: Apr 21, 2018 | Last Updated On: Jun 27, 2025 Each torch.Tensor has a torch.dtype, torch.device, and torch.layout. torch.dtype# class torch.dtype# A torch.dtype is an object that represents the data type of a torch.Tensor. PyTorch has several different data types: Floating point dtypes dtype description torch.float32 or torch.float 32-bit floating point, as defined in https://en.wikipedia.org/wiki/IEEE_754 torch.float64 or torch.double 64-bit floating point, as defined in https://en.wikipedia.org/wiki/IEEE_754 torch.float16 or torch.half 16-bit floating point, as defined in https://en.wikipedia.org/wiki/IEEE_754, S-E-M 1-5-10 torch.bfloat16 16-bit floating point, sometimes referred to as Brain floating point, S-E-M 1-8-7 torch.complex32 or torch.chalf 32-bit complex with two float16 components torch.complex64 or torch.cfloat 64-bit complex with two float32 components torch.complex128 or torch.cdouble 128-bit complex with two float64 components torch.float8_e4m3fn [shell], 1 8-bit floating point, S-E-M 1-4-3, from https://arxiv.org/abs/2209.05433 torch.float8_e5m2 [shell] 8-bit floating point, S-E-M 1-5-2, from https://arxiv.org/abs/2209.05433 torch.float8_e4m3fnuz [shell], 1 8-bit floating point, S-E-M 1-4-3, from https://arxiv.org/pdf/2206.02915 torch.float8_e5m2fnuz [shell], 1 8-bit floating point, S-E-M 1-5-2, from https://arxiv.org/pdf/2206.02915 torch.float8_e8m0fnu [shell], 1 8-bit floating point, S-E-M 0-8-0, from https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf torch.float4_e2m1fn_x2 [shell], 1 packed 4-bit floating point, S-E-M 1-2-1, from https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf Integer dtypes dtype description torch.uint8 8-bit integer (unsigned) torch.int8 8-bit integer (signed) torch.uint16 [shell], 2 16-bit integer (unsigned) torch.int16 or torch.short 16-bit integer (signed) torch.uint32 [shell], 2 32-bit integer (unsigned) torch.int32 or torch.int 32-bit integer (signed) torch.uint64 [shell], 2 64-bit integer (unsigned) torch.int64 or torch.long 64-bit integer (signed) torch.bool Boolean shell(1,2,3,4,5,6,7,8,9) a shell dtype a specialized dtype with limited op and backend support. Specifically, ops that support tensor creation (torch.empty, torch.fill, torch.zeros) and operations which do not peek inside the data elements (torch.cat, torch.view, torch.reshape) are supported. Ops that peek inside the data elements such as casting, matrix multiplication, nan/inf checks are supported only on a case by case basis, depending on maturity and presence of hardware accelerated kernels and established use cases. 1(1,2,3,4,5) The \u201cfn\u201d, \u201cfnu\u201d and \u201cfnuz\u201d dtype suffixes mean: \u201cf\u201d - finite value encodings only, no infinity; \u201cn\u201d - nan value encodings differ from the IEEE spec; \u201cuz\u201d - \u201cunsigned zero\u201d only, i.e. no negative zero encoding 2(1,2,3) Unsigned types asides from uint8 are currently planned to only have limited support in eager mode (they primarily exist to assist usage with torch.compile); if you need eager support and the extra range is not needed, we recommend using their signed variants instead. See pytorch/pytorch#58734 for more details. Note: legacy constructors such as torch.*.FloatTensor, torch.*.DoubleTensor, torch.*.HalfTensor, torch.*.BFloat16Tensor, torch.*.ByteTensor, torch.*.CharTensor, torch.*.ShortTensor, torch.*.IntTensor, torch.*.LongTensor, torch.*.BoolTensor only remain for backwards compatibility and should no longer be used. To find out if a torch.dtype is a floating point data type, the property is_floating_point can be used, which returns True if the data type is a floating point data type. To find out if a torch.dtype is a complex data type, the property is_complex can be used, which returns True if the data type is a complex data type. When the dtypes of inputs to an arithmetic operation (add, sub, div, mul) differ, we promote by finding the minimum dtype that satisfies the following rules: If the type of a scalar operand is of a higher category than tensor operands (where complex \u003e floating \u003e integral \u003e boolean), we promote to a type with sufficient size to hold all scalar operands of that category. If a zero-dimension tensor operand has a higher category than dimensioned operands, we promote to a type with sufficient size and category to hold all zero-dim tensor operands of that category. If there are no higher-category zero-dim operands, we promote to a type with sufficient size and category to hold all dimensioned operands. A floating point scalar operand has dtype torch.get_default_dtype() and an integral non-boolean scalar operand has dtype torch.int64. Unlike numpy, we do not inspect values when determining the minimum dtypes of an operand. Complex types are not yet supported. Promotion for shell dtypes is not defined. Promotion Examples: \u003e\u003e\u003e float_tensor = torch.ones(1, dtype=torch.float) \u003e\u003e\u003e double_tensor = torch.ones(1, dtype=torch.double) \u003e\u003e\u003e complex_float_tensor = torch.ones(1, dtype=torch.complex64) \u003e\u003e\u003e complex_double_tensor = torch.ones(1, dtype=torch.complex128) \u003e\u003e\u003e int_tensor = torch.ones(1, dtype=torch.int) \u003e\u003e\u003e long_tensor = torch.ones(1, dtype=torch.long) \u003e\u003e\u003e uint_tensor = torch.ones(1, dtype=torch.uint8) \u003e\u003e\u003e bool_tensor = torch.ones(1, dtype=torch.bool) # zero-dim tensors \u003e\u003e\u003e long_zerodim = torch.tensor(1, dtype=torch.long) \u003e\u003e\u003e int_zerodim = torch.tensor(1, dtype=torch.int) \u003e\u003e\u003e torch.add(5, 5).dtype torch.int64 # 5 is an int64, but does not have higher category than int_tensor so is not considered. \u003e\u003e\u003e (int_tensor + 5).dtype torch.int32 \u003e\u003e\u003e (int_tensor + long_zerodim).dtype torch.int32 \u003e\u003e\u003e (long_tensor + int_tensor).dtype torch.int64 \u003e\u003e\u003e (bool_tensor + long_tensor).dtype torch.int64 \u003e\u003e\u003e (bool_tensor + uint_tensor).dtype torch.uint8 \u003e\u003e\u003e (float_tensor + double_tensor).dtype torch.float64 \u003e\u003e\u003e (complex_float_tensor + complex_double_tensor).dtype torch.complex128 \u003e\u003e\u003e (bool_tensor + int_tensor).dtype torch.int32 # Since long is a different kind than float, result dtype only needs to be large enough # to hold the float. \u003e\u003e\u003e torch.add(long_tensor, float_tensor).dtype torch.float32 When the output tensor of an arithmetic operation is specified, we allow casting to its dtype except that: An integral output tensor cannot accept a floating point tensor. A boolean output tensor cannot accept a non-boolean tensor. A non-complex output tensor cannot accept a complex tensor Casting Examples: # allowed: \u003e\u003e\u003e float_tensor *= float_tensor \u003e\u003e\u003e float_tensor *= int_tensor \u003e\u003e\u003e float_tensor *= uint_tensor \u003e\u003e\u003e float_tensor *= bool_tensor \u003e\u003e\u003e float_tensor *= double_tensor \u003e\u003e\u003e int_tensor *= long_tensor \u003e\u003e\u003e int_tensor *= uint_tensor \u003e\u003e\u003e uint_tensor *= int_tensor # disallowed (RuntimeError: result type can\u0027t be cast to the desired output type): \u003e\u003e\u003e int_tensor *= float_tensor \u003e\u003e\u003e bool_tensor *= int_tensor \u003e\u003e\u003e bool_tensor *= uint_tensor \u003e\u003e\u003e float_tensor *= complex_float_tensor torch.device# class torch.device# A torch.device is an object representing the device on which a torch.Tensor is or will be allocated. The torch.device contains a device type (most commonly \u201ccpu\u201d or \u201ccuda\u201d, but also potentially \u201cmps\u201d, \u201cxpu\u201d, \u201cxla\u201d or \u201cmeta\u201d) and optional device ordinal for the device type. If the device ordinal is not present, this object will always represent the current device for the device type, even after torch.cuda.set_device() is called; e.g., a torch.Tensor constructed with device \u0027cuda\u0027 is equivalent to \u0027cuda:X\u0027 where X is the result of torch.cuda.current_device(). A torch.Tensor\u2019s device can be accessed via the Tensor.device property. A torch.device can be constructed using: A device string, which is a string representation of the device type and optionally the device ordinal. A device type and a device ordinal. A device ordinal, where the current accelerator type will be used. Via a device string: \u003e\u003e\u003e torch.device(\u0027cuda:0\u0027) device(type=\u0027cuda\u0027, index=0) \u003e\u003e\u003e torch.device(\u0027cpu\u0027) device(type=\u0027cpu\u0027) \u003e\u003e\u003e torch.device(\u0027mps\u0027) device(type=\u0027mps\u0027) \u003e\u003e\u003e torch.device(\u0027cuda\u0027) # implicit index is the \"current device index\" device(type=\u0027cuda\u0027) Via a device type and a device ordinal: \u003e\u003e\u003e torch.device(\u0027cuda\u0027, 0) device(type=\u0027cuda\u0027, index=0) \u003e\u003e\u003e torch.device(\u0027mps\u0027, 0) device(type=\u0027mps\u0027, index=0) \u003e\u003e\u003e torch.device(\u0027cpu\u0027, 0) device(type=\u0027cpu\u0027, index=0) Via a device ordinal: Note This method will raise a RuntimeError if no accelerator is currently detected. \u003e\u003e\u003e torch.device(0) # the current accelerator is cuda device(type=\u0027cuda\u0027, index=0) \u003e\u003e\u003e torch.device(1) # the current accelerator is xpu device(type=\u0027xpu\u0027, index=1) \u003e\u003e\u003e torch.device(0) # no current accelerator detected Traceback (most recent call last): File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e RuntimeError: Cannot access accelerator device when none is available. The device object can also be used as a context manager to change the default device tensors are allocated on: \u003e\u003e\u003e with torch.device(\u0027cuda:1\u0027): ... r = torch.randn(2, 3) \u003e\u003e\u003e r.device device(type=\u0027cuda\u0027, index=1) This context manager has no effect if a factory function is passed an explicit, non-None device argument. To globally change the default device, see also torch.set_default_device(). Warning This function imposes a slight performance cost on every Python call to the torch API (not just factory functions). If this is causing problems for you, please comment on pytorch/pytorch#92701 Note The torch.device argument in functions can generally be substituted with a string. This allows for fast prototyping of code. \u003e\u003e\u003e # Example of a function that takes in a torch.device \u003e\u003e\u003e cuda1 = torch.device(\u0027cuda:1\u0027) \u003e\u003e\u003e torch.randn((2,3), device=cuda1) \u003e\u003e\u003e # You can substitute the torch.device with a string \u003e\u003e\u003e torch.randn((2,3), device=\u0027cuda:1\u0027) Note Methods which take a device will generally accept a (properly formatted) string or an integer device ordinal, i.e. the following are all equivalent: \u003e\u003e\u003e torch.randn((2,3), device=torch.device(\u0027cuda:1\u0027)) \u003e\u003e\u003e torch.randn((2,3), device=\u0027cuda:1\u0027) \u003e\u003e\u003e torch.randn((2,3), device=1) # equivalent to \u0027cuda:1\u0027 if the current accelerator is cuda Note Tensors are never moved automatically between devices and require an explicit call from the user. Scalar Tensors (with tensor.dim()==0) are the only exception to this rule and they are automatically transferred from CPU to GPU when needed as this operation can be done \u201cfor free\u201d. Example: \u003e\u003e\u003e # two scalars \u003e\u003e\u003e torch.ones(()) + torch.ones(()).cuda() # OK, scalar auto-transferred from CPU to GPU \u003e\u003e\u003e torch.ones(()).cuda() + torch.ones(()) # OK, scalar auto-transferred from CPU to GPU \u003e\u003e\u003e # one scalar (CPU), one vector (GPU) \u003e\u003e\u003e torch.ones(()) + torch.ones(1).cuda() # OK, scalar auto-transferred from CPU to GPU \u003e\u003e\u003e torch.ones(1).cuda() + torch.ones(()) # OK, scalar auto-transferred from CPU to GPU \u003e\u003e\u003e # one scalar (GPU), one vector (CPU) \u003e\u003e\u003e torch.ones(()).cuda() + torch.ones(1) # Fail, scalar not auto-transferred from GPU to CPU and non-scalar not auto-transferred from CPU to GPU \u003e\u003e\u003e torch.ones(1) + torch.ones(()).cuda() # Fail, scalar not auto-transferred from GPU to CPU and non-scalar not auto-transferred from CPU to GPU torch.layout# class torch.layout# Warning The torch.layout class is in beta and subject to change. A torch.layout is an object that represents the memory layout of a torch.Tensor. Currently, we support torch.strided (dense Tensors) and have beta support for torch.sparse_coo (sparse COO Tensors). torch.strided represents dense Tensors and is the memory layout that is most commonly used. Each strided tensor has an associated torch.Storage, which holds its data. These tensors provide multi-dimensional, strided view of a storage. Strides are a list of integers: the k-th stride represents the jump in the memory necessary to go from one element to the next one in the k-th dimension of the Tensor. This concept makes it possible to perform many tensor operations efficiently. Example: \u003e\u003e\u003e x = torch.tensor([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]]) \u003e\u003e\u003e x.stride() (5, 1) \u003e\u003e\u003e x.t().stride() (1, 5) For more information on torch.sparse_coo tensors, see torch.sparse. torch.memory_format# class torch.memory_format# A torch.memory_format is an object representing the memory format on which a torch.Tensor is or will be allocated. Possible values are: torch.contiguous_format: Tensor is or will be allocated in dense non-overlapping memory. Strides represented by values in decreasing order. torch.channels_last: Tensor is or will be allocated in dense non-overlapping memory. Strides represented by values in strides[0] \u003e strides[2] \u003e strides[3] \u003e strides[1] == 1 aka NHWC order. torch.channels_last_3d: Tensor is or will be allocated in dense non-overlapping memory. Strides represented by values in strides[0] \u003e strides[2] \u003e strides[3] \u003e strides[4] \u003e strides[1] == 1 aka NDHWC order. torch.preserve_format: Used in functions like clone to preserve the memory format of the input tensor. If input tensor is allocated in dense non-overlapping memory, the output tensor strides will be copied from the input. Otherwise output strides will follow torch.contiguous_format",
+       "articleBody": "Tensor Attributes# Created On: Apr 21, 2018 | Last Updated On: Jun 27, 2025 Each torch.Tensor has a torch.dtype, torch.device, and torch.layout. torch.dtype# class torch.dtype# A torch.dtype is an object that represents the data type of a torch.Tensor. PyTorch has several different data types: Floating point dtypes dtype description torch.float32 or torch.float 32-bit floating point, as defined in https://en.wikipedia.org/wiki/IEEE_754 torch.float64 or torch.double 64-bit floating point, as defined in https://en.wikipedia.org/wiki/IEEE_754 torch.float16 or torch.half 16-bit floating point, as defined in https://en.wikipedia.org/wiki/IEEE_754, S-E-M 1-5-10 torch.bfloat16 16-bit floating point, sometimes referred to as Brain floating point, S-E-M 1-8-7 torch.complex32 or torch.chalf 32-bit complex with two float16 components torch.complex64 or torch.cfloat 64-bit complex with two float32 components torch.complex128 or torch.cdouble 128-bit complex with two float64 components torch.float8_e4m3fn [shell], [1] 8-bit floating point, S-E-M 1-4-3, from https://arxiv.org/abs/2209.05433 torch.float8_e5m2 [shell] 8-bit floating point, S-E-M 1-5-2, from https://arxiv.org/abs/2209.05433 torch.float8_e4m3fnuz [shell], [1] 8-bit floating point, S-E-M 1-4-3, from https://arxiv.org/pdf/2206.02915 torch.float8_e5m2fnuz [shell], [1] 8-bit floating point, S-E-M 1-5-2, from https://arxiv.org/pdf/2206.02915 torch.float8_e8m0fnu [shell], [1] 8-bit floating point, S-E-M 0-8-0, from https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf torch.float4_e2m1fn_x2 [shell], [1] packed 4-bit floating point, S-E-M 1-2-1, from https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf Integer dtypes dtype description torch.uint8 8-bit integer (unsigned) torch.int8 8-bit integer (signed) torch.uint16 [shell], [2] 16-bit integer (unsigned) torch.int16 or torch.short 16-bit integer (signed) torch.uint32 [shell], [2] 32-bit integer (unsigned) torch.int32 or torch.int 32-bit integer (signed) torch.uint64 [shell], [2] 64-bit integer (unsigned) torch.int64 or torch.long 64-bit integer (signed) torch.bool Boolean [shell] (1,2,3,4,5,6,7,8,9) a shell dtype a specialized dtype with limited op and backend support. Specifically, ops that support tensor creation (torch.empty, torch.fill, torch.zeros) and operations which do not peek inside the data elements (torch.cat, torch.view, torch.reshape) are supported. Ops that peek inside the data elements such as casting, matrix multiplication, nan/inf checks are supported only on a case by case basis, depending on maturity and presence of hardware accelerated kernels and established use cases. [1] (1,2,3,4,5) The \u201cfn\u201d, \u201cfnu\u201d and \u201cfnuz\u201d dtype suffixes mean: \u201cf\u201d - finite value encodings only, no infinity; \u201cn\u201d - nan value encodings differ from the IEEE spec; \u201cuz\u201d - \u201cunsigned zero\u201d only, i.e. no negative zero encoding [2] (1,2,3) Unsigned types asides from uint8 are currently planned to only have limited support in eager mode (they primarily exist to assist usage with torch.compile); if you need eager support and the extra range is not needed, we recommend using their signed variants instead. See pytorch/pytorch#58734 for more details. Note: legacy constructors such as torch.*.FloatTensor, torch.*.DoubleTensor, torch.*.HalfTensor, torch.*.BFloat16Tensor, torch.*.ByteTensor, torch.*.CharTensor, torch.*.ShortTensor, torch.*.IntTensor, torch.*.LongTensor, torch.*.BoolTensor only remain for backwards compatibility and should no longer be used. To find out if a torch.dtype is a floating point data type, the property is_floating_point can be used, which returns True if the data type is a floating point data type. To find out if a torch.dtype is a complex data type, the property is_complex can be used, which returns True if the data type is a complex data type. When the dtypes of inputs to an arithmetic operation (add, sub, div, mul) differ, we promote by finding the minimum dtype that satisfies the following rules: If the type of a scalar operand is of a higher category than tensor operands (where complex \u003e floating \u003e integral \u003e boolean), we promote to a type with sufficient size to hold all scalar operands of that category. If a zero-dimension tensor operand has a higher category than dimensioned operands, we promote to a type with sufficient size and category to hold all zero-dim tensor operands of that category. If there are no higher-category zero-dim operands, we promote to a type with sufficient size and category to hold all dimensioned operands. A floating point scalar operand has dtype torch.get_default_dtype() and an integral non-boolean scalar operand has dtype torch.int64. Unlike numpy, we do not inspect values when determining the minimum dtypes of an operand. Complex types are not yet supported. Promotion for shell dtypes is not defined. Promotion Examples: \u003e\u003e\u003e float_tensor = torch.ones(1, dtype=torch.float) \u003e\u003e\u003e double_tensor = torch.ones(1, dtype=torch.double) \u003e\u003e\u003e complex_float_tensor = torch.ones(1, dtype=torch.complex64) \u003e\u003e\u003e complex_double_tensor = torch.ones(1, dtype=torch.complex128) \u003e\u003e\u003e int_tensor = torch.ones(1, dtype=torch.int) \u003e\u003e\u003e long_tensor = torch.ones(1, dtype=torch.long) \u003e\u003e\u003e uint_tensor = torch.ones(1, dtype=torch.uint8) \u003e\u003e\u003e bool_tensor = torch.ones(1, dtype=torch.bool) # zero-dim tensors \u003e\u003e\u003e long_zerodim = torch.tensor(1, dtype=torch.long) \u003e\u003e\u003e int_zerodim = torch.tensor(1, dtype=torch.int) \u003e\u003e\u003e torch.add(5, 5).dtype torch.int64 # 5 is an int64, but does not have higher category than int_tensor so is not considered. \u003e\u003e\u003e (int_tensor + 5).dtype torch.int32 \u003e\u003e\u003e (int_tensor + long_zerodim).dtype torch.int32 \u003e\u003e\u003e (long_tensor + int_tensor).dtype torch.int64 \u003e\u003e\u003e (bool_tensor + long_tensor).dtype torch.int64 \u003e\u003e\u003e (bool_tensor + uint_tensor).dtype torch.uint8 \u003e\u003e\u003e (float_tensor + double_tensor).dtype torch.float64 \u003e\u003e\u003e (complex_float_tensor + complex_double_tensor).dtype torch.complex128 \u003e\u003e\u003e (bool_tensor + int_tensor).dtype torch.int32 # Since long is a different kind than float, result dtype only needs to be large enough # to hold the float. \u003e\u003e\u003e torch.add(long_tensor, float_tensor).dtype torch.float32 When the output tensor of an arithmetic operation is specified, we allow casting to its dtype except that: An integral output tensor cannot accept a floating point tensor. A boolean output tensor cannot accept a non-boolean tensor. A non-complex output tensor cannot accept a complex tensor Casting Examples: # allowed: \u003e\u003e\u003e float_tensor *= float_tensor \u003e\u003e\u003e float_tensor *= int_tensor \u003e\u003e\u003e float_tensor *= uint_tensor \u003e\u003e\u003e float_tensor *= bool_tensor \u003e\u003e\u003e float_tensor *= double_tensor \u003e\u003e\u003e int_tensor *= long_tensor \u003e\u003e\u003e int_tensor *= uint_tensor \u003e\u003e\u003e uint_tensor *= int_tensor # disallowed (RuntimeError: result type can\u0027t be cast to the desired output type): \u003e\u003e\u003e int_tensor *= float_tensor \u003e\u003e\u003e bool_tensor *= int_tensor \u003e\u003e\u003e bool_tensor *= uint_tensor \u003e\u003e\u003e float_tensor *= complex_float_tensor torch.device# class torch.device# A torch.device is an object representing the device on which a torch.Tensor is or will be allocated. The torch.device contains a device type (most commonly \u201ccpu\u201d or \u201ccuda\u201d, but also potentially \u201cmps\u201d, \u201cxpu\u201d, \u201cxla\u201d or \u201cmeta\u201d) and optional device ordinal for the device type. If the device ordinal is not present, this object will always represent the current device for the device type, even after torch.cuda.set_device() is called; e.g., a torch.Tensor constructed with device \u0027cuda\u0027 is equivalent to \u0027cuda:X\u0027 where X is the result of torch.cuda.current_device(). A torch.Tensor\u2019s device can be accessed via the Tensor.device property. A torch.device can be constructed using: A device string, which is a string representation of the device type and optionally the device ordinal. A device type and a device ordinal. A device ordinal, where the current accelerator type will be used. Via a device string: \u003e\u003e\u003e torch.device(\u0027cuda:0\u0027) device(type=\u0027cuda\u0027, index=0) \u003e\u003e\u003e torch.device(\u0027cpu\u0027) device(type=\u0027cpu\u0027) \u003e\u003e\u003e torch.device(\u0027mps\u0027) device(type=\u0027mps\u0027) \u003e\u003e\u003e torch.device(\u0027cuda\u0027) # implicit index is the \"current device index\" device(type=\u0027cuda\u0027) Via a device type and a device ordinal: \u003e\u003e\u003e torch.device(\u0027cuda\u0027, 0) device(type=\u0027cuda\u0027, index=0) \u003e\u003e\u003e torch.device(\u0027mps\u0027, 0) device(type=\u0027mps\u0027, index=0) \u003e\u003e\u003e torch.device(\u0027cpu\u0027, 0) device(type=\u0027cpu\u0027, index=0) Via a device ordinal: Note This method will raise a RuntimeError if no accelerator is currently detected. \u003e\u003e\u003e torch.device(0) # the current accelerator is cuda device(type=\u0027cuda\u0027, index=0) \u003e\u003e\u003e torch.device(1) # the current accelerator is xpu device(type=\u0027xpu\u0027, index=1) \u003e\u003e\u003e torch.device(0) # no current accelerator detected Traceback (most recent call last): File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e RuntimeError: Cannot access accelerator device when none is available. The device object can also be used as a context manager to change the default device tensors are allocated on: \u003e\u003e\u003e with torch.device(\u0027cuda:1\u0027): ... r = torch.randn(2, 3) \u003e\u003e\u003e r.device device(type=\u0027cuda\u0027, index=1) This context manager has no effect if a factory function is passed an explicit, non-None device argument. To globally change the default device, see also torch.set_default_device(). Warning This function imposes a slight performance cost on every Python call to the torch API (not just factory functions). If this is causing problems for you, please comment on pytorch/pytorch#92701 Note The torch.device argument in functions can generally be substituted with a string. This allows for fast prototyping of code. \u003e\u003e\u003e # Example of a function that takes in a torch.device \u003e\u003e\u003e cuda1 = torch.device(\u0027cuda:1\u0027) \u003e\u003e\u003e torch.randn((2,3), device=cuda1) \u003e\u003e\u003e # You can substitute the torch.device with a string \u003e\u003e\u003e torch.randn((2,3), device=\u0027cuda:1\u0027) Note Methods which take a device will generally accept a (properly formatted) string or an integer device ordinal, i.e. the following are all equivalent: \u003e\u003e\u003e torch.randn((2,3), device=torch.device(\u0027cuda:1\u0027)) \u003e\u003e\u003e torch.randn((2,3), device=\u0027cuda:1\u0027) \u003e\u003e\u003e torch.randn((2,3), device=1) # equivalent to \u0027cuda:1\u0027 if the current accelerator is cuda Note Tensors are never moved automatically between devices and require an explicit call from the user. Scalar Tensors (with tensor.dim()==0) are the only exception to this rule and they are automatically transferred from CPU to GPU when needed as this operation can be done \u201cfor free\u201d. Example: \u003e\u003e\u003e # two scalars \u003e\u003e\u003e torch.ones(()) + torch.ones(()).cuda() # OK, scalar auto-transferred from CPU to GPU \u003e\u003e\u003e torch.ones(()).cuda() + torch.ones(()) # OK, scalar auto-transferred from CPU to GPU \u003e\u003e\u003e # one scalar (CPU), one vector (GPU) \u003e\u003e\u003e torch.ones(()) + torch.ones(1).cuda() # OK, scalar auto-transferred from CPU to GPU \u003e\u003e\u003e torch.ones(1).cuda() + torch.ones(()) # OK, scalar auto-transferred from CPU to GPU \u003e\u003e\u003e # one scalar (GPU), one vector (CPU) \u003e\u003e\u003e torch.ones(()).cuda() + torch.ones(1) # Fail, scalar not auto-transferred from GPU to CPU and non-scalar not auto-transferred from CPU to GPU \u003e\u003e\u003e torch.ones(1) + torch.ones(()).cuda() # Fail, scalar not auto-transferred from GPU to CPU and non-scalar not auto-transferred from CPU to GPU torch.layout# class torch.layout# Warning The torch.layout class is in beta and subject to change. A torch.layout is an object that represents the memory layout of a torch.Tensor. Currently, we support torch.strided (dense Tensors) and have beta support for torch.sparse_coo (sparse COO Tensors). torch.strided represents dense Tensors and is the memory layout that is most commonly used. Each strided tensor has an associated torch.Storage, which holds its data. These tensors provide multi-dimensional, strided view of a storage. Strides are a list of integers: the k-th stride represents the jump in the memory necessary to go from one element to the next one in the k-th dimension of the Tensor. This concept makes it possible to perform many tensor operations efficiently. Example: \u003e\u003e\u003e x = torch.tensor([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]]) \u003e\u003e\u003e x.stride() (5, 1) \u003e\u003e\u003e x.t().stride() (1, 5) For more information on torch.sparse_coo tensors, see torch.sparse. torch.memory_format# class torch.memory_format# A torch.memory_format is an object representing the memory format on which a torch.Tensor is or will be allocated. Possible values are: torch.contiguous_format: Tensor is or will be allocated in dense non-overlapping memory. Strides represented by values in decreasing order. torch.channels_last: Tensor is or will be allocated in dense non-overlapping memory. Strides represented by values in strides[0] \u003e strides[2] \u003e strides[3] \u003e strides[1] == 1 aka NHWC order. torch.channels_last_3d: Tensor is or will be allocated in dense non-overlapping memory. Strides represented by values in strides[0] \u003e strides[2] \u003e strides[3] \u003e strides[4] \u003e strides[1] == 1 aka NDHWC order. torch.preserve_format: Used in functions like clone to preserve the memory format of the input tensor. If input tensor is allocated in dense non-overlapping memory, the output tensor strides will be copied from the input. Otherwise output strides will follow torch.contiguous_format",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/tensor_attributes.html"

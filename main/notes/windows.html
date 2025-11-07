@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Windows FAQ &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=940804e7"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notes/windows';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../_static/js/runllm-widget.js"></script>
+    <script src="../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/notes/windows.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="../_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1693,6 +1692,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -1700,13 +1700,13 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="windows-faq">
-<h1>Windows FAQ<a class="headerlink" href="#windows-faq" title="Permalink to this heading">#</a></h1>
+  <section id="windows-faq">
+<h1>Windows FAQ<a class="headerlink" href="#windows-faq" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 23, 2018 | Last Updated On: May 20, 2025</p>
-<div class="section" id="building-from-source">
-<h2>Building from source<a class="headerlink" href="#building-from-source" title="Permalink to this heading">#</a></h2>
-<div class="section" id="include-optional-components">
-<h3>Include optional components<a class="headerlink" href="#include-optional-components" title="Permalink to this heading">#</a></h3>
+<section id="building-from-source">
+<h2>Building from source<a class="headerlink" href="#building-from-source" title="Link to this heading">#</a></h2>
+<section id="include-optional-components">
+<h3>Include optional components<a class="headerlink" href="#include-optional-components" title="Link to this heading">#</a></h3>
 <p>There are two supported components for Windows PyTorch:
 MKL and MAGMA. Here are the steps to build with them.</p>
 <div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="c1">REM Make sure you have 7z and curl installed.</span>
@@ -1733,9 +1733,9 @@ curl -k <span class="s2">&quot;</span><span class="nv">%HOST%</span><span class=
 <span class="k">set</span> <span class="s2">&quot;MAGMA_HOME=</span><span class="nv">%cd%</span><span class="s2">\magma&quot;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="speeding-cuda-build-for-windows">
-<h3>Speeding CUDA build for Windows<a class="headerlink" href="#speeding-cuda-build-for-windows" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="speeding-cuda-build-for-windows">
+<h3>Speeding CUDA build for Windows<a class="headerlink" href="#speeding-cuda-build-for-windows" title="Link to this heading">#</a></h3>
 <p>Visual Studio doesn’t support parallel custom task currently.
 As an alternative, we can use <code class="docutils literal notranslate"><span class="pre">Ninja</span></code> to parallelize CUDA
 build tasks. It can be used by typing only a few lines of code.</p>
@@ -1746,17 +1746,17 @@ pip install ninja
 <span class="k">set</span> <span class="nv">CMAKE_GENERATOR</span><span class="p">=</span>Ninja
 </pre></div>
 </div>
-</div>
-<div class="section" id="one-key-install-script">
-<h3>One key install script<a class="headerlink" href="#one-key-install-script" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="one-key-install-script">
+<h3>One key install script<a class="headerlink" href="#one-key-install-script" title="Link to this heading">#</a></h3>
 <p>You can take a look at <a class="reference external" href="https://github.com/peterjc123/pytorch-scripts">this set of scripts</a>.
 It will lead the way for you.</p>
-</div>
-</div>
-<div class="section" id="extension">
-<h2>Extension<a class="headerlink" href="#extension" title="Permalink to this heading">#</a></h2>
-<div class="section" id="cffi-extension">
-<h3>CFFI Extension<a class="headerlink" href="#cffi-extension" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="extension">
+<h2>Extension<a class="headerlink" href="#extension" title="Link to this heading">#</a></h2>
+<section id="cffi-extension">
+<h3>CFFI Extension<a class="headerlink" href="#cffi-extension" title="Link to this heading">#</a></h3>
 <p>The support for CFFI Extension is very experimental. You must specify
 additional <code class="docutils literal notranslate"><span class="pre">libraries</span></code> in <code class="docutils literal notranslate"><span class="pre">Extension</span></code> object to make it build on
 Windows.</p>
@@ -1772,20 +1772,20 @@ Windows.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="cpp-extension">
-<h3>Cpp Extension<a class="headerlink" href="#cpp-extension" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="cpp-extension">
+<h3>Cpp Extension<a class="headerlink" href="#cpp-extension" title="Link to this heading">#</a></h3>
 <p>This type of extension has better support compared with
 the previous one. However, it still needs some manual
 configuration. First, you should open the
 <strong>x86_x64 Cross Tools Command Prompt for VS 2017</strong>.
 And then, you can start your compiling process.</p>
-</div>
-</div>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h2>
-<div class="section" id="package-not-found-in-win-32-channel">
-<h3>Package not found in win-32 channel.<a class="headerlink" href="#package-not-found-in-win-32-channel" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<section id="package-not-found-in-win-32-channel">
+<h3>Package not found in win-32 channel.<a class="headerlink" href="#package-not-found-in-win-32-channel" title="Link to this heading">#</a></h3>
 <div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>Solving environment: failed
 
 PackagesNotFoundError: The following packages are not available from current channels:
@@ -1807,9 +1807,9 @@ Current channels:
 </div>
 <p>PyTorch doesn’t work on 32-bit system. Please use Windows and
 Python 64-bit version.</p>
-</div>
-<div class="section" id="import-error">
-<h3>Import error<a class="headerlink" href="#import-error" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="import-error">
+<h3>Import error<a class="headerlink" href="#import-error" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="ne">ImportError</span><span class="p">:</span> <span class="n">DLL</span> <span class="n">load</span> <span class="n">failed</span><span class="p">:</span> <span class="n">The</span> <span class="n">specified</span> <span class="n">module</span> <span class="n">could</span> <span class="ow">not</span> <span class="n">be</span> <span class="n">found</span><span class="o">.</span>
@@ -1824,12 +1824,12 @@ uses MKL instead of OpenBLAS. You may type in the following command.</p>
 <div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>pip install numpy mkl intel-openmp mkl_fft
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="usage-multiprocessing">
-<h2>Usage (multiprocessing)<a class="headerlink" href="#usage-multiprocessing" title="Permalink to this heading">#</a></h2>
-<div class="section" id="multiprocessing-error-without-if-clause-protection">
-<h3>Multiprocessing error without if-clause protection<a class="headerlink" href="#multiprocessing-error-without-if-clause-protection" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="usage-multiprocessing">
+<h2>Usage (multiprocessing)<a class="headerlink" href="#usage-multiprocessing" title="Link to this heading">#</a></h2>
+<section id="multiprocessing-error-without-if-clause-protection">
+<h3>Multiprocessing error without if-clause protection<a class="headerlink" href="#multiprocessing-error-without-if-clause-protection" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ne">RuntimeError</span><span class="p">:</span>
        <span class="n">An</span> <span class="n">attempt</span> <span class="n">has</span> <span class="n">been</span> <span class="n">made</span> <span class="n">to</span> <span class="n">start</span> <span class="n">a</span> <span class="n">new</span> <span class="n">process</span> <span class="n">before</span> <span class="n">the</span>
        <span class="n">current</span> <span class="n">process</span> <span class="n">has</span> <span class="n">finished</span> <span class="n">its</span> <span class="n">bootstrapping</span> <span class="n">phase</span><span class="o">.</span>
@@ -1860,9 +1860,9 @@ your code into the following structure.</p>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="multiprocessing-error-broken-pipe">
-<h3>Multiprocessing error “Broken pipe”<a class="headerlink" href="#multiprocessing-error-broken-pipe" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="multiprocessing-error-broken-pipe">
+<h3>Multiprocessing error “Broken pipe”<a class="headerlink" href="#multiprocessing-error-broken-pipe" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ForkingPickler</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">protocol</span><span class="p">)</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
 
 <span class="ne">BrokenPipeError</span><span class="p">:</span> <span class="p">[</span><span class="n">Errno</span> <span class="mi">32</span><span class="p">]</span> <span class="n">Broken</span> <span class="n">pipe</span>
@@ -1872,9 +1872,9 @@ your code into the following structure.</p>
 finishes sending data. There may be something wrong with your code. You
 can debug your code by reducing the <code class="docutils literal notranslate"><span class="pre">num_worker</span></code> of
 <a class="reference internal" href="../data.html#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> to zero and see if the issue persists.</p>
-</div>
-<div class="section" id="multiprocessing-error-driver-shut-down">
-<h3>Multiprocessing error “driver shut down”<a class="headerlink" href="#multiprocessing-error-driver-shut-down" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="multiprocessing-error-driver-shut-down">
+<h3>Multiprocessing error “driver shut down”<a class="headerlink" href="#multiprocessing-error-driver-shut-down" title="Link to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Couldn’t open shared file mapping: &lt;torch_14808_1591070686&gt;, error code: &lt;1455&gt; at torch\lib\TH\THAllocator.c:154
 
 [windows] driver shut down
@@ -1883,9 +1883,9 @@ can debug your code by reducing the <code class="docutils literal notranslate"><
 <p>Please update your graphics driver. If this persists, this may be that your
 graphics card is too old or the calculation is too heavy for your card. Please
 update the TDR settings according to this <a class="reference external" href="https://www.pugetsystems.com/labs/hpc/Working-around-TDR-in-Windows-for-a-better-GPU-computing-experience-777/">post</a>.</p>
-</div>
-<div class="section" id="cuda-ipc-operations">
-<h3>CUDA IPC operations<a class="headerlink" href="#cuda-ipc-operations" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="cuda-ipc-operations">
+<h3>CUDA IPC operations<a class="headerlink" href="#cuda-ipc-operations" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">THCudaCheck</span> <span class="n">FAIL</span> <span class="n">file</span><span class="o">=</span><span class="n">torch</span>\<span class="n">csrc</span>\<span class="n">generic</span>\<span class="n">StorageSharing</span><span class="o">.</span><span class="n">cpp</span> <span class="n">line</span><span class="o">=</span><span class="mi">252</span> <span class="n">error</span><span class="o">=</span><span class="mi">63</span> <span class="p">:</span> <span class="n">OS</span> <span class="n">call</span> <span class="n">failed</span> <span class="ow">or</span> <span class="n">operation</span> <span class="ow">not</span> <span class="n">supported</span> <span class="n">on</span> <span class="n">this</span> <span class="n">OS</span>
 </pre></div>
 </div>
@@ -1895,9 +1895,9 @@ tensors cannot succeed, there are two alternatives for this.</p>
 <a class="reference internal" href="../data.html#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> to zero.</p>
 <p>2. Share CPU tensors instead. Make sure your custom
 <code class="xref py py-class docutils literal notranslate"><span class="pre">DataSet</span></code> returns CPU tensors.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
                 </article>
@@ -1963,11 +1963,6 @@ tensors cannot succeed, there are two alternatives for this.</p>
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -2113,7 +2108,9 @@ tensors cannot succeed, there are two alternatives for this.</p>
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -2137,10 +2134,13 @@ tensors cannot succeed, there are two alternatives for this.</p>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -2163,7 +2163,6 @@ tensors cannot succeed, there are two alternatives for this.</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -2213,10 +2212,10 @@ tensors cannot succeed, there are two alternatives for this.</p>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -2257,7 +2256,7 @@ tensors cannot succeed, there are two alternatives for this.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -2292,7 +2291,7 @@ tensors cannot succeed, there are two alternatives for this.</p>
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "../_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/notes/windows.html"

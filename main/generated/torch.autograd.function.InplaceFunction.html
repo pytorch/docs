@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>InplaceFunction &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=940804e7"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'generated/torch.autograd.function.InplaceFunction';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../_static/js/runllm-widget.js"></script>
+    <script src="../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.autograd.function.InplaceFunction.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="../_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4488,6 +4487,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4495,16 +4495,16 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="inplacefunction">
-<h1>InplaceFunction<a class="headerlink" href="#inplacefunction" title="Permalink to this heading">#</a></h1>
+  <section id="inplacefunction">
+<h1>InplaceFunction<a class="headerlink" href="#inplacefunction" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.function.InplaceFunction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.function.</span></span><span class="sig-name descname"><span class="pre">InplaceFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/function.py#L655"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.function.</span></span><span class="sig-name descname"><span class="pre">InplaceFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/function.py#L655"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction" title="Link to this definition">#</a></dt>
 <dd><p>This class is here only for backward compatibility reasons.
 Use <a class="reference internal" href="../autograd.html#torch.autograd.Function" title="torch.autograd.function.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">Function</span></code></a> instead of this for any new use case.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.InplaceFunction.backward">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grad_outputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/function.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.backward" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grad_outputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/function.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.backward" title="Link to this definition">#</a></dt>
 <dd><p>Define a formula for differentiating the operation with backward mode automatic differentiation.</p>
 <p>This function is to be overridden by all subclasses.
 (Defining this function is equivalent to defining the <code class="docutils literal notranslate"><span class="pre">vjp</span></code> function.)</p>
@@ -4523,7 +4523,7 @@ of booleans representing whether each input needs gradient. E.g.,
 first input to <a class="reference internal" href="#torch.autograd.function.InplaceFunction.forward" title="torch.autograd.function.InplaceFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> needs gradient computed w.r.t. the
 output.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
@@ -4531,7 +4531,7 @@ output.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.InplaceFunction.forward">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/function.py#L352"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.forward" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/function.py#L352"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.forward" title="Link to this definition">#</a></dt>
 <dd><p>Define the forward of the custom autograd Function.</p>
 <p>This function is to be overridden by all subclasses.
 There are two ways to define forward:</p>
@@ -4573,7 +4573,7 @@ backward compatibility). Instead, tensors should be saved either with
 <code class="docutils literal notranslate"><span class="pre">backward</span></code> (equivalently, <code class="docutils literal notranslate"><span class="pre">vjp</span></code>) or <code class="xref py py-func docutils literal notranslate"><span class="pre">ctx.save_for_forward()</span></code>
 if they are intended to be used for in <code class="docutils literal notranslate"><span class="pre">jvp</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
@@ -4581,7 +4581,7 @@ if they are intended to be used for in <code class="docutils literal notranslate
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.InplaceFunction.jvp">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">jvp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grad_inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/function.py#L448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.jvp" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">jvp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grad_inputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/function.py#L448"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.jvp" title="Link to this definition">#</a></dt>
 <dd><p>Define a formula for differentiating the operation with forward mode automatic differentiation.</p>
 <p>This function is to be overridden by all subclasses.
 It must accept a context <code class="xref py py-attr docutils literal notranslate"><span class="pre">ctx</span></code> as the first argument, followed by
@@ -4596,7 +4596,7 @@ gradient for that input.</p>
 <p>You can use the <code class="xref py py-attr docutils literal notranslate"><span class="pre">ctx</span></code> object to pass any value from the forward to this
 functions.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
@@ -4604,7 +4604,7 @@ functions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.InplaceFunction.mark_dirty">
-<span class="sig-name descname"><span class="pre">mark_dirty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/function.py#L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.mark_dirty" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mark_dirty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/function.py#L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.mark_dirty" title="Link to this definition">#</a></dt>
 <dd><p>Mark given tensors as modified in an in-place operation.</p>
 <p>This should be called at most once, in either the <a class="reference internal" href="#torch.autograd.function.InplaceFunction.setup_context" title="torch.autograd.function.InplaceFunction.setup_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code></a>
 or <a class="reference internal" href="#torch.autograd.function.InplaceFunction.forward" title="torch.autograd.function.InplaceFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> methods, and all arguments should be inputs.</p>
@@ -4642,7 +4642,7 @@ modification.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.InplaceFunction.mark_non_differentiable">
-<span class="sig-name descname"><span class="pre">mark_non_differentiable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/function.py#L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.mark_non_differentiable" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mark_non_differentiable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/function.py#L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.mark_non_differentiable" title="Link to this definition">#</a></dt>
 <dd><p>Mark outputs as non-differentiable.</p>
 <p>This should be called at most once, in either the <a class="reference internal" href="#torch.autograd.function.InplaceFunction.setup_context" title="torch.autograd.function.InplaceFunction.setup_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code></a>
 or <a class="reference internal" href="#torch.autograd.function.InplaceFunction.forward" title="torch.autograd.function.InplaceFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> methods, and all arguments should be tensor outputs.</p>
@@ -4677,7 +4677,7 @@ output.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.InplaceFunction.save_for_backward">
-<span class="sig-name descname"><span class="pre">save_for_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/function.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.save_for_backward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_for_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/function.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.save_for_backward" title="Link to this definition">#</a></dt>
 <dd><p>Save given tensors for a future call to <code class="xref py py-func docutils literal notranslate"><span class="pre">backward()</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">save_for_backward</span></code> should be called at most once, in either the
 <a class="reference internal" href="#torch.autograd.function.InplaceFunction.setup_context" title="torch.autograd.function.InplaceFunction.setup_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code></a> or <a class="reference internal" href="#torch.autograd.function.InplaceFunction.forward" title="torch.autograd.function.InplaceFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> methods, and only with tensors.</p>
@@ -4733,7 +4733,7 @@ they weren’t used in any in-place operation that modified their content.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.InplaceFunction.save_for_forward">
-<span class="sig-name descname"><span class="pre">save_for_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/function.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.save_for_forward" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_for_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/function.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.save_for_forward" title="Link to this definition">#</a></dt>
 <dd><p>Save given tensors for a future call to <code class="xref py py-func docutils literal notranslate"><span class="pre">jvp()</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">save_for_forward</span></code> should be called at most once, in either the
 <a class="reference internal" href="#torch.autograd.function.InplaceFunction.setup_context" title="torch.autograd.function.InplaceFunction.setup_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code></a> or <a class="reference internal" href="#torch.autograd.function.InplaceFunction.forward" title="torch.autograd.function.InplaceFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> methods, and all arguments
@@ -4779,7 +4779,7 @@ attribute.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.InplaceFunction.set_materialize_grads">
-<span class="sig-name descname"><span class="pre">set_materialize_grads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/function.py#L235"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.set_materialize_grads" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_materialize_grads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/function.py#L235"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.set_materialize_grads" title="Link to this definition">#</a></dt>
 <dd><p>Set whether to materialize grad tensors. Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <p>This should be called only from either the <a class="reference internal" href="#torch.autograd.function.InplaceFunction.setup_context" title="torch.autograd.function.InplaceFunction.setup_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code></a> or
 <a class="reference internal" href="#torch.autograd.function.InplaceFunction.forward" title="torch.autograd.function.InplaceFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> methods.</p>
@@ -4825,7 +4825,7 @@ prior to calling the <a class="reference internal" href="#torch.autograd.functio
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.InplaceFunction.setup_context">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setup_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/function.py#L399"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.setup_context" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setup_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/function.py#L399"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.setup_context" title="Link to this definition">#</a></dt>
 <dd><p>There are two ways to define the forward pass of an autograd.Function.</p>
 <p>Either:</p>
 <ol class="arabic simple">
@@ -4838,7 +4838,7 @@ inside <code class="docutils literal notranslate"><span class="pre">setup_contex
 </ol>
 <p>See <a class="reference internal" href="torch.autograd.Function.forward.html#torch.autograd.Function.forward" title="torch.autograd.Function.forward"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.autograd.Function.forward()</span></code></a> and <a class="reference internal" href="../notes/extending.html#extending-autograd"><span class="std std-ref">Extending torch.autograd</span></a> for more details.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
@@ -4846,7 +4846,7 @@ inside <code class="docutils literal notranslate"><span class="pre">setup_contex
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.InplaceFunction.vjp">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vjp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grad_outputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/function.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.vjp" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vjp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grad_outputs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/function.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.vjp" title="Link to this definition">#</a></dt>
 <dd><p>Define a formula for differentiating the operation with backward mode automatic differentiation.</p>
 <p>This function is to be overridden by all subclasses.
 (Defining this function is equivalent to defining the <code class="docutils literal notranslate"><span class="pre">vjp</span></code> function.)</p>
@@ -4865,7 +4865,7 @@ of booleans representing whether each input needs gradient. E.g.,
 first input to <a class="reference internal" href="#torch.autograd.function.InplaceFunction.forward" title="torch.autograd.function.InplaceFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> needs gradient computed w.r.t. the
 output.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
@@ -4873,7 +4873,7 @@ output.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.function.InplaceFunction.vmap">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_dims</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/function.py#L534"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.vmap" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_dims</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/function.py#L534"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.function.InplaceFunction.vmap" title="Link to this definition">#</a></dt>
 <dd><p>Define the behavior for this autograd.Function underneath <a class="reference internal" href="torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a>.</p>
 <p>For a <a class="reference internal" href="../autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.Function()</span></code></a> to support
 <a class="reference internal" href="torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a>, you must either override this static method, or set
@@ -4900,7 +4900,7 @@ output has the vmapped dimension and what index it is in.</p>
 
 </dd></dl>
 
-</div>
+</section>
 
 
                 </article>
@@ -4966,11 +4966,6 @@ output has the vmapped dimension and what index it is in.</p>
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -5091,7 +5086,9 @@ output has the vmapped dimension and what index it is in.</p>
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -5115,10 +5112,13 @@ output has the vmapped dimension and what index it is in.</p>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -5141,7 +5141,6 @@ output has the vmapped dimension and what index it is in.</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -5191,10 +5190,10 @@ output has the vmapped dimension and what index it is in.</p>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5235,7 +5234,7 @@ output has the vmapped dimension and what index it is in.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -5264,13 +5263,13 @@ output has the vmapped dimension and what index it is in.</p>
        "headline": "InplaceFunction",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/torch.autograd.function.InplaceFunction.html",
-       "articleBody": "InplaceFunction# class torch.autograd.function.InplaceFunction(inplace=False)[source]# This class is here only for backward compatibility reasons. Use Function instead of this for any new use case. static backward(ctx, *grad_outputs)[source]# Define a formula for differentiating the operation with backward mode automatic differentiation. This function is to be overridden by all subclasses. (Defining this function is equivalent to defining the vjp function.) It must accept a context ctx as the first argument, followed by as many outputs as the forward() returned (None will be passed in for non tensor outputs of the forward function), and it should return as many tensors, as there were inputs to forward(). Each argument is the gradient w.r.t the given output, and each returned value should be the gradient w.r.t. the corresponding input. If an input is not a Tensor or is a Tensor not requiring grads, you can just pass None as a gradient for that input. The context can be used to retrieve tensors saved during the forward pass. It also has an attribute ctx.needs_input_grad as a tuple of booleans representing whether each input needs gradient. E.g., backward() will have ctx.needs_input_grad[0] = True if the first input to forward() needs gradient computed w.r.t. the output. Return type Any static forward(*args, **kwargs)[source]# Define the forward of the custom autograd Function. This function is to be overridden by all subclasses. There are two ways to define forward: Usage 1 (Combined forward and ctx): @staticmethod def forward(ctx: Any, *args: Any, **kwargs: Any) -\u003e Any: pass It must accept a context ctx as the first argument, followed by any number of arguments (tensors or other types). See Combined or separate forward() and setup_context() for more details Usage 2 (Separate forward and ctx): @staticmethod def forward(*args: Any, **kwargs: Any) -\u003e Any: pass @staticmethod def setup_context(ctx: Any, inputs: Tuple[Any, ...], output: Any) -\u003e None: pass The forward no longer accepts a ctx argument. Instead, you must also override the torch.autograd.Function.setup_context() staticmethod to handle setting up the ctx object. output is the output of the forward, inputs are a Tuple of inputs to the forward. See Extending torch.autograd for more details The context can be used to store arbitrary data that can be then retrieved during the backward pass. Tensors should not be stored directly on ctx (though this is not currently enforced for backward compatibility). Instead, tensors should be saved either with ctx.save_for_backward() if they are intended to be used in backward (equivalently, vjp) or ctx.save_for_forward() if they are intended to be used for in jvp. Return type Any static jvp(ctx, *grad_inputs)[source]# Define a formula for differentiating the operation with forward mode automatic differentiation. This function is to be overridden by all subclasses. It must accept a context ctx as the first argument, followed by as many inputs as the forward() got (None will be passed in for non tensor inputs of the forward function), and it should return as many tensors as there were outputs to forward(). Each argument is the gradient w.r.t the given input, and each returned value should be the gradient w.r.t. the corresponding output. If an output is not a Tensor or the function is not differentiable with respect to that output, you can just pass None as a gradient for that input. You can use the ctx object to pass any value from the forward to this functions. Return type Any mark_dirty(*args)[source]# Mark given tensors as modified in an in-place operation. This should be called at most once, in either the setup_context() or forward() methods, and all arguments should be inputs. Every tensor that\u2019s been modified in-place in a call to forward() should be given to this function, to ensure correctness of our checks. It doesn\u2019t matter whether the function is called before or after modification. Examples::\u003e\u003e\u003e class Inplace(Function): \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def forward(ctx, x): \u003e\u003e\u003e x_npy = x.numpy() # x_npy shares storage with x \u003e\u003e\u003e x_npy += 1 \u003e\u003e\u003e ctx.mark_dirty(x) \u003e\u003e\u003e return x \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e @once_differentiable \u003e\u003e\u003e def backward(ctx, grad_output): \u003e\u003e\u003e return grad_output \u003e\u003e\u003e \u003e\u003e\u003e a = torch.tensor(1., requires_grad=True, dtype=torch.double).clone() \u003e\u003e\u003e b = a * a \u003e\u003e\u003e Inplace.apply(a) # This would lead to wrong gradients! \u003e\u003e\u003e # but the engine would not know unless we mark_dirty \u003e\u003e\u003e b.backward() # RuntimeError: one of the variables needed for gradient \u003e\u003e\u003e # computation has been modified by an inplace operation mark_non_differentiable(*args)[source]# Mark outputs as non-differentiable. This should be called at most once, in either the setup_context() or forward() methods, and all arguments should be tensor outputs. This will mark outputs as not requiring gradients, increasing the efficiency of backward computation. You still need to accept a gradient for each output in backward(), but it\u2019s always going to be a zero tensor with the same shape as the shape of a corresponding output. This is used e.g. for indices returned from a sort. See example::\u003e\u003e\u003e class Func(Function): \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def forward(ctx, x): \u003e\u003e\u003e sorted, idx = x.sort() \u003e\u003e\u003e ctx.mark_non_differentiable(idx) \u003e\u003e\u003e ctx.save_for_backward(x, idx) \u003e\u003e\u003e return sorted, idx \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e @once_differentiable \u003e\u003e\u003e def backward(ctx, g1, g2): # still need to accept g2 \u003e\u003e\u003e x, idx = ctx.saved_tensors \u003e\u003e\u003e grad_input = torch.zeros_like(x) \u003e\u003e\u003e grad_input.index_add_(0, idx, g1) \u003e\u003e\u003e return grad_input save_for_backward(*tensors)[source]# Save given tensors for a future call to backward(). save_for_backward should be called at most once, in either the setup_context() or forward() methods, and only with tensors. All tensors intended to be used in the backward pass should be saved with save_for_backward (as opposed to directly on ctx) to prevent incorrect gradients and memory leaks, and enable the application of saved tensor hooks. See torch.autograd.graph.saved_tensors_hooks. See Extending torch.autograd for more details. Note that if intermediary tensors, tensors that are neither inputs nor outputs of forward(), are saved for backward, your custom Function may not support double backward. Custom Functions that do not support double backward should decorate their backward() method with @once_differentiable so that performing double backward raises an error. If you\u2019d like to support double backward, you can either recompute intermediaries based on the inputs during backward or return the intermediaries as the outputs of the custom Function. See the double backward tutorial for more details. In backward(), saved tensors can be accessed through the saved_tensors attribute. Before returning them to the user, a check is made to ensure they weren\u2019t used in any in-place operation that modified their content. Arguments can also be None. This is a no-op. See Extending torch.autograd for more details on how to use this method. Example: \u003e\u003e\u003e class Func(Function): \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def forward(ctx, x: torch.Tensor, y: torch.Tensor, z: int): \u003e\u003e\u003e w = x * z \u003e\u003e\u003e out = x * y + y * z + w * y \u003e\u003e\u003e ctx.save_for_backward(x, y, w, out) \u003e\u003e\u003e ctx.z = z # z is not a tensor \u003e\u003e\u003e return out \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e @once_differentiable \u003e\u003e\u003e def backward(ctx, grad_out): \u003e\u003e\u003e x, y, w, out = ctx.saved_tensors \u003e\u003e\u003e z = ctx.z \u003e\u003e\u003e gx = grad_out * (y + y * z) \u003e\u003e\u003e gy = grad_out * (x + z + w) \u003e\u003e\u003e gz = None \u003e\u003e\u003e return gx, gy, gz \u003e\u003e\u003e \u003e\u003e\u003e a = torch.tensor(1., requires_grad=True, dtype=torch.double) \u003e\u003e\u003e b = torch.tensor(2., requires_grad=True, dtype=torch.double) \u003e\u003e\u003e c = 4 \u003e\u003e\u003e d = Func.apply(a, b, c) save_for_forward(*tensors)[source]# Save given tensors for a future call to jvp(). save_for_forward should be called at most once, in either the setup_context() or forward() methods, and all arguments should be tensors. In jvp(), saved objects can be accessed through the saved_tensors attribute. Arguments can also be None. This is a no-op. See Extending torch.autograd for more details on how to use this method. Example: \u003e\u003e\u003e class Func(torch.autograd.Function): \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def forward(ctx, x: torch.Tensor, y: torch.Tensor, z: int): \u003e\u003e\u003e ctx.save_for_backward(x, y) \u003e\u003e\u003e ctx.save_for_forward(x, y) \u003e\u003e\u003e ctx.z = z \u003e\u003e\u003e return x * y * z \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def jvp(ctx, x_t, y_t, _): \u003e\u003e\u003e x, y = ctx.saved_tensors \u003e\u003e\u003e z = ctx.z \u003e\u003e\u003e return z * (y * x_t + x * y_t) \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def vjp(ctx, grad_out): \u003e\u003e\u003e x, y = ctx.saved_tensors \u003e\u003e\u003e z = ctx.z \u003e\u003e\u003e return z * grad_out * y, z * grad_out * x, None \u003e\u003e\u003e \u003e\u003e\u003e a = torch.tensor(1., requires_grad=True, dtype=torch.double) \u003e\u003e\u003e t = torch.tensor(1., dtype=torch.double) \u003e\u003e\u003e b = torch.tensor(2., requires_grad=True, dtype=torch.double) \u003e\u003e\u003e c = 4 \u003e\u003e\u003e \u003e\u003e\u003e with fwAD.dual_level(): \u003e\u003e\u003e a_dual = fwAD.make_dual(a, t) \u003e\u003e\u003e d = Func.apply(a_dual, b, c) set_materialize_grads(value)[source]# Set whether to materialize grad tensors. Default is True. This should be called only from either the setup_context() or forward() methods. If True, undefined grad tensors will be expanded to tensors full of zeros prior to calling the backward() and jvp() methods. Example: \u003e\u003e\u003e class SimpleFunc(Function): \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def forward(ctx, x): \u003e\u003e\u003e return x.clone(), x.clone() \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e @once_differentiable \u003e\u003e\u003e def backward(ctx, g1, g2): \u003e\u003e\u003e return g1 + g2 # No check for None necessary \u003e\u003e\u003e \u003e\u003e\u003e # We modify SimpleFunc to handle non-materialized grad outputs \u003e\u003e\u003e class Func(Function): \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def forward(ctx, x): \u003e\u003e\u003e ctx.set_materialize_grads(False) \u003e\u003e\u003e ctx.save_for_backward(x) \u003e\u003e\u003e return x.clone(), x.clone() \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e @once_differentiable \u003e\u003e\u003e def backward(ctx, g1, g2): \u003e\u003e\u003e x, = ctx.saved_tensors \u003e\u003e\u003e grad_input = torch.zeros_like(x) \u003e\u003e\u003e if g1 is not None: # We must check for None now \u003e\u003e\u003e grad_input += g1 \u003e\u003e\u003e if g2 is not None: \u003e\u003e\u003e grad_input += g2 \u003e\u003e\u003e return grad_input \u003e\u003e\u003e \u003e\u003e\u003e a = torch.tensor(1., requires_grad=True) \u003e\u003e\u003e b, _ = Func.apply(a) # induces g2 to be undefined static setup_context(ctx, inputs, output)[source]# There are two ways to define the forward pass of an autograd.Function. Either: Override forward with the signature forward(ctx, *args, **kwargs). setup_context is not overridden. Setting up the ctx for backward happens inside the forward. Override forward with the signature forward(*args, **kwargs) and override setup_context. Setting up the ctx for backward happens inside setup_context (as opposed to inside the forward) See torch.autograd.Function.forward() and Extending torch.autograd for more details. Return type Any static vjp(ctx, *grad_outputs)[source]# Define a formula for differentiating the operation with backward mode automatic differentiation. This function is to be overridden by all subclasses. (Defining this function is equivalent to defining the vjp function.) It must accept a context ctx as the first argument, followed by as many outputs as the forward() returned (None will be passed in for non tensor outputs of the forward function), and it should return as many tensors, as there were inputs to forward(). Each argument is the gradient w.r.t the given output, and each returned value should be the gradient w.r.t. the corresponding input. If an input is not a Tensor or is a Tensor not requiring grads, you can just pass None as a gradient for that input. The context can be used to retrieve tensors saved during the forward pass. It also has an attribute ctx.needs_input_grad as a tuple of booleans representing whether each input needs gradient. E.g., backward() will have ctx.needs_input_grad[0] = True if the first input to forward() needs gradient computed w.r.t. the output. Return type Any static vmap(info, in_dims, *args)[source]# Define the behavior for this autograd.Function underneath torch.vmap(). For a torch.autograd.Function() to support torch.vmap(), you must either override this static method, or set generate_vmap_rule to True (you may not do both). If you choose to override this staticmethod: it must accept an info object as the first argument. info.batch_size specifies the size of the dimension being vmapped over, while info.randomness is the randomness option passed to torch.vmap(). an in_dims tuple as the second argument. For each arg in args, in_dims has a corresponding Optional[int]. It is None if the arg is not a Tensor or if the arg is not being vmapped over, otherwise, it is an integer specifying what dimension of the Tensor is being vmapped over. *args, which is the same as the args to forward(). The return of the vmap staticmethod is a tuple of (output, out_dims). Similar to in_dims, out_dims should be of the same structure as output and contain one out_dim per output that specifies if the output has the vmapped dimension and what index it is in. Please see Extending torch.func with autograd.Function for more details.",
+       "articleBody": "InplaceFunction# class torch.autograd.function.InplaceFunction(inplace=False)[source]# This class is here only for backward compatibility reasons. Use Function instead of this for any new use case. static backward(ctx, *grad_outputs)[source]# Define a formula for differentiating the operation with backward mode automatic differentiation. This function is to be overridden by all subclasses. (Defining this function is equivalent to defining the vjp function.) It must accept a context ctx as the first argument, followed by as many outputs as the forward() returned (None will be passed in for non tensor outputs of the forward function), and it should return as many tensors, as there were inputs to forward(). Each argument is the gradient w.r.t the given output, and each returned value should be the gradient w.r.t. the corresponding input. If an input is not a Tensor or is a Tensor not requiring grads, you can just pass None as a gradient for that input. The context can be used to retrieve tensors saved during the forward pass. It also has an attribute ctx.needs_input_grad as a tuple of booleans representing whether each input needs gradient. E.g., backward() will have ctx.needs_input_grad[0] = True if the first input to forward() needs gradient computed w.r.t. the output. Return type: Any static forward(*args, **kwargs)[source]# Define the forward of the custom autograd Function. This function is to be overridden by all subclasses. There are two ways to define forward: Usage 1 (Combined forward and ctx): @staticmethod def forward(ctx: Any, *args: Any, **kwargs: Any) -\u003e Any: pass It must accept a context ctx as the first argument, followed by any number of arguments (tensors or other types). See Combined or separate forward() and setup_context() for more details Usage 2 (Separate forward and ctx): @staticmethod def forward(*args: Any, **kwargs: Any) -\u003e Any: pass @staticmethod def setup_context(ctx: Any, inputs: Tuple[Any, ...], output: Any) -\u003e None: pass The forward no longer accepts a ctx argument. Instead, you must also override the torch.autograd.Function.setup_context() staticmethod to handle setting up the ctx object. output is the output of the forward, inputs are a Tuple of inputs to the forward. See Extending torch.autograd for more details The context can be used to store arbitrary data that can be then retrieved during the backward pass. Tensors should not be stored directly on ctx (though this is not currently enforced for backward compatibility). Instead, tensors should be saved either with ctx.save_for_backward() if they are intended to be used in backward (equivalently, vjp) or ctx.save_for_forward() if they are intended to be used for in jvp. Return type: Any static jvp(ctx, *grad_inputs)[source]# Define a formula for differentiating the operation with forward mode automatic differentiation. This function is to be overridden by all subclasses. It must accept a context ctx as the first argument, followed by as many inputs as the forward() got (None will be passed in for non tensor inputs of the forward function), and it should return as many tensors as there were outputs to forward(). Each argument is the gradient w.r.t the given input, and each returned value should be the gradient w.r.t. the corresponding output. If an output is not a Tensor or the function is not differentiable with respect to that output, you can just pass None as a gradient for that input. You can use the ctx object to pass any value from the forward to this functions. Return type: Any mark_dirty(*args)[source]# Mark given tensors as modified in an in-place operation. This should be called at most once, in either the setup_context() or forward() methods, and all arguments should be inputs. Every tensor that\u2019s been modified in-place in a call to forward() should be given to this function, to ensure correctness of our checks. It doesn\u2019t matter whether the function is called before or after modification. Examples::\u003e\u003e\u003e class Inplace(Function): \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def forward(ctx, x): \u003e\u003e\u003e x_npy = x.numpy() # x_npy shares storage with x \u003e\u003e\u003e x_npy += 1 \u003e\u003e\u003e ctx.mark_dirty(x) \u003e\u003e\u003e return x \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e @once_differentiable \u003e\u003e\u003e def backward(ctx, grad_output): \u003e\u003e\u003e return grad_output \u003e\u003e\u003e \u003e\u003e\u003e a = torch.tensor(1., requires_grad=True, dtype=torch.double).clone() \u003e\u003e\u003e b = a * a \u003e\u003e\u003e Inplace.apply(a) # This would lead to wrong gradients! \u003e\u003e\u003e # but the engine would not know unless we mark_dirty \u003e\u003e\u003e b.backward() # RuntimeError: one of the variables needed for gradient \u003e\u003e\u003e # computation has been modified by an inplace operation mark_non_differentiable(*args)[source]# Mark outputs as non-differentiable. This should be called at most once, in either the setup_context() or forward() methods, and all arguments should be tensor outputs. This will mark outputs as not requiring gradients, increasing the efficiency of backward computation. You still need to accept a gradient for each output in backward(), but it\u2019s always going to be a zero tensor with the same shape as the shape of a corresponding output. This is used e.g. for indices returned from a sort. See example::\u003e\u003e\u003e class Func(Function): \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def forward(ctx, x): \u003e\u003e\u003e sorted, idx = x.sort() \u003e\u003e\u003e ctx.mark_non_differentiable(idx) \u003e\u003e\u003e ctx.save_for_backward(x, idx) \u003e\u003e\u003e return sorted, idx \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e @once_differentiable \u003e\u003e\u003e def backward(ctx, g1, g2): # still need to accept g2 \u003e\u003e\u003e x, idx = ctx.saved_tensors \u003e\u003e\u003e grad_input = torch.zeros_like(x) \u003e\u003e\u003e grad_input.index_add_(0, idx, g1) \u003e\u003e\u003e return grad_input save_for_backward(*tensors)[source]# Save given tensors for a future call to backward(). save_for_backward should be called at most once, in either the setup_context() or forward() methods, and only with tensors. All tensors intended to be used in the backward pass should be saved with save_for_backward (as opposed to directly on ctx) to prevent incorrect gradients and memory leaks, and enable the application of saved tensor hooks. See torch.autograd.graph.saved_tensors_hooks. See Extending torch.autograd for more details. Note that if intermediary tensors, tensors that are neither inputs nor outputs of forward(), are saved for backward, your custom Function may not support double backward. Custom Functions that do not support double backward should decorate their backward() method with @once_differentiable so that performing double backward raises an error. If you\u2019d like to support double backward, you can either recompute intermediaries based on the inputs during backward or return the intermediaries as the outputs of the custom Function. See the double backward tutorial for more details. In backward(), saved tensors can be accessed through the saved_tensors attribute. Before returning them to the user, a check is made to ensure they weren\u2019t used in any in-place operation that modified their content. Arguments can also be None. This is a no-op. See Extending torch.autograd for more details on how to use this method. Example: \u003e\u003e\u003e class Func(Function): \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def forward(ctx, x: torch.Tensor, y: torch.Tensor, z: int): \u003e\u003e\u003e w = x * z \u003e\u003e\u003e out = x * y + y * z + w * y \u003e\u003e\u003e ctx.save_for_backward(x, y, w, out) \u003e\u003e\u003e ctx.z = z # z is not a tensor \u003e\u003e\u003e return out \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e @once_differentiable \u003e\u003e\u003e def backward(ctx, grad_out): \u003e\u003e\u003e x, y, w, out = ctx.saved_tensors \u003e\u003e\u003e z = ctx.z \u003e\u003e\u003e gx = grad_out * (y + y * z) \u003e\u003e\u003e gy = grad_out * (x + z + w) \u003e\u003e\u003e gz = None \u003e\u003e\u003e return gx, gy, gz \u003e\u003e\u003e \u003e\u003e\u003e a = torch.tensor(1., requires_grad=True, dtype=torch.double) \u003e\u003e\u003e b = torch.tensor(2., requires_grad=True, dtype=torch.double) \u003e\u003e\u003e c = 4 \u003e\u003e\u003e d = Func.apply(a, b, c) save_for_forward(*tensors)[source]# Save given tensors for a future call to jvp(). save_for_forward should be called at most once, in either the setup_context() or forward() methods, and all arguments should be tensors. In jvp(), saved objects can be accessed through the saved_tensors attribute. Arguments can also be None. This is a no-op. See Extending torch.autograd for more details on how to use this method. Example: \u003e\u003e\u003e class Func(torch.autograd.Function): \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def forward(ctx, x: torch.Tensor, y: torch.Tensor, z: int): \u003e\u003e\u003e ctx.save_for_backward(x, y) \u003e\u003e\u003e ctx.save_for_forward(x, y) \u003e\u003e\u003e ctx.z = z \u003e\u003e\u003e return x * y * z \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def jvp(ctx, x_t, y_t, _): \u003e\u003e\u003e x, y = ctx.saved_tensors \u003e\u003e\u003e z = ctx.z \u003e\u003e\u003e return z * (y * x_t + x * y_t) \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def vjp(ctx, grad_out): \u003e\u003e\u003e x, y = ctx.saved_tensors \u003e\u003e\u003e z = ctx.z \u003e\u003e\u003e return z * grad_out * y, z * grad_out * x, None \u003e\u003e\u003e \u003e\u003e\u003e a = torch.tensor(1., requires_grad=True, dtype=torch.double) \u003e\u003e\u003e t = torch.tensor(1., dtype=torch.double) \u003e\u003e\u003e b = torch.tensor(2., requires_grad=True, dtype=torch.double) \u003e\u003e\u003e c = 4 \u003e\u003e\u003e \u003e\u003e\u003e with fwAD.dual_level(): \u003e\u003e\u003e a_dual = fwAD.make_dual(a, t) \u003e\u003e\u003e d = Func.apply(a_dual, b, c) set_materialize_grads(value)[source]# Set whether to materialize grad tensors. Default is True. This should be called only from either the setup_context() or forward() methods. If True, undefined grad tensors will be expanded to tensors full of zeros prior to calling the backward() and jvp() methods. Example: \u003e\u003e\u003e class SimpleFunc(Function): \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def forward(ctx, x): \u003e\u003e\u003e return x.clone(), x.clone() \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e @once_differentiable \u003e\u003e\u003e def backward(ctx, g1, g2): \u003e\u003e\u003e return g1 + g2 # No check for None necessary \u003e\u003e\u003e \u003e\u003e\u003e # We modify SimpleFunc to handle non-materialized grad outputs \u003e\u003e\u003e class Func(Function): \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def forward(ctx, x): \u003e\u003e\u003e ctx.set_materialize_grads(False) \u003e\u003e\u003e ctx.save_for_backward(x) \u003e\u003e\u003e return x.clone(), x.clone() \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e @once_differentiable \u003e\u003e\u003e def backward(ctx, g1, g2): \u003e\u003e\u003e x, = ctx.saved_tensors \u003e\u003e\u003e grad_input = torch.zeros_like(x) \u003e\u003e\u003e if g1 is not None: # We must check for None now \u003e\u003e\u003e grad_input += g1 \u003e\u003e\u003e if g2 is not None: \u003e\u003e\u003e grad_input += g2 \u003e\u003e\u003e return grad_input \u003e\u003e\u003e \u003e\u003e\u003e a = torch.tensor(1., requires_grad=True) \u003e\u003e\u003e b, _ = Func.apply(a) # induces g2 to be undefined static setup_context(ctx, inputs, output)[source]# There are two ways to define the forward pass of an autograd.Function. Either: Override forward with the signature forward(ctx, *args, **kwargs). setup_context is not overridden. Setting up the ctx for backward happens inside the forward. Override forward with the signature forward(*args, **kwargs) and override setup_context. Setting up the ctx for backward happens inside setup_context (as opposed to inside the forward) See torch.autograd.Function.forward() and Extending torch.autograd for more details. Return type: Any static vjp(ctx, *grad_outputs)[source]# Define a formula for differentiating the operation with backward mode automatic differentiation. This function is to be overridden by all subclasses. (Defining this function is equivalent to defining the vjp function.) It must accept a context ctx as the first argument, followed by as many outputs as the forward() returned (None will be passed in for non tensor outputs of the forward function), and it should return as many tensors, as there were inputs to forward(). Each argument is the gradient w.r.t the given output, and each returned value should be the gradient w.r.t. the corresponding input. If an input is not a Tensor or is a Tensor not requiring grads, you can just pass None as a gradient for that input. The context can be used to retrieve tensors saved during the forward pass. It also has an attribute ctx.needs_input_grad as a tuple of booleans representing whether each input needs gradient. E.g., backward() will have ctx.needs_input_grad[0] = True if the first input to forward() needs gradient computed w.r.t. the output. Return type: Any static vmap(info, in_dims, *args)[source]# Define the behavior for this autograd.Function underneath torch.vmap(). For a torch.autograd.Function() to support torch.vmap(), you must either override this static method, or set generate_vmap_rule to True (you may not do both). If you choose to override this staticmethod: it must accept an info object as the first argument. info.batch_size specifies the size of the dimension being vmapped over, while info.randomness is the randomness option passed to torch.vmap(). an in_dims tuple as the second argument. For each arg in args, in_dims has a corresponding Optional[int]. It is None if the arg is not a Tensor or if the arg is not being vmapped over, otherwise, it is an integer specifying what dimension of the Tensor is being vmapped over. *args, which is the same as the args to forward(). The return of the vmap staticmethod is a tuple of (output, out_dims). Similar to in_dims, out_dims should be of the same structure as output and contain one out_dim per output that specifies if the output has the vmapped dimension and what index it is in. Please see Extending torch.func with autograd.Function for more details.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "../_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/generated/torch.autograd.function.InplaceFunction.html"

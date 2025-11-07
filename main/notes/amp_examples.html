@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Automatic Mixed Precision examples &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=940804e7"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notes/amp_examples';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../_static/js/runllm-widget.js"></script>
+    <script src="../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/notes/amp_examples.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="../_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1693,6 +1692,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -1700,8 +1700,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="automatic-mixed-precision-examples">
-<span id="amp-examples"></span><h1>Automatic Mixed Precision examples<a class="headerlink" href="#automatic-mixed-precision-examples" title="Permalink to this heading">#</a></h1>
+  <section id="automatic-mixed-precision-examples">
+<span id="amp-examples"></span><h1>Automatic Mixed Precision examples<a class="headerlink" href="#automatic-mixed-precision-examples" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 13, 2020 | Last Updated On: Sep 13, 2024</p>
 <p>Ordinarily, “automatic mixed precision training” means training with
 <a class="reference internal" href="../amp.html#torch.autocast" title="torch.autocast"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autocast</span></code></a> and <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.amp.GradScaler</span></code> together.</p>
@@ -1716,7 +1716,7 @@ In the samples below, each is used as its individual documentation suggests.</p>
 <p>(Samples here are illustrative.  See the
 <a class="reference external" href="https://pytorch.org/tutorials/recipes/recipes/amp_recipe.html">Automatic Mixed Precision recipe</a>
 for a runnable walkthrough.)</p>
-<div class="contents local topic" id="contents">
+<nav class="contents local" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#typical-mixed-precision-training" id="id2">Typical Mixed Precision Training</a></p></li>
 <li><p><a class="reference internal" href="#working-with-unscaled-gradients" id="id3">Working with Unscaled Gradients</a></p>
@@ -1745,9 +1745,9 @@ for a runnable walkthrough.)</p>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="typical-mixed-precision-training">
-<h2><a class="toc-backref" href="#id2">Typical Mixed Precision Training</a><a class="headerlink" href="#typical-mixed-precision-training" title="Permalink to this heading">#</a></h2>
+</nav>
+<section id="typical-mixed-precision-training">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Typical Mixed Precision Training</a><a class="headerlink" href="#typical-mixed-precision-training" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creates model and optimizer in default precision</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
 <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="o">...</span><span class="p">)</span>
@@ -1778,9 +1778,9 @@ for a runnable walkthrough.)</p>
         <span class="n">scaler</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="working-with-unscaled-gradients">
-<span id="id1"></span><h2><a class="toc-backref" href="#id3">Working with Unscaled Gradients</a><a class="headerlink" href="#working-with-unscaled-gradients" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="working-with-unscaled-gradients">
+<span id="id1"></span><h2><a class="toc-backref" href="#id3" role="doc-backlink">Working with Unscaled Gradients</a><a class="headerlink" href="#working-with-unscaled-gradients" title="Link to this heading">#</a></h2>
 <p>All gradients produced by <code class="docutils literal notranslate"><span class="pre">scaler.scale(loss).backward()</span></code> are scaled.  If you wish to modify or inspect
 the parameters’ <code class="docutils literal notranslate"><span class="pre">.grad</span></code> attributes between <code class="docutils literal notranslate"><span class="pre">backward()</span></code> and <code class="docutils literal notranslate"><span class="pre">scaler.step(optimizer)</span></code>,  you should
 unscale them first.  For example, gradient clipping manipulates a set of gradients such that their global norm
@@ -1792,8 +1792,8 @@ gradients) would be invalid.</p>
 If your model or models contain other parameters that were assigned to another optimizer
 (say <code class="docutils literal notranslate"><span class="pre">optimizer2</span></code>), you may call <code class="docutils literal notranslate"><span class="pre">scaler.unscale_(optimizer2)</span></code> separately to unscale those
 parameters’ gradients as well.</p>
-<div class="section" id="gradient-clipping">
-<h3><a class="toc-backref" href="#id4">Gradient clipping</a><a class="headerlink" href="#gradient-clipping" title="Permalink to this heading">#</a></h3>
+<section id="gradient-clipping">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">Gradient clipping</a><a class="headerlink" href="#gradient-clipping" title="Link to this heading">#</a></h3>
 <p>Calling <code class="docutils literal notranslate"><span class="pre">scaler.unscale_(optimizer)</span></code> before clipping enables you to clip unscaled gradients as usual:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <span class="n">GradScaler</span><span class="p">()</span>
 
@@ -1828,12 +1828,12 @@ this iteration, so <code class="docutils literal notranslate"><span class="pre">
 and only after all gradients for that optimizer’s assigned parameters have been accumulated.
 Calling <code class="xref py py-meth docutils literal notranslate"><span class="pre">unscale_</span></code> twice for a given optimizer between each <code class="xref py py-meth docutils literal notranslate"><span class="pre">step</span></code> triggers a RuntimeError.</p>
 </div>
-</div>
-</div>
-<div class="section" id="working-with-scaled-gradients">
-<h2><a class="toc-backref" href="#id5">Working with Scaled Gradients</a><a class="headerlink" href="#working-with-scaled-gradients" title="Permalink to this heading">#</a></h2>
-<div class="section" id="gradient-accumulation">
-<h3><a class="toc-backref" href="#id6">Gradient accumulation</a><a class="headerlink" href="#gradient-accumulation" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="working-with-scaled-gradients">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Working with Scaled Gradients</a><a class="headerlink" href="#working-with-scaled-gradients" title="Link to this heading">#</a></h2>
+<section id="gradient-accumulation">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Gradient accumulation</a><a class="headerlink" href="#gradient-accumulation" title="Link to this heading">#</a></h3>
 <p>Gradient accumulation adds gradients over an effective batch of size <code class="docutils literal notranslate"><span class="pre">batch_per_iter</span> <span class="pre">*</span> <span class="pre">iters_to_accumulate</span></code>
 (<code class="docutils literal notranslate"><span class="pre">*</span> <span class="pre">num_procs</span></code> if distributed).  The scale should be calibrated for the effective batch, which means inf/NaN checking,
 step skipping if inf/NaN grads are found, and scale updates should occur at effective-batch granularity.
@@ -1865,9 +1865,9 @@ where you called <code class="xref py py-meth docutils literal notranslate"><spa
             <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="gradient-penalty">
-<h3><a class="toc-backref" href="#id7">Gradient penalty</a><a class="headerlink" href="#gradient-penalty" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="gradient-penalty">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Gradient penalty</a><a class="headerlink" href="#gradient-penalty" title="Link to this heading">#</a></h3>
 <p>A gradient penalty implementation commonly creates gradients using
 <a class="reference internal" href="../generated/torch.autograd.grad.html#torch.autograd.grad" title="torch.autograd.grad"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.grad()</span></code></a>, combines them to create the penalty value,
 and adds the penalty value to the loss.</p>
@@ -1942,10 +1942,10 @@ inside an <code class="xref py py-class docutils literal notranslate"><span clas
         <span class="n">scaler</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="working-with-multiple-models-losses-and-optimizers">
-<h2><a class="toc-backref" href="#id8">Working with Multiple Models, Losses, and Optimizers</a><a class="headerlink" href="#working-with-multiple-models-losses-and-optimizers" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="working-with-multiple-models-losses-and-optimizers">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Working with Multiple Models, Losses, and Optimizers</a><a class="headerlink" href="#working-with-multiple-models-losses-and-optimizers" title="Link to this heading">#</a></h2>
 <p>If your network has multiple losses, you must call <code class="xref py py-meth docutils literal notranslate"><span class="pre">scaler.scale</span></code> on each of them individually.
 If your network has multiple optimizers, you may call <code class="xref py py-meth docutils literal notranslate"><span class="pre">scaler.unscale_</span></code> on any of them individually,
 and you must call <code class="xref py py-meth docutils literal notranslate"><span class="pre">scaler.step</span></code> on each of them individually.</p>
@@ -1983,12 +1983,12 @@ whether or not to skip the step.  This may result in one optimizer skipping the 
 while the other one does not.  Since step skipping occurs rarely (every several hundred iterations)
 this should not impede convergence.  If you observe poor convergence after adding gradient scaling
 to a multiple-optimizer model, please report a bug.</p>
-</div>
-<div class="section" id="working-with-multiple-gpus">
-<span id="amp-multigpu"></span><h2><a class="toc-backref" href="#id9">Working with Multiple GPUs</a><a class="headerlink" href="#working-with-multiple-gpus" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="working-with-multiple-gpus">
+<span id="amp-multigpu"></span><h2><a class="toc-backref" href="#id9" role="doc-backlink">Working with Multiple GPUs</a><a class="headerlink" href="#working-with-multiple-gpus" title="Link to this heading">#</a></h2>
 <p>The issues described here only affect <code class="xref py py-class docutils literal notranslate"><span class="pre">autocast</span></code>.  <code class="xref py py-class docutils literal notranslate"><span class="pre">GradScaler</span></code>‘s usage is unchanged.</p>
-<div class="section" id="dataparallel-in-a-single-process">
-<span id="amp-dataparallel"></span><h3><a class="toc-backref" href="#id10">DataParallel in a single process</a><a class="headerlink" href="#dataparallel-in-a-single-process" title="Permalink to this heading">#</a></h3>
+<section id="dataparallel-in-a-single-process">
+<span id="amp-dataparallel"></span><h3><a class="toc-backref" href="#id10" role="doc-backlink">DataParallel in a single process</a><a class="headerlink" href="#dataparallel-in-a-single-process" title="Link to this heading">#</a></h3>
 <p>Even if <a class="reference internal" href="../generated/torch.nn.DataParallel.html#torch.nn.DataParallel" title="torch.nn.DataParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.DataParallel</span></code></a> spawns threads to run the forward pass on each device.
 The autocast state is propagated in each one and the following will work:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
@@ -2002,22 +2002,22 @@ The autocast state is propagated in each one and the following will work:</p>
     <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="distributeddataparallel-one-gpu-per-process">
-<h3><a class="toc-backref" href="#id11">DistributedDataParallel, one GPU per process</a><a class="headerlink" href="#distributeddataparallel-one-gpu-per-process" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="distributeddataparallel-one-gpu-per-process">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">DistributedDataParallel, one GPU per process</a><a class="headerlink" href="#distributeddataparallel-one-gpu-per-process" title="Link to this heading">#</a></h3>
 <p><a class="reference internal" href="../generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel" title="torch.nn.parallel.DistributedDataParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.parallel.DistributedDataParallel</span></code></a>’s documentation recommends one GPU per process for best
 performance.  In this case, <code class="docutils literal notranslate"><span class="pre">DistributedDataParallel</span></code> does not spawn threads internally,
 so usages of <code class="xref py py-class docutils literal notranslate"><span class="pre">autocast</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">GradScaler</span></code> are not affected.</p>
-</div>
-<div class="section" id="distributeddataparallel-multiple-gpus-per-process">
-<h3><a class="toc-backref" href="#id12">DistributedDataParallel, multiple GPUs per process</a><a class="headerlink" href="#distributeddataparallel-multiple-gpus-per-process" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="distributeddataparallel-multiple-gpus-per-process">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">DistributedDataParallel, multiple GPUs per process</a><a class="headerlink" href="#distributeddataparallel-multiple-gpus-per-process" title="Link to this heading">#</a></h3>
 <p>Here <a class="reference internal" href="../generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel" title="torch.nn.parallel.DistributedDataParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.parallel.DistributedDataParallel</span></code></a> may spawn a side thread to run the forward pass on each
 device, like <a class="reference internal" href="../generated/torch.nn.DataParallel.html#torch.nn.DataParallel" title="torch.nn.DataParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.DataParallel</span></code></a>.  <a class="reference internal" href="#amp-dataparallel"><span class="std std-ref">The fix is the same</span></a>:
 apply autocast as part of your model’s <code class="docutils literal notranslate"><span class="pre">forward</span></code> method to ensure it’s enabled in side threads.</p>
-</div>
-</div>
-<div class="section" id="autocast-and-custom-autograd-functions">
-<span id="amp-custom-examples"></span><h2><a class="toc-backref" href="#id13">Autocast and Custom Autograd Functions</a><a class="headerlink" href="#autocast-and-custom-autograd-functions" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="autocast-and-custom-autograd-functions">
+<span id="amp-custom-examples"></span><h2><a class="toc-backref" href="#id13" role="doc-backlink">Autocast and Custom Autograd Functions</a><a class="headerlink" href="#autocast-and-custom-autograd-functions" title="Link to this heading">#</a></h2>
 <p>If your network uses <a class="reference internal" href="extending.html#extending-autograd"><span class="std std-ref">custom autograd functions</span></a>
 (subclasses of <a class="reference internal" href="../autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.Function</span></code></a>), changes are required for
 autocast compatibility if any function</p>
@@ -2039,8 +2039,8 @@ is to disable autocast and force execution in <code class="docutils literal notr
 <p>If you’re the function’s author (or can alter its definition) a better solution is to use the
 <a class="reference internal" href="../amp.html#torch.amp.custom_fwd" title="torch.amp.custom_fwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.amp.custom_fwd()</span></code></a> and <a class="reference internal" href="../amp.html#torch.amp.custom_bwd" title="torch.amp.custom_bwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.amp.custom_bwd()</span></code></a> decorators as shown in
 the relevant case below.</p>
-<div class="section" id="functions-with-multiple-inputs-or-autocastable-ops">
-<h3><a class="toc-backref" href="#id14">Functions with multiple inputs or autocastable ops</a><a class="headerlink" href="#functions-with-multiple-inputs-or-autocastable-ops" title="Permalink to this heading">#</a></h3>
+<section id="functions-with-multiple-inputs-or-autocastable-ops">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Functions with multiple inputs or autocastable ops</a><a class="headerlink" href="#functions-with-multiple-inputs-or-autocastable-ops" title="Link to this heading">#</a></h3>
 <p>Apply <a class="reference internal" href="../amp.html#torch.amp.custom_fwd" title="torch.amp.custom_fwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">custom_fwd</span></code></a> and <a class="reference internal" href="../amp.html#torch.amp.custom_bwd" title="torch.amp.custom_bwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">custom_bwd</span></code></a> (with no arguments) to <code class="docutils literal notranslate"><span class="pre">forward</span></code> and
 <code class="docutils literal notranslate"><span class="pre">backward</span></code> respectively.  These ensure <code class="docutils literal notranslate"><span class="pre">forward</span></code> executes with the current autocast state and <code class="docutils literal notranslate"><span class="pre">backward</span></code>
 executes with the same autocast state as <code class="docutils literal notranslate"><span class="pre">forward</span></code> (which can prevent type mismatch errors):</p>
@@ -2064,9 +2064,9 @@ executes with the same autocast state as <code class="docutils literal notransla
     <span class="n">output</span> <span class="o">=</span> <span class="n">mymm</span><span class="p">(</span><span class="n">input1</span><span class="p">,</span> <span class="n">input2</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="functions-that-need-a-particular-dtype">
-<h3><a class="toc-backref" href="#id15">Functions that need a particular <code class="docutils literal notranslate"><span class="pre">dtype</span></code></a><a class="headerlink" href="#functions-that-need-a-particular-dtype" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="functions-that-need-a-particular-dtype">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Functions that need a particular <code class="docutils literal notranslate"><span class="pre">dtype</span></code></a><a class="headerlink" href="#functions-that-need-a-particular-dtype" title="Link to this heading">#</a></h3>
 <p>Consider a custom function that requires <code class="docutils literal notranslate"><span class="pre">torch.float32</span></code> inputs.
 Apply <a class="reference internal" href="../amp.html#torch.amp.custom_fwd" title="torch.amp.custom_fwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">custom_fwd(device_type='cuda',</span> <span class="pre">cast_inputs=torch.float32)</span></code></a> to <code class="docutils literal notranslate"><span class="pre">forward</span></code>
 and <a class="reference internal" href="../amp.html#torch.amp.custom_bwd" title="torch.amp.custom_bwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">custom_bwd(device_type='cuda')</span></code></a> to <code class="docutils literal notranslate"><span class="pre">backward</span></code>.
@@ -2094,9 +2094,9 @@ inputs to <code class="docutils literal notranslate"><span class="pre">float32</
     <span class="n">output</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
                 </article>
@@ -2162,11 +2162,6 @@ inputs to <code class="docutils literal notranslate"><span class="pre">float32</
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -2311,7 +2306,9 @@ inputs to <code class="docutils literal notranslate"><span class="pre">float32</
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -2335,10 +2332,13 @@ inputs to <code class="docutils literal notranslate"><span class="pre">float32</
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -2361,7 +2361,6 @@ inputs to <code class="docutils literal notranslate"><span class="pre">float32</
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -2411,10 +2410,10 @@ inputs to <code class="docutils literal notranslate"><span class="pre">float32</
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -2455,7 +2454,7 @@ inputs to <code class="docutils literal notranslate"><span class="pre">float32</
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -2490,7 +2489,7 @@ inputs to <code class="docutils literal notranslate"><span class="pre">float32</
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "../_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/notes/amp_examples.html"

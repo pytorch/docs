@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Elastic Agent &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=940804e7"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'elastic/agent';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../_static/js/runllm-widget.js"></script>
+    <script src="../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/elastic/agent.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="../_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4488,6 +4487,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4495,11 +4495,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="module-torch.distributed.elastic.agent">
-<span id="elastic-agent"></span><h1>Elastic Agent<a class="headerlink" href="#module-torch.distributed.elastic.agent" title="Permalink to this heading">#</a></h1>
+  <section id="module-torch.distributed.elastic.agent">
+<span id="elastic-agent"></span><h1>Elastic Agent<a class="headerlink" href="#module-torch.distributed.elastic.agent" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 04, 2021 | Last Updated On: Jun 07, 2025</p>
-<div class="section" id="module-torch.distributed.elastic.agent.server">
-<span id="server"></span><h2>Server<a class="headerlink" href="#module-torch.distributed.elastic.agent.server" title="Permalink to this heading">#</a></h2>
+<section id="module-torch.distributed.elastic.agent.server">
+<span id="server"></span><h2>Server<a class="headerlink" href="#module-torch.distributed.elastic.agent.server" title="Link to this heading">#</a></h2>
 <p>The elastic agent is the control plane of torchelastic.</p>
 <p>It is a process that launches and manages underlying worker processes.
 The agent is responsible for:</p>
@@ -4519,14 +4519,14 @@ Or can be coordinated, communicating to other agents (that manage workers
 in the same job) to make a collective decision.</p>
 <p>Below is a diagram of an agent that manages a local group of workers.</p>
 <img alt="../_images/agent_diagram.jpg" src="../_images/agent_diagram.jpg" />
-</div>
-<div class="section" id="concepts">
-<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="concepts">
+<h2>Concepts<a class="headerlink" href="#concepts" title="Link to this heading">#</a></h2>
 <p>This section describes the high-level classes and concepts that
 are relevant to understanding the role of the <code class="docutils literal notranslate"><span class="pre">agent</span></code> in torchelastic.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.ElasticAgent">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">ElasticAgent</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L383"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.ElasticAgent" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">ElasticAgent</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L383"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.ElasticAgent" title="Link to this definition">#</a></dt>
 <dd><p>An agent process responsible for managing one or more worker processes.</p>
 <p>The worker processes are assumed to be regular distributed PyTorch scripts.
 When the worker process is created by the agent, the agent provides the
@@ -4558,14 +4558,14 @@ preferences. For instance, to run a distributed training job on GPU with
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.ElasticAgent.get_worker_group">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_worker_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L433"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.ElasticAgent.get_worker_group" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_worker_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L433"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.ElasticAgent.get_worker_group" title="Link to this definition">#</a></dt>
 <dd><p>Return the <code class="docutils literal notranslate"><span class="pre">WorkerGroup</span></code> for the given <code class="docutils literal notranslate"><span class="pre">role</span></code>.</p>
 <p>Note that the worker group is a mutable object and hence in a
 multi-threaded/process environment it may change state.
 Implementers are encouraged (but not required) to return
 a defensive read-only copy.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#torch.distributed.elastic.agent.server.WorkerGroup" title="torch.distributed.elastic.agent.server.api.WorkerGroup"><em>WorkerGroup</em></a></p>
 </dd>
 </dl>
@@ -4573,18 +4573,18 @@ a defensive read-only copy.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.ElasticAgent.run">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L418"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.ElasticAgent.run" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L418"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.ElasticAgent.run" title="Link to this definition">#</a></dt>
 <dd><p>Run the agent.</p>
 <p>Supports retrying the worker group on failures up to <code class="docutils literal notranslate"><span class="pre">max_restarts</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The result of the execution, containing the return values or
 failure details for each worker mapped by the worker’s global rank.</p>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>Exception - any other failures NOT related to worker process</strong> – </p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#torch.distributed.elastic.agent.server.api.RunResult" title="torch.distributed.elastic.agent.server.api.RunResult"><em>RunResult</em></a></p>
 </dd>
 </dl>
@@ -4594,25 +4594,25 @@ failure details for each worker mapped by the worker’s global rank.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.WorkerSpec">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">WorkerSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">role</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_world_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdzv_handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_restarts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitor_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_log_handler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'null'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stdout_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stderr_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerSpec" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">WorkerSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">role</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_world_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdzv_handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_restarts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitor_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_log_handler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'null'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stdout_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stderr_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerSpec" title="Link to this definition">#</a></dt>
 <dd><p>Blueprint information about a particular type of worker.</p>
 <p>For a given role, there must only exist a single worker spec.
 Worker spec is expected to be homogeneous across all nodes (machine),
 that is each node runs the same number of workers for a particular spec.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>role</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – user-defined role for the workers with this spec</p></li>
 <li><p><strong>local_world_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – number local workers to run</p></li>
-<li><p><strong>fn</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a><em>]</em>) – (deprecated use entrypoint instead)</p></li>
-<li><p><strong>entrypoint</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.14)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>]</em>) – worker function or command</p></li>
+<li><p><strong>fn</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a><em> | </em><em>None</em>) – (deprecated use entrypoint instead)</p></li>
+<li><p><strong>entrypoint</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><em>None</em>) – worker function or command</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – arguments to pass to <code class="docutils literal notranslate"><span class="pre">entrypoint</span></code></p></li>
 <li><p><strong>rdzv_handler</strong> (<a class="reference internal" href="rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousHandler" title="torch.distributed.elastic.rendezvous.api.RendezvousHandler"><em>RendezvousHandler</em></a>) – handles rdzv for this set of workers</p></li>
 <li><p><strong>max_restarts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – number of max retries for the workers</p></li>
 <li><p><strong>monitor_interval</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – monitor status of workers every <code class="docutils literal notranslate"><span class="pre">n</span></code> seconds</p></li>
-<li><p><strong>master_port</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – fixed port to run the c10d store on rank 0
+<li><p><strong>master_port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – fixed port to run the c10d store on rank 0
 if not specified then will chose a random free port</p></li>
-<li><p><strong>master_addr</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – fixed master_addr to run the c10d store on rank 0
+<li><p><strong>master_addr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><em>None</em>) – fixed master_addr to run the c10d store on rank 0
 if not specified then will chose hostname on agent rank 0</p></li>
 <li><p><strong>redirects</strong> – redirect std streams to a file,
 selectively redirect for a particular
@@ -4622,16 +4622,16 @@ selectively tee for a particular local rank by passing a map,
 takes precedence over <code class="docutils literal notranslate"><span class="pre">redirects</span></code> settings.</p></li>
 <li><p><strong>event_log_handler</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – name of the event logging handler as registered in
 <a class="reference external" href="https://docs.pytorch.org/docs/stable/elastic/events.html">elastic/events/handlers.py</a>.</p></li>
-<li><p><strong>duplicate_stdout_filters</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>]</em>) – If non-empty, duplicates stdout to a file containing only lines
+<li><p><strong>duplicate_stdout_filters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – If non-empty, duplicates stdout to a file containing only lines
 that match _any_ of the filter strings.</p></li>
-<li><p><strong>duplicate_stderr_filters</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>]</em>) – If non-empty, duplicates stderr to a file containing only lines
+<li><p><strong>duplicate_stderr_filters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – If non-empty, duplicates stderr to a file containing only lines
 that match _any_ of the filter strings.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.WorkerSpec.get_entrypoint_name">
-<span class="sig-name descname"><span class="pre">get_entrypoint_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L115"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerSpec.get_entrypoint_name" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_entrypoint_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L115"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerSpec.get_entrypoint_name" title="Link to this definition">#</a></dt>
 <dd><p>Get the entry point name.</p>
 <p>If the entrypoint is a function (e.g. <code class="docutils literal notranslate"><span class="pre">Callable</span></code>) returns its <code class="docutils literal notranslate"><span class="pre">__qualname__</span></code>
 else if the entrypoint is a binary (e.g. <code class="docutils literal notranslate"><span class="pre">str</span></code>), returns the binary name.</p>
@@ -4641,7 +4641,7 @@ else if the entrypoint is a binary (e.g. <code class="docutils literal notransla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.WorkerState">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">WorkerState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerState" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">WorkerState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerState" title="Link to this definition">#</a></dt>
 <dd><p>A state of the <code class="docutils literal notranslate"><span class="pre">WorkerGroup</span></code>.</p>
 <p>Workers in a worker group change state as a unit. If a single worker
 in a worker group fails the entire set is considered failed:</p>
@@ -4673,14 +4673,14 @@ expected to recover worker groups in <code class="docutils literal notranslate">
 self terminating and allowing the job manager to retry the node.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.WorkerState.is_running">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_running</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L245"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerState.is_running" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_running</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L245"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerState.is_running" title="Link to this definition">#</a></dt>
 <dd><p>Return the state of the Worker.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True if the worker state represents workers still running
 (e.g. that the process exists but not necessarily healthy).</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
@@ -4690,7 +4690,7 @@ self terminating and allowing the job manager to retry the node.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.Worker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">Worker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_world_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.Worker" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">Worker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_world_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.Worker" title="Link to this definition">#</a></dt>
 <dd><p>A worker instance.</p>
 <p>Contrast this with <code class="docutils literal notranslate"><span class="pre">WorkerSpec</span></code> that represents the specifications of a
 worker. A <code class="docutils literal notranslate"><span class="pre">Worker</span></code> is created from a <code class="docutils literal notranslate"><span class="pre">WorkerSpec</span></code>. A <code class="docutils literal notranslate"><span class="pre">Worker</span></code> is to
@@ -4700,7 +4700,7 @@ by the specific implementation of <code class="docutils literal notranslate"><sp
 agent, it could be the <code class="docutils literal notranslate"><span class="pre">pid</span> <span class="pre">(int)</span></code> of the worker, for a remote
 agent it could be encoded as <code class="docutils literal notranslate"><span class="pre">host:port</span> <span class="pre">(string)</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<em>Any</em>) – uniquely identifies a worker (interpreted by the agent)</p></li>
 <li><p><strong>local_rank</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – local rank of the worker</p></li>
@@ -4715,7 +4715,7 @@ agent it could be encoded as <code class="docutils literal notranslate"><span cl
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.WorkerGroup">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">WorkerGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L256"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerGroup" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">WorkerGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L256"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.WorkerGroup" title="Link to this definition">#</a></dt>
 <dd><p>A set of <code class="docutils literal notranslate"><span class="pre">Worker</span></code> instances.</p>
 <p>The class defines a set of <code class="docutils literal notranslate"><span class="pre">Worker</span></code> instances for the given <code class="docutils literal notranslate"><span class="pre">WorkerSpec</span></code> managed by <code class="docutils literal notranslate"><span class="pre">ElasticAgent</span></code>. Whether the worker
 group contains cross instance workers or not depends on the implementation of the agent.</p>
@@ -4723,13 +4723,13 @@ group contains cross instance workers or not depends on the implementation of th
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="implementations">
-<h2>Implementations<a class="headerlink" href="#implementations" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="implementations">
+<h2>Implementations<a class="headerlink" href="#implementations" title="Link to this heading">#</a></h2>
 <p>Below are the agent implementations provided by torchelastic.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.local_elastic_agent.LocalElasticAgent">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.local_elastic_agent.</span></span><span class="sig-name descname"><span class="pre">LocalElasticAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spawn'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exit_barrier_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_line_prefix_template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/local_elastic_agent.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.local_elastic_agent.LocalElasticAgent" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.local_elastic_agent.</span></span><span class="sig-name descname"><span class="pre">LocalElasticAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spawn'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exit_barrier_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_line_prefix_template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/local_elastic_agent.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.local_elastic_agent.LocalElasticAgent" title="Link to this definition">#</a></dt>
 <dd><p>An implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">torchelastic.agent.server.ElasticAgent</span></code> that handles host-local workers.</p>
 <p>This agent is deployed per host and is configured to spawn <code class="docutils literal notranslate"><span class="pre">n</span></code> workers.
 When using GPUs, <code class="docutils literal notranslate"><span class="pre">n</span></code> maps to the number of GPUs available on the host.</p>
@@ -4806,16 +4806,16 @@ global rank instead of the local rank, set <code class="docutils literal notrans
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="extending-the-agent">
-<h2>Extending the Agent<a class="headerlink" href="#extending-the-agent" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="extending-the-agent">
+<h2>Extending the Agent<a class="headerlink" href="#extending-the-agent" title="Link to this heading">#</a></h2>
 <p>To extend the agent you can implement <code class="docutils literal notranslate"><span class="pre">ElasticAgent</span></code> directly, however
 we recommend you extend <code class="docutils literal notranslate"><span class="pre">SimpleElasticAgent</span></code> instead, which provides
 most of the scaffolding and leaves you with a few specific abstract methods
 to implement.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">SimpleElasticAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exit_barrier_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L445"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.</span></span><span class="sig-name descname"><span class="pre">SimpleElasticAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exit_barrier_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L445"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent" title="Link to this definition">#</a></dt>
 <dd><p>An <code class="docutils literal notranslate"><span class="pre">ElasticAgent</span></code> that manages one particular type of worker role.</p>
 <p>An <code class="docutils literal notranslate"><span class="pre">ElasticAgent</span></code> that manages workers (<code class="docutils literal notranslate"><span class="pre">WorkerGroup</span></code>) for a single <code class="docutils literal notranslate"><span class="pre">WorkerSpec</span></code>
 such as one particular type of worker role.</p>
@@ -4823,7 +4823,7 @@ such as one particular type of worker role.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._assign_worker_ranks">
-<span class="sig-name descname"><span class="pre">_assign_worker_ranks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_world_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L564"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._assign_worker_ranks" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_assign_worker_ranks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_world_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L564"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._assign_worker_ranks" title="Link to this definition">#</a></dt>
 <dd><p>Determine proper ranks for worker processes.</p>
 <p>Fast Path: when all workers have the same role and world size. We calculate
 the global rank to be group_rank * group_world_size + local_rank. And the
@@ -4851,15 +4851,15 @@ respect to the role name.</p></li>
 </ol>
 <p>Time complexity: each worker O(1), rank0 O(n), overall O(n)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.distributed.elastic.agent.server.Worker" title="torch.distributed.elastic.agent.server.api.Worker">torch.distributed.elastic.agent.server.api.Worker</a>]</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.distributed.elastic.agent.server.Worker" title="torch.distributed.elastic.agent.server.api.Worker"><em>Worker</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._exit_barrier">
-<span class="sig-name descname"><span class="pre">_exit_barrier</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L955"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._exit_barrier" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_exit_barrier</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L955"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._exit_barrier" title="Link to this definition">#</a></dt>
 <dd><p>Define a barrier that keeps the agent process alive until all workers finish.</p>
 <p>Wait for <code class="docutils literal notranslate"><span class="pre">exit_barrier_timeout</span></code> seconds for all agents to finish
 executing their local workers (either successfully or not). This
@@ -4869,7 +4869,7 @@ times.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._initialize_workers">
-<span class="sig-name descname"><span class="pre">_initialize_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L674"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._initialize_workers" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_initialize_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L674"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._initialize_workers" title="Link to this definition">#</a></dt>
 <dd><p>Start a fresh set of workers for the worker_group.</p>
 <p>Essentially, a rendezvous followed by a <code class="docutils literal notranslate"><span class="pre">start_workers</span></code>.
 The caller should first call <code class="docutils literal notranslate"><span class="pre">_stop_workers()</span></code> to stop running workers
@@ -4883,11 +4883,11 @@ of state to <code class="docutils literal notranslate"><span class="pre">_monito
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._monitor_workers">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_monitor_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L481"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._monitor_workers" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_monitor_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L481"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._monitor_workers" title="Link to this definition">#</a></dt>
 <dd><p>Check on the workers for the <code class="docutils literal notranslate"><span class="pre">worker_group</span></code>.</p>
 <p>This function also returns the new state of the worker group.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#torch.distributed.elastic.agent.server.api.RunResult" title="torch.distributed.elastic.agent.server.api.RunResult"><em>RunResult</em></a></p>
 </dd>
 </dl>
@@ -4895,7 +4895,7 @@ of state to <code class="docutils literal notranslate"><span class="pre">_monito
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._rendezvous">
-<span class="sig-name descname"><span class="pre">_rendezvous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L498"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._rendezvous" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_rendezvous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L498"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._rendezvous" title="Link to this definition">#</a></dt>
 <dd><p>Run rendezvous for the workers specified by the worker spec.</p>
 <p>Assigns workers a new global rank and world size.
 Updates the rendezvous store for the worker group.</p>
@@ -4905,7 +4905,7 @@ Updates the rendezvous store for the worker group.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._restart_workers">
-<span class="sig-name descname"><span class="pre">_restart_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L709"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._restart_workers" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_restart_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L709"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._restart_workers" title="Link to this definition">#</a></dt>
 <dd><p>Restart (stops, rendezvous, starts) all local workers in the group.</p>
 <dl class="field-list simple">
 </dl>
@@ -4913,10 +4913,10 @@ Updates the rendezvous store for the worker group.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._shutdown">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_shutdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">death_sig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Signals.SIGTERM</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L489"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._shutdown" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_shutdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">death_sig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Signals.SIGTERM</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L489"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._shutdown" title="Link to this definition">#</a></dt>
 <dd><p>Clean up any resources that were allocated during the agent’s work.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>death_sig</strong> (<a class="reference external" href="https://docs.python.org/3/library/signal.html#signal.Signals" title="(in Python v3.14)"><em>Signals</em></a>) – Signal to send to the child process, SIGTERM is default</p>
 </dd>
 </dl>
@@ -4924,12 +4924,12 @@ Updates the rendezvous store for the worker group.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._start_workers">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_start_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L462"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._start_workers" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_start_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L462"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._start_workers" title="Link to this definition">#</a></dt>
 <dd><p>Start <code class="docutils literal notranslate"><span class="pre">worker_group.spec.local_world_size</span></code> number of workers.</p>
 <p>This is according to worker spec for the worker group .
 Returns a map of <code class="docutils literal notranslate"><span class="pre">local_rank</span></code> to worker <code class="docutils literal notranslate"><span class="pre">id</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
 </dd>
 </dl>
@@ -4937,7 +4937,7 @@ Returns a map of <code class="docutils literal notranslate"><span class="pre">lo
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._stop_workers">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_stop_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L471"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._stop_workers" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_stop_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_group</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L471"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._stop_workers" title="Link to this definition">#</a></dt>
 <dd><p>Stop all workers in the given worker group.</p>
 <p>Implementers must deal with workers in all states defined by
 <code class="docutils literal notranslate"><span class="pre">WorkerState</span></code>. That is, it must gracefully handle stopping
@@ -4950,7 +4950,7 @@ non-existent workers, unhealthy (stuck) workers, etc.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.api.RunResult">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.api.</span></span><span class="sig-name descname"><span class="pre">RunResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_values=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failures=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/api.py#L345"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.api.RunResult" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.api.</span></span><span class="sig-name descname"><span class="pre">RunResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_values=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failures=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/api.py#L345"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.api.RunResult" title="Link to this definition">#</a></dt>
 <dd><p>Return results of the worker executions.</p>
 <p>Run results follow an “all-or-nothing” policy where the run is successful if and
 only if ALL local workers managed by this agent complete successfully.</p>
@@ -4975,9 +4975,9 @@ in either <code class="docutils literal notranslate"><span class="pre">return_va
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="watchdog-in-the-agent">
-<h2>Watchdog in the Agent<a class="headerlink" href="#watchdog-in-the-agent" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="watchdog-in-the-agent">
+<h2>Watchdog in the Agent<a class="headerlink" href="#watchdog-in-the-agent" title="Link to this heading">#</a></h2>
 <p>A named pipe based watchdog can be enabled in <code class="docutils literal notranslate"><span class="pre">LocalElasticAgent</span></code> if an
 environment variable <code class="docutils literal notranslate"><span class="pre">TORCHELASTIC_ENABLE_FILE_TIMER</span></code> with value 1 has
 been defined in the <code class="docutils literal notranslate"><span class="pre">LocalElasticAgent</span></code> process.
@@ -4988,22 +4988,22 @@ will internally create a unique file name and set it to the environment
 variable <code class="docutils literal notranslate"><span class="pre">TORCHELASTIC_TIMER_FILE</span></code>, and this environment variable will
 be propagated to the worker processes to allow them to connect to the same
 named pipe that <code class="docutils literal notranslate"><span class="pre">LocalElasticAgent</span></code> uses.</p>
-</div>
-<div class="section" id="health-check-server">
-<h2>Health Check Server<a class="headerlink" href="#health-check-server" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="health-check-server">
+<h2>Health Check Server<a class="headerlink" href="#health-check-server" title="Link to this heading">#</a></h2>
 <p>A health check monitoring server can be enabled in <code class="docutils literal notranslate"><span class="pre">LocalElasticAgent</span></code>
 if an environment variable <code class="docutils literal notranslate"><span class="pre">TORCHELASTIC_HEALTH_CHECK_PORT</span></code> has been defined
 in the <code class="docutils literal notranslate"><span class="pre">LocalElasticAgent</span></code> process.
 Adding interface for health check server which can be extended by starting tcp/http
 server on the specified port number.
 Additionally, health check server will have callback to check watchdog is alive.</p>
-<span class="target" id="module-torch.distributed.elastic.agent.server.health_check_server"></span><dl class="py class">
+<dl class="py class" id="module-torch.distributed.elastic.agent.server.health_check_server">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.health_check_server.</span></span><span class="sig-name descname"><span class="pre">HealthCheckServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alive_callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/health_check_server.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.health_check_server.</span></span><span class="sig-name descname"><span class="pre">HealthCheckServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alive_callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/health_check_server.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer" title="Link to this definition">#</a></dt>
 <dd><p>Interface for health check monitoring server, which can be extended
 by starting tcp/http server on the specified port.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>alive_callback</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a><em>[</em><em>[</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – Callable[[], int], callback to last progress time of agent</p></li>
 <li><p><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – int, port number to start tcp/http server</p></li>
@@ -5013,7 +5013,7 @@ by starting tcp/http server on the specified port.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/health_check_server.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer.start" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/health_check_server.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer.start" title="Link to this definition">#</a></dt>
 <dd><p>Unsupported functionality for Pytorch, doesn’t start any health check server</p>
 <dl class="field-list simple">
 </dl>
@@ -5021,7 +5021,7 @@ by starting tcp/http server on the specified port.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer.stop">
-<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/health_check_server.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer.stop" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/health_check_server.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer.stop" title="Link to this definition">#</a></dt>
 <dd><p>Function to stop health check server</p>
 <dl class="field-list simple">
 </dl>
@@ -5031,17 +5031,17 @@ by starting tcp/http server on the specified port.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.health_check_server.create_healthcheck_server">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.health_check_server.</span></span><span class="sig-name descname"><span class="pre">create_healthcheck_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alive_callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/agent/server/health_check_server.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.create_healthcheck_server" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.agent.server.health_check_server.</span></span><span class="sig-name descname"><span class="pre">create_healthcheck_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alive_callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/agent/server/health_check_server.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.health_check_server.create_healthcheck_server" title="Link to this definition">#</a></dt>
 <dd><p>creates health check server object</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer" title="torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer"><em>HealthCheckServer</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -5107,11 +5107,6 @@ by starting tcp/http server on the specified port.</p>
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -5283,7 +5278,9 @@ by starting tcp/http server on the specified port.</p>
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -5307,10 +5304,13 @@ by starting tcp/http server on the specified port.</p>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -5333,7 +5333,6 @@ by starting tcp/http server on the specified port.</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -5383,10 +5382,10 @@ by starting tcp/http server on the specified port.</p>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5427,7 +5426,7 @@ by starting tcp/http server on the specified port.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -5456,13 +5455,13 @@ by starting tcp/http server on the specified port.</p>
        "headline": "Elastic Agent",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/elastic/agent.html",
-       "articleBody": "Elastic Agent# Created On: May 04, 2021 | Last Updated On: Jun 07, 2025 Server# The elastic agent is the control plane of torchelastic. It is a process that launches and manages underlying worker processes. The agent is responsible for: Working with distributed torch: the workers are started with all the necessary information to successfully and trivially call torch.distributed.init_process_group(). Fault tolerance: monitors workers and upon detecting worker failures or unhealthiness, tears down all workers and restarts everyone. Elasticity: Reacts to membership changes and restarts workers with the new members. The simplest agents are deployed per node and works with local processes. A more advanced agent can launch and manage workers remotely. Agents can be completely decentralized, making decisions based on the workers it manages. Or can be coordinated, communicating to other agents (that manage workers in the same job) to make a collective decision. Below is a diagram of an agent that manages a local group of workers. Concepts# This section describes the high-level classes and concepts that are relevant to understanding the role of the agent in torchelastic. class torch.distributed.elastic.agent.server.ElasticAgent[source]# An agent process responsible for managing one or more worker processes. The worker processes are assumed to be regular distributed PyTorch scripts. When the worker process is created by the agent, the agent provides the necessary information for the worker processes to properly initialize a torch process group. The exact deployment topology and ratio of agent-to-worker is dependent on the specific implementation of the agent and the user\u2019s job placement preferences. For instance, to run a distributed training job on GPU with 8 trainers (one per GPU) one can: Use 8 x single GPU instances, place an agent per instance, managing 1 worker per agent. Use 4 x double GPU instances, place an agent per instance, managing 2 workers per agent. Use 2 x quad GPU instances, place an agent per instance, managing 4 workers per agent. Use 1 x 8 GPU instance, place an agent per instance, managing 8 workers per agent. Usage group_result = agent.run() if group_result.is_failed(): # workers failed failure = group_result.failures[0] logger.exception(\"worker 0 failed with exit code : %s\", failure.exit_code) else: return group_result.return_values[0] # return rank 0\u0027s results abstract get_worker_group(role=\u0027default\u0027)[source]# Return the WorkerGroup for the given role. Note that the worker group is a mutable object and hence in a multi-threaded/process environment it may change state. Implementers are encouraged (but not required) to return a defensive read-only copy. Return type WorkerGroup abstract run(role=\u0027default\u0027)[source]# Run the agent. Supports retrying the worker group on failures up to max_restarts. Returns The result of the execution, containing the return values or failure details for each worker mapped by the worker\u2019s global rank. Raises Exception - any other failures NOT related to worker process \u2013 Return type RunResult class torch.distributed.elastic.agent.server.WorkerSpec(role, local_world_size, rdzv_handler, fn=None, entrypoint=None, args=(), max_restarts=3, monitor_interval=0.1, master_port=None, master_addr=None, local_addr=None, event_log_handler=\u0027null\u0027, numa_options=None, duplicate_stdout_filters=None, duplicate_stderr_filters=None)[source]# Blueprint information about a particular type of worker. For a given role, there must only exist a single worker spec. Worker spec is expected to be homogeneous across all nodes (machine), that is each node runs the same number of workers for a particular spec. Parameters role (str) \u2013 user-defined role for the workers with this spec local_world_size (int) \u2013 number local workers to run fn (Optional[Callable]) \u2013 (deprecated use entrypoint instead) entrypoint (Optional[Union[Callable, str]]) \u2013 worker function or command args (tuple) \u2013 arguments to pass to entrypoint rdzv_handler (RendezvousHandler) \u2013 handles rdzv for this set of workers max_restarts (int) \u2013 number of max retries for the workers monitor_interval (float) \u2013 monitor status of workers every n seconds master_port (Optional[int]) \u2013 fixed port to run the c10d store on rank 0 if not specified then will chose a random free port master_addr (Optional[str]) \u2013 fixed master_addr to run the c10d store on rank 0 if not specified then will chose hostname on agent rank 0 redirects \u2013 redirect std streams to a file, selectively redirect for a particular local rank by passing a map tee \u2013 tees the specified std stream(s) to console + file, selectively tee for a particular local rank by passing a map, takes precedence over redirects settings. event_log_handler (str) \u2013 name of the event logging handler as registered in elastic/events/handlers.py. duplicate_stdout_filters (Optional[list[str]]) \u2013 If non-empty, duplicates stdout to a file containing only lines that match _any_ of the filter strings. duplicate_stderr_filters (Optional[list[str]]) \u2013 If non-empty, duplicates stderr to a file containing only lines that match _any_ of the filter strings. get_entrypoint_name()[source]# Get the entry point name. If the entrypoint is a function (e.g. Callable) returns its __qualname__ else if the entrypoint is a binary (e.g. str), returns the binary name. class torch.distributed.elastic.agent.server.WorkerState(value)[source]# A state of the WorkerGroup. Workers in a worker group change state as a unit. If a single worker in a worker group fails the entire set is considered failed: UNKNOWN - agent lost track of worker group state, unrecoverable INIT - worker group object created not yet started HEALTHY - workers running and healthy UNHEALTHY - workers running and unhealthy STOPPED - workers stopped (interrupted) by the agent SUCCEEDED - workers finished running (exit 0) FAILED - workers failed to successfully finish (exit !0) A worker group starts from an initial INIT state, then progresses to HEALTHY or UNHEALTHY states, and finally reaches a terminal SUCCEEDED or FAILED state. Worker groups can be interrupted and temporarily put into STOPPED state by the agent. Workers in STOPPED state are scheduled to be restarted in the near future by the agent. Some examples of workers being put into STOPPED state are: Worker group failure|unhealthy observed Membership change detected When actions (start, stop, rdzv, retry, etc) on worker group fails and results in the action being partially applied to the worker group the state will be UNKNOWN. Typically this happens on uncaught/unhandled exceptions during state change events on the agent. The agent is not expected to recover worker groups in UNKNOWN state and is better off self terminating and allowing the job manager to retry the node. static is_running(state)[source]# Return the state of the Worker. Returns True if the worker state represents workers still running (e.g. that the process exists but not necessarily healthy). Return type bool class torch.distributed.elastic.agent.server.Worker(local_rank, global_rank=-1, role_rank=-1, world_size=-1, role_world_size=-1)[source]# A worker instance. Contrast this with WorkerSpec that represents the specifications of a worker. A Worker is created from a WorkerSpec. A Worker is to a WorkerSpec as an object is to a class. The id of the worker is interpreted by the specific implementation of ElasticAgent. For a local agent, it could be the pid (int) of the worker, for a remote agent it could be encoded as host:port (string). Parameters id (Any) \u2013 uniquely identifies a worker (interpreted by the agent) local_rank (int) \u2013 local rank of the worker global_rank (int) \u2013 global rank of the worker role_rank (int) \u2013 rank of the worker across all workers that have the same role world_size (int) \u2013 number of workers (globally) role_world_size (int) \u2013 number of workers that have the same role class torch.distributed.elastic.agent.server.WorkerGroup(spec)[source]# A set of Worker instances. The class defines a set of Worker instances for the given WorkerSpec managed by ElasticAgent. Whether the worker group contains cross instance workers or not depends on the implementation of the agent. Implementations# Below are the agent implementations provided by torchelastic. class torch.distributed.elastic.agent.server.local_elastic_agent.LocalElasticAgent(spec, logs_specs, start_method=\u0027spawn\u0027, exit_barrier_timeout=300, log_line_prefix_template=None)[source]# An implementation of torchelastic.agent.server.ElasticAgent that handles host-local workers. This agent is deployed per host and is configured to spawn n workers. When using GPUs, n maps to the number of GPUs available on the host. The local agent does not communicate to other local agents deployed on other hosts, even if the workers may communicate inter-host. The worker id is interpreted to be a local process. The agent starts and stops all worker processes as a single unit. The worker function and argument passed to the worker function must be python multiprocessing compatible. To pass multiprocessing data structures to the workers you may create the data structure in the same multiprocessing context as the specified start_method and pass it as a function argument. The exit_barrier_timeout specifies the amount of time (in seconds) to wait for other agents to finish. This acts as a safety net to handle cases where workers finish at different times, to prevent agents from viewing workers that finished early as a scale-down event. It is strongly advised that the user code deal with ensuring that workers are terminated in a synchronous manner rather than relying on the exit_barrier_timeout. A named pipe based watchdog can be enabled in `LocalElasticAgent` if an environment variable TORCHELASTIC_ENABLE_FILE_TIMER with value 1 has been defined in the `LocalElasticAgent` process. Optionally, another environment variable `TORCHELASTIC_TIMER_FILE` can be set with a unique file name for the named pipe. If the environment variable `TORCHELASTIC_TIMER_FILE` is not set, `LocalElasticAgent` will internally create a unique file name and set it to the environment variable `TORCHELASTIC_TIMER_FILE`, and this environment variable will be propagated to the worker processes to allow them to connect to the same named pipe that `LocalElasticAgent` uses. Logs are written to the specified log directory. Each log line will be by default prefixed by [${role_name}${local_rank}]: (e.g. [trainer0]: foobar). Log prefixes can be customized by passing a template string as the log_line_prefix_template argument. The following macros (identifiers) are substituted at runtime: ${role_name}, ${local_rank}, ${rank}. For example, to prefix each log line with global rank instead of the local rank, set log_line_prefix_template = \"[${rank}]:. Example launching function def trainer(args) -\u003e str: return \"do train\" def main(): start_method=\"spawn\" shared_queue= multiprocessing.get_context(start_method).Queue() spec = WorkerSpec( role=\"trainer\", local_world_size=nproc_per_process, entrypoint=trainer, args=(\"foobar\",), ...\u003cOTHER_PARAMS...\u003e) agent = LocalElasticAgent(spec, start_method) results = agent.run() if results.is_failed(): print(\"trainer failed\") else: print(f\"rank 0 return value: {results.return_values[0]}\") # prints -\u003e rank 0 return value: do train Example launching binary def main(): spec = WorkerSpec( role=\"trainer\", local_world_size=nproc_per_process, entrypoint=\"/usr/local/bin/trainer\", args=(\"--trainer-args\", \"foobar\"), ...\u003cOTHER_PARAMS...\u003e) agent = LocalElasticAgent(spec) results = agent.run() if not results.is_failed(): print(\"binary launches do not have return values\") Extending the Agent# To extend the agent you can implement ElasticAgent directly, however we recommend you extend SimpleElasticAgent instead, which provides most of the scaffolding and leaves you with a few specific abstract methods to implement. class torch.distributed.elastic.agent.server.SimpleElasticAgent(spec, exit_barrier_timeout=300)[source]# An ElasticAgent that manages one particular type of worker role. An ElasticAgent that manages workers (WorkerGroup) for a single WorkerSpec such as one particular type of worker role. _assign_worker_ranks(store, group_rank, group_world_size, spec)[source]# Determine proper ranks for worker processes. Fast Path: when all workers have the same role and world size. We calculate the global rank to be group_rank * group_world_size + local_rank. And the role_world_size is the same as global_world_size. No TCP store is used in this case. This is only enabled when users set the environment variable TORCH_ELASTIC_WORKER_IDENTICAL to 1. Time complexity: each worker O(1), overall O(1) Slow Path: when workers have different roles and world sizes. We use the the following algorithm: Each agent writes its configuration(group_rank, group_world_size , num_workers) to the common store. The rank 0 agent reads all the role_info from the store and determines each agents worker ranks. Determine the global rank: the global rank of the workers is computed by cumulative sum of the local_world_size for all workers in front of it. For efficiency reasons each worker is assigned a base global rank such that it\u2019s workers are in the range [base_global_rank, base_global_rank + local_world_size). Determine the role rank: The role rank is determined using the algorithms in the point 3 with the exception that the ranks are calculated with respect to the role name. The rank 0 agent writes the assigned ranks to the store. Each agent reads the assigned ranks from the store. Time complexity: each worker O(1), rank0 O(n), overall O(n) Return type list[torch.distributed.elastic.agent.server.api.Worker] _exit_barrier()[source]# Define a barrier that keeps the agent process alive until all workers finish. Wait for exit_barrier_timeout seconds for all agents to finish executing their local workers (either successfully or not). This acts as a safety guard against user scripts that terminate at different times. _initialize_workers(worker_group)[source]# Start a fresh set of workers for the worker_group. Essentially, a rendezvous followed by a start_workers. The caller should first call _stop_workers() to stop running workers prior to calling this method. Optimistically sets the state of the worker group that just started as HEALTHY and delegates the actual monitoring of state to _monitor_workers() method abstract _monitor_workers(worker_group)[source]# Check on the workers for the worker_group. This function also returns the new state of the worker group. Return type RunResult _rendezvous(worker_group)[source]# Run rendezvous for the workers specified by the worker spec. Assigns workers a new global rank and world size. Updates the rendezvous store for the worker group. _restart_workers(worker_group)[source]# Restart (stops, rendezvous, starts) all local workers in the group. abstract _shutdown(death_sig=Signals.SIGTERM)[source]# Clean up any resources that were allocated during the agent\u2019s work. Parameters death_sig (Signals) \u2013 Signal to send to the child process, SIGTERM is default abstract _start_workers(worker_group)[source]# Start worker_group.spec.local_world_size number of workers. This is according to worker spec for the worker group . Returns a map of local_rank to worker id. Return type dict[int, Any] abstract _stop_workers(worker_group)[source]# Stop all workers in the given worker group. Implementers must deal with workers in all states defined by WorkerState. That is, it must gracefully handle stopping non-existent workers, unhealthy (stuck) workers, etc. class torch.distributed.elastic.agent.server.api.RunResult(state, return_values=\u003cfactory\u003e, failures=\u003cfactory\u003e)[source]# Return results of the worker executions. Run results follow an \u201call-or-nothing\u201d policy where the run is successful if and only if ALL local workers managed by this agent complete successfully. If the result is successful (e.g. is_failed() = False) then the return_values field contains the outputs (return values) of the workers managed by THIS agent mapped by their GLOBAL ranks. That is result.return_values[0] is the return value of global rank 0. Note return_values are only meaningful for when the worker entrypoint is a function. Workers specified as a binary entrypoint do not canonically have a return value and the return_values field is meaningless and may be empty. If is_failed() returns True then the failures field contains the failure information, again, mapped by the GLOBAL rank of the worker that failed. The keys in return_values and failures are mutually exclusive, that is, a worker\u2019s final state can only be one of: succeeded, failed. Workers intentionally terminated by the agent according to the agent\u2019s restart policy, are not represented in either return_values nor failures. Watchdog in the Agent# A named pipe based watchdog can be enabled in LocalElasticAgent if an environment variable TORCHELASTIC_ENABLE_FILE_TIMER with value 1 has been defined in the LocalElasticAgent process. Optionally, another environment variable TORCHELASTIC_TIMER_FILE can be set with a unique file name for the named pipe. If the environment variable TORCHELASTIC_TIMER_FILE is not set, LocalElasticAgent will internally create a unique file name and set it to the environment variable TORCHELASTIC_TIMER_FILE, and this environment variable will be propagated to the worker processes to allow them to connect to the same named pipe that LocalElasticAgent uses. Health Check Server# A health check monitoring server can be enabled in LocalElasticAgent if an environment variable TORCHELASTIC_HEALTH_CHECK_PORT has been defined in the LocalElasticAgent process. Adding interface for health check server which can be extended by starting tcp/http server on the specified port number. Additionally, health check server will have callback to check watchdog is alive. class torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer(alive_callback, port, timeout)[source]# Interface for health check monitoring server, which can be extended by starting tcp/http server on the specified port. Parameters alive_callback (Callable[[], int]) \u2013 Callable[[], int], callback to last progress time of agent port (int) \u2013 int, port number to start tcp/http server timeout (int) \u2013 int, timeout seconds to decide agent is alive/dead start()[source]# Unsupported functionality for Pytorch, doesn\u2019t start any health check server stop()[source]# Function to stop health check server torch.distributed.elastic.agent.server.health_check_server.create_healthcheck_server(alive_callback, port, timeout)[source]# creates health check server object Return type HealthCheckServer",
+       "articleBody": "Elastic Agent# Created On: May 04, 2021 | Last Updated On: Jun 07, 2025 Server# The elastic agent is the control plane of torchelastic. It is a process that launches and manages underlying worker processes. The agent is responsible for: Working with distributed torch: the workers are started with all the necessary information to successfully and trivially call torch.distributed.init_process_group(). Fault tolerance: monitors workers and upon detecting worker failures or unhealthiness, tears down all workers and restarts everyone. Elasticity: Reacts to membership changes and restarts workers with the new members. The simplest agents are deployed per node and works with local processes. A more advanced agent can launch and manage workers remotely. Agents can be completely decentralized, making decisions based on the workers it manages. Or can be coordinated, communicating to other agents (that manage workers in the same job) to make a collective decision. Below is a diagram of an agent that manages a local group of workers. Concepts# This section describes the high-level classes and concepts that are relevant to understanding the role of the agent in torchelastic. class torch.distributed.elastic.agent.server.ElasticAgent[source]# An agent process responsible for managing one or more worker processes. The worker processes are assumed to be regular distributed PyTorch scripts. When the worker process is created by the agent, the agent provides the necessary information for the worker processes to properly initialize a torch process group. The exact deployment topology and ratio of agent-to-worker is dependent on the specific implementation of the agent and the user\u2019s job placement preferences. For instance, to run a distributed training job on GPU with 8 trainers (one per GPU) one can: Use 8 x single GPU instances, place an agent per instance, managing 1 worker per agent. Use 4 x double GPU instances, place an agent per instance, managing 2 workers per agent. Use 2 x quad GPU instances, place an agent per instance, managing 4 workers per agent. Use 1 x 8 GPU instance, place an agent per instance, managing 8 workers per agent. Usage group_result = agent.run() if group_result.is_failed(): # workers failed failure = group_result.failures[0] logger.exception(\"worker 0 failed with exit code : %s\", failure.exit_code) else: return group_result.return_values[0] # return rank 0\u0027s results abstract get_worker_group(role=\u0027default\u0027)[source]# Return the WorkerGroup for the given role. Note that the worker group is a mutable object and hence in a multi-threaded/process environment it may change state. Implementers are encouraged (but not required) to return a defensive read-only copy. Return type: WorkerGroup abstract run(role=\u0027default\u0027)[source]# Run the agent. Supports retrying the worker group on failures up to max_restarts. Returns: The result of the execution, containing the return values or failure details for each worker mapped by the worker\u2019s global rank. Raises: Exception - any other failures NOT related to worker process \u2013 Return type: RunResult class torch.distributed.elastic.agent.server.WorkerSpec(role, local_world_size, rdzv_handler, fn=None, entrypoint=None, args=(), max_restarts=3, monitor_interval=0.1, master_port=None, master_addr=None, local_addr=None, event_log_handler=\u0027null\u0027, numa_options=None, duplicate_stdout_filters=None, duplicate_stderr_filters=None)[source]# Blueprint information about a particular type of worker. For a given role, there must only exist a single worker spec. Worker spec is expected to be homogeneous across all nodes (machine), that is each node runs the same number of workers for a particular spec. Parameters: role (str) \u2013 user-defined role for the workers with this spec local_world_size (int) \u2013 number local workers to run fn (Callable | None) \u2013 (deprecated use entrypoint instead) entrypoint (Callable | str | None) \u2013 worker function or command args (tuple) \u2013 arguments to pass to entrypoint rdzv_handler (RendezvousHandler) \u2013 handles rdzv for this set of workers max_restarts (int) \u2013 number of max retries for the workers monitor_interval (float) \u2013 monitor status of workers every n seconds master_port (int | None) \u2013 fixed port to run the c10d store on rank 0 if not specified then will chose a random free port master_addr (str | None) \u2013 fixed master_addr to run the c10d store on rank 0 if not specified then will chose hostname on agent rank 0 redirects \u2013 redirect std streams to a file, selectively redirect for a particular local rank by passing a map tee \u2013 tees the specified std stream(s) to console + file, selectively tee for a particular local rank by passing a map, takes precedence over redirects settings. event_log_handler (str) \u2013 name of the event logging handler as registered in elastic/events/handlers.py. duplicate_stdout_filters (list[str] | None) \u2013 If non-empty, duplicates stdout to a file containing only lines that match _any_ of the filter strings. duplicate_stderr_filters (list[str] | None) \u2013 If non-empty, duplicates stderr to a file containing only lines that match _any_ of the filter strings. get_entrypoint_name()[source]# Get the entry point name. If the entrypoint is a function (e.g. Callable) returns its __qualname__ else if the entrypoint is a binary (e.g. str), returns the binary name. class torch.distributed.elastic.agent.server.WorkerState(value)[source]# A state of the WorkerGroup. Workers in a worker group change state as a unit. If a single worker in a worker group fails the entire set is considered failed: UNKNOWN - agent lost track of worker group state, unrecoverable INIT - worker group object created not yet started HEALTHY - workers running and healthy UNHEALTHY - workers running and unhealthy STOPPED - workers stopped (interrupted) by the agent SUCCEEDED - workers finished running (exit 0) FAILED - workers failed to successfully finish (exit !0) A worker group starts from an initial INIT state, then progresses to HEALTHY or UNHEALTHY states, and finally reaches a terminal SUCCEEDED or FAILED state. Worker groups can be interrupted and temporarily put into STOPPED state by the agent. Workers in STOPPED state are scheduled to be restarted in the near future by the agent. Some examples of workers being put into STOPPED state are: Worker group failure|unhealthy observed Membership change detected When actions (start, stop, rdzv, retry, etc) on worker group fails and results in the action being partially applied to the worker group the state will be UNKNOWN. Typically this happens on uncaught/unhandled exceptions during state change events on the agent. The agent is not expected to recover worker groups in UNKNOWN state and is better off self terminating and allowing the job manager to retry the node. static is_running(state)[source]# Return the state of the Worker. Returns: True if the worker state represents workers still running (e.g. that the process exists but not necessarily healthy). Return type: bool class torch.distributed.elastic.agent.server.Worker(local_rank, global_rank=-1, role_rank=-1, world_size=-1, role_world_size=-1)[source]# A worker instance. Contrast this with WorkerSpec that represents the specifications of a worker. A Worker is created from a WorkerSpec. A Worker is to a WorkerSpec as an object is to a class. The id of the worker is interpreted by the specific implementation of ElasticAgent. For a local agent, it could be the pid (int) of the worker, for a remote agent it could be encoded as host:port (string). Parameters: id (Any) \u2013 uniquely identifies a worker (interpreted by the agent) local_rank (int) \u2013 local rank of the worker global_rank (int) \u2013 global rank of the worker role_rank (int) \u2013 rank of the worker across all workers that have the same role world_size (int) \u2013 number of workers (globally) role_world_size (int) \u2013 number of workers that have the same role class torch.distributed.elastic.agent.server.WorkerGroup(spec)[source]# A set of Worker instances. The class defines a set of Worker instances for the given WorkerSpec managed by ElasticAgent. Whether the worker group contains cross instance workers or not depends on the implementation of the agent. Implementations# Below are the agent implementations provided by torchelastic. class torch.distributed.elastic.agent.server.local_elastic_agent.LocalElasticAgent(spec, logs_specs, start_method=\u0027spawn\u0027, exit_barrier_timeout=300, log_line_prefix_template=None)[source]# An implementation of torchelastic.agent.server.ElasticAgent that handles host-local workers. This agent is deployed per host and is configured to spawn n workers. When using GPUs, n maps to the number of GPUs available on the host. The local agent does not communicate to other local agents deployed on other hosts, even if the workers may communicate inter-host. The worker id is interpreted to be a local process. The agent starts and stops all worker processes as a single unit. The worker function and argument passed to the worker function must be python multiprocessing compatible. To pass multiprocessing data structures to the workers you may create the data structure in the same multiprocessing context as the specified start_method and pass it as a function argument. The exit_barrier_timeout specifies the amount of time (in seconds) to wait for other agents to finish. This acts as a safety net to handle cases where workers finish at different times, to prevent agents from viewing workers that finished early as a scale-down event. It is strongly advised that the user code deal with ensuring that workers are terminated in a synchronous manner rather than relying on the exit_barrier_timeout. A named pipe based watchdog can be enabled in `LocalElasticAgent` if an environment variable TORCHELASTIC_ENABLE_FILE_TIMER with value 1 has been defined in the `LocalElasticAgent` process. Optionally, another environment variable `TORCHELASTIC_TIMER_FILE` can be set with a unique file name for the named pipe. If the environment variable `TORCHELASTIC_TIMER_FILE` is not set, `LocalElasticAgent` will internally create a unique file name and set it to the environment variable `TORCHELASTIC_TIMER_FILE`, and this environment variable will be propagated to the worker processes to allow them to connect to the same named pipe that `LocalElasticAgent` uses. Logs are written to the specified log directory. Each log line will be by default prefixed by [${role_name}${local_rank}]: (e.g. [trainer0]: foobar). Log prefixes can be customized by passing a template string as the log_line_prefix_template argument. The following macros (identifiers) are substituted at runtime: ${role_name}, ${local_rank}, ${rank}. For example, to prefix each log line with global rank instead of the local rank, set log_line_prefix_template = \"[${rank}]:. Example launching function def trainer(args) -\u003e str: return \"do train\" def main(): start_method=\"spawn\" shared_queue= multiprocessing.get_context(start_method).Queue() spec = WorkerSpec( role=\"trainer\", local_world_size=nproc_per_process, entrypoint=trainer, args=(\"foobar\",), ...\u003cOTHER_PARAMS...\u003e) agent = LocalElasticAgent(spec, start_method) results = agent.run() if results.is_failed(): print(\"trainer failed\") else: print(f\"rank 0 return value: {results.return_values[0]}\") # prints -\u003e rank 0 return value: do train Example launching binary def main(): spec = WorkerSpec( role=\"trainer\", local_world_size=nproc_per_process, entrypoint=\"/usr/local/bin/trainer\", args=(\"--trainer-args\", \"foobar\"), ...\u003cOTHER_PARAMS...\u003e) agent = LocalElasticAgent(spec) results = agent.run() if not results.is_failed(): print(\"binary launches do not have return values\") Extending the Agent# To extend the agent you can implement ElasticAgent directly, however we recommend you extend SimpleElasticAgent instead, which provides most of the scaffolding and leaves you with a few specific abstract methods to implement. class torch.distributed.elastic.agent.server.SimpleElasticAgent(spec, exit_barrier_timeout=300)[source]# An ElasticAgent that manages one particular type of worker role. An ElasticAgent that manages workers (WorkerGroup) for a single WorkerSpec such as one particular type of worker role. _assign_worker_ranks(store, group_rank, group_world_size, spec)[source]# Determine proper ranks for worker processes. Fast Path: when all workers have the same role and world size. We calculate the global rank to be group_rank * group_world_size + local_rank. And the role_world_size is the same as global_world_size. No TCP store is used in this case. This is only enabled when users set the environment variable TORCH_ELASTIC_WORKER_IDENTICAL to 1. Time complexity: each worker O(1), overall O(1) Slow Path: when workers have different roles and world sizes. We use the the following algorithm: Each agent writes its configuration(group_rank, group_world_size , num_workers) to the common store. The rank 0 agent reads all the role_info from the store and determines each agents worker ranks. Determine the global rank: the global rank of the workers is computed by cumulative sum of the local_world_size for all workers in front of it. For efficiency reasons each worker is assigned a base global rank such that it\u2019s workers are in the range [base_global_rank, base_global_rank + local_world_size). Determine the role rank: The role rank is determined using the algorithms in the point 3 with the exception that the ranks are calculated with respect to the role name. The rank 0 agent writes the assigned ranks to the store. Each agent reads the assigned ranks from the store. Time complexity: each worker O(1), rank0 O(n), overall O(n) Return type: list[Worker] _exit_barrier()[source]# Define a barrier that keeps the agent process alive until all workers finish. Wait for exit_barrier_timeout seconds for all agents to finish executing their local workers (either successfully or not). This acts as a safety guard against user scripts that terminate at different times. _initialize_workers(worker_group)[source]# Start a fresh set of workers for the worker_group. Essentially, a rendezvous followed by a start_workers. The caller should first call _stop_workers() to stop running workers prior to calling this method. Optimistically sets the state of the worker group that just started as HEALTHY and delegates the actual monitoring of state to _monitor_workers() method abstract _monitor_workers(worker_group)[source]# Check on the workers for the worker_group. This function also returns the new state of the worker group. Return type: RunResult _rendezvous(worker_group)[source]# Run rendezvous for the workers specified by the worker spec. Assigns workers a new global rank and world size. Updates the rendezvous store for the worker group. _restart_workers(worker_group)[source]# Restart (stops, rendezvous, starts) all local workers in the group. abstract _shutdown(death_sig=Signals.SIGTERM)[source]# Clean up any resources that were allocated during the agent\u2019s work. Parameters: death_sig (Signals) \u2013 Signal to send to the child process, SIGTERM is default abstract _start_workers(worker_group)[source]# Start worker_group.spec.local_world_size number of workers. This is according to worker spec for the worker group . Returns a map of local_rank to worker id. Return type: dict[int, Any] abstract _stop_workers(worker_group)[source]# Stop all workers in the given worker group. Implementers must deal with workers in all states defined by WorkerState. That is, it must gracefully handle stopping non-existent workers, unhealthy (stuck) workers, etc. class torch.distributed.elastic.agent.server.api.RunResult(state, return_values=\u003cfactory\u003e, failures=\u003cfactory\u003e)[source]# Return results of the worker executions. Run results follow an \u201call-or-nothing\u201d policy where the run is successful if and only if ALL local workers managed by this agent complete successfully. If the result is successful (e.g. is_failed() = False) then the return_values field contains the outputs (return values) of the workers managed by THIS agent mapped by their GLOBAL ranks. That is result.return_values[0] is the return value of global rank 0. Note return_values are only meaningful for when the worker entrypoint is a function. Workers specified as a binary entrypoint do not canonically have a return value and the return_values field is meaningless and may be empty. If is_failed() returns True then the failures field contains the failure information, again, mapped by the GLOBAL rank of the worker that failed. The keys in return_values and failures are mutually exclusive, that is, a worker\u2019s final state can only be one of: succeeded, failed. Workers intentionally terminated by the agent according to the agent\u2019s restart policy, are not represented in either return_values nor failures. Watchdog in the Agent# A named pipe based watchdog can be enabled in LocalElasticAgent if an environment variable TORCHELASTIC_ENABLE_FILE_TIMER with value 1 has been defined in the LocalElasticAgent process. Optionally, another environment variable TORCHELASTIC_TIMER_FILE can be set with a unique file name for the named pipe. If the environment variable TORCHELASTIC_TIMER_FILE is not set, LocalElasticAgent will internally create a unique file name and set it to the environment variable TORCHELASTIC_TIMER_FILE, and this environment variable will be propagated to the worker processes to allow them to connect to the same named pipe that LocalElasticAgent uses. Health Check Server# A health check monitoring server can be enabled in LocalElasticAgent if an environment variable TORCHELASTIC_HEALTH_CHECK_PORT has been defined in the LocalElasticAgent process. Adding interface for health check server which can be extended by starting tcp/http server on the specified port number. Additionally, health check server will have callback to check watchdog is alive. class torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer(alive_callback, port, timeout)[source]# Interface for health check monitoring server, which can be extended by starting tcp/http server on the specified port. Parameters: alive_callback (Callable[[], int]) \u2013 Callable[[], int], callback to last progress time of agent port (int) \u2013 int, port number to start tcp/http server timeout (int) \u2013 int, timeout seconds to decide agent is alive/dead start()[source]# Unsupported functionality for Pytorch, doesn\u2019t start any health check server stop()[source]# Function to stop health check server torch.distributed.elastic.agent.server.health_check_server.create_healthcheck_server(alive_callback, port, timeout)[source]# creates health check server object Return type: HealthCheckServer",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "../_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/elastic/agent.html"

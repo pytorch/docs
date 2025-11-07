@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>torch.onnx.ops &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=940804e7"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'onnx_ops';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="_static/js/runllm-widget.js"></script>
+    <script src="_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/onnx_ops.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4488,6 +4487,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4495,20 +4495,20 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="module-torch.onnx.ops">
-<span id="torch-onnx-ops"></span><h1>torch.onnx.ops<a class="headerlink" href="#module-torch.onnx.ops" title="Permalink to this heading">#</a></h1>
+  <section id="module-torch.onnx.ops">
+<span id="torch-onnx-ops"></span><h1>torch.onnx.ops<a class="headerlink" href="#module-torch.onnx.ops" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 10, 2025 | Last Updated On: Jun 20, 2025</p>
 <p>ONNX operators as native torch.fx operators.</p>
 <p>This module provides a set of functions to create ONNX operators in the FX graph
 which are exportable to ONNX.</p>
-<div class="section" id="symbolic-operators">
-<h2>Symbolic Operators<a class="headerlink" href="#symbolic-operators" title="Permalink to this heading">#</a></h2>
+<section id="symbolic-operators">
+<h2>Symbolic Operators<a class="headerlink" href="#symbolic-operators" title="Link to this heading">#</a></h2>
 <p>Operators that can be used to create any ONNX ops in the FX graph symbolically.
 These operators do not do actual computation. It’s recommended that you used them
 inside an <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">torch.onnx.is_in_onnx_export</span></code> block.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.ops.symbolic">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">symbolic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain_op</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_props</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/onnx/ops/__init__.py#L74"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.symbolic" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">symbolic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain_op</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_props</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/onnx/ops/__init__.py#L74"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.symbolic" title="Link to this definition">#</a></dt>
 <dd><p>Create a symbolic FX operator to represent an arbitrary ONNX operator.</p>
 <p>This function is used to create a symbolic operator with a single output.
 To create an operator with multiple outputs, use <a class="reference internal" href="#torch.onnx.ops.symbolic_multi_out" title="torch.onnx.ops.symbolic_multi_out"><code class="xref py py-func docutils literal notranslate"><span class="pre">symbolic_multi_out()</span></code></a>.</p>
@@ -4539,7 +4539,7 @@ symbolic logic only during <code class="docutils literal notranslate"><span clas
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>domain_op</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The domain and operator name, separated by “::”. For example,
 “custom_domain::CustomOp”.</p></li>
@@ -4557,10 +4557,10 @@ SymInt values.</p></li>
 This is a dictionary of str-str pairs.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The output tensor of the operator.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor">torch.Tensor</a></p>
 </dd>
 </dl>
@@ -4568,7 +4568,7 @@ This is a dictionary of str-str pairs.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.ops.symbolic_multi_out">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">symbolic_multi_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain_op</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtypes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_props</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/onnx/ops/__init__.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.symbolic_multi_out" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">symbolic_multi_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain_op</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtypes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_props</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/onnx/ops/__init__.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.symbolic_multi_out" title="Link to this definition">#</a></dt>
 <dd><p>Create a symbolic FX operator to represent an arbitrary ONNX operator with multiple outputs.</p>
 <p>You may use <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">torch.onnx.is_in_onnx_export()</span></code> to conditionally enable the
 symbolic logic only during <code class="docutils literal notranslate"><span class="pre">torch.onnx.export()</span></code>.</p>
@@ -4597,7 +4597,7 @@ symbolic logic only during <code class="docutils literal notranslate"><span clas
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>domain_op</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The domain and operator name, separated by “::”. For example,
 “custom_domain::CustomOp”.</p></li>
@@ -4616,18 +4616,18 @@ integers or SymInt values. The length of this list must be the number of outputs
 This is a dictionary of str-str pairs.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of output tensors of the operator.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Sequence[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor">torch.Tensor</a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="onnx-operators">
-<h2>ONNX Operators<a class="headerlink" href="#onnx-operators" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="onnx-operators">
+<h2>ONNX Operators<a class="headerlink" href="#onnx-operators" title="Link to this heading">#</a></h2>
 <p>The following operators are implemented as native PyTorch ops and can be exported as
 ONNX operators. They can be used natively in an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>.</p>
 <p>For example, you can define a module:</p>
@@ -4694,7 +4694,7 @@ graph(
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.ops.rotary_embedding">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">rotary_embedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cos_cache</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sin_cache</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interleaved</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotary_embedding_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/onnx/ops/__init__.py#L283"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.rotary_embedding" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">rotary_embedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cos_cache</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sin_cache</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interleaved</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotary_embedding_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/onnx/ops/__init__.py#L283"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.rotary_embedding" title="Link to this definition">#</a></dt>
 <dd><p>RotaryEmbedding op in ONNX.</p>
 <p><a class="reference external" href="https://onnx.ai/onnx/operators/onnx__RotaryEmbedding.html">https://onnx.ai/onnx/operators/onnx__RotaryEmbedding.html</a></p>
 <p>RotaryEmbedding is the implementation of rotary positional embeddings (RoPE) based on the paper <a class="reference external" href="https://arxiv.org/pdf/2104.09864">https://arxiv.org/pdf/2104.09864</a>.
@@ -4707,7 +4707,7 @@ The rotation matrix is parameterized by the token’s position in the sequence. 
 to form the final positional embedding for each token. The rotated positional embeddings are used in the self-attention mechanism.
 The rotation ensures that the model captures both absolute and relative positional information.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – The input tensor representing the token embeddings. 4D tensor with
 shape <cite>(batch_size, num_heads, sequence_length, head_size)</cite> or 3D tensor
@@ -4729,17 +4729,17 @@ for partial rotation when <cite>position_ids</cite> are provided. 3D tensor with
 <cite>(batch_size, sequence_length, rotary_embedding_dim / 2)</cite> for partial rotation
 when <cite>position_ids</cite> are not provided. <cite>max_position_id_plus_1</cite> is a parameter
 to the model.</p></li>
-<li><p><strong>position_ids</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>]</em>) – The position indices for the tokens. 2D tensor with shape
+<li><p><strong>position_ids</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em> | </em><em>None</em>) – The position indices for the tokens. 2D tensor with shape
 <cite>(batch_size, sequence_length)</cite>.</p></li>
 <li><p><strong>interleaved</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Rotate using interleaved pattern. Default value is 0 (False).</p></li>
 <li><p><strong>num_heads</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of attention heads. Must be provided when input is a 3D tensor.</p></li>
 <li><p><strong>rotary_embedding_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Rotary embedding dimension used to apply partial rotary embeddings.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Tensor with same shape as input.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
 </dd>
 </dl>
@@ -4747,7 +4747,7 @@ to the model.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.ops.attention">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attn_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">past_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">past_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_causal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_num_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_num_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qk_matmul_output_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">softcap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">softmax_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/onnx/ops/__init__.py#L349"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.attention" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attn_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">past_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">past_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_causal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kv_num_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_num_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qk_matmul_output_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">softcap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">softmax_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/onnx/ops/__init__.py#L349"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.attention" title="Link to this definition">#</a></dt>
 <dd><p>Attention op in ONNX.</p>
 <p><a class="reference external" href="https://onnx.ai/onnx/operators/onnx__Attention.html">https://onnx.ai/onnx/operators/onnx__Attention.html</a></p>
 <p>Computes scaled dot product attention on query, key and value tensors, using an optional attention mask if passed.</p>
@@ -4788,7 +4788,7 @@ The following pattern is applied to the Q, K and V inputs after appropriate resh
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>Q</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – Query tensor. 4D tensor with shape <cite>(batch_size, q_num_heads, q_sequence_length, head_size)</cite> or 3D tensor
 with shape <cite>(batch_size, q_sequence_length, q_hidden_size)</cite>. For cases with a 3D input tensor,
@@ -4799,13 +4799,13 @@ with shape <cite>(batch_size, kv_sequence_length, k_hidden_size)</cite>. For cas
 <li><p><strong>V</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – Value tensor. 4D tensor with shape <cite>(batch_size, kv_num_heads, kv_sequence_length, v_head_size)</cite> or 3D tensor
 with shape <cite>(batch_size, kv_sequence_length, v_hidden_size)</cite>. For cases with a 3D input tensor,
 <cite>v_hidden_size = kv_num_heads * v_head_size</cite></p></li>
-<li><p><strong>attn_mask</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>]</em>) – Attention mask. Shape must be broadcastable to 4D tensor with shape
+<li><p><strong>attn_mask</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em> | </em><em>None</em>) – Attention mask. Shape must be broadcastable to 4D tensor with shape
 <cite>(batch_size, q_num_heads, q_sequence_length, total_sequence_length)</cite> where
 <cite>total_sequence_length = past_sequence_length + kv_sequence_length</cite>. Two types of masks are supported.
 A boolean mask where a value of True indicates that the element should take part in attention.
 Also supports a float mask of the same type as query, key, value that is added to the attention score.</p></li>
-<li><p><strong>past_key</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>]</em>) – Past state cache for key with shape <cite>(batch_size, kv_num_heads, past_sequence_length, head_size)</cite></p></li>
-<li><p><strong>past_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>]</em>) – Past state cache for value with shape <cite>(batch_size, kv_num_heads, past_sequence_length, v_head_size)</cite></p></li>
+<li><p><strong>past_key</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em> | </em><em>None</em>) – Past state cache for key with shape <cite>(batch_size, kv_num_heads, past_sequence_length, head_size)</cite></p></li>
+<li><p><strong>past_value</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em> | </em><em>None</em>) – Past state cache for value with shape <cite>(batch_size, kv_num_heads, past_sequence_length, v_head_size)</cite></p></li>
 <li><p><strong>is_causal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If set to True, the attention masking is a lower triangular matrix when the mask is a square matrix.
 The attention masking has the form of the upper left causal bias due to the alignment.</p></li>
 <li><p><strong>kv_num_heads</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of heads of key and value. Must be used with 3D inputs of Q, K and V.</p></li>
@@ -4814,14 +4814,14 @@ The attention masking has the form of the upper left causal bias due to the alig
 qk_matmul_output includes the addition of the attention mask to the output of qk matmul.
 If set to 2, qk_matmul_output is the output after the softcap operation. If set to 3,
 qk_matmul_output is the output after the softmax operation. Default value is 0.</p></li>
-<li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>) – Scaling factor applied to Q*K^T. Default value is 1/sqrt(head_size). To prevent numerical overflow,
+<li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> | </em><em>None</em>) – Scaling factor applied to Q*K^T. Default value is 1/sqrt(head_size). To prevent numerical overflow,
 scale Q, K by sqrt(scale) before matmul.</p></li>
 <li><p><strong>softcap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Softcap value for attention weights. Default value is 0.</p></li>
-<li><p><strong>softmax_precision</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – The floating-point precision used in softmax computation. If softmax precision is not provided,
+<li><p><strong>softmax_precision</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – The floating-point precision used in softmax computation. If softmax precision is not provided,
 the same precision as the input of softmax (Q and K) is used.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p>The output tensor. 4D tensor with shape <cite>(batch_size, q_num_heads, q_sequence_length, v_head_size)</cite> or 3D tensor
 with shape <cite>(batch_size, q_sequence_length, hidden_size)</cite>. For cases with a 3D input tensor,
@@ -4835,15 +4835,15 @@ where <cite>total_sequence_length = past_sequence_length + kv_sequence_length</c
 </ul>
 </p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A tuple containing</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="onnx-to-aten-decomposition-table">
-<h2>ONNX to ATen Decomposition Table<a class="headerlink" href="#onnx-to-aten-decomposition-table" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="onnx-to-aten-decomposition-table">
+<h2>ONNX to ATen Decomposition Table<a class="headerlink" href="#onnx-to-aten-decomposition-table" title="Link to this heading">#</a></h2>
 <p>You can use <a class="reference internal" href="#torch.onnx.ops.aten_decompositions" title="torch.onnx.ops.aten_decompositions"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.onnx.ops.aten_decompositions()</span></code></a> to obtain a decomposition table
 to decompose ONNX operators defined above to ATen operators.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -4869,17 +4869,17 @@ to decompose ONNX operators defined above to ATen operators.</p>
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.onnx.ops.aten_decompositions">
-<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">aten_decompositions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/onnx/ops/__init__.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.aten_decompositions" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.onnx.ops.</span></span><span class="sig-name descname"><span class="pre">aten_decompositions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/onnx/ops/__init__.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ops.aten_decompositions" title="Link to this definition">#</a></dt>
 <dd><p>Return the ONNX to ATen decomp table.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[torch._ops.OpOverload, Callable]</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -4945,11 +4945,6 @@ to decompose ONNX operators defined above to ATen operators.</p>
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -5086,7 +5081,9 @@ to decompose ONNX operators defined above to ATen operators.</p>
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -5110,10 +5107,13 @@ to decompose ONNX operators defined above to ATen operators.</p>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -5136,7 +5136,6 @@ to decompose ONNX operators defined above to ATen operators.</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -5186,10 +5185,10 @@ to decompose ONNX operators defined above to ATen operators.</p>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5230,7 +5229,7 @@ to decompose ONNX operators defined above to ATen operators.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -5259,13 +5258,13 @@ to decompose ONNX operators defined above to ATen operators.</p>
        "headline": "torch.onnx.ops",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/onnx_ops.html",
-       "articleBody": "torch.onnx.ops# Created On: Jun 10, 2025 | Last Updated On: Jun 20, 2025 ONNX operators as native torch.fx operators. This module provides a set of functions to create ONNX operators in the FX graph which are exportable to ONNX. Symbolic Operators# Operators that can be used to create any ONNX ops in the FX graph symbolically. These operators do not do actual computation. It\u2019s recommended that you used them inside an if torch.onnx.is_in_onnx_export block. torch.onnx.ops.symbolic(domain_op, /, inputs, attrs=None, *, dtype, shape, version=None, metadata_props=None)[source]# Create a symbolic FX operator to represent an arbitrary ONNX operator. This function is used to create a symbolic operator with a single output. To create an operator with multiple outputs, use symbolic_multi_out(). You may use if torch.onnx.is_in_onnx_export() to conditionally enable the symbolic logic only during torch.onnx.export(). Example: class CustomOp(torch.nn.Module): def forward(self, x: torch.Tensor) -\u003e torch.Tensor: # Normal torch operators can interleave with the symbolic ops during ONNX export x = x + 1 # Create a symbolic ONNX operator with the name \"CustomOp\" in the \"custom_domain\" domain. # The output tensor will have the specified dtype and shape val = torch.onnx.ops.symbolic( \"custom_domain::CustomOp\", (x,), dict(attr_key=\"attr_value\"), dtype=x.dtype, shape=x.shape, version=1, ) # The result of the symbolic op can be used in normal torch operations during ONNX export return torch.nn.functional.relu(val) # You may then export this model to ONNX using torch.onnx.export(..., dynamo=True). Parameters domain_op (str) \u2013 The domain and operator name, separated by \u201c::\u201d. For example, \u201ccustom_domain::CustomOp\u201d. inputs (Sequence[torch.Tensor | None]) \u2013 The input tensors to the operator. attrs (dict[str, int | float | str | bool | Sequence[int] | Sequence[float] | Sequence[str] | Sequence[bool]] | None) \u2013 The attributes of the operator. The keys are attribute names and the values are attribute values. Valid attribute types are int, float, str, bool, and lists of int, float, str, and bool. Tensor attributes are unsupported. dtype (torch.dtype | int) \u2013 The data type of the output tensor.This can be either a torch.dtype or an integer representing the ONNX data type. shape (Sequence[int | torch.SymInt]) \u2013 The shape of the output tensor. This can be a list of integers or SymInt values. version (int | None) \u2013 The version of the opset used for the operator. metadata_props (dict[str, str] | None) \u2013 Metadata properties for the ONNX node. This is a dictionary of str-str pairs. Returns The output tensor of the operator. Return type torch.Tensor torch.onnx.ops.symbolic_multi_out(domain_op, /, inputs, attrs=None, *, dtypes, shapes, version=None, metadata_props=None)[source]# Create a symbolic FX operator to represent an arbitrary ONNX operator with multiple outputs. You may use if torch.onnx.is_in_onnx_export() to conditionally enable the symbolic logic only during torch.onnx.export(). Example: class CustomOp(torch.nn.Module): def forward(self, x: torch.Tensor) -\u003e torch.Tensor: # Normal torch operators can interleave with the symbolic ops during ONNX export x = x + 1 # Create a symbolic ONNX operator with the name \"CustomOp\" in the \"custom_domain\" domain. # The output tensors will have the specified dtypes and shapes (out1, out2) = torch.onnx.ops.symbolic_multi_out( \"custom_domain::CustomOp\", (x,), dict(attr_key=\"attr_value\"), dtypes=(x.dtype, torch.float32), shapes=(x.shape, [1, 2, 3]), version=1, ) # The result of the symbolic op can be used in normal torch operations during ONNX export return torch.nn.functional.relu(out1 + out2) # You may then export this model to ONNX using torch.onnx.export(..., dynamo=True). Parameters domain_op (str) \u2013 The domain and operator name, separated by \u201c::\u201d. For example, \u201ccustom_domain::CustomOp\u201d. inputs (Sequence[torch.Tensor | None]) \u2013 The input tensors to the operator. attrs (dict[str, int | float | str | bool | Sequence[int] | Sequence[float] | Sequence[str] | Sequence[bool]] | None) \u2013 The attributes of the operator. The keys are attribute names and the values are attribute values. Valid attribute types are int, float, str, bool, and lists of int, float, str, and bool. Tensor attributes are unsupported. dtypes (Sequence[torch.dtype | int]) \u2013 The data types of the output tensors. This can be a list of torch.dtype or integers representing the ONNX data types. The length of this list must be the number of outputs. shapes (Sequence[Sequence[int | torch.SymInt]]) \u2013 The shapes of the output tensors. This can be a list of lists of integers or SymInt values. The length of this list must be the number of outputs. version (int | None) \u2013 The version of the opset used for the operator. metadata_props (dict[str, str] | None) \u2013 Metadata properties for the ONNX node. This is a dictionary of str-str pairs. Returns A list of output tensors of the operator. Return type Sequence[torch.Tensor] ONNX Operators# The following operators are implemented as native PyTorch ops and can be exported as ONNX operators. They can be used natively in an nn.Module. For example, you can define a module: class Model(torch.nn.Module): def forward( self, input_data, cos_cache_data, sin_cache_data, position_ids_data ): return torch.onnx.ops.rotary_embedding( input_data, cos_cache_data, sin_cache_data, position_ids_data, ) and export it to ONNX using: input_data = torch.rand(2, 3, 4, 8) position_ids_data = torch.randint(0, 50, (2, 3)).long() sin_cache_data = torch.rand(50, 4) cos_cache_data = torch.rand(50, 4) dynamic_shapes = { \"input_data\": {0: torch.export.Dim.DYNAMIC}, \"cos_cache_data\": None, \"sin_cache_data\": None, \"position_ids_data\": {0: torch.export.Dim.DYNAMIC}, } onnx_program = torch.onnx.export( model, (input_data, cos_cache_data, sin_cache_data, position_ids_data), dynamic_shapes=dynamic_shapes, dynamo=True, opset_version=23, ) Printing the ONNX program will show the ONNX operators used in the graph: \u003c...\u003e graph( name=main_graph, inputs=( %\"input_data\"\u003cFLOAT,[s0,3,4,8]\u003e, %\"cos_cache_data\"\u003cFLOAT,[50,4]\u003e, %\"sin_cache_data\"\u003cFLOAT,[50,4]\u003e, %\"position_ids_data\"\u003cINT64,[s0,3]\u003e ), outputs=( %\"rotary_embedding\"\u003cFLOAT,[s0,3,4,8]\u003e ), ) { 0 | # rotary_embedding %\"rotary_embedding\"\u003cFLOAT,[s0,3,4,8]\u003e \u2b05\ufe0f ::RotaryEmbedding(%\"input_data\", %\"cos_cache_data\", %\"sin_cache_data\", %\"position_ids_data\") return %\"rotary_embedding\"\u003cFLOAT,[s0,3,4,8]\u003e } with the corresponding ExportedProgram: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, input_data: \"f32[s0, 3, 4, 8]\", cos_cache_data: \"f32[50, 4]\", sin_cache_data: \"f32[50, 4]\", position_ids_data: \"i64[s0, 3]\"): rotary_embedding: \"f32[s0, 3, 4, 8]\" = torch.ops.onnx.RotaryEmbedding.opset23(input_data, cos_cache_data, sin_cache_data, position_ids_data); input_data = cos_cache_data = sin_cache_data = position_ids_data = None return (rotary_embedding,) torch.onnx.ops.rotary_embedding(X, cos_cache, sin_cache, position_ids=None, *, interleaved=False, num_heads=0, rotary_embedding_dim=0)[source]# RotaryEmbedding op in ONNX. https://onnx.ai/onnx/operators/onnx__RotaryEmbedding.html RotaryEmbedding is the implementation of rotary positional embeddings (RoPE) based on the paper https://arxiv.org/pdf/2104.09864. The key advantage of RoPE is that it allows the model to understand both the absolute position of a token and the relative distances between tokens. This is achieved through a rotational mechanism where the extent of rotation is computed based on the token\u2019s absolute position (position_ids). The rotational mechanism is defined by sine and cosine functions that are used to represent the rotation angles. For each token in the sequence, its positional embedding is computed by rotating its embedding vector. This is done by splitting the embedding vector either into two halves or interleaving every alternate token and applying the rotation matrix to each half of the embedding vector. The rotation matrix is parameterized by the token\u2019s position in the sequence. The rotated halves of the embedding vector are concatenated to form the final positional embedding for each token. The rotated positional embeddings are used in the self-attention mechanism. The rotation ensures that the model captures both absolute and relative positional information. Parameters X (Tensor) \u2013 The input tensor representing the token embeddings. 4D tensor with shape (batch_size, num_heads, sequence_length, head_size) or 3D tensor with shape (batch_size, sequence_length, hidden_size). For cases with a 4D input tensor, head_size has to be even. For cases with a 3D input tensor, num_heads attribute must be provided and hidden_size must be an even multiple of num_heads where hidden_size = num_heads * head_size cos_cache (Tensor) \u2013 The cosine values for the rotation. 2D tensor with shape (max_position_id_plus_1, head_size / 2) for full rotation or (max_position_id_plus_1, rotary_embedding_dim / 2) for partial rotation when position_ids are provided. 3D tensor with shape (batch_size, sequence_length, head_size / 2) for full rotation or (batch_size, sequence_length, rotary_embedding_dim / 2) for partial rotation when position_ids are not provided. max_position_id_plus_1 is a parameter to the model. sin_cache (Tensor) \u2013 The sine values for the rotation. 2D tensor with shape (max_position_id_plus_1, head_size / 2) for full rotation or (max_position_id_plus_1, rotary_embedding_dim / 2) for partial rotation when position_ids are provided. 3D tensor with shape (batch_size, sequence_length, head_size / 2) for full rotation or (batch_size, sequence_length, rotary_embedding_dim / 2) for partial rotation when position_ids are not provided. max_position_id_plus_1 is a parameter to the model. position_ids (Optional[Tensor]) \u2013 The position indices for the tokens. 2D tensor with shape (batch_size, sequence_length). interleaved (bool) \u2013 Rotate using interleaved pattern. Default value is 0 (False). num_heads (int) \u2013 Number of attention heads. Must be provided when input is a 3D tensor. rotary_embedding_dim (int) \u2013 Rotary embedding dimension used to apply partial rotary embeddings. Returns Tensor with same shape as input. Return type Tensor torch.onnx.ops.attention(Q, K, V, attn_mask=None, past_key=None, past_value=None, *, is_causal=False, kv_num_heads=0, q_num_heads=0, qk_matmul_output_mode=0, scale=None, softcap=0.0, softmax_precision=None)[source]# Attention op in ONNX. https://onnx.ai/onnx/operators/onnx__Attention.html Computes scaled dot product attention on query, key and value tensors, using an optional attention mask if passed. This operator covers self and cross variants of the attention operation based on sequence lengths of K, Q and V. For self attention, kv_sequence_length equals to q_sequence_length. For cross attention, query and key might have different lengths. This operator also covers the 3 following variants based on the number of heads: Multi-headed Attention (MHA): Described in the paper https://arxiv.org/pdf/1706.03762, q_num_heads = kv_num_heads. Group-query Attention (GQA): Described in the paper https://arxiv.org/pdf/2305.13245, q_num_heads \u003e kv_num_heads, q_num_heads % kv_num_heads == 0. Multi-query Attention (MQA): Described in the paper https://arxiv.org/pdf/1911.02150, q_num_heads \u003e kv_num_heads, kv_num_heads=1. Attention bias to be added is calculated based on attn_mask input and is_causal` `attribute, only one of which can be provided. If is_causal is set to 1, the attention masking is a lower triangular matrix when the mask is a square matrix. The attention masking has the form of the upper left causal bias due to the alignment. attn_mask: A boolean mask where a value of True indicates that the element should take part in attention or a float mask of the same type as query, key, value that is added to the attention score. Both past and present state key/values are optional. They shall be used together, and not allowed to use only one of them. The following pattern is applied to the Q, K and V inputs after appropriate reshaping of K and V inputs based on sequence lengths and num heads provided: The following pattern is applied by this operator: Q K V | | | Q*sqrt(scale) K*sqrt(scale) | | | | | Transpose | | | | ---MatMul--- | | | at_mask---Add | | | softcap (if provided) | | | Softmax | | | -----MatMul------ | Y Parameters Q (Tensor) \u2013 Query tensor. 4D tensor with shape (batch_size, q_num_heads, q_sequence_length, head_size) or 3D tensor with shape (batch_size, q_sequence_length, q_hidden_size). For cases with a 3D input tensor, q_hidden_size = q_num_heads * head_size K (Tensor) \u2013 Key tensor. 4D tensor with shape (batch_size, kv_num_heads, kv_sequence_length, head_size) or 3D tensor with shape (batch_size, kv_sequence_length, k_hidden_size). For cases with a 3D input tensor, k_hidden_size = kv_num_heads * head_size V (Tensor) \u2013 Value tensor. 4D tensor with shape (batch_size, kv_num_heads, kv_sequence_length, v_head_size) or 3D tensor with shape (batch_size, kv_sequence_length, v_hidden_size). For cases with a 3D input tensor, v_hidden_size = kv_num_heads * v_head_size attn_mask (Optional[Tensor]) \u2013 Attention mask. Shape must be broadcastable to 4D tensor with shape (batch_size, q_num_heads, q_sequence_length, total_sequence_length) where total_sequence_length = past_sequence_length + kv_sequence_length. Two types of masks are supported. A boolean mask where a value of True indicates that the element should take part in attention. Also supports a float mask of the same type as query, key, value that is added to the attention score. past_key (Optional[Tensor]) \u2013 Past state cache for key with shape (batch_size, kv_num_heads, past_sequence_length, head_size) past_value (Optional[Tensor]) \u2013 Past state cache for value with shape (batch_size, kv_num_heads, past_sequence_length, v_head_size) is_causal (bool) \u2013 If set to True, the attention masking is a lower triangular matrix when the mask is a square matrix. The attention masking has the form of the upper left causal bias due to the alignment. kv_num_heads (int) \u2013 Number of heads of key and value. Must be used with 3D inputs of Q, K and V. q_num_heads (int) \u2013 Number of heads of query. Must be used with 3D inputs of Q, K and V. qk_matmul_output_mode (int) \u2013 If set to 0, qk_matmul_output is the output of qk matmul. If set to 1, qk_matmul_output includes the addition of the attention mask to the output of qk matmul. If set to 2, qk_matmul_output is the output after the softcap operation. If set to 3, qk_matmul_output is the output after the softmax operation. Default value is 0. scale (Optional[float]) \u2013 Scaling factor applied to Q*K^T. Default value is 1/sqrt(head_size). To prevent numerical overflow, scale Q, K by sqrt(scale) before matmul. softcap (float) \u2013 Softcap value for attention weights. Default value is 0. softmax_precision (Optional[int]) \u2013 The floating-point precision used in softmax computation. If softmax precision is not provided, the same precision as the input of softmax (Q and K) is used. Returns The output tensor. 4D tensor with shape (batch_size, q_num_heads, q_sequence_length, v_head_size) or 3D tensor with shape (batch_size, q_sequence_length, hidden_size). For cases with a 3D input tensor, hidden_size = q_num_heads * v_head_size Updated key cache with shape (batch_size, kv_num_heads, total_sequence_length, head_size) where total_sequence_length = past_sequence_length + kv_sequence_length. Updated value cache with shape (batch_size, kv_num_heads, total_sequence_length, v_head_size) where total_sequence_length = past_sequence_length + kv_sequence_length. The output of QK matmul. 4D tensor with shape (batch_size, q_num_heads, q_sequence_length, total_sequence_length) where total_sequence_length = past_sequence_length + kv_sequence_length. Return type A tuple containing ONNX to ATen Decomposition Table# You can use torch.onnx.ops.aten_decompositions() to obtain a decomposition table to decompose ONNX operators defined above to ATen operators. class Model(torch.nn.Module): def forward( self, input_data, cos_cache_data, sin_cache_data, position_ids_data ): return torch.onnx.ops.rotary_embedding( input_data, cos_cache_data, sin_cache_data, position_ids_data, ) model = Model() ep = torch.export.export( model, (input_data, cos_cache_data, sin_cache_data, position_ids_data), ) # The program can be decomposed into aten ops ep_decomposed = ep.run_decompositions(torch.onnx.ops.aten_decompositions()) torch.onnx.ops.aten_decompositions()[source]# Return the ONNX to ATen decomp table. Return type dict[torch._ops.OpOverload, Callable]",
+       "articleBody": "torch.onnx.ops# Created On: Jun 10, 2025 | Last Updated On: Jun 20, 2025 ONNX operators as native torch.fx operators. This module provides a set of functions to create ONNX operators in the FX graph which are exportable to ONNX. Symbolic Operators# Operators that can be used to create any ONNX ops in the FX graph symbolically. These operators do not do actual computation. It\u2019s recommended that you used them inside an if torch.onnx.is_in_onnx_export block. torch.onnx.ops.symbolic(domain_op, /, inputs, attrs=None, *, dtype, shape, version=None, metadata_props=None)[source]# Create a symbolic FX operator to represent an arbitrary ONNX operator. This function is used to create a symbolic operator with a single output. To create an operator with multiple outputs, use symbolic_multi_out(). You may use if torch.onnx.is_in_onnx_export() to conditionally enable the symbolic logic only during torch.onnx.export(). Example: class CustomOp(torch.nn.Module): def forward(self, x: torch.Tensor) -\u003e torch.Tensor: # Normal torch operators can interleave with the symbolic ops during ONNX export x = x + 1 # Create a symbolic ONNX operator with the name \"CustomOp\" in the \"custom_domain\" domain. # The output tensor will have the specified dtype and shape val = torch.onnx.ops.symbolic( \"custom_domain::CustomOp\", (x,), dict(attr_key=\"attr_value\"), dtype=x.dtype, shape=x.shape, version=1, ) # The result of the symbolic op can be used in normal torch operations during ONNX export return torch.nn.functional.relu(val) # You may then export this model to ONNX using torch.onnx.export(..., dynamo=True). Parameters: domain_op (str) \u2013 The domain and operator name, separated by \u201c::\u201d. For example, \u201ccustom_domain::CustomOp\u201d. inputs (Sequence[torch.Tensor | None]) \u2013 The input tensors to the operator. attrs (dict[str, int | float | str | bool | Sequence[int] | Sequence[float] | Sequence[str] | Sequence[bool]] | None) \u2013 The attributes of the operator. The keys are attribute names and the values are attribute values. Valid attribute types are int, float, str, bool, and lists of int, float, str, and bool. Tensor attributes are unsupported. dtype (torch.dtype | int) \u2013 The data type of the output tensor.This can be either a torch.dtype or an integer representing the ONNX data type. shape (Sequence[int | torch.SymInt]) \u2013 The shape of the output tensor. This can be a list of integers or SymInt values. version (int | None) \u2013 The version of the opset used for the operator. metadata_props (dict[str, str] | None) \u2013 Metadata properties for the ONNX node. This is a dictionary of str-str pairs. Returns: The output tensor of the operator. Return type: torch.Tensor torch.onnx.ops.symbolic_multi_out(domain_op, /, inputs, attrs=None, *, dtypes, shapes, version=None, metadata_props=None)[source]# Create a symbolic FX operator to represent an arbitrary ONNX operator with multiple outputs. You may use if torch.onnx.is_in_onnx_export() to conditionally enable the symbolic logic only during torch.onnx.export(). Example: class CustomOp(torch.nn.Module): def forward(self, x: torch.Tensor) -\u003e torch.Tensor: # Normal torch operators can interleave with the symbolic ops during ONNX export x = x + 1 # Create a symbolic ONNX operator with the name \"CustomOp\" in the \"custom_domain\" domain. # The output tensors will have the specified dtypes and shapes (out1, out2) = torch.onnx.ops.symbolic_multi_out( \"custom_domain::CustomOp\", (x,), dict(attr_key=\"attr_value\"), dtypes=(x.dtype, torch.float32), shapes=(x.shape, [1, 2, 3]), version=1, ) # The result of the symbolic op can be used in normal torch operations during ONNX export return torch.nn.functional.relu(out1 + out2) # You may then export this model to ONNX using torch.onnx.export(..., dynamo=True). Parameters: domain_op (str) \u2013 The domain and operator name, separated by \u201c::\u201d. For example, \u201ccustom_domain::CustomOp\u201d. inputs (Sequence[torch.Tensor | None]) \u2013 The input tensors to the operator. attrs (dict[str, int | float | str | bool | Sequence[int] | Sequence[float] | Sequence[str] | Sequence[bool]] | None) \u2013 The attributes of the operator. The keys are attribute names and the values are attribute values. Valid attribute types are int, float, str, bool, and lists of int, float, str, and bool. Tensor attributes are unsupported. dtypes (Sequence[torch.dtype | int]) \u2013 The data types of the output tensors. This can be a list of torch.dtype or integers representing the ONNX data types. The length of this list must be the number of outputs. shapes (Sequence[Sequence[int | torch.SymInt]]) \u2013 The shapes of the output tensors. This can be a list of lists of integers or SymInt values. The length of this list must be the number of outputs. version (int | None) \u2013 The version of the opset used for the operator. metadata_props (dict[str, str] | None) \u2013 Metadata properties for the ONNX node. This is a dictionary of str-str pairs. Returns: A list of output tensors of the operator. Return type: Sequence[torch.Tensor] ONNX Operators# The following operators are implemented as native PyTorch ops and can be exported as ONNX operators. They can be used natively in an nn.Module. For example, you can define a module: class Model(torch.nn.Module): def forward( self, input_data, cos_cache_data, sin_cache_data, position_ids_data ): return torch.onnx.ops.rotary_embedding( input_data, cos_cache_data, sin_cache_data, position_ids_data, ) and export it to ONNX using: input_data = torch.rand(2, 3, 4, 8) position_ids_data = torch.randint(0, 50, (2, 3)).long() sin_cache_data = torch.rand(50, 4) cos_cache_data = torch.rand(50, 4) dynamic_shapes = { \"input_data\": {0: torch.export.Dim.DYNAMIC}, \"cos_cache_data\": None, \"sin_cache_data\": None, \"position_ids_data\": {0: torch.export.Dim.DYNAMIC}, } onnx_program = torch.onnx.export( model, (input_data, cos_cache_data, sin_cache_data, position_ids_data), dynamic_shapes=dynamic_shapes, dynamo=True, opset_version=23, ) Printing the ONNX program will show the ONNX operators used in the graph: \u003c...\u003e graph( name=main_graph, inputs=( %\"input_data\"\u003cFLOAT,[s0,3,4,8]\u003e, %\"cos_cache_data\"\u003cFLOAT,[50,4]\u003e, %\"sin_cache_data\"\u003cFLOAT,[50,4]\u003e, %\"position_ids_data\"\u003cINT64,[s0,3]\u003e ), outputs=( %\"rotary_embedding\"\u003cFLOAT,[s0,3,4,8]\u003e ), ) { 0 | # rotary_embedding %\"rotary_embedding\"\u003cFLOAT,[s0,3,4,8]\u003e \u2b05\ufe0f ::RotaryEmbedding(%\"input_data\", %\"cos_cache_data\", %\"sin_cache_data\", %\"position_ids_data\") return %\"rotary_embedding\"\u003cFLOAT,[s0,3,4,8]\u003e } with the corresponding ExportedProgram: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, input_data: \"f32[s0, 3, 4, 8]\", cos_cache_data: \"f32[50, 4]\", sin_cache_data: \"f32[50, 4]\", position_ids_data: \"i64[s0, 3]\"): rotary_embedding: \"f32[s0, 3, 4, 8]\" = torch.ops.onnx.RotaryEmbedding.opset23(input_data, cos_cache_data, sin_cache_data, position_ids_data); input_data = cos_cache_data = sin_cache_data = position_ids_data = None return (rotary_embedding,) torch.onnx.ops.rotary_embedding(X, cos_cache, sin_cache, position_ids=None, *, interleaved=False, num_heads=0, rotary_embedding_dim=0)[source]# RotaryEmbedding op in ONNX. https://onnx.ai/onnx/operators/onnx__RotaryEmbedding.html RotaryEmbedding is the implementation of rotary positional embeddings (RoPE) based on the paper https://arxiv.org/pdf/2104.09864. The key advantage of RoPE is that it allows the model to understand both the absolute position of a token and the relative distances between tokens. This is achieved through a rotational mechanism where the extent of rotation is computed based on the token\u2019s absolute position (position_ids). The rotational mechanism is defined by sine and cosine functions that are used to represent the rotation angles. For each token in the sequence, its positional embedding is computed by rotating its embedding vector. This is done by splitting the embedding vector either into two halves or interleaving every alternate token and applying the rotation matrix to each half of the embedding vector. The rotation matrix is parameterized by the token\u2019s position in the sequence. The rotated halves of the embedding vector are concatenated to form the final positional embedding for each token. The rotated positional embeddings are used in the self-attention mechanism. The rotation ensures that the model captures both absolute and relative positional information. Parameters: X (Tensor) \u2013 The input tensor representing the token embeddings. 4D tensor with shape (batch_size, num_heads, sequence_length, head_size) or 3D tensor with shape (batch_size, sequence_length, hidden_size). For cases with a 4D input tensor, head_size has to be even. For cases with a 3D input tensor, num_heads attribute must be provided and hidden_size must be an even multiple of num_heads where hidden_size = num_heads * head_size cos_cache (Tensor) \u2013 The cosine values for the rotation. 2D tensor with shape (max_position_id_plus_1, head_size / 2) for full rotation or (max_position_id_plus_1, rotary_embedding_dim / 2) for partial rotation when position_ids are provided. 3D tensor with shape (batch_size, sequence_length, head_size / 2) for full rotation or (batch_size, sequence_length, rotary_embedding_dim / 2) for partial rotation when position_ids are not provided. max_position_id_plus_1 is a parameter to the model. sin_cache (Tensor) \u2013 The sine values for the rotation. 2D tensor with shape (max_position_id_plus_1, head_size / 2) for full rotation or (max_position_id_plus_1, rotary_embedding_dim / 2) for partial rotation when position_ids are provided. 3D tensor with shape (batch_size, sequence_length, head_size / 2) for full rotation or (batch_size, sequence_length, rotary_embedding_dim / 2) for partial rotation when position_ids are not provided. max_position_id_plus_1 is a parameter to the model. position_ids (Tensor | None) \u2013 The position indices for the tokens. 2D tensor with shape (batch_size, sequence_length). interleaved (bool) \u2013 Rotate using interleaved pattern. Default value is 0 (False). num_heads (int) \u2013 Number of attention heads. Must be provided when input is a 3D tensor. rotary_embedding_dim (int) \u2013 Rotary embedding dimension used to apply partial rotary embeddings. Returns: Tensor with same shape as input. Return type: Tensor torch.onnx.ops.attention(Q, K, V, attn_mask=None, past_key=None, past_value=None, *, is_causal=False, kv_num_heads=0, q_num_heads=0, qk_matmul_output_mode=0, scale=None, softcap=0.0, softmax_precision=None)[source]# Attention op in ONNX. https://onnx.ai/onnx/operators/onnx__Attention.html Computes scaled dot product attention on query, key and value tensors, using an optional attention mask if passed. This operator covers self and cross variants of the attention operation based on sequence lengths of K, Q and V. For self attention, kv_sequence_length equals to q_sequence_length. For cross attention, query and key might have different lengths. This operator also covers the 3 following variants based on the number of heads: Multi-headed Attention (MHA): Described in the paper https://arxiv.org/pdf/1706.03762, q_num_heads = kv_num_heads. Group-query Attention (GQA): Described in the paper https://arxiv.org/pdf/2305.13245, q_num_heads \u003e kv_num_heads, q_num_heads % kv_num_heads == 0. Multi-query Attention (MQA): Described in the paper https://arxiv.org/pdf/1911.02150, q_num_heads \u003e kv_num_heads, kv_num_heads=1. Attention bias to be added is calculated based on attn_mask input and is_causal` `attribute, only one of which can be provided. If is_causal is set to 1, the attention masking is a lower triangular matrix when the mask is a square matrix. The attention masking has the form of the upper left causal bias due to the alignment. attn_mask: A boolean mask where a value of True indicates that the element should take part in attention or a float mask of the same type as query, key, value that is added to the attention score. Both past and present state key/values are optional. They shall be used together, and not allowed to use only one of them. The following pattern is applied to the Q, K and V inputs after appropriate reshaping of K and V inputs based on sequence lengths and num heads provided: The following pattern is applied by this operator: Q K V | | | Q*sqrt(scale) K*sqrt(scale) | | | | | Transpose | | | | ---MatMul--- | | | at_mask---Add | | | softcap (if provided) | | | Softmax | | | -----MatMul------ | Y Parameters: Q (Tensor) \u2013 Query tensor. 4D tensor with shape (batch_size, q_num_heads, q_sequence_length, head_size) or 3D tensor with shape (batch_size, q_sequence_length, q_hidden_size). For cases with a 3D input tensor, q_hidden_size = q_num_heads * head_size K (Tensor) \u2013 Key tensor. 4D tensor with shape (batch_size, kv_num_heads, kv_sequence_length, head_size) or 3D tensor with shape (batch_size, kv_sequence_length, k_hidden_size). For cases with a 3D input tensor, k_hidden_size = kv_num_heads * head_size V (Tensor) \u2013 Value tensor. 4D tensor with shape (batch_size, kv_num_heads, kv_sequence_length, v_head_size) or 3D tensor with shape (batch_size, kv_sequence_length, v_hidden_size). For cases with a 3D input tensor, v_hidden_size = kv_num_heads * v_head_size attn_mask (Tensor | None) \u2013 Attention mask. Shape must be broadcastable to 4D tensor with shape (batch_size, q_num_heads, q_sequence_length, total_sequence_length) where total_sequence_length = past_sequence_length + kv_sequence_length. Two types of masks are supported. A boolean mask where a value of True indicates that the element should take part in attention. Also supports a float mask of the same type as query, key, value that is added to the attention score. past_key (Tensor | None) \u2013 Past state cache for key with shape (batch_size, kv_num_heads, past_sequence_length, head_size) past_value (Tensor | None) \u2013 Past state cache for value with shape (batch_size, kv_num_heads, past_sequence_length, v_head_size) is_causal (bool) \u2013 If set to True, the attention masking is a lower triangular matrix when the mask is a square matrix. The attention masking has the form of the upper left causal bias due to the alignment. kv_num_heads (int) \u2013 Number of heads of key and value. Must be used with 3D inputs of Q, K and V. q_num_heads (int) \u2013 Number of heads of query. Must be used with 3D inputs of Q, K and V. qk_matmul_output_mode (int) \u2013 If set to 0, qk_matmul_output is the output of qk matmul. If set to 1, qk_matmul_output includes the addition of the attention mask to the output of qk matmul. If set to 2, qk_matmul_output is the output after the softcap operation. If set to 3, qk_matmul_output is the output after the softmax operation. Default value is 0. scale (float | None) \u2013 Scaling factor applied to Q*K^T. Default value is 1/sqrt(head_size). To prevent numerical overflow, scale Q, K by sqrt(scale) before matmul. softcap (float) \u2013 Softcap value for attention weights. Default value is 0. softmax_precision (int | None) \u2013 The floating-point precision used in softmax computation. If softmax precision is not provided, the same precision as the input of softmax (Q and K) is used. Returns: The output tensor. 4D tensor with shape (batch_size, q_num_heads, q_sequence_length, v_head_size) or 3D tensor with shape (batch_size, q_sequence_length, hidden_size). For cases with a 3D input tensor, hidden_size = q_num_heads * v_head_size Updated key cache with shape (batch_size, kv_num_heads, total_sequence_length, head_size) where total_sequence_length = past_sequence_length + kv_sequence_length. Updated value cache with shape (batch_size, kv_num_heads, total_sequence_length, v_head_size) where total_sequence_length = past_sequence_length + kv_sequence_length. The output of QK matmul. 4D tensor with shape (batch_size, q_num_heads, q_sequence_length, total_sequence_length) where total_sequence_length = past_sequence_length + kv_sequence_length. Return type: A tuple containing ONNX to ATen Decomposition Table# You can use torch.onnx.ops.aten_decompositions() to obtain a decomposition table to decompose ONNX operators defined above to ATen operators. class Model(torch.nn.Module): def forward( self, input_data, cos_cache_data, sin_cache_data, position_ids_data ): return torch.onnx.ops.rotary_embedding( input_data, cos_cache_data, sin_cache_data, position_ids_data, ) model = Model() ep = torch.export.export( model, (input_data, cos_cache_data, sin_cache_data, position_ids_data), ) # The program can be decomposed into aten ops ep_decomposed = ep.run_decompositions(torch.onnx.ops.aten_decompositions()) torch.onnx.ops.aten_decompositions()[source]# Return the ONNX to ATen decomp table. Return type: dict[torch._ops.OpOverload, Callable]",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/onnx_ops.html"

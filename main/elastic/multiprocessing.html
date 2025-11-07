@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Multiprocessing &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=940804e7"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'elastic/multiprocessing';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../_static/js/runllm-widget.js"></script>
+    <script src="../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/elastic/multiprocessing.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="../_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4488,6 +4487,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4495,8 +4495,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="module-torch.distributed.elastic.multiprocessing">
-<span id="multiprocessing"></span><h1>Multiprocessing<a class="headerlink" href="#module-torch.distributed.elastic.multiprocessing" title="Permalink to this heading">#</a></h1>
+  <section id="module-torch.distributed.elastic.multiprocessing">
+<span id="multiprocessing"></span><h1>Multiprocessing<a class="headerlink" href="#module-torch.distributed.elastic.multiprocessing" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 04, 2021 | Last Updated On: Feb 29, 2024</p>
 <p>Library that launches and manages <code class="docutils literal notranslate"><span class="pre">n</span></code> copies of worker subprocesses either specified by a function or a binary.</p>
 <p>For functions, it uses <code class="docutils literal notranslate"><span class="pre">torch.multiprocessing</span></code> (and therefore python
@@ -4545,11 +4545,11 @@ document.write(`
 was launched, a <a class="reference internal" href="#torch.distributed.elastic.multiprocessing.api.MultiprocessContext" title="torch.distributed.elastic.multiprocessing.api.MultiprocessContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">api.MultiprocessContext</span></code></a> is returned and if a binary
 was launched a <a class="reference internal" href="#torch.distributed.elastic.multiprocessing.api.SubprocessContext" title="torch.distributed.elastic.multiprocessing.api.SubprocessContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">api.SubprocessContext</span></code></a> is returned. Both are specific
 implementations of the parent <a class="reference internal" href="#torch.distributed.elastic.multiprocessing.api.PContext" title="torch.distributed.elastic.multiprocessing.api.PContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">api.PContext</span></code></a> class.</p>
-<div class="section" id="starting-multiple-workers">
-<h2>Starting Multiple Workers<a class="headerlink" href="#starting-multiple-workers" title="Permalink to this heading">#</a></h2>
+<section id="starting-multiple-workers">
+<h2>Starting Multiple Workers<a class="headerlink" href="#starting-multiple-workers" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.multiprocessing.start_processes">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.</span></span><span class="sig-name descname"><span class="pre">start_processes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_line_prefixes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spawn'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stdout_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stderr_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/multiprocessing/__init__.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.start_processes" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.</span></span><span class="sig-name descname"><span class="pre">start_processes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_line_prefixes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spawn'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stdout_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stderr_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/multiprocessing/__init__.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.start_processes" title="Link to this definition">#</a></dt>
 <dd><p>Start <code class="docutils literal notranslate"><span class="pre">n</span></code> copies of <code class="docutils literal notranslate"><span class="pre">entrypoint</span></code> processes with the provided options.</p>
 <p><code class="docutils literal notranslate"><span class="pre">entrypoint</span></code> is either a <code class="docutils literal notranslate"><span class="pre">Callable</span></code> (function) or a <code class="docutils literal notranslate"><span class="pre">str</span></code> (binary).
 The number of copies is determined by the number of entries for <code class="docutils literal notranslate"><span class="pre">args</span></code> and
@@ -4633,11 +4633,11 @@ To avoid worker stdout/stderr from printing to console, use the <code class="doc
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – a human readable short name that describes what the processes are
 (used as header when tee’ing stdout/stderr outputs)</p></li>
-<li><p><strong>entrypoint</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.14)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – either a <code class="docutils literal notranslate"><span class="pre">Callable</span></code> (function) or <code class="docutils literal notranslate"><span class="pre">cmd</span></code> (binary)</p></li>
+<li><p><strong>entrypoint</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – either a <code class="docutils literal notranslate"><span class="pre">Callable</span></code> (function) or <code class="docutils literal notranslate"><span class="pre">cmd</span></code> (binary)</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>]</em>) – arguments to each replica</p></li>
 <li><p><strong>envs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>]</em>) – env vars to each replica</p></li>
 <li><p><strong>log_dir</strong> – directory used to write log files</p></li>
@@ -4648,22 +4648,22 @@ inside <code class="docutils literal notranslate"><span class="pre">logs_specs</
 - redirects: which std streams to redirect to a log file
 - tee: which std streams to redirect + print to console</p></li>
 <li><p><strong>local_ranks_filter</strong> – which ranks’ logs to print to console</p></li>
-<li><p><strong>duplicate_stdout_filters</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>]</em>) – filters for the duplicated stdout logs</p></li>
-<li><p><strong>duplicate_stderr_filters</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>]</em>) – filters for the duplicated stderr logs</p></li>
+<li><p><strong>duplicate_stdout_filters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – filters for the duplicated stdout logs</p></li>
+<li><p><strong>duplicate_stderr_filters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – filters for the duplicated stderr logs</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#torch.distributed.elastic.multiprocessing.api.PContext" title="torch.distributed.elastic.multiprocessing.api.PContext"><em>PContext</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="process-context">
-<h2>Process Context<a class="headerlink" href="#process-context" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="process-context">
+<h2>Process Context<a class="headerlink" href="#process-context" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.multiprocessing.api.PContext">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.api.</span></span><span class="sig-name descname"><span class="pre">PContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_line_prefixes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stdout_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stderr_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/multiprocessing/api.py#L444"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.PContext" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.api.</span></span><span class="sig-name descname"><span class="pre">PContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_line_prefixes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stdout_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stderr_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/multiprocessing/api.py#L444"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.PContext" title="Link to this definition">#</a></dt>
 <dd><p>The base class that standardizes operations over a set of processes that are launched via different mechanisms.</p>
 <p>The name <code class="docutils literal notranslate"><span class="pre">PContext</span></code> is intentional to disambiguate with <code class="docutils literal notranslate"><span class="pre">torch.multiprocessing.ProcessContext</span></code>.</p>
 <div class="admonition warning">
@@ -4673,12 +4673,12 @@ tee_stdouts and tee_stderrs (respectively) this is b/c
 tee is implemented as a redirect + tail -f &lt;stdout/stderr.log&gt;</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>duplicate_stdout_filters</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>]</em>) – If non-empty, duplicates stdouts specified in <code class="docutils literal notranslate"><span class="pre">logs_specs</span></code>’s <code class="docutils literal notranslate"><span class="pre">tee</span></code>
+<li><p><strong>duplicate_stdout_filters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – If non-empty, duplicates stdouts specified in <code class="docutils literal notranslate"><span class="pre">logs_specs</span></code>’s <code class="docutils literal notranslate"><span class="pre">tee</span></code>
 to a file containing only lines that match _any_ of the filter strings.
 The log file is aggregated across all ranks selected by <code class="docutils literal notranslate"><span class="pre">tee</span></code>.</p></li>
-<li><p><strong>duplicate_stderr_filters</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>]</em>) – If non-empty, duplicates stderrs specified in <code class="docutils literal notranslate"><span class="pre">logs_specs</span></code>’s <code class="docutils literal notranslate"><span class="pre">tee</span></code>
+<li><p><strong>duplicate_stderr_filters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – If non-empty, duplicates stderrs specified in <code class="docutils literal notranslate"><span class="pre">logs_specs</span></code>’s <code class="docutils literal notranslate"><span class="pre">tee</span></code>
 to a file containing only lines that match _any_ of the filter strings.
 The log file is aggregated across all ranks selected by <code class="docutils literal notranslate"><span class="pre">tee</span></code>.</p></li>
 </ul>
@@ -4688,7 +4688,7 @@ The log file is aggregated across all ranks selected by <code class="docutils li
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.multiprocessing.api.MultiprocessContext">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.api.</span></span><span class="sig-name descname"><span class="pre">MultiprocessContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_line_prefixes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stdout_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stderr_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/multiprocessing/api.py#L703"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.MultiprocessContext" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.api.</span></span><span class="sig-name descname"><span class="pre">MultiprocessContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_line_prefixes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stdout_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stderr_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/multiprocessing/api.py#L703"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.MultiprocessContext" title="Link to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">PContext</span></code> holding worker processes invoked as a function.</p>
 <dl class="field-list simple">
 </dl>
@@ -4696,7 +4696,7 @@ The log file is aggregated across all ranks selected by <code class="docutils li
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.multiprocessing.api.SubprocessContext">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.api.</span></span><span class="sig-name descname"><span class="pre">SubprocessContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_line_prefixes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stdout_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stderr_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/multiprocessing/api.py#L893"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.SubprocessContext" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.api.</span></span><span class="sig-name descname"><span class="pre">SubprocessContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_line_prefixes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numa_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stdout_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_stderr_filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/multiprocessing/api.py#L893"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.SubprocessContext" title="Link to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">PContext</span></code> holding worker processes invoked as a binary.</p>
 <dl class="field-list simple">
 </dl>
@@ -4704,7 +4704,7 @@ The log file is aggregated across all ranks selected by <code class="docutils li
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.multiprocessing.api.RunProcsResult">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.api.</span></span><span class="sig-name descname"><span class="pre">RunProcsResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">return_values=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failures=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdouts=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderrs=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/multiprocessing/api.py#L421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.RunProcsResult" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.api.</span></span><span class="sig-name descname"><span class="pre">RunProcsResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">return_values=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failures=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdouts=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderrs=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/multiprocessing/api.py#L421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.RunProcsResult" title="Link to this definition">#</a></dt>
 <dd><p>Results of a completed run of processes started with <code class="docutils literal notranslate"><span class="pre">start_processes()</span></code>. Returned by <code class="docutils literal notranslate"><span class="pre">PContext</span></code>.</p>
 <p>Note the following:</p>
 <ol class="arabic simple">
@@ -4719,7 +4719,7 @@ The log file is aggregated across all ranks selected by <code class="docutils li
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.api.</span></span><span class="sig-name descname"><span class="pre">DefaultLogsSpecs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redirects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Std.NONE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tee</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Std.NONE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_ranks_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/multiprocessing/api.py#L247"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.api.</span></span><span class="sig-name descname"><span class="pre">DefaultLogsSpecs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redirects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Std.NONE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tee</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Std.NONE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_ranks_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/multiprocessing/api.py#L247"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs" title="Link to this definition">#</a></dt>
 <dd><p>Default LogsSpecs implementation:</p>
 <ul class="simple">
 <li><p><cite>log_dir</cite> will be created if it doesn’t exist</p></li>
@@ -4729,7 +4729,7 @@ The log file is aggregated across all ranks selected by <code class="docutils li
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs.reify">
-<span class="sig-name descname"><span class="pre">reify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/multiprocessing/api.py#L285"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs.reify" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/multiprocessing/api.py#L285"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs.reify" title="Link to this definition">#</a></dt>
 <dd><p>Uses following scheme to build log destination paths:</p>
 <ul class="simple">
 <li><p><cite>&lt;log_dir&gt;/&lt;rdzv_run_id&gt;/attempt_&lt;attempt&gt;/&lt;rank&gt;/stdout.log</cite></p></li>
@@ -4739,7 +4739,7 @@ The log file is aggregated across all ranks selected by <code class="docutils li
 <li><p><cite>&lt;log_dir&gt;/&lt;rdzv_run_id&gt;/attempt_&lt;attempt&gt;/filtered_stderr.log</cite></p></li>
 </ul>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#torch.distributed.elastic.multiprocessing.api.LogsDest" title="torch.distributed.elastic.multiprocessing.api.LogsDest"><em>LogsDest</em></a></p>
 </dd>
 </dl>
@@ -4749,7 +4749,7 @@ The log file is aggregated across all ranks selected by <code class="docutils li
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.multiprocessing.api.LogsDest">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.api.</span></span><span class="sig-name descname"><span class="pre">LogsDest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stdouts=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderrs=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tee_stdouts=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tee_stderrs=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_files=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filtered_stdout=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filtered_stderr=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/multiprocessing/api.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.LogsDest" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.api.</span></span><span class="sig-name descname"><span class="pre">LogsDest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stdouts=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderrs=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tee_stdouts=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tee_stderrs=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_files=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filtered_stdout=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filtered_stderr=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/multiprocessing/api.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.LogsDest" title="Link to this definition">#</a></dt>
 <dd><p>For each log type, holds mapping of local rank ids to file paths.</p>
 <dl class="field-list simple">
 </dl>
@@ -4757,16 +4757,16 @@ The log file is aggregated across all ranks selected by <code class="docutils li
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.multiprocessing.api.LogsSpecs">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.api.</span></span><span class="sig-name descname"><span class="pre">LogsSpecs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redirects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Std.NONE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tee</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Std.NONE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_ranks_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/multiprocessing/api.py#L200"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.LogsSpecs" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.multiprocessing.api.</span></span><span class="sig-name descname"><span class="pre">LogsSpecs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redirects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Std.NONE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tee</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Std.NONE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_ranks_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/multiprocessing/api.py#L200"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.LogsSpecs" title="Link to this definition">#</a></dt>
 <dd><p>Defines logs processing and redirection for each worker process.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>log_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – Base directory where logs will be written.</p></li>
-<li><p><strong>redirects</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.14)"><em>Union</em></a><em>[</em><em>Std</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>torch.distributed.elastic.multiprocessing.api.Std</em><em>]</em><em>]</em>) – Streams to redirect to files. Pass a single <code class="docutils literal notranslate"><span class="pre">Std</span></code>
+<li><p><strong>log_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><em>None</em>) – Base directory where logs will be written.</p></li>
+<li><p><strong>redirects</strong> (<em>Std</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>Std</em><em>]</em>) – Streams to redirect to files. Pass a single <code class="docutils literal notranslate"><span class="pre">Std</span></code>
 enum to redirect for all workers, or a mapping keyed
 by local_rank to selectively redirect.</p></li>
-<li><p><strong>tee</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.14)"><em>Union</em></a><em>[</em><em>Std</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>torch.distributed.elastic.multiprocessing.api.Std</em><em>]</em><em>]</em>) – Streams to duplicate to stdout/stderr.
+<li><p><strong>tee</strong> (<em>Std</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>Std</em><em>]</em>) – Streams to duplicate to stdout/stderr.
 Pass a single <code class="docutils literal notranslate"><span class="pre">Std</span></code> enum to duplicate streams for all workers,
 or a mapping keyed by local_rank to selectively duplicate.</p></li>
 </ul>
@@ -4774,12 +4774,12 @@ or a mapping keyed by local_rank to selectively duplicate.</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.multiprocessing.api.LogsSpecs.reify">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/multiprocessing/api.py#L229"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.LogsSpecs.reify" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/multiprocessing/api.py#L229"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.multiprocessing.api.LogsSpecs.reify" title="Link to this definition">#</a></dt>
 <dd><p>Given the environment variables, builds destination of log files for each of the local ranks.</p>
 <p>Envs parameter contains env variables dict for each of the local ranks, where entries are defined in:
 <code class="xref py py-func docutils literal notranslate"><span class="pre">_start_workers()</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#torch.distributed.elastic.multiprocessing.api.LogsDest" title="torch.distributed.elastic.multiprocessing.api.LogsDest"><em>LogsDest</em></a></p>
 </dd>
 </dl>
@@ -4787,8 +4787,8 @@ or a mapping keyed by local_rank to selectively duplicate.</p></li>
 
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -4854,11 +4854,6 @@ or a mapping keyed by local_rank to selectively duplicate.</p></li>
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -5001,7 +4996,9 @@ or a mapping keyed by local_rank to selectively duplicate.</p></li>
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -5025,10 +5022,13 @@ or a mapping keyed by local_rank to selectively duplicate.</p></li>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -5051,7 +5051,6 @@ or a mapping keyed by local_rank to selectively duplicate.</p></li>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -5101,10 +5100,10 @@ or a mapping keyed by local_rank to selectively duplicate.</p></li>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5145,7 +5144,7 @@ or a mapping keyed by local_rank to selectively duplicate.</p></li>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -5174,13 +5173,13 @@ or a mapping keyed by local_rank to selectively duplicate.</p></li>
        "headline": "Multiprocessing",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/elastic/multiprocessing.html",
-       "articleBody": "Multiprocessing# Created On: May 04, 2021 | Last Updated On: Feb 29, 2024 Library that launches and manages n copies of worker subprocesses either specified by a function or a binary. For functions, it uses torch.multiprocessing (and therefore python multiprocessing) to spawn/fork worker processes. For binaries it uses python subprocessing.Popen to create worker processes. Usage 1: Launching two trainers as a function from torch.distributed.elastic.multiprocessing import Std, start_processes def trainer(a, b, c): pass # train # runs two trainers # LOCAL_RANK=0 trainer(1,2,3) # LOCAL_RANK=1 trainer(4,5,6) ctx = start_processes( name=\"trainer\", entrypoint=trainer, args={0: (1, 2, 3), 1: (4, 5, 6)}, envs={0: {\"LOCAL_RANK\": 0}, 1: {\"LOCAL_RANK\": 1}}, log_dir=\"/tmp/foobar\", redirects=Std.ALL, # write all worker stdout/stderr to a log file tee={0: Std.ERR}, # tee only local rank 0\u0027s stderr to console ) # waits for all copies of trainer to finish ctx.wait() Usage 2: Launching 2 echo workers as a binary # same as invoking # echo hello # echo world \u003e stdout.log ctx = start_processes( name=\"echo\" entrypoint=\"echo\", log_dir=\"/tmp/foobar\", args={0: \"hello\", 1: \"world\"}, redirects={1: Std.OUT}, ) Just like torch.multiprocessing, the return value of the function start_processes() is a process context (api.PContext). If a function was launched, a api.MultiprocessContext is returned and if a binary was launched a api.SubprocessContext is returned. Both are specific implementations of the parent api.PContext class. Starting Multiple Workers# torch.distributed.elastic.multiprocessing.start_processes(name, entrypoint, args, envs, logs_specs, log_line_prefixes=None, start_method=\u0027spawn\u0027, numa_options=None, duplicate_stdout_filters=None, duplicate_stderr_filters=None)[source]# Start n copies of entrypoint processes with the provided options. entrypoint is either a Callable (function) or a str (binary). The number of copies is determined by the number of entries for args and envs arguments, which need to have the same key set. args and env parameters are the arguments and environment variables to pass down to the entrypoint mapped by the replica index (local rank). All local ranks must be accounted for. That is, the keyset should be {0,1,...,(nprocs-1)}. Note When the entrypoint is a binary (str), args can only be strings. If any other type is given, then it is casted to a string representation (e.g. str(arg1)). Furthermore, a binary failure will only write an error.json error file if the main function is annotated with torch.distributed.elastic.multiprocessing.errors.record. For function launches, this is done by default and there is no need to manually annotate with the @record annotation. Inside logs_specs, redirects and tee are bitmasks specifying which std stream(s) to redirect to a log file in the log_dir. Valid mask values are defined in Std. To redirect/tee only certain local ranks, pass redirects as a map with the key as the local rank to specify the redirect behavior for. Any missing local ranks will default to Std.NONE. duplicate_stdout_filters and duplicate_stderr_filters, if non-empty, duplicate stdouts and stderrs respectively specified in logs_specs\u2019s tee to a file containing only lines that match _any_ of the filter strings. The log file is aggregated across all ranks selected by tee. tee acts like the unix \u201ctee\u201d command in that it redirects + prints to console. To avoid worker stdout/stderr from printing to console, use the redirects parameter. For each process, the log_dir will contain: {local_rank}/error.json: if the process failed, a file with the error info {local_rank}/stdout.log: if redirect \u0026 STDOUT == STDOUT {local_rank}/stderr.log: if redirect \u0026 STDERR == STDERR filtered_stdout.log: if duplicate_stdout_filters is non-empty filtered_stderr.log: if duplicate_stderr_filters is non-empty Note It is expected that the log_dir exists, is empty, and is a directory. Example: log_dir = \"/tmp/test\" # ok; two copies of foo: foo(\"bar0\"), foo(\"bar1\") start_processes( name=\"trainer\", entrypoint=foo, args:{0:(\"bar0\",), 1:(\"bar1\",), envs:{0:{}, 1:{}}, log_dir=log_dir ) # invalid; envs missing for local rank 1 start_processes( name=\"trainer\", entrypoint=foo, args:{0:(\"bar0\",), 1:(\"bar1\",), envs:{0:{}}, log_dir=log_dir ) # ok; two copies of /usr/bin/touch: touch file1, touch file2 start_processes( name=\"trainer\", entrypoint=\"/usr/bin/touch\", args:{0:(\"file1\",), 1:(\"file2\",), envs:{0:{}, 1:{}}, log_dir=log_dir ) # caution; arguments casted to string, runs: # echo \"1\" \"2\" \"3\" and echo \"[1, 2, 3]\" start_processes( name=\"trainer\", entrypoint=\"/usr/bin/echo\", args:{0:(1,2,3), 1:([1,2,3],), envs:{0:{}, 1:{}}, log_dir=log_dir ) Parameters name (str) \u2013 a human readable short name that describes what the processes are (used as header when tee\u2019ing stdout/stderr outputs) entrypoint (Union[Callable, str]) \u2013 either a Callable (function) or cmd (binary) args (dict[int, tuple]) \u2013 arguments to each replica envs (dict[int, dict[str, str]]) \u2013 env vars to each replica log_dir \u2013 directory used to write log files start_method (str) \u2013 multiprocessing start method (spawn, fork, forkserver) ignored for binaries logs_specs (LogsSpecs) \u2013 defines log_dir, redirects, and tee. inside logs_specs: - redirects: which std streams to redirect to a log file - tee: which std streams to redirect + print to console local_ranks_filter \u2013 which ranks\u2019 logs to print to console duplicate_stdout_filters (Optional[list[str]]) \u2013 filters for the duplicated stdout logs duplicate_stderr_filters (Optional[list[str]]) \u2013 filters for the duplicated stderr logs Return type PContext Process Context# class torch.distributed.elastic.multiprocessing.api.PContext(name, entrypoint, args, envs, logs_specs, log_line_prefixes=None, duplicate_stdout_filters=None, duplicate_stderr_filters=None)[source]# The base class that standardizes operations over a set of processes that are launched via different mechanisms. The name PContext is intentional to disambiguate with torch.multiprocessing.ProcessContext. Warning stdouts and stderrs should ALWAYS be a superset of tee_stdouts and tee_stderrs (respectively) this is b/c tee is implemented as a redirect + tail -f \u003cstdout/stderr.log\u003e Parameters duplicate_stdout_filters (Optional[list[str]]) \u2013 If non-empty, duplicates stdouts specified in logs_specs\u2019s tee to a file containing only lines that match _any_ of the filter strings. The log file is aggregated across all ranks selected by tee. duplicate_stderr_filters (Optional[list[str]]) \u2013 If non-empty, duplicates stderrs specified in logs_specs\u2019s tee to a file containing only lines that match _any_ of the filter strings. The log file is aggregated across all ranks selected by tee. class torch.distributed.elastic.multiprocessing.api.MultiprocessContext(name, entrypoint, args, envs, start_method, logs_specs, log_line_prefixes=None, numa_options=None, duplicate_stdout_filters=None, duplicate_stderr_filters=None)[source]# PContext holding worker processes invoked as a function. class torch.distributed.elastic.multiprocessing.api.SubprocessContext(name, entrypoint, args, envs, logs_specs, log_line_prefixes=None, numa_options=None, duplicate_stdout_filters=None, duplicate_stderr_filters=None)[source]# PContext holding worker processes invoked as a binary. class torch.distributed.elastic.multiprocessing.api.RunProcsResult(return_values=\u003cfactory\u003e, failures=\u003cfactory\u003e, stdouts=\u003cfactory\u003e, stderrs=\u003cfactory\u003e)[source]# Results of a completed run of processes started with start_processes(). Returned by PContext. Note the following: All fields are mapped by local rank return_values - only populated for functions (not the binaries). stdouts - path to stdout.log (empty string if no redirect) stderrs - path to stderr.log (empty string if no redirect) class torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs(log_dir=None, redirects=Std.NONE, tee=Std.NONE, local_ranks_filter=None)[source]# Default LogsSpecs implementation: log_dir will be created if it doesn\u2019t exist Generates nested folders for each attempt and rank. reify(envs)[source]# Uses following scheme to build log destination paths: \u003clog_dir\u003e/\u003crdzv_run_id\u003e/attempt_\u003cattempt\u003e/\u003crank\u003e/stdout.log \u003clog_dir\u003e/\u003crdzv_run_id\u003e/attempt_\u003cattempt\u003e/\u003crank\u003e/stderr.log \u003clog_dir\u003e/\u003crdzv_run_id\u003e/attempt_\u003cattempt\u003e/\u003crank\u003e/error.json \u003clog_dir\u003e/\u003crdzv_run_id\u003e/attempt_\u003cattempt\u003e/filtered_stdout.log \u003clog_dir\u003e/\u003crdzv_run_id\u003e/attempt_\u003cattempt\u003e/filtered_stderr.log Return type LogsDest class torch.distributed.elastic.multiprocessing.api.LogsDest(stdouts=\u003cfactory\u003e, stderrs=\u003cfactory\u003e, tee_stdouts=\u003cfactory\u003e, tee_stderrs=\u003cfactory\u003e, error_files=\u003cfactory\u003e, filtered_stdout=\u003cfactory\u003e, filtered_stderr=\u003cfactory\u003e)[source]# For each log type, holds mapping of local rank ids to file paths. class torch.distributed.elastic.multiprocessing.api.LogsSpecs(log_dir=None, redirects=Std.NONE, tee=Std.NONE, local_ranks_filter=None)[source]# Defines logs processing and redirection for each worker process. Parameters log_dir (Optional[str]) \u2013 Base directory where logs will be written. redirects (Union[Std, dict[int, torch.distributed.elastic.multiprocessing.api.Std]]) \u2013 Streams to redirect to files. Pass a single Std enum to redirect for all workers, or a mapping keyed by local_rank to selectively redirect. tee (Union[Std, dict[int, torch.distributed.elastic.multiprocessing.api.Std]]) \u2013 Streams to duplicate to stdout/stderr. Pass a single Std enum to duplicate streams for all workers, or a mapping keyed by local_rank to selectively duplicate. abstract reify(envs)[source]# Given the environment variables, builds destination of log files for each of the local ranks. Envs parameter contains env variables dict for each of the local ranks, where entries are defined in: _start_workers(). Return type LogsDest",
+       "articleBody": "Multiprocessing# Created On: May 04, 2021 | Last Updated On: Feb 29, 2024 Library that launches and manages n copies of worker subprocesses either specified by a function or a binary. For functions, it uses torch.multiprocessing (and therefore python multiprocessing) to spawn/fork worker processes. For binaries it uses python subprocessing.Popen to create worker processes. Usage 1: Launching two trainers as a function from torch.distributed.elastic.multiprocessing import Std, start_processes def trainer(a, b, c): pass # train # runs two trainers # LOCAL_RANK=0 trainer(1,2,3) # LOCAL_RANK=1 trainer(4,5,6) ctx = start_processes( name=\"trainer\", entrypoint=trainer, args={0: (1, 2, 3), 1: (4, 5, 6)}, envs={0: {\"LOCAL_RANK\": 0}, 1: {\"LOCAL_RANK\": 1}}, log_dir=\"/tmp/foobar\", redirects=Std.ALL, # write all worker stdout/stderr to a log file tee={0: Std.ERR}, # tee only local rank 0\u0027s stderr to console ) # waits for all copies of trainer to finish ctx.wait() Usage 2: Launching 2 echo workers as a binary # same as invoking # echo hello # echo world \u003e stdout.log ctx = start_processes( name=\"echo\" entrypoint=\"echo\", log_dir=\"/tmp/foobar\", args={0: \"hello\", 1: \"world\"}, redirects={1: Std.OUT}, ) Just like torch.multiprocessing, the return value of the function start_processes() is a process context (api.PContext). If a function was launched, a api.MultiprocessContext is returned and if a binary was launched a api.SubprocessContext is returned. Both are specific implementations of the parent api.PContext class. Starting Multiple Workers# torch.distributed.elastic.multiprocessing.start_processes(name, entrypoint, args, envs, logs_specs, log_line_prefixes=None, start_method=\u0027spawn\u0027, numa_options=None, duplicate_stdout_filters=None, duplicate_stderr_filters=None)[source]# Start n copies of entrypoint processes with the provided options. entrypoint is either a Callable (function) or a str (binary). The number of copies is determined by the number of entries for args and envs arguments, which need to have the same key set. args and env parameters are the arguments and environment variables to pass down to the entrypoint mapped by the replica index (local rank). All local ranks must be accounted for. That is, the keyset should be {0,1,...,(nprocs-1)}. Note When the entrypoint is a binary (str), args can only be strings. If any other type is given, then it is casted to a string representation (e.g. str(arg1)). Furthermore, a binary failure will only write an error.json error file if the main function is annotated with torch.distributed.elastic.multiprocessing.errors.record. For function launches, this is done by default and there is no need to manually annotate with the @record annotation. Inside logs_specs, redirects and tee are bitmasks specifying which std stream(s) to redirect to a log file in the log_dir. Valid mask values are defined in Std. To redirect/tee only certain local ranks, pass redirects as a map with the key as the local rank to specify the redirect behavior for. Any missing local ranks will default to Std.NONE. duplicate_stdout_filters and duplicate_stderr_filters, if non-empty, duplicate stdouts and stderrs respectively specified in logs_specs\u2019s tee to a file containing only lines that match _any_ of the filter strings. The log file is aggregated across all ranks selected by tee. tee acts like the unix \u201ctee\u201d command in that it redirects + prints to console. To avoid worker stdout/stderr from printing to console, use the redirects parameter. For each process, the log_dir will contain: {local_rank}/error.json: if the process failed, a file with the error info {local_rank}/stdout.log: if redirect \u0026 STDOUT == STDOUT {local_rank}/stderr.log: if redirect \u0026 STDERR == STDERR filtered_stdout.log: if duplicate_stdout_filters is non-empty filtered_stderr.log: if duplicate_stderr_filters is non-empty Note It is expected that the log_dir exists, is empty, and is a directory. Example: log_dir = \"/tmp/test\" # ok; two copies of foo: foo(\"bar0\"), foo(\"bar1\") start_processes( name=\"trainer\", entrypoint=foo, args:{0:(\"bar0\",), 1:(\"bar1\",), envs:{0:{}, 1:{}}, log_dir=log_dir ) # invalid; envs missing for local rank 1 start_processes( name=\"trainer\", entrypoint=foo, args:{0:(\"bar0\",), 1:(\"bar1\",), envs:{0:{}}, log_dir=log_dir ) # ok; two copies of /usr/bin/touch: touch file1, touch file2 start_processes( name=\"trainer\", entrypoint=\"/usr/bin/touch\", args:{0:(\"file1\",), 1:(\"file2\",), envs:{0:{}, 1:{}}, log_dir=log_dir ) # caution; arguments casted to string, runs: # echo \"1\" \"2\" \"3\" and echo \"[1, 2, 3]\" start_processes( name=\"trainer\", entrypoint=\"/usr/bin/echo\", args:{0:(1,2,3), 1:([1,2,3],), envs:{0:{}, 1:{}}, log_dir=log_dir ) Parameters: name (str) \u2013 a human readable short name that describes what the processes are (used as header when tee\u2019ing stdout/stderr outputs) entrypoint (Callable | str) \u2013 either a Callable (function) or cmd (binary) args (dict[int, tuple]) \u2013 arguments to each replica envs (dict[int, dict[str, str]]) \u2013 env vars to each replica log_dir \u2013 directory used to write log files start_method (str) \u2013 multiprocessing start method (spawn, fork, forkserver) ignored for binaries logs_specs (LogsSpecs) \u2013 defines log_dir, redirects, and tee. inside logs_specs: - redirects: which std streams to redirect to a log file - tee: which std streams to redirect + print to console local_ranks_filter \u2013 which ranks\u2019 logs to print to console duplicate_stdout_filters (list[str] | None) \u2013 filters for the duplicated stdout logs duplicate_stderr_filters (list[str] | None) \u2013 filters for the duplicated stderr logs Return type: PContext Process Context# class torch.distributed.elastic.multiprocessing.api.PContext(name, entrypoint, args, envs, logs_specs, log_line_prefixes=None, duplicate_stdout_filters=None, duplicate_stderr_filters=None)[source]# The base class that standardizes operations over a set of processes that are launched via different mechanisms. The name PContext is intentional to disambiguate with torch.multiprocessing.ProcessContext. Warning stdouts and stderrs should ALWAYS be a superset of tee_stdouts and tee_stderrs (respectively) this is b/c tee is implemented as a redirect + tail -f \u003cstdout/stderr.log\u003e Parameters: duplicate_stdout_filters (list[str] | None) \u2013 If non-empty, duplicates stdouts specified in logs_specs\u2019s tee to a file containing only lines that match _any_ of the filter strings. The log file is aggregated across all ranks selected by tee. duplicate_stderr_filters (list[str] | None) \u2013 If non-empty, duplicates stderrs specified in logs_specs\u2019s tee to a file containing only lines that match _any_ of the filter strings. The log file is aggregated across all ranks selected by tee. class torch.distributed.elastic.multiprocessing.api.MultiprocessContext(name, entrypoint, args, envs, start_method, logs_specs, log_line_prefixes=None, numa_options=None, duplicate_stdout_filters=None, duplicate_stderr_filters=None)[source]# PContext holding worker processes invoked as a function. class torch.distributed.elastic.multiprocessing.api.SubprocessContext(name, entrypoint, args, envs, logs_specs, log_line_prefixes=None, numa_options=None, duplicate_stdout_filters=None, duplicate_stderr_filters=None)[source]# PContext holding worker processes invoked as a binary. class torch.distributed.elastic.multiprocessing.api.RunProcsResult(return_values=\u003cfactory\u003e, failures=\u003cfactory\u003e, stdouts=\u003cfactory\u003e, stderrs=\u003cfactory\u003e)[source]# Results of a completed run of processes started with start_processes(). Returned by PContext. Note the following: All fields are mapped by local rank return_values - only populated for functions (not the binaries). stdouts - path to stdout.log (empty string if no redirect) stderrs - path to stderr.log (empty string if no redirect) class torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs(log_dir=None, redirects=Std.NONE, tee=Std.NONE, local_ranks_filter=None)[source]# Default LogsSpecs implementation: log_dir will be created if it doesn\u2019t exist Generates nested folders for each attempt and rank. reify(envs)[source]# Uses following scheme to build log destination paths: \u003clog_dir\u003e/\u003crdzv_run_id\u003e/attempt_\u003cattempt\u003e/\u003crank\u003e/stdout.log \u003clog_dir\u003e/\u003crdzv_run_id\u003e/attempt_\u003cattempt\u003e/\u003crank\u003e/stderr.log \u003clog_dir\u003e/\u003crdzv_run_id\u003e/attempt_\u003cattempt\u003e/\u003crank\u003e/error.json \u003clog_dir\u003e/\u003crdzv_run_id\u003e/attempt_\u003cattempt\u003e/filtered_stdout.log \u003clog_dir\u003e/\u003crdzv_run_id\u003e/attempt_\u003cattempt\u003e/filtered_stderr.log Return type: LogsDest class torch.distributed.elastic.multiprocessing.api.LogsDest(stdouts=\u003cfactory\u003e, stderrs=\u003cfactory\u003e, tee_stdouts=\u003cfactory\u003e, tee_stderrs=\u003cfactory\u003e, error_files=\u003cfactory\u003e, filtered_stdout=\u003cfactory\u003e, filtered_stderr=\u003cfactory\u003e)[source]# For each log type, holds mapping of local rank ids to file paths. class torch.distributed.elastic.multiprocessing.api.LogsSpecs(log_dir=None, redirects=Std.NONE, tee=Std.NONE, local_ranks_filter=None)[source]# Defines logs processing and redirection for each worker process. Parameters: log_dir (str | None) \u2013 Base directory where logs will be written. redirects (Std | dict[int, Std]) \u2013 Streams to redirect to files. Pass a single Std enum to redirect for all workers, or a mapping keyed by local_rank to selectively redirect. tee (Std | dict[int, Std]) \u2013 Streams to duplicate to stdout/stderr. Pass a single Std enum to duplicate streams for all workers, or a mapping keyed by local_rank to selectively duplicate. abstract reify(envs)[source]# Given the environment variables, builds destination of log files for each of the local ranks. Envs parameter contains env variables dict for each of the local ranks, where entries are defined in: _start_workers(). Return type: LogsDest",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "../_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/elastic/multiprocessing.html"

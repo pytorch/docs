@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Numerical accuracy &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=940804e7"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notes/numerical_accuracy';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../_static/js/runllm-widget.js"></script>
+    <script src="../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="../_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1693,6 +1692,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -1700,8 +1700,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="numerical-accuracy">
-<span id="id1"></span><h1>Numerical accuracy<a class="headerlink" href="#numerical-accuracy" title="Permalink to this heading">#</a></h1>
+  <section id="numerical-accuracy">
+<span id="id1"></span><h1>Numerical accuracy<a class="headerlink" href="#numerical-accuracy" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 13, 2021 | Last Updated On: Jul 16, 2025</p>
 <p>In modern computers, floating point numbers are represented using IEEE 754 standard.
 For more details on floating point arithmetic and IEEE 754 standard, please see
@@ -1716,8 +1716,8 @@ mathematically identical. Similarly, bitwise identical results are not guarantee
 PyTorch releases, individual commits, or different platforms. In particular, CPU and GPU
 results can be different even for bitwise-identical inputs and even after controlling for
 the sources of randomness.</p>
-<div class="section" id="batched-computations-or-slice-computations">
-<h2>Batched computations or slice computations<a class="headerlink" href="#batched-computations-or-slice-computations" title="Permalink to this heading">#</a></h2>
+<section id="batched-computations-or-slice-computations">
+<h2>Batched computations or slice computations<a class="headerlink" href="#batched-computations-or-slice-computations" title="Link to this heading">#</a></h2>
 <p>Many operations in PyTorch support batched computation, where the same operation is performed
 for the elements of the batches of inputs. An example of this is <a class="reference internal" href="../generated/torch.mm.html#torch.mm" title="torch.mm"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.mm()</span></code></a> and
 <a class="reference internal" href="../generated/torch.bmm.html#torch.bmm" title="torch.bmm"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.bmm()</span></code></a>. It is possible to implement batched computation as a loop over batch elements,
@@ -1733,9 +1733,9 @@ even though mathematically it’s an identical computation.</p>
 identical to the slice of the result of the same operation applied to the full tensor. E.g. let
 <code class="docutils literal notranslate"><span class="pre">A</span></code> be a 2-dimensional tensor. <code class="docutils literal notranslate"><span class="pre">A.sum(-1)[0]</span></code> is not guaranteed to be bitwise equal to
 <code class="docutils literal notranslate"><span class="pre">A[:,0].sum()</span></code>.</p>
-</div>
-<div class="section" id="extremal-values">
-<h2>Extremal values<a class="headerlink" href="#extremal-values" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="extremal-values">
+<h2>Extremal values<a class="headerlink" href="#extremal-values" title="Link to this heading">#</a></h2>
 <p>When inputs contain large values such that intermediate results may overflow the range of the
 used datatype, the end result may overflow too, even though it is representable in the original
 datatype. E.g.:</p>
@@ -1745,18 +1745,18 @@ datatype. E.g.:</p>
 <span class="n">a</span><span class="o">.</span><span class="n">double</span><span class="p">()</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span> <span class="c1"># produces tensor(1.4142e+20, dtype=torch.float64), representable in fp32</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="linear-algebra-torch-linalg">
-<span id="linear-algebra-stability"></span><h2>Linear algebra (<code class="docutils literal notranslate"><span class="pre">torch.linalg</span></code>)<a class="headerlink" href="#linear-algebra-torch-linalg" title="Permalink to this heading">#</a></h2>
-<div class="section" id="non-finite-values">
-<h3>Non-finite values<a class="headerlink" href="#non-finite-values" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="linear-algebra-torch-linalg">
+<span id="linear-algebra-stability"></span><h2>Linear algebra (<code class="docutils literal notranslate"><span class="pre">torch.linalg</span></code>)<a class="headerlink" href="#linear-algebra-torch-linalg" title="Link to this heading">#</a></h2>
+<section id="non-finite-values">
+<h3>Non-finite values<a class="headerlink" href="#non-finite-values" title="Link to this heading">#</a></h3>
 <p>The external libraries (backends) that <code class="docutils literal notranslate"><span class="pre">torch.linalg</span></code> uses provide no guarantees on their behaviour
 when the inputs have non-finite values like <code class="docutils literal notranslate"><span class="pre">inf</span></code> or <code class="docutils literal notranslate"><span class="pre">NaN</span></code>. As such, neither does PyTorch.
 The operations may return a tensor with non-finite values, or raise an exception, or even segfault.</p>
 <p>Consider using <a class="reference internal" href="../generated/torch.isfinite.html#torch.isfinite" title="torch.isfinite"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.isfinite()</span></code></a> before calling these functions to detect this situation.</p>
-</div>
-<div class="section" id="extremal-values-in-linalg">
-<h3>Extremal values in linalg<a class="headerlink" href="#extremal-values-in-linalg" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="extremal-values-in-linalg">
+<h3>Extremal values in linalg<a class="headerlink" href="#extremal-values-in-linalg" title="Link to this heading">#</a></h3>
 <p>Functions within <code class="docutils literal notranslate"><span class="pre">torch.linalg</span></code> have more <a class="reference internal" href="#extremal-values">Extremal Values</a> than other PyTorch functions.</p>
 <p><a class="reference internal" href="../linalg.html#linalg-solvers"><span class="std std-ref">Solvers</span></a> and <a class="reference internal" href="../linalg.html#linalg-inverses"><span class="std std-ref">Inverses</span></a> assume that the input matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> is invertible. If it is close to
 being non-invertible (for example, if it has a very small singular value), then these algorithms may silently return
@@ -1769,10 +1769,10 @@ struggle to converge for these inputs.</p>
 <p>Running the computation in <code class="docutils literal notranslate"><span class="pre">float64</span></code> (as NumPy does by default) often helps, but it does not solve these issues in all cases.
 Analyzing the spectrum of the inputs via <a class="reference internal" href="../generated/torch.linalg.svdvals.html#torch.linalg.svdvals" title="torch.linalg.svdvals"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.linalg.svdvals()</span></code></a> or their condition number via <a class="reference internal" href="../generated/torch.linalg.cond.html#torch.linalg.cond" title="torch.linalg.cond"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.linalg.cond()</span></code></a>
 may help to detect these issues.</p>
-</div>
-</div>
-<div class="section" id="tensorfloat-32-tf32-on-nvidia-ampere-and-later-devices">
-<h2>TensorFloat-32(TF32) on Nvidia Ampere (and later) devices<a class="headerlink" href="#tensorfloat-32-tf32-on-nvidia-ampere-and-later-devices" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="tensorfloat-32-tf32-on-nvidia-ampere-and-later-devices">
+<h2>TensorFloat-32(TF32) on Nvidia Ampere (and later) devices<a class="headerlink" href="#tensorfloat-32-tf32-on-nvidia-ampere-and-later-devices" title="Link to this heading">#</a></h2>
 <p>On Ampere (and later) Nvidia GPUs, PyTorch can use TensorFloat32 (TF32) to speed up mathematically intensive operations, in particular matrix multiplications and convolutions.
 When an operation is performed using TF32 tensor cores, only the first 10 bits of the input mantissa are read.
 This may reduce accuracy and produce surprising results (e.g., multiplying a matrix by the identity matrix may produce results that are different from the input).
@@ -1780,9 +1780,9 @@ By default, TF32 tensor cores are disabled for matrix multiplications and enable
 We recommend enabling TF32 tensor cores for matrix multiplications with <code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.matmul.fp32_precision</span> <span class="pre">=</span> <span class="pre">&quot;tf32&quot;</span></code> (<code class="docutils literal notranslate"><span class="pre">`torch.backends.cuda.matmul.allow_tf32</span> <span class="pre">=</span> <span class="pre">True</span></code> is going to be deprecated) if your network does not need full float32 precision.
 If your network needs full float32 precision for both matrix multiplications and convolutions, then TF32 tensor cores can also be disabled for convolutions with <code class="docutils literal notranslate"><span class="pre">torch.backends.cudnn.conv.fp32_precision</span> <span class="pre">=</span> <span class="pre">&quot;ieee&quot;</span></code> (<code class="docutils literal notranslate"><span class="pre">torch.backends.cudnn.allow_tf32</span> <span class="pre">=</span> <span class="pre">False</span></code> is going to be deprecated).</p>
 <p>For more information see <a class="reference internal" href="cuda.html#tf32-on-ampere"><span class="std std-ref">TensorFloat32</span></a>.</p>
-</div>
-<div class="section" id="reduced-precision-reduction-for-fp16-and-bf16-gemms">
-<h2>Reduced Precision Reduction for FP16 and BF16 GEMMs<a class="headerlink" href="#reduced-precision-reduction-for-fp16-and-bf16-gemms" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="reduced-precision-reduction-for-fp16-and-bf16-gemms">
+<h2>Reduced Precision Reduction for FP16 and BF16 GEMMs<a class="headerlink" href="#reduced-precision-reduction-for-fp16-and-bf16-gemms" title="Link to this heading">#</a></h2>
 <p>Half-precision GEMM operations are typically done with intermediate accumulations (reduction) in single-precision for numerical accuracy and improved resilience to overflow. For performance, certain GPU architectures, especially more recent ones, allow a few truncations of the intermediate accumulation results to the reduced precision (e.g., half-precision). This change is often benign from the perspective of model convergence, though it may lead to unexpected results (e.g., <code class="docutils literal notranslate"><span class="pre">inf</span></code> values when the final result should be be representable in half-precision).
 If reduced-precision reductions are problematic, they can be turned off with
 <code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction</span> <span class="pre">=</span> <span class="pre">False</span></code></p>
@@ -1790,24 +1790,19 @@ If reduced-precision reductions are problematic, they can be turned off with
 reduced-precision reductions are problematic, they can be turned off with
 <code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction</span> <span class="pre">=</span> <span class="pre">False</span></code></p>
 <p>For more information see <a class="reference internal" href="cuda.html#fp16reducedprecision"><span class="std std-ref">allow_fp16_reduced_precision_reduction</span></a> and <a class="reference internal" href="cuda.html#bf16reducedprecision"><span class="std std-ref">allow_bf16_reduced_precision_reduction</span></a></p>
-</div>
-<div class="section" id="reduced-precision-reduction-for-fp16-and-bf16-in-scaled-dot-product-attention-sdpa">
-<h2>Reduced Precision Reduction for FP16 and BF16 in Scaled Dot Product Attention (SDPA)<a class="headerlink" href="#reduced-precision-reduction-for-fp16-and-bf16-in-scaled-dot-product-attention-sdpa" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="reduced-precision-reduction-for-fp16-and-bf16-in-scaled-dot-product-attention-sdpa">
+<h2>Reduced Precision Reduction for FP16 and BF16 in Scaled Dot Product Attention (SDPA)<a class="headerlink" href="#reduced-precision-reduction-for-fp16-and-bf16-in-scaled-dot-product-attention-sdpa" title="Link to this heading">#</a></h2>
 <p>A naive SDPA math backend, when using FP16/BF16 inputs, can accumulate significant numerical errors due to the usage of low-precision intermediate buffers. To mitigate this issue, the default behavior now involves upcasting FP16/BF16 inputs to FP32. Computations are performed in FP32/TF32, and the final FP32 results are then downcasted back to FP16/BF16. This will improve numerical accuracy of the final output for the math backend with FP16/BF16 inputs, but increases memory usages and may cause the performance regressions in the math backend as computations shift from FP16/BF16 BMM to FP32/TF32 BMM/Matmul.</p>
 <p>For scenarios where reduced-precision reductions are preferred for speed, they can be enabled with the following setting:
 <code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp(True)</span></code></p>
-</div>
-<div class="section" id="reduced-precision-fp16-and-bf16-gemms-and-convolutions-on-amd-instinct-mi200-devices">
-<span id="fp16-on-mi200"></span><h2>Reduced Precision FP16 and BF16 GEMMs and Convolutions on AMD Instinct MI200 devices<a class="headerlink" href="#reduced-precision-fp16-and-bf16-gemms-and-convolutions-on-amd-instinct-mi200-devices" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="reduced-precision-fp16-and-bf16-gemms-and-convolutions-on-amd-instinct-mi200-devices">
+<span id="fp16-on-mi200"></span><h2>Reduced Precision FP16 and BF16 GEMMs and Convolutions on AMD Instinct MI200 devices<a class="headerlink" href="#reduced-precision-fp16-and-bf16-gemms-and-convolutions-on-amd-instinct-mi200-devices" title="Link to this heading">#</a></h2>
 <p>On AMD Instinct MI200 GPUs, the FP16 and BF16 V_DOT2 and MFMA matrix instructions flush input and output denormal values to zero. FP32 and FP64 MFMA matrix instructions do not flush input and output denormal values to zero. The affected instructions are only used by rocBLAS (GEMM) and MIOpen (convolution) kernels; all other PyTorch operations will not encounter this behavior. All other supported AMD GPUs will not encounter this behavior.</p>
 <p>rocBLAS and MIOpen provide alternate implementations for affected FP16 operations. Alternate implementations for BF16 operations are not provided; BF16 numbers have a larger dynamic range than FP16 numbers and are less likely to encounter denormal values. For the FP16 alternate implementations, FP16 input values are cast to an intermediate BF16 value and then cast back to FP16 output after the accumulate FP32 operations. In this way, the input and output types are unchanged.</p>
 <p>When training using FP16 precision, some models may fail to converge with FP16 denorms flushed to zero. Denormal values more frequently occur in the backward pass of training during gradient calculation. PyTorch by default will use the rocBLAS and MIOpen alternate implementations during the backward pass. The default behavior can be overridden using environment variables, ROCBLAS_INTERNAL_FP16_ALT_IMPL and MIOPEN_DEBUG_CONVOLUTION_ATTRIB_FP16_ALT_IMPL. The behavior of these environment variables is as follows:</p>
 <div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 41%" />
-<col style="width: 30%" />
-<col style="width: 30%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"></th>
 <th class="head"><p>forward</p></th>
@@ -1861,8 +1856,8 @@ reduced-precision reductions are problematic, they can be turned off with
 </ul>
 </li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -1928,11 +1923,6 @@ reduced-precision reductions are problematic, they can be turned off with
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -2066,7 +2056,9 @@ reduced-precision reductions are problematic, they can be turned off with
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -2090,10 +2082,13 @@ reduced-precision reductions are problematic, they can be turned off with
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -2116,7 +2111,6 @@ reduced-precision reductions are problematic, they can be turned off with
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -2166,10 +2160,10 @@ reduced-precision reductions are problematic, they can be turned off with
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -2210,7 +2204,7 @@ reduced-precision reductions are problematic, they can be turned off with
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -2245,7 +2239,7 @@ reduced-precision reductions are problematic, they can be turned off with
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "../_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/notes/numerical_accuracy.html"

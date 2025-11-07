@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>torch.futures &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=940804e7"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'futures';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="_static/js/runllm-widget.js"></script>
+    <script src="_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/futures.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4479,6 +4478,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4486,17 +4486,17 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="torch-futures">
-<span id="futures-docs"></span><h1>torch.futures<a class="headerlink" href="#torch-futures" title="Permalink to this heading">#</a></h1>
+  <section id="torch-futures">
+<span id="futures-docs"></span><h1>torch.futures<a class="headerlink" href="#torch-futures" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 12, 2025 | Last Updated On: Jun 12, 2025</p>
 <p>This package provides a <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> type that encapsulates
 an asynchronous execution and a set of utility functions to simplify operations
 on <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> objects. Currently, the
 <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> type is primarily used by the
 <a class="reference internal" href="rpc.html#distributed-rpc-framework"><span class="std std-ref">Distributed RPC Framework</span></a>.</p>
-<span class="target" id="module-torch.futures"></span><dl class="py class">
+<dl class="py class" id="module-torch.futures">
 <dt class="sig sig-object py" id="torch.futures.Future">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.futures.</span></span><span class="sig-name descname"><span class="pre">Future</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">devices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.futures.Future" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.futures.</span></span><span class="sig-name descname"><span class="pre">Future</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">devices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.futures.Future" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper around a <code class="docutils literal notranslate"><span class="pre">torch._C.Future</span></code> which encapsulates an asynchronous
 execution of a callable, e.g. <a class="reference internal" href="rpc.html#torch.distributed.rpc.rpc_async" title="torch.distributed.rpc.rpc_async"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rpc_async()</span></code></a>. It
 also exposes a set of APIs to add callback functions and set results.</p>
@@ -4508,7 +4508,7 @@ also exposes a set of APIs to add callback functions and set results.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.futures.Future.add_done_callback">
-<span class="sig-name descname"><span class="pre">add_done_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/futures/__init__.py#L169"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.add_done_callback" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_done_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/futures/__init__.py#L169"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.add_done_callback" title="Link to this definition">#</a></dt>
 <dd><p>Append the given callback function to this <code class="docutils literal notranslate"><span class="pre">Future</span></code>, which will be run
 when the <code class="docutils literal notranslate"><span class="pre">Future</span></code> is completed.  Multiple callbacks can be added to
 the same <code class="docutils literal notranslate"><span class="pre">Future</span></code>, but the order in which they will be executed cannot
@@ -4524,7 +4524,7 @@ registration API under the hood.</p>
 <p>With respect to GPU tensors, this method behaves in the same way as
 <a class="reference internal" href="#torch.futures.Future.then" title="torch.futures.Future.then"><code class="xref py py-meth docutils literal notranslate"><span class="pre">then()</span></code></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>callback</strong> (<code class="docutils literal notranslate"><span class="pre">Future</span></code>) – a <code class="docutils literal notranslate"><span class="pre">Callable</span></code> that takes in one argument,
 which is the reference to this <code class="docutils literal notranslate"><span class="pre">Future</span></code>.</p>
 </dd>
@@ -4554,7 +4554,7 @@ for handling completion/waiting on those futures independently.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.futures.Future.done">
-<span class="sig-name descname"><span class="pre">done</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/futures/__init__.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.done" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">done</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/futures/__init__.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.done" title="Link to this definition">#</a></dt>
 <dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if this <code class="docutils literal notranslate"><span class="pre">Future</span></code> is done. A <code class="docutils literal notranslate"><span class="pre">Future</span></code> is done if it
 has a result or an exception.</p>
 <p>If the value contains tensors that reside on GPUs, <code class="docutils literal notranslate"><span class="pre">Future.done()</span></code>
@@ -4563,7 +4563,7 @@ populating those tensors haven’t yet completed running on the device,
 because at such stage the result is already usable, provided one
 performs the appropriate synchronizations (see <a class="reference internal" href="#torch.futures.Future.wait" title="torch.futures.Future.wait"><code class="xref py py-meth docutils literal notranslate"><span class="pre">wait()</span></code></a>).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
@@ -4571,13 +4571,13 @@ performs the appropriate synchronizations (see <a class="reference internal" hre
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.futures.Future.set_exception">
-<span class="sig-name descname"><span class="pre">set_exception</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/futures/__init__.py#L254"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.set_exception" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_exception</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/futures/__init__.py#L254"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.set_exception" title="Link to this definition">#</a></dt>
 <dd><p>Set an exception for this <code class="docutils literal notranslate"><span class="pre">Future</span></code>, which will mark this <code class="docutils literal notranslate"><span class="pre">Future</span></code> as
 completed with an error and trigger all attached callbacks. Note that
 when calling wait()/value() on this <code class="docutils literal notranslate"><span class="pre">Future</span></code>, the exception set here
 will be raised inline.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>result</strong> (<a class="reference external" href="https://docs.python.org/3/library/exceptions.html#BaseException" title="(in Python v3.14)"><em>BaseException</em></a>) – the exception for this <code class="docutils literal notranslate"><span class="pre">Future</span></code>.</p>
 </dd>
 </dl>
@@ -4594,7 +4594,7 @@ will be raised inline.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.futures.Future.set_result">
-<span class="sig-name descname"><span class="pre">set_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/futures/__init__.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.set_result" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/futures/__init__.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.set_result" title="Link to this definition">#</a></dt>
 <dd><p>Set the result for this <code class="docutils literal notranslate"><span class="pre">Future</span></code>, which will mark this <code class="docutils literal notranslate"><span class="pre">Future</span></code> as
 completed and trigger all attached callbacks. Note that a <code class="docutils literal notranslate"><span class="pre">Future</span></code>
 cannot be marked completed twice.</p>
@@ -4609,7 +4609,7 @@ method will record events on all the relevant current streams and will
 use them to ensure proper scheduling for all the consumers of this
 <code class="docutils literal notranslate"><span class="pre">Future</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>result</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><em>object</em></a>) – the result object of this <code class="docutils literal notranslate"><span class="pre">Future</span></code>.</p>
 </dd>
 </dl>
@@ -4634,7 +4634,7 @@ use them to ensure proper scheduling for all the consumers of this
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.futures.Future.then">
-<span class="sig-name descname"><span class="pre">then</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/futures/__init__.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.then" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">then</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/futures/__init__.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.then" title="Link to this definition">#</a></dt>
 <dd><p>Append the given callback function to this <code class="docutils literal notranslate"><span class="pre">Future</span></code>, which will be run
 when the <code class="docutils literal notranslate"><span class="pre">Future</span></code> is completed.  Multiple callbacks can be added to
 the same <code class="docutils literal notranslate"><span class="pre">Future</span></code>, but the order in which they will be executed cannot
@@ -4660,16 +4660,16 @@ didn’t change streams during its execution. If one wants to change
 streams, one must be careful to re-synchronize them with the original
 streams, that is, those that were current when the callback was invoked.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>callback</strong> (<code class="docutils literal notranslate"><span class="pre">Callable</span></code>) – a <code class="docutils literal notranslate"><span class="pre">Callable</span></code> that takes this <code class="docutils literal notranslate"><span class="pre">Future</span></code> as
 the only argument.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A new <code class="docutils literal notranslate"><span class="pre">Future</span></code> object that holds the return value of the
 <code class="docutils literal notranslate"><span class="pre">callback</span></code> and will be marked as completed when the given
 <code class="docutils literal notranslate"><span class="pre">callback</span></code> finishes.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future">Future</a>[S]</p>
 </dd>
 </dl>
@@ -4703,7 +4703,7 @@ on those futures independently.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.futures.Future.value">
-<span class="sig-name descname"><span class="pre">value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/futures/__init__.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.value" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/futures/__init__.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.value" title="Link to this definition">#</a></dt>
 <dd><p>Obtain the value of an already-completed future.</p>
 <p>This method should only be called after a call to <a class="reference internal" href="#torch.futures.Future.wait" title="torch.futures.Future.wait"><code class="xref py py-meth docutils literal notranslate"><span class="pre">wait()</span></code></a> has
 completed, or inside a callback function passed to <a class="reference internal" href="#torch.futures.Future.then" title="torch.futures.Future.then"><code class="xref py py-meth docutils literal notranslate"><span class="pre">then()</span></code></a>. In
@@ -4714,12 +4714,12 @@ other cases this <code class="docutils literal notranslate"><span class="pre">Fu
 beforehand, separately, through a call to <a class="reference internal" href="#torch.futures.Future.wait" title="torch.futures.Future.wait"><code class="xref py py-meth docutils literal notranslate"><span class="pre">wait()</span></code></a> (except within
 callbacks, for which it’s already being taken care of by <a class="reference internal" href="#torch.futures.Future.then" title="torch.futures.Future.then"><code class="xref py py-meth docutils literal notranslate"><span class="pre">then()</span></code></a>).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The value held by this <code class="docutils literal notranslate"><span class="pre">Future</span></code>. If the function (callback or RPC)
 creating the value has thrown an error, this <code class="docutils literal notranslate"><span class="pre">value()</span></code> method will
 also throw an error.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>T</em></p>
 </dd>
 </dl>
@@ -4727,7 +4727,7 @@ also throw an error.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.futures.Future.wait">
-<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/futures/__init__.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.wait" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/futures/__init__.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.Future.wait" title="Link to this definition">#</a></dt>
 <dd><p>Block until the value of this <code class="docutils literal notranslate"><span class="pre">Future</span></code> is ready.</p>
 <p>If the value contains tensors that reside on GPUs, then an additional
 synchronization is performed with the kernels (executing on the device)
@@ -4739,12 +4739,12 @@ kernels but, once that is done, <code class="docutils literal notranslate"><span
 kernels are still running. No further synchronization is required when
 accessing and using the values, as long as one doesn’t change streams.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The value held by this <code class="docutils literal notranslate"><span class="pre">Future</span></code>. If the function (callback or RPC)
 creating the value has thrown an error, this <code class="docutils literal notranslate"><span class="pre">wait</span></code> method will
 also throw an error.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>T</em></p>
 </dd>
 </dl>
@@ -4754,20 +4754,20 @@ also throw an error.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.futures.collect_all">
-<span class="sig-prename descclassname"><span class="pre">torch.futures.</span></span><span class="sig-name descname"><span class="pre">collect_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">futures</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/futures/__init__.py#L285"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.collect_all" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.futures.</span></span><span class="sig-name descname"><span class="pre">collect_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">futures</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/futures/__init__.py#L285"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.collect_all" title="Link to this definition">#</a></dt>
 <dd><p>Collects the provided <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> objects into a single
 combined <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> that is completed when all of the
 sub-futures are completed.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>futures</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – a list of <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> objects.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Returns a <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> object to a list of the passed
 in Futures.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#torch.futures.Future" title="torch.jit.Future"><em>Future</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.futures.Future" title="torch.jit.Future">torch.jit.Future</a>]]</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.futures.Future" title="torch.jit.Future"><em>Future</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.futures.Future" title="torch.jit.Future"><em>Future</em></a>]]</p>
 </dd>
 </dl>
 <dl>
@@ -4789,27 +4789,27 @@ in Futures.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.futures.wait_all">
-<span class="sig-prename descclassname"><span class="pre">torch.futures.</span></span><span class="sig-name descname"><span class="pre">wait_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">futures</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/futures/__init__.py#L317"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.wait_all" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.futures.</span></span><span class="sig-name descname"><span class="pre">wait_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">futures</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/futures/__init__.py#L317"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.futures.wait_all" title="Link to this definition">#</a></dt>
 <dd><p>Waits for all provided futures to be complete, and returns
 the list of completed values. If any of the futures encounters an error,
 the method will exit early and report the error not waiting for other
 futures to complete.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>futures</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – a list of <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> object.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of the completed <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> results. This
 method will throw an error if <code class="docutils literal notranslate"><span class="pre">wait</span></code> on any
 <a class="reference internal" href="#torch.futures.Future" title="torch.futures.Future"><code class="xref py py-class docutils literal notranslate"><span class="pre">Future</span></code></a> throws.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
                 </article>
@@ -4875,11 +4875,6 @@ method will throw an error if <code class="docutils literal notranslate"><span c
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -5014,7 +5009,9 @@ method will throw an error if <code class="docutils literal notranslate"><span c
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -5038,10 +5035,13 @@ method will throw an error if <code class="docutils literal notranslate"><span c
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -5064,7 +5064,6 @@ method will throw an error if <code class="docutils literal notranslate"><span c
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -5114,10 +5113,10 @@ method will throw an error if <code class="docutils literal notranslate"><span c
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5158,7 +5157,7 @@ method will throw an error if <code class="docutils literal notranslate"><span c
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -5187,13 +5186,13 @@ method will throw an error if <code class="docutils literal notranslate"><span c
        "headline": "torch.futures",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/futures.html",
-       "articleBody": "torch.futures# Created On: Jun 12, 2025 | Last Updated On: Jun 12, 2025 This package provides a Future type that encapsulates an asynchronous execution and a set of utility functions to simplify operations on Future objects. Currently, the Future type is primarily used by the Distributed RPC Framework. class torch.futures.Future(*, devices=None)# Wrapper around a torch._C.Future which encapsulates an asynchronous execution of a callable, e.g. rpc_async(). It also exposes a set of APIs to add callback functions and set results. Warning GPU support is a beta feature, subject to changes. add_done_callback(callback)[source]# Append the given callback function to this Future, which will be run when the Future is completed. Multiple callbacks can be added to the same Future, but the order in which they will be executed cannot be guaranteed. The callback must take one argument, which is the reference to this Future. The callback function can use the value() method to get the value. Note that if this Future is already completed, the given callback will be run inline. We recommend that you use the then() method as it provides a way to synchronize after your callback has completed. add_done_callback can be cheaper if your callback does not return anything. But both then() and add_done_callback use the same callback registration API under the hood. With respect to GPU tensors, this method behaves in the same way as then(). Parameters callback (Future) \u2013 a Callable that takes in one argument, which is the reference to this Future. Note Note that if the callback function throws, either through the original future being completed with an exception and calling fut.wait(), or through other code in the callback, error handling must be carefully taken care of. For example, if this callback later completes additional futures, those futures are not marked as completed with an error and the user is responsible for handling completion/waiting on those futures independently. Example: \u003e\u003e\u003e def callback(fut): ... print(\"This will run after the future has finished.\") ... print(fut.wait()) \u003e\u003e\u003e fut = torch.futures.Future() \u003e\u003e\u003e fut.add_done_callback(callback) \u003e\u003e\u003e fut.set_result(5) This will run after the future has finished. 5 done()[source]# Return True if this Future is done. A Future is done if it has a result or an exception. If the value contains tensors that reside on GPUs, Future.done() will return True even if the asynchronous kernels that are populating those tensors haven\u2019t yet completed running on the device, because at such stage the result is already usable, provided one performs the appropriate synchronizations (see wait()). Return type bool set_exception(result)[source]# Set an exception for this Future, which will mark this Future as completed with an error and trigger all attached callbacks. Note that when calling wait()/value() on this Future, the exception set here will be raised inline. Parameters result (BaseException) \u2013 the exception for this Future. Example: \u003e\u003e\u003e fut = torch.futures.Future() \u003e\u003e\u003e fut.set_exception(ValueError(\"foo\")) \u003e\u003e\u003e fut.wait() Traceback (most recent call last): ... ValueError: foo set_result(result)[source]# Set the result for this Future, which will mark this Future as completed and trigger all attached callbacks. Note that a Future cannot be marked completed twice. If the result contains tensors that reside on GPUs, this method can be called even if the asynchronous kernels that are populating those tensors haven\u2019t yet completed running on the device, provided that the streams on which those kernels were enqueued are set as the current ones when this method is called. Put simply, it\u2019s safe to call this method immediately after launching those kernels, without any additional synchronization, as long as one doesn\u2019t change streams in between. This method will record events on all the relevant current streams and will use them to ensure proper scheduling for all the consumers of this Future. Parameters result (object) \u2013 the result object of this Future. Example: \u003e\u003e\u003e import threading \u003e\u003e\u003e import time \u003e\u003e\u003e def slow_set_future(fut, value): ... time.sleep(0.5) ... fut.set_result(value) \u003e\u003e\u003e fut = torch.futures.Future() \u003e\u003e\u003e t = threading.Thread( ... target=slow_set_future, ... args=(fut, torch.ones(2) * 3) ... ) \u003e\u003e\u003e t.start() \u003e\u003e\u003e print(fut.wait()) tensor([3., 3.]) \u003e\u003e\u003e t.join() then(callback)[source]# Append the given callback function to this Future, which will be run when the Future is completed. Multiple callbacks can be added to the same Future, but the order in which they will be executed cannot be guaranteed (to enforce a certain order consider chaining: fut.then(cb1).then(cb2)). The callback must take one argument, which is the reference to this Future. The callback function can use the value() method to get the value. Note that if this Future is already completed, the given callback will be run immediately inline. If the Future\u2019s value contains tensors that reside on GPUs, the callback might be invoked while the async kernels that are populating those tensors haven\u2019t yet finished executing on the device. However, the callback will be invoked with some dedicated streams set as current (fetched from a global pool) which will be synchronized with those kernels. Hence any operation performed by the callback on these tensors will be scheduled on the device after the kernels complete. In other words, as long as the callback doesn\u2019t switch streams, it can safely manipulate the result without any additional synchronization. This is similar to the non-blocking behavior of wait(). Similarly, if the callback returns a value that contains tensors that reside on a GPU, it can do so even if the kernels that are producing these tensors are still running on the device, as long as the callback didn\u2019t change streams during its execution. If one wants to change streams, one must be careful to re-synchronize them with the original streams, that is, those that were current when the callback was invoked. Parameters callback (Callable) \u2013 a Callable that takes this Future as the only argument. Returns A new Future object that holds the return value of the callback and will be marked as completed when the given callback finishes. Return type Future[S] Note Note that if the callback function throws, either through the original future being completed with an exception and calling fut.wait(), or through other code in the callback, the future returned by then will be marked appropriately with the encountered error. However, if this callback later completes additional futures, those futures are not marked as completed with an error and the user is responsible for handling completion/waiting on those futures independently. Example: \u003e\u003e\u003e def callback(fut): ... print(f\"RPC return value is {fut.wait()}.\") \u003e\u003e\u003e fut = torch.futures.Future() \u003e\u003e\u003e # The inserted callback will print the return value when \u003e\u003e\u003e # receiving the response from \"worker1\" \u003e\u003e\u003e cb_fut = fut.then(callback) \u003e\u003e\u003e chain_cb_fut = cb_fut.then( ... lambda x : print(f\"Chained cb done. {x.wait()}\") ... ) \u003e\u003e\u003e fut.set_result(5) RPC return value is 5. Chained cb done. None value()[source]# Obtain the value of an already-completed future. This method should only be called after a call to wait() has completed, or inside a callback function passed to then(). In other cases this Future may not yet hold a value and calling value() could fail. If the value contains tensors that reside on GPUs, then this method will not perform any additional synchronization. This should be done beforehand, separately, through a call to wait() (except within callbacks, for which it\u2019s already being taken care of by then()). Returns The value held by this Future. If the function (callback or RPC) creating the value has thrown an error, this value() method will also throw an error. Return type T wait()[source]# Block until the value of this Future is ready. If the value contains tensors that reside on GPUs, then an additional synchronization is performed with the kernels (executing on the device) which may be asynchronously populating those tensors. Such sync is non-blocking, which means that wait() will insert the necessary instructions in the current streams to ensure that further operations enqueued on those streams will be properly scheduled after the async kernels but, once that is done, wait() will return, even if those kernels are still running. No further synchronization is required when accessing and using the values, as long as one doesn\u2019t change streams. Returns The value held by this Future. If the function (callback or RPC) creating the value has thrown an error, this wait method will also throw an error. Return type T torch.futures.collect_all(futures)[source]# Collects the provided Future objects into a single combined Future that is completed when all of the sub-futures are completed. Parameters futures (list) \u2013 a list of Future objects. Returns Returns a Future object to a list of the passed in Futures. Return type Future[list[torch.jit.Future]] Example::\u003e\u003e\u003e fut0 = torch.futures.Future() \u003e\u003e\u003e fut1 = torch.futures.Future() \u003e\u003e\u003e fut = torch.futures.collect_all([fut0, fut1]) \u003e\u003e\u003e fut0.set_result(0) \u003e\u003e\u003e fut1.set_result(1) \u003e\u003e\u003e fut_list = fut.wait() \u003e\u003e\u003e print(f\"fut0 result = {fut_list[0].wait()}\") fut0 result = 0 \u003e\u003e\u003e print(f\"fut1 result = {fut_list[1].wait()}\") fut1 result = 1 torch.futures.wait_all(futures)[source]# Waits for all provided futures to be complete, and returns the list of completed values. If any of the futures encounters an error, the method will exit early and report the error not waiting for other futures to complete. Parameters futures (list) \u2013 a list of Future object. Returns A list of the completed Future results. This method will throw an error if wait on any Future throws. Return type list",
+       "articleBody": "torch.futures# Created On: Jun 12, 2025 | Last Updated On: Jun 12, 2025 This package provides a Future type that encapsulates an asynchronous execution and a set of utility functions to simplify operations on Future objects. Currently, the Future type is primarily used by the Distributed RPC Framework. class torch.futures.Future(*, devices=None)# Wrapper around a torch._C.Future which encapsulates an asynchronous execution of a callable, e.g. rpc_async(). It also exposes a set of APIs to add callback functions and set results. Warning GPU support is a beta feature, subject to changes. add_done_callback(callback)[source]# Append the given callback function to this Future, which will be run when the Future is completed. Multiple callbacks can be added to the same Future, but the order in which they will be executed cannot be guaranteed. The callback must take one argument, which is the reference to this Future. The callback function can use the value() method to get the value. Note that if this Future is already completed, the given callback will be run inline. We recommend that you use the then() method as it provides a way to synchronize after your callback has completed. add_done_callback can be cheaper if your callback does not return anything. But both then() and add_done_callback use the same callback registration API under the hood. With respect to GPU tensors, this method behaves in the same way as then(). Parameters: callback (Future) \u2013 a Callable that takes in one argument, which is the reference to this Future. Note Note that if the callback function throws, either through the original future being completed with an exception and calling fut.wait(), or through other code in the callback, error handling must be carefully taken care of. For example, if this callback later completes additional futures, those futures are not marked as completed with an error and the user is responsible for handling completion/waiting on those futures independently. Example: \u003e\u003e\u003e def callback(fut): ... print(\"This will run after the future has finished.\") ... print(fut.wait()) \u003e\u003e\u003e fut = torch.futures.Future() \u003e\u003e\u003e fut.add_done_callback(callback) \u003e\u003e\u003e fut.set_result(5) This will run after the future has finished. 5 done()[source]# Return True if this Future is done. A Future is done if it has a result or an exception. If the value contains tensors that reside on GPUs, Future.done() will return True even if the asynchronous kernels that are populating those tensors haven\u2019t yet completed running on the device, because at such stage the result is already usable, provided one performs the appropriate synchronizations (see wait()). Return type: bool set_exception(result)[source]# Set an exception for this Future, which will mark this Future as completed with an error and trigger all attached callbacks. Note that when calling wait()/value() on this Future, the exception set here will be raised inline. Parameters: result (BaseException) \u2013 the exception for this Future. Example: \u003e\u003e\u003e fut = torch.futures.Future() \u003e\u003e\u003e fut.set_exception(ValueError(\"foo\")) \u003e\u003e\u003e fut.wait() Traceback (most recent call last): ... ValueError: foo set_result(result)[source]# Set the result for this Future, which will mark this Future as completed and trigger all attached callbacks. Note that a Future cannot be marked completed twice. If the result contains tensors that reside on GPUs, this method can be called even if the asynchronous kernels that are populating those tensors haven\u2019t yet completed running on the device, provided that the streams on which those kernels were enqueued are set as the current ones when this method is called. Put simply, it\u2019s safe to call this method immediately after launching those kernels, without any additional synchronization, as long as one doesn\u2019t change streams in between. This method will record events on all the relevant current streams and will use them to ensure proper scheduling for all the consumers of this Future. Parameters: result (object) \u2013 the result object of this Future. Example: \u003e\u003e\u003e import threading \u003e\u003e\u003e import time \u003e\u003e\u003e def slow_set_future(fut, value): ... time.sleep(0.5) ... fut.set_result(value) \u003e\u003e\u003e fut = torch.futures.Future() \u003e\u003e\u003e t = threading.Thread( ... target=slow_set_future, ... args=(fut, torch.ones(2) * 3) ... ) \u003e\u003e\u003e t.start() \u003e\u003e\u003e print(fut.wait()) tensor([3., 3.]) \u003e\u003e\u003e t.join() then(callback)[source]# Append the given callback function to this Future, which will be run when the Future is completed. Multiple callbacks can be added to the same Future, but the order in which they will be executed cannot be guaranteed (to enforce a certain order consider chaining: fut.then(cb1).then(cb2)). The callback must take one argument, which is the reference to this Future. The callback function can use the value() method to get the value. Note that if this Future is already completed, the given callback will be run immediately inline. If the Future\u2019s value contains tensors that reside on GPUs, the callback might be invoked while the async kernels that are populating those tensors haven\u2019t yet finished executing on the device. However, the callback will be invoked with some dedicated streams set as current (fetched from a global pool) which will be synchronized with those kernels. Hence any operation performed by the callback on these tensors will be scheduled on the device after the kernels complete. In other words, as long as the callback doesn\u2019t switch streams, it can safely manipulate the result without any additional synchronization. This is similar to the non-blocking behavior of wait(). Similarly, if the callback returns a value that contains tensors that reside on a GPU, it can do so even if the kernels that are producing these tensors are still running on the device, as long as the callback didn\u2019t change streams during its execution. If one wants to change streams, one must be careful to re-synchronize them with the original streams, that is, those that were current when the callback was invoked. Parameters: callback (Callable) \u2013 a Callable that takes this Future as the only argument. Returns: A new Future object that holds the return value of the callback and will be marked as completed when the given callback finishes. Return type: Future[S] Note Note that if the callback function throws, either through the original future being completed with an exception and calling fut.wait(), or through other code in the callback, the future returned by then will be marked appropriately with the encountered error. However, if this callback later completes additional futures, those futures are not marked as completed with an error and the user is responsible for handling completion/waiting on those futures independently. Example: \u003e\u003e\u003e def callback(fut): ... print(f\"RPC return value is {fut.wait()}.\") \u003e\u003e\u003e fut = torch.futures.Future() \u003e\u003e\u003e # The inserted callback will print the return value when \u003e\u003e\u003e # receiving the response from \"worker1\" \u003e\u003e\u003e cb_fut = fut.then(callback) \u003e\u003e\u003e chain_cb_fut = cb_fut.then( ... lambda x : print(f\"Chained cb done. {x.wait()}\") ... ) \u003e\u003e\u003e fut.set_result(5) RPC return value is 5. Chained cb done. None value()[source]# Obtain the value of an already-completed future. This method should only be called after a call to wait() has completed, or inside a callback function passed to then(). In other cases this Future may not yet hold a value and calling value() could fail. If the value contains tensors that reside on GPUs, then this method will not perform any additional synchronization. This should be done beforehand, separately, through a call to wait() (except within callbacks, for which it\u2019s already being taken care of by then()). Returns: The value held by this Future. If the function (callback or RPC) creating the value has thrown an error, this value() method will also throw an error. Return type: T wait()[source]# Block until the value of this Future is ready. If the value contains tensors that reside on GPUs, then an additional synchronization is performed with the kernels (executing on the device) which may be asynchronously populating those tensors. Such sync is non-blocking, which means that wait() will insert the necessary instructions in the current streams to ensure that further operations enqueued on those streams will be properly scheduled after the async kernels but, once that is done, wait() will return, even if those kernels are still running. No further synchronization is required when accessing and using the values, as long as one doesn\u2019t change streams. Returns: The value held by this Future. If the function (callback or RPC) creating the value has thrown an error, this wait method will also throw an error. Return type: T torch.futures.collect_all(futures)[source]# Collects the provided Future objects into a single combined Future that is completed when all of the sub-futures are completed. Parameters: futures (list) \u2013 a list of Future objects. Returns: Returns a Future object to a list of the passed in Futures. Return type: Future[list[Future]] Example::\u003e\u003e\u003e fut0 = torch.futures.Future() \u003e\u003e\u003e fut1 = torch.futures.Future() \u003e\u003e\u003e fut = torch.futures.collect_all([fut0, fut1]) \u003e\u003e\u003e fut0.set_result(0) \u003e\u003e\u003e fut1.set_result(1) \u003e\u003e\u003e fut_list = fut.wait() \u003e\u003e\u003e print(f\"fut0 result = {fut_list[0].wait()}\") fut0 result = 0 \u003e\u003e\u003e print(f\"fut1 result = {fut_list[1].wait()}\") fut1 result = 1 torch.futures.wait_all(futures)[source]# Waits for all provided futures to be complete, and returns the list of completed values. If any of the futures encounters an error, the method will exit early and report the error not waiting for other futures to complete. Parameters: futures (list) \u2013 a list of Future object. Returns: A list of the completed Future results. This method will throw an error if wait on any Future throws. Return type: list",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/futures.html"

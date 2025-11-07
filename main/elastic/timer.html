@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Expiration Timers &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=940804e7"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'elastic/timer';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../_static/js/runllm-widget.js"></script>
+    <script src="../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/elastic/timer.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="../_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4488,6 +4487,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4495,8 +4495,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="module-torch.distributed.elastic.timer">
-<span id="expiration-timers"></span><h1>Expiration Timers<a class="headerlink" href="#module-torch.distributed.elastic.timer" title="Permalink to this heading">#</a></h1>
+  <section id="module-torch.distributed.elastic.timer">
+<span id="expiration-timers"></span><h1>Expiration Timers<a class="headerlink" href="#module-torch.distributed.elastic.timer" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: May 04, 2021 | Last Updated On: Apr 25, 2024</p>
 <p>Expiration timers are set up on the same process as the agent and
 used from your script to deal with stuck workers. When you go into
@@ -4529,11 +4529,11 @@ deadline.</p>
 </div>
 <p>In the example above if <code class="docutils literal notranslate"><span class="pre">trainer_func</span></code> takes more than 60 seconds to
 complete, then the worker process is killed and the agent retries the worker group.</p>
-<div class="section" id="client-methods">
-<h2>Client Methods<a class="headerlink" href="#client-methods" title="Permalink to this heading">#</a></h2>
+<section id="client-methods">
+<h2>Client Methods<a class="headerlink" href="#client-methods" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.configure">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timer_client</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/api.py#L240"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.configure" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timer_client</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/api.py#L240"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.configure" title="Link to this definition">#</a></dt>
 <dd><p>Configures a timer client. Must be called before using <code class="docutils literal notranslate"><span class="pre">expires</span></code>.</p>
 <dl class="field-list simple">
 </dl>
@@ -4541,7 +4541,7 @@ complete, then the worker process is killed and the agent retries the worker gro
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.expires">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">expires</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">after</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/api.py#L249"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.expires" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">expires</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">after</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/api.py#L249"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.expires" title="Link to this definition">#</a></dt>
 <dd><p>Acquires a countdown timer that expires in <code class="docutils literal notranslate"><span class="pre">after</span></code> seconds from now,
 unless the code-block that it wraps is finished within the timeframe.
 When the timer expires, this worker is eligible to be reaped. The
@@ -4561,9 +4561,9 @@ make the decision when and how to reap the workers with expired timers.</p>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="server-client-implementations">
-<h2>Server/Client Implementations<a class="headerlink" href="#server-client-implementations" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="server-client-implementations">
+<h2>Server/Client Implementations<a class="headerlink" href="#server-client-implementations" title="Link to this heading">#</a></h2>
 <p>Below are the timer server and client pairs that are provided by torchelastic.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4575,7 +4575,7 @@ and client.</p>
 a <code class="docutils literal notranslate"><span class="pre">multiprocess.Queue</span></code>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.LocalTimerServer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">LocalTimerServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mp_queue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daemon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/local_timer.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.LocalTimerServer" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">LocalTimerServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mp_queue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daemon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/local_timer.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.LocalTimerServer" title="Link to this definition">#</a></dt>
 <dd><p>Server that works with <code class="docutils literal notranslate"><span class="pre">LocalTimerClient</span></code>. Clients are expected to be
 subprocesses to the parent process that is running this server. Each host
 in the job is expected to start its own timer server locally and each
@@ -4587,7 +4587,7 @@ on the same host).</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.LocalTimerClient">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">LocalTimerClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mp_queue</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/local_timer.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.LocalTimerClient" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">LocalTimerClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mp_queue</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/local_timer.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.LocalTimerClient" title="Link to this definition">#</a></dt>
 <dd><p>Client side of <code class="docutils literal notranslate"><span class="pre">LocalTimerServer</span></code>. This client is meant to be used
 on the same host that the <code class="docutils literal notranslate"><span class="pre">LocalTimerServer</span></code> is running on and uses
 pid to uniquely identify a worker. This is particularly useful in situations
@@ -4599,20 +4599,20 @@ GPU devices.</p>
 based on a named pipe.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.FileTimerServer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">FileTimerServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daemon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/file_based_local_timer.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.FileTimerServer" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">FileTimerServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daemon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/file_based_local_timer.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.FileTimerServer" title="Link to this definition">#</a></dt>
 <dd><p>Server that works with <code class="docutils literal notranslate"><span class="pre">FileTimerClient</span></code>. Clients are expected to be
 running on the same host as the process that is running this server.
 Each host in the job is expected to start its own timer server locally
 and each server instance manages timers for local workers (running on
 processes on the same host).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>file_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – str, the path of a FIFO special file to be created.</p></li>
 <li><p><strong>max_interval</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – float, max interval in seconds for each watchdog loop.</p></li>
 <li><p><strong>daemon</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – bool, running the watchdog thread in daemon mode or not.
 A daemon thread will not block a process to stop.</p></li>
-<li><p><strong>log_event</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><em>Optional</em></a><em>[</em><em>FileTimerRequest</em><em>]</em><em>]</em><em>, </em><em>None</em><em>]</em><em>]</em>) – Callable[[Dict[str, str]], None], an optional callback for
+<li><p><strong>log_event</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>FileTimerRequest</em><em> | </em><em>None</em><em>]</em><em>, </em><em>None</em><em>] </em><em>| </em><em>None</em>) – Callable[[Dict[str, str]], None], an optional callback for
 logging the events in JSON format.</p></li>
 </ul>
 </dd>
@@ -4621,7 +4621,7 @@ logging the events in JSON format.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.FileTimerClient">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">FileTimerClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Signals.SIGKILL</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/file_based_local_timer.py#L105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.FileTimerClient" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">FileTimerClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Signals.SIGKILL</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/file_based_local_timer.py#L105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.FileTimerClient" title="Link to this definition">#</a></dt>
 <dd><p>Client side of <code class="docutils literal notranslate"><span class="pre">FileTimerServer</span></code>. This client is meant to be used
 on the same host that the <code class="docutils literal notranslate"><span class="pre">FileTimerServer</span></code> is running on and uses
 pid to uniquely identify a worker.
@@ -4630,7 +4630,7 @@ This client uses a named_pipe to send timer requests to the
 <code class="docutils literal notranslate"><span class="pre">FileTimerServer</span></code> is a consumer. Multiple clients can work with
 the same <code class="docutils literal notranslate"><span class="pre">FileTimerServer</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>file_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – str, the path of a FIFO special file. <code class="docutils literal notranslate"><span class="pre">FileTimerServer</span></code>
 must have created it by calling os.mkfifo().</p></li>
@@ -4641,9 +4641,9 @@ negative or zero signal will not kill the process.</p></li>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="writing-a-custom-timer-server-client">
-<h2>Writing a custom timer server/client<a class="headerlink" href="#writing-a-custom-timer-server-client" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="writing-a-custom-timer-server-client">
+<h2>Writing a custom timer server/client<a class="headerlink" href="#writing-a-custom-timer-server-client" title="Link to this heading">#</a></h2>
 <p>To write your own timer server and client extend the
 <code class="docutils literal notranslate"><span class="pre">torch.distributed.elastic.timer.TimerServer</span></code> for the server and
 <code class="docutils literal notranslate"><span class="pre">torch.distributed.elastic.timer.TimerClient</span></code> for the client. The
@@ -4651,7 +4651,7 @@ negative or zero signal will not kill the process.</p></li>
 the server and client.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.TimerRequest">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">TimerRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expiration_time</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/api.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerRequest" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">TimerRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expiration_time</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/api.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerRequest" title="Link to this definition">#</a></dt>
 <dd><p>Data object representing a countdown timer acquisition and release
 that is used between the <code class="docutils literal notranslate"><span class="pre">TimerClient</span></code> and <code class="docutils literal notranslate"><span class="pre">TimerServer</span></code>.
 A negative <code class="docutils literal notranslate"><span class="pre">expiration_time</span></code> should be interpreted as a “release”
@@ -4668,7 +4668,7 @@ have on to uniquely identify a worker.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.TimerServer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">TimerServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_queue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daemon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/api.py#L113"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerServer" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">TimerServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_queue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daemon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/api.py#L113"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerServer" title="Link to this definition">#</a></dt>
 <dd><p>Entity that monitors active timers and expires them
 in a timely fashion. This server is responsible for
 reaping workers that have expired timers.</p>
@@ -4676,7 +4676,7 @@ reaping workers that have expired timers.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.TimerServer.clear_timers">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear_timers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_ids</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/api.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerServer.clear_timers" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear_timers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_ids</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/api.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerServer.clear_timers" title="Link to this definition">#</a></dt>
 <dd><p>Clears all timers for the given <code class="docutils literal notranslate"><span class="pre">worker_ids</span></code>.</p>
 <dl class="field-list simple">
 </dl>
@@ -4684,20 +4684,20 @@ reaping workers that have expired timers.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.TimerServer.get_expired_timers">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_expired_timers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deadline</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/api.py#L151"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerServer.get_expired_timers" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_expired_timers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deadline</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/api.py#L151"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerServer.get_expired_timers" title="Link to this definition">#</a></dt>
 <dd><p>Returns all expired timers for each worker_id. An expired timer
 is a timer for which the expiration_time is less than or equal to
 the provided deadline.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.distributed.elastic.timer.TimerRequest" title="torch.distributed.elastic.timer.api.TimerRequest">torch.distributed.elastic.timer.api.TimerRequest</a>]]</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.distributed.elastic.timer.TimerRequest" title="torch.distributed.elastic.timer.api.TimerRequest"><em>TimerRequest</em></a>]]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.TimerServer.register_timers">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_timers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timer_requests</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/api.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerServer.register_timers" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_timers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timer_requests</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/api.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerServer.register_timers" title="Link to this definition">#</a></dt>
 <dd><p>Processes the incoming timer requests and registers them with the server.
 The timer request can either be a acquire-timer or release-timer request.
 Timer requests with a negative expiration_time should be interpreted
@@ -4710,12 +4710,12 @@ as a release-timer request.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.TimerClient">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">TimerClient</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/api.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerClient" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.</span></span><span class="sig-name descname"><span class="pre">TimerClient</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/api.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerClient" title="Link to this definition">#</a></dt>
 <dd><p>Client library to acquire and release countdown timers by communicating
 with the TimerServer.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.TimerClient.acquire">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">acquire</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expiration_time</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/api.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerClient.acquire" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">acquire</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expiration_time</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/api.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerClient.acquire" title="Link to this definition">#</a></dt>
 <dd><p>Acquires a timer for the worker that holds this client object
 given the scope_id and expiration_time. Typically registers
 the timer with the TimerServer.</p>
@@ -4725,7 +4725,7 @@ the timer with the TimerServer.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.TimerClient.release">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">release</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/api.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerClient.release" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">release</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/api.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.TimerClient.release" title="Link to this definition">#</a></dt>
 <dd><p>Releases the timer for the <code class="docutils literal notranslate"><span class="pre">scope_id</span></code> on the worker this
 client represents. After this method is
 called, the countdown timer on the scope is no longer in effect.</p>
@@ -4735,18 +4735,18 @@ called, the countdown timer on the scope is no longer in effect.</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-torch.distributed.elastic.timer.debug_info_logging">
-<span id="debug-info-logging"></span><h2>Debug info logging<a class="headerlink" href="#module-torch.distributed.elastic.timer.debug_info_logging" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-torch.distributed.elastic.timer.debug_info_logging">
+<span id="debug-info-logging"></span><h2>Debug info logging<a class="headerlink" href="#module-torch.distributed.elastic.timer.debug_info_logging" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.timer.debug_info_logging.log_debug_info_for_expired_timers">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.debug_info_logging.</span></span><span class="sig-name descname"><span class="pre">log_debug_info_for_expired_timers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expired_timers</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/distributed/elastic/timer/debug_info_logging.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.debug_info_logging.log_debug_info_for_expired_timers" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.timer.debug_info_logging.</span></span><span class="sig-name descname"><span class="pre">log_debug_info_for_expired_timers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expired_timers</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/distributed/elastic/timer/debug_info_logging.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.timer.debug_info_logging.log_debug_info_for_expired_timers" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -4812,11 +4812,6 @@ called, the countdown timer on the scope is no longer in effect.</p>
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -4970,7 +4965,9 @@ called, the countdown timer on the scope is no longer in effect.</p>
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -4994,10 +4991,13 @@ called, the countdown timer on the scope is no longer in effect.</p>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -5020,7 +5020,6 @@ called, the countdown timer on the scope is no longer in effect.</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -5070,10 +5069,10 @@ called, the countdown timer on the scope is no longer in effect.</p>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5114,7 +5113,7 @@ called, the countdown timer on the scope is no longer in effect.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -5143,13 +5142,13 @@ called, the countdown timer on the scope is no longer in effect.</p>
        "headline": "Expiration Timers",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/elastic/timer.html",
-       "articleBody": "Expiration Timers# Created On: May 04, 2021 | Last Updated On: Apr 25, 2024 Expiration timers are set up on the same process as the agent and used from your script to deal with stuck workers. When you go into a code-block that has the potential to get stuck you can acquire an expiration timer, which instructs the timer server to kill the process if it does not release the timer by the self-imposed expiration deadline. Usage: import torchelastic.timer as timer import torchelastic.agent.server as agent def main(): start_method = \"spawn\" message_queue = mp.get_context(start_method).Queue() server = timer.LocalTimerServer(message, max_interval=0.01) server.start() # non-blocking spec = WorkerSpec( fn=trainer_func, args=(message_queue,), ...\u003cOTHER_PARAMS...\u003e) agent = agent.LocalElasticAgent(spec, start_method) agent.run() def trainer_func(message_queue): timer.configure(timer.LocalTimerClient(message_queue)) with timer.expires(after=60): # 60 second expiry # do some work In the example above if trainer_func takes more than 60 seconds to complete, then the worker process is killed and the agent retries the worker group. Client Methods# torch.distributed.elastic.timer.configure(timer_client)[source]# Configures a timer client. Must be called before using expires. torch.distributed.elastic.timer.expires(after, scope=None, client=None)[source]# Acquires a countdown timer that expires in after seconds from now, unless the code-block that it wraps is finished within the timeframe. When the timer expires, this worker is eligible to be reaped. The exact meaning of \u201creaped\u201d depends on the client implementation. In most cases, reaping means to terminate the worker process. Note that the worker is NOT guaranteed to be reaped at exactly time.now() + after, but rather the worker is \u201celigible\u201d for being reaped and the TimerServer that the client talks to will ultimately make the decision when and how to reap the workers with expired timers. Usage: torch.distributed.elastic.timer.configure(LocalTimerClient()) with expires(after=10): torch.distributed.all_reduce(...) Server/Client Implementations# Below are the timer server and client pairs that are provided by torchelastic. Note Timer server and clients always have to be implemented and used in pairs since there is a messaging protocol between the server and client. Below is a pair of timer server and client that is implemented based on a multiprocess.Queue. class torch.distributed.elastic.timer.LocalTimerServer(mp_queue, max_interval=60, daemon=True)[source]# Server that works with LocalTimerClient. Clients are expected to be subprocesses to the parent process that is running this server. Each host in the job is expected to start its own timer server locally and each server instance manages timers for local workers (running on processes on the same host). class torch.distributed.elastic.timer.LocalTimerClient(mp_queue)[source]# Client side of LocalTimerServer. This client is meant to be used on the same host that the LocalTimerServer is running on and uses pid to uniquely identify a worker. This is particularly useful in situations where one spawns a subprocess (trainer) per GPU on a host with multiple GPU devices. Below is another pair of timer server and client that is implemented based on a named pipe. class torch.distributed.elastic.timer.FileTimerServer(file_path, run_id, max_interval=10, daemon=True, log_event=None)[source]# Server that works with FileTimerClient. Clients are expected to be running on the same host as the process that is running this server. Each host in the job is expected to start its own timer server locally and each server instance manages timers for local workers (running on processes on the same host). Parameters file_path (str) \u2013 str, the path of a FIFO special file to be created. max_interval (float) \u2013 float, max interval in seconds for each watchdog loop. daemon (bool) \u2013 bool, running the watchdog thread in daemon mode or not. A daemon thread will not block a process to stop. log_event (Optional[Callable[[str, Optional[FileTimerRequest]], None]]) \u2013 Callable[[Dict[str, str]], None], an optional callback for logging the events in JSON format. class torch.distributed.elastic.timer.FileTimerClient(file_path, signal=Signals.SIGKILL)[source]# Client side of FileTimerServer. This client is meant to be used on the same host that the FileTimerServer is running on and uses pid to uniquely identify a worker. This client uses a named_pipe to send timer requests to the FileTimerServer. This client is a producer while the FileTimerServer is a consumer. Multiple clients can work with the same FileTimerServer. Parameters file_path (str) \u2013 str, the path of a FIFO special file. FileTimerServer must have created it by calling os.mkfifo(). signal \u2013 signal, the signal to use to kill the process. Using a negative or zero signal will not kill the process. Writing a custom timer server/client# To write your own timer server and client extend the torch.distributed.elastic.timer.TimerServer for the server and torch.distributed.elastic.timer.TimerClient for the client. The TimerRequest object is used to pass messages between the server and client. class torch.distributed.elastic.timer.TimerRequest(worker_id, scope_id, expiration_time)[source]# Data object representing a countdown timer acquisition and release that is used between the TimerClient and TimerServer. A negative expiration_time should be interpreted as a \u201crelease\u201d request. Note the type of worker_id is implementation specific. It is whatever the TimerServer and TimerClient implementations have on to uniquely identify a worker. class torch.distributed.elastic.timer.TimerServer(request_queue, max_interval, daemon=True)[source]# Entity that monitors active timers and expires them in a timely fashion. This server is responsible for reaping workers that have expired timers. abstract clear_timers(worker_ids)[source]# Clears all timers for the given worker_ids. abstract get_expired_timers(deadline)[source]# Returns all expired timers for each worker_id. An expired timer is a timer for which the expiration_time is less than or equal to the provided deadline. Return type dict[str, list[torch.distributed.elastic.timer.api.TimerRequest]] abstract register_timers(timer_requests)[source]# Processes the incoming timer requests and registers them with the server. The timer request can either be a acquire-timer or release-timer request. Timer requests with a negative expiration_time should be interpreted as a release-timer request. class torch.distributed.elastic.timer.TimerClient[source]# Client library to acquire and release countdown timers by communicating with the TimerServer. abstract acquire(scope_id, expiration_time)[source]# Acquires a timer for the worker that holds this client object given the scope_id and expiration_time. Typically registers the timer with the TimerServer. abstract release(scope_id)[source]# Releases the timer for the scope_id on the worker this client represents. After this method is called, the countdown timer on the scope is no longer in effect. Debug info logging# torch.distributed.elastic.timer.debug_info_logging.log_debug_info_for_expired_timers(run_id, expired_timers)[source]#",
+       "articleBody": "Expiration Timers# Created On: May 04, 2021 | Last Updated On: Apr 25, 2024 Expiration timers are set up on the same process as the agent and used from your script to deal with stuck workers. When you go into a code-block that has the potential to get stuck you can acquire an expiration timer, which instructs the timer server to kill the process if it does not release the timer by the self-imposed expiration deadline. Usage: import torchelastic.timer as timer import torchelastic.agent.server as agent def main(): start_method = \"spawn\" message_queue = mp.get_context(start_method).Queue() server = timer.LocalTimerServer(message, max_interval=0.01) server.start() # non-blocking spec = WorkerSpec( fn=trainer_func, args=(message_queue,), ...\u003cOTHER_PARAMS...\u003e) agent = agent.LocalElasticAgent(spec, start_method) agent.run() def trainer_func(message_queue): timer.configure(timer.LocalTimerClient(message_queue)) with timer.expires(after=60): # 60 second expiry # do some work In the example above if trainer_func takes more than 60 seconds to complete, then the worker process is killed and the agent retries the worker group. Client Methods# torch.distributed.elastic.timer.configure(timer_client)[source]# Configures a timer client. Must be called before using expires. torch.distributed.elastic.timer.expires(after, scope=None, client=None)[source]# Acquires a countdown timer that expires in after seconds from now, unless the code-block that it wraps is finished within the timeframe. When the timer expires, this worker is eligible to be reaped. The exact meaning of \u201creaped\u201d depends on the client implementation. In most cases, reaping means to terminate the worker process. Note that the worker is NOT guaranteed to be reaped at exactly time.now() + after, but rather the worker is \u201celigible\u201d for being reaped and the TimerServer that the client talks to will ultimately make the decision when and how to reap the workers with expired timers. Usage: torch.distributed.elastic.timer.configure(LocalTimerClient()) with expires(after=10): torch.distributed.all_reduce(...) Server/Client Implementations# Below are the timer server and client pairs that are provided by torchelastic. Note Timer server and clients always have to be implemented and used in pairs since there is a messaging protocol between the server and client. Below is a pair of timer server and client that is implemented based on a multiprocess.Queue. class torch.distributed.elastic.timer.LocalTimerServer(mp_queue, max_interval=60, daemon=True)[source]# Server that works with LocalTimerClient. Clients are expected to be subprocesses to the parent process that is running this server. Each host in the job is expected to start its own timer server locally and each server instance manages timers for local workers (running on processes on the same host). class torch.distributed.elastic.timer.LocalTimerClient(mp_queue)[source]# Client side of LocalTimerServer. This client is meant to be used on the same host that the LocalTimerServer is running on and uses pid to uniquely identify a worker. This is particularly useful in situations where one spawns a subprocess (trainer) per GPU on a host with multiple GPU devices. Below is another pair of timer server and client that is implemented based on a named pipe. class torch.distributed.elastic.timer.FileTimerServer(file_path, run_id, max_interval=10, daemon=True, log_event=None)[source]# Server that works with FileTimerClient. Clients are expected to be running on the same host as the process that is running this server. Each host in the job is expected to start its own timer server locally and each server instance manages timers for local workers (running on processes on the same host). Parameters: file_path (str) \u2013 str, the path of a FIFO special file to be created. max_interval (float) \u2013 float, max interval in seconds for each watchdog loop. daemon (bool) \u2013 bool, running the watchdog thread in daemon mode or not. A daemon thread will not block a process to stop. log_event (Callable[[str, FileTimerRequest | None], None] | None) \u2013 Callable[[Dict[str, str]], None], an optional callback for logging the events in JSON format. class torch.distributed.elastic.timer.FileTimerClient(file_path, signal=Signals.SIGKILL)[source]# Client side of FileTimerServer. This client is meant to be used on the same host that the FileTimerServer is running on and uses pid to uniquely identify a worker. This client uses a named_pipe to send timer requests to the FileTimerServer. This client is a producer while the FileTimerServer is a consumer. Multiple clients can work with the same FileTimerServer. Parameters: file_path (str) \u2013 str, the path of a FIFO special file. FileTimerServer must have created it by calling os.mkfifo(). signal \u2013 signal, the signal to use to kill the process. Using a negative or zero signal will not kill the process. Writing a custom timer server/client# To write your own timer server and client extend the torch.distributed.elastic.timer.TimerServer for the server and torch.distributed.elastic.timer.TimerClient for the client. The TimerRequest object is used to pass messages between the server and client. class torch.distributed.elastic.timer.TimerRequest(worker_id, scope_id, expiration_time)[source]# Data object representing a countdown timer acquisition and release that is used between the TimerClient and TimerServer. A negative expiration_time should be interpreted as a \u201crelease\u201d request. Note the type of worker_id is implementation specific. It is whatever the TimerServer and TimerClient implementations have on to uniquely identify a worker. class torch.distributed.elastic.timer.TimerServer(request_queue, max_interval, daemon=True)[source]# Entity that monitors active timers and expires them in a timely fashion. This server is responsible for reaping workers that have expired timers. abstract clear_timers(worker_ids)[source]# Clears all timers for the given worker_ids. abstract get_expired_timers(deadline)[source]# Returns all expired timers for each worker_id. An expired timer is a timer for which the expiration_time is less than or equal to the provided deadline. Return type: dict[str, list[TimerRequest]] abstract register_timers(timer_requests)[source]# Processes the incoming timer requests and registers them with the server. The timer request can either be a acquire-timer or release-timer request. Timer requests with a negative expiration_time should be interpreted as a release-timer request. class torch.distributed.elastic.timer.TimerClient[source]# Client library to acquire and release countdown timers by communicating with the TimerServer. abstract acquire(scope_id, expiration_time)[source]# Acquires a timer for the worker that holds this client object given the scope_id and expiration_time. Typically registers the timer with the TimerServer. abstract release(scope_id)[source]# Releases the timer for the scope_id on the worker this client represents. After this method is called, the countdown timer on the scope is no longer in effect. Debug info logging# torch.distributed.elastic.timer.debug_info_logging.log_debug_info_for_expired_timers(run_id, expired_timers)[source]#",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "../_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/elastic/timer.html"

@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>torch.nn.functional &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=940804e7"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'nn.functional';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="_static/js/runllm-widget.js"></script>
+    <script src="_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/nn.functional.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4479,6 +4478,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4486,482 +4486,438 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="torch-nn-functional">
-<h1>torch.nn.functional<a class="headerlink" href="#torch-nn-functional" title="Permalink to this heading">#</a></h1>
+  <section id="torch-nn-functional">
+<h1>torch.nn.functional<a class="headerlink" href="#torch-nn-functional" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 11, 2019 | Last Updated On: Oct 14, 2025</p>
-<div class="section" id="convolution-functions">
-<h2>Convolution functions<a class="headerlink" href="#convolution-functions" title="Permalink to this heading">#</a></h2>
+<section id="convolution-functions">
+<h2>Convolution functions<a class="headerlink" href="#convolution-functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.conv1d"/><a class="reference internal" href="generated/torch.nn.functional.conv1d.html#torch.nn.functional.conv1d" title="torch.nn.functional.conv1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv1d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.conv1d"/><p id="torch.nn.functional.conv1d"/><a class="reference internal" href="generated/torch.nn.functional.conv1d.html#torch.nn.functional.conv1d" title="torch.nn.functional.conv1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv1d</span></code></a></p></td>
 <td><p>Applies a 1D convolution over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.conv2d"/><a class="reference internal" href="generated/torch.nn.functional.conv2d.html#torch.nn.functional.conv2d" title="torch.nn.functional.conv2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv2d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.conv2d"/><p id="torch.nn.functional.conv2d"/><a class="reference internal" href="generated/torch.nn.functional.conv2d.html#torch.nn.functional.conv2d" title="torch.nn.functional.conv2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv2d</span></code></a></p></td>
 <td><p>Applies a 2D convolution over an input image composed of several input planes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.conv3d"/><a class="reference internal" href="generated/torch.nn.functional.conv3d.html#torch.nn.functional.conv3d" title="torch.nn.functional.conv3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv3d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.conv3d"/><p id="torch.nn.functional.conv3d"/><a class="reference internal" href="generated/torch.nn.functional.conv3d.html#torch.nn.functional.conv3d" title="torch.nn.functional.conv3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv3d</span></code></a></p></td>
 <td><p>Applies a 3D convolution over an input image composed of several input planes.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.conv_transpose1d"/><a class="reference internal" href="generated/torch.nn.functional.conv_transpose1d.html#torch.nn.functional.conv_transpose1d" title="torch.nn.functional.conv_transpose1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_transpose1d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.conv_transpose1d"/><p id="torch.nn.functional.conv_transpose1d"/><a class="reference internal" href="generated/torch.nn.functional.conv_transpose1d.html#torch.nn.functional.conv_transpose1d" title="torch.nn.functional.conv_transpose1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_transpose1d</span></code></a></p></td>
 <td><p>Applies a 1D transposed convolution operator over an input signal composed of several input planes, sometimes also called &quot;deconvolution&quot;.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.conv_transpose2d"/><a class="reference internal" href="generated/torch.nn.functional.conv_transpose2d.html#torch.nn.functional.conv_transpose2d" title="torch.nn.functional.conv_transpose2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_transpose2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.conv_transpose2d"/><p id="torch.nn.functional.conv_transpose2d"/><a class="reference internal" href="generated/torch.nn.functional.conv_transpose2d.html#torch.nn.functional.conv_transpose2d" title="torch.nn.functional.conv_transpose2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_transpose2d</span></code></a></p></td>
 <td><p>Applies a 2D transposed convolution operator over an input image composed of several input planes, sometimes also called &quot;deconvolution&quot;.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.conv_transpose3d"/><a class="reference internal" href="generated/torch.nn.functional.conv_transpose3d.html#torch.nn.functional.conv_transpose3d" title="torch.nn.functional.conv_transpose3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_transpose3d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.conv_transpose3d"/><p id="torch.nn.functional.conv_transpose3d"/><a class="reference internal" href="generated/torch.nn.functional.conv_transpose3d.html#torch.nn.functional.conv_transpose3d" title="torch.nn.functional.conv_transpose3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conv_transpose3d</span></code></a></p></td>
 <td><p>Applies a 3D transposed convolution operator over an input image composed of several input planes, sometimes also called &quot;deconvolution&quot;</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.unfold"/><a class="reference internal" href="generated/torch.nn.functional.unfold.html#torch.nn.functional.unfold" title="torch.nn.functional.unfold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfold</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.unfold"/><p id="torch.nn.functional.unfold"/><a class="reference internal" href="generated/torch.nn.functional.unfold.html#torch.nn.functional.unfold" title="torch.nn.functional.unfold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfold</span></code></a></p></td>
 <td><p>Extract sliding local blocks from a batched input tensor.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.fold"/><a class="reference internal" href="generated/torch.nn.functional.fold.html#torch.nn.functional.fold" title="torch.nn.functional.fold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fold</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.fold"/><p id="torch.nn.functional.fold"/><a class="reference internal" href="generated/torch.nn.functional.fold.html#torch.nn.functional.fold" title="torch.nn.functional.fold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fold</span></code></a></p></td>
 <td><p>Combine an array of sliding local blocks into a large containing tensor.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="pooling-functions">
-<h2>Pooling functions<a class="headerlink" href="#pooling-functions" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="pooling-functions">
+<h2>Pooling functions<a class="headerlink" href="#pooling-functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.avg_pool1d"/><a class="reference internal" href="generated/torch.nn.functional.avg_pool1d.html#torch.nn.functional.avg_pool1d" title="torch.nn.functional.avg_pool1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">avg_pool1d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.avg_pool1d"/><p id="torch.nn.functional.avg_pool1d"/><a class="reference internal" href="generated/torch.nn.functional.avg_pool1d.html#torch.nn.functional.avg_pool1d" title="torch.nn.functional.avg_pool1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">avg_pool1d</span></code></a></p></td>
 <td><p>Applies a 1D average pooling over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.avg_pool2d"/><a class="reference internal" href="generated/torch.nn.functional.avg_pool2d.html#torch.nn.functional.avg_pool2d" title="torch.nn.functional.avg_pool2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">avg_pool2d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.avg_pool2d"/><p id="torch.nn.functional.avg_pool2d"/><a class="reference internal" href="generated/torch.nn.functional.avg_pool2d.html#torch.nn.functional.avg_pool2d" title="torch.nn.functional.avg_pool2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">avg_pool2d</span></code></a></p></td>
 <td><p>Applies 2D average-pooling operation in <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>H</mi><mo>×</mo><mi>k</mi><mi>W</mi></mrow><annotation encoding="application/x-tex">kH \times kW</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">kW</span></span></span></span></span> regions by step size <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>H</mi><mo>×</mo><mi>s</mi><mi>W</mi></mrow><annotation encoding="application/x-tex">sH \times sW</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">sH</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span></span></span></span></span> steps.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.avg_pool3d"/><a class="reference internal" href="generated/torch.nn.functional.avg_pool3d.html#torch.nn.functional.avg_pool3d" title="torch.nn.functional.avg_pool3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">avg_pool3d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.avg_pool3d"/><p id="torch.nn.functional.avg_pool3d"/><a class="reference internal" href="generated/torch.nn.functional.avg_pool3d.html#torch.nn.functional.avg_pool3d" title="torch.nn.functional.avg_pool3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">avg_pool3d</span></code></a></p></td>
 <td><p>Applies 3D average-pooling operation in <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>T</mi><mo>×</mo><mi>k</mi><mi>H</mi><mo>×</mo><mi>k</mi><mi>W</mi></mrow><annotation encoding="application/x-tex">kT \times kH \times kW</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">kW</span></span></span></span></span> regions by step size <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>T</mi><mo>×</mo><mi>s</mi><mi>H</mi><mo>×</mo><mi>s</mi><mi>W</mi></mrow><annotation encoding="application/x-tex">sT \times sH \times sW</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">sH</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span></span></span></span></span> steps.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.max_pool1d"/><a class="reference internal" href="generated/torch.nn.functional.max_pool1d.html#torch.nn.functional.max_pool1d" title="torch.nn.functional.max_pool1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_pool1d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.max_pool1d"/><p id="torch.nn.functional.max_pool1d"/><a class="reference internal" href="generated/torch.nn.functional.max_pool1d.html#torch.nn.functional.max_pool1d" title="torch.nn.functional.max_pool1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_pool1d</span></code></a></p></td>
 <td><p>Applies a 1D max pooling over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.max_pool2d"/><a class="reference internal" href="generated/torch.nn.functional.max_pool2d.html#torch.nn.functional.max_pool2d" title="torch.nn.functional.max_pool2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_pool2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.max_pool2d"/><p id="torch.nn.functional.max_pool2d"/><a class="reference internal" href="generated/torch.nn.functional.max_pool2d.html#torch.nn.functional.max_pool2d" title="torch.nn.functional.max_pool2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_pool2d</span></code></a></p></td>
 <td><p>Applies a 2D max pooling over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.max_pool3d"/><a class="reference internal" href="generated/torch.nn.functional.max_pool3d.html#torch.nn.functional.max_pool3d" title="torch.nn.functional.max_pool3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_pool3d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.max_pool3d"/><p id="torch.nn.functional.max_pool3d"/><a class="reference internal" href="generated/torch.nn.functional.max_pool3d.html#torch.nn.functional.max_pool3d" title="torch.nn.functional.max_pool3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_pool3d</span></code></a></p></td>
 <td><p>Applies a 3D max pooling over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.max_unpool1d"/><a class="reference internal" href="generated/torch.nn.functional.max_unpool1d.html#torch.nn.functional.max_unpool1d" title="torch.nn.functional.max_unpool1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_unpool1d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.max_unpool1d"/><p id="torch.nn.functional.max_unpool1d"/><a class="reference internal" href="generated/torch.nn.functional.max_unpool1d.html#torch.nn.functional.max_unpool1d" title="torch.nn.functional.max_unpool1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_unpool1d</span></code></a></p></td>
 <td><p>Compute a partial inverse of <code class="xref py py-class docutils literal notranslate"><span class="pre">MaxPool1d</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.max_unpool2d"/><a class="reference internal" href="generated/torch.nn.functional.max_unpool2d.html#torch.nn.functional.max_unpool2d" title="torch.nn.functional.max_unpool2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_unpool2d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.max_unpool2d"/><p id="torch.nn.functional.max_unpool2d"/><a class="reference internal" href="generated/torch.nn.functional.max_unpool2d.html#torch.nn.functional.max_unpool2d" title="torch.nn.functional.max_unpool2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_unpool2d</span></code></a></p></td>
 <td><p>Compute a partial inverse of <code class="xref py py-class docutils literal notranslate"><span class="pre">MaxPool2d</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.max_unpool3d"/><a class="reference internal" href="generated/torch.nn.functional.max_unpool3d.html#torch.nn.functional.max_unpool3d" title="torch.nn.functional.max_unpool3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_unpool3d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.max_unpool3d"/><p id="torch.nn.functional.max_unpool3d"/><a class="reference internal" href="generated/torch.nn.functional.max_unpool3d.html#torch.nn.functional.max_unpool3d" title="torch.nn.functional.max_unpool3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_unpool3d</span></code></a></p></td>
 <td><p>Compute a partial inverse of <code class="xref py py-class docutils literal notranslate"><span class="pre">MaxPool3d</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.lp_pool1d"/><a class="reference internal" href="generated/torch.nn.functional.lp_pool1d.html#torch.nn.functional.lp_pool1d" title="torch.nn.functional.lp_pool1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lp_pool1d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.lp_pool1d"/><p id="torch.nn.functional.lp_pool1d"/><a class="reference internal" href="generated/torch.nn.functional.lp_pool1d.html#torch.nn.functional.lp_pool1d" title="torch.nn.functional.lp_pool1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lp_pool1d</span></code></a></p></td>
 <td><p>Apply a 1D power-average pooling over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.lp_pool2d"/><a class="reference internal" href="generated/torch.nn.functional.lp_pool2d.html#torch.nn.functional.lp_pool2d" title="torch.nn.functional.lp_pool2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lp_pool2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.lp_pool2d"/><p id="torch.nn.functional.lp_pool2d"/><a class="reference internal" href="generated/torch.nn.functional.lp_pool2d.html#torch.nn.functional.lp_pool2d" title="torch.nn.functional.lp_pool2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lp_pool2d</span></code></a></p></td>
 <td><p>Apply a 2D power-average pooling over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.lp_pool3d"/><a class="reference internal" href="generated/torch.nn.functional.lp_pool3d.html#torch.nn.functional.lp_pool3d" title="torch.nn.functional.lp_pool3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lp_pool3d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.lp_pool3d"/><p id="torch.nn.functional.lp_pool3d"/><a class="reference internal" href="generated/torch.nn.functional.lp_pool3d.html#torch.nn.functional.lp_pool3d" title="torch.nn.functional.lp_pool3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lp_pool3d</span></code></a></p></td>
 <td><p>Apply a 3D power-average pooling over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.adaptive_max_pool1d"/><a class="reference internal" href="generated/torch.nn.functional.adaptive_max_pool1d.html#torch.nn.functional.adaptive_max_pool1d" title="torch.nn.functional.adaptive_max_pool1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adaptive_max_pool1d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.adaptive_max_pool1d"/><p id="torch.nn.functional.adaptive_max_pool1d"/><a class="reference internal" href="generated/torch.nn.functional.adaptive_max_pool1d.html#torch.nn.functional.adaptive_max_pool1d" title="torch.nn.functional.adaptive_max_pool1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adaptive_max_pool1d</span></code></a></p></td>
 <td><p>Applies a 1D adaptive max pooling over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.adaptive_max_pool2d"/><a class="reference internal" href="generated/torch.nn.functional.adaptive_max_pool2d.html#torch.nn.functional.adaptive_max_pool2d" title="torch.nn.functional.adaptive_max_pool2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adaptive_max_pool2d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.adaptive_max_pool2d"/><p id="torch.nn.functional.adaptive_max_pool2d"/><a class="reference internal" href="generated/torch.nn.functional.adaptive_max_pool2d.html#torch.nn.functional.adaptive_max_pool2d" title="torch.nn.functional.adaptive_max_pool2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adaptive_max_pool2d</span></code></a></p></td>
 <td><p>Applies a 2D adaptive max pooling over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.adaptive_max_pool3d"/><a class="reference internal" href="generated/torch.nn.functional.adaptive_max_pool3d.html#torch.nn.functional.adaptive_max_pool3d" title="torch.nn.functional.adaptive_max_pool3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adaptive_max_pool3d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.adaptive_max_pool3d"/><p id="torch.nn.functional.adaptive_max_pool3d"/><a class="reference internal" href="generated/torch.nn.functional.adaptive_max_pool3d.html#torch.nn.functional.adaptive_max_pool3d" title="torch.nn.functional.adaptive_max_pool3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adaptive_max_pool3d</span></code></a></p></td>
 <td><p>Applies a 3D adaptive max pooling over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.adaptive_avg_pool1d"/><a class="reference internal" href="generated/torch.nn.functional.adaptive_avg_pool1d.html#torch.nn.functional.adaptive_avg_pool1d" title="torch.nn.functional.adaptive_avg_pool1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adaptive_avg_pool1d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.adaptive_avg_pool1d"/><p id="torch.nn.functional.adaptive_avg_pool1d"/><a class="reference internal" href="generated/torch.nn.functional.adaptive_avg_pool1d.html#torch.nn.functional.adaptive_avg_pool1d" title="torch.nn.functional.adaptive_avg_pool1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adaptive_avg_pool1d</span></code></a></p></td>
 <td><p>Applies a 1D adaptive average pooling over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.adaptive_avg_pool2d"/><a class="reference internal" href="generated/torch.nn.functional.adaptive_avg_pool2d.html#torch.nn.functional.adaptive_avg_pool2d" title="torch.nn.functional.adaptive_avg_pool2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adaptive_avg_pool2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.adaptive_avg_pool2d"/><p id="torch.nn.functional.adaptive_avg_pool2d"/><a class="reference internal" href="generated/torch.nn.functional.adaptive_avg_pool2d.html#torch.nn.functional.adaptive_avg_pool2d" title="torch.nn.functional.adaptive_avg_pool2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adaptive_avg_pool2d</span></code></a></p></td>
 <td><p>Apply a 2D adaptive average pooling over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.adaptive_avg_pool3d"/><a class="reference internal" href="generated/torch.nn.functional.adaptive_avg_pool3d.html#torch.nn.functional.adaptive_avg_pool3d" title="torch.nn.functional.adaptive_avg_pool3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adaptive_avg_pool3d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.adaptive_avg_pool3d"/><p id="torch.nn.functional.adaptive_avg_pool3d"/><a class="reference internal" href="generated/torch.nn.functional.adaptive_avg_pool3d.html#torch.nn.functional.adaptive_avg_pool3d" title="torch.nn.functional.adaptive_avg_pool3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adaptive_avg_pool3d</span></code></a></p></td>
 <td><p>Apply a 3D adaptive average pooling over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.fractional_max_pool2d"/><a class="reference internal" href="generated/torch.nn.functional.fractional_max_pool2d.html#torch.nn.functional.fractional_max_pool2d" title="torch.nn.functional.fractional_max_pool2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fractional_max_pool2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.fractional_max_pool2d"/><p id="torch.nn.functional.fractional_max_pool2d"/><a class="reference internal" href="generated/torch.nn.functional.fractional_max_pool2d.html#torch.nn.functional.fractional_max_pool2d" title="torch.nn.functional.fractional_max_pool2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fractional_max_pool2d</span></code></a></p></td>
 <td><p>Applies 2D fractional max pooling over an input signal composed of several input planes.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.fractional_max_pool3d"/><a class="reference internal" href="generated/torch.nn.functional.fractional_max_pool3d.html#torch.nn.functional.fractional_max_pool3d" title="torch.nn.functional.fractional_max_pool3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fractional_max_pool3d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.fractional_max_pool3d"/><p id="torch.nn.functional.fractional_max_pool3d"/><a class="reference internal" href="generated/torch.nn.functional.fractional_max_pool3d.html#torch.nn.functional.fractional_max_pool3d" title="torch.nn.functional.fractional_max_pool3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fractional_max_pool3d</span></code></a></p></td>
 <td><p>Applies 3D fractional max pooling over an input signal composed of several input planes.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="attention-mechanisms">
-<h2>Attention Mechanisms<a class="headerlink" href="#attention-mechanisms" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="attention-mechanisms">
+<h2>Attention Mechanisms<a class="headerlink" href="#attention-mechanisms" title="Link to this heading">#</a></h2>
 <p>The <a class="reference internal" href="nn.attention.bias.html#module-torch.nn.attention.bias" title="torch.nn.attention.bias"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.nn.attention.bias</span></code></a> module contains attention_biases that are designed to be used with
 scaled_dot_product_attention.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.scaled_dot_product_attention"/><a class="reference internal" href="generated/torch.nn.functional.scaled_dot_product_attention.html#torch.nn.functional.scaled_dot_product_attention" title="torch.nn.functional.scaled_dot_product_attention"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scaled_dot_product_attention</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.scaled_dot_product_attention"/><p id="torch.nn.functional.scaled_dot_product_attention"/><a class="reference internal" href="generated/torch.nn.functional.scaled_dot_product_attention.html#torch.nn.functional.scaled_dot_product_attention" title="torch.nn.functional.scaled_dot_product_attention"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scaled_dot_product_attention</span></code></a></p></td>
 <td><p>scaled_dot_product_attention(query, key, value, attn_mask=None, dropout_p=0.0,</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="non-linear-activation-functions">
-<h2>Non-linear activation functions<a class="headerlink" href="#non-linear-activation-functions" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="non-linear-activation-functions">
+<h2>Non-linear activation functions<a class="headerlink" href="#non-linear-activation-functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.threshold"/><a class="reference internal" href="generated/torch.nn.functional.threshold.html#torch.nn.functional.threshold" title="torch.nn.functional.threshold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">threshold</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.threshold"/><p id="torch.nn.functional.threshold"/><a class="reference internal" href="generated/torch.nn.functional.threshold.html#torch.nn.functional.threshold" title="torch.nn.functional.threshold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">threshold</span></code></a></p></td>
 <td><p>Apply a threshold to each element of the input Tensor.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.threshold_"/><a class="reference internal" href="generated/torch.nn.functional.threshold_.html#torch.nn.functional.threshold_" title="torch.nn.functional.threshold_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">threshold_</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.threshold_"/><p id="torch.nn.functional.threshold_"/><a class="reference internal" href="generated/torch.nn.functional.threshold_.html#torch.nn.functional.threshold_" title="torch.nn.functional.threshold_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">threshold_</span></code></a></p></td>
 <td><p>In-place version of <a class="reference internal" href="generated/torch.nn.functional.threshold.html#torch.nn.functional.threshold" title="torch.nn.functional.threshold"><code class="xref py py-func docutils literal notranslate"><span class="pre">threshold()</span></code></a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.relu"/><a class="reference internal" href="generated/torch.nn.functional.relu.html#torch.nn.functional.relu" title="torch.nn.functional.relu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">relu</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.relu"/><p id="torch.nn.functional.relu"/><a class="reference internal" href="generated/torch.nn.functional.relu.html#torch.nn.functional.relu" title="torch.nn.functional.relu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">relu</span></code></a></p></td>
 <td><p>Applies the rectified linear unit function element-wise.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.relu_"/><a class="reference internal" href="generated/torch.nn.functional.relu_.html#torch.nn.functional.relu_" title="torch.nn.functional.relu_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">relu_</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.relu_"/><p id="torch.nn.functional.relu_"/><a class="reference internal" href="generated/torch.nn.functional.relu_.html#torch.nn.functional.relu_" title="torch.nn.functional.relu_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">relu_</span></code></a></p></td>
 <td><p>In-place version of <a class="reference internal" href="generated/torch.nn.functional.relu.html#torch.nn.functional.relu" title="torch.nn.functional.relu"><code class="xref py py-func docutils literal notranslate"><span class="pre">relu()</span></code></a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.hardtanh"/><a class="reference internal" href="generated/torch.nn.functional.hardtanh.html#torch.nn.functional.hardtanh" title="torch.nn.functional.hardtanh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hardtanh</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.hardtanh"/><p id="torch.nn.functional.hardtanh"/><a class="reference internal" href="generated/torch.nn.functional.hardtanh.html#torch.nn.functional.hardtanh" title="torch.nn.functional.hardtanh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hardtanh</span></code></a></p></td>
 <td><p>Applies the HardTanh function element-wise.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.hardtanh_"/><a class="reference internal" href="generated/torch.nn.functional.hardtanh_.html#torch.nn.functional.hardtanh_" title="torch.nn.functional.hardtanh_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hardtanh_</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.hardtanh_"/><p id="torch.nn.functional.hardtanh_"/><a class="reference internal" href="generated/torch.nn.functional.hardtanh_.html#torch.nn.functional.hardtanh_" title="torch.nn.functional.hardtanh_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hardtanh_</span></code></a></p></td>
 <td><p>In-place version of <a class="reference internal" href="generated/torch.nn.functional.hardtanh.html#torch.nn.functional.hardtanh" title="torch.nn.functional.hardtanh"><code class="xref py py-func docutils literal notranslate"><span class="pre">hardtanh()</span></code></a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.hardswish"/><a class="reference internal" href="generated/torch.nn.functional.hardswish.html#torch.nn.functional.hardswish" title="torch.nn.functional.hardswish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hardswish</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.hardswish"/><p id="torch.nn.functional.hardswish"/><a class="reference internal" href="generated/torch.nn.functional.hardswish.html#torch.nn.functional.hardswish" title="torch.nn.functional.hardswish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hardswish</span></code></a></p></td>
 <td><p>Apply hardswish function, element-wise.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.relu6"/><a class="reference internal" href="generated/torch.nn.functional.relu6.html#torch.nn.functional.relu6" title="torch.nn.functional.relu6"><code class="xref py py-obj docutils literal notranslate"><span class="pre">relu6</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.relu6"/><p id="torch.nn.functional.relu6"/><a class="reference internal" href="generated/torch.nn.functional.relu6.html#torch.nn.functional.relu6" title="torch.nn.functional.relu6"><code class="xref py py-obj docutils literal notranslate"><span class="pre">relu6</span></code></a></p></td>
 <td><p>Applies the element-wise function <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>ReLU6</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>min</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mn>6</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{ReLU6}(x) = \min(\max(0,x), 6)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">ReLU6</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mopen">(</span><span class="mop">max</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">6</span><span class="mclose">)</span></span></span></span></span>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.elu"/><a class="reference internal" href="generated/torch.nn.functional.elu.html#torch.nn.functional.elu" title="torch.nn.functional.elu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">elu</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.elu"/><p id="torch.nn.functional.elu"/><a class="reference internal" href="generated/torch.nn.functional.elu.html#torch.nn.functional.elu" title="torch.nn.functional.elu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">elu</span></code></a></p></td>
 <td><p>Apply the Exponential Linear Unit (ELU) function element-wise.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.elu_"/><a class="reference internal" href="generated/torch.nn.functional.elu_.html#torch.nn.functional.elu_" title="torch.nn.functional.elu_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">elu_</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.elu_"/><p id="torch.nn.functional.elu_"/><a class="reference internal" href="generated/torch.nn.functional.elu_.html#torch.nn.functional.elu_" title="torch.nn.functional.elu_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">elu_</span></code></a></p></td>
 <td><p>In-place version of <a class="reference internal" href="generated/torch.nn.functional.elu.html#torch.nn.functional.elu" title="torch.nn.functional.elu"><code class="xref py py-func docutils literal notranslate"><span class="pre">elu()</span></code></a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.selu"/><a class="reference internal" href="generated/torch.nn.functional.selu.html#torch.nn.functional.selu" title="torch.nn.functional.selu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selu</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.selu"/><p id="torch.nn.functional.selu"/><a class="reference internal" href="generated/torch.nn.functional.selu.html#torch.nn.functional.selu" title="torch.nn.functional.selu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selu</span></code></a></p></td>
 <td><p>Applies element-wise, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>SELU</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>s</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>e</mi><mo>∗</mo><mo stretchy="false">(</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>min</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>α</mi><mo>∗</mo><mo stretchy="false">(</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{SELU}(x) = scale * (\max(0,x) + \min(0, \alpha * (\exp(x) - 1)))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">SELU</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">sc</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mop">max</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)))</span></span></span></span></span>, with <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mn>1.6732632423543772848170429916717</mn></mrow><annotation encoding="application/x-tex">\alpha=1.6732632423543772848170429916717</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1.6732632423543772848170429916717</span></span></span></span></span> and <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>e</mi><mo>=</mo><mn>1.0507009873554804934193349852946</mn></mrow><annotation encoding="application/x-tex">scale=1.0507009873554804934193349852946</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">sc</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1.0507009873554804934193349852946</span></span></span></span></span>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.celu"/><a class="reference internal" href="generated/torch.nn.functional.celu.html#torch.nn.functional.celu" title="torch.nn.functional.celu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">celu</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.celu"/><p id="torch.nn.functional.celu"/><a class="reference internal" href="generated/torch.nn.functional.celu.html#torch.nn.functional.celu" title="torch.nn.functional.celu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">celu</span></code></a></p></td>
 <td><p>Applies element-wise, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>CELU</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>min</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>α</mi><mo>∗</mo><mo stretchy="false">(</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>x</mi><mi mathvariant="normal">/</mi><mi>α</mi><mo stretchy="false">)</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{CELU}(x) = \max(0,x) + \min(0, \alpha * (\exp(x/\alpha) - 1))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">CELU</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">max</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">))</span></span></span></span></span>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.leaky_relu"/><a class="reference internal" href="generated/torch.nn.functional.leaky_relu.html#torch.nn.functional.leaky_relu" title="torch.nn.functional.leaky_relu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">leaky_relu</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.leaky_relu"/><p id="torch.nn.functional.leaky_relu"/><a class="reference internal" href="generated/torch.nn.functional.leaky_relu.html#torch.nn.functional.leaky_relu" title="torch.nn.functional.leaky_relu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">leaky_relu</span></code></a></p></td>
 <td><p>Applies element-wise, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>LeakyReLU</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mtext>negative_slope</mtext><mo>∗</mo><mi>min</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{LeakyReLU}(x) = \max(0, x) + \text{negative\_slope} * \min(0, x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">LeakyReLU</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">max</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0044em;vertical-align:-0.31em;"></span><span class="mord text"><span class="mord">negative_slope</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span></p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.leaky_relu_"/><a class="reference internal" href="generated/torch.nn.functional.leaky_relu_.html#torch.nn.functional.leaky_relu_" title="torch.nn.functional.leaky_relu_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">leaky_relu_</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.leaky_relu_"/><p id="torch.nn.functional.leaky_relu_"/><a class="reference internal" href="generated/torch.nn.functional.leaky_relu_.html#torch.nn.functional.leaky_relu_" title="torch.nn.functional.leaky_relu_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">leaky_relu_</span></code></a></p></td>
 <td><p>In-place version of <a class="reference internal" href="generated/torch.nn.functional.leaky_relu.html#torch.nn.functional.leaky_relu" title="torch.nn.functional.leaky_relu"><code class="xref py py-func docutils literal notranslate"><span class="pre">leaky_relu()</span></code></a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.prelu"/><a class="reference internal" href="generated/torch.nn.functional.prelu.html#torch.nn.functional.prelu" title="torch.nn.functional.prelu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prelu</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.prelu"/><p id="torch.nn.functional.prelu"/><a class="reference internal" href="generated/torch.nn.functional.prelu.html#torch.nn.functional.prelu" title="torch.nn.functional.prelu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prelu</span></code></a></p></td>
 <td><p>Applies element-wise the function <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>PReLU</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mtext>weight</mtext><mo>∗</mo><mi>min</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{PReLU}(x) = \max(0,x) + \text{weight} * \min(0,x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">PReLU</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">max</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">weight</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span> where weight is a learnable parameter.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.rrelu"/><a class="reference internal" href="generated/torch.nn.functional.rrelu.html#torch.nn.functional.rrelu" title="torch.nn.functional.rrelu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rrelu</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.rrelu"/><p id="torch.nn.functional.rrelu"/><a class="reference internal" href="generated/torch.nn.functional.rrelu.html#torch.nn.functional.rrelu" title="torch.nn.functional.rrelu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rrelu</span></code></a></p></td>
 <td><p>Randomized leaky ReLU.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.rrelu_"/><a class="reference internal" href="generated/torch.nn.functional.rrelu_.html#torch.nn.functional.rrelu_" title="torch.nn.functional.rrelu_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rrelu_</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.rrelu_"/><p id="torch.nn.functional.rrelu_"/><a class="reference internal" href="generated/torch.nn.functional.rrelu_.html#torch.nn.functional.rrelu_" title="torch.nn.functional.rrelu_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rrelu_</span></code></a></p></td>
 <td><p>In-place version of <a class="reference internal" href="generated/torch.nn.functional.rrelu.html#torch.nn.functional.rrelu" title="torch.nn.functional.rrelu"><code class="xref py py-func docutils literal notranslate"><span class="pre">rrelu()</span></code></a>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.glu"/><a class="reference internal" href="generated/torch.nn.functional.glu.html#torch.nn.functional.glu" title="torch.nn.functional.glu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">glu</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.glu"/><p id="torch.nn.functional.glu"/><a class="reference internal" href="generated/torch.nn.functional.glu.html#torch.nn.functional.glu" title="torch.nn.functional.glu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">glu</span></code></a></p></td>
 <td><p>The gated linear unit.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.gelu"/><a class="reference internal" href="generated/torch.nn.functional.gelu.html#torch.nn.functional.gelu" title="torch.nn.functional.gelu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gelu</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.gelu"/><p id="torch.nn.functional.gelu"/><a class="reference internal" href="generated/torch.nn.functional.gelu.html#torch.nn.functional.gelu" title="torch.nn.functional.gelu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gelu</span></code></a></p></td>
 <td><p>When the approximate argument is 'none', it applies element-wise the function <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>GELU</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>x</mi><mo>∗</mo><mi mathvariant="normal">Φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{GELU}(x) = x * \Phi(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">GELU</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4653em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span></p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.logsigmoid"/><a class="reference internal" href="generated/torch.nn.functional.logsigmoid.html#torch.nn.functional.logsigmoid" title="torch.nn.functional.logsigmoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logsigmoid</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.logsigmoid"/><p id="torch.nn.functional.logsigmoid"/><a class="reference internal" href="generated/torch.nn.functional.logsigmoid.html#torch.nn.functional.logsigmoid" title="torch.nn.functional.logsigmoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logsigmoid</span></code></a></p></td>
 <td><p>Applies element-wise <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>LogSigmoid</mtext><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mo>=</mo><mi>log</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mo>−</mo><msub><mi>x</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow></mfrac><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\text{LogSigmoid}(x_i) = \log \left(\frac{1}{1 + \exp(-x_i)}\right)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">LogSigmoid</span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.8em;vertical-align:-0.65em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size2">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mop mtight"><span class="mtight">e</span><span class="mtight">x</span><span class="mtight">p</span></span><span class="mopen mtight">(</span><span class="mord mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size2">)</span></span></span></span></span></span></span></p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.hardshrink"/><a class="reference internal" href="generated/torch.nn.functional.hardshrink.html#torch.nn.functional.hardshrink" title="torch.nn.functional.hardshrink"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hardshrink</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.hardshrink"/><p id="torch.nn.functional.hardshrink"/><a class="reference internal" href="generated/torch.nn.functional.hardshrink.html#torch.nn.functional.hardshrink" title="torch.nn.functional.hardshrink"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hardshrink</span></code></a></p></td>
 <td><p>Applies the hard shrinkage function element-wise</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.tanhshrink"/><a class="reference internal" href="generated/torch.nn.functional.tanhshrink.html#torch.nn.functional.tanhshrink" title="torch.nn.functional.tanhshrink"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tanhshrink</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.tanhshrink"/><p id="torch.nn.functional.tanhshrink"/><a class="reference internal" href="generated/torch.nn.functional.tanhshrink.html#torch.nn.functional.tanhshrink" title="torch.nn.functional.tanhshrink"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tanhshrink</span></code></a></p></td>
 <td><p>Applies element-wise, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Tanhshrink</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>x</mi><mo>−</mo><mtext>Tanh</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{Tanhshrink}(x) = x - \text{Tanh}(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Tanhshrink</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Tanh</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span></p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.softsign"/><a class="reference internal" href="generated/torch.nn.functional.softsign.html#torch.nn.functional.softsign" title="torch.nn.functional.softsign"><code class="xref py py-obj docutils literal notranslate"><span class="pre">softsign</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.softsign"/><p id="torch.nn.functional.softsign"/><a class="reference internal" href="generated/torch.nn.functional.softsign.html#torch.nn.functional.softsign" title="torch.nn.functional.softsign"><code class="xref py py-obj docutils literal notranslate"><span class="pre">softsign</span></code></a></p></td>
 <td><p>Applies element-wise, the function <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>SoftSign</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mi>x</mi><mrow><mn>1</mn><mo>+</mo><mi mathvariant="normal">∣</mi><mi>x</mi><mi mathvariant="normal">∣</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{SoftSign}(x) = \frac{x}{1 + |x|}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">SoftSign</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2154em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6954em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mord mtight">∣</span><span class="mord mathnormal mtight">x</span><span class="mord mtight">∣</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.softplus"/><a class="reference internal" href="generated/torch.nn.functional.softplus.html#torch.nn.functional.softplus" title="torch.nn.functional.softplus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">softplus</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.softplus"/><p id="torch.nn.functional.softplus"/><a class="reference internal" href="generated/torch.nn.functional.softplus.html#torch.nn.functional.softplus" title="torch.nn.functional.softplus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">softplus</span></code></a></p></td>
 <td><p>Applies element-wise, the function <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Softplus</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mi>β</mi></mfrac><mo>∗</mo><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>β</mi><mo>∗</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{Softplus}(x) = \frac{1}{\beta} * \log(1 + \exp(\beta * x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Softplus</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.3262em;vertical-align:-0.4811em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05278em;">β</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4811em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span></span>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.softmin"/><a class="reference internal" href="generated/torch.nn.functional.softmin.html#torch.nn.functional.softmin" title="torch.nn.functional.softmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">softmin</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.softmin"/><p id="torch.nn.functional.softmin"/><a class="reference internal" href="generated/torch.nn.functional.softmin.html#torch.nn.functional.softmin" title="torch.nn.functional.softmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">softmin</span></code></a></p></td>
 <td><p>Apply a softmin function.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.softmax"/><a class="reference internal" href="generated/torch.nn.functional.softmax.html#torch.nn.functional.softmax" title="torch.nn.functional.softmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.softmax"/><p id="torch.nn.functional.softmax"/><a class="reference internal" href="generated/torch.nn.functional.softmax.html#torch.nn.functional.softmax" title="torch.nn.functional.softmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code></a></p></td>
 <td><p>Apply a softmax function.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.softshrink"/><a class="reference internal" href="generated/torch.nn.functional.softshrink.html#torch.nn.functional.softshrink" title="torch.nn.functional.softshrink"><code class="xref py py-obj docutils literal notranslate"><span class="pre">softshrink</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.softshrink"/><p id="torch.nn.functional.softshrink"/><a class="reference internal" href="generated/torch.nn.functional.softshrink.html#torch.nn.functional.softshrink" title="torch.nn.functional.softshrink"><code class="xref py py-obj docutils literal notranslate"><span class="pre">softshrink</span></code></a></p></td>
 <td><p>Applies the soft shrinkage function elementwise</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.gumbel_softmax"/><a class="reference internal" href="generated/torch.nn.functional.gumbel_softmax.html#torch.nn.functional.gumbel_softmax" title="torch.nn.functional.gumbel_softmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gumbel_softmax</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.gumbel_softmax"/><p id="torch.nn.functional.gumbel_softmax"/><a class="reference internal" href="generated/torch.nn.functional.gumbel_softmax.html#torch.nn.functional.gumbel_softmax" title="torch.nn.functional.gumbel_softmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gumbel_softmax</span></code></a></p></td>
 <td><p>Sample from the Gumbel-Softmax distribution (<a class="reference external" href="https://arxiv.org/abs/1611.00712">Link 1</a>  <a class="reference external" href="https://arxiv.org/abs/1611.01144">Link 2</a>) and optionally discretize.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.log_softmax"/><a class="reference internal" href="generated/torch.nn.functional.log_softmax.html#torch.nn.functional.log_softmax" title="torch.nn.functional.log_softmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log_softmax</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.log_softmax"/><p id="torch.nn.functional.log_softmax"/><a class="reference internal" href="generated/torch.nn.functional.log_softmax.html#torch.nn.functional.log_softmax" title="torch.nn.functional.log_softmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log_softmax</span></code></a></p></td>
 <td><p>Apply a softmax followed by a logarithm.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.tanh"/><a class="reference internal" href="generated/torch.nn.functional.tanh.html#torch.nn.functional.tanh" title="torch.nn.functional.tanh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tanh</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.tanh"/><p id="torch.nn.functional.tanh"/><a class="reference internal" href="generated/torch.nn.functional.tanh.html#torch.nn.functional.tanh" title="torch.nn.functional.tanh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tanh</span></code></a></p></td>
 <td><p>Applies element-wise, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Tanh</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>tanh</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>−</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mo>−</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mrow><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mo>−</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{Tanh}(x) = \tanh(x) = \frac{\exp(x) - \exp(-x)}{\exp(x) + \exp(-x)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Tanh</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">tanh</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.53em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">e</span><span class="mtight">x</span><span class="mtight">p</span></span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mbin mtight">+</span><span class="mop mtight"><span class="mtight">e</span><span class="mtight">x</span><span class="mtight">p</span></span><span class="mopen mtight">(</span><span class="mord mtight">−</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">e</span><span class="mtight">x</span><span class="mtight">p</span></span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mbin mtight">−</span><span class="mop mtight"><span class="mtight">e</span><span class="mtight">x</span><span class="mtight">p</span></span><span class="mopen mtight">(</span><span class="mord mtight">−</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.sigmoid"/><a class="reference internal" href="generated/torch.nn.functional.sigmoid.html#torch.nn.functional.sigmoid" title="torch.nn.functional.sigmoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigmoid</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.sigmoid"/><p id="torch.nn.functional.sigmoid"/><a class="reference internal" href="generated/torch.nn.functional.sigmoid.html#torch.nn.functional.sigmoid" title="torch.nn.functional.sigmoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigmoid</span></code></a></p></td>
 <td><p>Applies the element-wise function <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Sigmoid</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mo>−</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{Sigmoid}(x) = \frac{1}{1 + \exp(-x)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Sigmoid</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.3651em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mop mtight"><span class="mtight">e</span><span class="mtight">x</span><span class="mtight">p</span></span><span class="mopen mtight">(</span><span class="mord mtight">−</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.hardsigmoid"/><a class="reference internal" href="generated/torch.nn.functional.hardsigmoid.html#torch.nn.functional.hardsigmoid" title="torch.nn.functional.hardsigmoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hardsigmoid</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.hardsigmoid"/><p id="torch.nn.functional.hardsigmoid"/><a class="reference internal" href="generated/torch.nn.functional.hardsigmoid.html#torch.nn.functional.hardsigmoid" title="torch.nn.functional.hardsigmoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hardsigmoid</span></code></a></p></td>
 <td><p>Apply the Hardsigmoid function element-wise.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.silu"/><a class="reference internal" href="generated/torch.nn.functional.silu.html#torch.nn.functional.silu" title="torch.nn.functional.silu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">silu</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.silu"/><p id="torch.nn.functional.silu"/><a class="reference internal" href="generated/torch.nn.functional.silu.html#torch.nn.functional.silu" title="torch.nn.functional.silu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">silu</span></code></a></p></td>
 <td><p>Apply the Sigmoid Linear Unit (SiLU) function, element-wise.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.mish"/><a class="reference internal" href="generated/torch.nn.functional.mish.html#torch.nn.functional.mish" title="torch.nn.functional.mish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mish</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.mish"/><p id="torch.nn.functional.mish"/><a class="reference internal" href="generated/torch.nn.functional.mish.html#torch.nn.functional.mish" title="torch.nn.functional.mish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mish</span></code></a></p></td>
 <td><p>Apply the Mish function, element-wise.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.batch_norm"/><a class="reference internal" href="generated/torch.nn.functional.batch_norm.html#torch.nn.functional.batch_norm" title="torch.nn.functional.batch_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batch_norm</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.batch_norm"/><p id="torch.nn.functional.batch_norm"/><a class="reference internal" href="generated/torch.nn.functional.batch_norm.html#torch.nn.functional.batch_norm" title="torch.nn.functional.batch_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batch_norm</span></code></a></p></td>
 <td><p>Apply Batch Normalization for each channel across a batch of data.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.group_norm"/><a class="reference internal" href="generated/torch.nn.functional.group_norm.html#torch.nn.functional.group_norm" title="torch.nn.functional.group_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_norm</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.group_norm"/><p id="torch.nn.functional.group_norm"/><a class="reference internal" href="generated/torch.nn.functional.group_norm.html#torch.nn.functional.group_norm" title="torch.nn.functional.group_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_norm</span></code></a></p></td>
 <td><p>Apply Group Normalization for last certain number of dimensions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.instance_norm"/><a class="reference internal" href="generated/torch.nn.functional.instance_norm.html#torch.nn.functional.instance_norm" title="torch.nn.functional.instance_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instance_norm</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.instance_norm"/><p id="torch.nn.functional.instance_norm"/><a class="reference internal" href="generated/torch.nn.functional.instance_norm.html#torch.nn.functional.instance_norm" title="torch.nn.functional.instance_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instance_norm</span></code></a></p></td>
 <td><p>Apply Instance Normalization independently for each channel in every data sample within a batch.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.layer_norm"/><a class="reference internal" href="generated/torch.nn.functional.layer_norm.html#torch.nn.functional.layer_norm" title="torch.nn.functional.layer_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">layer_norm</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.layer_norm"/><p id="torch.nn.functional.layer_norm"/><a class="reference internal" href="generated/torch.nn.functional.layer_norm.html#torch.nn.functional.layer_norm" title="torch.nn.functional.layer_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">layer_norm</span></code></a></p></td>
 <td><p>Apply Layer Normalization for last certain number of dimensions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.local_response_norm"/><a class="reference internal" href="generated/torch.nn.functional.local_response_norm.html#torch.nn.functional.local_response_norm" title="torch.nn.functional.local_response_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">local_response_norm</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.local_response_norm"/><p id="torch.nn.functional.local_response_norm"/><a class="reference internal" href="generated/torch.nn.functional.local_response_norm.html#torch.nn.functional.local_response_norm" title="torch.nn.functional.local_response_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">local_response_norm</span></code></a></p></td>
 <td><p>Apply local response normalization over an input signal.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.rms_norm"/><a class="reference internal" href="generated/torch.nn.functional.rms_norm.html#torch.nn.functional.rms_norm" title="torch.nn.functional.rms_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rms_norm</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.rms_norm"/><p id="torch.nn.functional.rms_norm"/><a class="reference internal" href="generated/torch.nn.functional.rms_norm.html#torch.nn.functional.rms_norm" title="torch.nn.functional.rms_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rms_norm</span></code></a></p></td>
 <td><p>Apply Root Mean Square Layer Normalization.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.normalize"/><a class="reference internal" href="generated/torch.nn.functional.normalize.html#torch.nn.functional.normalize" title="torch.nn.functional.normalize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.normalize"/><p id="torch.nn.functional.normalize"/><a class="reference internal" href="generated/torch.nn.functional.normalize.html#torch.nn.functional.normalize" title="torch.nn.functional.normalize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize</span></code></a></p></td>
 <td><p>Perform <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">L_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span> normalization of inputs over specified dimension.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="linear-functions">
-<h2>Linear functions<a class="headerlink" href="#linear-functions" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="linear-functions">
+<h2>Linear functions<a class="headerlink" href="#linear-functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.linear"/><a class="reference internal" href="generated/torch.nn.functional.linear.html#torch.nn.functional.linear" title="torch.nn.functional.linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.linear"/><p id="torch.nn.functional.linear"/><a class="reference internal" href="generated/torch.nn.functional.linear.html#torch.nn.functional.linear" title="torch.nn.functional.linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear</span></code></a></p></td>
 <td><p>Applies a linear transformation to the incoming data: <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>x</mi><msup><mi>A</mi><mi>T</mi></msup><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">y = xA^T + b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.9247em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">x</span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span></span></span></span></span>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.bilinear"/><a class="reference internal" href="generated/torch.nn.functional.bilinear.html#torch.nn.functional.bilinear" title="torch.nn.functional.bilinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bilinear</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.bilinear"/><p id="torch.nn.functional.bilinear"/><a class="reference internal" href="generated/torch.nn.functional.bilinear.html#torch.nn.functional.bilinear" title="torch.nn.functional.bilinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bilinear</span></code></a></p></td>
 <td><p>Applies a bilinear transformation to the incoming data: <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><msubsup><mi>x</mi><mn>1</mn><mi>T</mi></msubsup><mi>A</mi><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">y = x_1^T A x_2 + b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0894em;vertical-align:-0.2481em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-2.4519em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2481em;"><span></span></span></span></span></span></span><span class="mord mathnormal">A</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span></span></span></span></span></p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="dropout-functions">
-<h2>Dropout functions<a class="headerlink" href="#dropout-functions" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="dropout-functions">
+<h2>Dropout functions<a class="headerlink" href="#dropout-functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.dropout"/><a class="reference internal" href="generated/torch.nn.functional.dropout.html#torch.nn.functional.dropout" title="torch.nn.functional.dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.dropout"/><p id="torch.nn.functional.dropout"/><a class="reference internal" href="generated/torch.nn.functional.dropout.html#torch.nn.functional.dropout" title="torch.nn.functional.dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout</span></code></a></p></td>
 <td><p>During training, randomly zeroes some elements of the input tensor with probability <code class="xref py py-attr docutils literal notranslate"><span class="pre">p</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.alpha_dropout"/><a class="reference internal" href="generated/torch.nn.functional.alpha_dropout.html#torch.nn.functional.alpha_dropout" title="torch.nn.functional.alpha_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alpha_dropout</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.alpha_dropout"/><p id="torch.nn.functional.alpha_dropout"/><a class="reference internal" href="generated/torch.nn.functional.alpha_dropout.html#torch.nn.functional.alpha_dropout" title="torch.nn.functional.alpha_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alpha_dropout</span></code></a></p></td>
 <td><p>Apply alpha dropout to the input.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.feature_alpha_dropout"/><a class="reference internal" href="generated/torch.nn.functional.feature_alpha_dropout.html#torch.nn.functional.feature_alpha_dropout" title="torch.nn.functional.feature_alpha_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feature_alpha_dropout</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.feature_alpha_dropout"/><p id="torch.nn.functional.feature_alpha_dropout"/><a class="reference internal" href="generated/torch.nn.functional.feature_alpha_dropout.html#torch.nn.functional.feature_alpha_dropout" title="torch.nn.functional.feature_alpha_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feature_alpha_dropout</span></code></a></p></td>
 <td><p>Randomly masks out entire channels (a channel is a feature map).</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.dropout1d"/><a class="reference internal" href="generated/torch.nn.functional.dropout1d.html#torch.nn.functional.dropout1d" title="torch.nn.functional.dropout1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout1d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.dropout1d"/><p id="torch.nn.functional.dropout1d"/><a class="reference internal" href="generated/torch.nn.functional.dropout1d.html#torch.nn.functional.dropout1d" title="torch.nn.functional.dropout1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout1d</span></code></a></p></td>
 <td><p>Randomly zero out entire channels (a channel is a 1D feature map).</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.dropout2d"/><a class="reference internal" href="generated/torch.nn.functional.dropout2d.html#torch.nn.functional.dropout2d" title="torch.nn.functional.dropout2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout2d</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.dropout2d"/><p id="torch.nn.functional.dropout2d"/><a class="reference internal" href="generated/torch.nn.functional.dropout2d.html#torch.nn.functional.dropout2d" title="torch.nn.functional.dropout2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout2d</span></code></a></p></td>
 <td><p>Randomly zero out entire channels (a channel is a 2D feature map).</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.dropout3d"/><a class="reference internal" href="generated/torch.nn.functional.dropout3d.html#torch.nn.functional.dropout3d" title="torch.nn.functional.dropout3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout3d</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.dropout3d"/><p id="torch.nn.functional.dropout3d"/><a class="reference internal" href="generated/torch.nn.functional.dropout3d.html#torch.nn.functional.dropout3d" title="torch.nn.functional.dropout3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropout3d</span></code></a></p></td>
 <td><p>Randomly zero out entire channels (a channel is a 3D feature map).</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="sparse-functions">
-<h2>Sparse functions<a class="headerlink" href="#sparse-functions" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="sparse-functions">
+<h2>Sparse functions<a class="headerlink" href="#sparse-functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.embedding"/><a class="reference internal" href="generated/torch.nn.functional.embedding.html#torch.nn.functional.embedding" title="torch.nn.functional.embedding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">embedding</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.embedding"/><p id="torch.nn.functional.embedding"/><a class="reference internal" href="generated/torch.nn.functional.embedding.html#torch.nn.functional.embedding" title="torch.nn.functional.embedding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">embedding</span></code></a></p></td>
 <td><p>Generate a simple lookup table that looks up embeddings in a fixed dictionary and size.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.embedding_bag"/><a class="reference internal" href="generated/torch.nn.functional.embedding_bag.html#torch.nn.functional.embedding_bag" title="torch.nn.functional.embedding_bag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">embedding_bag</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.embedding_bag"/><p id="torch.nn.functional.embedding_bag"/><a class="reference internal" href="generated/torch.nn.functional.embedding_bag.html#torch.nn.functional.embedding_bag" title="torch.nn.functional.embedding_bag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">embedding_bag</span></code></a></p></td>
 <td><p>Compute sums, means or maxes of <cite>bags</cite> of embeddings.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.one_hot"/><a class="reference internal" href="generated/torch.nn.functional.one_hot.html#torch.nn.functional.one_hot" title="torch.nn.functional.one_hot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_hot</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.one_hot"/><p id="torch.nn.functional.one_hot"/><a class="reference internal" href="generated/torch.nn.functional.one_hot.html#torch.nn.functional.one_hot" title="torch.nn.functional.one_hot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_hot</span></code></a></p></td>
 <td><p>Takes LongTensor with index values of shape <code class="docutils literal notranslate"><span class="pre">(*)</span></code> and returns a tensor of shape <code class="docutils literal notranslate"><span class="pre">(*,</span> <span class="pre">num_classes)</span></code> that have zeros everywhere except where the index of last dimension matches the corresponding value of the input tensor, in which case it will be 1.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="distance-functions">
-<h2>Distance functions<a class="headerlink" href="#distance-functions" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="distance-functions">
+<h2>Distance functions<a class="headerlink" href="#distance-functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.pairwise_distance"/><a class="reference internal" href="generated/torch.nn.functional.pairwise_distance.html#torch.nn.functional.pairwise_distance" title="torch.nn.functional.pairwise_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pairwise_distance</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.pairwise_distance"/><p id="torch.nn.functional.pairwise_distance"/><a class="reference internal" href="generated/torch.nn.functional.pairwise_distance.html#torch.nn.functional.pairwise_distance" title="torch.nn.functional.pairwise_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pairwise_distance</span></code></a></p></td>
 <td><p>See <a class="reference internal" href="generated/torch.nn.PairwiseDistance.html#torch.nn.PairwiseDistance" title="torch.nn.PairwiseDistance"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.PairwiseDistance</span></code></a> for details</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.cosine_similarity"/><a class="reference internal" href="generated/torch.nn.functional.cosine_similarity.html#torch.nn.functional.cosine_similarity" title="torch.nn.functional.cosine_similarity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cosine_similarity</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.cosine_similarity"/><p id="torch.nn.functional.cosine_similarity"/><a class="reference internal" href="generated/torch.nn.functional.cosine_similarity.html#torch.nn.functional.cosine_similarity" title="torch.nn.functional.cosine_similarity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cosine_similarity</span></code></a></p></td>
 <td><p>Returns cosine similarity between <code class="docutils literal notranslate"><span class="pre">x1</span></code> and <code class="docutils literal notranslate"><span class="pre">x2</span></code>, computed along dim.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.pdist"/><a class="reference internal" href="generated/torch.nn.functional.pdist.html#torch.nn.functional.pdist" title="torch.nn.functional.pdist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pdist</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.pdist"/><p id="torch.nn.functional.pdist"/><a class="reference internal" href="generated/torch.nn.functional.pdist.html#torch.nn.functional.pdist" title="torch.nn.functional.pdist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pdist</span></code></a></p></td>
 <td><p>Computes the p-norm distance between every pair of row vectors in the input.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="loss-functions">
-<h2>Loss functions<a class="headerlink" href="#loss-functions" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="loss-functions">
+<h2>Loss functions<a class="headerlink" href="#loss-functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.binary_cross_entropy"/><a class="reference internal" href="generated/torch.nn.functional.binary_cross_entropy.html#torch.nn.functional.binary_cross_entropy" title="torch.nn.functional.binary_cross_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">binary_cross_entropy</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.binary_cross_entropy"/><p id="torch.nn.functional.binary_cross_entropy"/><a class="reference internal" href="generated/torch.nn.functional.binary_cross_entropy.html#torch.nn.functional.binary_cross_entropy" title="torch.nn.functional.binary_cross_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">binary_cross_entropy</span></code></a></p></td>
 <td><p>Compute Binary Cross Entropy between the target and input probabilities.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.binary_cross_entropy_with_logits"/><a class="reference internal" href="generated/torch.nn.functional.binary_cross_entropy_with_logits.html#torch.nn.functional.binary_cross_entropy_with_logits" title="torch.nn.functional.binary_cross_entropy_with_logits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">binary_cross_entropy_with_logits</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.binary_cross_entropy_with_logits"/><p id="torch.nn.functional.binary_cross_entropy_with_logits"/><a class="reference internal" href="generated/torch.nn.functional.binary_cross_entropy_with_logits.html#torch.nn.functional.binary_cross_entropy_with_logits" title="torch.nn.functional.binary_cross_entropy_with_logits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">binary_cross_entropy_with_logits</span></code></a></p></td>
 <td><p>Compute Binary Cross Entropy between target and input logits.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.poisson_nll_loss"/><a class="reference internal" href="generated/torch.nn.functional.poisson_nll_loss.html#torch.nn.functional.poisson_nll_loss" title="torch.nn.functional.poisson_nll_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">poisson_nll_loss</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.poisson_nll_loss"/><p id="torch.nn.functional.poisson_nll_loss"/><a class="reference internal" href="generated/torch.nn.functional.poisson_nll_loss.html#torch.nn.functional.poisson_nll_loss" title="torch.nn.functional.poisson_nll_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">poisson_nll_loss</span></code></a></p></td>
 <td><p>Compute the Poisson negative log likelihood loss.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.cosine_embedding_loss"/><a class="reference internal" href="generated/torch.nn.functional.cosine_embedding_loss.html#torch.nn.functional.cosine_embedding_loss" title="torch.nn.functional.cosine_embedding_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cosine_embedding_loss</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.cosine_embedding_loss"/><p id="torch.nn.functional.cosine_embedding_loss"/><a class="reference internal" href="generated/torch.nn.functional.cosine_embedding_loss.html#torch.nn.functional.cosine_embedding_loss" title="torch.nn.functional.cosine_embedding_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cosine_embedding_loss</span></code></a></p></td>
 <td><p>Compute the cosine embedding loss.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.cross_entropy"/><a class="reference internal" href="generated/torch.nn.functional.cross_entropy.html#torch.nn.functional.cross_entropy" title="torch.nn.functional.cross_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cross_entropy</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.cross_entropy"/><p id="torch.nn.functional.cross_entropy"/><a class="reference internal" href="generated/torch.nn.functional.cross_entropy.html#torch.nn.functional.cross_entropy" title="torch.nn.functional.cross_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cross_entropy</span></code></a></p></td>
 <td><p>Compute the cross entropy loss between input logits and target.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.ctc_loss"/><a class="reference internal" href="generated/torch.nn.functional.ctc_loss.html#torch.nn.functional.ctc_loss" title="torch.nn.functional.ctc_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ctc_loss</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.ctc_loss"/><p id="torch.nn.functional.ctc_loss"/><a class="reference internal" href="generated/torch.nn.functional.ctc_loss.html#torch.nn.functional.ctc_loss" title="torch.nn.functional.ctc_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ctc_loss</span></code></a></p></td>
 <td><p>Compute the Connectionist Temporal Classification loss.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.gaussian_nll_loss"/><a class="reference internal" href="generated/torch.nn.functional.gaussian_nll_loss.html#torch.nn.functional.gaussian_nll_loss" title="torch.nn.functional.gaussian_nll_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gaussian_nll_loss</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.gaussian_nll_loss"/><p id="torch.nn.functional.gaussian_nll_loss"/><a class="reference internal" href="generated/torch.nn.functional.gaussian_nll_loss.html#torch.nn.functional.gaussian_nll_loss" title="torch.nn.functional.gaussian_nll_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gaussian_nll_loss</span></code></a></p></td>
 <td><p>Compute the Gaussian negative log likelihood loss.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.hinge_embedding_loss"/><a class="reference internal" href="generated/torch.nn.functional.hinge_embedding_loss.html#torch.nn.functional.hinge_embedding_loss" title="torch.nn.functional.hinge_embedding_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hinge_embedding_loss</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.hinge_embedding_loss"/><p id="torch.nn.functional.hinge_embedding_loss"/><a class="reference internal" href="generated/torch.nn.functional.hinge_embedding_loss.html#torch.nn.functional.hinge_embedding_loss" title="torch.nn.functional.hinge_embedding_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hinge_embedding_loss</span></code></a></p></td>
 <td><p>Compute the hinge embedding loss.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.kl_div"/><a class="reference internal" href="generated/torch.nn.functional.kl_div.html#torch.nn.functional.kl_div" title="torch.nn.functional.kl_div"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kl_div</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.kl_div"/><p id="torch.nn.functional.kl_div"/><a class="reference internal" href="generated/torch.nn.functional.kl_div.html#torch.nn.functional.kl_div" title="torch.nn.functional.kl_div"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kl_div</span></code></a></p></td>
 <td><p>Compute the KL Divergence loss.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.l1_loss"/><a class="reference internal" href="generated/torch.nn.functional.l1_loss.html#torch.nn.functional.l1_loss" title="torch.nn.functional.l1_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">l1_loss</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.l1_loss"/><p id="torch.nn.functional.l1_loss"/><a class="reference internal" href="generated/torch.nn.functional.l1_loss.html#torch.nn.functional.l1_loss" title="torch.nn.functional.l1_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">l1_loss</span></code></a></p></td>
 <td><p>Compute the L1 loss, with optional weighting.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.mse_loss"/><a class="reference internal" href="generated/torch.nn.functional.mse_loss.html#torch.nn.functional.mse_loss" title="torch.nn.functional.mse_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mse_loss</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.mse_loss"/><p id="torch.nn.functional.mse_loss"/><a class="reference internal" href="generated/torch.nn.functional.mse_loss.html#torch.nn.functional.mse_loss" title="torch.nn.functional.mse_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mse_loss</span></code></a></p></td>
 <td><p>Compute the element-wise mean squared error, with optional weighting.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.margin_ranking_loss"/><a class="reference internal" href="generated/torch.nn.functional.margin_ranking_loss.html#torch.nn.functional.margin_ranking_loss" title="torch.nn.functional.margin_ranking_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">margin_ranking_loss</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.margin_ranking_loss"/><p id="torch.nn.functional.margin_ranking_loss"/><a class="reference internal" href="generated/torch.nn.functional.margin_ranking_loss.html#torch.nn.functional.margin_ranking_loss" title="torch.nn.functional.margin_ranking_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">margin_ranking_loss</span></code></a></p></td>
 <td><p>Compute the margin ranking loss.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.multilabel_margin_loss"/><a class="reference internal" href="generated/torch.nn.functional.multilabel_margin_loss.html#torch.nn.functional.multilabel_margin_loss" title="torch.nn.functional.multilabel_margin_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multilabel_margin_loss</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.multilabel_margin_loss"/><p id="torch.nn.functional.multilabel_margin_loss"/><a class="reference internal" href="generated/torch.nn.functional.multilabel_margin_loss.html#torch.nn.functional.multilabel_margin_loss" title="torch.nn.functional.multilabel_margin_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multilabel_margin_loss</span></code></a></p></td>
 <td><p>Compute the multilabel margin loss.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.multilabel_soft_margin_loss"/><a class="reference internal" href="generated/torch.nn.functional.multilabel_soft_margin_loss.html#torch.nn.functional.multilabel_soft_margin_loss" title="torch.nn.functional.multilabel_soft_margin_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multilabel_soft_margin_loss</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.multilabel_soft_margin_loss"/><p id="torch.nn.functional.multilabel_soft_margin_loss"/><a class="reference internal" href="generated/torch.nn.functional.multilabel_soft_margin_loss.html#torch.nn.functional.multilabel_soft_margin_loss" title="torch.nn.functional.multilabel_soft_margin_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multilabel_soft_margin_loss</span></code></a></p></td>
 <td><p>Compute the multilabel soft margin loss.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.multi_margin_loss"/><a class="reference internal" href="generated/torch.nn.functional.multi_margin_loss.html#torch.nn.functional.multi_margin_loss" title="torch.nn.functional.multi_margin_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multi_margin_loss</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.multi_margin_loss"/><p id="torch.nn.functional.multi_margin_loss"/><a class="reference internal" href="generated/torch.nn.functional.multi_margin_loss.html#torch.nn.functional.multi_margin_loss" title="torch.nn.functional.multi_margin_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multi_margin_loss</span></code></a></p></td>
 <td><p>Compute the multi margin loss, with optional weighting.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.nll_loss"/><a class="reference internal" href="generated/torch.nn.functional.nll_loss.html#torch.nn.functional.nll_loss" title="torch.nn.functional.nll_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nll_loss</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.nll_loss"/><p id="torch.nn.functional.nll_loss"/><a class="reference internal" href="generated/torch.nn.functional.nll_loss.html#torch.nn.functional.nll_loss" title="torch.nn.functional.nll_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nll_loss</span></code></a></p></td>
 <td><p>Compute the negative log likelihood loss.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.huber_loss"/><a class="reference internal" href="generated/torch.nn.functional.huber_loss.html#torch.nn.functional.huber_loss" title="torch.nn.functional.huber_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">huber_loss</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.huber_loss"/><p id="torch.nn.functional.huber_loss"/><a class="reference internal" href="generated/torch.nn.functional.huber_loss.html#torch.nn.functional.huber_loss" title="torch.nn.functional.huber_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">huber_loss</span></code></a></p></td>
 <td><p>Compute the Huber loss, with optional weighting.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.smooth_l1_loss"/><a class="reference internal" href="generated/torch.nn.functional.smooth_l1_loss.html#torch.nn.functional.smooth_l1_loss" title="torch.nn.functional.smooth_l1_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">smooth_l1_loss</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.smooth_l1_loss"/><p id="torch.nn.functional.smooth_l1_loss"/><a class="reference internal" href="generated/torch.nn.functional.smooth_l1_loss.html#torch.nn.functional.smooth_l1_loss" title="torch.nn.functional.smooth_l1_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">smooth_l1_loss</span></code></a></p></td>
 <td><p>Compute the Smooth L1 loss.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.soft_margin_loss"/><a class="reference internal" href="generated/torch.nn.functional.soft_margin_loss.html#torch.nn.functional.soft_margin_loss" title="torch.nn.functional.soft_margin_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">soft_margin_loss</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.soft_margin_loss"/><p id="torch.nn.functional.soft_margin_loss"/><a class="reference internal" href="generated/torch.nn.functional.soft_margin_loss.html#torch.nn.functional.soft_margin_loss" title="torch.nn.functional.soft_margin_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">soft_margin_loss</span></code></a></p></td>
 <td><p>Compute the soft margin loss.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.triplet_margin_loss"/><a class="reference internal" href="generated/torch.nn.functional.triplet_margin_loss.html#torch.nn.functional.triplet_margin_loss" title="torch.nn.functional.triplet_margin_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">triplet_margin_loss</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.triplet_margin_loss"/><p id="torch.nn.functional.triplet_margin_loss"/><a class="reference internal" href="generated/torch.nn.functional.triplet_margin_loss.html#torch.nn.functional.triplet_margin_loss" title="torch.nn.functional.triplet_margin_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">triplet_margin_loss</span></code></a></p></td>
 <td><p>Compute the triplet loss between given input tensors and a margin greater than 0.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.triplet_margin_with_distance_loss"/><a class="reference internal" href="generated/torch.nn.functional.triplet_margin_with_distance_loss.html#torch.nn.functional.triplet_margin_with_distance_loss" title="torch.nn.functional.triplet_margin_with_distance_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">triplet_margin_with_distance_loss</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.triplet_margin_with_distance_loss"/><p id="torch.nn.functional.triplet_margin_with_distance_loss"/><a class="reference internal" href="generated/torch.nn.functional.triplet_margin_with_distance_loss.html#torch.nn.functional.triplet_margin_with_distance_loss" title="torch.nn.functional.triplet_margin_with_distance_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">triplet_margin_with_distance_loss</span></code></a></p></td>
 <td><p>Compute the triplet margin loss for input tensors using a custom distance function.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="vision-functions">
-<h2>Vision functions<a class="headerlink" href="#vision-functions" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="vision-functions">
+<h2>Vision functions<a class="headerlink" href="#vision-functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.pixel_shuffle"/><a class="reference internal" href="generated/torch.nn.functional.pixel_shuffle.html#torch.nn.functional.pixel_shuffle" title="torch.nn.functional.pixel_shuffle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_shuffle</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.pixel_shuffle"/><p id="torch.nn.functional.pixel_shuffle"/><a class="reference internal" href="generated/torch.nn.functional.pixel_shuffle.html#torch.nn.functional.pixel_shuffle" title="torch.nn.functional.pixel_shuffle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_shuffle</span></code></a></p></td>
 <td><p>Rearranges elements in a tensor of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>×</mo><msup><mi>r</mi><mn>2</mn></msup><mo separator="true">,</mo><mi>H</mi><mo separator="true">,</mo><mi>W</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(*, C \times r^2, H, W)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mclose">)</span></span></span></span></span> to a tensor of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo separator="true">,</mo><mi>H</mi><mo>×</mo><mi>r</mi><mo separator="true">,</mo><mi>W</mi><mo>×</mo><mi>r</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(*, C, H \times r, W \times r)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">)</span></span></span></span></span>, where r is the <code class="xref py py-attr docutils literal notranslate"><span class="pre">upscale_factor</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.pixel_unshuffle"/><a class="reference internal" href="generated/torch.nn.functional.pixel_unshuffle.html#torch.nn.functional.pixel_unshuffle" title="torch.nn.functional.pixel_unshuffle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_unshuffle</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.pixel_unshuffle"/><p id="torch.nn.functional.pixel_unshuffle"/><a class="reference internal" href="generated/torch.nn.functional.pixel_unshuffle.html#torch.nn.functional.pixel_unshuffle" title="torch.nn.functional.pixel_unshuffle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_unshuffle</span></code></a></p></td>
 <td><p>Reverses the <a class="reference internal" href="generated/torch.nn.PixelShuffle.html#torch.nn.PixelShuffle" title="torch.nn.PixelShuffle"><code class="xref py py-class docutils literal notranslate"><span class="pre">PixelShuffle</span></code></a> operation by rearranging elements in a tensor of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo separator="true">,</mo><mi>H</mi><mo>×</mo><mi>r</mi><mo separator="true">,</mo><mi>W</mi><mo>×</mo><mi>r</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(*, C, H \times r, W \times r)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">)</span></span></span></span></span> to a tensor of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>×</mo><msup><mi>r</mi><mn>2</mn></msup><mo separator="true">,</mo><mi>H</mi><mo separator="true">,</mo><mi>W</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(*, C \times r^2, H, W)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mclose">)</span></span></span></span></span>, where r is the <code class="xref py py-attr docutils literal notranslate"><span class="pre">downscale_factor</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.pad"/><a class="reference internal" href="generated/torch.nn.functional.pad.html#torch.nn.functional.pad" title="torch.nn.functional.pad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pad</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.pad"/><p id="torch.nn.functional.pad"/><a class="reference internal" href="generated/torch.nn.functional.pad.html#torch.nn.functional.pad" title="torch.nn.functional.pad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pad</span></code></a></p></td>
 <td><p>Pads tensor.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.interpolate"/><a class="reference internal" href="generated/torch.nn.functional.interpolate.html#torch.nn.functional.interpolate" title="torch.nn.functional.interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interpolate</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.interpolate"/><p id="torch.nn.functional.interpolate"/><a class="reference internal" href="generated/torch.nn.functional.interpolate.html#torch.nn.functional.interpolate" title="torch.nn.functional.interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interpolate</span></code></a></p></td>
 <td><p>Down/up samples the input.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.upsample"/><a class="reference internal" href="generated/torch.nn.functional.upsample.html#torch.nn.functional.upsample" title="torch.nn.functional.upsample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">upsample</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.upsample"/><p id="torch.nn.functional.upsample"/><a class="reference internal" href="generated/torch.nn.functional.upsample.html#torch.nn.functional.upsample" title="torch.nn.functional.upsample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">upsample</span></code></a></p></td>
 <td><p>Upsample input.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.upsample_nearest"/><a class="reference internal" href="generated/torch.nn.functional.upsample_nearest.html#torch.nn.functional.upsample_nearest" title="torch.nn.functional.upsample_nearest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">upsample_nearest</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.upsample_nearest"/><p id="torch.nn.functional.upsample_nearest"/><a class="reference internal" href="generated/torch.nn.functional.upsample_nearest.html#torch.nn.functional.upsample_nearest" title="torch.nn.functional.upsample_nearest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">upsample_nearest</span></code></a></p></td>
 <td><p>Upsamples the input, using nearest neighbours' pixel values.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.upsample_bilinear"/><a class="reference internal" href="generated/torch.nn.functional.upsample_bilinear.html#torch.nn.functional.upsample_bilinear" title="torch.nn.functional.upsample_bilinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">upsample_bilinear</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.upsample_bilinear"/><p id="torch.nn.functional.upsample_bilinear"/><a class="reference internal" href="generated/torch.nn.functional.upsample_bilinear.html#torch.nn.functional.upsample_bilinear" title="torch.nn.functional.upsample_bilinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">upsample_bilinear</span></code></a></p></td>
 <td><p>Upsamples the input, using bilinear upsampling.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.grid_sample"/><a class="reference internal" href="generated/torch.nn.functional.grid_sample.html#torch.nn.functional.grid_sample" title="torch.nn.functional.grid_sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_sample</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.grid_sample"/><p id="torch.nn.functional.grid_sample"/><a class="reference internal" href="generated/torch.nn.functional.grid_sample.html#torch.nn.functional.grid_sample" title="torch.nn.functional.grid_sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_sample</span></code></a></p></td>
 <td><p>Compute grid sample.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.affine_grid"/><a class="reference internal" href="generated/torch.nn.functional.affine_grid.html#torch.nn.functional.affine_grid" title="torch.nn.functional.affine_grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">affine_grid</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.affine_grid"/><p id="torch.nn.functional.affine_grid"/><a class="reference internal" href="generated/torch.nn.functional.affine_grid.html#torch.nn.functional.affine_grid" title="torch.nn.functional.affine_grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">affine_grid</span></code></a></p></td>
 <td><p>Generate 2D or 3D flow field (sampling grid), given a batch of affine matrices <code class="xref py py-attr docutils literal notranslate"><span class="pre">theta</span></code>.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="dataparallel-functions-multi-gpu-distributed">
-<h2>DataParallel functions (multi-GPU, distributed)<a class="headerlink" href="#dataparallel-functions-multi-gpu-distributed" title="Permalink to this heading">#</a></h2>
-<div class="section" id="data-parallel">
-<h3><span class="hidden-section">data_parallel</span><a class="headerlink" href="#data-parallel" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="dataparallel-functions-multi-gpu-distributed">
+<h2>DataParallel functions (multi-GPU, distributed)<a class="headerlink" href="#dataparallel-functions-multi-gpu-distributed" title="Link to this heading">#</a></h2>
+<section id="data-parallel">
+<h3><span class="hidden-section">data_parallel</span><a class="headerlink" href="#data-parallel" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.nn.parallel.data_parallel</span></code></p></td>
 <td><p>Evaluate module(input) in parallel across the GPUs given in device_ids.</p></td>
@@ -4969,33 +4925,29 @@ scaled_dot_product_attention.</p>
 </tbody>
 </table>
 </div>
-</div>
-</div>
-<div class="section" id="low-precision-functions">
-<h2>Low-Precision functions<a class="headerlink" href="#low-precision-functions" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="low-precision-functions">
+<h2>Low-Precision functions<a class="headerlink" href="#low-precision-functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.ScalingType"/><a class="reference internal" href="generated/torch.nn.functional.ScalingType.html#torch.nn.functional.ScalingType" title="torch.nn.functional.ScalingType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScalingType</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.ScalingType"/><p id="torch.nn.functional.ScalingType"/><a class="reference internal" href="generated/torch.nn.functional.ScalingType.html#torch.nn.functional.ScalingType" title="torch.nn.functional.ScalingType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScalingType</span></code></a></p></td>
 <td><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_ScalingType</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.SwizzleType"/><a class="reference internal" href="generated/torch.nn.functional.SwizzleType.html#torch.nn.functional.SwizzleType" title="torch.nn.functional.SwizzleType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SwizzleType</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.SwizzleType"/><p id="torch.nn.functional.SwizzleType"/><a class="reference internal" href="generated/torch.nn.functional.SwizzleType.html#torch.nn.functional.SwizzleType" title="torch.nn.functional.SwizzleType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SwizzleType</span></code></a></p></td>
 <td><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_SwizzleType</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.nn.functional.scaled_mm"/><a class="reference internal" href="generated/torch.nn.functional.scaled_mm.html#torch.nn.functional.scaled_mm" title="torch.nn.functional.scaled_mm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scaled_mm</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.nn.functional.scaled_mm"/><p id="torch.nn.functional.scaled_mm"/><a class="reference internal" href="generated/torch.nn.functional.scaled_mm.html#torch.nn.functional.scaled_mm" title="torch.nn.functional.scaled_mm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scaled_mm</span></code></a></p></td>
 <td><p>scaled_mm(mat_a, mat_b, scale_a, scale_recipe_a, scale_b, scale_recipe_b, swizzle_a, swizzle_b, bias, output_dtype,</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.functional.scaled_grouped_mm"/><a class="reference internal" href="generated/torch.nn.functional.scaled_grouped_mm.html#torch.nn.functional.scaled_grouped_mm" title="torch.nn.functional.scaled_grouped_mm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scaled_grouped_mm</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.nn.functional.scaled_grouped_mm"/><p id="torch.nn.functional.scaled_grouped_mm"/><a class="reference internal" href="generated/torch.nn.functional.scaled_grouped_mm.html#torch.nn.functional.scaled_grouped_mm" title="torch.nn.functional.scaled_grouped_mm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scaled_grouped_mm</span></code></a></p></td>
 <td><p>scaled_grouped_mm(mat_a, mat_b, scale_a, scale_recipe_a, scale_b, scale_recipe_b, swizzle_a, swizzle_b, bias, offs,</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -5061,11 +5013,6 @@ scaled_dot_product_attention.</p>
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -5203,7 +5150,9 @@ scaled_dot_product_attention.</p>
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -5227,10 +5176,13 @@ scaled_dot_product_attention.</p>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -5253,7 +5205,6 @@ scaled_dot_product_attention.</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -5303,10 +5254,10 @@ scaled_dot_product_attention.</p>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5347,7 +5298,7 @@ scaled_dot_product_attention.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -5382,7 +5333,7 @@ scaled_dot_product_attention.</p>
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/nn.functional.html"

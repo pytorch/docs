@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Automatic differentiation package - torch.autograd &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=940804e7"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'autograd';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="_static/js/runllm-widget.js"></script>
+    <script src="_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/autograd.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4479,6 +4478,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4486,8 +4486,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="module-torch.autograd">
-<span id="automatic-differentiation-package-torch-autograd"></span><h1>Automatic differentiation package - torch.autograd<a class="headerlink" href="#module-torch.autograd" title="Permalink to this heading">#</a></h1>
+  <section id="module-torch.autograd">
+<span id="automatic-differentiation-package-torch-autograd"></span><h1>Automatic differentiation package - torch.autograd<a class="headerlink" href="#module-torch.autograd" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 23, 2016 | Last Updated On: Nov 01, 2025</p>
 <p><code class="docutils literal notranslate"><span class="pre">torch.autograd</span></code> provides classes and functions implementing automatic differentiation of arbitrary scalar valued functions.</p>
 <p>It requires minimal changes to the existing code - you only need to declare <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> s
@@ -4495,22 +4495,18 @@ for which gradients should be computed with the <code class="docutils literal no
 As of now, we only support autograd for floating point <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> types (
 half, float, double and bfloat16) and complex <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> types (cfloat, cdouble).</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.autograd.backward"/><a class="reference internal" href="generated/torch.autograd.backward.html#torch.autograd.backward" title="torch.autograd.backward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">backward</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.autograd.backward"/><p id="torch.autograd.backward"/><a class="reference internal" href="generated/torch.autograd.backward.html#torch.autograd.backward" title="torch.autograd.backward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">backward</span></code></a></p></td>
 <td><p>Compute the sum of gradients of given tensors with respect to graph leaves.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.autograd.grad"/><a class="reference internal" href="generated/torch.autograd.grad.html#torch.autograd.grad" title="torch.autograd.grad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grad</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.autograd.grad"/><p id="torch.autograd.grad"/><a class="reference internal" href="generated/torch.autograd.grad.html#torch.autograd.grad" title="torch.autograd.grad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grad</span></code></a></p></td>
 <td><p>Compute and return the sum of gradients of outputs with respect to the inputs.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="forward-mode-automatic-differentiation">
-<span id="forward-mode-ad"></span><h2>Forward-mode Automatic Differentiation<a class="headerlink" href="#forward-mode-automatic-differentiation" title="Permalink to this heading">#</a></h2>
+<section id="forward-mode-automatic-differentiation">
+<span id="forward-mode-ad"></span><h2>Forward-mode Automatic Differentiation<a class="headerlink" href="#forward-mode-automatic-differentiation" title="Link to this heading">#</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This API is in beta. Even though the function signatures are very unlikely to change, improved
@@ -4519,10 +4515,6 @@ operator coverage is planned before we consider this stable.</p>
 <p>Please see the <a class="reference external" href="https://pytorch.org/tutorials/intermediate/forward_ad_usage.html">forward-mode AD tutorial</a>
 for detailed steps on how to use this API.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.autograd.forward_ad.dual_level.html#torch.autograd.forward_ad.dual_level" title="torch.autograd.forward_ad.dual_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward_ad.dual_level</span></code></a></p></td>
 <td><p>Context-manager for forward AD, where all forward AD computation must occur within the <code class="docutils literal notranslate"><span class="pre">dual_level</span></code> context.</p></td>
@@ -4545,9 +4537,9 @@ for detailed steps on how to use this API.</p>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="functional-higher-level-api">
-<span id="functional-api"></span><h2>Functional higher level API<a class="headerlink" href="#functional-higher-level-api" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="functional-higher-level-api">
+<span id="functional-api"></span><h2>Functional higher level API<a class="headerlink" href="#functional-higher-level-api" title="Link to this heading">#</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This API is in beta. Even though the function signatures are very unlikely to change, major
@@ -4563,10 +4555,6 @@ For example, for a function <code class="docutils literal notranslate"><span cla
 tensor that should be considered constant and a boolean flag as <code class="docutils literal notranslate"><span class="pre">f(input,</span> <span class="pre">constant,</span> <span class="pre">flag=flag)</span></code>
 you can use it as <code class="docutils literal notranslate"><span class="pre">functional.jacobian(lambda</span> <span class="pre">x:</span> <span class="pre">f(x,</span> <span class="pre">constant,</span> <span class="pre">flag=flag),</span> <span class="pre">input)</span></code>.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.autograd.functional.jacobian.html#torch.autograd.functional.jacobian" title="torch.autograd.functional.jacobian"><code class="xref py py-obj docutils literal notranslate"><span class="pre">functional.jacobian</span></code></a></p></td>
 <td><p>Compute the Jacobian of a given function.</p></td>
@@ -4589,16 +4577,16 @@ you can use it as <code class="docutils literal notranslate"><span class="pre">f
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="locally-disabling-gradient-computation">
-<span id="locally-disable-grad"></span><h2>Locally disabling gradient computation<a class="headerlink" href="#locally-disabling-gradient-computation" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="locally-disabling-gradient-computation">
+<span id="locally-disable-grad"></span><h2>Locally disabling gradient computation<a class="headerlink" href="#locally-disabling-gradient-computation" title="Link to this heading">#</a></h2>
 <p>See <a class="reference internal" href="notes/autograd.html#locally-disable-grad-doc"><span class="std std-ref">Locally disabling gradient computation</span></a> for more information on the differences
 between no-grad and inference mode as well as other related mechanisms that
 may be confused with the two. Also see <a class="reference internal" href="torch.html#torch-rst-local-disable-grad"><span class="std std-ref">Locally disabling gradient computation</span></a>
 for a list of functions that can be used to locally disable gradients.</p>
-</div>
-<div class="section" id="default-gradient-layouts">
-<span id="default-grad-layouts"></span><h2>Default gradient layouts<a class="headerlink" href="#default-gradient-layouts" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="default-gradient-layouts">
+<span id="default-grad-layouts"></span><h2>Default gradient layouts<a class="headerlink" href="#default-gradient-layouts" title="Link to this heading">#</a></h2>
 <p>When a non-sparse <code class="docutils literal notranslate"><span class="pre">param</span></code> receives a non-sparse gradient during
 <a class="reference internal" href="generated/torch.autograd.backward.html#torch.autograd.backward" title="torch.autograd.backward"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.backward()</span></code></a> or <a class="reference internal" href="generated/torch.Tensor.backward.html#torch.Tensor.backward" title="torch.Tensor.backward"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Tensor.backward()</span></code></a>
 <code class="docutils literal notranslate"><span class="pre">param.grad</span></code> is accumulated as follows.</p>
@@ -4634,34 +4622,34 @@ accumulation phase, e.g.:</p>
 <p>such that they’re recreated according to 1 or 2 every time,
 is a valid alternative to <code class="docutils literal notranslate"><span class="pre">model.zero_grad()</span></code> or <code class="docutils literal notranslate"><span class="pre">optimizer.zero_grad()</span></code>
 that may improve performance for some networks.</p>
-<div class="section" id="manual-gradient-layouts">
-<h3>Manual gradient layouts<a class="headerlink" href="#manual-gradient-layouts" title="Permalink to this heading">#</a></h3>
+<section id="manual-gradient-layouts">
+<h3>Manual gradient layouts<a class="headerlink" href="#manual-gradient-layouts" title="Link to this heading">#</a></h3>
 <p>If you need manual control over <code class="docutils literal notranslate"><span class="pre">.grad</span></code>’s strides,
 assign <code class="docutils literal notranslate"><span class="pre">param.grad</span> <span class="pre">=</span></code> a zeroed tensor with desired strides
 before the first <code class="docutils literal notranslate"><span class="pre">backward()</span></code>, and never reset it to <code class="docutils literal notranslate"><span class="pre">None</span></code>.
 3 guarantees your layout is preserved as long as <code class="docutils literal notranslate"><span class="pre">create_graph=False</span></code>.
 4 indicates your layout is <em>likely</em> preserved even if <code class="docutils literal notranslate"><span class="pre">create_graph=True</span></code>.</p>
-</div>
-</div>
-<div class="section" id="in-place-operations-on-tensors">
-<h2>In-place operations on Tensors<a class="headerlink" href="#in-place-operations-on-tensors" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="in-place-operations-on-tensors">
+<h2>In-place operations on Tensors<a class="headerlink" href="#in-place-operations-on-tensors" title="Link to this heading">#</a></h2>
 <p>Supporting in-place operations in autograd is a hard matter, and we discourage
 their use in most cases. Autograd’s aggressive buffer freeing and reuse makes
 it very efficient and there are very few occasions when in-place operations
 actually lower memory usage by any significant amount. Unless you’re operating
 under heavy memory pressure, you might never need to use them.</p>
-<div class="section" id="in-place-correctness-checks">
-<h3>In-place correctness checks<a class="headerlink" href="#in-place-correctness-checks" title="Permalink to this heading">#</a></h3>
+<section id="in-place-correctness-checks">
+<h3>In-place correctness checks<a class="headerlink" href="#in-place-correctness-checks" title="Link to this heading">#</a></h3>
 <p>All <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> s keep track of in-place operations applied to them, and
 if the implementation detects that a tensor was saved for backward in one of
 the functions, but it was modified in-place afterwards, an error will be raised
 once backward pass is started. This ensures that if you’re using in-place
 functions and not seeing any errors, you can be sure that the computed
 gradients are correct.</p>
-</div>
-</div>
-<div class="section" id="variable-deprecated">
-<h2>Variable (deprecated)<a class="headerlink" href="#variable-deprecated" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="variable-deprecated">
+<h2>Variable (deprecated)<a class="headerlink" href="#variable-deprecated" title="Link to this heading">#</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The Variable API has been deprecated: Variables are no longer necessary to
@@ -4680,14 +4668,10 @@ methods such as <a class="reference internal" href="generated/torch.randn.html#t
 like the following:</p>
 <p><code class="docutils literal notranslate"><span class="pre">autograd_tensor</span> <span class="pre">=</span> <span class="pre">torch.randn((2,</span> <span class="pre">3,</span> <span class="pre">4),</span> <span class="pre">requires_grad=True)</span></code></p>
 </div>
-</div>
-<div class="section" id="tensor-autograd-functions">
-<h2>Tensor autograd functions<a class="headerlink" href="#tensor-autograd-functions" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="tensor-autograd-functions">
+<h2>Tensor autograd functions<a class="headerlink" href="#tensor-autograd-functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor.grad</span></code></p></td>
 <td><p>This attribute is <code class="docutils literal notranslate"><span class="pre">None</span></code> by default and becomes a Tensor the first time a call to <a class="reference internal" href="generated/torch.autograd.backward.html#torch.autograd.backward" title="torch.autograd.backward"><code class="xref py py-func docutils literal notranslate"><span class="pre">backward()</span></code></a> computes gradients for <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></td>
@@ -4719,12 +4703,12 @@ like the following:</p>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="function">
-<h2><span class="hidden-section">Function</span><a class="headerlink" href="#function" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="function">
+<h2><span class="hidden-section">Function</span><a class="headerlink" href="#function" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.Function">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.</span></span><span class="sig-name descname"><span class="pre">Function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/function.py#L472"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.Function" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.</span></span><span class="sig-name descname"><span class="pre">Function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/function.py#L472"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.Function" title="Link to this definition">#</a></dt>
 <dd><p>Base class to create custom <cite>autograd.Function</cite>.</p>
 <p>To create a custom <cite>autograd.Function</cite>, subclass this class and implement
 the <a class="reference internal" href="generated/torch.autograd.Function.forward.html#torch.autograd.Function.forward" title="torch.autograd.Function.forward"><code class="xref py py-meth docutils literal notranslate"><span class="pre">forward()</span></code></a> and <a class="reference internal" href="generated/torch.autograd.backward.html#torch.autograd.backward" title="torch.autograd.backward"><code class="xref py py-meth docutils literal notranslate"><span class="pre">backward()</span></code></a> static methods. Then, to use your custom
@@ -4754,10 +4738,6 @@ correct methods on <code class="docutils literal notranslate"><span class="pre">
 </dd></dl>
 
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.autograd.Function.forward.html#torch.autograd.Function.forward" title="torch.autograd.Function.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Function.forward</span></code></a></p></td>
 <td><p>Define the forward of the custom autograd Function.</p></td>
@@ -4774,15 +4754,11 @@ correct methods on <code class="docutils literal notranslate"><span class="pre">
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="context-method-mixins">
-<span id="id1"></span><h2>Context method mixins<a class="headerlink" href="#context-method-mixins" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="context-method-mixins">
+<span id="id1"></span><h2>Context method mixins<a class="headerlink" href="#context-method-mixins" title="Link to this heading">#</a></h2>
 <p>When creating a new <a class="reference internal" href="#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">Function</span></code></a>, the following methods are available to <code class="docutils literal notranslate"><span class="pre">ctx</span></code>.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.autograd.function.FunctionCtx.mark_dirty.html#torch.autograd.function.FunctionCtx.mark_dirty" title="torch.autograd.function.FunctionCtx.mark_dirty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">function.FunctionCtx.mark_dirty</span></code></a></p></td>
 <td><p>Mark given tensors as modified in an in-place operation.</p></td>
@@ -4799,15 +4775,11 @@ correct methods on <code class="docutils literal notranslate"><span class="pre">
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="custom-function-utilities">
-<h2>Custom Function utilities<a class="headerlink" href="#custom-function-utilities" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="custom-function-utilities">
+<h2>Custom Function utilities<a class="headerlink" href="#custom-function-utilities" title="Link to this heading">#</a></h2>
 <p>Decorator for backward method.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.autograd.function.once_differentiable.html#torch.autograd.function.once_differentiable" title="torch.autograd.function.once_differentiable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">function.once_differentiable</span></code></a></p></td>
 <td><p></p></td>
@@ -4817,10 +4789,6 @@ correct methods on <code class="docutils literal notranslate"><span class="pre">
 </div>
 <p>Base custom <a class="reference internal" href="#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">Function</span></code></a> used to build PyTorch utilities</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.autograd.function.BackwardCFunction.html#torch.autograd.function.BackwardCFunction" title="torch.autograd.function.BackwardCFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">function.BackwardCFunction</span></code></a></p></td>
 <td><p>This class is used for internal autograd work.</p></td>
@@ -4834,30 +4802,26 @@ correct methods on <code class="docutils literal notranslate"><span class="pre">
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="module-torch.autograd.gradcheck">
-<span id="numerical-gradient-checking"></span><span id="grad-check"></span><h2>Numerical gradient checking<a class="headerlink" href="#module-torch.autograd.gradcheck" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-torch.autograd.gradcheck">
+<span id="numerical-gradient-checking"></span><span id="grad-check"></span><h2>Numerical gradient checking<a class="headerlink" href="#module-torch.autograd.gradcheck" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.autograd.gradcheck.gradcheck"/><a class="reference internal" href="generated/torch.autograd.gradcheck.gradcheck.html#torch.autograd.gradcheck.gradcheck" title="torch.autograd.gradcheck.gradcheck"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gradcheck</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.autograd.gradcheck.gradcheck"/><p id="torch.autograd.gradcheck.gradcheck"/><a class="reference internal" href="generated/torch.autograd.gradcheck.gradcheck.html#torch.autograd.gradcheck.gradcheck" title="torch.autograd.gradcheck.gradcheck"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gradcheck</span></code></a></p></td>
 <td><p>Check gradients computed via small finite differences against analytical gradients wrt tensors in <code class="xref py py-attr docutils literal notranslate"><span class="pre">inputs</span></code> that are of floating point or complex type and with <code class="docutils literal notranslate"><span class="pre">requires_grad=True</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.autograd.gradcheck.gradgradcheck"/><a class="reference internal" href="generated/torch.autograd.gradcheck.gradgradcheck.html#torch.autograd.gradcheck.gradgradcheck" title="torch.autograd.gradcheck.gradgradcheck"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gradgradcheck</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.autograd.gradcheck.gradgradcheck"/><p id="torch.autograd.gradcheck.gradgradcheck"/><a class="reference internal" href="generated/torch.autograd.gradcheck.gradgradcheck.html#torch.autograd.gradcheck.gradgradcheck" title="torch.autograd.gradcheck.gradgradcheck"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gradgradcheck</span></code></a></p></td>
 <td><p>Check gradients of gradients computed via small finite differences against analytical gradients wrt tensors in <code class="xref py py-attr docutils literal notranslate"><span class="pre">inputs</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">grad_outputs</span></code> that are of floating point or complex type and with <code class="docutils literal notranslate"><span class="pre">requires_grad=True</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.autograd.gradcheck.GradcheckError"/><a class="reference internal" href="generated/torch.autograd.gradcheck.GradcheckError.html#torch.autograd.gradcheck.GradcheckError" title="torch.autograd.gradcheck.GradcheckError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GradcheckError</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.autograd.gradcheck.GradcheckError"/><p id="torch.autograd.gradcheck.GradcheckError"/><a class="reference internal" href="generated/torch.autograd.gradcheck.GradcheckError.html#torch.autograd.gradcheck.GradcheckError" title="torch.autograd.gradcheck.GradcheckError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GradcheckError</span></code></a></p></td>
 <td><p>Error raised by <a class="reference internal" href="generated/torch.autograd.gradcheck.gradcheck.html#torch.autograd.gradcheck.gradcheck" title="torch.autograd.gradcheck.gradcheck"><code class="xref py py-func docutils literal notranslate"><span class="pre">gradcheck()</span></code></a> and <a class="reference internal" href="generated/torch.autograd.gradcheck.gradgradcheck.html#torch.autograd.gradcheck.gradgradcheck" title="torch.autograd.gradcheck.gradgradcheck"><code class="xref py py-func docutils literal notranslate"><span class="pre">gradgradcheck()</span></code></a>.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="profiler">
-<h2>Profiler<a class="headerlink" href="#profiler" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="profiler">
+<h2>Profiler<a class="headerlink" href="#profiler" title="Link to this heading">#</a></h2>
 <p>Autograd includes a profiler that lets you inspect the cost of different
 operators inside your model - both on the CPU and GPU. There are three modes
 implemented at the moment - CPU-only using <a class="reference internal" href="#torch.autograd.profiler.profile" title="torch.autograd.profiler.profile"><code class="xref py py-class docutils literal notranslate"><span class="pre">profile</span></code></a>.
@@ -4867,7 +4831,7 @@ and vtune profiler based using
 <a class="reference internal" href="#torch.autograd.profiler.emit_itt" title="torch.autograd.profiler.emit_itt"><code class="xref py py-class docutils literal notranslate"><span class="pre">emit_itt</span></code></a>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.profiler.profile">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler.</span></span><span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cuda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_flops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_kineto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_trace_id_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/profiler.py#L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.profile" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler.</span></span><span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cuda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_flops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_kineto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_trace_id_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/profiler.py#L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.profile" title="Link to this definition">#</a></dt>
 <dd><p>Context manager that manages autograd profiler state and holds a summary of results.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4878,7 +4842,7 @@ exposes those events to Python. You can wrap any code into it and it will
 only report runtime of PyTorch functions.
 Note: profiler is thread local and is automatically propagated into the async tasks</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Setting this to False makes this context manager a no-op.</p></li>
 <li><p><strong>use_cuda</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Enables timing of CUDA events as well
@@ -4956,10 +4920,6 @@ please use <code class="docutils literal notranslate"><span class="pre">use_devi
 </dd></dl>
 
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.autograd.profiler.profile.export_chrome_trace.html#torch.autograd.profiler.profile.export_chrome_trace" title="torch.autograd.profiler.profile.export_chrome_trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">profiler.profile.export_chrome_trace</span></code></a></p></td>
 <td><p>Export an EventList as a Chrome tracing tools file.</p></td>
@@ -5002,7 +4962,7 @@ please use <code class="docutils literal notranslate"><span class="pre">use_devi
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.profiler.emit_nvtx">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler.</span></span><span class="sig-name descname"><span class="pre">emit_nvtx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/profiler.py#L920"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.emit_nvtx" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler.</span></span><span class="sig-name descname"><span class="pre">emit_nvtx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/profiler.py#L920"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.emit_nvtx" title="Link to this definition">#</a></dt>
 <dd><p>Context manager that makes every autograd operation emit an NVTX range.</p>
 <p>It is useful when running the program under nvprof:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nvprof</span> <span class="o">--</span><span class="n">profile</span><span class="o">-</span><span class="n">from</span><span class="o">-</span><span class="n">start</span> <span class="n">off</span> <span class="o">-</span><span class="n">o</span> <span class="n">trace_name</span><span class="o">.</span><span class="n">prof</span> <span class="o">--</span> <span class="o">&lt;</span><span class="n">regular</span> <span class="n">command</span> <span class="n">here</span><span class="o">&gt;</span>
@@ -5015,7 +4975,7 @@ Then, either NVIDIA Visual Profiler (nvvp) can be used to visualize the timeline
 <a class="reference internal" href="generated/torch.autograd.profiler.load_nvprof.html#torch.autograd.profiler.load_nvprof" title="torch.autograd.profiler.load_nvprof"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.profiler.load_nvprof()</span></code></a> can load the results for inspection
 e.g. in Python REPL.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Setting <code class="docutils literal notranslate"><span class="pre">enabled=False</span></code> makes this context manager a no-op.
 Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
@@ -5071,7 +5031,7 @@ numbers, which can be compared to <cite>seq</cite> numbers from the backward pas
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.profiler.emit_itt">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler.</span></span><span class="sig-name descname"><span class="pre">emit_itt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/profiler.py#L849"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.emit_itt" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler.</span></span><span class="sig-name descname"><span class="pre">emit_itt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/profiler.py#L849"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler.emit_itt" title="Link to this definition">#</a></dt>
 <dd><p>Context manager that makes every autograd operation emit an ITT range.</p>
 <p>It is useful when running the program under Intel(R) VTune Profiler:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vtune</span> <span class="o">&lt;--</span><span class="n">vtune</span><span class="o">-</span><span class="n">flags</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">regular</span> <span class="n">command</span> <span class="n">here</span><span class="o">&gt;</span>
@@ -5082,7 +5042,7 @@ control the collection of trace data during its execution across different Intel
 This context manager is to annotate Intel(R) VTune Profiling trace. With help of this context manager,
 you will be able to see labeled ranges in Intel(R) VTune Profiler GUI.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Setting <code class="docutils literal notranslate"><span class="pre">enabled=False</span></code> makes this context manager a no-op.
 Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
@@ -5106,10 +5066,6 @@ Default: <code class="docutils literal notranslate"><span class="pre">False</spa
 </dd></dl>
 
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.autograd.profiler.load_nvprof.html#torch.autograd.profiler.load_nvprof" title="torch.autograd.profiler.load_nvprof"><code class="xref py py-obj docutils literal notranslate"><span class="pre">profiler.load_nvprof</span></code></a></p></td>
 <td><p>Open an nvprof trace file and parses autograd annotations.</p></td>
@@ -5117,12 +5073,12 @@ Default: <code class="docutils literal notranslate"><span class="pre">False</spa
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="debugging-and-anomaly-detection">
-<h2>Debugging and anomaly detection<a class="headerlink" href="#debugging-and-anomaly-detection" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="debugging-and-anomaly-detection">
+<h2>Debugging and anomaly detection<a class="headerlink" href="#debugging-and-anomaly-detection" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.detect_anomaly">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.</span></span><span class="sig-name descname"><span class="pre">detect_anomaly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">check_nan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/anomaly_mode.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.detect_anomaly" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.</span></span><span class="sig-name descname"><span class="pre">detect_anomaly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">check_nan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/anomaly_mode.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.detect_anomaly" title="Link to this definition">#</a></dt>
 <dd><p>Context-manager that enable anomaly detection for the autograd engine.</p>
 <p>This does two things:</p>
 <ul class="simple">
@@ -5193,14 +5149,14 @@ will slow down your program execution.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.set_detect_anomaly">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.</span></span><span class="sig-name descname"><span class="pre">set_detect_anomaly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_nan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/anomaly_mode.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.set_detect_anomaly" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.</span></span><span class="sig-name descname"><span class="pre">set_detect_anomaly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_nan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/anomaly_mode.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.set_detect_anomaly" title="Link to this definition">#</a></dt>
 <dd><p>Context-manager that sets the anomaly detection for the autograd engine on or off.</p>
 <p><code class="docutils literal notranslate"><span class="pre">set_detect_anomaly</span></code> will enable or disable the autograd anomaly detection
 based on its argument <code class="xref py py-attr docutils literal notranslate"><span class="pre">mode</span></code>.
 It can be used as a context-manager or as a function.</p>
 <p>See <code class="docutils literal notranslate"><span class="pre">detect_anomaly</span></code> above for details of the anomaly detection behaviour.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Flag whether to enable anomaly detection (<code class="docutils literal notranslate"><span class="pre">True</span></code>),
 or disable (<code class="docutils literal notranslate"><span class="pre">False</span></code>).</p></li>
@@ -5212,10 +5168,6 @@ generate “nan”</p></li>
 </dd></dl>
 
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.autograd.grad_mode.set_multithreading_enabled.html#torch.autograd.grad_mode.set_multithreading_enabled" title="torch.autograd.grad_mode.set_multithreading_enabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grad_mode.set_multithreading_enabled</span></code></a></p></td>
 <td><p>Context-manager that sets multithreaded backwards on or off.</p></td>
@@ -5223,19 +5175,15 @@ generate “nan”</p></li>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="autograd-graph">
-<h2>Autograd graph<a class="headerlink" href="#autograd-graph" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="autograd-graph">
+<h2>Autograd graph<a class="headerlink" href="#autograd-graph" title="Link to this heading">#</a></h2>
 <p>Autograd exposes methods that allow one to inspect the graph and interpose behavior during
 the backward pass.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">grad_fn</span></code> attribute of a <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> holds a <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.graph.Node</span></code>
 if the tensor is the output of a operation that was recorded by autograd (i.e., grad_mode is
 enabled and at least one of the inputs required gradients), or <code class="docutils literal notranslate"><span class="pre">None</span></code> otherwise.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.autograd.graph.Node.name.html#torch.autograd.graph.Node.name" title="torch.autograd.graph.Node.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph.Node.name</span></code></a></p></td>
 <td><p>Return the name.</p></td>
@@ -5279,7 +5227,7 @@ notice your model fits on GPU during evaluation, but not training.
 Also see <a class="reference internal" href="notes/autograd.html#saved-tensors-hooks-doc"><span class="std std-ref">Hooks for saved tensors</span></a>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.graph.saved_tensors_hooks">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">saved_tensors_hooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pack_hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unpack_hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/graph.py#L259"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.saved_tensors_hooks" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">saved_tensors_hooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pack_hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unpack_hook</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/graph.py#L259"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.saved_tensors_hooks" title="Link to this definition">#</a></dt>
 <dd><p>Context-manager that sets a pair of pack / unpack hooks for saved tensors.</p>
 <p>Use this context-manager to define how intermediary results of an operation
 should be packed before saving, and unpacked on retrieval.</p>
@@ -5346,7 +5294,7 @@ instead of <cite>lambda x: x</cite> as the pack hook.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.graph.save_on_cpu">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">save_on_cpu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cuda'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/graph.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.save_on_cpu" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">save_on_cpu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cuda'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/graph.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.save_on_cpu" title="Link to this definition">#</a></dt>
 <dd><p>Context manager under which tensors saved by the forward pass will be stored on cpu, then retrieved for backward.</p>
 <p>When performing operations within this context manager, intermediary
 results saved in the graph during the forward pass will be moved to CPU,
@@ -5355,7 +5303,7 @@ If the graph was already on CPU, no tensor copy is performed.</p>
 <p>Use this context-manager to trade compute for GPU memory usage (e.g.
 when your model doesn’t fit in GPU memory during training).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>pin_memory</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> tensors will be saved to CPU pinned memory
 during packing and copied to GPU asynchronously during unpacking.
 Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.
@@ -5386,17 +5334,17 @@ Also see <a class="reference internal" href="notes/cuda.html#cuda-memory-pinning
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.graph.disable_saved_tensors_hooks">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">disable_saved_tensors_hooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_message</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/graph.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.disable_saved_tensors_hooks" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">disable_saved_tensors_hooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_message</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/graph.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.disable_saved_tensors_hooks" title="Link to this definition">#</a></dt>
 <dd><p>Context-manager that disables the saved tensors default hooks feature.</p>
 <p>Useful for if you are creating a feature that does not work with saved
 tensors default hooks.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>error_message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – When saved tensors default hooks are used when they
 have been are disabled, a RuntimeError with this
 error message gets raised.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.14)"><em>Generator</em></a>[None, None, None]</p>
 </dd>
 </dl>
@@ -5412,7 +5360,7 @@ error message gets raised.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.graph.register_multi_grad_hook">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">register_multi_grad_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/graph.py#L466"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.register_multi_grad_hook" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">register_multi_grad_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/graph.py#L466"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.register_multi_grad_hook" title="Link to this definition">#</a></dt>
 <dd><p>Register a multi-grad backward hook.</p>
 <p>There are two supported modes: <code class="docutils literal notranslate"><span class="pre">&quot;all&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;any&quot;</span></code>.</p>
 <p>Under the <code class="docutils literal notranslate"><span class="pre">&quot;all&quot;</span></code> mode, the hook will be called after gradients with respect to every tensor in
@@ -5455,7 +5403,7 @@ is executed, and how its execution is ordered relative to other hooks.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>RemovableHandle</em></p>
 </dd>
 </dl>
@@ -5463,7 +5411,7 @@ is executed, and how its execution is ordered relative to other hooks.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.graph.allow_mutation_on_saved_tensors">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">allow_mutation_on_saved_tensors</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/graph.py#L758"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.allow_mutation_on_saved_tensors" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">allow_mutation_on_saved_tensors</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/graph.py#L758"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.allow_mutation_on_saved_tensors" title="Link to this definition">#</a></dt>
 <dd><p>Context manager under which mutating tensors saved for backward is allowed.</p>
 <p>Under this context manager, tensors saved for backward are cloned on mutation,
 so the original version can still be used during backward. Normally, mutating a tensor
@@ -5471,12 +5419,12 @@ saved for backward will result in an error raised when it’s used during backwa
 <p>To ensure the correct behavior, both the forward and backward should be run under
 the same context manager.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>An _AllowMutationOnSavedContext object storing the state managed by this
 context manager. This object can be useful for debugging purposes. The state
 managed by the context manager is automatically cleared upon exiting.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.14)"><em>Generator</em></a>[<em>_AllowMutationOnSavedContext</em>, None, None]</p>
 </dd>
 </dl>
@@ -5499,7 +5447,7 @@ managed by the context manager is automatically cleared upon exiting.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.graph.GradientEdge">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">GradientEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_nr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ownership_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/graph.py#L196"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.GradientEdge" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">GradientEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_nr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ownership_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/graph.py#L196"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.GradientEdge" title="Link to this definition">#</a></dt>
 <dd><p>Object representing a given gradient edge within the autograd graph.</p>
 <p>To get the gradient edge where a given Tensor gradient will be computed,
 you can do <code class="docutils literal notranslate"><span class="pre">edge</span> <span class="pre">=</span> <span class="pre">autograd.graph.get_gradient_edge(tensor)</span></code>.</p>
@@ -5509,12 +5457,12 @@ you can do <code class="docutils literal notranslate"><span class="pre">edge</sp
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.autograd.graph.get_gradient_edge">
-<span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">get_gradient_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/graph.py#L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.get_gradient_edge" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">get_gradient_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/graph.py#L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.get_gradient_edge" title="Link to this definition">#</a></dt>
 <dd><p>Get the gradient edge for computing the gradient of the given Tensor.</p>
 <p>In particular, it is equivalent to call
 <code class="docutils literal notranslate"><span class="pre">g</span> <span class="pre">=</span> <span class="pre">autograd.grad(loss,</span> <span class="pre">input)</span></code> and <code class="docutils literal notranslate"><span class="pre">g</span> <span class="pre">=</span> <span class="pre">autograd.grad(loss,</span> <span class="pre">get_gradient_edge(input))</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#torch.autograd.graph.GradientEdge" title="torch.autograd.graph.GradientEdge"><em>GradientEdge</em></a></p>
 </dd>
 </dl>
@@ -5522,15 +5470,15 @@ you can do <code class="docutils literal notranslate"><span class="pre">edge</sp
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch">
-<span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">set_warn_on_accumulate_grad_stream_mismatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a344069f2aba6a87c0ab3fab488e83b80691457f/torch/autograd/graph.py#L442"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.autograd.graph.</span></span><span class="sig-name descname"><span class="pre">set_warn_on_accumulate_grad_stream_mismatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f47cadf75d5fd5b78d9944d3f3a2b16892e90a73/torch/autograd/graph.py#L442"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch" title="Link to this definition">#</a></dt>
 <dd><p>Whether to warn when the AccumulateGrad node’s stream does not match the stream
 of the node that produced the incoming gradient.</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
 
-<span class="target" id="module-torch.autograd.anomaly_mode"></span><span class="target" id="module-torch.autograd.forward_ad"></span><span class="target" id="module-torch.autograd.function"></span><span class="target" id="module-torch.autograd.functional"></span><span class="target" id="module-torch.autograd.grad_mode"></span><span class="target" id="module-torch.autograd.graph"></span><span class="target" id="module-torch.autograd.profiler"></span><span class="target" id="module-torch.autograd.profiler_legacy"></span><span class="target" id="module-torch.autograd.profiler_util"></span><span class="target" id="module-torch.autograd.variable"></span></div>
-</div>
+<span class="target" id="module-torch.autograd.variable"><span id="module-torch.autograd.profiler_util"></span><span id="module-torch.autograd.profiler_legacy"></span><span id="module-torch.autograd.profiler"></span><span id="module-torch.autograd.graph"></span><span id="module-torch.autograd.grad_mode"></span><span id="module-torch.autograd.functional"></span><span id="module-torch.autograd.function"></span><span id="module-torch.autograd.forward_ad"></span><span id="module-torch.autograd.anomaly_mode"></span></span></section>
+</section>
 
 
                 </article>
@@ -5596,11 +5544,6 @@ of the node that produced the incoming gradient.</p>
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -5767,7 +5710,9 @@ of the node that produced the incoming gradient.</p>
   <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -5791,10 +5736,13 @@ of the node that produced the incoming gradient.</p>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -5817,7 +5765,6 @@ of the node that produced the incoming gradient.</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -5867,10 +5814,10 @@ of the node that produced the incoming gradient.</p>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5911,7 +5858,7 @@ of the node that produced the incoming gradient.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -5940,13 +5887,13 @@ of the node that produced the incoming gradient.</p>
        "headline": "Automatic differentiation package - torch.autograd",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/autograd.html",
-       "articleBody": "Automatic differentiation package - torch.autograd# Created On: Dec 23, 2016 | Last Updated On: Nov 01, 2025 torch.autograd provides classes and functions implementing automatic differentiation of arbitrary scalar valued functions. It requires minimal changes to the existing code - you only need to declare Tensor s for which gradients should be computed with the requires_grad=True keyword. As of now, we only support autograd for floating point Tensor types ( half, float, double and bfloat16) and complex Tensor types (cfloat, cdouble). backward Compute the sum of gradients of given tensors with respect to graph leaves. grad Compute and return the sum of gradients of outputs with respect to the inputs. Forward-mode Automatic Differentiation# Warning This API is in beta. Even though the function signatures are very unlikely to change, improved operator coverage is planned before we consider this stable. Please see the forward-mode AD tutorial for detailed steps on how to use this API. forward_ad.dual_level Context-manager for forward AD, where all forward AD computation must occur within the dual_level context. forward_ad.make_dual Associate a tensor value with its tangent to create a \"dual tensor\" for forward AD gradient computation. forward_ad.unpack_dual Unpack a \"dual tensor\" to get both its Tensor value and its forward AD gradient. forward_ad.enter_dual_level Enter a new forward grad level. forward_ad.exit_dual_level Exit a forward grad level. forward_ad.UnpackedDualTensor Namedtuple returned by unpack_dual() containing the primal and tangent components of the dual tensor. Functional higher level API# Warning This API is in beta. Even though the function signatures are very unlikely to change, major improvements to performances are planned before we consider this stable. This section contains the higher level API for the autograd that builds on the basic API above and allows you to compute jacobians, hessians, etc. This API works with user-provided functions that take only Tensors as input and return only Tensors. If your function takes other arguments that are not Tensors or Tensors that don\u2019t have requires_grad set, you can use a lambda to capture them. For example, for a function f that takes three inputs, a Tensor for which we want the jacobian, another tensor that should be considered constant and a boolean flag as f(input, constant, flag=flag) you can use it as functional.jacobian(lambda x: f(x, constant, flag=flag), input). functional.jacobian Compute the Jacobian of a given function. functional.hessian Compute the Hessian of a given scalar function. functional.vjp Compute the dot product between a vector v and the Jacobian of the given function at the point given by the inputs. functional.jvp Compute the dot product between the Jacobian of the given function at the point given by the inputs and a vector v. functional.vhp Compute the dot product between vector v and Hessian of a given scalar function at a specified point. functional.hvp Compute the dot product between the scalar function\u0027s Hessian and a vector v at a specified point. Locally disabling gradient computation# See Locally disabling gradient computation for more information on the differences between no-grad and inference mode as well as other related mechanisms that may be confused with the two. Also see Locally disabling gradient computation for a list of functions that can be used to locally disable gradients. Default gradient layouts# When a non-sparse param receives a non-sparse gradient during torch.autograd.backward() or torch.Tensor.backward() param.grad is accumulated as follows. If param.grad is initially None: If param\u2019s memory is non-overlapping and dense, .grad is created with strides matching param (thus matching param\u2019s layout). Otherwise, .grad is created with rowmajor-contiguous strides. If param already has a non-sparse .grad attribute: If create_graph=False, backward() accumulates into .grad in-place, which preserves its strides. If create_graph=True, backward() replaces .grad with a new tensor .grad + new grad, which attempts (but does not guarantee) matching the preexisting .grad\u2019s strides. The default behavior (letting .grads be None before the first backward(), such that their layout is created according to 1 or 2, and retained over time according to 3 or 4) is recommended for best performance. Calls to model.zero_grad() or optimizer.zero_grad() will not affect .grad layouts. In fact, resetting all .grads to None before each accumulation phase, e.g.: for iterations... ... for param in model.parameters(): param.grad = None loss.backward() such that they\u2019re recreated according to 1 or 2 every time, is a valid alternative to model.zero_grad() or optimizer.zero_grad() that may improve performance for some networks. Manual gradient layouts# If you need manual control over .grad\u2019s strides, assign param.grad = a zeroed tensor with desired strides before the first backward(), and never reset it to None. 3 guarantees your layout is preserved as long as create_graph=False. 4 indicates your layout is likely preserved even if create_graph=True. In-place operations on Tensors# Supporting in-place operations in autograd is a hard matter, and we discourage their use in most cases. Autograd\u2019s aggressive buffer freeing and reuse makes it very efficient and there are very few occasions when in-place operations actually lower memory usage by any significant amount. Unless you\u2019re operating under heavy memory pressure, you might never need to use them. In-place correctness checks# All Tensor s keep track of in-place operations applied to them, and if the implementation detects that a tensor was saved for backward in one of the functions, but it was modified in-place afterwards, an error will be raised once backward pass is started. This ensures that if you\u2019re using in-place functions and not seeing any errors, you can be sure that the computed gradients are correct. Variable (deprecated)# Warning The Variable API has been deprecated: Variables are no longer necessary to use autograd with tensors. Autograd automatically supports Tensors with requires_grad set to True. Below please find a quick guide on what has changed: Variable(tensor) and Variable(tensor, requires_grad) still work as expected, but they return Tensors instead of Variables. var.data is the same thing as tensor.data. Methods such as var.backward(), var.detach(), var.register_hook() now work on tensors with the same method names. In addition, one can now create tensors with requires_grad=True using factory methods such as torch.randn(), torch.zeros(), torch.ones(), and others like the following: autograd_tensor = torch.randn((2, 3, 4), requires_grad=True) Tensor autograd functions# torch.Tensor.grad This attribute is None by default and becomes a Tensor the first time a call to backward() computes gradients for self. torch.Tensor.requires_grad Is True if gradients need to be computed for this Tensor, False otherwise. torch.Tensor.is_leaf All Tensors that have requires_grad which is False will be leaf Tensors by convention. torch.Tensor.backward([gradient, ...]) Computes the gradient of current tensor wrt graph leaves. torch.Tensor.detach Returns a new Tensor, detached from the current graph. torch.Tensor.detach_ Detaches the Tensor from the graph that created it, making it a leaf. torch.Tensor.register_hook(hook) Registers a backward hook. torch.Tensor.register_post_accumulate_grad_hook(hook) Registers a backward hook that runs after grad accumulation. torch.Tensor.retain_grad() Enables this Tensor to have their grad populated during backward(). Function# class torch.autograd.Function(*args, **kwargs)[source]# Base class to create custom autograd.Function. To create a custom autograd.Function, subclass this class and implement the forward() and backward() static methods. Then, to use your custom op in the forward pass, call the class method apply. Do not call forward() directly. To ensure correctness and best performance, make sure you are calling the correct methods on ctx and validating your backward function using torch.autograd.gradcheck(). See Extending torch.autograd for more details on how to use this class. Examples: \u003e\u003e\u003e class Exp(Function): \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def forward(ctx, i): \u003e\u003e\u003e result = i.exp() \u003e\u003e\u003e ctx.save_for_backward(result) \u003e\u003e\u003e return result \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def backward(ctx, grad_output): \u003e\u003e\u003e result, = ctx.saved_tensors \u003e\u003e\u003e return grad_output * result \u003e\u003e\u003e \u003e\u003e\u003e # Use it by calling the apply method: \u003e\u003e\u003e output = Exp.apply(input) Function.forward Define the forward of the custom autograd Function. Function.backward Define a formula for differentiating the operation with backward mode automatic differentiation. Function.jvp Define a formula for differentiating the operation with forward mode automatic differentiation. Function.vmap Define the behavior for this autograd.Function underneath torch.vmap(). Context method mixins# When creating a new Function, the following methods are available to ctx. function.FunctionCtx.mark_dirty Mark given tensors as modified in an in-place operation. function.FunctionCtx.mark_non_differentiable Mark outputs as non-differentiable. function.FunctionCtx.save_for_backward Save given tensors for a future call to backward(). function.FunctionCtx.set_materialize_grads Set whether to materialize grad tensors. Custom Function utilities# Decorator for backward method. function.once_differentiable Base custom Function used to build PyTorch utilities function.BackwardCFunction This class is used for internal autograd work. function.InplaceFunction This class is here only for backward compatibility reasons. function.NestedIOFunction This class is here only for backward compatibility reasons. Numerical gradient checking# gradcheck Check gradients computed via small finite differences against analytical gradients wrt tensors in inputs that are of floating point or complex type and with requires_grad=True. gradgradcheck Check gradients of gradients computed via small finite differences against analytical gradients wrt tensors in inputs and grad_outputs that are of floating point or complex type and with requires_grad=True. GradcheckError Error raised by gradcheck() and gradgradcheck(). Profiler# Autograd includes a profiler that lets you inspect the cost of different operators inside your model - both on the CPU and GPU. There are three modes implemented at the moment - CPU-only using profile. nvprof based (registers both CPU and GPU activity) using emit_nvtx. and vtune profiler based using emit_itt. class torch.autograd.profiler.profile(enabled=True, *, use_cuda=False, use_device=None, record_shapes=False, with_flops=False, profile_memory=False, with_stack=False, with_modules=False, use_kineto=False, use_cpu=True, experimental_config=None, acc_events=False, custom_trace_id_callback=None)[source]# Context manager that manages autograd profiler state and holds a summary of results. Note This is the backend, most people should use torch.profiler instead. Under the hood it just records events of functions being executed in C++ and exposes those events to Python. You can wrap any code into it and it will only report runtime of PyTorch functions. Note: profiler is thread local and is automatically propagated into the async tasks Parameters enabled (bool, optional) \u2013 Setting this to False makes this context manager a no-op. use_cuda (bool, optional) \u2013 Enables timing of CUDA events as well using the cudaEvent API. (will be deprecated) use_device (str, optional) \u2013 Enables timing of device events. Adds approximately 4us of overhead to each tensor operation when use cuda. The valid devices options are \u2018cuda\u2019, \u2018xpu\u2019, \u2018mtia\u2019 and \u2018privateuseone\u2019. record_shapes (bool, optional) \u2013 If shapes recording is set, information about input dimensions will be collected. This allows one to see which dimensions have been used under the hood and further group by them using prof.key_averages(group_by_input_shape=True). Please note that shape recording might skew your profiling data. It is recommended to use separate runs with and without shape recording to validate the timing. Most likely the skew will be negligible for bottom most events (in a case of nested function calls). But for higher level functions the total self cpu time might be artificially increased because of the shape collection. with_flops (bool, optional) \u2013 If with_flops is set, the profiler will estimate the FLOPs (floating point operations) value using the operator\u2019s input shape. This allows one to estimate the hardware performance. Currently, this option only works for the matrix multiplication and 2D convolution operators. profile_memory (bool, optional) \u2013 track tensor memory allocation/deallocation. with_stack (bool, optional) \u2013 record source information (file and line number) for the ops. with_modules (bool) \u2013 record module hierarchy (including function names) corresponding to the callstack of the op. e.g. If module A\u2019s forward call\u2019s module B\u2019s forward which contains an aten::add op, then aten::add\u2019s module hierarchy is A.B Note that this support exist, at the moment, only for TorchScript models and not eager mode models. use_kineto (bool, optional) \u2013 experimental, enable profiling with Kineto profiler. use_cpu (bool, optional) \u2013 profile CPU events; setting to False requires use_kineto=True and can be used to lower the overhead for GPU-only profiling. experimental_config (_ExperimentalConfig) \u2013 A set of experimental options used by profiler libraries like Kineto. Note, backward compatibility is not guaranteed. acc_events (bool) \u2013 Enable the accumulation of FunctionEvents across multiple profiling cycles Warning Enabling memory profiling or source attribution incurs additional profiler overhead Warning This context managers should not be called recursively, i.e. no nested instances are allowed Warning Due to some CUDA multiprocessing limitations (see CUDA in multiprocessing), one cannot use the profiler with use_device = \u0027cuda\u0027 to benchmark DataLoaders with num_workers \u003e 0. If you wish to benchmark data loading, please use use_device = None or num_workers = 0. Example \u003e\u003e\u003e x = torch.randn((1, 1), requires_grad=True) \u003e\u003e\u003e with torch.autograd.profiler.profile() as prof: \u003e\u003e\u003e for _ in range(100): # any normal python code, really! \u003e\u003e\u003e y = x ** 2 \u003e\u003e\u003e y.backward() \u003e\u003e\u003e # NOTE: some columns were removed for brevity \u003e\u003e\u003e print(prof.key_averages().table(sort_by=\"self_cpu_time_total\")) ----------------------------------- --------------- --------------- --------------- Name Self CPU total CPU time avg Number of Calls ----------------------------------- --------------- --------------- --------------- mul 32.048ms 32.048ms 200 pow 27.041ms 27.041ms 200 PowBackward0 9.727ms 55.483ms 100 torch::autograd::AccumulateGrad 9.148ms 9.148ms 100 torch::autograd::GraphRoot 691.816us 691.816us 100 ----------------------------------- --------------- --------------- --------------- profiler.profile.export_chrome_trace Export an EventList as a Chrome tracing tools file. profiler.profile.key_averages Averages all function events over their keys. profiler.profile.self_cpu_time_total Returns total time spent on CPU. profiler.profile.total_average Averages all events. profiler.parse_nvprof_trace profiler.EnforceUnique Raises an error if a key is seen more than once. profiler.KinetoStepTracker Provides an abstraction for incrementing the step count globally. profiler.record_function Context manager/function decorator that adds a label to a code block/function when running autograd profiler. profiler_util.Interval profiler_util.Kernel profiler_util.MemRecordsAcc Acceleration structure for accessing mem_records in interval. profiler_util.StringTable class torch.autograd.profiler.emit_nvtx(enabled=True, record_shapes=False)[source]# Context manager that makes every autograd operation emit an NVTX range. It is useful when running the program under nvprof: nvprof --profile-from-start off -o trace_name.prof -- \u003cregular command here\u003e Unfortunately, there\u2019s no way to force nvprof to flush the data it collected to disk, so for CUDA profiling one has to use this context manager to annotate nvprof traces and wait for the process to exit before inspecting them. Then, either NVIDIA Visual Profiler (nvvp) can be used to visualize the timeline, or torch.autograd.profiler.load_nvprof() can load the results for inspection e.g. in Python REPL. Parameters enabled (bool, optional) \u2013 Setting enabled=False makes this context manager a no-op. Default: True. record_shapes (bool, optional) \u2013 If record_shapes=True, the nvtx range wrapping each autograd op will append information about the sizes of Tensor arguments received by that op, in the following format: [[arg0.size(0), arg0.size(1), ...], [arg1.size(0), arg1.size(1), ...], ...] Non-tensor arguments will be represented by []. Arguments will be listed in the order they are received by the backend op. Please note that this order may not match the order in which those arguments were passed on the Python side. Also note that shape recording may increase the overhead of nvtx range creation. Default: False Example \u003e\u003e\u003e with torch.cuda.profiler.profile(): ... model(x) # Warmup CUDA memory allocator and profiler ... with torch.autograd.profiler.emit_nvtx(): ... model(x) Forward-backward correlation When viewing a profile created using emit_nvtx in the Nvidia Visual Profiler, correlating each backward-pass op with the corresponding forward-pass op can be difficult. To ease this task, emit_nvtx appends sequence number information to the ranges it generates. During the forward pass, each function range is decorated with seq=\u003cN\u003e. seq is a running counter, incremented each time a new backward Function object is created and stashed for backward. Thus, the seq=\u003cN\u003e annotation associated with each forward function range tells you that if a backward Function object is created by this forward function, the backward object will receive sequence number N. During the backward pass, the top-level range wrapping each C++ backward Function\u2019s apply() call is decorated with stashed seq=\u003cM\u003e. M is the sequence number that the backward object was created with. By comparing stashed seq numbers in backward with seq numbers in forward, you can track down which forward op created each backward Function. Any functions executed during the backward pass are also decorated with seq=\u003cN\u003e. During default backward (with create_graph=False) this information is irrelevant, and in fact, N may simply be 0 for all such functions. Only the top-level ranges associated with backward Function objects\u2019 apply() methods are useful, as a way to correlate these Function objects with the earlier forward pass. Double-backward If, on the other hand, a backward pass with create_graph=True is underway (in other words, if you are setting up for a double-backward), each function\u2019s execution during backward is given a nonzero, useful seq=\u003cN\u003e. Those functions may themselves create Function objects to be executed later during double-backward, just as the original functions in the forward pass did. The relationship between backward and double-backward is conceptually the same as the relationship between forward and backward: The functions still emit current-sequence-number-tagged ranges, the Function objects they create still stash those sequence numbers, and during the eventual double-backward, the Function objects\u2019 apply() ranges are still tagged with stashed seq numbers, which can be compared to seq numbers from the backward pass. class torch.autograd.profiler.emit_itt(enabled=True, record_shapes=False)[source]# Context manager that makes every autograd operation emit an ITT range. It is useful when running the program under Intel(R) VTune Profiler: vtune \u003c--vtune-flags\u003e \u003cregular command here\u003e The Instrumentation and Tracing Technology (ITT) API enables your application to generate and control the collection of trace data during its execution across different Intel tools. This context manager is to annotate Intel(R) VTune Profiling trace. With help of this context manager, you will be able to see labeled ranges in Intel(R) VTune Profiler GUI. Parameters enabled (bool, optional) \u2013 Setting enabled=False makes this context manager a no-op. Default: True. record_shapes (bool, optional) \u2013 If record_shapes=True, the itt range wrapping each autograd op will append information about the sizes of Tensor arguments received by that op, in the following format: [[arg0.size(0), arg0.size(1), ...], [arg1.size(0), arg1.size(1), ...], ...] Non-tensor arguments will be represented by []. Arguments will be listed in the order they are received by the backend op. Please note that this order may not match the order in which those arguments were passed on the Python side. Also note that shape recording may increase the overhead of itt range creation. Default: False Example \u003e\u003e\u003e with torch.autograd.profiler.emit_itt(): ... model(x) profiler.load_nvprof Open an nvprof trace file and parses autograd annotations. Debugging and anomaly detection# class torch.autograd.detect_anomaly(check_nan=True)[source]# Context-manager that enable anomaly detection for the autograd engine. This does two things: Running the forward pass with detection enabled will allow the backward pass to print the traceback of the forward operation that created the failing backward function. If check_nan is True, any backward computation that generate \u201cnan\u201d value will raise an error. Default True. Warning This mode should be enabled only for debugging as the different tests will slow down your program execution. Example \u003e\u003e\u003e import torch \u003e\u003e\u003e from torch import autograd \u003e\u003e\u003e class MyFunc(autograd.Function): ... @staticmethod ... def forward(ctx, inp): ... return inp.clone() ... ... @staticmethod ... def backward(ctx, gO): ... # Error during the backward pass ... raise RuntimeError(\"Some error in backward\") ... return gO.clone() \u003e\u003e\u003e def run_fn(a): ... out = MyFunc.apply(a) ... return out.sum() \u003e\u003e\u003e inp = torch.rand(10, 10, requires_grad=True) \u003e\u003e\u003e out = run_fn(inp) \u003e\u003e\u003e out.backward() Traceback (most recent call last): File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e File \"/your/pytorch/install/torch/_tensor.py\", line 93, in backward torch.autograd.backward(self, gradient, retain_graph, create_graph) File \"/your/pytorch/install/torch/autograd/__init__.py\", line 90, in backward allow_unreachable=True) # allow_unreachable flag File \"/your/pytorch/install/torch/autograd/function.py\", line 76, in apply return self._forward_cls.backward(self, *args) File \"\u003cstdin\u003e\", line 8, in backward RuntimeError: Some error in backward \u003e\u003e\u003e with autograd.detect_anomaly(): ... inp = torch.rand(10, 10, requires_grad=True) ... out = run_fn(inp) ... out.backward() Traceback of forward call that caused the error: File \"tmp.py\", line 53, in \u003cmodule\u003e out = run_fn(inp) File \"tmp.py\", line 44, in run_fn out = MyFunc.apply(a) Traceback (most recent call last): File \"\u003cstdin\u003e\", line 4, in \u003cmodule\u003e File \"/your/pytorch/install/torch/_tensor.py\", line 93, in backward torch.autograd.backward(self, gradient, retain_graph, create_graph) File \"/your/pytorch/install/torch/autograd/__init__.py\", line 90, in backward allow_unreachable=True) # allow_unreachable flag File \"/your/pytorch/install/torch/autograd/function.py\", line 76, in apply return self._forward_cls.backward(self, *args) File \"\u003cstdin\u003e\", line 8, in backward RuntimeError: Some error in backward class torch.autograd.set_detect_anomaly(mode, check_nan=True)[source]# Context-manager that sets the anomaly detection for the autograd engine on or off. set_detect_anomaly will enable or disable the autograd anomaly detection based on its argument mode. It can be used as a context-manager or as a function. See detect_anomaly above for details of the anomaly detection behaviour. Parameters mode (bool) \u2013 Flag whether to enable anomaly detection (True), or disable (False). check_nan (bool) \u2013 Flag whether to raise an error when the backward generate \u201cnan\u201d grad_mode.set_multithreading_enabled Context-manager that sets multithreaded backwards on or off. Autograd graph# Autograd exposes methods that allow one to inspect the graph and interpose behavior during the backward pass. The grad_fn attribute of a torch.Tensor holds a torch.autograd.graph.Node if the tensor is the output of a operation that was recorded by autograd (i.e., grad_mode is enabled and at least one of the inputs required gradients), or None otherwise. graph.Node.name Return the name. graph.Node.metadata Return the metadata. graph.Node.next_functions graph.Node.register_hook Register a backward hook. graph.Node.register_prehook Register a backward pre-hook. graph.increment_version Update autograd metadata tracking whether the given Tensor was modified in place. Some operations need intermediary results to be saved during the forward pass in order to execute the backward pass. These intermediary results are saved as attributes on the grad_fn and can be accessed. For example: \u003e\u003e\u003e a = torch.tensor([0., 0., 0.], requires_grad=True) \u003e\u003e\u003e b = a.exp() \u003e\u003e\u003e print(isinstance(b.grad_fn, torch.autograd.graph.Node)) True \u003e\u003e\u003e print(dir(b.grad_fn)) [\u0027__call__\u0027, \u0027__class__\u0027, \u0027__delattr__\u0027, \u0027__dir__\u0027, \u0027__doc__\u0027, \u0027__eq__\u0027, \u0027__format__\u0027, \u0027__ge__\u0027, \u0027__getattribute__\u0027, \u0027__gt__\u0027, \u0027__hash__\u0027, \u0027__init__\u0027, \u0027__init_subclass__\u0027, \u0027__le__\u0027, \u0027__lt__\u0027, \u0027__ne__\u0027, \u0027__new__\u0027, \u0027__reduce__\u0027, \u0027__reduce_ex__\u0027, \u0027__repr__\u0027, \u0027__setattr__\u0027, \u0027__sizeof__\u0027, \u0027__str__\u0027, \u0027__subclasshook__\u0027, \u0027_raw_saved_result\u0027, \u0027_register_hook_dict\u0027, \u0027_saved_result\u0027, \u0027metadata\u0027, \u0027name\u0027, \u0027next_functions\u0027, \u0027register_hook\u0027, \u0027register_prehook\u0027, \u0027requires_grad\u0027] \u003e\u003e\u003e print(torch.allclose(b.grad_fn._saved_result, b)) True You can also define how these saved tensors should be packed / unpacked using hooks. A common application is to trade compute for memory by saving those intermediary results to disk or to CPU instead of leaving them on the GPU. This is especially useful if you notice your model fits on GPU during evaluation, but not training. Also see Hooks for saved tensors. class torch.autograd.graph.saved_tensors_hooks(pack_hook, unpack_hook)[source]# Context-manager that sets a pair of pack / unpack hooks for saved tensors. Use this context-manager to define how intermediary results of an operation should be packed before saving, and unpacked on retrieval. In that context, the pack_hook function will be called every time an operation saves a tensor for backward (this includes intermediary results saved using save_for_backward() but also those recorded by a PyTorch-defined operation). The output of pack_hook is then stored in the computation graph instead of the original tensor. The unpack_hook is called when the saved tensor needs to be accessed, namely when executing torch.Tensor.backward() or torch.autograd.grad(). It takes as argument the packed object returned by pack_hook and should return a tensor which has the same content as the original tensor (passed as input to the corresponding pack_hook). The hooks should have the following signatures: pack_hook(tensor: Tensor) -\u003e Any unpack_hook(Any) -\u003e Tensor where the return value of pack_hook is a valid input to unpack_hook. In general, you want unpack_hook(pack_hook(t)) to be equal to t in terms of value, size, dtype and device. Example: \u003e\u003e\u003e def pack_hook(x): ... print(\"Packing\", x) ... return x.detach() \u003e\u003e\u003e \u003e\u003e\u003e def unpack_hook(x): ... print(\"Unpacking\", x) ... return x \u003e\u003e\u003e \u003e\u003e\u003e a = torch.ones(5, requires_grad=True) \u003e\u003e\u003e b = torch.ones(5, requires_grad=True) * 2 \u003e\u003e\u003e with torch.autograd.graph.saved_tensors_hooks(pack_hook, unpack_hook): ... y = a * b Packing tensor([1., 1., 1., 1., 1.], requires_grad=True) Packing tensor([2., 2., 2., 2., 2.], grad_fn=\u003cMulBackward0\u003e) \u003e\u003e\u003e y.sum().backward() Unpacking tensor([1., 1., 1., 1., 1.], requires_grad=True) Unpacking tensor([2., 2., 2., 2., 2.], grad_fn=\u003cMulBackward0\u003e) Warning Performing an inplace operation on the input to either hooks may lead to undefined behavior. Warning Only one pair of hooks is allowed at a time. When recursively nesting this context-manager, only the inner-most pair of hooks will be applied. Warning To avoid reference cycle, the return value of pack_hook cannot hold a reference to the input tensor. For example, use lambda x: x.detach() instead of lambda x: x as the pack hook. class torch.autograd.graph.save_on_cpu(pin_memory=False, device_type=\u0027cuda\u0027)[source]# Context manager under which tensors saved by the forward pass will be stored on cpu, then retrieved for backward. When performing operations within this context manager, intermediary results saved in the graph during the forward pass will be moved to CPU, then copied back to the original device when needed for the backward pass. If the graph was already on CPU, no tensor copy is performed. Use this context-manager to trade compute for GPU memory usage (e.g. when your model doesn\u2019t fit in GPU memory during training). Parameters pin_memory (bool) \u2013 If True tensors will be saved to CPU pinned memory during packing and copied to GPU asynchronously during unpacking. Defaults to False. Also see Use pinned memory buffers. Example: \u003e\u003e\u003e a = torch.randn(5, requires_grad=True, device=\"cuda\") \u003e\u003e\u003e b = torch.randn(5, requires_grad=True, device=\"cuda\") \u003e\u003e\u003e c = torch.randn(5, requires_grad=True, device=\"cuda\") \u003e\u003e\u003e \u003e\u003e\u003e def f(a, b, c): ... prod_1 = a * b # a and b are saved on GPU ... with torch.autograd.graph.save_on_cpu(): ... prod_2 = prod_1 * c # prod_1 and c are saved on CPU ... y = prod_2 * a # prod_2 and a are saved on GPU ... return y \u003e\u003e\u003e \u003e\u003e\u003e y = f(a, b, c) \u003e\u003e\u003e del a, b, c # for illustration only \u003e\u003e\u003e # the content of a, b, and prod_2 are still alive on GPU \u003e\u003e\u003e # the content of prod_1 and c only live on CPU \u003e\u003e\u003e y.sum().backward() # all CPU tensors are moved back to GPU, for backward \u003e\u003e\u003e # all intermediary tensors are released (deleted) after the call to backward class torch.autograd.graph.disable_saved_tensors_hooks(error_message)[source]# Context-manager that disables the saved tensors default hooks feature. Useful for if you are creating a feature that does not work with saved tensors default hooks. Parameters error_message (str) \u2013 When saved tensors default hooks are used when they have been are disabled, a RuntimeError with this error message gets raised. Return type Generator[None, None, None] Example: \u003e\u003e\u003e message = \"saved tensors default hooks are disabled\" \u003e\u003e\u003e with torch.autograd.graph.disable_saved_tensors_hooks(message): ... # Raises RuntimeError: saved tensors default hooks are disabled ... with torch.autograd.graph.save_on_cpu(): ... pass class torch.autograd.graph.register_multi_grad_hook(tensors, fn, *, mode=\u0027all\u0027)[source]# Register a multi-grad backward hook. There are two supported modes: \"all\" and \"any\". Under the \"all\" mode, the hook will be called after gradients with respect to every tensor in tensors have been computed. If a tensor is in tensors but is not part of the graph, or if a tensor is not needed to compute the gradients for any inputs specified for the current .backward() or .grad() call, this tensor will be ignored and the hook will not wait for its gradient to be computed. After every non-ignored tensor\u2019s gradient has been computed, fn will be called with those gradients. None will be passed for tensors that did not have their gradients computed. Under the \"any\" mode, the hook will be called after the first gradient with respect to a tensor in tensors has been computed. The hook will be called with that gradient as its argument. The hook should not modify its arguments. This function returns a handle with a method handle.remove() that removes the hook. Note See Backward Hooks execution for more information on how when this hook is executed, and how its execution is ordered relative to other hooks. Example: \u003e\u003e\u003e import torch \u003e\u003e\u003e \u003e\u003e\u003e a = torch.rand(2, 3, requires_grad=True) \u003e\u003e\u003e b = torch.rand(2, 3, requires_grad=True) \u003e\u003e\u003e c = a * b \u003e\u003e\u003e d = a * b \u003e\u003e\u003e \u003e\u003e\u003e def fn(grads): ... print([g is not None for g in grads]) ... \u003e\u003e\u003e torch.autograd.graph.register_multi_grad_hook((a, b, c, d), fn) \u003e\u003e\u003e \u003e\u003e\u003e c.sum().backward(retain_graph=True) [True, True, True, False] \u003e\u003e\u003e c.sum().backward(inputs=(a,), retain_graph=True) [True, False, True, False] \u003e\u003e\u003e Return type RemovableHandle class torch.autograd.graph.allow_mutation_on_saved_tensors[source]# Context manager under which mutating tensors saved for backward is allowed. Under this context manager, tensors saved for backward are cloned on mutation, so the original version can still be used during backward. Normally, mutating a tensor saved for backward will result in an error raised when it\u2019s used during backward. To ensure the correct behavior, both the forward and backward should be run under the same context manager. Returns An _AllowMutationOnSavedContext object storing the state managed by this context manager. This object can be useful for debugging purposes. The state managed by the context manager is automatically cleared upon exiting. Return type Generator[_AllowMutationOnSavedContext, None, None] Example: \u003e\u003e\u003e import torch \u003e\u003e\u003e with torch.autograd.graph.allow_mutation_on_saved_tensors(): ... # forward ... a = torch.ones(2, 3, requires_grad=True) ... b = a.clone() ... out = (b**2).sum() ... b.sin_() ... # backward ... out.sum().backward() ... tensor([[0.8415, 0.8415, 0.8415], [0.8415, 0.8415, 0.8415]], grad_fn=\u003cSinBackward0\u003e) class torch.autograd.graph.GradientEdge(node, output_nr, ownership_token=None)[source]# Object representing a given gradient edge within the autograd graph. To get the gradient edge where a given Tensor gradient will be computed, you can do edge = autograd.graph.get_gradient_edge(tensor). torch.autograd.graph.get_gradient_edge(tensor)[source]# Get the gradient edge for computing the gradient of the given Tensor. In particular, it is equivalent to call g = autograd.grad(loss, input) and g = autograd.grad(loss, get_gradient_edge(input)). Return type GradientEdge torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch(enabled)[source]# Whether to warn when the AccumulateGrad node\u2019s stream does not match the stream of the node that produced the incoming gradient.",
+       "articleBody": "Automatic differentiation package - torch.autograd# Created On: Dec 23, 2016 | Last Updated On: Nov 01, 2025 torch.autograd provides classes and functions implementing automatic differentiation of arbitrary scalar valued functions. It requires minimal changes to the existing code - you only need to declare Tensor s for which gradients should be computed with the requires_grad=True keyword. As of now, we only support autograd for floating point Tensor types ( half, float, double and bfloat16) and complex Tensor types (cfloat, cdouble). backward Compute the sum of gradients of given tensors with respect to graph leaves. grad Compute and return the sum of gradients of outputs with respect to the inputs. Forward-mode Automatic Differentiation# Warning This API is in beta. Even though the function signatures are very unlikely to change, improved operator coverage is planned before we consider this stable. Please see the forward-mode AD tutorial for detailed steps on how to use this API. forward_ad.dual_level Context-manager for forward AD, where all forward AD computation must occur within the dual_level context. forward_ad.make_dual Associate a tensor value with its tangent to create a \"dual tensor\" for forward AD gradient computation. forward_ad.unpack_dual Unpack a \"dual tensor\" to get both its Tensor value and its forward AD gradient. forward_ad.enter_dual_level Enter a new forward grad level. forward_ad.exit_dual_level Exit a forward grad level. forward_ad.UnpackedDualTensor Namedtuple returned by unpack_dual() containing the primal and tangent components of the dual tensor. Functional higher level API# Warning This API is in beta. Even though the function signatures are very unlikely to change, major improvements to performances are planned before we consider this stable. This section contains the higher level API for the autograd that builds on the basic API above and allows you to compute jacobians, hessians, etc. This API works with user-provided functions that take only Tensors as input and return only Tensors. If your function takes other arguments that are not Tensors or Tensors that don\u2019t have requires_grad set, you can use a lambda to capture them. For example, for a function f that takes three inputs, a Tensor for which we want the jacobian, another tensor that should be considered constant and a boolean flag as f(input, constant, flag=flag) you can use it as functional.jacobian(lambda x: f(x, constant, flag=flag), input). functional.jacobian Compute the Jacobian of a given function. functional.hessian Compute the Hessian of a given scalar function. functional.vjp Compute the dot product between a vector v and the Jacobian of the given function at the point given by the inputs. functional.jvp Compute the dot product between the Jacobian of the given function at the point given by the inputs and a vector v. functional.vhp Compute the dot product between vector v and Hessian of a given scalar function at a specified point. functional.hvp Compute the dot product between the scalar function\u0027s Hessian and a vector v at a specified point. Locally disabling gradient computation# See Locally disabling gradient computation for more information on the differences between no-grad and inference mode as well as other related mechanisms that may be confused with the two. Also see Locally disabling gradient computation for a list of functions that can be used to locally disable gradients. Default gradient layouts# When a non-sparse param receives a non-sparse gradient during torch.autograd.backward() or torch.Tensor.backward() param.grad is accumulated as follows. If param.grad is initially None: If param\u2019s memory is non-overlapping and dense, .grad is created with strides matching param (thus matching param\u2019s layout). Otherwise, .grad is created with rowmajor-contiguous strides. If param already has a non-sparse .grad attribute: If create_graph=False, backward() accumulates into .grad in-place, which preserves its strides. If create_graph=True, backward() replaces .grad with a new tensor .grad + new grad, which attempts (but does not guarantee) matching the preexisting .grad\u2019s strides. The default behavior (letting .grads be None before the first backward(), such that their layout is created according to 1 or 2, and retained over time according to 3 or 4) is recommended for best performance. Calls to model.zero_grad() or optimizer.zero_grad() will not affect .grad layouts. In fact, resetting all .grads to None before each accumulation phase, e.g.: for iterations... ... for param in model.parameters(): param.grad = None loss.backward() such that they\u2019re recreated according to 1 or 2 every time, is a valid alternative to model.zero_grad() or optimizer.zero_grad() that may improve performance for some networks. Manual gradient layouts# If you need manual control over .grad\u2019s strides, assign param.grad = a zeroed tensor with desired strides before the first backward(), and never reset it to None. 3 guarantees your layout is preserved as long as create_graph=False. 4 indicates your layout is likely preserved even if create_graph=True. In-place operations on Tensors# Supporting in-place operations in autograd is a hard matter, and we discourage their use in most cases. Autograd\u2019s aggressive buffer freeing and reuse makes it very efficient and there are very few occasions when in-place operations actually lower memory usage by any significant amount. Unless you\u2019re operating under heavy memory pressure, you might never need to use them. In-place correctness checks# All Tensor s keep track of in-place operations applied to them, and if the implementation detects that a tensor was saved for backward in one of the functions, but it was modified in-place afterwards, an error will be raised once backward pass is started. This ensures that if you\u2019re using in-place functions and not seeing any errors, you can be sure that the computed gradients are correct. Variable (deprecated)# Warning The Variable API has been deprecated: Variables are no longer necessary to use autograd with tensors. Autograd automatically supports Tensors with requires_grad set to True. Below please find a quick guide on what has changed: Variable(tensor) and Variable(tensor, requires_grad) still work as expected, but they return Tensors instead of Variables. var.data is the same thing as tensor.data. Methods such as var.backward(), var.detach(), var.register_hook() now work on tensors with the same method names. In addition, one can now create tensors with requires_grad=True using factory methods such as torch.randn(), torch.zeros(), torch.ones(), and others like the following: autograd_tensor = torch.randn((2, 3, 4), requires_grad=True) Tensor autograd functions# torch.Tensor.grad This attribute is None by default and becomes a Tensor the first time a call to backward() computes gradients for self. torch.Tensor.requires_grad Is True if gradients need to be computed for this Tensor, False otherwise. torch.Tensor.is_leaf All Tensors that have requires_grad which is False will be leaf Tensors by convention. torch.Tensor.backward([gradient, ...]) Computes the gradient of current tensor wrt graph leaves. torch.Tensor.detach Returns a new Tensor, detached from the current graph. torch.Tensor.detach_ Detaches the Tensor from the graph that created it, making it a leaf. torch.Tensor.register_hook(hook) Registers a backward hook. torch.Tensor.register_post_accumulate_grad_hook(hook) Registers a backward hook that runs after grad accumulation. torch.Tensor.retain_grad() Enables this Tensor to have their grad populated during backward(). Function# class torch.autograd.Function(*args, **kwargs)[source]# Base class to create custom autograd.Function. To create a custom autograd.Function, subclass this class and implement the forward() and backward() static methods. Then, to use your custom op in the forward pass, call the class method apply. Do not call forward() directly. To ensure correctness and best performance, make sure you are calling the correct methods on ctx and validating your backward function using torch.autograd.gradcheck(). See Extending torch.autograd for more details on how to use this class. Examples: \u003e\u003e\u003e class Exp(Function): \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def forward(ctx, i): \u003e\u003e\u003e result = i.exp() \u003e\u003e\u003e ctx.save_for_backward(result) \u003e\u003e\u003e return result \u003e\u003e\u003e \u003e\u003e\u003e @staticmethod \u003e\u003e\u003e def backward(ctx, grad_output): \u003e\u003e\u003e result, = ctx.saved_tensors \u003e\u003e\u003e return grad_output * result \u003e\u003e\u003e \u003e\u003e\u003e # Use it by calling the apply method: \u003e\u003e\u003e output = Exp.apply(input) Function.forward Define the forward of the custom autograd Function. Function.backward Define a formula for differentiating the operation with backward mode automatic differentiation. Function.jvp Define a formula for differentiating the operation with forward mode automatic differentiation. Function.vmap Define the behavior for this autograd.Function underneath torch.vmap(). Context method mixins# When creating a new Function, the following methods are available to ctx. function.FunctionCtx.mark_dirty Mark given tensors as modified in an in-place operation. function.FunctionCtx.mark_non_differentiable Mark outputs as non-differentiable. function.FunctionCtx.save_for_backward Save given tensors for a future call to backward(). function.FunctionCtx.set_materialize_grads Set whether to materialize grad tensors. Custom Function utilities# Decorator for backward method. function.once_differentiable Base custom Function used to build PyTorch utilities function.BackwardCFunction This class is used for internal autograd work. function.InplaceFunction This class is here only for backward compatibility reasons. function.NestedIOFunction This class is here only for backward compatibility reasons. Numerical gradient checking# gradcheck Check gradients computed via small finite differences against analytical gradients wrt tensors in inputs that are of floating point or complex type and with requires_grad=True. gradgradcheck Check gradients of gradients computed via small finite differences against analytical gradients wrt tensors in inputs and grad_outputs that are of floating point or complex type and with requires_grad=True. GradcheckError Error raised by gradcheck() and gradgradcheck(). Profiler# Autograd includes a profiler that lets you inspect the cost of different operators inside your model - both on the CPU and GPU. There are three modes implemented at the moment - CPU-only using profile. nvprof based (registers both CPU and GPU activity) using emit_nvtx. and vtune profiler based using emit_itt. class torch.autograd.profiler.profile(enabled=True, *, use_cuda=False, use_device=None, record_shapes=False, with_flops=False, profile_memory=False, with_stack=False, with_modules=False, use_kineto=False, use_cpu=True, experimental_config=None, acc_events=False, custom_trace_id_callback=None)[source]# Context manager that manages autograd profiler state and holds a summary of results. Note This is the backend, most people should use torch.profiler instead. Under the hood it just records events of functions being executed in C++ and exposes those events to Python. You can wrap any code into it and it will only report runtime of PyTorch functions. Note: profiler is thread local and is automatically propagated into the async tasks Parameters: enabled (bool, optional) \u2013 Setting this to False makes this context manager a no-op. use_cuda (bool, optional) \u2013 Enables timing of CUDA events as well using the cudaEvent API. (will be deprecated) use_device (str, optional) \u2013 Enables timing of device events. Adds approximately 4us of overhead to each tensor operation when use cuda. The valid devices options are \u2018cuda\u2019, \u2018xpu\u2019, \u2018mtia\u2019 and \u2018privateuseone\u2019. record_shapes (bool, optional) \u2013 If shapes recording is set, information about input dimensions will be collected. This allows one to see which dimensions have been used under the hood and further group by them using prof.key_averages(group_by_input_shape=True). Please note that shape recording might skew your profiling data. It is recommended to use separate runs with and without shape recording to validate the timing. Most likely the skew will be negligible for bottom most events (in a case of nested function calls). But for higher level functions the total self cpu time might be artificially increased because of the shape collection. with_flops (bool, optional) \u2013 If with_flops is set, the profiler will estimate the FLOPs (floating point operations) value using the operator\u2019s input shape. This allows one to estimate the hardware performance. Currently, this option only works for the matrix multiplication and 2D convolution operators. profile_memory (bool, optional) \u2013 track tensor memory allocation/deallocation. with_stack (bool, optional) \u2013 record source information (file and line number) for the ops. with_modules (bool) \u2013 record module hierarchy (including function names) corresponding to the callstack of the op. e.g. If module A\u2019s forward call\u2019s module B\u2019s forward which contains an aten::add op, then aten::add\u2019s module hierarchy is A.B Note that this support exist, at the moment, only for TorchScript models and not eager mode models. use_kineto (bool, optional) \u2013 experimental, enable profiling with Kineto profiler. use_cpu (bool, optional) \u2013 profile CPU events; setting to False requires use_kineto=True and can be used to lower the overhead for GPU-only profiling. experimental_config (_ExperimentalConfig) \u2013 A set of experimental options used by profiler libraries like Kineto. Note, backward compatibility is not guaranteed. acc_events (bool) \u2013 Enable the accumulation of FunctionEvents across multiple profiling cycles Warning Enabling memory profiling or source attribution incurs additional profiler overhead Warning This context managers should not be called recursively, i.e. no nested instances are allowed Warning Due to some CUDA multiprocessing limitations (see CUDA in multiprocessing), one cannot use the profiler with use_device = \u0027cuda\u0027 to benchmark DataLoaders with num_workers \u003e 0. If you wish to benchmark data loading, please use use_device = None or num_workers = 0. Example \u003e\u003e\u003e x = torch.randn((1, 1), requires_grad=True) \u003e\u003e\u003e with torch.autograd.profiler.profile() as prof: \u003e\u003e\u003e for _ in range(100): # any normal python code, really! \u003e\u003e\u003e y = x ** 2 \u003e\u003e\u003e y.backward() \u003e\u003e\u003e # NOTE: some columns were removed for brevity \u003e\u003e\u003e print(prof.key_averages().table(sort_by=\"self_cpu_time_total\")) ----------------------------------- --------------- --------------- --------------- Name Self CPU total CPU time avg Number of Calls ----------------------------------- --------------- --------------- --------------- mul 32.048ms 32.048ms 200 pow 27.041ms 27.041ms 200 PowBackward0 9.727ms 55.483ms 100 torch::autograd::AccumulateGrad 9.148ms 9.148ms 100 torch::autograd::GraphRoot 691.816us 691.816us 100 ----------------------------------- --------------- --------------- --------------- profiler.profile.export_chrome_trace Export an EventList as a Chrome tracing tools file. profiler.profile.key_averages Averages all function events over their keys. profiler.profile.self_cpu_time_total Returns total time spent on CPU. profiler.profile.total_average Averages all events. profiler.parse_nvprof_trace profiler.EnforceUnique Raises an error if a key is seen more than once. profiler.KinetoStepTracker Provides an abstraction for incrementing the step count globally. profiler.record_function Context manager/function decorator that adds a label to a code block/function when running autograd profiler. profiler_util.Interval profiler_util.Kernel profiler_util.MemRecordsAcc Acceleration structure for accessing mem_records in interval. profiler_util.StringTable class torch.autograd.profiler.emit_nvtx(enabled=True, record_shapes=False)[source]# Context manager that makes every autograd operation emit an NVTX range. It is useful when running the program under nvprof: nvprof --profile-from-start off -o trace_name.prof -- \u003cregular command here\u003e Unfortunately, there\u2019s no way to force nvprof to flush the data it collected to disk, so for CUDA profiling one has to use this context manager to annotate nvprof traces and wait for the process to exit before inspecting them. Then, either NVIDIA Visual Profiler (nvvp) can be used to visualize the timeline, or torch.autograd.profiler.load_nvprof() can load the results for inspection e.g. in Python REPL. Parameters: enabled (bool, optional) \u2013 Setting enabled=False makes this context manager a no-op. Default: True. record_shapes (bool, optional) \u2013 If record_shapes=True, the nvtx range wrapping each autograd op will append information about the sizes of Tensor arguments received by that op, in the following format: [[arg0.size(0), arg0.size(1), ...], [arg1.size(0), arg1.size(1), ...], ...] Non-tensor arguments will be represented by []. Arguments will be listed in the order they are received by the backend op. Please note that this order may not match the order in which those arguments were passed on the Python side. Also note that shape recording may increase the overhead of nvtx range creation. Default: False Example \u003e\u003e\u003e with torch.cuda.profiler.profile(): ... model(x) # Warmup CUDA memory allocator and profiler ... with torch.autograd.profiler.emit_nvtx(): ... model(x) Forward-backward correlation When viewing a profile created using emit_nvtx in the Nvidia Visual Profiler, correlating each backward-pass op with the corresponding forward-pass op can be difficult. To ease this task, emit_nvtx appends sequence number information to the ranges it generates. During the forward pass, each function range is decorated with seq=\u003cN\u003e. seq is a running counter, incremented each time a new backward Function object is created and stashed for backward. Thus, the seq=\u003cN\u003e annotation associated with each forward function range tells you that if a backward Function object is created by this forward function, the backward object will receive sequence number N. During the backward pass, the top-level range wrapping each C++ backward Function\u2019s apply() call is decorated with stashed seq=\u003cM\u003e. M is the sequence number that the backward object was created with. By comparing stashed seq numbers in backward with seq numbers in forward, you can track down which forward op created each backward Function. Any functions executed during the backward pass are also decorated with seq=\u003cN\u003e. During default backward (with create_graph=False) this information is irrelevant, and in fact, N may simply be 0 for all such functions. Only the top-level ranges associated with backward Function objects\u2019 apply() methods are useful, as a way to correlate these Function objects with the earlier forward pass. Double-backward If, on the other hand, a backward pass with create_graph=True is underway (in other words, if you are setting up for a double-backward), each function\u2019s execution during backward is given a nonzero, useful seq=\u003cN\u003e. Those functions may themselves create Function objects to be executed later during double-backward, just as the original functions in the forward pass did. The relationship between backward and double-backward is conceptually the same as the relationship between forward and backward: The functions still emit current-sequence-number-tagged ranges, the Function objects they create still stash those sequence numbers, and during the eventual double-backward, the Function objects\u2019 apply() ranges are still tagged with stashed seq numbers, which can be compared to seq numbers from the backward pass. class torch.autograd.profiler.emit_itt(enabled=True, record_shapes=False)[source]# Context manager that makes every autograd operation emit an ITT range. It is useful when running the program under Intel(R) VTune Profiler: vtune \u003c--vtune-flags\u003e \u003cregular command here\u003e The Instrumentation and Tracing Technology (ITT) API enables your application to generate and control the collection of trace data during its execution across different Intel tools. This context manager is to annotate Intel(R) VTune Profiling trace. With help of this context manager, you will be able to see labeled ranges in Intel(R) VTune Profiler GUI. Parameters: enabled (bool, optional) \u2013 Setting enabled=False makes this context manager a no-op. Default: True. record_shapes (bool, optional) \u2013 If record_shapes=True, the itt range wrapping each autograd op will append information about the sizes of Tensor arguments received by that op, in the following format: [[arg0.size(0), arg0.size(1), ...], [arg1.size(0), arg1.size(1), ...], ...] Non-tensor arguments will be represented by []. Arguments will be listed in the order they are received by the backend op. Please note that this order may not match the order in which those arguments were passed on the Python side. Also note that shape recording may increase the overhead of itt range creation. Default: False Example \u003e\u003e\u003e with torch.autograd.profiler.emit_itt(): ... model(x) profiler.load_nvprof Open an nvprof trace file and parses autograd annotations. Debugging and anomaly detection# class torch.autograd.detect_anomaly(check_nan=True)[source]# Context-manager that enable anomaly detection for the autograd engine. This does two things: Running the forward pass with detection enabled will allow the backward pass to print the traceback of the forward operation that created the failing backward function. If check_nan is True, any backward computation that generate \u201cnan\u201d value will raise an error. Default True. Warning This mode should be enabled only for debugging as the different tests will slow down your program execution. Example \u003e\u003e\u003e import torch \u003e\u003e\u003e from torch import autograd \u003e\u003e\u003e class MyFunc(autograd.Function): ... @staticmethod ... def forward(ctx, inp): ... return inp.clone() ... ... @staticmethod ... def backward(ctx, gO): ... # Error during the backward pass ... raise RuntimeError(\"Some error in backward\") ... return gO.clone() \u003e\u003e\u003e def run_fn(a): ... out = MyFunc.apply(a) ... return out.sum() \u003e\u003e\u003e inp = torch.rand(10, 10, requires_grad=True) \u003e\u003e\u003e out = run_fn(inp) \u003e\u003e\u003e out.backward() Traceback (most recent call last): File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e File \"/your/pytorch/install/torch/_tensor.py\", line 93, in backward torch.autograd.backward(self, gradient, retain_graph, create_graph) File \"/your/pytorch/install/torch/autograd/__init__.py\", line 90, in backward allow_unreachable=True) # allow_unreachable flag File \"/your/pytorch/install/torch/autograd/function.py\", line 76, in apply return self._forward_cls.backward(self, *args) File \"\u003cstdin\u003e\", line 8, in backward RuntimeError: Some error in backward \u003e\u003e\u003e with autograd.detect_anomaly(): ... inp = torch.rand(10, 10, requires_grad=True) ... out = run_fn(inp) ... out.backward() Traceback of forward call that caused the error: File \"tmp.py\", line 53, in \u003cmodule\u003e out = run_fn(inp) File \"tmp.py\", line 44, in run_fn out = MyFunc.apply(a) Traceback (most recent call last): File \"\u003cstdin\u003e\", line 4, in \u003cmodule\u003e File \"/your/pytorch/install/torch/_tensor.py\", line 93, in backward torch.autograd.backward(self, gradient, retain_graph, create_graph) File \"/your/pytorch/install/torch/autograd/__init__.py\", line 90, in backward allow_unreachable=True) # allow_unreachable flag File \"/your/pytorch/install/torch/autograd/function.py\", line 76, in apply return self._forward_cls.backward(self, *args) File \"\u003cstdin\u003e\", line 8, in backward RuntimeError: Some error in backward class torch.autograd.set_detect_anomaly(mode, check_nan=True)[source]# Context-manager that sets the anomaly detection for the autograd engine on or off. set_detect_anomaly will enable or disable the autograd anomaly detection based on its argument mode. It can be used as a context-manager or as a function. See detect_anomaly above for details of the anomaly detection behaviour. Parameters: mode (bool) \u2013 Flag whether to enable anomaly detection (True), or disable (False). check_nan (bool) \u2013 Flag whether to raise an error when the backward generate \u201cnan\u201d grad_mode.set_multithreading_enabled Context-manager that sets multithreaded backwards on or off. Autograd graph# Autograd exposes methods that allow one to inspect the graph and interpose behavior during the backward pass. The grad_fn attribute of a torch.Tensor holds a torch.autograd.graph.Node if the tensor is the output of a operation that was recorded by autograd (i.e., grad_mode is enabled and at least one of the inputs required gradients), or None otherwise. graph.Node.name Return the name. graph.Node.metadata Return the metadata. graph.Node.next_functions graph.Node.register_hook Register a backward hook. graph.Node.register_prehook Register a backward pre-hook. graph.increment_version Update autograd metadata tracking whether the given Tensor was modified in place. Some operations need intermediary results to be saved during the forward pass in order to execute the backward pass. These intermediary results are saved as attributes on the grad_fn and can be accessed. For example: \u003e\u003e\u003e a = torch.tensor([0., 0., 0.], requires_grad=True) \u003e\u003e\u003e b = a.exp() \u003e\u003e\u003e print(isinstance(b.grad_fn, torch.autograd.graph.Node)) True \u003e\u003e\u003e print(dir(b.grad_fn)) [\u0027__call__\u0027, \u0027__class__\u0027, \u0027__delattr__\u0027, \u0027__dir__\u0027, \u0027__doc__\u0027, \u0027__eq__\u0027, \u0027__format__\u0027, \u0027__ge__\u0027, \u0027__getattribute__\u0027, \u0027__gt__\u0027, \u0027__hash__\u0027, \u0027__init__\u0027, \u0027__init_subclass__\u0027, \u0027__le__\u0027, \u0027__lt__\u0027, \u0027__ne__\u0027, \u0027__new__\u0027, \u0027__reduce__\u0027, \u0027__reduce_ex__\u0027, \u0027__repr__\u0027, \u0027__setattr__\u0027, \u0027__sizeof__\u0027, \u0027__str__\u0027, \u0027__subclasshook__\u0027, \u0027_raw_saved_result\u0027, \u0027_register_hook_dict\u0027, \u0027_saved_result\u0027, \u0027metadata\u0027, \u0027name\u0027, \u0027next_functions\u0027, \u0027register_hook\u0027, \u0027register_prehook\u0027, \u0027requires_grad\u0027] \u003e\u003e\u003e print(torch.allclose(b.grad_fn._saved_result, b)) True You can also define how these saved tensors should be packed / unpacked using hooks. A common application is to trade compute for memory by saving those intermediary results to disk or to CPU instead of leaving them on the GPU. This is especially useful if you notice your model fits on GPU during evaluation, but not training. Also see Hooks for saved tensors. class torch.autograd.graph.saved_tensors_hooks(pack_hook, unpack_hook)[source]# Context-manager that sets a pair of pack / unpack hooks for saved tensors. Use this context-manager to define how intermediary results of an operation should be packed before saving, and unpacked on retrieval. In that context, the pack_hook function will be called every time an operation saves a tensor for backward (this includes intermediary results saved using save_for_backward() but also those recorded by a PyTorch-defined operation). The output of pack_hook is then stored in the computation graph instead of the original tensor. The unpack_hook is called when the saved tensor needs to be accessed, namely when executing torch.Tensor.backward() or torch.autograd.grad(). It takes as argument the packed object returned by pack_hook and should return a tensor which has the same content as the original tensor (passed as input to the corresponding pack_hook). The hooks should have the following signatures: pack_hook(tensor: Tensor) -\u003e Any unpack_hook(Any) -\u003e Tensor where the return value of pack_hook is a valid input to unpack_hook. In general, you want unpack_hook(pack_hook(t)) to be equal to t in terms of value, size, dtype and device. Example: \u003e\u003e\u003e def pack_hook(x): ... print(\"Packing\", x) ... return x.detach() \u003e\u003e\u003e \u003e\u003e\u003e def unpack_hook(x): ... print(\"Unpacking\", x) ... return x \u003e\u003e\u003e \u003e\u003e\u003e a = torch.ones(5, requires_grad=True) \u003e\u003e\u003e b = torch.ones(5, requires_grad=True) * 2 \u003e\u003e\u003e with torch.autograd.graph.saved_tensors_hooks(pack_hook, unpack_hook): ... y = a * b Packing tensor([1., 1., 1., 1., 1.], requires_grad=True) Packing tensor([2., 2., 2., 2., 2.], grad_fn=\u003cMulBackward0\u003e) \u003e\u003e\u003e y.sum().backward() Unpacking tensor([1., 1., 1., 1., 1.], requires_grad=True) Unpacking tensor([2., 2., 2., 2., 2.], grad_fn=\u003cMulBackward0\u003e) Warning Performing an inplace operation on the input to either hooks may lead to undefined behavior. Warning Only one pair of hooks is allowed at a time. When recursively nesting this context-manager, only the inner-most pair of hooks will be applied. Warning To avoid reference cycle, the return value of pack_hook cannot hold a reference to the input tensor. For example, use lambda x: x.detach() instead of lambda x: x as the pack hook. class torch.autograd.graph.save_on_cpu(pin_memory=False, device_type=\u0027cuda\u0027)[source]# Context manager under which tensors saved by the forward pass will be stored on cpu, then retrieved for backward. When performing operations within this context manager, intermediary results saved in the graph during the forward pass will be moved to CPU, then copied back to the original device when needed for the backward pass. If the graph was already on CPU, no tensor copy is performed. Use this context-manager to trade compute for GPU memory usage (e.g. when your model doesn\u2019t fit in GPU memory during training). Parameters: pin_memory (bool) \u2013 If True tensors will be saved to CPU pinned memory during packing and copied to GPU asynchronously during unpacking. Defaults to False. Also see Use pinned memory buffers. Example: \u003e\u003e\u003e a = torch.randn(5, requires_grad=True, device=\"cuda\") \u003e\u003e\u003e b = torch.randn(5, requires_grad=True, device=\"cuda\") \u003e\u003e\u003e c = torch.randn(5, requires_grad=True, device=\"cuda\") \u003e\u003e\u003e \u003e\u003e\u003e def f(a, b, c): ... prod_1 = a * b # a and b are saved on GPU ... with torch.autograd.graph.save_on_cpu(): ... prod_2 = prod_1 * c # prod_1 and c are saved on CPU ... y = prod_2 * a # prod_2 and a are saved on GPU ... return y \u003e\u003e\u003e \u003e\u003e\u003e y = f(a, b, c) \u003e\u003e\u003e del a, b, c # for illustration only \u003e\u003e\u003e # the content of a, b, and prod_2 are still alive on GPU \u003e\u003e\u003e # the content of prod_1 and c only live on CPU \u003e\u003e\u003e y.sum().backward() # all CPU tensors are moved back to GPU, for backward \u003e\u003e\u003e # all intermediary tensors are released (deleted) after the call to backward class torch.autograd.graph.disable_saved_tensors_hooks(error_message)[source]# Context-manager that disables the saved tensors default hooks feature. Useful for if you are creating a feature that does not work with saved tensors default hooks. Parameters: error_message (str) \u2013 When saved tensors default hooks are used when they have been are disabled, a RuntimeError with this error message gets raised. Return type: Generator[None, None, None] Example: \u003e\u003e\u003e message = \"saved tensors default hooks are disabled\" \u003e\u003e\u003e with torch.autograd.graph.disable_saved_tensors_hooks(message): ... # Raises RuntimeError: saved tensors default hooks are disabled ... with torch.autograd.graph.save_on_cpu(): ... pass class torch.autograd.graph.register_multi_grad_hook(tensors, fn, *, mode=\u0027all\u0027)[source]# Register a multi-grad backward hook. There are two supported modes: \"all\" and \"any\". Under the \"all\" mode, the hook will be called after gradients with respect to every tensor in tensors have been computed. If a tensor is in tensors but is not part of the graph, or if a tensor is not needed to compute the gradients for any inputs specified for the current .backward() or .grad() call, this tensor will be ignored and the hook will not wait for its gradient to be computed. After every non-ignored tensor\u2019s gradient has been computed, fn will be called with those gradients. None will be passed for tensors that did not have their gradients computed. Under the \"any\" mode, the hook will be called after the first gradient with respect to a tensor in tensors has been computed. The hook will be called with that gradient as its argument. The hook should not modify its arguments. This function returns a handle with a method handle.remove() that removes the hook. Note See Backward Hooks execution for more information on how when this hook is executed, and how its execution is ordered relative to other hooks. Example: \u003e\u003e\u003e import torch \u003e\u003e\u003e \u003e\u003e\u003e a = torch.rand(2, 3, requires_grad=True) \u003e\u003e\u003e b = torch.rand(2, 3, requires_grad=True) \u003e\u003e\u003e c = a * b \u003e\u003e\u003e d = a * b \u003e\u003e\u003e \u003e\u003e\u003e def fn(grads): ... print([g is not None for g in grads]) ... \u003e\u003e\u003e torch.autograd.graph.register_multi_grad_hook((a, b, c, d), fn) \u003e\u003e\u003e \u003e\u003e\u003e c.sum().backward(retain_graph=True) [True, True, True, False] \u003e\u003e\u003e c.sum().backward(inputs=(a,), retain_graph=True) [True, False, True, False] \u003e\u003e\u003e Return type: RemovableHandle class torch.autograd.graph.allow_mutation_on_saved_tensors[source]# Context manager under which mutating tensors saved for backward is allowed. Under this context manager, tensors saved for backward are cloned on mutation, so the original version can still be used during backward. Normally, mutating a tensor saved for backward will result in an error raised when it\u2019s used during backward. To ensure the correct behavior, both the forward and backward should be run under the same context manager. Returns: An _AllowMutationOnSavedContext object storing the state managed by this context manager. This object can be useful for debugging purposes. The state managed by the context manager is automatically cleared upon exiting. Return type: Generator[_AllowMutationOnSavedContext, None, None] Example: \u003e\u003e\u003e import torch \u003e\u003e\u003e with torch.autograd.graph.allow_mutation_on_saved_tensors(): ... # forward ... a = torch.ones(2, 3, requires_grad=True) ... b = a.clone() ... out = (b**2).sum() ... b.sin_() ... # backward ... out.sum().backward() ... tensor([[0.8415, 0.8415, 0.8415], [0.8415, 0.8415, 0.8415]], grad_fn=\u003cSinBackward0\u003e) class torch.autograd.graph.GradientEdge(node, output_nr, ownership_token=None)[source]# Object representing a given gradient edge within the autograd graph. To get the gradient edge where a given Tensor gradient will be computed, you can do edge = autograd.graph.get_gradient_edge(tensor). torch.autograd.graph.get_gradient_edge(tensor)[source]# Get the gradient edge for computing the gradient of the given Tensor. In particular, it is equivalent to call g = autograd.grad(loss, input) and g = autograd.grad(loss, get_gradient_edge(input)). Return type: GradientEdge torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch(enabled)[source]# Whether to warn when the AccumulateGrad node\u2019s stream does not match the stream of the node that produced the incoming gradient.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/autograd.html"

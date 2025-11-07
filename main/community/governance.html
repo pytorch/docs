@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>PyTorch Governance | Mechanics &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=940804e7"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'community/governance';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../_static/js/runllm-widget.js"></script>
+    <script src="../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/community/governance.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="../_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1642,6 +1641,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -1649,11 +1649,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="pytorch-governance-mechanics">
-<h1>PyTorch Governance | Mechanics<a class="headerlink" href="#pytorch-governance-mechanics" title="Permalink to this heading">#</a></h1>
+  <section id="pytorch-governance-mechanics">
+<h1>PyTorch Governance | Mechanics<a class="headerlink" href="#pytorch-governance-mechanics" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Mar 11, 2019 | Last Updated On: Apr 16, 2025</p>
-<div class="section" id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
 <p>PyTorch adopts a technical governance structure that is hierarchical.</p>
 <ul class="simple">
 <li><p>A community of <strong>contributors</strong> who file issues, make pull requests,
@@ -1680,9 +1680,9 @@ the technical governance process is for <strong>individuals</strong>, not compan
 That is, there are no seats reserved for specific companies, and
 membership is associated with the person rather than the company
 employing that person.</p>
-</div>
-<div class="section" id="module-maintainers">
-<h2>Module Maintainers<a class="headerlink" href="#module-maintainers" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-maintainers">
+<h2>Module Maintainers<a class="headerlink" href="#module-maintainers" title="Link to this heading">#</a></h2>
 <p>Modules are defined as GitHub repositories within the PyTorch org,
 or as directories within the core repository
 <a class="reference external" href="https://github.com/pytorch/pytorch">pytorch/pytorch</a>.
@@ -1712,9 +1712,9 @@ future direction of the project and can participate in discussion.</p>
 <li><p>Supporting public documentation related to the module</p></li>
 <li><p>Running public developer meetings</p></li>
 </ul>
-</div>
-<div class="section" id="core-maintainers">
-<h2>Core Maintainers<a class="headerlink" href="#core-maintainers" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="core-maintainers">
+<h2>Core Maintainers<a class="headerlink" href="#core-maintainers" title="Link to this heading">#</a></h2>
 <p>The core maintainers are expected to have a deep understanding
 of the PyTorch code base and design philosophies. Their responsibilities
 include:</p>
@@ -1734,9 +1734,9 @@ decision-making, and give a clear reasoning for their
 decisions, vetoes and dispute resolution.</p>
 <p>The core maintainers are admins of the PyTorch GitHub Org
 and are listed in <a class="reference external" href="https://pytorch.org/docs/stable/community/persons_of_interest.html">Maintainers</a>.</p>
-</div>
-<div class="section" id="lead-core-maintainer-bdfl">
-<h2>Lead Core Maintainer (BDFL)<a class="headerlink" href="#lead-core-maintainer-bdfl" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="lead-core-maintainer-bdfl">
+<h2>Lead Core Maintainer (BDFL)<a class="headerlink" href="#lead-core-maintainer-bdfl" title="Link to this heading">#</a></h2>
 <p>There may be decisions in which the core maintainers cannot
 come to a consensus. To make such difficult decisions, the
 core maintainers have an assigned and publicly declared Lead
@@ -1746,11 +1746,11 @@ governance models as a BDFL.</p>
 decision-making, and give a clear reasoning for their
 decisions. The Lead Core Maintainer is also responsible for
 confirming or removing core maintainers.</p>
-</div>
-<div class="section" id="nominating-confirming-and-removing-maintainers">
-<h2>Nominating, Confirming and Removing Maintainers<a class="headerlink" href="#nominating-confirming-and-removing-maintainers" title="Permalink to this heading">#</a></h2>
-<div class="section" id="the-principles">
-<h3>The Principles<a class="headerlink" href="#the-principles" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="nominating-confirming-and-removing-maintainers">
+<h2>Nominating, Confirming and Removing Maintainers<a class="headerlink" href="#nominating-confirming-and-removing-maintainers" title="Link to this heading">#</a></h2>
+<section id="the-principles">
+<h3>The Principles<a class="headerlink" href="#the-principles" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Membership in module maintainer groups is given to <strong>individuals</strong>
 on <strong>merit basis</strong> after they demonstrated strong expertise of the
@@ -1766,9 +1766,9 @@ of time. Each module maintainer group may define the inactive
 period that’s appropriate for that module.</p></li>
 <li><p>The membership is for an individual, not a company.</p></li>
 </ul>
-</div>
-<div class="section" id="the-process-for-nomination">
-<h3>The Process for Nomination<a class="headerlink" href="#the-process-for-nomination" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="the-process-for-nomination">
+<h3>The Process for Nomination<a class="headerlink" href="#the-process-for-nomination" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Each module has its own process. Please contact module maintainers for more information.
 However, if there is no process identified, you can file a request to the core
@@ -1789,9 +1789,9 @@ a final decision to Confirm or Decline the nomination. The
 decision of the core maintainers has to be articulated well
 and would be public.</p></li>
 </ul>
-</div>
-<div class="section" id="the-process-for-removal">
-<h3>The Process for Removal<a class="headerlink" href="#the-process-for-removal" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="the-process-for-removal">
+<h3>The Process for Removal<a class="headerlink" href="#the-process-for-removal" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Similar to the process for nomination, anyone in the community
 can nominate a person to be removed from a Module maintainer
@@ -1815,9 +1815,9 @@ a final decision to Confirm or Decline the removal. The decision
 of the core maintainers has to be articulated well and would be
 public.</p></li>
 </ul>
-</div>
-<div class="section" id="nominating-core-maintainers">
-<h3>Nominating Core Maintainers<a class="headerlink" href="#nominating-core-maintainers" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="nominating-core-maintainers">
+<h3>Nominating Core Maintainers<a class="headerlink" href="#nominating-core-maintainers" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Any core or module maintainer can nominate someone to become a
 core maintainer</p></li>
@@ -1836,9 +1836,9 @@ community</p></li>
 decision to Confirm or Decline the nomination, with a clear public
 articulation of their reasoning behind the decision.</p></li>
 </ul>
-</div>
-<div class="section" id="removing-the-lead-core-maintainer-and-nominating-a-new-lead-core-maintainer">
-<h3>Removing the Lead Core Maintainer and Nominating a New Lead Core Maintainer<a class="headerlink" href="#removing-the-lead-core-maintainer-and-nominating-a-new-lead-core-maintainer" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="removing-the-lead-core-maintainer-and-nominating-a-new-lead-core-maintainer">
+<h3>Removing the Lead Core Maintainer and Nominating a New Lead Core Maintainer<a class="headerlink" href="#removing-the-lead-core-maintainer-and-nominating-a-new-lead-core-maintainer" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>A super-majority of core maintainers (75%) can choose to
 remove the Lead Core Maintainer</p></li>
@@ -1847,10 +1847,10 @@ circumstances (such as permanent unavailability of the Lead Core
 Maintainer), the core maintainers follow a Ranked-Choice voting
 method to elect a new Lead Core Maintainer.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="add-remove-and-re-scope-modules-and-projects">
-<h2>Add, Remove, and Re-Scope Modules and Projects<a class="headerlink" href="#add-remove-and-re-scope-modules-and-projects" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="add-remove-and-re-scope-modules-and-projects">
+<h2>Add, Remove, and Re-Scope Modules and Projects<a class="headerlink" href="#add-remove-and-re-scope-modules-and-projects" title="Link to this heading">#</a></h2>
 <p>The core maintainers together are responsible for taking
 decisions on adding, removing and re-scoping new modules
 in the PyTorch org, either as new repositories in the
@@ -1874,11 +1874,11 @@ and community plan once the proposal is approved.</p></li>
 </ol>
 <p>The core maintainers take final decisions on the proposal, articulating
 the reasoning behind the decision publicly.</p>
-</div>
-<div class="section" id="decision-making">
-<h2>Decision Making<a class="headerlink" href="#decision-making" title="Permalink to this heading">#</a></h2>
-<div class="section" id="uncontroversial-changes">
-<h3>Uncontroversial Changes<a class="headerlink" href="#uncontroversial-changes" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="decision-making">
+<h2>Decision Making<a class="headerlink" href="#decision-making" title="Link to this heading">#</a></h2>
+<section id="uncontroversial-changes">
+<h3>Uncontroversial Changes<a class="headerlink" href="#uncontroversial-changes" title="Link to this heading">#</a></h3>
 <p>Primary work happens through issues and pull requests on
 GitHub. Maintainers should avoid pushing their changes directly to
 the PyTorch repository, instead relying on pull requests. Approving a
@@ -1891,9 +1891,9 @@ ultimately approve these changes.</p>
 is important. Reviews from experts in the given interest area are
 strongly preferred, especially on pull request approvals. Failure to do
 so might end up with the change being reverted by the relevant expert.</p>
-</div>
-<div class="section" id="controversial-decision-process">
-<h3>Controversial Decision Process<a class="headerlink" href="#controversial-decision-process" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="controversial-decision-process">
+<h3>Controversial Decision Process<a class="headerlink" href="#controversial-decision-process" title="Link to this heading">#</a></h3>
 <p>Substantial changes in a given interest area require a GitHub issue to
 be opened for discussion. This includes:</p>
 <ul class="simple">
@@ -1904,9 +1904,9 @@ functionality within an existing library.</p></li>
 <li><p>Removal of core features or platform support</p></li>
 </ul>
 <p>Core and module maintainers ultimately approve these changes.</p>
-</div>
-<div class="section" id="general-project-policies">
-<h3>General Project Policies<a class="headerlink" href="#general-project-policies" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="general-project-policies">
+<h3>General Project Policies<a class="headerlink" href="#general-project-policies" title="Link to this heading">#</a></h3>
 <p>PyTorch has been established as PyTorch a Series of LF Projects, LLC.
 Policies applicable to PyTorch and participants in PyTorch, including
 guidelines on the usage of trademarks, are located at <a class="reference external" href="https://www.lfprojects.org/policies/">https://www.lfprojects.org/policies/</a>.</p>
@@ -1919,10 +1919,10 @@ must be made using the 3-Clause-BSD License available here:
 All outbound code will be made available under the Project License.
 The Maintainers may approve the use of an alternative open license or
 licenses for inbound or outbound contributions on an exception basis.</p>
-</div>
-</div>
-<div class="section" id="faq">
-<h2>FAQ<a class="headerlink" href="#faq" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="faq">
+<h2>FAQ<a class="headerlink" href="#faq" title="Link to this heading">#</a></h2>
 <p><strong>Q: What if I would like to own (or partly own) a part of the project
 such as a feature area or domain library, for example</strong> <a class="reference external" href="https://github.com/pytorch/pytorch/tree/master/torch/linalg">Linear Algebra</a>
 <strong>or</strong> <a class="reference external" href="https://github.com/pytorch/vision">Torch Vision</a> <strong>?</strong>
@@ -1965,8 +1965,8 @@ we encourage community members to showcase their work wherever and
 whenever they can. Please reach out to
 <a class="reference external" href="mailto:marketing&#37;&#52;&#48;pytorch&#46;org">marketing<span>&#64;</span>pytorch<span>&#46;</span>org</a>
 for marketing support.</p>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -2032,11 +2032,6 @@ for marketing support.</p>
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -2179,7 +2174,9 @@ for marketing support.</p>
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -2203,10 +2200,13 @@ for marketing support.</p>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -2229,7 +2229,6 @@ for marketing support.</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -2279,10 +2278,10 @@ for marketing support.</p>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -2323,7 +2322,7 @@ for marketing support.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -2358,7 +2357,7 @@ for marketing support.</p>
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "../_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/community/governance.html"

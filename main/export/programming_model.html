@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>torch.export Programming Model &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=940804e7"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'export/programming_model';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../_static/js/runllm-widget.js"></script>
+    <script src="../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/export/programming_model.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="../_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1588,9 +1587,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.empty_strided.html">torch.empty_strided</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.full.html">torch.full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.full_like.html">torch.full_like</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.complex.html">torch.complex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.polar.html">torch.polar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.heaviside.html">torch.heaviside</a></li>
@@ -2417,13 +2416,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.skip_init.html">torch.nn.utils.skip_init</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.BasePruningMethod.html">BasePruningMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.PruningContainer.html">PruningContainer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.Identity.html">Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.Identity_class.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.RandomUnstructured.html">RandomUnstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.L1Unstructured.html">L1Unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.RandomStructured.html">RandomStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.LnStructured.html">LnStructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.CustomFromMask.html">CustomFromMask</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.identity.html">torch.nn.utils.prune.identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.identity_function.html">torch.nn.utils.prune.identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.random_unstructured.html">torch.nn.utils.prune.random_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.l1_unstructured.html">torch.nn.utils.prune.l1_unstructured</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.nn.utils.prune.random_structured.html">torch.nn.utils.prune.random_structured</a></li>
@@ -3193,11 +3192,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.is_available.html">torch.cpu.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.is_initialized.html">torch.cpu.is_initialized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.synchronize.html">torch.cpu.synchronize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.stream.html">torch.cpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.stream_function.html">torch.cpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.set_device.html">torch.cpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.device_count.html">torch.cpu.device_count</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.StreamContext.html">StreamContext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cpu.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cuda.html">torch.cuda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3230,7 +3229,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.set_device.html">torch.cuda.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.set_stream.html">torch.cuda.set_stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.set_sync_debug_mode.html">torch.cuda.set_sync_debug_mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.stream.html">torch.cuda.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.stream_function.html">torch.cuda.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.synchronize.html">torch.cuda.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.utilization.html">torch.cuda.utilization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.temperature.html">torch.cuda.temperature</a></li>
@@ -3253,7 +3252,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.comm.reduce_add_coalesced.html">torch.cuda.comm.reduce_add_coalesced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.comm.scatter.html">torch.cuda.comm.scatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.comm.gather.html">torch.cuda.comm.gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.Event.html">Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
@@ -3369,7 +3368,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.is_tf32_supported.html">torch.xpu.is_tf32_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.stream_function.html">torch.xpu.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.get_rng_state.html">torch.xpu.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.get_rng_state_all.html">torch.xpu.get_rng_state_all</a></li>
@@ -3381,7 +3380,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_rng_state.html">torch.xpu.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.set_rng_state_all.html">torch.xpu.set_rng_state_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.empty_cache.html">torch.xpu.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.get_per_process_memory_fraction.html">torch.xpu.memory.get_per_process_memory_fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.xpu.memory.max_memory_allocated.html">torch.xpu.memory.max_memory_allocated</a></li>
@@ -3428,14 +3427,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.attach_out_of_memory_observer.html">torch.mtia.attach_out_of_memory_observer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.set_device.html">torch.mtia.set_device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.set_stream.html">torch.mtia.set_stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.stream.html">torch.mtia.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.stream_function.html">torch.mtia.stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.synchronize.html">torch.mtia.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.device.html">device</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.set_rng_state.html">torch.mtia.set_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.get_rng_state.html">torch.mtia.get_rng_state</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.DeferredMtiaCallError.html">torch.mtia.DeferredMtiaCallError</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.Event.html">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.Stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/torch.mtia.Stream_class.html">Stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mtia.memory.html">torch.mtia.memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3881,29 +3880,29 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.optim.swa_utils.AveragedModel.html">AveragedModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/torch.optim.swa_utils.SWALR.html">SWALR</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../optim.aliases.html">Aliases in torch.optim</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.Adadelta.html">Adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.adadelta.html">torch.optim.adadelta.adadelta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.Adagrad.html">Adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.adagrad.html">torch.optim.adagrad.adagrad</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.Adam.html">Adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.adam.html">torch.optim.adam.adam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.Adamax.html">Adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.adamax.html">torch.optim.adamax.adamax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.AdamW.html">AdamW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.adamw.html">torch.optim.adamw.adamw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.ASGD.html">ASGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.asgd.html">torch.optim.asgd.asgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.Adadelta_class.html">Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adadelta.adadelta_function.html">torch.optim.adadelta.adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.Adagrad_class.html">Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adagrad.adagrad_function.html">torch.optim.adagrad.adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.Adam_class.html">Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adam.adam_function.html">torch.optim.adam.adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.Adamax_class.html">Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamax.adamax_function.html">torch.optim.adamax.adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.AdamW_class.html">AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.adamw.adamw_function.html">torch.optim.adamw.adamw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.ASGD_class.html">ASGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.asgd.asgd_function.html">torch.optim.asgd.asgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.lbfgs.LBFGS.html">LBFGS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.NAdam.html">NAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.nadam.html">torch.optim.nadam.nadam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.RAdam.html">RAdam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.radam.html">torch.optim.radam.radam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.RMSprop.html">RMSprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.rmsprop.html">torch.optim.rmsprop.rmsprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.Rprop.html">Rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.rprop.html">torch.optim.rprop.rprop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.SGD.html">SGD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.sgd.html">torch.optim.sgd.sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.NAdam_class.html">NAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.nadam.nadam_function.html">torch.optim.nadam.nadam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.RAdam_class.html">RAdam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.radam.radam_function.html">torch.optim.radam.radam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.RMSprop_class.html">RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rmsprop.rmsprop_function.html">torch.optim.rmsprop.rmsprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.Rprop_class.html">Rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.rprop.rprop_function.html">torch.optim.rprop.rprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.SGD_class.html">SGD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sgd.sgd_function.html">torch.optim.sgd.sgd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.optim.sparse_adam.SparseAdam.html">SparseAdam</a></li>
 </ul>
 </details></li>
@@ -3959,9 +3958,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.quantization.prepare_for_propagation_comparison.html">prepare_for_propagation_comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.quantization.extract_results_from_loggers.html">extract_results_from_loggers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.ao.quantization.compare_results.html">compare_results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">torch.quantize_per_tensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">torch.quantize_per_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/torch.dequantize.html">torch.dequantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_tensor.html">quantize_per_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.quantize_per_channel.html">quantize_per_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/torch.dequantize.html">dequantize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.Tensor.view.html">torch.Tensor.view</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.Tensor.as_strided.html">torch.Tensor.as_strided</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/torch.Tensor.expand.html">torch.Tensor.expand</a></li>
@@ -4488,6 +4487,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -4495,14 +4495,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="torch-export-programming-model">
-<span id="export-programming-model"></span><h1>torch.export Programming Model<a class="headerlink" href="#torch-export-programming-model" title="Permalink to this heading">#</a></h1>
+  <section id="torch-export-programming-model">
+<span id="export-programming-model"></span><h1>torch.export Programming Model<a class="headerlink" href="#torch-export-programming-model" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Dec 18, 2024 | Last Updated On: Jul 16, 2025</p>
 <p>This document aims to explain the behaviors and capabilities of
 <a class="reference internal" href="api_reference.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a>. It is intended to help build your intuition
 for how <a class="reference internal" href="api_reference.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> handles code.</p>
-<div class="section" id="basics-of-tracing">
-<h2>Basics of Tracing<a class="headerlink" href="#basics-of-tracing" title="Permalink to this heading">#</a></h2>
+<section id="basics-of-tracing">
+<h2>Basics of Tracing<a class="headerlink" href="#basics-of-tracing" title="Link to this heading">#</a></h2>
 <p><a class="reference internal" href="api_reference.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> captures a graph representing your model by
 tracing its execution on “example” inputs and recording the PyTorch operations
 and conditions observed along the traced path. This graph can then be run
@@ -4510,8 +4510,8 @@ on different inputs as long as they satisfy the same conditions.</p>
 <p>The basic output of <a class="reference internal" href="api_reference.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> is a single graph of PyTorch
 operations, with associated metadata. The exact format of this output is
 covered in the <a class="reference internal" href="ir_spec.html#export-ir-spec"><span class="std std-ref">export IR spec</span></a>.</p>
-<div class="section" id="strict-vs-non-strict-tracing">
-<span id="non-strict-export"></span><h3>Strict vs. Non-Strict Tracing<a class="headerlink" href="#strict-vs-non-strict-tracing" title="Permalink to this heading">#</a></h3>
+<section id="strict-vs-non-strict-tracing">
+<span id="non-strict-export"></span><h3>Strict vs. Non-Strict Tracing<a class="headerlink" href="#strict-vs-non-strict-tracing" title="Link to this heading">#</a></h3>
 <p><a class="reference internal" href="api_reference.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> provides two modes of tracing.</p>
 <p>In <em>non-strict mode</em>, we trace through the program using the normal Python
 interpreter. Your code executes exactly as it would in eager mode; the only
@@ -4539,14 +4539,14 @@ presents an unnecessary risk.</p>
 <p>In the rest of this document we assume we are tracing in
 <a class="reference external" href="https://pytorch.org/docs/main/export.html#non-strict-export">non-strict mode</a>;
 in particular, we assume that <strong>all Python features are supported</strong>.</p>
-</div>
-</div>
-<div class="section" id="values-static-vs-dynamic">
-<h2>Values: Static vs. Dynamic<a class="headerlink" href="#values-static-vs-dynamic" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="values-static-vs-dynamic">
+<h2>Values: Static vs. Dynamic<a class="headerlink" href="#values-static-vs-dynamic" title="Link to this heading">#</a></h2>
 <p>A key concept in understanding the behavior of <a class="reference internal" href="api_reference.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> is
 the difference between <em>static</em> and <em>dynamic</em> values.</p>
-<div class="section" id="static-values">
-<h3>Static Values<a class="headerlink" href="#static-values" title="Permalink to this heading">#</a></h3>
+<section id="static-values">
+<h3>Static Values<a class="headerlink" href="#static-values" title="Link to this heading">#</a></h3>
 <p>A <em>static</em> value is a value that is <strong>fixed at export time and cannot change
 between executions of the exported program</strong>. When the value is encountered
 during tracing, we treat it as a constant and hard-code it into the graph.</p>
@@ -4575,15 +4575,15 @@ been <em>specialized</em> to that value. For example:</p>
 </div>
 <p>Here, we provide <code class="docutils literal notranslate"><span class="pre">3</span></code> as the traced value for <code class="docutils literal notranslate"><span class="pre">y</span></code>; it is treated as a static
 value and added to <code class="docutils literal notranslate"><span class="pre">7</span></code>, burning in the static value <code class="docutils literal notranslate"><span class="pre">10</span></code> in the graph.</p>
-</div>
-<div class="section" id="dynamic-values">
-<h3>Dynamic Values<a class="headerlink" href="#dynamic-values" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="dynamic-values">
+<h3>Dynamic Values<a class="headerlink" href="#dynamic-values" title="Link to this heading">#</a></h3>
 <p>A <em>dynamic</em> value is one that <strong>can change from run to run</strong>. It behaves just
 like a “normal” function argument: you can pass different inputs and expect
 your function to do the right thing.</p>
-</div>
-<div class="section" id="which-values-are-static-vs-dynamic">
-<h3>Which values are static vs. dynamic?<a class="headerlink" href="#which-values-are-static-vs-dynamic" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="which-values-are-static-vs-dynamic">
+<h3>Which values are static vs. dynamic?<a class="headerlink" href="#which-values-are-static-vs-dynamic" title="Link to this heading">#</a></h3>
 <p>Whether a value is static or dynamic depends on its type:</p>
 <ul class="simple">
 <li><p>For Tensor:</p>
@@ -4624,10 +4624,10 @@ with leaves that are either Tensor or primitive types.</p></li>
 <li><p>Other <em>classes</em> (including data classes) can be registered with PyTree
 (see below), and follow the same rules as the standard containers.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="input-types">
-<h2>Input types<a class="headerlink" href="#input-types" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="input-types">
+<h2>Input types<a class="headerlink" href="#input-types" title="Link to this heading">#</a></h2>
 <p>Inputs will be treated as either static or dynamic, based on their type
 (as explained above).</p>
 <ul class="simple">
@@ -4643,8 +4643,8 @@ are mostly values of Tensor types.</p></li>
 <li><p>Python primitives (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
 <li><p>Python standard containers (<code class="docutils literal notranslate"><span class="pre">list</span></code>, <code class="docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="docutils literal notranslate"><span class="pre">dict</span></code>, <code class="docutils literal notranslate"><span class="pre">namedtuple</span></code>)</p></li>
 </ul>
-<div class="section" id="custom-input-types-pytree">
-<h3>Custom Input Types (PyTree)<a class="headerlink" href="#custom-input-types-pytree" title="Permalink to this heading">#</a></h3>
+<section id="custom-input-types-pytree">
+<h3>Custom Input Types (PyTree)<a class="headerlink" href="#custom-input-types-pytree" title="Link to this heading">#</a></h3>
 <p>In addition, you can also define your own (custom) class and use it as an
 input type, but you will need to register such a class as a PyTree.</p>
 <p>Here’s an example of using an utility to register a dataclass that is used as
@@ -4664,9 +4664,9 @@ an input type.</p>
 <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">M</span><span class="p">(),</span> <span class="p">(</span><span class="n">Input</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="optional-input-types">
-<h3>Optional input types<a class="headerlink" href="#optional-input-types" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="optional-input-types">
+<h3>Optional input types<a class="headerlink" href="#optional-input-types" title="Link to this heading">#</a></h3>
 <p>For optional inputs to the program that are not passed in,
 <a class="reference internal" href="api_reference.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> will specialize to their default values. As a
 result, the exported program will require users to explicitly pass in all
@@ -4702,15 +4702,15 @@ arguments, and will lose the defaulting behavior. For example:</p>
 <span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="control-flow-static-vs-dynamic">
-<h2>Control Flow: Static vs. Dynamic<a class="headerlink" href="#control-flow-static-vs-dynamic" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="control-flow-static-vs-dynamic">
+<h2>Control Flow: Static vs. Dynamic<a class="headerlink" href="#control-flow-static-vs-dynamic" title="Link to this heading">#</a></h2>
 <p>Control flow is supported by <a class="reference internal" href="api_reference.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a>. The behavior of
 control flow depends on whether the value you are branching on is static or
 dynamic.</p>
-<div class="section" id="static-control-flow">
-<h3>Static Control Flow<a class="headerlink" href="#static-control-flow" title="Permalink to this heading">#</a></h3>
+<section id="static-control-flow">
+<h3>Static Control Flow<a class="headerlink" href="#static-control-flow" title="Link to this heading">#</a></h3>
 <p><strong>Python control flow over static values is supported transparently</strong>. (Recall
 that static values include static shapes, so control flow over static shapes
 is also covered by this case.)</p>
@@ -4719,15 +4719,15 @@ never see any control flow over static values.</p>
 <p>In the case of an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement, we will continue tracing the branch taken
 at export time. In the case of a <code class="docutils literal notranslate"><span class="pre">for</span></code> or <code class="docutils literal notranslate"><span class="pre">while</span></code> statement, we will continue
 tracing by unrolling the loop.</p>
-</div>
-<div class="section" id="dynamic-control-flow-shape-dependent-vs-data-dependent">
-<h3>Dynamic Control Flow: Shape-Dependent vs. Data-Dependent<a class="headerlink" href="#dynamic-control-flow-shape-dependent-vs-data-dependent" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="dynamic-control-flow-shape-dependent-vs-data-dependent">
+<h3>Dynamic Control Flow: Shape-Dependent vs. Data-Dependent<a class="headerlink" href="#dynamic-control-flow-shape-dependent-vs-data-dependent" title="Link to this heading">#</a></h3>
 <p>When the value involved in a control flow is dynamic, it could depend on
 dynamic shapes or dynamic data. Given that the compiler traces with
 information on shapes rather than data, the implications on the programming
 model are different in these cases.</p>
-<div class="section" id="dynamic-shape-dependent-control-flow">
-<h4>Dynamic Shape-Dependent Control Flow<a class="headerlink" href="#dynamic-shape-dependent-control-flow" title="Permalink to this heading">#</a></h4>
+<section id="dynamic-shape-dependent-control-flow">
+<h4>Dynamic Shape-Dependent Control Flow<a class="headerlink" href="#dynamic-shape-dependent-control-flow" title="Link to this heading">#</a></h4>
 <p>When the value involved in a control flow is a
 <a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_dynamic_shapes.html">dynamic shape</a>,
 in most cases <strong>we will also know the concrete value of the dynamic shape
@@ -4740,9 +4740,9 @@ emitting a guard corresponding to the condition just evaluated.</p>
 <p>Otherwise the control flow is considered data-dependent. We cannot evaluate
 the condition to either <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>, so cannot continue tracing and have to
 raise an error at export time. See next section.</p>
-</div>
-<div class="section" id="dynamic-data-dependent-control-flow">
-<h4>Dynamic Data-Dependent Control Flow<a class="headerlink" href="#dynamic-data-dependent-control-flow" title="Permalink to this heading">#</a></h4>
+</section>
+<section id="dynamic-data-dependent-control-flow">
+<h4>Dynamic Data-Dependent Control Flow<a class="headerlink" href="#dynamic-data-dependent-control-flow" title="Link to this heading">#</a></h4>
 <p><strong>Data-dependent control flow over dynamic values is supported, but you must
 use one of PyTorch’s explicit operators</strong> to continue tracing. Using Python
 control flow statements over dynamic values is not permitted, because the
@@ -4805,11 +4805,11 @@ to effectively decide which branch to trace.</p>
             <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="basics-of-symbolic-shapes">
-<h2>Basics of Symbolic Shapes<a class="headerlink" href="#basics-of-symbolic-shapes" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+</section>
+<section id="basics-of-symbolic-shapes">
+<h2>Basics of Symbolic Shapes<a class="headerlink" href="#basics-of-symbolic-shapes" title="Link to this heading">#</a></h2>
 <p>During tracing, dynamic Tensor shapes and conditions over them are encoded as
 “symbolic expressions.” (In contrast, static Tensor shapes and conditions
 over them are simply <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">bool</span></code> values.)</p>
@@ -4827,8 +4827,8 @@ to trace through the program</strong>, and recorded in a
 to guard the correctness of the traced path and to evaluate subsequently
 created expressions.</p>
 <p>We briefly introduce these subsystems next.</p>
-<div class="section" id="fake-implementations-of-pytorch-operators">
-<h3>Fake Implementations of PyTorch Operators<a class="headerlink" href="#fake-implementations-of-pytorch-operators" title="Permalink to this heading">#</a></h3>
+<section id="fake-implementations-of-pytorch-operators">
+<h3>Fake Implementations of PyTorch Operators<a class="headerlink" href="#fake-implementations-of-pytorch-operators" title="Link to this heading">#</a></h3>
 <p>Recall that during tracing, we are executing the program with
 <a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_fake_tensor.html">fake Tensors</a>,
 which have no data. In general we cannot call the actual implementations of
@@ -4846,8 +4846,8 @@ input data and returning empty output data).</p>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_empty</span><span class="p">(</span><span class="n">result_size</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="shape-propagation-backed-vs-unbacked-dynamic-shapes">
-<h4>Shape Propagation: Backed vs. Unbacked Dynamic Shapes<a class="headerlink" href="#shape-propagation-backed-vs-unbacked-dynamic-shapes" title="Permalink to this heading">#</a></h4>
+<section id="shape-propagation-backed-vs-unbacked-dynamic-shapes">
+<h4>Shape Propagation: Backed vs. Unbacked Dynamic Shapes<a class="headerlink" href="#shape-propagation-backed-vs-unbacked-dynamic-shapes" title="Link to this heading">#</a></h4>
 <p>Shapes are propagated using fake implementations of PyTorch operators.</p>
 <p>A key concept to understand the propagation of dynamic shapes in particular
 is the difference between <em>backed</em> and <em>unbacked</em> dynamic shapes: we know the
@@ -4871,10 +4871,10 @@ value it is unbacked</strong>.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="control-flow-guards-and-assertions">
-<h3>Control Flow: Guards and Assertions<a class="headerlink" href="#control-flow-guards-and-assertions" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="control-flow-guards-and-assertions">
+<h3>Control Flow: Guards and Assertions<a class="headerlink" href="#control-flow-guards-and-assertions" title="Link to this heading">#</a></h3>
 <p>When a condition on shapes is encountered, it either involves only static
 shapes, in which case it is a <code class="docutils literal notranslate"><span class="pre">bool</span></code>, or it involves dynamic shapes, in which
 case it is a symbolic boolean expression. For the latter:</p>
@@ -4908,13 +4908,13 @@ assertions on the inputs of the generated code.</p>
 runtime assertions</strong>. These are added in the generated code at the locations
 where those unbacked dynamic shapes were created: typically, right after
 data-dependent operator calls.</p>
-</div>
-</div>
-<div class="section" id="allowed-pytorch-operators">
-<h2>Allowed PyTorch operators<a class="headerlink" href="#allowed-pytorch-operators" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="allowed-pytorch-operators">
+<h2>Allowed PyTorch operators<a class="headerlink" href="#allowed-pytorch-operators" title="Link to this heading">#</a></h2>
 <p>All PyTorch operators are permitted.</p>
-<div class="section" id="custom-operators">
-<h3>Custom operators<a class="headerlink" href="#custom-operators" title="Permalink to this heading">#</a></h3>
+<section id="custom-operators">
+<h3>Custom operators<a class="headerlink" href="#custom-operators" title="Link to this heading">#</a></h3>
 <p>In addition, you can define and use
 <a class="reference external" href="https://pytorch.org/tutorials/advanced/python_custom_ops#python-custom-ops-tutorial">custom operators</a>.
 Defining a custom operator includes defining a fake implementation for it,
@@ -4944,10 +4944,10 @@ data-dependent shapes</strong>. Here’s how a fake implementation for a custom
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">new_empty</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="module-state-reads-vs-updates">
-<h2>Module State: Reads vs. Updates<a class="headerlink" href="#module-state-reads-vs-updates" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="module-state-reads-vs-updates">
+<h2>Module State: Reads vs. Updates<a class="headerlink" href="#module-state-reads-vs-updates" title="Link to this heading">#</a></h2>
 <p>Module states include parameters, buffers, and regular attributes.</p>
 <ul class="simple">
 <li><p>A regular attribute can be of any type.</p></li>
@@ -4959,8 +4959,8 @@ the other hand, any parameter or buffer is dynamic.</p>
 <p>The <em>shapes</em> of any Tensors contained in module states cannot be dynamic, i.e.,
 those shapes are fixed at export time, and cannot change between executions
 of the exported program.</p>
-<div class="section" id="access-rules">
-<h3>Access rules<a class="headerlink" href="#access-rules" title="Permalink to this heading">#</a></h3>
+<section id="access-rules">
+<h3>Access rules<a class="headerlink" href="#access-rules" title="Link to this heading">#</a></h3>
 <p><strong>All module states must be initialized</strong>. Accessing a module state that is
 not already initialized causes an error to be raised at export time.</p>
 <p><strong>Reading module states is always permitted</strong>.</p>
@@ -4979,17 +4979,17 @@ To do so, it must be registered as a buffer during module initialization.</p></l
 during training, not during inference. We recommend exporting with
 <a class="reference internal" href="../generated/torch.no_grad.html#torch.no_grad" title="torch.no_grad"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.no_grad()</span></code></a> to avoid parameter updates at export time.</p></li>
 </ul>
-</div>
-<div class="section" id="effects-of-functionalization">
-<h3>Effects of functionalization<a class="headerlink" href="#effects-of-functionalization" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="effects-of-functionalization">
+<h3>Effects of functionalization<a class="headerlink" href="#effects-of-functionalization" title="Link to this heading">#</a></h3>
 <p>Any dynamic module state that is read and/or updated is “lifted”
 (respectively) as an input and/or output of the generated code.</p>
 <p>The exported program stores, along with the generated code, the initial
 values of parameters and buffers and the constant values of other Tensor
 attributes.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
                 </article>
@@ -5055,11 +5055,6 @@ attributes.</p>
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -5223,7 +5218,9 @@ attributes.</p>
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -5247,10 +5244,13 @@ attributes.</p>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -5273,7 +5273,6 @@ attributes.</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -5323,10 +5322,10 @@ attributes.</p>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -5367,7 +5366,7 @@ attributes.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -5402,7 +5401,7 @@ attributes.</p>
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "../_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/export/programming_model.html"

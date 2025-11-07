@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Multiprocessing best practices &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=940804e7"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notes/multiprocessing';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../_static/js/runllm-widget.js"></script>
+    <script src="../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/notes/multiprocessing.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="../_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1693,6 +1692,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -1700,8 +1700,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="multiprocessing-best-practices">
-<span id="id1"></span><h1>Multiprocessing best practices<a class="headerlink" href="#multiprocessing-best-practices" title="Permalink to this heading">#</a></h1>
+  <section id="multiprocessing-best-practices">
+<span id="id1"></span><h1>Multiprocessing best practices<a class="headerlink" href="#multiprocessing-best-practices" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 16, 2017 | Last Updated On: Jun 18, 2025</p>
 <p><a class="reference internal" href="../multiprocessing.html#module-torch.multiprocessing" title="torch.multiprocessing"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.multiprocessing</span></code></a> is a drop in replacement for Python’s
 <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> module. It supports the exact same operations,
@@ -1720,8 +1720,8 @@ is not automatically shared across all processes, unlike how the
 </div>
 <p>This allows to implement various training methods, like Hogwild, A3C, or any
 others that require asynchronous operation.</p>
-<div class="section" id="poison-fork-in-multiprocessing">
-<span id="multiprocessing-poison-fork-note"></span><h2>Poison fork in multiprocessing<a class="headerlink" href="#poison-fork-in-multiprocessing" title="Permalink to this heading">#</a></h2>
+<section id="poison-fork-in-multiprocessing">
+<span id="multiprocessing-poison-fork-note"></span><h2>Poison fork in multiprocessing<a class="headerlink" href="#poison-fork-in-multiprocessing" title="Link to this heading">#</a></h2>
 <p>When using multiprocessing with <a class="reference internal" href="../torch.html#accelerators"><span class="std std-ref">accelerators</span></a>, a known issue called “poison fork” may occur.
 This happens when the accelerator’s runtime is not fork safe and is initialized before a process forks, leading to
 runtime errors in child processes.</p>
@@ -1732,9 +1732,9 @@ runtime errors in child processes.</p>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="cuda-in-multiprocessing">
-<span id="multiprocessing-cuda-note"></span><h2>CUDA in multiprocessing<a class="headerlink" href="#cuda-in-multiprocessing" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="cuda-in-multiprocessing">
+<span id="multiprocessing-cuda-note"></span><h2>CUDA in multiprocessing<a class="headerlink" href="#cuda-in-multiprocessing" title="Link to this heading">#</a></h2>
 <p>The CUDA runtime has the limitation described in <a class="reference internal" href="#multiprocessing-poison-fork-note"><span class="std std-ref">Poison fork in multiprocessing</span></a> when using the <code class="docutils literal notranslate"><span class="pre">fork</span></code> start method;
 either the <code class="docutils literal notranslate"><span class="pre">spawn</span></code> or <code class="docutils literal notranslate"><span class="pre">forkserver</span></code> start method are required to use CUDA in subprocesses.</p>
 <div class="admonition note">
@@ -1751,11 +1751,11 @@ the consumer process has references to the tensor, and the refcounting can not
 save you if the consumer process exits abnormally via a fatal signal. See
 <a class="reference internal" href="../multiprocessing.html#multiprocessing-cuda-sharing-details"><span class="std std-ref">this section</span></a>.</p>
 <p>See also: <a class="reference internal" href="cuda.html#cuda-nn-ddp-instead"><span class="std std-ref">Use nn.parallel.DistributedDataParallel instead of multiprocessing or nn.DataParallel</span></a></p>
-</div>
-<div class="section" id="best-practices-and-tips">
-<h2>Best practices and tips<a class="headerlink" href="#best-practices-and-tips" title="Permalink to this heading">#</a></h2>
-<div class="section" id="avoiding-and-fighting-deadlocks">
-<h3>Avoiding and fighting deadlocks<a class="headerlink" href="#avoiding-and-fighting-deadlocks" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="best-practices-and-tips">
+<h2>Best practices and tips<a class="headerlink" href="#best-practices-and-tips" title="Link to this heading">#</a></h2>
+<section id="avoiding-and-fighting-deadlocks">
+<h3>Avoiding and fighting deadlocks<a class="headerlink" href="#avoiding-and-fighting-deadlocks" title="Link to this heading">#</a></h3>
 <p>There are a lot of things that can go wrong when a new process is spawned, with
 the most common cause of deadlocks being background threads. If there’s any
 thread that holds a lock or imports a module, and <code class="docutils literal notranslate"><span class="pre">fork</span></code> is called, it’s very
@@ -1771,18 +1771,18 @@ use any additional threads.</p>
 happen but some things are out of our control. If you have any issues you can’t
 cope with for a while, try reaching out on forums, and we’ll see if it’s an
 issue we can fix.</p>
-</div>
-<div class="section" id="reuse-buffers-passed-through-a-queue">
-<h3>Reuse buffers passed through a Queue<a class="headerlink" href="#reuse-buffers-passed-through-a-queue" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="reuse-buffers-passed-through-a-queue">
+<h3>Reuse buffers passed through a Queue<a class="headerlink" href="#reuse-buffers-passed-through-a-queue" title="Link to this heading">#</a></h3>
 <p>Remember that each time you put a <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a> into a
 <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#multiprocessing.Queue" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">multiprocessing.Queue</span></code></a>, it has to be moved into shared memory.
 If it’s already shared, it is a no-op, otherwise it will incur an additional
 memory copy that can slow down the whole process. Even if you have a pool of
 processes sending data to a single one, make it send the buffers back - this
 is nearly free and will let you avoid a copy when sending next batch.</p>
-</div>
-<div class="section" id="asynchronous-multiprocess-training-e-g-hogwild">
-<h3>Asynchronous multiprocess training (e.g. Hogwild)<a class="headerlink" href="#asynchronous-multiprocess-training-e-g-hogwild" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="asynchronous-multiprocess-training-e-g-hogwild">
+<h3>Asynchronous multiprocess training (e.g. Hogwild)<a class="headerlink" href="#asynchronous-multiprocess-training-e-g-hogwild" title="Link to this heading">#</a></h3>
 <p>Using <a class="reference internal" href="../multiprocessing.html#module-torch.multiprocessing" title="torch.multiprocessing"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.multiprocessing</span></code></a>, it is possible to train a model
 asynchronously, with parameters either shared all the time, or being
 periodically synchronized. In the first case, we recommend sending over the whole
@@ -1800,8 +1800,8 @@ properly in all cases.</p>
 with an <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">'__main__'</span></code>. If a different start method than
 <code class="docutils literal notranslate"><span class="pre">fork</span></code> is used, they will be executed in all subprocesses.</p>
 </div>
-<div class="section" id="hogwild">
-<h4>Hogwild<a class="headerlink" href="#hogwild" title="Permalink to this heading">#</a></h4>
+<section id="hogwild">
+<h4>Hogwild<a class="headerlink" href="#hogwild" title="Link to this heading">#</a></h4>
 <p>A concrete Hogwild implementation can be found in the <a class="reference external" href="https://github.com/pytorch/examples/tree/master/mnist_hogwild">examples repository</a>,
 but to showcase the overall structure of the code, there’s also a minimal
 example below as well:</p>
@@ -1829,18 +1829,18 @@ example below as well:</p>
         <span class="n">p</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="cpu-in-multiprocessing">
-<h2>CPU in multiprocessing<a class="headerlink" href="#cpu-in-multiprocessing" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+</section>
+<section id="cpu-in-multiprocessing">
+<h2>CPU in multiprocessing<a class="headerlink" href="#cpu-in-multiprocessing" title="Link to this heading">#</a></h2>
 <p>Inappropriate multiprocessing can lead to CPU oversubscription, causing
 different processes to compete for CPU resources, resulting in low
 efficiency.</p>
 <p>This tutorial will explain what CPU oversubscription is and how to
 avoid it.</p>
-<div class="section" id="cpu-oversubscription">
-<h3>CPU oversubscription<a class="headerlink" href="#cpu-oversubscription" title="Permalink to this heading">#</a></h3>
+<section id="cpu-oversubscription">
+<h3>CPU oversubscription<a class="headerlink" href="#cpu-oversubscription" title="Link to this heading">#</a></h3>
 <p>CPU oversubscription is a technical term that refers to a situation
 where the total number of vCPUs allocated to a system exceeds the total
 number of vCPUs available on the hardware.</p>
@@ -1875,9 +1875,9 @@ operating system needs to rapidly switch between different processes
 to allocate resources fairly. This frequent context switching adds
 overhead and reduces the overall system efficiency.</p></li>
 </ol>
-</div>
-<div class="section" id="avoid-cpu-oversubscription">
-<h3>Avoid CPU oversubscription<a class="headerlink" href="#avoid-cpu-oversubscription" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="avoid-cpu-oversubscription">
+<h3>Avoid CPU oversubscription<a class="headerlink" href="#avoid-cpu-oversubscription" title="Link to this heading">#</a></h3>
 <p>A good way to avoid CPU oversubscription is proper resource allocation.
 Ensure that the number of processes or threads running concurrently does
 not exceed the available CPU resources.</p>
@@ -1912,9 +1912,9 @@ task at hand. However, as a general guideline, the maximum value for the
 <code class="docutils literal notranslate"><span class="pre">num_thread</span></code> should be <code class="docutils literal notranslate"><span class="pre">floor(N/M)</span></code> to avoid CPU oversubscription.
 In the <a class="reference external" href="https://github.com/pytorch/examples/tree/main/mnist_hogwild">mnist_hogwild</a> training example, after avoiding CPU over
 subscription, you can achieve a 30x performance boost.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
                 </article>
@@ -1980,11 +1980,6 @@ subscription, you can achieve a 30x performance boost.</p>
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -2123,7 +2118,9 @@ subscription, you can achieve a 30x performance boost.</p>
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -2147,10 +2144,13 @@ subscription, you can achieve a 30x performance boost.</p>
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -2173,7 +2173,6 @@ subscription, you can achieve a 30x performance boost.</p>
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -2223,10 +2222,10 @@ subscription, you can achieve a 30x performance boost.</p>
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -2267,7 +2266,7 @@ subscription, you can achieve a 30x performance boost.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -2302,7 +2301,7 @@ subscription, you can achieve a 30x performance boost.</p>
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "../_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/notes/multiprocessing.html"

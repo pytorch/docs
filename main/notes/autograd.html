@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Autograd mechanics &#8212; PyTorch main documentation</title>
   
   
@@ -28,14 +28,14 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=047068a3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=949a1ff5" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/jit.css?v=8de1ea5d" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" />
   
@@ -44,15 +44,12 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=940804e7"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notes/autograd';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
@@ -60,7 +57,7 @@
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
         </script>
-    <script src="../_static/js/runllm-widget.js"></script>
+    <script src="../_static/js/runllm-widget.js?v=54a6b3cb"></script>
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/notes/autograd.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -97,12 +94,13 @@
 </script>
 <!-- Conditional CSS for header and footer height adjustment -->
 
+
 <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" crossorigin="anonymous">
 <script type="text/javascript" src="../_static/js/theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-<meta property="og:image" content="../_static/img/pytorch_seo.png" />
+<meta property="og:image" content="https://docs.pytorch.org/docs/stable/_static/img/pytorch_seo.png" />
 <link rel="stylesheet" href="../_static/webfonts/all.min.css" crossorigin="anonymous">
 <meta http-equiv="Content-Security-Policy"
   content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' blob:;">
@@ -143,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gita344069 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf47cadf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -154,6 +152,8 @@
   }
 </script>
 <!-- End Facebook Pixel Code -->
+<!-- Repository configuration for tutorials -->
+
 <!-- Script to Fix scrolling -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -184,13 +184,6 @@
 </script>
 
 <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-
-<!--
-   Search engines should not index the main version of documentation.
-   Stable documentation are built without release == 'main'.
-   -->
-<meta name="robots" content="noindex">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -287,6 +280,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/projects/host-your-project/">
                   <span class="dropdown-title">Host Your Project</span>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/projects/ray/">
+                  <span class="dropdown-title">RAY</span>
+                </a>
               </div>
             </div>
           </li>
@@ -356,6 +352,9 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/contact">
                   <span class="dropdown-title">Contact</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/wp-content/uploads/2025/09/pytorch_brand_guide_091925a.pdf">
+                  <span class="dropdown-title">Brand Guidelines</span>
                 </a>
               </div>
             </div>
@@ -1693,6 +1692,7 @@ document.write(`
     </div>
 
     
+    
 
     
               
@@ -1700,15 +1700,15 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="section" id="autograd-mechanics">
-<span id="id1"></span><h1>Autograd mechanics<a class="headerlink" href="#autograd-mechanics" title="Permalink to this heading">#</a></h1>
+  <section id="autograd-mechanics">
+<span id="id1"></span><h1>Autograd mechanics<a class="headerlink" href="#autograd-mechanics" title="Link to this heading">#</a></h1>
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 16, 2017 | Last Updated On: Jun 16, 2025</p>
 <p>This note will present an overview of how autograd works and records the
 operations. It’s not strictly necessary to understand all this, but we recommend
 getting familiar with it, as it will help you write more efficient, cleaner
 programs, and can aid you in debugging.</p>
-<div class="section" id="how-autograd-encodes-the-history">
-<span id="how-autograd-encodes-history"></span><h2>How autograd encodes the history<a class="headerlink" href="#how-autograd-encodes-the-history" title="Permalink to this heading">#</a></h2>
+<section id="how-autograd-encodes-the-history">
+<span id="how-autograd-encodes-history"></span><h2>How autograd encodes the history<a class="headerlink" href="#how-autograd-encodes-the-history" title="Link to this heading">#</a></h2>
 <p>Autograd is a reverse automatic differentiation system.  Conceptually,
 autograd records a graph recording all of the operations that created
 the data as you execute operations, giving you a directed acyclic graph
@@ -1729,8 +1729,8 @@ iteration, and this is exactly what allows for using arbitrary Python control
 flow statements, that can change the overall shape and size of the graph at
 every iteration. You don’t have to encode all possible paths before you
 launch the training - what you run is what you differentiate.</p>
-<div class="section" id="saved-tensors">
-<span id="saved-tensors-doc"></span><h3>Saved tensors<a class="headerlink" href="#saved-tensors" title="Permalink to this heading">#</a></h3>
+<section id="saved-tensors">
+<span id="saved-tensors-doc"></span><h3>Saved tensors<a class="headerlink" href="#saved-tensors" title="Link to this heading">#</a></h3>
 <p>Some operations need intermediary results to be saved during the forward pass
 in order to execute the backward pass. For example, the function
 <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>↦</mo><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">x\mapsto x^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.522em;vertical-align:-0.011em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">↦</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span> saves the input <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> to compute the gradient.</p>
@@ -1765,10 +1765,10 @@ object than <code class="docutils literal notranslate"><span class="pre">y</span
 whether it is an output of its own <cite>grad_fn</cite>, which is an implementation detail
 subject to change and that users should not rely on.</p>
 <p>You can control how PyTorch does packing / unpacking with <a class="reference internal" href="#saved-tensors-hooks-doc"><span class="std std-ref">Hooks for saved tensors</span></a>.</p>
-</div>
-</div>
-<div class="section" id="gradients-for-non-differentiable-functions">
-<span id="non-differentiable-func-grad"></span><h2>Gradients for non-differentiable functions<a class="headerlink" href="#gradients-for-non-differentiable-functions" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="gradients-for-non-differentiable-functions">
+<span id="non-differentiable-func-grad"></span><h2>Gradients for non-differentiable functions<a class="headerlink" href="#gradients-for-non-differentiable-functions" title="Link to this heading">#</a></h2>
 <p>The gradient computation using Automatic Differentiation is only valid when each elementary function being used is differentiable.
 Unfortunately many of the functions we use in practice do not have this property (<code class="docutils literal notranslate"><span class="pre">relu</span></code> or <code class="docutils literal notranslate"><span class="pre">sqrt</span></code> at <code class="docutils literal notranslate"><span class="pre">0</span></code>, for example).
 To try and reduce the impact of functions that are non-differentiable, we define the gradients of the elementary operations by applying the following rules in order:</p>
@@ -1780,8 +1780,8 @@ To try and reduce the impact of functions that are non-differentiable, we define
 <li><p>If the function is not defined (<code class="docutils literal notranslate"><span class="pre">sqrt(-1)</span></code>, <code class="docutils literal notranslate"><span class="pre">log(-1)</span></code> or most functions when the input is <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, for example) then the value used as the gradient is arbitrary (we might also raise an error but that is not guaranteed). Most functions will use <code class="docutils literal notranslate"><span class="pre">NaN</span></code> as the gradient, but for performance reasons, some functions will use other values (<code class="docutils literal notranslate"><span class="pre">log(-1)</span></code>, for example).</p></li>
 <li><p>If the function is not a deterministic mapping (i.e. it is not a <a class="reference external" href="https://en.wikipedia.org/wiki/Function_%28mathematics%29">mathematical function</a>), it will be marked as non-differentiable. This will make it error out in the backward if used on tensors that require grad outside of a <code class="docutils literal notranslate"><span class="pre">no_grad</span></code> environment.</p></li>
 </ol>
-<div class="section" id="division-by-zero-in-autograd">
-<h3>Division by Zero in Autograd<a class="headerlink" href="#division-by-zero-in-autograd" title="Permalink to this heading">#</a></h3>
+<section id="division-by-zero-in-autograd">
+<h3>Division by Zero in Autograd<a class="headerlink" href="#division-by-zero-in-autograd" title="Link to this heading">#</a></h3>
 <p>When performing division by zero in PyTorch (e.g., <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">/</span> <span class="pre">0</span></code>), the forward pass will produce <code class="docutils literal notranslate"><span class="pre">inf</span></code> values following IEEE-754 floating point arithmetic. While these <code class="docutils literal notranslate"><span class="pre">inf</span></code> values can be masked out before computing the final loss (e.g., via indexing or masking), the autograd system still tracks and differentiates through the full computation graph, including the division by zero operation.</p>
 <p>During backpropagation, this can lead to problematic gradient expressions. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1825,10 +1825,10 @@ To try and reduce the impact of functions that are non-differentiable, we define
 </div>
 <p>The key principle is to prevent the division by zero operation from being recorded in the computation graph, rather than masking its results after the fact. This ensures that autograd only computes gradients through valid operations.</p>
 <p>This behavior is important to keep in mind when working with operations that might produce <code class="docutils literal notranslate"><span class="pre">inf</span></code> or <code class="docutils literal notranslate"><span class="pre">nan</span></code> values, as masking the outputs does not prevent the problematic gradients from being computed.</p>
-</div>
-</div>
-<div class="section" id="locally-disabling-gradient-computation">
-<span id="locally-disable-grad-doc"></span><h2>Locally disabling gradient computation<a class="headerlink" href="#locally-disabling-gradient-computation" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="locally-disabling-gradient-computation">
+<span id="locally-disable-grad-doc"></span><h2>Locally disabling gradient computation<a class="headerlink" href="#locally-disabling-gradient-computation" title="Link to this heading">#</a></h2>
 <p>There are several mechanisms available from Python to locally disable gradient
 computation:</p>
 <p>To disable gradients across entire blocks of code, there are context managers
@@ -1838,8 +1838,8 @@ there is setting the <code class="docutils literal notranslate"><span class="pre
 <p>Below, in addition to discussing the mechanisms above, we also describe
 evaluation mode (<code class="xref py py-meth docutils literal notranslate"><span class="pre">nn.Module.eval()</span></code>), a method that is not used
 to disable gradient computation but, because of its name, is often mixed up with the three.</p>
-<div class="section" id="setting-requires-grad">
-<h3>Setting <code class="docutils literal notranslate"><span class="pre">requires_grad</span></code><a class="headerlink" href="#setting-requires-grad" title="Permalink to this heading">#</a></h3>
+<section id="setting-requires-grad">
+<h3>Setting <code class="docutils literal notranslate"><span class="pre">requires_grad</span></code><a class="headerlink" href="#setting-requires-grad" title="Link to this heading">#</a></h3>
 <p><code class="xref py py-attr docutils literal notranslate"><span class="pre">requires_grad</span></code> is a flag, defaulting to false <em>unless wrapped
 in a</em> <code class="docutils literal notranslate"><span class="pre">nn.Parameter</span></code>, that allows for fine-grained exclusion of
 subgraphs from gradient computation. It takes effect in both the
@@ -1870,21 +1870,21 @@ desired.</p>
 the module level with <code class="xref py py-meth docutils literal notranslate"><span class="pre">nn.Module.requires_grad_()</span></code>.
 When applied to a module, <code class="docutils literal notranslate"><span class="pre">.requires_grad_()</span></code> takes effect on all
 of the module’s parameters (which have <code class="docutils literal notranslate"><span class="pre">requires_grad=True</span></code> by default).</p>
-</div>
-<div class="section" id="grad-modes">
-<h3>Grad Modes<a class="headerlink" href="#grad-modes" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="grad-modes">
+<h3>Grad Modes<a class="headerlink" href="#grad-modes" title="Link to this heading">#</a></h3>
 <p>Apart from setting <code class="docutils literal notranslate"><span class="pre">requires_grad</span></code> there are also three grad modes that can
 be selected from Python that can affect how computations in PyTorch are
 processed by autograd internally: default mode (grad mode), no-grad mode,
 and inference mode, all of which can be togglable via context managers and
 decorators.</p>
-<div class="pst-scrollable-table-container"><table class="colwidths-given table">
+<div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Mode</p></th>
@@ -1916,18 +1916,18 @@ decorators.</p>
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="default-mode-grad-mode">
-<h3>Default Mode (Grad Mode)<a class="headerlink" href="#default-mode-grad-mode" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="default-mode-grad-mode">
+<h3>Default Mode (Grad Mode)<a class="headerlink" href="#default-mode-grad-mode" title="Link to this heading">#</a></h3>
 <p>The “default mode” is the mode we are implicitly in when no other modes like
 no-grad and inference mode are enabled. To be contrasted with
 “no-grad mode” the default mode is also sometimes called “grad mode”.</p>
 <p>The most important thing to know about the default mode is that it is the only
 mode in which <code class="docutils literal notranslate"><span class="pre">requires_grad</span></code> takes effect. <code class="docutils literal notranslate"><span class="pre">requires_grad</span></code> is always overridden
 to be <code class="docutils literal notranslate"><span class="pre">False</span></code> in both the two other modes.</p>
-</div>
-<div class="section" id="no-grad-mode">
-<h3>No-grad Mode<a class="headerlink" href="#no-grad-mode" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="no-grad-mode">
+<h3>No-grad Mode<a class="headerlink" href="#no-grad-mode" title="Link to this heading">#</a></h3>
 <p>Computations in no-grad mode behave as if none of the inputs require grad.
 In other words, computations in no-grad mode are never recorded in the backward graph
 even if there are inputs that have <code class="docutils literal notranslate"><span class="pre">require_grad=True</span></code>.</p>
@@ -1945,9 +1945,9 @@ grad mode in the next forward pass.</p>
 <p>The implementations in <a class="reference internal" href="../nn.init.html#nn-init-doc"><span class="std std-ref">torch.nn.init</span></a> also
 rely on no-grad mode when initializing the parameters as to avoid
 autograd tracking when updating the initialized parameters in-place.</p>
-</div>
-<div class="section" id="inference-mode">
-<h3>Inference Mode<a class="headerlink" href="#inference-mode" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="inference-mode">
+<h3>Inference Mode<a class="headerlink" href="#inference-mode" title="Link to this heading">#</a></h3>
 <p>Inference mode is the extreme version of no-grad mode. Just like in no-grad
 mode, computations in inference mode are not recorded in the backward graph, but
 enabling inference mode will allow PyTorch to speed up your model even more.
@@ -1969,9 +1969,9 @@ to no-grad mode.</p>
 <a class="reference external" href="https://pytorch.org/cppdocs/notes/inference_mode.html">Inference Mode</a>.</p>
 <p>For implementation details of inference mode see
 <a class="reference external" href="https://github.com/pytorch/rfcs/pull/17">RFC-0011-InferenceMode</a>.</p>
-</div>
-<div class="section" id="evaluation-mode-nn-module-eval">
-<h3>Evaluation Mode (<code class="docutils literal notranslate"><span class="pre">nn.Module.eval()</span></code>)<a class="headerlink" href="#evaluation-mode-nn-module-eval" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="evaluation-mode-nn-module-eval">
+<h3>Evaluation Mode (<code class="docutils literal notranslate"><span class="pre">nn.Module.eval()</span></code>)<a class="headerlink" href="#evaluation-mode-nn-module-eval" title="Link to this heading">#</a></h3>
 <p>Evaluation mode is not a mechanism to locally disable gradient computation.
 It is included here anyway because it is sometimes confused to be such a mechanism.</p>
 <p>Functionally, <code class="docutils literal notranslate"><span class="pre">module.eval()</span></code> (or equivalently <code class="docutils literal notranslate"><span class="pre">module.train(False)</span></code>) are completely
@@ -1988,10 +1988,10 @@ training and <code class="docutils literal notranslate"><span class="pre">model.
 if you aren’t sure your model has training-mode specific behavior, because a
 module you are using might be updated to behave differently in training and
 eval modes.</p>
-</div>
-</div>
-<div class="section" id="in-place-operations-with-autograd">
-<h2>In-place operations with autograd<a class="headerlink" href="#in-place-operations-with-autograd" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="in-place-operations-with-autograd">
+<h2>In-place operations with autograd<a class="headerlink" href="#in-place-operations-with-autograd" title="Link to this heading">#</a></h2>
 <p>Supporting in-place operations in autograd is a hard matter, and we discourage
 their use in most cases. Autograd’s aggressive buffer freeing and reuse makes
 it very efficient and there are very few occasions when in-place operations
@@ -2010,8 +2010,8 @@ that reference the same storage (e.g. created by indexing or transposing),
 and in-place functions will raise an error if the storage of
 modified inputs is referenced by any other <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>.</p></li>
 </ol>
-<div class="section" id="in-place-correctness-checks">
-<h3>In-place correctness checks<a class="headerlink" href="#in-place-correctness-checks" title="Permalink to this heading">#</a></h3>
+<section id="in-place-correctness-checks">
+<h3>In-place correctness checks<a class="headerlink" href="#in-place-correctness-checks" title="Link to this heading">#</a></h3>
 <p>Every tensor keeps a version counter, that is incremented every time it is
 marked dirty in any operation. When a Function saves any tensors for backward,
 a version counter of their containing Tensor is saved as well. Once you access
@@ -2019,10 +2019,10 @@ a version counter of their containing Tensor is saved as well. Once you access
 an error is raised. This ensures that if you’re using in-place
 functions and not seeing any errors, you can be sure that the computed
 gradients are correct.</p>
-</div>
-</div>
-<div class="section" id="multithreaded-autograd">
-<h2>Multithreaded Autograd<a class="headerlink" href="#multithreaded-autograd" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="multithreaded-autograd">
+<h2>Multithreaded Autograd<a class="headerlink" href="#multithreaded-autograd" title="Link to this heading">#</a></h2>
 <p>The autograd engine is responsible for running all the backward operations
 necessary to compute the backward pass. This section will describe all the details
 that can help you make the best use of it in a multithreaded environment. (This is
@@ -2051,15 +2051,15 @@ does not block on the concurrent backward computations, example code could be:</
 </pre></div>
 </div>
 <p>Note that some behaviors that user should be aware of:</p>
-<div class="section" id="concurrency-on-cpu">
-<h3>Concurrency on CPU<a class="headerlink" href="#concurrency-on-cpu" title="Permalink to this heading">#</a></h3>
+<section id="concurrency-on-cpu">
+<h3>Concurrency on CPU<a class="headerlink" href="#concurrency-on-cpu" title="Link to this heading">#</a></h3>
 <p>When you run <code class="docutils literal notranslate"><span class="pre">backward()</span></code> or <code class="docutils literal notranslate"><span class="pre">grad()</span></code> via python or C++ API in multiple
 threads on CPU, you are expecting to see extra concurrency instead of
 serializing all the backward calls in a specific order during execution
 (behavior before PyTorch 1.6).</p>
-</div>
-<div class="section" id="non-determinism">
-<h3>Non-determinism<a class="headerlink" href="#non-determinism" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="non-determinism">
+<h3>Non-determinism<a class="headerlink" href="#non-determinism" title="Link to this heading">#</a></h3>
 <p>If you are calling <code class="docutils literal notranslate"><span class="pre">backward()</span></code> from multiple threads concurrently and have
 shared inputs (i.e. Hogwild CPU training), then non-determinism should be expected.
 This can occur because parameters are automatically shared across threads,
@@ -2070,9 +2070,9 @@ it might result in race condition and the result might be invalid to use.</p>
 threading model in mind and should understand the issues described above.</p>
 <p>The functional API <a class="reference internal" href="../generated/torch.autograd.grad.html#torch.autograd.grad" title="torch.autograd.grad"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.grad()</span></code></a> may be used to calculate the
 gradients instead of <code class="docutils literal notranslate"><span class="pre">backward()</span></code> to avoid non-determinism.</p>
-</div>
-<div class="section" id="graph-retaining">
-<h3>Graph retaining<a class="headerlink" href="#graph-retaining" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="graph-retaining">
+<h3>Graph retaining<a class="headerlink" href="#graph-retaining" title="Link to this heading">#</a></h3>
 <p>If part of the autograd graph is shared between threads, i.e. run first
 part of forward single thread, then run second part in multiple threads,
 then the first part of graph is shared. In this case different threads
@@ -2081,9 +2081,9 @@ destroying the graph on the fly of one thread, and the other thread will
 crash in this case. Autograd will error out to the user similar to what call
 <code class="docutils literal notranslate"><span class="pre">backward()</span></code> twice with out <code class="docutils literal notranslate"><span class="pre">retain_graph=True</span></code>, and let the user know
 they should use <code class="docutils literal notranslate"><span class="pre">retain_graph=True</span></code>.</p>
-</div>
-<div class="section" id="thread-safety-on-autograd-node">
-<h3>Thread Safety on Autograd Node<a class="headerlink" href="#thread-safety-on-autograd-node" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="thread-safety-on-autograd-node">
+<h3>Thread Safety on Autograd Node<a class="headerlink" href="#thread-safety-on-autograd-node" title="Link to this heading">#</a></h3>
 <p>Since Autograd allows the caller thread to drive its backward execution for
 potential parallelism, it’s important that we ensure thread safety on CPU with
 parallel <code class="docutils literal notranslate"><span class="pre">backward()</span></code> calls that share part/whole of the GraphTask.</p>
@@ -2091,16 +2091,16 @@ parallel <code class="docutils literal notranslate"><span class="pre">backward()
 For built-in C++ Autograd Nodes (e.g. AccumulateGrad, CopySlices) and custom
 <code class="docutils literal notranslate"><span class="pre">autograd::Function</span></code>s, the Autograd Engine uses thread mutex locking to ensure
 thread safety on autograd Nodes that might have state write/read.</p>
-</div>
-<div class="section" id="no-thread-safety-on-c-hooks">
-<h3>No thread safety on C++ hooks<a class="headerlink" href="#no-thread-safety-on-c-hooks" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="no-thread-safety-on-c-hooks">
+<h3>No thread safety on C++ hooks<a class="headerlink" href="#no-thread-safety-on-c-hooks" title="Link to this heading">#</a></h3>
 <p>Autograd relies on the user to write thread safe C++ hooks. If you want the hook
 to be correctly applied in multithreading environment, you will need to write
 proper thread locking code to ensure the hooks are thread safe.</p>
-</div>
-</div>
-<div class="section" id="autograd-for-complex-numbers">
-<span id="complex-autograd-doc"></span><h2>Autograd for Complex Numbers<a class="headerlink" href="#autograd-for-complex-numbers" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="autograd-for-complex-numbers">
+<span id="complex-autograd-doc"></span><h2>Autograd for Complex Numbers<a class="headerlink" href="#autograd-for-complex-numbers" title="Link to this heading">#</a></h2>
 <p>The short version:</p>
 <ul class="simple">
 <li><p>When you use PyTorch to differentiate any function <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(z)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span></span> with complex domain and/or codomain,
@@ -2119,8 +2119,8 @@ with only real operations.</p></li>
 </ul>
 <p>If you are curious about the mathematical details, or want to know how
 to define complex derivatives in PyTorch, read on.</p>
-<div class="section" id="what-are-complex-derivatives">
-<h3>What are complex derivatives?<a class="headerlink" href="#what-are-complex-derivatives" title="Permalink to this heading">#</a></h3>
+<section id="what-are-complex-derivatives">
+<h3>What are complex derivatives?<a class="headerlink" href="#what-are-complex-derivatives" title="Link to this heading">#</a></h3>
 <p>The mathematical definition of complex-differentiability takes the
 limit definition of a derivative and generalizes it to operate on
 complex numbers. Consider a function <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>:</mo><mi mathvariant="normal">C</mi><mo>→</mo><mi mathvariant="normal">C</mi></mrow><annotation encoding="application/x-tex">f: ℂ → ℂ</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6889em;"></span><span class="mord amsrm">C</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6889em;"></span><span class="mord amsrm">C</span></span></span></span></span>,</p>
@@ -2150,9 +2150,9 @@ ordered field and so having complex valued loss does not make much sense.</p>
 <p>It also turns out that no interesting real-valued objective fulfill the
 Cauchy-Riemann equations. So the theory with holomorphic function cannot be
 used for optimization and most people therefore use the Wirtinger calculus.</p>
-</div>
-<div class="section" id="wirtinger-calculus-comes-into-the-picture">
-<h3>Wirtinger Calculus comes into the picture …<a class="headerlink" href="#wirtinger-calculus-comes-into-the-picture" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="wirtinger-calculus-comes-into-the-picture">
+<h3>Wirtinger Calculus comes into the picture …<a class="headerlink" href="#wirtinger-calculus-comes-into-the-picture" title="Link to this heading">#</a></h3>
 <p>So, we have this great theory of complex differentiability and
 holomorphic functions, and we can’t use any of it at all, because many
 of the commonly used functions are not holomorphic. What’s a poor
@@ -2206,9 +2206,9 @@ entirely in terms of <span class="math"><span class="katex"><span class="katex-m
 take while making variable update is given by <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi><mi>o</mi><mi>s</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial Loss}{\partial z^*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6183em;"><span style="top:-2.786em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">L</span><span class="mord mathnormal mtight">oss</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span> (not <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi><mi>o</mi><mi>s</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>z</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial Loss}{\partial z}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">L</span><span class="mord mathnormal mtight">oss</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>).</p></li>
 </ul>
 <p>For more reading, check out: <a class="reference external" href="https://arxiv.org/pdf/0906.4835.pdf">https://arxiv.org/pdf/0906.4835.pdf</a></p>
-</div>
-<div class="section" id="how-is-wirtinger-calculus-useful-in-optimization">
-<h3>How is Wirtinger Calculus useful in optimization?<a class="headerlink" href="#how-is-wirtinger-calculus-useful-in-optimization" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="how-is-wirtinger-calculus-useful-in-optimization">
+<h3>How is Wirtinger Calculus useful in optimization?<a class="headerlink" href="#how-is-wirtinger-calculus-useful-in-optimization" title="Link to this heading">#</a></h3>
 <p>Researchers in audio and other fields, more commonly, use gradient
 descent to optimize real valued loss functions with complex variables.
 Typically, these people treat the real and imaginary values as separate
@@ -2238,9 +2238,9 @@ refer to the conjugate Wirtinger derivative
 <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial L}{\partial z^*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6183em;"><span style="top:-2.786em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>, giving us exactly the step we take in optimization.</p>
 <p>Because the conjugate Wirtinger derivative gives us exactly the correct step for a real valued loss function, PyTorch gives you this derivative
 when you differentiate a function with a real valued loss.</p>
-</div>
-<div class="section" id="how-does-pytorch-compute-the-conjugate-wirtinger-derivative">
-<h3>How does PyTorch compute the conjugate Wirtinger derivative?<a class="headerlink" href="#how-does-pytorch-compute-the-conjugate-wirtinger-derivative" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="how-does-pytorch-compute-the-conjugate-wirtinger-derivative">
+<h3>How does PyTorch compute the conjugate Wirtinger derivative?<a class="headerlink" href="#how-does-pytorch-compute-the-conjugate-wirtinger-derivative" title="Link to this heading">#</a></h3>
 <p>Typically, our derivative formulas take in <cite>grad_output</cite> as an input,
 representing the incoming Vector-Jacobian product that we’ve already
 computed, aka, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>s</mi><mo>∗</mo></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial L}{\partial s^*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6183em;"><span style="top:-2.786em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi></mrow><annotation encoding="application/x-tex">L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">L</span></span></span></span></span>
@@ -2313,9 +2313,9 @@ part of a real valued function, we have:</p>
 <p>This last equation is the important one for writing your own gradients,
 as it decomposes our derivative formula into a simpler one that is easy
 to compute by hand.</p>
-</div>
-<div class="section" id="how-can-i-write-my-own-derivative-formula-for-a-complex-function">
-<h3>How can I write my own derivative formula for a complex function?<a class="headerlink" href="#how-can-i-write-my-own-derivative-formula-for-a-complex-function" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="how-can-i-write-my-own-derivative-formula-for-a-complex-function">
+<h3>How can I write my own derivative formula for a complex function?<a class="headerlink" href="#how-can-i-write-my-own-derivative-formula-for-a-complex-function" title="Link to this heading">#</a></h3>
 <p>The above boxed equation gives us the general formula for all
 derivatives on complex functions.  However, we still need to
 compute <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>z</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial s}{\partial z}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span> and <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial s}{\partial z^*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6183em;"><span style="top:-2.786em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>.
@@ -2362,9 +2362,9 @@ the conjugate Wirtinger derivatives by treating <span class="math"><span class="
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:7.826em;vertical-align:-3.663em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:4.163em;"><span style="top:-6.163em;"><span class="pstrut" style="height:3.427em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span><span style="top:-4.337em;"><span class="pstrut" style="height:3.427em;"></span><span class="mord"></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.427em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6147em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span><span style="top:-0.424em;"><span class="pstrut" style="height:3.427em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:3.663em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:4.163em;"><span style="top:-6.163em;"><span class="pstrut" style="height:3.427em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span><span style="top:-4.337em;"><span class="pstrut" style="height:3.427em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal">c</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.427em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6147em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span><span style="top:-0.424em;"><span class="pstrut" style="height:3.427em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:3.663em;"><span></span></span></span></span></span></span></span></span></span></span></span></div></div></blockquote>
 <p>And using <a class="reference internal" href="#equation-4">(4)</a> again, we get <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msup><mi>z</mi><mo>∗</mo></msup></mrow></mfrac><mo>=</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">\frac{\partial L}{\partial z^*} = c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6183em;"><span style="top:-2.786em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">c</span></span></span></span></span>. As you can see, the second way involves lesser calculations, and comes
 in more handy for faster calculations.</p>
-</div>
-<div class="section" id="what-about-cross-domain-functions">
-<h3>What about cross-domain functions?<a class="headerlink" href="#what-about-cross-domain-functions" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="what-about-cross-domain-functions">
+<h3>What about cross-domain functions?<a class="headerlink" href="#what-about-cross-domain-functions" title="Link to this heading">#</a></h3>
 <p>Some functions map from complex inputs to real outputs, or vice versa.
 These functions form a special case of <a class="reference internal" href="#equation-4">(4)</a>, which we can derive using the
 chain rule:</p>
@@ -2386,10 +2386,10 @@ chain rule:</p>
 </li>
 </ul>
 </div></blockquote>
-</div>
-</div>
-<div class="section" id="hooks-for-saved-tensors">
-<span id="saved-tensors-hooks-doc"></span><h2>Hooks for saved tensors<a class="headerlink" href="#hooks-for-saved-tensors" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="hooks-for-saved-tensors">
+<span id="saved-tensors-hooks-doc"></span><h2>Hooks for saved tensors<a class="headerlink" href="#hooks-for-saved-tensors" title="Link to this heading">#</a></h2>
 <p>You can control <a class="reference internal" href="#saved-tensors-doc"><span class="std std-ref">how saved tensors are packed / unpacked</span></a> by defining a pair of <code class="docutils literal notranslate"><span class="pre">pack_hook</span></code> / <code class="docutils literal notranslate"><span class="pre">unpack_hook</span></code>
 hooks.  The <code class="docutils literal notranslate"><span class="pre">pack_hook</span></code> function should take a tensor as its single argument
 but can return any python object (e.g. another tensor, a tuple, or even a
@@ -2434,8 +2434,8 @@ as they may lead to unexpected side-effects. PyTorch will throw an error if the
 input to a pack hook is modified inplace but does not catch the case where the
 input to an unpack hook is modified inplace.</p>
 </div>
-<div class="section" id="registering-hooks-for-a-saved-tensor">
-<h3>Registering hooks for a saved tensor<a class="headerlink" href="#registering-hooks-for-a-saved-tensor" title="Permalink to this heading">#</a></h3>
+<section id="registering-hooks-for-a-saved-tensor">
+<h3>Registering hooks for a saved tensor<a class="headerlink" href="#registering-hooks-for-a-saved-tensor" title="Link to this heading">#</a></h3>
 <p>You can register a pair of hooks on a saved tensor by calling the
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">register_hooks()</span></code> method on a
 <code class="xref py py-class docutils literal notranslate"><span class="pre">SavedTensor</span></code> object. Those objects are exposed as attributes of a
@@ -2457,9 +2457,9 @@ its <code class="xref py py-meth docutils literal notranslate"><span class="pre"
 PyTorch will throw an error most of the time but it may fail
 to do so in some cases and undefined behavior may arise.</p>
 </div>
-</div>
-<div class="section" id="registering-default-hooks-for-saved-tensors">
-<h3>Registering default hooks for saved tensors<a class="headerlink" href="#registering-default-hooks-for-saved-tensors" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="registering-default-hooks-for-saved-tensors">
+<h3>Registering default hooks for saved tensors<a class="headerlink" href="#registering-default-hooks-for-saved-tensors" title="Link to this heading">#</a></h3>
 <p>Alternatively, you can use the context-manager
 <a class="reference internal" href="../autograd.html#torch.autograd.graph.saved_tensors_hooks" title="torch.autograd.graph.saved_tensors_hooks"><code class="xref py py-class docutils literal notranslate"><span class="pre">saved_tensors_hooks</span></code></a> to register a pair of
 hooks which will be applied to <em>all</em> saved tensors that are created in
@@ -2512,10 +2512,10 @@ Tensor object creation. For example:</p>
 <code class="docutils literal notranslate"><span class="pre">y.grad_fn._saved_other</span></code> all refer to the same tensor object.
 With the hooks, PyTorch will pack and unpack <cite>x</cite> into two new tensor objects
 that share the same storage with the original <cite>x</cite> (no copy performed).</p>
-</div>
-</div>
-<div class="section" id="backward-hooks-execution">
-<span id="id3"></span><h2>Backward Hooks execution<a class="headerlink" href="#backward-hooks-execution" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section id="backward-hooks-execution">
+<span id="id3"></span><h2>Backward Hooks execution<a class="headerlink" href="#backward-hooks-execution" title="Link to this heading">#</a></h2>
 <p>This section will discuss when different hooks fire or don’t fire.
 Then it will discuss the order in which they are fired.
 The hooks that will be covered are: backward hooks registered to Tensor via
@@ -2523,8 +2523,8 @@ The hooks that will be covered are: backward hooks registered to Tensor via
 Tensor via <a class="reference internal" href="../generated/torch.Tensor.register_post_accumulate_grad_hook.html#torch.Tensor.register_post_accumulate_grad_hook" title="torch.Tensor.register_post_accumulate_grad_hook"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.register_post_accumulate_grad_hook()</span></code></a>, post-hooks
 registered to Node via <a class="reference internal" href="../generated/torch.autograd.graph.Node.register_hook.html#torch.autograd.graph.Node.register_hook" title="torch.autograd.graph.Node.register_hook"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.autograd.graph.Node.register_hook()</span></code></a>, and
 pre-hooks registered to Node via <a class="reference internal" href="../generated/torch.autograd.graph.Node.register_prehook.html#torch.autograd.graph.Node.register_prehook" title="torch.autograd.graph.Node.register_prehook"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.autograd.graph.Node.register_prehook()</span></code></a>.</p>
-<div class="section" id="whether-a-particular-hook-will-be-fired">
-<h3>Whether a particular hook will be fired<a class="headerlink" href="#whether-a-particular-hook-will-be-fired" title="Permalink to this heading">#</a></h3>
+<section id="whether-a-particular-hook-will-be-fired">
+<h3>Whether a particular hook will be fired<a class="headerlink" href="#whether-a-particular-hook-will-be-fired" title="Link to this heading">#</a></h3>
 <p>Hooks registered to a Tensor via <a class="reference internal" href="../generated/torch.Tensor.register_hook.html#torch.Tensor.register_hook" title="torch.Tensor.register_hook"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.register_hook()</span></code></a>
 are executed when gradients are being computed for that Tensor. (Note that this does not require
 the Tensor’s grad_fn to be executed. For example, if the Tensor is passed
@@ -2557,9 +2557,9 @@ you should not depend on it.)</p>
 to Nodes that correspond to the Tensors passed to <code class="docutils literal notranslate"><span class="pre">input</span></code> may not be executed, because
 those Nodes will not be executed unless there is another input that depends on the gradient
 result of this Node.</p>
-</div>
-<div class="section" id="the-order-in-which-the-different-hooks-are-fired">
-<h3>The order in which the different hooks are fired<a class="headerlink" href="#the-order-in-which-the-different-hooks-are-fired" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="the-order-in-which-the-different-hooks-are-fired">
+<h3>The order in which the different hooks are fired<a class="headerlink" href="#the-order-in-which-the-different-hooks-are-fired" title="Link to this heading">#</a></h3>
 <p>The order in which things happen are:</p>
 <ol class="arabic simple">
 <li><p>hooks registered to Tensor are executed</p></li>
@@ -2573,9 +2573,9 @@ result of this Node.</p>
 they are executed in the order in which they are registered.
 Hooks that are executed later can observe the modifications to the gradient made by
 earlier hooks.</p>
-</div>
-<div class="section" id="special-hooks">
-<h3>Special hooks<a class="headerlink" href="#special-hooks" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="special-hooks">
+<h3>Special hooks<a class="headerlink" href="#special-hooks" title="Link to this heading">#</a></h3>
 <p><a class="reference internal" href="../autograd.html#torch.autograd.graph.register_multi_grad_hook" title="torch.autograd.graph.register_multi_grad_hook"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.graph.register_multi_grad_hook()</span></code></a> is implemented using hooks registered
 to Tensors. Each individual Tensor hook is fired following the Tensor hook ordering
 defined above and the registered multi-grad hook is called when the last Tensor gradient
@@ -2586,9 +2586,9 @@ to the inputs and outputs of the module. Because a module may take multiple inpu
 multiple outputs, a dummy custom autograd Function is first applied to the inputs of the module
 before forward and the outputs of the module before the output of forward is returned to ensure
 that those Tensors share a single grad_fn, which we can then attach our hooks to.</p>
-</div>
-<div class="section" id="behavior-of-tensor-hooks-when-tensor-is-modified-in-place">
-<h3>Behavior of Tensor hooks when Tensor is modified in-place<a class="headerlink" href="#behavior-of-tensor-hooks-when-tensor-is-modified-in-place" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="behavior-of-tensor-hooks-when-tensor-is-modified-in-place">
+<h3>Behavior of Tensor hooks when Tensor is modified in-place<a class="headerlink" href="#behavior-of-tensor-hooks-when-tensor-is-modified-in-place" title="Link to this heading">#</a></h3>
 <p>Usually hooks registered to a Tensor receive the gradient of the outputs with respect to that
 Tensor, where the value of the Tensor is taken to be its value at the time backward is computed.</p>
 <p>However, if you register hooks to a Tensor, and then modify that Tensor in-place, hooks
@@ -2610,9 +2610,9 @@ of that Tensor, so if that Tensor is then modified in-place,
 even though the Tensor now has a new grad_fn, hooks registered before it was
 modified in-place will continue to be associated with the old grad_fn, e.g. they will
 fire when that Tensor’s old grad_fn is reached in the graph by the autograd engine.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
                 </article>
@@ -2678,11 +2678,6 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
 
 <div class="footer-info">
   <p class="copyright">
-    
-      
-        © Copyright PyTorch Contributors.
-      
-      <br/>
     
   </p>
 
@@ -2855,7 +2850,9 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
   <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
 <script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+  
+
+<div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -2879,10 +2876,13 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
   </div>
 </div>
 
+
+
+
 <footer class="site-footer">
+
   <div class="container footer-container">
 
-    
     <div class="newsletter" id="newsletter">
 
       <p class="newsletter__title is-style-max-width-800"><strong>Stay in touch</strong> for updates, event info, and
@@ -2905,7 +2905,6 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
           href="https://www.linuxfoundation.org/privacy/">Privacy Policy</a>.</p>
 
     </div>
-    
 
     <div class="lf-grid">
       <ul class="social-links">
@@ -2955,10 +2954,10 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
           </a></li>
       </ul>
     </div>
-
+    
     <div class="privacy-policy">
       <div class="copyright">
-        
+      
         <p>
           &copy; PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered
           trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark
@@ -2999,7 +2998,7 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -3034,7 +3033,7 @@ fire when that Tensor’s old grad_fn is reached in the graph by the autograd en
          "name": "PyTorch Contributors",
          "url": "https://pytorch.org"
        },
-       "image": "../_static/img/pytorch_seo.png",
+       "image": "https://pytorch.org/docs/stable/_static/img/pytorch_seo.png",
        "mainEntityOfPage": {
          "@type": "WebPage",
          "@id": "/notes/autograd.html"
