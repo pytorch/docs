@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+git47acdea )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitafb0145 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4499,7 +4499,7 @@ document.write(`
 <h1>torch.fx.experimental.proxy_tensor.maybe_disable_thunkify<a class="headerlink" href="#torch-fx-experimental-proxy-tensor-maybe-disable-thunkify" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.fx.experimental.proxy_tensor.maybe_disable_thunkify">
-<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.proxy_tensor.</span></span><span class="sig-name descname"><span class="pre">maybe_disable_thunkify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/47acdea74a9490adb6a70cb723d9c4109b48f184/torch/fx/experimental/proxy_tensor.py#L637"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.proxy_tensor.maybe_disable_thunkify" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.proxy_tensor.</span></span><span class="sig-name descname"><span class="pre">maybe_disable_thunkify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/afb014541bd2050f888d9fc314c274fb5452f641/torch/fx/experimental/proxy_tensor.py#L637"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.proxy_tensor.maybe_disable_thunkify" title="Link to this definition">#</a></dt>
 <dd><p>Within a context, disable thunkification.  See <a class="reference internal" href="torch.fx.experimental.proxy_tensor.maybe_enable_thunkify.html#torch.fx.experimental.proxy_tensor.maybe_enable_thunkify" title="torch.fx.experimental.proxy_tensor.maybe_enable_thunkify"><code class="xref py py-func docutils literal notranslate"><span class="pre">maybe_enable_thunkify()</span></code></a>
 for more details.  This is helpful if you have a wrapper function which
 you want to enable thunkification on, but in some segment on the inside (say,
