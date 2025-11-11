@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.symbolic\_shapes.guard\_int
+=================================================
+
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
+
+.. autofunction:: guard_int

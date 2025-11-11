@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.symbolic\_shapes.fx\_placeholder\_vals
+============================================================
+
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
+
+.. autofunction:: fx_placeholder_vals

@@ -61,8 +61,8 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/exportdb/torch.cond.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="python.closure" href="python.closure.html" />
-    <link rel="prev" title="torch.dynamic-shape" href="torch.dynamic-shape.html" />
+    <link rel="next" title="torch.dynamic-shape" href="torch.dynamic-shape.html" />
+    <link rel="prev" title="torch.escape-hatch" href="torch.escape-hatch.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitafb0145 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf8d408d )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3177,6 +3177,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.accelerator.device_index.html">device_index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.accelerator.memory.get_memory_info.html">torch.accelerator.memory.get_memory_info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.accelerator.memory.memory_allocated.html">torch.accelerator.memory.memory_allocated</a></li>
@@ -3442,6 +3443,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.mtia.memory.memory_allocated.html">torch.mtia.memory.memory_allocated</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mtia.mtia_graph.html">torch.mtia.mtia_graph</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../backends.html">torch.backends</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../../export.html">torch.export</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
@@ -3454,8 +3456,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">ExportDB</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="python.data-structure.html">python.data-structure</a></li>
@@ -3668,6 +3670,20 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="../../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fx.html">torch.fx</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../fx.experimental.html">torch.fx.experimental</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.sym_node.is_channels_last_contiguous_2d.html">torch.fx.experimental.sym_node.is_channels_last_contiguous_2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.sym_node.is_channels_last_contiguous_3d.html">torch.fx.experimental.sym_node.is_channels_last_contiguous_3d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.sym_node.is_channels_last_strides_2d.html">torch.fx.experimental.sym_node.is_channels_last_strides_2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.sym_node.is_channels_last_strides_3d.html">torch.fx.experimental.sym_node.is_channels_last_strides_3d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.sym_node.is_contiguous.html">torch.fx.experimental.sym_node.is_contiguous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.sym_node.is_non_overlapping_and_dense_indicator.html">torch.fx.experimental.sym_node.is_non_overlapping_and_dense_indicator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.sym_node.method_to_operator.html">torch.fx.experimental.sym_node.method_to_operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.sym_node.sympy_is_channels_last_contiguous_2d.html">torch.fx.experimental.sym_node.sympy_is_channels_last_contiguous_2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.sym_node.sympy_is_channels_last_contiguous_3d.html">torch.fx.experimental.sym_node.sympy_is_channels_last_contiguous_3d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.sym_node.sympy_is_channels_last_strides_2d.html">torch.fx.experimental.sym_node.sympy_is_channels_last_strides_2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.sym_node.sympy_is_channels_last_strides_3d.html">torch.fx.experimental.sym_node.sympy_is_channels_last_strides_3d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.sym_node.sympy_is_channels_last_strides_generic.html">torch.fx.experimental.sym_node.sympy_is_channels_last_strides_generic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.sym_node.sympy_is_contiguous.html">torch.fx.experimental.sym_node.sympy_is_contiguous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.sym_node.sympy_is_contiguous_generic.html">torch.fx.experimental.sym_node.sympy_is_contiguous_generic</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.ShapeEnv.html">ShapeEnv</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.DimDynamic.html">DimDynamic</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint.html">StrictMinMaxConstraint</a></li>
@@ -3709,11 +3725,56 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.rebind_unbacked.html">torch.fx.experimental.symbolic_shapes.rebind_unbacked</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings.html">torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.is_accessor_node.html">torch.fx.experimental.symbolic_shapes.is_accessor_node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.cast_symbool_to_symint_guardless.html">torch.fx.experimental.symbolic_shapes.cast_symbool_to_symint_guardless</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.create_contiguous.html">torch.fx.experimental.symbolic_shapes.create_contiguous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.error.html">torch.fx.experimental.symbolic_shapes.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.eval_guards.html">torch.fx.experimental.symbolic_shapes.eval_guards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.eval_is_non_overlapping_and_dense.html">torch.fx.experimental.symbolic_shapes.eval_is_non_overlapping_and_dense</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.find_symbol_binding_fx_nodes.html">torch.fx.experimental.symbolic_shapes.find_symbol_binding_fx_nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.free_symbols.html">torch.fx.experimental.symbolic_shapes.free_symbols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.free_unbacked_symbols.html">torch.fx.experimental.symbolic_shapes.free_unbacked_symbols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.fx_placeholder_targets.html">torch.fx.experimental.symbolic_shapes.fx_placeholder_targets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.fx_placeholder_vals.html">torch.fx.experimental.symbolic_shapes.fx_placeholder_vals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.guard_bool.html">torch.fx.experimental.symbolic_shapes.guard_bool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.guard_float.html">torch.fx.experimental.symbolic_shapes.guard_float</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.guard_int.html">torch.fx.experimental.symbolic_shapes.guard_int</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.guard_scalar.html">torch.fx.experimental.symbolic_shapes.guard_scalar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.has_hint.html">torch.fx.experimental.symbolic_shapes.has_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides.html">torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.is_nested_int.html">torch.fx.experimental.symbolic_shapes.is_nested_int</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node.html">torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.symbolic_shapes.is_symbolic.html">torch.fx.experimental.symbolic_shapes.is_symbolic</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.make_fx.html">torch.fx.experimental.proxy_tensor.make_fx</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.handle_sym_dispatch.html">torch.fx.experimental.proxy_tensor.handle_sym_dispatch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.get_proxy_mode.html">torch.fx.experimental.proxy_tensor.get_proxy_mode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.maybe_enable_thunkify.html">torch.fx.experimental.proxy_tensor.maybe_enable_thunkify</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.maybe_disable_thunkify.html">torch.fx.experimental.proxy_tensor.maybe_disable_thunkify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.decompose.html">torch.fx.experimental.proxy_tensor.decompose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.disable_autocast_cache.html">torch.fx.experimental.proxy_tensor.disable_autocast_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing.html">torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.extract_val.html">torch.fx.experimental.proxy_tensor.extract_val</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.fake_signature.html">torch.fx.experimental.proxy_tensor.fake_signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.fetch_object_proxy.html">torch.fx.experimental.proxy_tensor.fetch_object_proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.fetch_sym_proxy.html">torch.fx.experimental.proxy_tensor.fetch_sym_proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.has_proxy_slot.html">torch.fx.experimental.proxy_tensor.has_proxy_slot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.is_sym_node.html">torch.fx.experimental.proxy_tensor.is_sym_node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.maybe_handle_decomp.html">torch.fx.experimental.proxy_tensor.maybe_handle_decomp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.proxy_call.html">torch.fx.experimental.proxy_tensor.proxy_call</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.set_meta.html">torch.fx.experimental.proxy_tensor.set_meta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.set_original_aten_op.html">torch.fx.experimental.proxy_tensor.set_original_aten_op</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.set_proxy_slot.html">torch.fx.experimental.proxy_tensor.set_proxy_slot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.proxy_tensor.snapshot_fake.html">torch.fx.experimental.proxy_tensor.snapshot_fake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.unification.unification_tools.assoc.html">torch.fx.experimental.unification.unification_tools.assoc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.unification.unification_tools.assoc_in.html">torch.fx.experimental.unification.unification_tools.assoc_in</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.unification.unification_tools.dissoc.html">torch.fx.experimental.unification.unification_tools.dissoc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.unification.unification_tools.first.html">torch.fx.experimental.unification.unification_tools.first</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.unification.unification_tools.keyfilter.html">torch.fx.experimental.unification.unification_tools.keyfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.unification.unification_tools.keymap.html">torch.fx.experimental.unification.unification_tools.keymap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.unification.unification_tools.merge.html">torch.fx.experimental.unification.unification_tools.merge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.unification.unification_tools.merge_with.html">torch.fx.experimental.unification.unification_tools.merge_with</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.unification.unification_tools.update_in.html">torch.fx.experimental.unification.unification_tools.update_in</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.unification.unification_tools.valfilter.html">torch.fx.experimental.unification.unification_tools.valfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torch.fx.experimental.unification.unification_tools.valmap.html">torch.fx.experimental.unification.unification_tools.valmap</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../hub.html">torch.hub</a></li>
@@ -3946,10 +4007,23 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.backend_config.DTypeConfig.html">DTypeConfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.backend_config.DTypeWithConstraints.html">DTypeWithConstraints</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.backend_config.ObservationType.html">ObservationType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.backend_config.utils.entry_to_pretty_str.html">entry_to_pretty_str</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.backend_config.utils.pattern_to_human_readable.html">pattern_to_human_readable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.backend_config.utils.remove_boolean_dispatch_from_name.html">remove_boolean_dispatch_from_name</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.fx.custom_config.FuseCustomConfig.html">FuseCustomConfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.fx.custom_config.PrepareCustomConfig.html">PrepareCustomConfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.fx.custom_config.ConvertCustomConfig.html">ConvertCustomConfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.fx.custom_config.StandaloneModuleConfigEntry.html">StandaloneModuleConfigEntry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.fx.utils.all_node_args_except_first.html">all_node_args_except_first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.fx.utils.all_node_args_have_no_tensors.html">all_node_args_have_no_tensors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.fx.utils.collect_producer_nodes.html">collect_producer_nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.fx.utils.create_getattr_from_value.html">create_getattr_from_value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.fx.utils.create_node_from_old_node_preserve_meta.html">create_node_from_old_node_preserve_meta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.fx.utils.graph_module_from_producer_nodes.html">graph_module_from_producer_nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.fx.utils.maybe_get_next_module.html">maybe_get_next_module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.fx.utils.node_arg_is_bias.html">node_arg_is_bias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.fx.utils.node_arg_is_weight.html">node_arg_is_weight</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.fx.utils.return_arg_list.html">return_arg_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.pt2e.export_utils.model_is_exported.html">model_is_exported</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.pt2e.lowering.lower_pt2e_quantized_to_x86.html">lower_pt2e_quantized_to_x86</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../torch.ao.quantization.generate_numeric_debug_handle.html">generate_numeric_debug_handle</a></li>
@@ -4512,7 +4586,7 @@ document.write(`
 <h2>cond_branch_class_method<a class="headerlink" href="#cond-branch-class-method" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="#"><span class="doc">torch.cond</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -4587,7 +4661,7 @@ document.write(`
 <h2>cond_branch_nested_function<a class="headerlink" href="#cond-branch-nested-function" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="#"><span class="doc">torch.cond</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -4659,7 +4733,7 @@ document.write(`
 <h2>cond_branch_nonlocal_variables<a class="headerlink" href="#cond-branch-nonlocal-variables" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="#"><span class="doc">torch.cond</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -4756,7 +4830,7 @@ document.write(`
 <h2>cond_closed_over_variable<a class="headerlink" href="#cond-closed-over-variable" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="python.closure.html"><span class="doc">python.closure</span></a>, <a class="reference internal" href="#"><span class="doc">torch.cond</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="python.closure.html"><span class="doc">python.closure</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -4825,7 +4899,7 @@ document.write(`
 <h2>cond_operands<a class="headerlink" href="#cond-operands" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="#"><span class="doc">torch.cond</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -4910,7 +4984,7 @@ document.write(`
 <h2>cond_predicate<a class="headerlink" href="#cond-predicate" title="Link to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="#"><span class="doc">torch.cond</span></a></p>
+<p>Tags: <a class="reference internal" href="#"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -5007,20 +5081,20 @@ document.write(`
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.dynamic-shape.html"
+       href="torch.escape-hatch.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.dynamic-shape</p>
+        <p class="prev-next-title">torch.escape-hatch</p>
       </div>
     </a>
     <a class="right-next"
-       href="python.closure.html"
+       href="torch.dynamic-shape.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">python.closure</p>
+        <p class="prev-next-title">torch.dynamic-shape</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -5046,20 +5120,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="torch.dynamic-shape.html"
+       href="torch.escape-hatch.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">torch.dynamic-shape</p>
+        <p class="prev-next-title">torch.escape-hatch</p>
       </div>
     </a>
     <a class="right-next"
-       href="python.closure.html"
+       href="torch.dynamic-shape.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">python.closure</p>
+        <p class="prev-next-title">torch.dynamic-shape</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -5317,7 +5391,7 @@ document.write(`
        "headline": "torch.cond",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment. Discover tutorials, API references, and guides to help you build and deploy deep learning models efficiently.",
        "url": "/generated/exportdb/torch.cond.html",
-       "articleBody": "torch.cond# cond_branch_class_method# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class MySubModule(torch.nn.Module): def foo(self, x): return x.cos() def forward(self, x): return self.foo(x) class CondBranchClassMethod(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates using class method in cond(). NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def __init__(self) -\u003e None: super().__init__() self.subm = MySubModule() def bar(self, x): return x.sin() def forward(self, x): return cond(x.shape[0] \u003c= 2, self.subm.forward, self.bar, [x]) example_args = (torch.randn(3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchClassMethod() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3]\"): sin: \"f32[3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs sin: USER_OUTPUT Range constraints: {} cond_branch_nested_function# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondBranchNestedFunction(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates using nested function in cond(). NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): def true_fn(x): def inner_true_fn(y): return x + y return inner_true_fn(x) def false_fn(x): def inner_false_fn(y): return x - y return inner_false_fn(x) return cond(x.shape[0] \u003c 10, true_fn, false_fn, [x]) example_args = (torch.randn(3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchNestedFunction() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3]\"): add: \"f32[3]\" = torch.ops.aten.add.Tensor(x, x); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} cond_branch_nonlocal_variables# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondBranchNonlocalVariables(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates how to rewrite code to avoid capturing closure variables in branch functions. The code below will not work because capturing closure variables is not supported. ``` my_tensor_var = x + 100 my_primitive_var = 3.14 def true_fn(y): nonlocal my_tensor_var, my_primitive_var return y + my_tensor_var + my_primitive_var def false_fn(y): nonlocal my_tensor_var, my_primitive_var return y - my_tensor_var - my_primitive_var return cond(x.shape[0] \u003e 5, true_fn, false_fn, [x]) ``` NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): my_tensor_var = x + 100 my_primitive_var = 3.14 def true_fn(x, y, z): return x + y + z def false_fn(x, y, z): return x - y - z return cond( x.shape[0] \u003e 5, true_fn, false_fn, [x, my_tensor_var, torch.tensor(my_primitive_var)], ) example_args = (torch.randn(6),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchNonlocalVariables() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, c_lifted_tensor_0: \"f32[]\", x: \"f32[6]\"): add: \"f32[6]\" = torch.ops.aten.add.Tensor(x, 100) lift_fresh_copy: \"f32[]\" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0); c_lifted_tensor_0 = None detach_: \"f32[]\" = torch.ops.aten.detach_.default(lift_fresh_copy); lift_fresh_copy = None add_1: \"f32[6]\" = torch.ops.aten.add.Tensor(x, add); x = add = None add_2: \"f32[6]\" = torch.ops.aten.add.Tensor(add_1, detach_); add_1 = detach_ = None return (add_2,) Graph signature: # inputs c_lifted_tensor_0: CONSTANT_TENSOR target=\u0027lifted_tensor_0\u0027 x: USER_INPUT # outputs add_2: USER_OUTPUT Range constraints: {} cond_closed_over_variable# Note Tags: python.closure, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondClosedOverVariable(torch.nn.Module): \"\"\" torch.cond() supports branches closed over arbitrary variables. \"\"\" def forward(self, pred, x): def true_fn(val): return x * 2 def false_fn(val): return x - 2 return cond(pred, true_fn, false_fn, [x + 1]) example_args = (torch.tensor(True), torch.randn(3, 2)) tags = {\"torch.cond\", \"python.closure\"} model = CondClosedOverVariable() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, pred: \"b8[]\", x: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 1); add = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, (x,)); pred = true_graph_0 = false_graph_0 = x = None getitem: \"f32[3, 2]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(x, 2); x = None return (mul,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): sub: \"f32[3, 2]\" = torch.ops.aten.sub.Tensor(x, 2); x = None return (sub,) Graph signature: # inputs pred: USER_INPUT x: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {} cond_operands# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch.export import Dim x = torch.randn(3, 2) y = torch.randn(2) dim0_x = Dim(\"dim0_x\") class CondOperands(torch.nn.Module): \"\"\" The operands passed to cond() must be: - a list of tensors - match arguments of `true_fn` and `false_fn` NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x, y): def true_fn(x, y): return x + y def false_fn(x, y): return x - y return torch.cond(x.shape[0] \u003e 2, true_fn, false_fn, [x, y]) example_args = (x, y) tags = { \"torch.cond\", \"torch.dynamic-shape\", } extra_inputs = (torch.randn(2, 2), torch.randn(2)) dynamic_shapes = {\"x\": {0: dim0_x}, \"y\": None} model = CondOperands() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): # No stacktrace found for following nodes sym_size_int_1: \"Sym(s6)\" = torch.ops.aten.sym_size.int(x, 0) gt: \"Sym(s6 \u003e 2)\" = sym_size_int_1 \u003e 2; sym_size_int_1 = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x, y)); gt = true_graph_0 = false_graph_0 = x = y = None getitem: \"f32[s6, 2]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): add: \"f32[s6, 2]\" = torch.ops.aten.add.Tensor(x, y); x = y = None return (add,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): sub: \"f32[s6, 2]\" = torch.ops.aten.sub.Tensor(x, y); x = y = None return (sub,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {s6: VR[0, int_oo]} cond_predicate# Note Tags: torch.dynamic-shape, torch.cond Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondPredicate(torch.nn.Module): \"\"\" The conditional statement (aka predicate) passed to cond() must be one of the following: - torch.Tensor with a single element - boolean expression NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): pred = x.dim() \u003e 2 and x.shape[2] \u003e 10 return cond(pred, lambda x: x.cos(), lambda y: y.sin(), [x]) example_args = (torch.randn(6, 4, 3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondPredicate() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[6, 4, 3]\"): sin: \"f32[6, 4, 3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs sin: USER_OUTPUT Range constraints: {}",
+       "articleBody": "torch.cond# cond_branch_class_method# Note Tags: torch.cond, torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class MySubModule(torch.nn.Module): def foo(self, x): return x.cos() def forward(self, x): return self.foo(x) class CondBranchClassMethod(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates using class method in cond(). NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def __init__(self) -\u003e None: super().__init__() self.subm = MySubModule() def bar(self, x): return x.sin() def forward(self, x): return cond(x.shape[0] \u003c= 2, self.subm.forward, self.bar, [x]) example_args = (torch.randn(3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchClassMethod() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3]\"): sin: \"f32[3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs sin: USER_OUTPUT Range constraints: {} cond_branch_nested_function# Note Tags: torch.cond, torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondBranchNestedFunction(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates using nested function in cond(). NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): def true_fn(x): def inner_true_fn(y): return x + y return inner_true_fn(x) def false_fn(x): def inner_false_fn(y): return x - y return inner_false_fn(x) return cond(x.shape[0] \u003c 10, true_fn, false_fn, [x]) example_args = (torch.randn(3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchNestedFunction() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[3]\"): add: \"f32[3]\" = torch.ops.aten.add.Tensor(x, x); x = None return (add,) Graph signature: # inputs x: USER_INPUT # outputs add: USER_OUTPUT Range constraints: {} cond_branch_nonlocal_variables# Note Tags: torch.cond, torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondBranchNonlocalVariables(torch.nn.Module): \"\"\" The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules: - both branches must take the same args, which must also match the branch args passed to cond. - both branches must return a single tensor - returned tensor must have the same tensor metadata, e.g. shape and dtype - branch function can be free function, nested function, lambda, class methods - branch function can not have closure variables - no inplace mutations on inputs or global variables This example demonstrates how to rewrite code to avoid capturing closure variables in branch functions. The code below will not work because capturing closure variables is not supported. ``` my_tensor_var = x + 100 my_primitive_var = 3.14 def true_fn(y): nonlocal my_tensor_var, my_primitive_var return y + my_tensor_var + my_primitive_var def false_fn(y): nonlocal my_tensor_var, my_primitive_var return y - my_tensor_var - my_primitive_var return cond(x.shape[0] \u003e 5, true_fn, false_fn, [x]) ``` NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): my_tensor_var = x + 100 my_primitive_var = 3.14 def true_fn(x, y, z): return x + y + z def false_fn(x, y, z): return x - y - z return cond( x.shape[0] \u003e 5, true_fn, false_fn, [x, my_tensor_var, torch.tensor(my_primitive_var)], ) example_args = (torch.randn(6),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondBranchNonlocalVariables() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, c_lifted_tensor_0: \"f32[]\", x: \"f32[6]\"): add: \"f32[6]\" = torch.ops.aten.add.Tensor(x, 100) lift_fresh_copy: \"f32[]\" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0); c_lifted_tensor_0 = None detach_: \"f32[]\" = torch.ops.aten.detach_.default(lift_fresh_copy); lift_fresh_copy = None add_1: \"f32[6]\" = torch.ops.aten.add.Tensor(x, add); x = add = None add_2: \"f32[6]\" = torch.ops.aten.add.Tensor(add_1, detach_); add_1 = detach_ = None return (add_2,) Graph signature: # inputs c_lifted_tensor_0: CONSTANT_TENSOR target=\u0027lifted_tensor_0\u0027 x: USER_INPUT # outputs add_2: USER_OUTPUT Range constraints: {} cond_closed_over_variable# Note Tags: torch.cond, python.closure Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondClosedOverVariable(torch.nn.Module): \"\"\" torch.cond() supports branches closed over arbitrary variables. \"\"\" def forward(self, pred, x): def true_fn(val): return x * 2 def false_fn(val): return x - 2 return cond(pred, true_fn, false_fn, [x + 1]) example_args = (torch.tensor(True), torch.randn(3, 2)) tags = {\"torch.cond\", \"python.closure\"} model = CondClosedOverVariable() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, pred: \"b8[]\", x: \"f32[3, 2]\"): add: \"f32[3, 2]\" = torch.ops.aten.add.Tensor(x, 1); add = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, (x,)); pred = true_graph_0 = false_graph_0 = x = None getitem: \"f32[3, 2]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): mul: \"f32[3, 2]\" = torch.ops.aten.mul.Tensor(x, 2); x = None return (mul,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[3, 2]\"): sub: \"f32[3, 2]\" = torch.ops.aten.sub.Tensor(x, 2); x = None return (sub,) Graph signature: # inputs pred: USER_INPUT x: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {} cond_operands# Note Tags: torch.cond, torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from torch.export import Dim x = torch.randn(3, 2) y = torch.randn(2) dim0_x = Dim(\"dim0_x\") class CondOperands(torch.nn.Module): \"\"\" The operands passed to cond() must be: - a list of tensors - match arguments of `true_fn` and `false_fn` NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x, y): def true_fn(x, y): return x + y def false_fn(x, y): return x - y return torch.cond(x.shape[0] \u003e 2, true_fn, false_fn, [x, y]) example_args = (x, y) tags = { \"torch.cond\", \"torch.dynamic-shape\", } extra_inputs = (torch.randn(2, 2), torch.randn(2)) dynamic_shapes = {\"x\": {0: dim0_x}, \"y\": None} model = CondOperands() torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): # No stacktrace found for following nodes sym_size_int_1: \"Sym(s6)\" = torch.ops.aten.sym_size.int(x, 0) gt: \"Sym(s6 \u003e 2)\" = sym_size_int_1 \u003e 2; sym_size_int_1 = None true_graph_0 = self.true_graph_0 false_graph_0 = self.false_graph_0 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, (x, y)); gt = true_graph_0 = false_graph_0 = x = y = None getitem: \"f32[s6, 2]\" = cond[0]; cond = None return (getitem,) class true_graph_0(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): add: \"f32[s6, 2]\" = torch.ops.aten.add.Tensor(x, y); x = y = None return (add,) class false_graph_0(torch.nn.Module): def forward(self, x: \"f32[s6, 2]\", y: \"f32[2]\"): sub: \"f32[s6, 2]\" = torch.ops.aten.sub.Tensor(x, y); x = y = None return (sub,) Graph signature: # inputs x: USER_INPUT y: USER_INPUT # outputs getitem: USER_OUTPUT Range constraints: {s6: VR[0, int_oo]} cond_predicate# Note Tags: torch.cond, torch.dynamic-shape Support Level: SUPPORTED Original source code: # mypy: allow-untyped-defs import torch from functorch.experimental.control_flow import cond class CondPredicate(torch.nn.Module): \"\"\" The conditional statement (aka predicate) passed to cond() must be one of the following: - torch.Tensor with a single element - boolean expression NOTE: If the `pred` is test on a dim with batch size \u003c 2, it will be specialized. \"\"\" def forward(self, x): pred = x.dim() \u003e 2 and x.shape[2] \u003e 10 return cond(pred, lambda x: x.cos(), lambda y: y.sin(), [x]) example_args = (torch.randn(6, 4, 3),) tags = { \"torch.cond\", \"torch.dynamic-shape\", } model = CondPredicate() torch.export.export(model, example_args) Result: ExportedProgram: class GraphModule(torch.nn.Module): def forward(self, x: \"f32[6, 4, 3]\"): sin: \"f32[6, 4, 3]\" = torch.ops.aten.sin.default(x); x = None return (sin,) Graph signature: # inputs x: USER_INPUT # outputs sin: USER_OUTPUT Range constraints: {}",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

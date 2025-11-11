@@ -141,7 +141,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitafb0145 )');
+  document.documentElement.setAttribute('data-version', 'main (2.10.0a0+gitf8d408d )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3177,6 +3177,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.synchronize.html">torch.accelerator.synchronize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.device_index.html">device_index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.empty_cache.html">torch.accelerator.memory.empty_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.get_memory_info.html">torch.accelerator.memory.get_memory_info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.max_memory_allocated.html">torch.accelerator.memory.max_memory_allocated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.max_memory_reserved.html">torch.accelerator.memory.max_memory_reserved</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.accelerator.memory.memory_allocated.html">torch.accelerator.memory.memory_allocated</a></li>
@@ -3442,6 +3443,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.mtia.memory.memory_allocated.html">torch.mtia.memory.memory_allocated</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../mtia.mtia_graph.html">torch.mtia.mtia_graph</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../backends.html">torch.backends</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../export.html">torch.export</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -3454,8 +3456,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../cond.html">Control Flow - Cond</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3668,6 +3670,20 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fx.html">torch.fx</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../fx.experimental.html">torch.fx.experimental</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.is_channels_last_contiguous_2d.html">torch.fx.experimental.sym_node.is_channels_last_contiguous_2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.is_channels_last_contiguous_3d.html">torch.fx.experimental.sym_node.is_channels_last_contiguous_3d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.is_channels_last_strides_2d.html">torch.fx.experimental.sym_node.is_channels_last_strides_2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.is_channels_last_strides_3d.html">torch.fx.experimental.sym_node.is_channels_last_strides_3d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.is_contiguous.html">torch.fx.experimental.sym_node.is_contiguous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.is_non_overlapping_and_dense_indicator.html">torch.fx.experimental.sym_node.is_non_overlapping_and_dense_indicator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.method_to_operator.html">torch.fx.experimental.sym_node.method_to_operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.sympy_is_channels_last_contiguous_2d.html">torch.fx.experimental.sym_node.sympy_is_channels_last_contiguous_2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.sympy_is_channels_last_contiguous_3d.html">torch.fx.experimental.sym_node.sympy_is_channels_last_contiguous_3d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.sympy_is_channels_last_strides_2d.html">torch.fx.experimental.sym_node.sympy_is_channels_last_strides_2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.sympy_is_channels_last_strides_3d.html">torch.fx.experimental.sym_node.sympy_is_channels_last_strides_3d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.sympy_is_channels_last_strides_generic.html">torch.fx.experimental.sym_node.sympy_is_channels_last_strides_generic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.sympy_is_contiguous.html">torch.fx.experimental.sym_node.sympy_is_contiguous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.sym_node.sympy_is_contiguous_generic.html">torch.fx.experimental.sym_node.sympy_is_contiguous_generic</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.ShapeEnv.html">ShapeEnv</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.DimDynamic.html">DimDynamic</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.StrictMinMaxConstraint.html">StrictMinMaxConstraint</a></li>
@@ -3709,11 +3725,56 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.rebind_unbacked.html">torch.fx.experimental.symbolic_shapes.rebind_unbacked</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings.html">torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_accessor_node.html">torch.fx.experimental.symbolic_shapes.is_accessor_node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.cast_symbool_to_symint_guardless.html">torch.fx.experimental.symbolic_shapes.cast_symbool_to_symint_guardless</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.create_contiguous.html">torch.fx.experimental.symbolic_shapes.create_contiguous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.error.html">torch.fx.experimental.symbolic_shapes.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.eval_guards.html">torch.fx.experimental.symbolic_shapes.eval_guards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.eval_is_non_overlapping_and_dense.html">torch.fx.experimental.symbolic_shapes.eval_is_non_overlapping_and_dense</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.find_symbol_binding_fx_nodes.html">torch.fx.experimental.symbolic_shapes.find_symbol_binding_fx_nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.free_symbols.html">torch.fx.experimental.symbolic_shapes.free_symbols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.free_unbacked_symbols.html">torch.fx.experimental.symbolic_shapes.free_unbacked_symbols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.fx_placeholder_targets.html">torch.fx.experimental.symbolic_shapes.fx_placeholder_targets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.fx_placeholder_vals.html">torch.fx.experimental.symbolic_shapes.fx_placeholder_vals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_bool.html">torch.fx.experimental.symbolic_shapes.guard_bool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_float.html">torch.fx.experimental.symbolic_shapes.guard_float</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_int.html">torch.fx.experimental.symbolic_shapes.guard_int</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.guard_scalar.html">torch.fx.experimental.symbolic_shapes.guard_scalar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_hint.html">torch.fx.experimental.symbolic_shapes.has_hint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides.html">torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_nested_int.html">torch.fx.experimental.symbolic_shapes.is_nested_int</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node.html">torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.symbolic_shapes.is_symbolic.html">torch.fx.experimental.symbolic_shapes.is_symbolic</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.make_fx.html">torch.fx.experimental.proxy_tensor.make_fx</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.handle_sym_dispatch.html">torch.fx.experimental.proxy_tensor.handle_sym_dispatch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.get_proxy_mode.html">torch.fx.experimental.proxy_tensor.get_proxy_mode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.maybe_enable_thunkify.html">torch.fx.experimental.proxy_tensor.maybe_enable_thunkify</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.maybe_disable_thunkify.html">torch.fx.experimental.proxy_tensor.maybe_disable_thunkify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.decompose.html">torch.fx.experimental.proxy_tensor.decompose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.disable_autocast_cache.html">torch.fx.experimental.proxy_tensor.disable_autocast_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing.html">torch.fx.experimental.proxy_tensor.disable_proxy_modes_tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.extract_val.html">torch.fx.experimental.proxy_tensor.extract_val</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.fake_signature.html">torch.fx.experimental.proxy_tensor.fake_signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.fetch_object_proxy.html">torch.fx.experimental.proxy_tensor.fetch_object_proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.fetch_sym_proxy.html">torch.fx.experimental.proxy_tensor.fetch_sym_proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.has_proxy_slot.html">torch.fx.experimental.proxy_tensor.has_proxy_slot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.is_sym_node.html">torch.fx.experimental.proxy_tensor.is_sym_node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.maybe_handle_decomp.html">torch.fx.experimental.proxy_tensor.maybe_handle_decomp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.proxy_call.html">torch.fx.experimental.proxy_tensor.proxy_call</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.set_meta.html">torch.fx.experimental.proxy_tensor.set_meta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.set_original_aten_op.html">torch.fx.experimental.proxy_tensor.set_original_aten_op</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.set_proxy_slot.html">torch.fx.experimental.proxy_tensor.set_proxy_slot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.proxy_tensor.snapshot_fake.html">torch.fx.experimental.proxy_tensor.snapshot_fake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.assoc.html">torch.fx.experimental.unification.unification_tools.assoc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.assoc_in.html">torch.fx.experimental.unification.unification_tools.assoc_in</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.dissoc.html">torch.fx.experimental.unification.unification_tools.dissoc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.first.html">torch.fx.experimental.unification.unification_tools.first</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.keyfilter.html">torch.fx.experimental.unification.unification_tools.keyfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.keymap.html">torch.fx.experimental.unification.unification_tools.keymap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.merge.html">torch.fx.experimental.unification.unification_tools.merge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.merge_with.html">torch.fx.experimental.unification.unification_tools.merge_with</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.update_in.html">torch.fx.experimental.unification.unification_tools.update_in</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.valfilter.html">torch.fx.experimental.unification.unification_tools.valfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.fx.experimental.unification.unification_tools.valmap.html">torch.fx.experimental.unification.unification_tools.valmap</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
@@ -3946,10 +4007,23 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.backend_config.DTypeConfig.html">DTypeConfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.backend_config.DTypeWithConstraints.html">DTypeWithConstraints</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.backend_config.ObservationType.html">ObservationType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.backend_config.utils.entry_to_pretty_str.html">entry_to_pretty_str</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.backend_config.utils.pattern_to_human_readable.html">pattern_to_human_readable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.backend_config.utils.remove_boolean_dispatch_from_name.html">remove_boolean_dispatch_from_name</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.custom_config.FuseCustomConfig.html">FuseCustomConfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.custom_config.PrepareCustomConfig.html">PrepareCustomConfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.custom_config.ConvertCustomConfig.html">ConvertCustomConfig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.custom_config.StandaloneModuleConfigEntry.html">StandaloneModuleConfigEntry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.all_node_args_except_first.html">all_node_args_except_first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.all_node_args_have_no_tensors.html">all_node_args_have_no_tensors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.collect_producer_nodes.html">collect_producer_nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.create_getattr_from_value.html">create_getattr_from_value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.create_node_from_old_node_preserve_meta.html">create_node_from_old_node_preserve_meta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.graph_module_from_producer_nodes.html">graph_module_from_producer_nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.maybe_get_next_module.html">maybe_get_next_module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.node_arg_is_bias.html">node_arg_is_bias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.node_arg_is_weight.html">node_arg_is_weight</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.fx.utils.return_arg_list.html">return_arg_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.pt2e.export_utils.model_is_exported.html">model_is_exported</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.pt2e.lowering.lower_pt2e_quantized_to_x86.html">lower_pt2e_quantized_to_x86</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch.ao.quantization.generate_numeric_debug_handle.html">generate_numeric_debug_handle</a></li>
@@ -4499,7 +4573,7 @@ document.write(`
 <h1>torch.nn.utils.stateless.functional_call<a class="headerlink" href="#torch-nn-utils-stateless-functional-call" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.stateless.functional_call">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.stateless.</span></span><span class="sig-name descname"><span class="pre">functional_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters_and_buffers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/afb014541bd2050f888d9fc314c274fb5452f641/torch/nn/utils/stateless.py#L159"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.stateless.functional_call" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.stateless.</span></span><span class="sig-name descname"><span class="pre">functional_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters_and_buffers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/f8d408d24ace6d9a0fc751e40f1dd3e7f31f2147/torch/nn/utils/stateless.py#L159"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.stateless.functional_call" title="Link to this definition">#</a></dt>
 <dd><p>Perform a functional call on the module by replacing the module parameters and buffers with the provided ones.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
